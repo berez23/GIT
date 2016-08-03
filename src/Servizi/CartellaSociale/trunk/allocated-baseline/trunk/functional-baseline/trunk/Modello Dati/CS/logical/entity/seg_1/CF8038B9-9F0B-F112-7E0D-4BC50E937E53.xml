@@ -1,0 +1,127 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="CF8038B9-9F0B-F112-7E0D-4BC50E937E53" directorySegmentName="seg_1" name="CS_TB_DISPONIBILITA">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>D11E9CA8-D007-E796-7CAF-BABBBED76617</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<pkName>DISPONIBILITA_PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="ID" id="96AD920E-A0C7-A457-532B-D9DA86967840">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>31721976-C437-1BAB-82A5-82853F9851C5</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="TOOLTIP" id="6AF91BE2-1352-D3FA-5FF3-E0446791A3A9">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>13A50CD3-4F26-A31E-8C3F-67EC4C37F4C7</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="ABILITATO" id="BEECC718-D70D-6439-9713-CE466A08A457">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>EF93A59A-715C-C618-A6F9-90B09C32ADFA</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT006</logicalDatatype>
+<dataTypeSize>1</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="DESCRIZIONE" id="4322D953-A03D-F886-1DBB-632FBC37C7CF">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>69943021-E61D-76EA-71EA-8D6BFE700EAF</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="E59D816F-0B86-F598-6E8B-55F274549DC9" name="DISPONIBILITA_PK">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>80319005-8368-6FF0-2E59-5B37D9E2D761</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>96AD920E-A0C7-A457-532B-D9DA86967840</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

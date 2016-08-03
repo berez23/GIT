@@ -1,0 +1,174 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="E93473F9-7503-FA8B-BB7B-D8F6CA5DCB23" directorySegmentName="seg_1" name="CS_TB_TIPO_RETTA">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_TB_TIPO_RETTA</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 07:57:01 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<pkName>CS_TB_TIPO_RETTA_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontSize>13</fontSize>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Titolo</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Colonna</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Tipo di dati</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Elemento chiave privata</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Elemento chiave esterna</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Elemento chiave univoca</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Non nullo</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Chiave</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ID" id="85B9FD2A-BE8B-6B18-B777-EE43C42B26E0">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_POTESTA</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 07:57:13 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DESCRIZIONE" id="A03559E5-B222-2590-6EF1-5831F7D81A53">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_POTESTA</sourceObjSchema>
+<sourceObjName>DESCRIZIONE</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 07:57:13 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TOOLTIP" id="CB7486EA-CD72-F28C-8AEF-C01A7AE03883">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_POTESTA</sourceObjSchema>
+<sourceObjName>TOOLTIP</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 07:57:13 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABILITATO" id="710DCCD6-1403-B916-167B-30C9B75B8BDC">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_POTESTA</sourceObjSchema>
+<sourceObjName>ABILITATO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 07:57:13 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="95DAE320-CCAE-6EF1-A51F-D6103E606CD4" name="CS_TB_TIPO_RETTA_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_TB_TIPO_RETTA_PK</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 07:57:13 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="85B9FD2A-BE8B-6B18-B777-EE43C42B26E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="DF24CB51-C4C0-C297-E015-0590D9A6A4E1" name="CS_TB_TIPO_RETTA_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_TB_TIPO_RETTA_PK</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-03-06 14:09:25 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>36CE72C3-3E70-A9E0-7A62-B5571196F55F</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="85B9FD2A-BE8B-6B18-B777-EE43C42B26E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

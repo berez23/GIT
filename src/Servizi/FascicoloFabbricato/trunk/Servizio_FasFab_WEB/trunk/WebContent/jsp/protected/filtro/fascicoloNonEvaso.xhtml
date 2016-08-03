@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<rich:messages passedLabel="Operazione completata" layout="list" >
+                      <f:facet name="infoMarker">
+                          <h:graphicImage  value="/images/passed.gif" /> 
+                      </f:facet>
+                      <f:facet name="errorMarker">
+                            <h:graphicImage value="/images/error.gif" />   
+                      </f:facet>
+			      </rich:messages>
+				<div class="divTitolo">
+					<h:outputText value="ESAME RICHIESTE FASCICOLO FABBRICATO - GESTIONE RICHIESTA" />
+				</div>			      
+		      	<ui:include src="/jsp/protected/filtro/datiDichiatanteRichiesta.xhtml" />
+	  			<rich:spacer height="20px" />
+				<rich:panel>
+					<f:facet name="header">EVADI RICHIESTA</f:facet>
+					<div>
+						<table border="0" style="width:100%" cellspacing="1">
+							<tr >
+								<td align="left">
+									<h:outputText value="MEZZO RISPOSTA" styleClass="labelRicDesc" />
+								</td>							
+								<td align="left">
+									<span class="labelRicOutPut">
+										<h:selectOneMenu id="mezzoRisposta" value="#{filtroBean.mezzoRisposta}">
+											<f:selectItem id="m0" itemLabel="Seleziona" itemValue="0"/>
+											<f:selectItems value="#{filtroBean.codiciRisposta}"/>
+											<a4j:support event="onchange" reRender="cbxEmail" action="#{filtroBean.abilitaEmail}"/>
+										</h:selectOneMenu>									
+									</span>											
+								</td>
+							</tr>
+							<tr >
+								<td align="left">
+									<h:outputText value="NOTA OPERATORE" styleClass="labelRicDesc" />
+								</td>
+								<td align="left" colspan="3">
+									<span class="labelRicOutPut">
+										<h:inputTextarea value="#{filtroBean.notaOperatore}" rows="2" cols="100" />
+									</span>			
+								</td>								
+							</tr>							
+							<tr >
+								<td align="left">
+									<h:outputText value="TESTO RISPOSTA" styleClass="labelRicDesc" />
+								</td>
+								<td align="left" colspan="3">
+									<span class="labelRicOutPut">
+										<h:inputTextarea value="#{filtroBean.testoRisposta}" rows="2" cols="100" />
+									</span>			
+								</td>
+							</tr>
+							<c:if test="#{filtroBean.showEmailCheck}">
+								<tr >
+									<td align="left">
+										<h:outputText value="INVIA PER E-MAIL" styleClass="labelRicDesc" style="width:150px;"/>
+									</td>								
+									<td align="left" colspan="3">
+										<h:selectBooleanCheckbox id="cbxEmail" value="#{filtroBean.inviaPerEmail}" disabled="#{filtroBean.disabilitaEmailCheck}" />
+									</td>
+								</tr>
+							</c:if>
+						</table>
+						<table style="width:100%">
+							<tr style="background-color: #ebf3fd;height:40px;width:100%">
+								<td style="width:100px;padding-left: 10px;">
+									<a4j:commandLink  
+										action="#{dettaglioFasFabBean.loadDatiDettaglio}" 
+										value="PRODUCI PDF"  
+										style="width:150px;font-weight: bold;color:black;"
+										reRender="panelDett"
+										oncomplete="Richfaces.showModalPanel('panelDett')">
+										<a4j:actionparam id="idRich" name="idRich" value="#{filtroBean.richiestaSelezionata.richiesta.idRichiesta}" assignTo="#{dettaglioFasFabBean.idRichiesta}"/>		
+								    	<a4j:actionparam id="sez2" name="sezionedt2" value="#{filtroBean.richiestaSelezionata.richiesta.sezione}" assignTo="#{catastoBean.sezione}"/>
+								    	<a4j:actionparam id="par2" name="partict2" value="#{filtroBean.richiestaSelezionata.richiesta.particella}" assignTo="#{catastoBean.particella}"/>
+								    	<a4j:actionparam id="fog2" name="fogliodt2" value="#{filtroBean.richiestaSelezionata.richiesta.foglio}" assignTo="#{catastoBean.foglio}"/>
+								    	<a4j:actionparam id="dtric2" name="dtRicdt2" value="#{filtroBean.richiestaSelezionata.richiesta.dataRichiesta}" assignTo="#{catastoBean.dataRifStr}"/>
+								    	<a4j:actionparam id="dtrif2" name="dtRifdt2" value="#{filtroBean.richiestaSelezionata.richiesta.strDataRif}" assignTo="#{catastoBean.dataRifStr}"/>
+								    	<a4j:actionparam id="met2" name="met2" value="" assignTo="#{catastoBean.datiCatasto}"/>	
+								    	
+								    	<a4j:actionparam id="sezD" name="sezionedt1" value="#{filtroBean.richiestaSelezionata.richiesta.sezione}" assignTo="#{docfaBean.sezione}"/>
+								    	<a4j:actionparam id="parD" name="partict1" value="#{filtroBean.richiestaSelezionata.richiesta.particella}" assignTo="#{docfaBean.particella}"/>
+								    	<a4j:actionparam id="fogD" name="fogliodt1" value="#{filtroBean.richiestaSelezionata.richiesta.foglio}" assignTo="#{docfaBean.foglio}"/>
+								    	<a4j:actionparam id="dtricD" name="dtRicdt1" value="#{filtroBean.richiestaSelezionata.richiesta.dataRichiesta}" assignTo="#{docfaBean.dataRifStr}"/>
+								    	<a4j:actionparam id="dtrifD" name="dtRifdt2" value="#{filtroBean.richiestaSelezionata.richiesta.strDataRif}" assignTo="#{docfaBean.dataRifStr}"/>
+								    	<a4j:actionparam id="docfaPart" name="docfaParticella" value="" assignTo="#{docfaBean.docfaParticella}"/>
+							  	   
+							  	   		<a4j:actionparam id="sezP" name="sezionedt1" value="#{filtroBean.richiestaSelezionata.richiesta.sezione}" assignTo="#{pregeoBean.sezione}"/>
+								    	<a4j:actionparam id="parP" name="partict1" value="#{filtroBean.richiestaSelezionata.richiesta.particella}" assignTo="#{pregeoBean.particella}"/>
+								    	<a4j:actionparam id="fogP" name="fogliodt1" value="#{filtroBean.richiestaSelezionata.richiesta.foglio}" assignTo="#{pregeoBean.foglio}"/>
+								    	<a4j:actionparam id="dtricP" name="dtRicdt1" value="#{filtroBean.richiestaSelezionata.richiesta.dataRichiesta}" assignTo="#{pregeoBean.dataRifStr}"/>
+								    	<a4j:actionparam id="dtrifP" name="dtRifdt2" value="#{filtroBean.richiestaSelezionata.richiesta.strDataRif}" assignTo="#{pregeoBean.dataRifStr}"/>
+								    	<a4j:actionparam id="datiPregeo" name="listaDatiPregeo" value="" assignTo="#{pregeoBean.listaDatiPregeo}"/>
+							  	  
+							  	  		<a4j:actionparam id="sezC" name="sezionedt1" value="#{filtroBean.richiestaSelezionata.richiesta.sezione}" assignTo="#{compravenditeBean.sezione}"/>
+								    	<a4j:actionparam id="parC" name="partict1" value="#{filtroBean.richiestaSelezionata.richiesta.particella}" assignTo="#{compravenditeBean.particella}"/>
+								    	<a4j:actionparam id="fogC" name="fogliodt1" value="#{filtroBean.richiestaSelezionata.richiesta.foglio}" assignTo="#{compravenditeBean.foglio}"/>
+								    	<a4j:actionparam id="dtricC" name="dtRicdt1" value="#{filtroBean.richiestaSelezionata.richiesta.dataRichiesta}" assignTo="#{compravenditeBean.dataRifStr}"/>
+								    	<a4j:actionparam id="dtrifC" name="dtRifdt2" value="#{filtroBean.richiestaSelezionata.richiesta.strDataRif}" assignTo="#{compravenditeBean.dataRifStr}"/>
+								    	<a4j:actionparam id="datiCompravendite" name="listaCompravendite" value="" assignTo="#{compravenditeBean.compravenditeParticella}"/>
+							  	  
+							  	   </a4j:commandLink>
+
+								</td>	
+								<td style="width:100px;">
+									<h:commandLink  id="showPDF"
+										value="MOSTRA PDF"
+										disabled="#{empty filtroBean.nomePdf}" 
+										action="#{pdfBean.doDownloadPDF}"  
+										style="width:150px;font-weight: bold;color:black;">
+										<a4j:actionparam name="filename" value="#{filtroBean.nomePdf}" assignTo="#{pdfBean.filename}" />
+									</h:commandLink>
+								</td>
+								<td>
+									<h:commandLink id="cancPDF"
+										value="CANCELLA PDF" 
+										disabled="#{empty filtroBean.nomePdf}"
+										action="#{pdfBean.doCancellaPdf}"  
+										style="width:150px;font-weight: bold;color:black;">
+										
+										<a4j:actionparam name="filename" value="#{filtroBean.nomePdf}" assignTo="#{pdfBean.filename}" />
+										<a4j:actionparam name="idRich" value="#{filtroBean.richiestaSelezionata.richiesta.idRichiesta}" assignTo="#{pdfBean.idRich}" />
+										
+										<a4j:support event="oncomplete" reRender="cancPDF,showPDF" />
+									</h:commandLink>
+								</td>
+							</tr>
+							</table>	
+							<table style="width:100%">
+								<tr style="height:30px;width:100%">
+									<td align="right" style="width:40%;">
+										<a4j:commandButton  
+											styleClass="my-button" value="EVADI RICHIESTA" 
+											style="width:150px" action="#{filtroBean.doEvadiRichiesta}"/>
+									</td>
+									<td style="width:20%;"></td>
+									<td align="left" style="width:40%;">
+										<a4j:commandButton  
+											styleClass="my-button" value="RESPINGI RICHIESTA" 
+											style="width:150px" action="#{filtroBean.respingiRichiesta}"/>
+									</td>								
+								</tr>	
+							</table>															
+					</div>
+	  			</rich:panel>
+	  			
+	  			<div>
+					<table>
+						<tr>
+							<td valign="middle" style="height: 40px;">
+								<a4j:commandLink action="#{filtroBean.goToList}" value="Torna a lista richieste" /> 
+							</td>
+						</tr>
+					</table>	  	
+				</div>		
+	  			
+			</h:form>
+			
+			
+			<rich:modalPanel id="panelDett" height="600" width="980">
+				<f:facet name="header">
+					<h:outputText value="Dettaglio"></h:outputText>
+				</f:facet>
+	    	
+     			<f:facet name="controls">
+          		<h:panelGroup>
+              		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelDett"/>
+              		<rich:componentControl for="panelDett" attachTo="hidelinkPanelDett" operation="hide" event="onclick"/>
+          		</h:panelGroup>
+ 		     	</f:facet>
+ 		  	     		    
+ 	     		    <a4j:include viewId="/jsp/protected/dettaglio/dettaglioFasFabContent.xhtml">
+ 	     		    	<ui:param name="createPDF" value="true"/>
+ 	     		    	<ui:param name="divStyle" value="width:100%; height:450px; overflow: auto;"/>
+ 	     		    </a4j:include>
+ 	     		    
+ 	     		    
+		 </rich:modalPanel>	
+		 
+ 
+		<rich:modalPanel id="panelPDF" height="500" width="400">
+			<f:facet name="header">
+				<h:outputText value="Crea PDF"></h:outputText>
+			</f:facet>
+   	
+   			<f:facet name="controls">
+          		<h:panelGroup>
+              		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelPDF"/>
+              		<rich:componentControl for="panelPDF" attachTo="hidelinkPanelPDF" operation="hide" event="onclick"/>
+         		</h:panelGroup>
+	     	</f:facet>
+		 		     	
+ 				
+    			<ui:include src="../pdf/pdfOptions.xhtml"/>
+
+			 </rich:modalPanel>		 	     		    
+
+
+		</ui:define>
+	</ui:composition>
+</html>

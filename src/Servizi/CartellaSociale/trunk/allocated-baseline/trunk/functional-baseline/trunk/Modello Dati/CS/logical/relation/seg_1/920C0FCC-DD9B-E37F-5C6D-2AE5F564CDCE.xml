@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_INVIO_ITER" id="920C0FCC-DD9B-E37F-5C6D-2AE5F564CDCE" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>F75DD735-182C-9CD3-B529-4EC4F4E8FB28</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>FD2960D8-C95C-6134-3A0C-0024E4FD1770</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FD2960D8-C95C-6134-3A0C-0024E4FD1770</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>E67AF825-8913-613B-6079-70E488410588</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

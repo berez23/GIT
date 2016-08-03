@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_STEP_OPE_SETT" id="2AF3DA5E-2E87-3AA4-C583-DB1C8372F81E" directorySegmentName="seg_2">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>6537921C-1594-906D-10E2-6ED79B06A4E9</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>123669D8-A3D2-10F2-58FC-0492451C810F</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

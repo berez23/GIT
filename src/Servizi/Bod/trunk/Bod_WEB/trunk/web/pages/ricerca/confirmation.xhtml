@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j">
+
+		<rich:modalPanel id="confirmation" width="250" height="150">
+		   <f:facet name="header">Conferma operazione</f:facet>
+		   <h:panelGrid>
+		      <h:panelGrid columns="2">
+		         <h:graphicImage value="../../images/warning.jpg" height="50px" width="50px"/>
+			 <h:outputText value="La pratica verra' chiusa e non sara' piu' possibile modificarla. Sei sicuro di voler procedere?" style="FONT-SIZE: small;" />
+		      </h:panelGrid>
+		      <h:panelGrid columns="1" style="text-align: center;">
+			      <h:panelGroup>
+			         <input 
+			         	type="button" 
+			         	value="OK" 
+			         	onclick="#{rich:component('confirmation')}.hide();submit();return false" 
+			         	style="my-button"/>
+				 	<input 
+				 		type="button" 
+				 		value="Annulla"
+				  		onclick="#{rich:component('confirmation')}.hide();return false" 
+				  		style="my-button"/>
+			      </h:panelGroup>
+			   </h:panelGrid>
+		   </h:panelGrid>
+		</rich:modalPanel>
+
+</ui:composition>

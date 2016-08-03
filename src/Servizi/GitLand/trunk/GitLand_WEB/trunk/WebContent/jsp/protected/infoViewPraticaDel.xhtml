@@ -1,0 +1,97 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgPraticaDel" modal="true" header="ELIMINA PRATICA. SEI SICURO? " widgetVar="dlgPraticaDel" showEffect="fade" hideEffect="explode">
+		<h:form id="frmDlgPraticaDel">
+		<p:panelGrid styleClass="panelGrid" columns="6" style="width:auto;" cellpadding="10">
+
+			<p:outputLabel value="Codice Pratica" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.codicePratica}" />
+			
+			<p:outputLabel value="Codice Asi Azienda" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.codiceAsiAzienda}" />
+			
+			<p:outputLabel value="Ragione Sociale" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.azienda.ragioneSociale}"/>
+			
+			<p:outputLabel value="Faldone" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.faldone}" />
+			
+			<p:outputLabel value="Cod Tipo" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.codTipo}" />
+
+			<p:outputLabel value="Tipologia" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.tipologia}" />
+			
+			<p:outputLabel value="Inizio Lav Data" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.inizioLavData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:outputLabel value="Fine Lav Data" style="font-weight:bold;"/>
+		 	<p:outputLabel value="#{ricercheBean.praticaCur.fineLavData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:outputLabel value="Chiudi Pratica" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.chiudip}" />
+			
+			<p:outputLabel value="Protocollo Num" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.protocolloNum}" />
+			
+			<p:outputLabel value="Protocollo Data" style="font-weight:bold;"/>
+		 	<p:outputLabel value="#{ricercheBean.praticaCur.protocolloData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+			
+			<p:outputLabel value="Convenzione Num" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.convenzioneNum}" />
+			
+			<p:outputLabel value="Convenzione Data" style="font-weight:bold;"/>
+		 	<p:outputLabel value="#{ricercheBean.praticaCur.convenzioneData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:outputLabel value="Vincolo" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.vincolo}" />
+
+			<p:outputLabel value="Mod Acquisizione Area" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.modificaAcqArea}" />
+
+			<p:outputLabel value="Comunicazione Inizio lavori Data" style="font-weight:bold;"/>
+		 	<p:outputLabel value="#{ricercheBean.praticaCur.comunicaInizioLavoriData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:outputLabel value="Comunicazione Fine lavori Data" style="font-weight:bold;"/>
+		 	<p:outputLabel value="#{ricercheBean.praticaCur.comunicaFineLavoriData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:outputLabel value="Attivita Inizio Data" style="font-weight:bold;"/>
+		 	<p:outputLabel value="#{ricercheBean.praticaCur.attivitaInizioData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:outputLabel value="Conc. Edilizia R Data" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.praticaCur.concedilRData}">
+				<f:convertDateTime pattern="dd/MM/yyyy"/>
+			</p:outputLabel>
+
+			<p:commandButton id="btnEliminaChiudi" 
+					value="Elimina e Chiudi" 
+					action="#{ricercheBean.praticaSaveDel}" 
+					oncomplete="PF('dlgPraticaDel').hide()" 
+					update=":#{p:component('pnlPraticaInfo')}, :#{p:component('dtListaPratiche')}"
+					process="@form"/>
+												
+		</p:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

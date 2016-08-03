@@ -1,0 +1,74 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+  
+  
+			<rich:modalPanel id="classCorpiFabbricaPanel" width="600" height="300">
+		        <f:facet name="header">
+		            <h:outputText value="Classamento Subalterni " />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="classCorpiFabbricaLink" />
+			     <rich:componentControl for="classCorpiFabbricaPanel" attachTo="classCorpiFabbricaLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		        <h:form>
+		            <h:panelGrid columns="1">		            
+		            <a4j:outputPanel ajaxRendered="true">
+		            <div style="height: 225px; overflow: auto;">
+						<rich:dataTable style="width: 95%;" id="claSubList" columnClasses="col" value="#{ricercaDettaglioBck.lstClaCorFab}" var="claSub">
+			            <f:facet name="header">
+			                <rich:columnGroup>
+					          	<rich:column colspan="3">
+			                        <h:outputText value="Dettaglio Classamento Subalterni" />
+			                    </rich:column>
+			                    <rich:column breakBefore="true">
+			                        <h:outputText value="Subalterno" />
+			                    </rich:column>
+			                    <rich:column>
+			                        <h:outputText value="Categoria" />
+			                    </rich:column>
+			                    <rich:column>
+			                        <h:outputText value="Classe" />
+			                    </rich:column>
+			                </rich:columnGroup>
+			            </f:facet>
+			            
+			            <rich:column>
+			                <h:outputText value="#{claSub[0]}" />
+			            </rich:column>
+			            <rich:column>
+			                <h:outputText value="#{claSub[1]}" />
+			            </rich:column>
+			            <rich:column>
+			                <h:outputText value="#{claSub[2]}" />
+			            </rich:column>
+			        	</rich:dataTable>
+			        </div>
+		        <table border="0">
+		             <tr>
+		             	<td align="center" width="49%">
+							<a4j:commandButton 
+								styleClass="my-button" 
+								value="Chiudi" 
+								ajaxSingle="false" 
+								id="hideBtn" 
+								oncomplete="#{rich:component('classCorpiFabbricaPanel')}.hide();"/>		             	
+		             	</td>
+					</tr>
+			        </table> 
+		            </a4j:outputPanel>
+		            </h:panelGrid>  
+		             
+		        </h:form>
+		    </rich:modalPanel>
+
+  
+  
+  
+</ui:composition>

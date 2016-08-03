@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Gadget Fascicolo Fabbricato</title>
+<style>
+input
+{
+	
+	border: 1px solid #3300FF;
+}
+table {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	background-color: #CCCCCC;
+	border: 1px solid #3300FF;
+}
+fieldset
+{
+	border: solid 1px #3300FF;  
+	margin: 10px; 
+	padding: 10px;		
+}
+legend
+{
+	font-weight: bold;
+}
+</style>
+<script>
+function checkricerca()
+{
+	var foglio = document.getElementById("ricerca_foglio");
+	var particella = document.getElementById("ricerca_particella");
+	if(foglio.value == "" || particella.value =="")
+	{
+		alert("Inserire foglio e particella per la ricerca");
+		return false;
+	}
+	else
+		return true;
+}
+</script>
+</head>
+
+<body>
+<fieldset>
+  	<legend>Fascicolo fabbricato</legend>
+		<form id="form1" name="form1" method="post" action="http://s100.webred-private.it:8080/diogene/fascicolo/FascicoloRunnerServlet.jsp" onsubmit="return checkricerca();">
+		
+		
+		<table width="200" border="0" cellspacing="2" cellpadding="2">
+		  <tr>
+		    <td>Foglio:</td>
+		    <td><input name="ricerca_foglio" id="ricerca_foglio" type="text"  maxlength="3" /></td>
+		  </tr>
+		  <tr>
+		    <td>Particella:</td>
+		    <td><input name="ricerca_particella" id="ricerca_particella"  type="text"  maxlength="4" /></td>
+		  </tr>
+		
+		  <tr>
+		    <td colspan="2"><div align="center">
+		      <input type="submit" name="Stampa" id="Stampa" value="Stampa" />
+		    </div></td>
+		    </tr>
+		</table>
+		
+		<input name="AZ" value="STAMPA" type="hidden"  />
+		<input name="TABELLE" value="CATASTO" type="hidden"   />
+		<input name="TABELLE" value="DOCFA" type="hidden"   />
+		<input name="TABELLE" value="TARSU" type="hidden"   />
+		<input name="TABELLE" value="ICI" type="hidden"   />
+		<input name="TABELLE" value="TOPONOMASTICA" type="hidden"   />
+		</form>
+   </fieldset>
+</body>
+</html>

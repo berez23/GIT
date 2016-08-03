@@ -1,0 +1,29 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgLottiSoloGIS" modal="false" header="LISTA LOTTI PRESENTI SOLO NEL GIS" widgetVar="dlgLottiSoloGIS" showEffect="fade" hideEffect="explode">
+	
+ 		<p:dataTable value="#{notificheBean.listaLottiSoloGIS}" var="lottoGis" rows="20" rowIndexVar="rowIndex" paginator="true" rowKey="#{lottoGis}" paginatorPosition="bottom" paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">					 	 
+		 	<p:column headerText="Codice ASI" sortBy="#{lottoGis[0]}" >
+		 		<h:outputText value="#{lottoGis[0]}"/>
+		 	</p:column>
+		 	<p:column headerText="Coord. Catastali" sortBy="#{lottoGis[1]}" >
+		 		<h:outputText value="#{lottoGis[1]}"/>
+		 	</p:column>
+		 	<p:column headerText="Area" sortBy="#{lottoGis[2]}" >
+		 		<h:outputText value="#{lottoGis[2]}"/>
+		 	</p:column>
+		 	<p:column headerText="Perimetro" sortBy="#{lottoGis[3]}" >
+		 		<h:outputText value="#{lottoGis[3]}"/>
+		 	</p:column>
+
+		</p:dataTable>
+		
+	</p:dialog>
+
+</ui:composition>

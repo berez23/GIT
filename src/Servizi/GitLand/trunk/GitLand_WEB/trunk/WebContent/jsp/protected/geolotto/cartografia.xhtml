@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	<h:body>
+
+		<!--  <h:outputLabel rendered="true" value="#{ricercheBean.mapMan.mapUrl}" ></h:outputLabel><br/> -->
+		<h:outputLink value="#{ricercheBean.mapMan.mapUrl}" target="_blank">Schermo Intero</h:outputLink>
+		<br/>
+		
+		<iframe id="mapFrame" scrolling="no" height="600px" width="800px" src="#{ricercheBean.mapMan.mapUrl}"></iframe>
+	
+	</h:body>
+</html>

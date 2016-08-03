@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+			<h:outputLink rendered="#{dataProviderImpl.pageIndietro == 'uiu'}" 
+						  value="${facesContext.externalContext.requestContextPath}/jsp/protected/search/search.faces">
+				<h:outputText value="Indietro" />
+			</h:outputLink>
+			<h:outputLink rendered="#{dataProviderImpl.pageIndietro == 'exRurali'}" 
+						  value="${facesContext.externalContext.requestContextPath}/jsp/protected/search/searchFabbrExRurali.faces">
+				<h:outputText value="Indietro - Fabbricati ex Rurali" />
+			</h:outputLink>
+			<h:outputLink rendered="#{dataProviderImpl.pageIndietro == 'maiDich'}"
+						  value="${facesContext.externalContext.requestContextPath}/jsp/protected/search/searchFabbrMaiDich.faces">
+				<h:outputText  value="Indietro - Fabbricati mai Dichiarati" />
+			</h:outputLink>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel style="font-weight: bold;" rendered="#{dataProviderImpl.pageIndietro == 'uiu'}"
+						value="Dettaglio Immobile" />
+					<h:outputLabel style="font-weight: bold;" rendered="#{dataProviderImpl.pageIndietro == 'exRurali' || dataProviderImpl.pageIndietro == 'maiDich'}"
+						value="Dettaglio Particella" />	
+				</f:facet>
+				
+				<h:panelGrid columns="2" width="100%">
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Foglio" style="font-weight: bold;" />
+					<h:outputText id="foglio" value="#{detailBean.ricUiu.foglio}" />
+					<h:outputLabel value="Particella" style="font-weight: bold;" />
+					<h:outputText id="particella" value="#{detailBean.ricUiu.particella}" />
+					<h:outputLabel value="Subalterno" style="font-weight: bold;" />
+					<h:outputText id="sub" value="#{detailBean.ricUiu.sub}" rendered="#{detailBean.ricUiu.sub!='0000'}"/>
+				</h:panelGrid>
+				<a4j:outputPanel id="testata">
+				<!-- rich:panel id="testata" -->
+					<h:panelGrid columns="2" >
+						<h:outputLabel value="Stato della Pratica" style="font-weight: bold;" />
+						<h:outputText id="stato" value="#{detailBean.dtoGesPratica.datiPratica.desStatoIstruttoria}"  />
+						<h:outputLabel value="Data inizio istruttoria" style="font-weight: bold;" />
+						<h:outputText id="dtPresaCarico" value="#{detailBean.dtoGesPratica.datiPratica.pratica.dtIni}"  >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:outputText>
+						<h:outputLabel value="Operatore" style="font-weight: bold;" />
+						<h:outputText id="oper" value="#{detailBean.dtoGesPratica.datiPratica.gesAttualePratica.id.userName}"  />
+					</h:panelGrid>
+				</a4j:outputPanel>	
+				<!--  /rich:panel-->
+				</h:panelGrid>
+				<rich:spacer height="10px;"/>
+				
+				<rich:tabPanel id="tabs" switchType="client" selectedTab="detailTab1">
+	            <rich:tab id="detailTab1" label="Informazioni Generali">
+	            	<h:form id="infoGenForm">
+	                	<a4j:include  rendered="#{!detailBean.loadFabbricato}" viewId="/jsp/protected/search/detail/informazioniGenerali/infoGeneraliUiu.xhtml"/>
+	             		<a4j:include  rendered="#{detailBean.loadFabbricato}"  viewId="/jsp/protected/search/detail/informazioniGenerali/infoGeneraliPart.xhtml"/>
+	            	</h:form>
+	            </rich:tab>
+	            <rich:tab id="detailTab2" label="Verifiche e Controlli">
+	          	  	<h:form id="verificheForm">
+	                	<a4j:include viewId="/jsp/protected/search/detail/verificheControlli/verificheControlli.xhtml"/>
+	           		</h:form>
+	            </rich:tab>
+	            <rich:tab id="detailTab3" label="Gestione Pratica" >
+	            <a4j:support event="ontabenter" ajaxSingle="true" reRender="detGesPra,detGesIstr,listOperPratica" action="#{detailBean.doCaricaGesPraticaDto}" >
+	            </a4j:support>
+	                <a4j:include  viewId="/jsp/protected/search/detail/gestionePratica.xhtml"/>
+	            </rich:tab>
+	        </rich:tabPanel>
+			</rich:panel>
+ 		
+ 		<a4j:include id="classamentoPage" viewId="#{pageUiBean.pageClassamento}" />
+ 		<a4j:include id="classamentoZcPage" viewId="#{pageUiBean.pageClassamentoZc}" />
+		<a4j:include id="docfaPage" viewId="#{pageUiBean.pageDocfa}" />
+		<a4j:include id="docfaPlanimetriePage" viewId="#{pageUiBean.pageDocfaPlanimetrie}" />
+		<a4j:include id="catSubjectPage" viewId="#{pageUiBean.pageCatSubjectList}" />
+		
+		
+		<!-- qui -->	
+	</ui:define>
+</ui:composition>
+</html>

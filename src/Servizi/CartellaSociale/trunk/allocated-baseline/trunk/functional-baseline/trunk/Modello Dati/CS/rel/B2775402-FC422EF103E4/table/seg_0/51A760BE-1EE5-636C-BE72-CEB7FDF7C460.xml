@@ -1,0 +1,277 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="51A760BE-1EE5-636C-BE72-CEB7FDF7C460" directorySegmentName="seg_0" name="CS_C_MEDICO">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_C_MEDICO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<pkName>MEDICO_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontSize>13</fontSize>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Titolo</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Colonna</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Tipo di dati</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Elemento chiave privata</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Elemento chiave esterna</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Elemento chiave univoca</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Non nullo</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Chiave</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ID" id="3303B95D-AF42-01AD-1BC2-4B821AC3DE25">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="COGNOME" id="DF33F25D-DDF9-CC07-B001-A73CC795BCAF">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>COGNOME</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="NOME" id="88B4FE47-0DF3-5C54-1503-2527D272595D">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>NOME</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CITTA" id="5C488DD6-7190-B0C5-37B8-E56FA6BDB2AC">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>CITTA</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TOOLTIP" id="6BE96E2B-4761-206E-643F-BF0703C4B84A">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>TOOLTIP</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABILITATO" id="A81904D2-FFA6-1221-ECE7-86C487B823C3">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>ABILITATO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TEL" id="B3BDAC3E-BDCB-5A71-014C-A25968A8E458">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>TEL</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CELL" id="A0CB7733-E62C-EEB0-B9FD-FF36195A7692">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>CELL</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TIPO_MEDICO" id="99CD4584-7D13-8226-5F7B-0B0CFC8AAEC3">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>TIPO_MEDICO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DISTRETTO" id="3B734BB3-16E7-04EC-AF3C-700549DA0E3B">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>DISTRETTO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="CODICE_REGIONALE" id="E1B1CC1B-C7FF-DDF0-4F2B-5546FD298CFB">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_C_MEDICO</sourceObjSchema>
+<sourceObjName>CODICE_REGIONALE</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="76A47831-5E68-8A0F-A992-85EF5E183438" name="MEDICO_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>MEDICO_PK</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:22 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="3303B95D-AF42-01AD-1BC2-4B821AC3DE25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="1AA96762-8354-64AD-118E-C4102B63B34E" name="MEDICO_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>MEDICO_PK</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:21 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="3303B95D-AF42-01AD-1BC2-4B821AC3DE25"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

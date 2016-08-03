@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.aziendeShowLst:#{aziendeBean.aziendeShowLst}:#jsp#protected#aziendeLst.xhtml"
+    NAME="output1" PATH="/jsp/protected/aziendeLst.xhtml"
+    TARGET="rules:#jsp#protected#aziendeLst.xhtml"
+    TITLE="#{aziendeBean.aziendeShowLst}:aziendeBean.aziendeShowLst" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.aziendeShowLst}:#jsp#protected#empty.xhtml"
+    NAME="output2" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.aziendeShowLst}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.onRowSelect:#{aziendeBean.onRowSelect}:#jsp#protected#aziendaMod.xhtml"
+    NAME="output" PATH="/jsp/protected/aziendaMod.xhtml"
+    TARGET="rules:#jsp#protected#aziendaMod.xhtml"
+    TITLE="#{aziendeBean.onRowSelect}:aziendeBean.onRowSelect" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.onRowSelect}:#jsp#protected#empty.xhtml"
+    NAME="output3" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.onRowSelect}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.aziendaShowNew:#{aziendeBean.aziendaShowNew}:#jsp#protected#aziendaNew.xhtml"
+    NAME="output4" PATH="/jsp/protected/aziendaNew.xhtml"
+    TARGET="rules:#jsp#protected#aziendaNew.xhtml"
+    TITLE="#{aziendeBean.aziendaShowNew}:aziendeBean.aziendaShowNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.aziendaShowNew}:#jsp#protected#empty.xhtml"
+    NAME="output5" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.aziendaShowNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.searchAziende:#{aziendeBean.searchAziende}:#jsp#protected#aziendeLst.xhtml"
+    NAME="output6" PATH="/jsp/protected/aziendeLst.xhtml"
+    TARGET="rules:#jsp#protected#aziendeLst.xhtml"
+    TITLE="#{aziendeBean.searchAziende}:aziendeBean.searchAziende" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.searchAziende}:#jsp#protected#empty.xhtml"
+    NAME="output7" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.searchAziende}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.aziendaSaveMod:#{aziendeBean.aziendaSaveMod}:#jsp#protected#aziendeLst.xhtml"
+    NAME="output8" PATH="/jsp/protected/aziendeLst.xhtml"
+    TARGET="rules:#jsp#protected#aziendeLst.xhtml"
+    TITLE="#{aziendeBean.aziendaSaveMod}:aziendeBean.aziendaSaveMod" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.aziendaSaveMod}:#jsp#protected#empty.xhtml"
+    NAME="output9" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.aziendaSaveMod}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.aziendaSaveNew:#{aziendeBean.aziendaSaveNew}:#jsp#protected#aziendeLst.xhtml"
+    NAME="output10" PATH="/jsp/protected/aziendeLst.xhtml"
+    TARGET="rules:#jsp#protected#aziendeLst.xhtml"
+    TITLE="#{aziendeBean.aziendaSaveNew}:aziendeBean.aziendaSaveNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.aziendaSaveNew}:#jsp#protected#empty.xhtml"
+    NAME="output11" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.aziendaSaveNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="aziendeBean.aziendaSaveDel:#{aziendeBean.aziendaSaveDel}:#jsp#protected#aziendeLst.xhtml"
+    NAME="output12" PATH="/jsp/protected/aziendeLst.xhtml"
+    TARGET="rules:#jsp#protected#aziendeLst.xhtml"
+    TITLE="#{aziendeBean.aziendaSaveDel}:aziendeBean.aziendaSaveDel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{aziendeBean.aziendaSaveDel}:#jsp#protected#empty.xhtml"
+    NAME="output13" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{aziendeBean.aziendaSaveDel}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lottiBean.lottiShowLst:#{lottiBean.lottiShowLst}:#jsp#protected#lottiLst.xhtml"
+    NAME="output14" PATH="/jsp/protected/lottiLst.xhtml"
+    TARGET="rules:#jsp#protected#lottiLst.xhtml"
+    TITLE="#{lottiBean.lottiShowLst}:lottiBean.lottiShowLst" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{lottiBean.lottiShowLst}:#jsp#protected#empty.xhtml"
+    NAME="output15" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{lottiBean.lottiShowLst}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lottiBean.lottoShowNew:#{lottiBean.lottoShowNew}:#jsp#protected#lottoNew.xhtml"
+    NAME="output16" PATH="/jsp/protected/lottoNew.xhtml"
+    TARGET="rules:#jsp#protected#lottoNew.xhtml"
+    TITLE="#{lottiBean.lottoShowNew}:lottiBean.lottoShowNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{lottiBean.lottoShowNew}:#jsp#protected#empty.xhtml"
+    NAME="output17" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{lottiBean.lottoShowNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lottiBean.searchLotti:#{lottiBean.searchLotti}:#jsp#protected#lottiLst.xhtml"
+    NAME="output18" PATH="/jsp/protected/lottiLst.xhtml"
+    TARGET="rules:#jsp#protected#lottiLst.xhtml"
+    TITLE="#{lottiBean.searchLotti}:lottiBean.searchLotti" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{lottiBean.searchLotti}:#jsp#protected#empty.xhtml"
+    NAME="output19" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{lottiBean.searchLotti}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lottiBean.onRowSelect:#{lottiBean.onRowSelect}:#jsp#protected#lottoMod.xhtml"
+    NAME="output20" PATH="/jsp/protected/lottoMod.xhtml"
+    TARGET="rules:#jsp#protected#lottoMod.xhtml"
+    TITLE="#{lottiBean.onRowSelect}:lottiBean.onRowSelect" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lottiBean.lottoSaveMod:#{lottiBean.lottoSaveMod}:#jsp#protected#lottiLst.xhtml"
+    NAME="output21" PATH="/jsp/protected/lottiLst.xhtml"
+    TARGET="rules:#jsp#protected#lottiLst.xhtml"
+    TITLE="#{lottiBean.lottoSaveMod}:lottiBean.lottoSaveMod" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{lottiBean.lottoSaveMod}:#jsp#protected#empty.xhtml"
+    NAME="output22" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{lottiBean.lottoSaveMod}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="lottiBean.lottoSaveNew:#{lottiBean.lottoSaveNew}:#jsp#protected#lottoNew.xhtml"
+    NAME="output23" PATH="/jsp/protected/lottoNew.xhtml"
+    TARGET="rules:#jsp#protected#lottoNew.xhtml"
+    TITLE="#{lottiBean.lottoSaveNew}:lottiBean.lottoSaveNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{lottiBean.lottoSaveNew}:#jsp#protected#empty.xhtml"
+    NAME="output24" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{lottiBean.lottoSaveNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercheBean.ricercheShowLst:#{ricercheBean.ricercheShowLst}:#jsp#protected#infoLst.xhtml"
+    NAME="output25" PATH="/jsp/protected/infoLst.xhtml"
+    TARGET="rules:#jsp#protected#infoLst.xhtml"
+    TITLE="#{ricercheBean.ricercheShowLst}:ricercheBean.ricercheShowLst" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{ricercheBean.ricercheShowLst}:#jsp#protected#empty.xhtml"
+    NAME="output26" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{ricercheBean.ricercheShowLst}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercheBean.searchRicerche:#{ricercheBean.searchRicerche}:#jsp#protected#infoLst.xhtml"
+    NAME="output27" PATH="/jsp/protected/infoLst.xhtml"
+    TARGET="rules:#jsp#protected#infoLst.xhtml"
+    TITLE="#{ricercheBean.searchRicerche}:ricercheBean.searchRicerche" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{ricercheBean.searchRicerche}:#jsp#protected#empty.xhtml"
+    NAME="output28" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{ricercheBean.searchRicerche}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercheBean.onRowSelect:#{ricercheBean.onRowSelect}:#jsp#protected#infoView.xhtml"
+    NAME="output29" PATH="/jsp/protected/infoView.xhtml"
+    TARGET="rules:#jsp#protected#infoView.xhtml"
+    TITLE="#{ricercheBean.onRowSelect}:ricercheBean.onRowSelect" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{ricercheBean.onRowSelect}:#jsp#protected#empty.xhtml"
+    NAME="output30" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{ricercheBean.onRowSelect}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticheShowLst:#{statisticheBean.statisticheShowLst}:#jsp#protected#statisticheLst.xhtml"
+    NAME="output31" PATH="/jsp/protected/statisticheLst.xhtml"
+    TARGET="rules:#jsp#protected#statisticheLst.xhtml"
+    TITLE="#{statisticheBean.statisticheShowLst}:statisticheBean.statisticheShowLst" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticheShowLst}:#jsp#protected#empty.xhtml"
+    NAME="output32" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticheShowLst}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticheSearch:#{statisticheBean.statisticheSearch}:#jsp#protected#statisticheLst.xhtml"
+    NAME="output33" PATH="/jsp/protected/statisticheLst.xhtml"
+    TARGET="rules:#jsp#protected#statisticheLst.xhtml"
+    TITLE="#{statisticheBean.statisticheSearch}:statisticheBean.statisticheSearch" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticheSearch}:#jsp#protected#empty.xhtml"
+    NAME="output34" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticheSearch}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticaShowNew:#{statisticheBean.statisticaShowNew}:#jsp#protected#statisticaNew.xhtml"
+    NAME="output35" PATH="/jsp/protected/statisticaNew.xhtml"
+    TARGET="rules:#jsp#protected#statisticaNew.xhtml"
+    TITLE="#{statisticheBean.statisticaShowNew}:statisticheBean.statisticaShowNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticaShowNew}:#jsp#protected#empty.xhtml"
+    NAME="output36" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticaShowNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticaSaveNew:#{statisticheBean.statisticaSaveNew}:#jsp#protected#statisticaNew.xhtml"
+    NAME="output37" PATH="/jsp/protected/statisticaNew.xhtml"
+    TARGET="rules:#jsp#protected#statisticaNew.xhtml"
+    TITLE="#{statisticheBean.statisticaSaveNew}:statisticheBean.statisticaSaveNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticaSaveNew}:#jsp#protected#empty.xhtml"
+    NAME="output38" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticaSaveNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticaShowMod:#{statisticheBean.statisticaShowMod}:#jsp#protected#statisticaMod.xhtml"
+    NAME="output39" PATH="/jsp/protected/statisticaMod.xhtml"
+    TARGET="rules:#jsp#protected#statisticaMod.xhtml"
+    TITLE="#{statisticheBean.statisticaShowMod}:statisticheBean.statisticaShowMod" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticaShowMod}:#jsp#protected#empty.xhtml"
+    NAME="output40" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticaShowMod}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticaSaveMod:#{statisticheBean.statisticaSaveMod}:#jsp#protected#statisticheLst.xhtml"
+    NAME="output41" PATH="/jsp/protected/statisticheLst.xhtml"
+    TARGET="rules:#jsp#protected#statisticheLst.xhtml"
+    TITLE="#{statisticheBean.statisticaSaveMod}:statisticheBean.statisticaSaveMod" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticaSaveMod}:#jsp#protected#empty.xhtml"
+    NAME="output42" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticaSaveMod}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.onRowSelect:#{statisticheBean.onRowSelect}:#jsp#protected#statisticaParamsLst.xhtml"
+    NAME="output43" PATH="/jsp/protected/statisticaParamsLst.xhtml"
+    TARGET="rules:#jsp#protected#statisticaParamsLst.xhtml"
+    TITLE="#{statisticheBean.onRowSelect}:statisticheBean.onRowSelect" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.onRowSelect}:#jsp#protected#empty.xhtml"
+    NAME="output44" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.onRowSelect}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticheBean.statisticaAvvio:#{statisticheBean.statisticaAvvio}:#jsp#protected#statisticaEsito.xhtml"
+    NAME="output45" PATH="/jsp/protected/statisticaEsito.xhtml"
+    TARGET="rules:#jsp#protected#statisticaEsito.xhtml"
+    TITLE="#{statisticheBean.statisticaAvvio}:statisticheBean.statisticaAvvio" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{statisticheBean.statisticaAvvio}:#jsp#protected#empty.xhtml"
+    NAME="output46" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{statisticheBean.statisticaAvvio}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.tipologieShowLst:#{tipologieBean.tipologieShowLst}:#jsp#protected#tipologieLst.xhtml"
+    NAME="output47" PATH="/jsp/protected/tipologieLst.xhtml"
+    TARGET="rules:#jsp#protected#tipologieLst.xhtml"
+    TITLE="#{tipologieBean.tipologieShowLst}:tipologieBean.tipologieShowLst" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.tipologieShowLst}:#jsp#protected#empty.xhtml"
+    NAME="output48" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.tipologieShowLst}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.onRowSelect:#{tipologieBean.onRowSelect}:#jsp#protected#tipologiaMod.xhtml"
+    NAME="output49" PATH="/jsp/protected/tipologiaMod.xhtml"
+    TARGET="rules:#jsp#protected#tipologiaMod.xhtml"
+    TITLE="#{tipologieBean.onRowSelect}:tipologieBean.onRowSelect" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.onRowSelect}:#jsp#protected#empty.xhtml"
+    NAME="output50" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.onRowSelect}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.tipologiaShowNew:#{tipologieBean.tipologiaShowNew}:#jsp#protected#tipologiaNew.xhtml"
+    NAME="output51" PATH="/jsp/protected/tipologiaNew.xhtml"
+    TARGET="rules:#jsp#protected#tipologiaNew.xhtml"
+    TITLE="#{tipologieBean.tipologiaShowNew}:tipologieBean.tipologiaShowNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.tipologiaShowNew}:#jsp#protected#empty.xhtml"
+    NAME="output52" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.tipologiaShowNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.tipologiaSaveNew:#{tipologieBean.tipologiaSaveNew}:#jsp#protected#tipologieLst.xhtml"
+    NAME="output53" PATH="/jsp/protected/tipologieLst.xhtml"
+    TARGET="rules:#jsp#protected#tipologieLst.xhtml"
+    TITLE="#{tipologieBean.tipologiaSaveNew}:tipologieBean.tipologiaSaveNew" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.tipologiaSaveNew}:#jsp#protected#empty.xhtml"
+    NAME="output54" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.tipologiaSaveNew}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.searchTipologie:#{tipologieBean.searchTipologie}:#jsp#protected#tipologieLst.xhtml"
+    NAME="output55" PATH="/jsp/protected/tipologieLst.xhtml"
+    TARGET="rules:#jsp#protected#tipologieLst.xhtml"
+    TITLE="#{tipologieBean.searchTipologie}:tipologieBean.searchTipologie" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.searchTipologie}:#jsp#protected#empty.xhtml"
+    NAME="output56" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.searchTipologie}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.tipologiaSaveMod:#{tipologieBean.tipologiaSaveMod}:#jsp#protected#tipologieLst.xhtml"
+    NAME="output57" PATH="/jsp/protected/tipologieLst.xhtml"
+    TARGET="rules:#jsp#protected#tipologieLst.xhtml"
+    TITLE="#{tipologieBean.tipologiaSaveMod}:tipologieBean.tipologiaSaveMod" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.tipologiaSaveMod}:#jsp#protected#empty.xhtml"
+    NAME="output58" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.tipologiaSaveMod}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tipologieBean.tipologiaSaveDel:#{tipologieBean.tipologiaSaveDel}:#jsp#protected#tipologieLst.xhtml"
+    NAME="output59" PATH="/jsp/protected/tipologieLst.xhtml"
+    TARGET="rules:#jsp#protected#tipologieLst.xhtml"
+    TITLE="#{tipologieBean.tipologiaSaveDel}:tipologieBean.tipologiaSaveDel" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{tipologieBean.tipologiaSaveDel}:#jsp#protected#empty.xhtml"
+    NAME="output60" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{tipologieBean.tipologiaSaveDel}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sincronizzaLottiBean.situazioneAttuale:#{sincronizzaLottiBean.situazioneAttuale}:#jsp#protected#sincronizzaLottiSituazione.xhtml"
+    NAME="output61"
+    PATH="/jsp/protected/sincronizzaLottiSituazione.xhtml"
+    TARGET="rules:#jsp#protected#sincronizzaLottiSituazione.xhtml"
+    TITLE="#{sincronizzaLottiBean.situazioneAttuale}:sincronizzaLottiBean.situazioneAttuale" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{sincronizzaLottiBean.situazioneAttuale}:#jsp#protected#empty.xhtml"
+    NAME="output62" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{sincronizzaLottiBean.situazioneAttuale}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sincronizzaLottiBean.avviaSincronizzazione:#{sincronizzaLottiBean.avviaSincronizzazione}:#jsp#protected#sincronizzaLottiEsito.xhtml"
+    NAME="output63" PATH="/jsp/protected/sincronizzaLottiEsito.xhtml"
+    TARGET="rules:#jsp#protected#sincronizzaLottiEsito.xhtml"
+    TITLE="#{sincronizzaLottiBean.avviaSincronizzazione}:sincronizzaLottiBean.avviaSincronizzazione" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{sincronizzaLottiBean.avviaSincronizzazione}:#jsp#protected#empty.xhtml"
+    NAME="output64" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{sincronizzaLottiBean.avviaSincronizzazione}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="notificheBean.loadListaLottiSoloGitLand:#{notificheBean.loadListaLottiSoloGitLand}:#jsp#protected#infoLst.xhtml"
+    NAME="output65" PATH="/jsp/protected/infoLst.xhtml"
+    TARGET="rules:#jsp#protected#infoLst.xhtml"
+    TITLE="#{notificheBean.loadListaLottiSoloGitLand}:notificheBean.loadListaLottiSoloGitLand" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{notificheBean.loadListaLottiSoloGitLand}:#jsp#protected#empty.xhtml"
+    NAME="output66" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{notificheBean.loadListaLottiSoloGitLand}:failure" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="notificheBean.loadPraticheEnteDaCompilare:#{notificheBean.loadPraticheEnteDaCompilare}:#jsp#protected#infoLst.xhtml"
+    NAME="output67" PATH="/jsp/protected/infoLst.xhtml"
+    TARGET="rules:#jsp#protected#infoLst.xhtml"
+    TITLE="#{notificheBean.loadPraticheEnteDaCompilare}:notificheBean.loadPraticheEnteDaCompilare" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="failure:#{notificheBean.loadPraticheEnteDaCompilare}:#jsp#protected#empty.xhtml"
+    NAME="output68" PATH="/jsp/protected/empty.xhtml"
+    TARGET="rules:#jsp#protected#empty.xhtml"
+    TITLE="#{notificheBean.loadPraticheEnteDaCompilare}:failure" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#aziendeLst.xhtml"
+  PATH="/jsp/protected/aziendeLst.xhtml" SHAPE="272,209,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#empty.xhtml"
+  PATH="/jsp/protected/empty.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#aziendaMod.xhtml"
+  PATH="/jsp/protected/aziendaMod.xhtml" SHAPE="288,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#aziendaNew.xhtml"
+  PATH="/jsp/protected/aziendaNew.xhtml" SHAPE="304,529,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#lottiLst.xhtml"
+  PATH="/jsp/protected/lottiLst.xhtml" SHAPE="304,721,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#lottoNew.xhtml"
+  PATH="/jsp/protected/lottoNew.xhtml" SHAPE="304,753,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#infoLst.xhtml"
+  PATH="/jsp/protected/infoLst.xhtml" SHAPE="304,1041,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#infoView.xhtml"
+  PATH="/jsp/protected/infoView.xhtml" SHAPE="304,1169,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#statisticheLst.xhtml"
+  PATH="/jsp/protected/statisticheLst.xhtml" SHAPE="304,1233,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#statisticaNew.xhtml"
+  PATH="/jsp/protected/statisticaNew.xhtml" SHAPE="304,1361,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#statisticaMod.xhtml"
+  PATH="/jsp/protected/statisticaMod.xhtml" SHAPE="304,1489,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#statisticaParamsLst.xhtml"
+  PATH="/jsp/protected/statisticaParamsLst.xhtml" SHAPE="304,1617,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#statisticaEsito.xhtml"
+  PATH="/jsp/protected/statisticaEsito.xhtml" SHAPE="304,1681,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tipologiaMod.xhtml"
+  PATH="/jsp/protected/tipologiaMod.xhtml" SHAPE="304,1809,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tipologieLst.xhtml"
+  PATH="/jsp/protected/tipologieLst.xhtml" SHAPE="304,1713,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tipologiaNew.xhtml"
+  PATH="/jsp/protected/tipologiaNew.xhtml" SHAPE="304,2033,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#lottoMod.xhtml"
+  PATH="/jsp/protected/lottoMod.xhtml" SHAPE="304,2097,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#sincronizzaLottiEsito.xhtml"
+  PATH="/jsp/protected/sincronizzaLottiEsito.xhtml" SHAPE="304,2609,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#sincronizzaLottiSituazione.xhtml"
+  PATH="/jsp/protected/sincronizzaLottiSituazione.xhtml"
+  SHAPE="304,2385,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

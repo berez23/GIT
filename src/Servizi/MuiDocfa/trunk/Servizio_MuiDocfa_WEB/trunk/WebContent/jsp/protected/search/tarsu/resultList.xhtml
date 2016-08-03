@@ -1,0 +1,256 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<rich:dataTable width="100%" var="row" value="#{tarDataModel}"
+	id="listTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+	rows="30">
+	<f:facet name="header">
+		<rich:columnGroup>
+			<rich:column colspan="20">
+				<h:outputText value="Lista report" />
+			</rich:column>
+		</rich:columnGroup>
+	</f:facet>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img1"
+			rendered="#{row.docfaTarReport.flgElaborato eq '1' and row.docfaTarReport.flgAnomalie eq '0'}">
+			<rich:toolTip direction="top-right" mode="client" layout="inline"
+				value="Elaborato #{row.docfaTarReport.annotazioni}" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img2"
+			rendered="#{row.docfaTarReport.flgElaborato eq '0'}">
+			<rich:toolTip direction="top-right" mode="client" layout="inline"
+				value="Non elaborato; #{row.docfaTarReport.annotazioni}" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img3"
+			rendered="#{row.docfaTarReport.flgElaborato eq '1' and row.docfaTarReport.flgAnomalie eq '1'}">
+			<rich:toolTip direction="top-right" mode="client" layout="inline"
+				value="Elaborato con anomalie; #{row.docfaTarReport.annotazioni}" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Fornitura" />
+		</f:facet>
+		<h:outputText value="#{row.docfaTarReport.fornitura}">
+			<f:convertDateTime pattern="MM/yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Protocollo" title="Protocollo Docfa" />
+		</f:facet>
+		<h:outputText value="#{row.docfaTarReport.protocolloDocfa}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Data Reg."
+				title="Data registrazione Docfa" />
+		</f:facet>
+		<h:outputText value="#{row.docfaTarReport.dataDocfaToDate}">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Foglio" />
+		</f:facet>
+		<h:outputText value="#{row.docfaTarReport.foglio}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Particella" />
+		</f:facet>
+		<h:outputText value="#{row.docfaTarReport.particella}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Subalterno" />
+		</f:facet>
+		<h:outputText value="#{row.docfaTarReport.subalterno}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Tipo operazione" title="Tipo operazione Docfa" />
+		</f:facet>
+		<h:outputText value="Soppressione"
+			rendered="#{row.docfaTarReport.tipoOperDocfa eq 'S'}" />
+		<h:outputText value="Costituzione"
+			rendered="#{row.docfaTarReport.tipoOperDocfa eq 'C'}" />
+		<h:outputText value="Variazione"
+			rendered="#{row.docfaTarReport.tipoOperDocfa eq 'V'}" />
+
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Causale" title="Causale Docfa" />
+		</f:facet>
+		<h:outputText id="cauD" value="#{row.docfaTarReport.causaleDocfa}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="#{row.causaleDocfaExt}" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Cat." title="Categoria Docfa" />
+		</f:facet>
+		<h:outputText id="catD" value="#{row.docfaTarReport.categoriaDocfa}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="#{row.categoriaDocfaExt}" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Sup. Docfa" title="Superficie Docfa" />
+		</f:facet>
+		<h:outputText value="mq #{row.docfaTarReport.supDocfaCens}"
+			rendered="#{row.docfaTarReport.supDocfaCens != null}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Sup.C340 sez.C"
+				title="Superficie calcolata ai fini del comma 340, a partire dai qudri C/1 o C/2" />
+		</f:facet>
+		<h:outputText rendered="#{row.docfaTarReport.supDocfaTarsu != null and row.docfaTarReport.supDocfaTarsu > 0}"
+			value="mq #{row.docfaTarReport.supDocfaTarsu}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Sup.C340 ABC"
+				title="Superficie calcolata ai fini del comma 340, come: (supA+supB+supC)*0.8" />
+		</f:facet>
+		<h:outputText rendered="#{row.docfaTarReport.supC340Abc != null and row.docfaTarReport.supC340Abc > 0}"
+			value="mq #{row.docfaTarReport.supC340Abc}" />
+	</rich:column>
+		<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Consistenza"
+				title="Consistenza Calcolata" />
+		</f:facet>
+		<h:outputText rendered="#{row.docfaTarReport.consCalc != null}"
+			value="#{row.docfaTarReport.consCalc} ( #{row.docfaTarReport.supAvgMin} - #{row.docfaTarReport.supAvgMax})" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Indirizzo" title="Indirizzo Docfa" />
+		</f:facet>
+		<h:outputText
+			value="#{row.docfaTarReport.prefissoViaDocfa} #{row.docfaTarReport.viaDocfa} #{row.docfaTarReport.civiciDocfa}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img4"
+			rendered="#{row.docfaTarReport.flgTarAnteDocfa eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente in Tarsu ante Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img5"
+			rendered="#{row.docfaTarReport.flgTarAnteDocfa eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Assente in Tarsu ante Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img6"
+			rendered="#{row.docfaTarReport.flgTarAnteDocfa == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presenza uiu in Tarsu,ante Docfa:Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img7a"
+			rendered="#{row.docfaTarReport.flgTarPostDocfa eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente in Tarsu post Docfa, ante 20-01" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/passed.gif" id="img7b"
+			rendered="#{row.docfaTarReport.flgTarPostDocfa eq '2'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente in Tarsu post Docfa, dopo 20-01" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img7c"
+			rendered="#{row.docfaTarReport.flgTarPostDocfa eq '0'}" style=" height : 16px;">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Assente in Tarsu post Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img7d"
+			rendered="#{row.docfaTarReport.flgTarPostDocfa == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presenza uiu in Tarsu,post Docfa:Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:graphicImage value="/images/map.png" id="imgcatasto">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presenza uiu a catasto alla data del docfa" />
+			</h:graphicImage>
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img10"
+			rendered="#{row.docfaTarReport.flgUiuCatasto eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente a catasto alla data del docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img11"
+			rendered="#{row.docfaTarReport.flgUiuCatasto eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Assente a catasto alla data del docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img12"
+			rendered="#{row.docfaTarReport.flgUiuCatasto == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img13"
+			rendered="#{row.docfaTarReport.flgDocfaSNoC eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di cessazione senza costituzione:SI" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img14"
+			rendered="#{row.docfaTarReport.flgDocfaSNoC == null or row.docfaTarReport.flgDocfaSNoC eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di cessazione senza costituzione:NO" />
+		</h:graphicImage>
+	</rich:column>
+	<f:facet name="footer">
+		<rich:datascroller id="tableScroller" style="padding-bottom: 13px;" />
+	</f:facet>
+
+	<rich:componentControl event="onRowClick" for="menu" operation="show">
+		<f:param name="idRepSelected" value="#{row.docfaTarReport.idRep}" />
+	</rich:componentControl>
+</rich:dataTable>
+
+<center>
+<h:panelGrid columns="2">
+<h:outputText value="Esporta la lista in: " />
+<h:commandLink
+	action="#{exportXLSBean.resultListTarsuExportToXls}">
+	<h:graphicImage value="/images/xls.png"
+		style="padding-left:10px; border: 0; cursor: pointer;" />
+</h:commandLink>
+<h:outputText value="Esporta la lista con i titolari in: " />
+<h:commandLink action="#{exportXLSBean.resultListTarsuSoggExportToXls}">
+	<h:graphicImage value="/images/xls.png"
+		style="padding-left:10px; border: 0; cursor: pointer;" />
+</h:commandLink>
+</h:panelGrid></center>
+
+</html>

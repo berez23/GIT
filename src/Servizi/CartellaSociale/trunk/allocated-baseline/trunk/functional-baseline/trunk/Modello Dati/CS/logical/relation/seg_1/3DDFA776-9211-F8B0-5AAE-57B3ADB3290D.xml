@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_SOGGETTO_CASO" id="3DDFA776-9211-F8B0-5AAE-57B3ADB3290D" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>B0002351-3523-D52B-8CE8-D4AD165D6B8A</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>0247F960-DEB4-61A1-D206-7E75FF68C959</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>2C0EE361-C082-49EE-CF6F-65FCE65FA4F0</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

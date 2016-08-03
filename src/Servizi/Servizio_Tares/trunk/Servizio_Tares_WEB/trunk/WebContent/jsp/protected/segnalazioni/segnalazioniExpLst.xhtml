@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	
+	<div align="center">
+	<h:form id="frm">
+	<rich:panel style="align: center;">
+			
+	<rich:spacer width="5px" height="30px"/>
+	
+	<h:graphicImage value="/images/info.gif" rendered="true"/>
+	<h:outputText value="Sfiorare il Titolo della colonna per avere maggiori informazioni" />
+    <rich:spacer width="5px"/>
+
+		
+	<rich:dataTable id="tblSegnalazioni" 
+			value="#{segnalaBean.lstSegnalazioniEsportate}" 
+			var="segnalazione" 
+			style="width: 100%; text-align:center" 
+			rendered="true">
+			
+				<f:facet name="header">
+                        <rich:columnGroup>
+                           <rich:column >
+			                <h:panelGrid columns="1">
+					            <h:outputText value="COD. ENTE" id="lblBelfiore" />
+               					<rich:toolTip for="lblBelfiore" value="Codice Belfiore del Comune" styleClass="tooltip"/>
+				        	</h:panelGrid>
+					     	</rich:column>
+                            <rich:column>
+	                            <h:panelGrid columns="1">
+						            <h:outputText value="DATA INSERIMENTO" id="lblDataIns" />
+						            <rich:toolTip for="lblDataIns" value="Data Inserimento della segnalazione" styleClass="tooltip"/>
+						        </h:panelGrid>
+                            </rich:column>
+                            <rich:column>
+                                <h:panelGrid columns="1">
+									<h:outputText value="Nome FILE" id="lblFile" />
+				               		<rich:toolTip for="lblFile" value="Nome file originale TXT" styleClass="tooltip"/>
+				               	</h:panelGrid>
+                            </rich:column>
+                            <rich:column>
+								<h:panelGrid columns="1">
+									<h:outputText value="Nome ZIP" id="lblZip" />
+			               			<rich:toolTip for="lblZip" value="Nome file comprezzo ZIP" styleClass="tooltip"/>
+		               			</h:panelGrid>
+                            </rich:column>
+                            <rich:column>
+			                    <h:panelGrid columns="1">
+				                    <h:outputText value="PROGRESSIVO" id="lblProgressivo" />
+				                    <rich:toolTip for="lblProgressivo" value="Numero progressivo delle segnalazioni" styleClass="tooltip"/>
+				                </h:panelGrid>
+                            </rich:column>
+                            <rich:column>
+			                   <h:panelGrid columns="1">
+				                   <h:outputText value="SCARICATO" id="lblScaricato" />
+			                   		<rich:toolTip for="lblScaricato" value="Segnala se il File ZIP è già stato scaricato o ppure è da scaricare " styleClass="tooltip"/>
+			                   </h:panelGrid>
+                            </rich:column>
+                            <rich:column >
+			                   <rich:spacer width="5px"/>
+					     	</rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+			
+                    <rich:column > 
+		                   <h:outputText value="#{segnalazione.codiceAmministrativo}" />
+                   	</rich:column>
+                    <rich:column >
+							<h:outputText value="#{segnalazione.dataInserimento}" >
+								<f:convertDateTime type="date" pattern="dd/MM/yyyy" timeZone="#{segnalaBean.defaultTimeZone}"/>
+							</h:outputText>
+                   	</rich:column>
+					<rich:column >
+							<h:outputText value="#{segnalazione.nomeFile}" />
+                   	</rich:column>
+					<rich:column >
+					<h:commandLink action="#{segnalaBean.doDownload}" value="#{segnalazione.nomeZip}">
+						<a4j:actionparam value="#{segnalaBean.pathFornitura}#{segnalazione.nomeZip}" 
+							name="dichId"
+							assignTo="#{segnalaBean.fileName}" />
+						<a4j:support ajaxSingle="true" event="onclick"
+							 			  action="#{segnalaBean.doValidateStatus}" 
+							 			  reRender="tblSegnalazioni">
+			                	<f:setPropertyActionListener value="#{segnalazione}" target="#{segnalaBean.segnalazioneCur}"/>
+			               </a4j:support>
+					</h:commandLink>
+                   	</rich:column>
+					<rich:column >
+							<h:outputText value="#{segnalazione.progressivo}" />
+                   	</rich:column>
+					<rich:column style="background-color: #{segnalazione.scaricato?'lightblue':'yellow'};">
+							<h:outputText value="#{segnalazione.scaricato}" />
+                   	</rich:column>
+                   	<rich:column >
+	                   <a4j:commandButton value="Dettaglio"
+							oncomplete="Richfaces.showModalPanel('segnalazioneDettaglioModalBox'); return false;"
+							reRender="segnalazioneDettaglioModalBox"
+							action="#{segnalaBean.doSegnalazioneView}">
+							<f:setPropertyActionListener value="#{segnalazione}" target="#{segnalaBean.segnalazioneCur}"/>
+						</a4j:commandButton>
+						<rich:spacer width="5px"/>
+						<a4j:commandButton value="Elimina"
+							reRender="tblSegnalazioni"
+							action="#{segnalaBean.doSegnalazioneDel}"
+							disabled="#{segnalazione.scaricato}">
+							<f:setPropertyActionListener value="#{segnalazione}" target="#{segnalaBean.segnalazioneCur}"/>
+						</a4j:commandButton>
+                   	</rich:column>
+
+	        	<f:facet name="footer">
+	 				<rich:columnGroup>
+	                	<rich:column colspan="7" style="text-align: center; ">
+								<rich:spacer width="5px"/>
+						</rich:column>
+					</rich:columnGroup>
+			    </f:facet>	  
+					    
+	    </rich:dataTable>
+
+		</rich:panel>			
+	</h:form>
+	
+	<ui:include src="/jsp/protected/segnalazioni/segnalazioneDettaglioModal.xhtml" />
+	
+	</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

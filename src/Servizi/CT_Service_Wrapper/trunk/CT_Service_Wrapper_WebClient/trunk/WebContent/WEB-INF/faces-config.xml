@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+
+
+	<managed-bean>
+		<!-- Interrogazione Territorio -->
+		<managed-bean-name>itHomeBean</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.wrapper.intTerritorio.client.bean.HomeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<!-- Verifica Coordinate -->
+		<managed-bean-name>vcHomeBean</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.wrapper.verificaCoordinate.client.bean.HomeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>client.home</from-outcome>
+			<to-view-id>/jsp/protected/welcome.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>client.IT.home</from-outcome>
+			<to-view-id>/jsp/protected/interrogazioniTerritorio/home.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>client.VC.home</from-outcome>
+			<to-view-id>/jsp/protected/verificaCoordinate/home.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<message-bundle>it.webred.ct.service.wrapper.resources.messages</message-bundle>
+	</application>
+
+</faces-config>

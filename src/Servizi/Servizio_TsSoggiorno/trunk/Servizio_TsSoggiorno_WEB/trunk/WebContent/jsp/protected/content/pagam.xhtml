@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<rich:panel id="dati" styleClass="clsCenterPanel">
+	<f:facet name="header">
+		<h:outputText value="Lista versamenti" />
+	</f:facet>
+
+	<h:form id="frmPag">
+<!--  
+		<h:panelGrid columns="4">
+			<h:outputText value="RIFERITI ALLA DICHIARAZIONE DEL PERIODO DI" />
+			<h:outputText value="GENNAIO" style="font-weight: bold;" />
+			<h:outputText value=", ANNO" />
+			<h:outputText value="2013" style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="4">
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="HOTEL GRANDE" style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="4 STELLE" style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<br/>
+-->
+		<rich:dataTable var="row" value="#{versamentoBean.listaVersamenti}"
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Cod. Fiscale" />
+				</f:facet>
+				<h:outputText value="#{row.codFiscale}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Descrizione" />
+				</f:facet>
+				<h:outputText value="#{row.segmento}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Data" />
+				</f:facet>
+				<h:outputText value="#{row.dataContabile}"  >
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"></f:convertDateTime>
+				</h:outputText>
+			</rich:column>
+			<rich:column style="text-align:right;width:10%">
+				<f:facet name="header">
+					<h:outputText value="Importo" />
+				</f:facet>
+				<h:outputText value="#{row.formatImporto} €" />
+			</rich:column>
+			<rich:column style="text-align:right;">
+				<f:facet name="header">
+					<h:outputText value="Commissioni" />
+				</f:facet>
+				<h:outputText value="#{row.formatImportoSpeseComm} €" />
+			</rich:column>
+			<rich:column style="width:50%">
+				<f:facet name="header">
+					<h:outputText value="Motivo" />
+				</f:facet>
+				<h:outputText value="#{row.motivo}" />
+			</rich:column>
+			<!--  
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="3">
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/search.gif" id="img1">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent">
+							<a4j:actionparam value="true" name="visPg"
+								assignTo="#{pageBean.visPagam}" />
+						</a4j:support>
+						
+						<h:outputLabel value="Visualizza" style="cursor:pointer" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:column>
+			-->
+		</rich:dataTable>
+
+	</h:form>
+</rich:panel>
+
+<rich:panel styleClass="clsCenterPanel" rendered="#{pageBean.visPagam}">
+	<f:facet name="header">
+		<h:outputText value="Versamento" />
+	</f:facet>
+
+	<h:form id="frmPagam">
+
+		<div align="right" style="float: right;">
+			<h:panelGrid columns="2" styleClass="clsButton">
+				<h:graphicImage value="/images/print.png" id="img1">
+				</h:graphicImage>
+				<h:outputLabel value="Stampa" style="cursor:pointer" />
+			</h:panelGrid>
+		</div>
+
+		<h:panelGrid columns="4">
+			<h:outputText value="RIFERITO AL PERIODO DI" />
+			<h:outputText value="GENNAIO" style="font-weight: bold;" />
+			<h:outputText value=", ANNO" />
+			<h:outputText value="2012" style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="4">
+
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="HOTEL GRANDE" style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="4 STELLE" style="font-weight: bold;" />
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="6">
+			<h:outputText value="Codice:" />
+			<h:outputText value="014943524285" style="font-weight: bold;" />
+			<h:outputText value="Data creazione:" />
+			<h:outputText value="27/12/2011" style="font-weight: bold;" />
+			<h:outputText value="Importo:" />
+			<h:outputText value="€ 115,00" style="font-weight: bold;" />
+
+			<h:outputText value="Conto:" />
+			<h:outputText value="1000000006300" style="font-weight: bold;" />
+			<h:outputText value="ABI:" />
+			<h:outputText value="3069" style="font-weight: bold;" />
+			<h:outputText value="CAB:" />
+			<h:outputText value="1671" style="font-weight: bold;" />
+
+			<h:outputText value="Causale:" />
+			<h:outputText value="07000" style="font-weight: bold;" />
+		</h:panelGrid>
+	</h:form>
+</rich:panel>
+
+</html>

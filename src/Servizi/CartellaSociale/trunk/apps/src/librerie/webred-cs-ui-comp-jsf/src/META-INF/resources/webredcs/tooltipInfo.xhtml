@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+	  	xmlns:composite="http://java.sun.com/jsf/composite">
+      
+	<h:head>
+		<title>Tooltip con informazioni</title>
+	</h:head>
+	<h:body>
+		<composite:interface componentType="tooltipInfo">
+			<composite:attribute name="title"/>
+			<composite:attribute name="valueList"/>
+			<composite:attribute name="stringList"/>
+			<composite:attribute name="stringDescr"/>
+		</composite:interface>
+		<composite:implementation>
+			<style type="text/css">
+				.datalist-noborder .ui-widget-content {
+					border: none;
+				}
+			</style>
+			
+			<p:graphicImage id="imgTooltip#{cc.attrs.var}" value="/webredcs/img/info.png" height="25px"
+				style="cursor: pointer;" />
+				
+			<p:tooltip for="imgTooltip#{cc.attrs.var}" style="width: 350px;">
+				<h:outputText style="font-weight: bold;"
+					value="#{cc.attrs.title}" />
+				<p:spacer height="3px" width="100%" />
+				
+				<div class="datalist-noborder">
+				<p:dataList value="#{cc.attrs.valueList}" var="row" type="definition" rendered="#{not empty cc.attrs.valueList}">  
+				    <h:outputText style="font-weight: bold; font-size: 12px;" value="#{row.descrizione}: "/> 
+				    <h:outputText style="font-size: 12px;" value=" #{row.tooltip}" /> 
+				</p:dataList>
+				<p:dataList value="#{cc.attrs.stringList}" var="row" type="definition" rendered="#{not empty cc.attrs.stringList}">  
+				    <h:outputText style="font-size: 12px;" value="#{row}"/> 
+				</p:dataList>
+				<h:outputText style="font-size: 12px;" value="#{cc.attrs.stringDescr}" rendered="#{not empty cc.attrs.stringDescr}"/>
+				</div>
+				
+			</p:tooltip>
+					
+		</composite:implementation>
+	</h:body>
+		
+</html>

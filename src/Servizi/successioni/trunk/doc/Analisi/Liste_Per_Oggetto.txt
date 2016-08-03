@@ -1,0 +1,64 @@
+SELECT distinct 
+ nota.id_fornitura Fornitura,to_date(FORN.DATA_INIZIO,'ddmmyyyy') DATA_INIZIO,to_date(FORN.DATA_FINE,'ddmmyyyy')DATA_FINE,nota.id_nota Nota ,nota.NUMERO_NOTA_TRAS NUMERO_NOTA,nota.anno_NOTA anno, sogg.cognome, sogg.nome, sogg.codice_fiscale,sogg.LUOGO_NASCITA, to_date(sogg.DATA_NASCITA,'ddmmyyyy') data_nascita, sogg.denominazione,  sogg.sede, sogg.codice_fiscale_g,
+tito.tipo_titol_nota Tipo_Soggetto,	     DECODE (tito.cod_diritto,'1', 'PROPRIETA','1S', 'PROPRIETA SUPERF.','1T', 'PROP.X AREA',
+                 '2', 'NUDA PROP.','2S', 'NUDA PROP. SUPERF.','3', 'ABITAZIONE',
+                 '3S', 'ABITAZIONE PROPR. SUPERF.','4', 'DIRITTO DEL CONCEDENTE','5', 'DIRITTO ENFITEUTA',
+                 '6', 'SUPERFICIE','7', 'USO','7S', 'USO PROPR. SUPERF.','8', 'USUFRUTTO',
+                 '8A', 'USUFRUTTO CON DIRITTO DI ACCRESCIMENTO','8E', 'USUFRUTTO SU ENFITEUSI',
+                 '8S', 'USUF.PROPR.SUPERF.','9', 'SERVITU','10', 'ONERI',tito.cod_diritto) codice_diritto,tito.perce perc_poss, 	 			decode(fabINFO.flag_graffato,null,'NO','0','NO','SI' ) graffato, fabbr.TIPO_DENUNCIA ,
+		 decode(nota.flag_rettifica, '1','SI','NO') Rettifica, fabbr.foglio, fabbr.numero, fabbr.subalterno, fabinfo.categoria,
+       fabinfo.classe, fabinfo.rendita_euro rendita,fabinfo.toponimo, fabinfo.t_indirizzo INDIRIZZO,
+	   fabinfo.t_civico1 civico, fabinfo.t_civico2 civ2, fabinfo.t_civico3 civ3 
+	   FROM mi_dup_fabbricati_identifica fabbr,
+         mi_dup_nota_tras nota,
+         (SELECT t.*,
+                 DECODE (t.t_toponimo,'000', '','018', 'BST ','058', 'CSO ','078', 'GLL ','080', 'SIT ','086', 'LGO ','090', '',
+                         '130', 'PZA ','132', 'PLE ','134', 'PTA ','142', 'RIP ','18', 'BST ','200', '','206', '','210', '',
+                         '234', '','236', 'VIA ','240', 'VLE ','248', 'VLO ','262', 'FOR ','264', '','268', 'ALZ ','300', '',
+                         '302', '','303', '','469', '','58', 'CSO ','605', '','607', '','608', '','639', '','78', 'GLL ','86', 'LGO ',
+                         t.t_toponimo) toponimo
+            FROM mi_dup_fabbricati_info t) fabinfo,
+			mi_dup_soggetti sogg,
+			(select t.* ,       ROUND(DECODE (quota_denominatore,NULL, NULL,0, NULL,quota_numeratore / quota_denominatore / 10),3) perce 
+from (	select	id_fornitura, id_nota, id_soggetto_nota, id_soggetto_catastale,
+       tipo_soggetto, id_immobile, tipologia_immobile,
+	   DECODE (sc_flag_tipo_titol_nota,NULL, sf_flag_tipo_titol_nota,sc_flag_tipo_titol_nota) tipo_titol_nota,
+       DECODE (sc_codice_diritto,NULL, sf_codice_diritto,sc_codice_diritto) cod_diritto,
+       DECODE (sc_flag_tipo_titol_nota,'C', DECODE (sc_quota_numeratore,NULL, NULL,sc_quota_numeratore),DECODE (sf_quota_numeratore, NULL, NULL, sf_quota_numeratore)) quota_numeratore,
+       DECODE (sc_flag_tipo_titol_nota,'C', DECODE (sc_quota_denominatore,NULL, NULL,sc_quota_denominatore),DECODE (sf_quota_denominatore,NULL, NULL,sf_quota_denominatore)) quota_denominatore,
+       DECODE (sc_regime, NULL, sf_regime, sc_regime) regime,
+       DECODE (sc_soggetto_rif,NULL, sc_soggetto_rif,sc_soggetto_rif) soggetto_rif,
+       pr_fla_tipo_titol_cat, pr_id_titolarita, pr_codice_diritto,
+       pr_quota_numeratore, pr_quota_denomin, pr_titolo_non_cod, pr_regime,
+       pr_soggetto_rif, dr_fla_tipo_titol_cat, dr_id_titolarita,
+       dr_codice_diritto, dr_quota_numeratore, dr_quota_denomin,
+       dr_titolo_non_cod, dr_regime, dr_soggetto_rif
+  FROM mi_dup_titolarita )t) TITO
+, MI_DUP_FORNITURE FORN   
+where  nvl(tito.id_soggetto_nota,'vuoto') = nvl(sogg.id_soggetto_nota,'vuoto') AND TITO.ID_NOTA = SOGG.ID_NOTA AND TITO.ID_FORNITURA = SOGG.ID_FORNITURA 
+   AND sogg.id_nota = NOTA.ID_NOTA AND sogg.id_fornitura = NOTA.ID_FORNITURA AND TITO.ID_NOTA = FABBR.ID_NOTA    
+     AND nota.id_nota = fabbr.id_nota
+     AND nota.id_fornitura = fabbr.id_fornitura
+     AND fabbr.id_fornitura = fabinfo.id_fornitura
+     AND fabbr.id_nota = fabinfo.id_nota
+     AND fabbr.id_immobile = fabinfo.id_immobile
+	 AND FORN.PK_FORNITURA=NOTA.ID_FORNITURA
+-- aggiunto 07/04/2006
+ 	 AND tito.id_immobile =fabinfo.id_immobile 
+     AND TO_DATE(FORN.DATA_INIZIO,'ddmmyyyy')>=?
+	 AND TO_DATE(FORN.DATA_FINE,'ddmmyyyy')<=?
+	 and nota.NUMERO_NOTA_TRAS>=?
+ 	 and nota.NUMERO_NOTA_TRAS<=?
+	 and nota.anno_NOTA=?
+	 and fabinfo.categoria=?
+	 and fabinfo.classe= ?
+	 and decode(TRIM(fabbr.FOGLIO),null,'null','','null',fabbr.FOGLIO) like ?
+ 	 and decode(TRIM(fabbr.numero),null,'null','','null',fabbr.numero) like ? 
+ 	 and decode(TRIM(fabbr.SUBALTERNO),null,'null','','null',fabbr.SUBALTERNO)like ?
+ 	 and fabinfo.rendita_euro>=?
+  	 and fabinfo.rendita_euro<=?
+	 AND decode(fabINFO.flag_graffato,null,'N','0','N','S' ) =?
+	 --AND fabINFO.flag_graffato=?
+	 and fabbr.TIPO_DENUNCIA= ?
+	 and tito.perce >=?
+	 and tito.perce <= ?

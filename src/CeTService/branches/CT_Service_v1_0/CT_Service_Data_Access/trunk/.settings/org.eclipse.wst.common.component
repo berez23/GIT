@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="CT_Service_Data_Access">
+        <wb-resource deploy-path="/" source-path="/ejbModule"/>
+        <dependent-module deploy-path="/" handle="module:/resource/CT_Service_Data_AccessClient/CT_Service_Data_AccessClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="ClientJARURI" value="CT_Service_Data_AccessClient.jar"/>
+        <property name="ClientProject" value="CT_Service_Data_AccessClient"/>
+        <property name="java-output-path" value="/GIT_Service_Data_Access/build/classes"/>
+    </wb-module>
+</project-modules>

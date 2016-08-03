@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#jsp#protected#ricercaRichieste.xhtml"
+  PATH="/jsp/protected/ricercaRichieste.xhtml" SHAPE="48,497,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#cartellaContr.xhtml"
+  PATH="/jsp/protected/cartellaContr.xhtml" SHAPE="32,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#selectContrib.xhtml"
+  PATH="/jsp/protected/selectContrib.xhtml" SHAPE="32,1009,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,1265,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="goRicerca::#jsp#protected#ricercaRichieste.xhtml" NAME="output"
+    PATH="/jsp/protected/ricercaRichieste.xhtml"
+    TARGET="rules:#jsp#protected#ricercaRichieste.xhtml"
+    TITLE="goRicerca" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="goCartellaContribuente::#jsp#protected#cartellaContr.xhtml"
+    NAME="output1" PATH="/jsp/protected/cartellaContr.xhtml"
+    TARGET="rules:#jsp#protected#cartellaContr.xhtml"
+    TITLE="goCartellaContribuente" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="goSelectContribuente::#jsp#protected#selectContrib.xhtml"
+    NAME="output2" PATH="/jsp/protected/selectContrib.xhtml"
+    TARGET="rules:#jsp#protected#selectContrib.xhtml"
+    TITLE="goSelectContribuente" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="goFiltroRichieste::#jsp#protected#filtroRichieste.xhtml"
+    NAME="output3" PATH="/jsp/protected/filtroRichieste.xhtml"
+    TARGET="rules:#jsp#protected#filtroRichieste.xhtml"
+    TITLE="goFiltroRichieste" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="goCartellaEvasa::#jsp#protected#cartellaEvasa.xhtml"
+    NAME="output5" PATH="/jsp/protected/cartellaEvasa.xhtml"
+    TARGET="rules:#jsp#protected#cartellaEvasa.xhtml"
+    TITLE="goCartellaEvasa" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="goCartellaNonEvasa::#jsp#protected#cartellaNonEvasa.xhtml"
+    NAME="output6" PATH="/jsp/protected/cartellaNonEvasa.xhtml"
+    TARGET="rules:#jsp#protected#cartellaNonEvasa.xhtml"
+    TITLE="goCartellaNonEvasa" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="goLogout::#jsp#logout.xhtml" NAME="output7"
+    PATH="/jsp/logout.xhtml" TARGET="rules:#jsp#logout.xhtml"
+    TITLE="goLogout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#filtroRichieste.xhtml"
+  PATH="/jsp/protected/filtroRichieste.xhtml" SHAPE="288,1265,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#cartellaEvasa.xhtml"
+  PATH="/jsp/protected/cartellaEvasa.xhtml" SHAPE="304,1537,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#cartellaNonEvasa.xhtml"
+  PATH="/jsp/protected/cartellaNonEvasa.xhtml" SHAPE="304,1569,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#logout.xhtml" PATH="/jsp/logout.xhtml"
+  SHAPE="304,1601,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

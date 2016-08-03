@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodFornituraDocfaBean" table="BOD_FORNITURE_DOCFA"  >
+  <id column="ID_FOR_DOCFA" name="idForDocfa" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_FORNITURE_DOCFA</param>	   
+	   </generator>
+  </id>
+  
+  <property column="PATH_FILE_NAME" name="pathFileName" type="java.lang.String"/>
+  <property column="IST_FK" name="istFk" type="java.lang.Long"/>
+  <property column="DESCRIZIONE" name="descrizione" type="java.lang.String"/>
+    
+ </class>
+
+</hibernate-mapping>

@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+	  	xmlns:composite="http://java.sun.com/jsf/composite"
+	  	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+      
+	<h:head>
+		<title>Dati Tribunale</title>
+	</h:head>
+	<h:body>
+		<composite:interface componentType="pnlDatiTribunale">
+			<composite:attribute name="iDatiTribunale" type="it.webred.cs.jsf.interfaces.IDatiTribunale"/>
+		</composite:interface>
+		<composite:implementation>			
+			
+			<table border="0" width="100%">
+				<tr>
+					<td>
+						<h:outputText value="TM Civile" />
+					</td>
+					<td>
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiTribunale.TMCivile}" />
+					</td>
+					<td>
+						<h:outputText value="TM Amministrativo" />
+					</td>
+					<td>
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiTribunale.TMAmministrativo}" />
+					</td>
+					<td>
+						<h:outputText value="Penale minorile" />
+					</td>
+					<td>
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiTribunale.penaleMinorile}" />
+					</td>
+					<td>
+						<h:outputText value="TO" />
+					</td>
+					<td>
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiTribunale.TO}" />
+					</td>
+					<td>
+						<h:outputText value="NIS" />
+					</td>
+					<td>
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiTribunale.NIS}" />
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<h:outputText value="Macro segnalazione" />
+					</td>
+					<td colspan="3">
+						<p:selectOneMenu value="#{cc.attrs.iDatiTribunale.idMacroSegnalazione}">
+	            			<f:selectItems value="#{cc.attrs.iDatiTribunale.lstMacroSegnalazioni}"/>
+	            		</p:selectOneMenu>
+					</td>
+					<td colspan="2">
+						<h:outputText value="Micro segnalazione" />
+					</td>
+					<td colspan="3">
+						<p:selectOneMenu value="#{cc.attrs.iDatiTribunale.idMicroSegnalazione}">
+	            			<f:selectItems value="#{cc.attrs.iDatiTribunale.lstMicroSegnalazioni}"/>
+	            		</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<h:outputText value="Motivo segnalazione" />
+					</td>
+					<td colspan="3">
+						<p:selectOneMenu value="#{cc.attrs.iDatiTribunale.idMotivoSegnalazione}">
+	            			<f:selectItems value="#{cc.attrs.iDatiTribunale.lstMotiviSegnalazioni}"/>
+	            		</p:selectOneMenu>
+					</td>
+				</tr>
+			</table>
+
+		</composite:implementation>
+	</h:body>
+	
+</html>

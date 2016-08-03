@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition>
+	<h:form>
+	
+		<h:inputHidden value="#{pdfBean.sezione}" />
+		<h:inputHidden value="#{pdfBean.foglio}" />
+		<h:inputHidden value="#{pdfBean.particella}" />
+		<h:inputHidden value="#{pdfBean.idRich}" />
+		<h:inputHidden value="#{pdfBean.username}" />
+		<h:inputHidden value="#{pdfBean.soggRichiedente}" />
+		<h:inputHidden value="#{pdfBean.dataRichiesta}" />
+		<h:inputHidden value="#{pdfBean.dataRif}" />
+		
+		<rich:panel>
+			<f:facet name="header">Riepilogo dati scheda</f:facet>
+			
+			<h:panelGrid columns="4">
+				<h:outputText value="Identificativo richiesta:" styleClass="myLabel"/>
+				<h:outputLabel value="#{pdfBean.idRich}" />
+
+				<h:outputText value="Data richiesta:" styleClass="myLabel"/>
+				<h:outputLabel value="#{pdfBean.dataRichiesta}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{pdfBean.timeZone}"/>
+				</h:outputLabel>
+		
+				<h:outputText value="Soggetto richiedente:" styleClass="myLabel"/>
+				<h:outputLabel value="#{pdfBean.soggRichiedente}" />
+				
+				<h:outputText value="Operatore: " styleClass="myLabel"/>
+				<h:outputLabel value="#{pdfBean.username}" />
+						
+		 	   <h:panelGroup>
+				<h:outputText value="S / F / P: " styleClass="myLabel" />  
+				<h:outputLabel value=" #{pdfBean.sezione} / #{pdfBean.foglio} / #{pdfBean.particella}"/>
+			  </h:panelGroup>
+				  
+			</h:panelGrid>
+			
+		</rich:panel>
+		
+		<rich:panel>
+			<f:facet name="header">Sezioni PDF</f:facet>
+			<h:outputLabel value="Selezionare le schede da includere nel file pdf da produrre" />
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Catasto" />
+				<h:selectBooleanCheckbox value="#{pdfBean.cbxCatasto}"/>
+
+				<h:outputLabel value="Dati tecnici" />
+				<h:selectBooleanCheckbox value="#{pdfBean.cbxDatiTecnici}"/>
+
+				<h:outputLabel value="Stato occup." />
+				<h:selectBooleanCheckbox value="#{pdfBean.cbxStatoOccupazione}"/>
+
+				<h:outputLabel value="Tributi" />
+				<h:selectBooleanCheckbox value="#{pdfBean.cbxTributi}"/>
+				
+				<h:outputLabel value="Dati Cartografici" />
+				<h:selectBooleanCheckbox value="#{pdfBean.cbxDatiCartografici}"/>
+				
+				<h:outputLabel value="Documenti" />
+				<h:selectBooleanCheckbox value="#{pdfBean.cbxDocumenti}"/>
+				
+			</h:panelGrid>
+			
+		</rich:panel>
+		
+		<rich:spacer height="15px"/>
+		<h:outputText style="font-style:italic;" value="Ai fini della privacy dei dati trattati, si fa presente che tutti i dati associati alla richiesta (soggetto richiedente, operatore che ha gestito la richiesta) sono stati memorizzati." />
+				
+		<br/>
+		<rich:spacer height="15px"/>
+		<center>
+		   
+			<a4j:commandButton action="#{pdfBean.createPDF}" styleClass="my-button" 
+							   value="Crea PDF" style="width:150px"
+							   reRender="cancPDF, showPDF, cancPDF1, showPDF1">
+			</a4j:commandButton>
+		</center>
+		
+		<rich:spacer height="15px"/>
+		<center>
+		<table>
+		  <tr>
+		    <td>
+				<h:commandLink  id="showPDF1"
+								value="MOSTRA PDF"
+								disabled="#{empty filtroBean.nomePdf}" 
+								action="#{pdfBean.doDownloadPDF}"  
+								style="width:150px;font-weight: bold;color:black;">
+				
+						<a4j:actionparam name="filename" value="#{pdfBean.filename}" assignTo="#{pdfBean.filename}" />
+				</h:commandLink>
+			</td>
+			<td>
+								<h:commandLink id="cancPDF1"
+										value="CANCELLA PDF" 
+										disabled="#{empty filtroBean.nomePdf}"
+										action="#{pdfBean.doCancellaPdf}"  
+										style="width:150px;font-weight: bold;color:black;">
+										
+										<a4j:actionparam name="filename" value="#{filtroBean.nomePdf}" assignTo="#{pdfBean.filename}" />
+										<a4j:actionparam name="idRich" value="#{filtroBean.richiestaSelezionata.richiesta.idRichiesta}" assignTo="#{pdfBean.idRich}" />
+										
+										<a4j:support event="oncomplete" reRender="cancPDF,showPDF" />
+									</h:commandLink>		
+						
+			</td>
+			</tr>
+		</table>
+		</center>
+	</h:form>
+</ui:composition>
+
+</html>  		

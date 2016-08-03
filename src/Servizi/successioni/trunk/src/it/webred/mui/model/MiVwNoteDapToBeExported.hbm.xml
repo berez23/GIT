@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="it.webred.mui.model.MiVwNoteDapToBeExported">
+		<subselect>
+            select t.iid,t.iid_fornitura from suc_dup_titolarita t, SUC_DUP_SOGGETTI S 
+            where T.IID_FORNITURA = S.IID_FORNITURA
+            AND T.IID_NOTA = S.IID_NOTA
+            AND T.IID_SOGGETTO = S.IID
+             minus 
+            select iid_titolarita,iid_fornitura from suc_cons_dap
+		</subselect>
+		<synchronize table="suc_cons_dap"/>
+		<id name="iid" type="long">
+            <column name="iid" precision="15" scale="0" />
+        </id>
+        <many-to-one name="miDupFornitura" class="it.webred.mui.model.MiDupFornitura" fetch="select">
+            <column name="IID_FORNITURA" precision="15" scale="0" not-null="true" />
+        </many-to-one>
+        <one-to-one name="miDupTitolarita" class="it.webred.mui.model.MiDupTitolarita"/>
+	</class>
+</hibernate-mapping>

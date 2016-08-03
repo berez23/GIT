@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_DATISOC_TITOLOSTU" id="E1F68040-E759-958C-BE01-5F56AE927808" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>33583E5E-5A41-9257-266F-A47142CED51F</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>14F90802-64B8-0C54-BCFF-DF71B3E907AE</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F6CDE417-746D-A5A8-0CF5-AA270A3C6D38</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

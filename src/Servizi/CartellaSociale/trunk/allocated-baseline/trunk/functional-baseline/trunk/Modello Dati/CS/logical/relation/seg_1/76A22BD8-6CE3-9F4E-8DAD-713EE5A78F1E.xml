@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_SOGG_MEDIC_MEDICO" id="76A22BD8-6CE3-9F4E-8DAD-713EE5A78F1E" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>F4744F38-8875-012F-E442-42F745CBF9D4</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>B11C29F2-E1AE-F571-DB1A-511A19C19385</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>C087CDED-A40E-4E91-2F8E-8CBF4C6DE6A7</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

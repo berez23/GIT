@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.50 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.DcFromRel" table="DC_FROM_REL" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="dvUeFromEntityByFkDvEuFrom2" class="it.webred.diogene.db.model.DvUeFromEntity" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_DV_EU_FROM2" precision="10" scale="0"/>
+        </many-to-one>
+        <many-to-one name="dcRel" class="it.webred.diogene.db.model.DcRel" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_DC_REL" precision="10" scale="0" not-null="true"/>
+        </many-to-one>
+        <many-to-one name="dvUeFromEntityByFkDvEuFrom1" class="it.webred.diogene.db.model.DvUeFromEntity" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_DV_EU_FROM1" precision="10" scale="0"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<h:form id="myForm">
+				<div class="divTitolo">
+					<h:outputText value="ESAME RICHIESTE CARTELLA CONTRIBUENTE - DETTAGLIO RICHIESTA" />
+					<a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Dettaglio_Richiesta.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a>
+				</div>			
+   				<rich:panel rendered="#{not empty filtroBean.msgErrore}">
+   					<h:outputText value="#{filtroBean.msgErrore}" styleClass="errorStyleRicerca" />
+   					<rich:spacer height="10px" />
+   				</rich:panel>
+				<ui:include src="/jsp/protected/include/datiDichiatanteRichiesta.xhtml" />
+	  			<rich:spacer height="20px" />
+				<rich:panel>
+					<f:facet name="header">DATI EVASIONE RICHIESTA</f:facet>
+					<div>
+						<table border="0" style="width:100%" cellspacing="1">
+							<tbody>
+								<tr >
+									<td align="left" style="width:150px;">
+										<h:outputText value="DATA EVASIONE" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut">
+											<h:outputFormat value="{0,date,dd/MM/yyyy}" >
+												<f:param value="#{filtroBean.rispostaEvasa.dtRis}"/>
+											</h:outputFormat>											
+										</span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left" style="width:150px;">
+										<h:outputText value="RICHIESTA RESPINTA" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.respinto=='1'?'SI':'NO'}" /></span>
+									</td>
+								</tr>								
+								<tr >
+									<td align="left" style="width:150px;">
+										<h:outputText value="OPERATORE" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.userName}" /></span>			
+									</td>									
+								</tr>
+								<tr >
+									<td align="left" style="width:200px;">
+										<h:outputText value="MEZZO RISPOSTA EFFETTIVO" styleClass="myLabel" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.descMezzoRisposta}" /></span>			
+									</td>									
+								</tr>							
+								<tr >
+									<td align="left" style="width:150px;">
+										<h:outputText value="NOTA OPERATORE" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.desNotUser}" /></span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left" style="width:150px;">
+										<h:outputText value="TESTO RISPOSTA" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.desRis}" /></span>			
+									</td>
+								</tr>
+								<tr >
+									<td colspan="2" style="height:40px;padding-left: 10px;" >
+										<h:commandLink  rendered="#{not empty filtroBean.richiestaSelezionata.richiesta.nomePdf and filtroBean.richiestaSelezionata.richiesta.richRespinta eq '0'}" value="MOSTRA PDF" action="#{filtroBean.MostraPdf}"  style="width:150px;font-weight: bold;color:black;" >
+											<f:setPropertyActionListener value="#{filtroBean.richiestaSelezionata.richiesta.nomePdf}" target="#{filtroBean.nomePdf}" />
+										</h:commandLink>
+									</td>
+								</tr>							
+							</tbody>
+						</table>
+					</div>
+	  			</rich:panel>
+				<div>
+					<table>
+						<tr>
+							<td valign="middle" style="height: 40px;">
+								<a4j:commandLink action="#{filtroBean.returnListaRicerca}" value="Torna a lista richieste" /> 
+							</td>
+						</tr>
+					</table>	  	
+				</div>		  			
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

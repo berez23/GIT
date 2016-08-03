@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+
+	<!-- Join Locazioni_a/ Locazioni_B -->
+	<named-query name="Locazioni_A.getLocazioniByCF">
+		<query>
+			<![CDATA[
+				SELECT a 
+				FROM LocazioniA a, LocazioniB b 
+				WHERE a.ufficio = b.ufficio
+				  AND a.anno = b.anno
+				  AND a.serie = b.serie
+				  AND a.numero = b.numero
+				  AND b.codicefiscale=:codFis
+				ORDER BY a.dataInizio, a.dataFine, a.dataStipula 
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Locazioni_A.getLocazioniByCFAllaData">
+		<query>
+			<![CDATA[
+				SELECT a 
+				FROM LocazioniA a, LocazioniB b 
+				WHERE a.ufficio = b.ufficio
+				  AND a.anno = b.anno
+				  AND a.serie = b.serie
+				  AND a.numero = b.numero
+				  AND b.codicefiscale=:codFis
+				  AND (a.dataFine is null OR  a.dataFine >= :dtRif)
+				ORDER BY a.dataInizio, a.dataFine, a.dataStipula 
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Locazioni_B.getSoggByKey">
+		<query>
+			<![CDATA[
+				SELECT b 
+				FROM LocazioniB b 
+				WHERE b.ufficio = :ufficio
+				  AND b.anno = :anno
+				  AND b.serie = :serie
+				  AND b.numero = :numero
+				  and b.progSoggetto= :progSogg
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Locazioni_A.getOggByKey">
+		<query>
+			<![CDATA[
+				SELECT a 
+				FROM LocazioniA a 
+				WHERE a.ufficio = :ufficio
+				  AND a.anno = :anno
+				  AND a.serie = :serie
+				  AND a.numero = :numero
+			 
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Locazioni_A.getOggByKeyAllaData">
+		<query>
+			<![CDATA[
+				SELECT a 
+				FROM LocazioniA a 
+				WHERE a.ufficio = :ufficio
+				  AND a.anno = :anno
+				  AND a.serie = :serie
+				  AND a.numero = :numero
+				  AND (a.dataFine is null OR  a.dataFine >= :dtRif)
+			]]>
+		</query>
+	</named-query>
+	</entity-mappings>

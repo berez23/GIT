@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmNuovo">
+
+	<rich:panel styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:panelGrid columns="2">
+				<h:outputText
+					value="#{dichiarazioneBean.idSelezionato == null?'Nuova':'Modifica'} dichiarazione" />
+				<h:outputText
+					rendered="#{dichiarazioneBean.dichiarazione.integrativaInt == 1}"
+					value="integrativa" style="font-weight: bold;" />
+			</h:panelGrid>
+		</f:facet>
+
+		<h:panelGrid columns="2">
+			<h:outputText value="RIFERITA AL PERIODO DI" />
+			<h:outputText value="#{dichiarazioneBean.periodoDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<div align="right" style="float: right;">
+			<h:commandLink styleClass="clsButtonExp"
+				action="#{dichiarazioneBean.doStampaDichiarazione}">
+				<h:graphicImage value="/images/print.png" id="imgPrint"
+					style="border: 0; cursor: pointer;">
+				</h:graphicImage>
+				<a4j:actionparam value="true" name="antStmp"
+					assignTo="#{dichiarazioneBean.anteprimaStampa}" />
+				<a4j:actionparam value="true" name="antStmpItr"
+					assignTo="#{dichiarazioneBean.anteprimaStampaIter}" />
+							Anteprima stampa
+			</h:commandLink>
+		</div>
+
+		<h:panelGrid columns="4">
+
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="#{dichiarazioneBean.strutturaDescr}"
+				style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="#{dichiarazioneBean.classeDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+			<br/>
+		<div align="center">
+			<h:panelGrid columns="2">
+				<h:outputText value="Passo #{dichiarazioneBean.currentStep} di #{fn:length(dichiarazioneBean.stepArray)}:" />
+				<h:outputText value="Imposta" style="font-weight: bold;" />
+			</h:panelGrid>
+			<h:panelGrid columns="#{fn:length(dichiarazioneBean.stepArray)}" cellpadding="0" cellspacing="0">
+				<a4j:repeat value="#{dichiarazioneBean.stepArray}" var="step">
+					<h:graphicImage rendered="#{!step}" value="/images/stepOff.png" id="imgOff"></h:graphicImage>
+					<h:graphicImage rendered="#{step}" value="/images/stepOn.png" id="imgOn"></h:graphicImage>
+				</a4j:repeat>
+			</h:panelGrid>
+		</div>
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText value="A) ARRIVI" style="font-weight: bold;" />
+		</h:panelGrid>
+		<table class="clsTable" border="1" bordercolor="silver"
+			cellpadding="5">
+			<tr>
+				<td width="200">N. arrivi del mese</td>
+			</tr>
+			<tr>
+				<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:inputText id="inp_arrivi"
+							value="#{dichiarazioneBean.dichiarazione.arrivi}" />
+					
+						<rich:message for="inp_arrivi" showDetail="false"
+							showSummary="false">
+							<f:facet name="errorMarker">
+								<h:graphicImage value="/images/error.gif" />
+							</f:facet>
+						</rich:message>
+					</h:panelGrid></td>
+			</tr>
+		</table>
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText value="B) DEFINIZIONE DELL'IMPOSTA"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+		<table class="clsTable" border="1" bordercolor="silver"
+			cellpadding="5">
+			<tr>
+				<td width="200">N. presenze totali del periodo di competenza</td>
+				
+			</tr>
+			<tr>
+				<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:inputText id="inp_presenze"
+							value="#{dichiarazioneBean.dichiarazione.presenze}" >
+						 <f:converter converterId="javax.faces.Short"/>	
+						</h:inputText>
+						<rich:message for="inp_presenze" showDetail="false"
+							showSummary="false">
+							<f:facet name="errorMarker">
+								<h:graphicImage value="/images/error.gif" />
+							</f:facet>
+						</rich:message>
+					</h:panelGrid></td>
+			</tr>
+		</table>
+		<br />
+
+	<a4j:outputPanel id="areaRifiuti">
+		<h:panelGrid columns="2">
+			<h:outputText value="Rifiuti al pagamento" style="font-weight: bold;" />
+			
+			<h:graphicImage value="/images/help.png" id="imgHelp" title="Nel campo numero giorni di soggiorno  NON imputare i giorni di soggiorno del singolo firmatario ma IMPUTARE il totale dei giorni di soggiorni dei nuclei familiari/gruppi che non hanno effettuato il pagamento dell'imposta."
+					style="border: 0; cursor: pointer;">
+			</h:graphicImage>
+			
+		</h:panelGrid>
+		<h:panelGrid columns="3" cellpadding="0" cellspacing="0">
+			<a4j:repeat value="#{dichiarazioneBean.listaModuli1}" var="row">
+				<table class="clsTable" border="1" bordercolor="silver"
+					cellpadding="5" width="33" align="left">
+					<tr>
+						<td colspan="#{fn:length(row.listaField)}"><h:outputText
+								value="#{row.dati.descrizione1}" escape="false" /> <h:outputText
+								value="#{row.dati.descrizione2}" escape="false" /></td>
+					</tr>
+					<tr>
+						<a4j:repeat value="#{row.listaField}" var="row2">
+							<td><h:outputText value="#{row2.labelField}" escape="false" /></td>
+						</a4j:repeat>
+					</tr>
+					<tr>
+						<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+								<h:inputText id="inp_ospiti" value="#{row.ospiti.NOspiti}" >
+								</h:inputText>
+								<rich:message for="inp_ospiti" showDetail="false"
+									showSummary="false">
+									<f:facet name="errorMarker">
+										<h:graphicImage value="/images/error.gif" />
+									</f:facet>
+								</rich:message>
+							</h:panelGrid></td>
+						<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+								<h:inputText id="inp_soggiorni" value="#{row.ospiti.NSoggiorni}" />
+								<rich:message for="inp_soggiorni" showDetail="false"
+									showSummary="false">
+									<f:facet name="errorMarker">
+										<h:graphicImage value="/images/error.gif" />
+									</f:facet>
+								</rich:message>
+							</h:panelGrid></td>
+					</tr>
+				</table>
+			</a4j:repeat>
+		</h:panelGrid>
+		
+		<h:panelGrid columns="1">
+			<h:outputText value="Nominativi degli ospiti che rifiutano il pagamento CON firma del documento" style="font-weight: bold;" />
+			<h:outputText value="(I campi contrassegnati da * sono obbligatori)" rendered="#{fn:length(dichiarazioneBean.listaRifiuti) > 0}"/>
+		</h:panelGrid>
+		
+		<h:dataTable  value="#{dichiarazioneBean.listaRifiuti}" var="rif" class="clsTable" bordercolor="silver" width="99%" border="1" rules="rows">
+			  <rich:column >
+			 	
+			  	<h:graphicImage value="/images/delete.png" title="Rimuovi Dati Ospite" style="align:left;">
+				<a4j:support event="onclick" reRender="areaRifiuti"
+					action="#{dichiarazioneBean.rimuoviRifiuto}">
+					<a4j:actionparam  value="#{rif.id}" name="progRifiuto" assignTo="#{dichiarazioneBean.progRifiutoSel}" />
+				</a4j:support>
+			  	</h:graphicImage>
+			  	<h:graphicImage value="/images/reset.png" title="Cancella Dati Ospite" style="align:left;">
+				<a4j:support event="onclick" reRender="areaRifiuti"
+					action="#{rif.clearRifiuto}">
+				</a4j:support>
+			  	</h:graphicImage>
+			  	
+				<h:panelGrid columns="6" width="98%">
+				<h:outputText value="Cognome*" />
+				<h:inputText value="#{rif.rifiuto.cognome}" ></h:inputText>
+				<h:outputText value="Nome*" />
+				<h:inputText value="#{rif.rifiuto.nome}" ></h:inputText>
+					<h:outputText value="Cod.Fiscale" />
+				<h:inputText value="#{rif.rifiuto.codfisc}" maxlength="16" >
+					<f:validateLength maximum="16" minimum="16" ></f:validateLength>
+				</h:inputText>
+				
+				<h:outputText value="Data di Nascita" />
+				<rich:calendar id="dateDatNasc" value="#{rif.rifiuto.dataNasc}" datePattern="dd/MM/yyyy" />
+				<h:outputText value="Luogo di Nascita" />
+				<h:inputText value="#{rif.rifiuto.comuneNasc}" title="Comune di Nascita"></h:inputText>
+				<h:outputText value="Prov." />
+				<h:inputText value="#{rif.rifiuto.siglaProvNasc}" maxlength="2" style="width:40px" title="Provincia di nascita" ></h:inputText>
+				
+				<h:outputText value="Residente a" />
+				<h:inputText value="#{rif.rifiuto.comuneRes}" title="Comune di Residenza"></h:inputText>
+				<h:outputText value="CAP" />
+				<h:inputText value="#{rif.rifiuto.capRes}" maxlength="6"/>
+				<h:outputText value="Prov." />
+				<h:inputText value="#{rif.rifiuto.siglaProvRes}" maxlength="2" style="width:40px" title="Provincia di residenza"></h:inputText>
+					
+				<h:outputText value="Via/Piazza" />
+				<h:inputText value="#{rif.rifiuto.indirizzoRes}"></h:inputText>
+				<h:outputText value="Num.Civico" />	
+				<h:inputText value="#{rif.rifiuto.civicoRes}" style="width:40px"></h:inputText>
+				<h:outputLabel></h:outputLabel>
+				<h:outputLabel></h:outputLabel>
+				
+				<h:outputText value="Telefono" />
+				<h:inputText value="#{rif.rifiuto.tel}"></h:inputText>
+				<h:outputText value="Fax" />
+				<h:inputText value="#{rif.rifiuto.fax}"></h:inputText>
+				<h:outputText value="Email" />
+				<h:inputText value="#{rif.rifiuto.email}"></h:inputText>
+				
+				<h:outputText value="Soggiorno dal*" />
+				<rich:calendar id="dateSoggDal" value="#{rif.rifiuto.soggiornoDal}" datePattern="dd/MM/yyyy" />
+				<h:outputText value="Al*" />
+				<rich:calendar id="dateSoggAl" value="#{rif.rifiuto.soggiornoAl}" datePattern="dd/MM/yyyy"/>
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2" width="100%">
+				<h:panelGrid columns="1" width="100%">
+					<h:outputText value="Motivo del rifiuto" />
+					<h:inputTextarea id="motivo" value="#{rif.rifiuto.motivoRifiuto}" rows="2" style="width:98%" >
+					 	<f:validateLength maximum="1000" ></f:validateLength>
+					 </h:inputTextarea>
+				 		<rich:message for="motivo" showDetail="false"
+							showSummary="false">
+							<f:facet name="errorMarker">
+								<h:graphicImage value="/images/error.gif" />
+							</f:facet>
+						</rich:message>
+				</h:panelGrid>
+				<h:panelGrid columns="1" width="10%">
+	
+			
+				</h:panelGrid>
+				</h:panelGrid>
+			
+			</rich:column>
+			<rich:column>
+				<rich:spacer height="20px"></rich:spacer><br></br>
+				<h:outputText value="Elenco Nominativi degli altri componenti il gruppo/famiglia per i quali è" /><br></br>
+				<h:outputText value="resa la dichiarazione per lo stesso periodo" />
+				<h:dataTable  value="#{rif.gruppo}" var="fam" class="clsTable" bordercolor="silver"  width="400px" >
+				
+					<rich:column width="39%">
+					<f:facet name="header">
+						<h:outputLabel value="Cognome*" />
+					</f:facet>
+						<h:inputText value="#{fam.cognome}" />
+					</rich:column>
+					<rich:column width="39%">
+					<f:facet name="header">
+						<h:outputLabel value="Nome*" />
+					</f:facet>
+						<h:inputText value="#{fam.nome}" />
+					</rich:column>
+						<rich:column width="22%">
+					<f:facet name="header">
+						<h:outputLabel value="Cod.Fiscale" />
+					</f:facet>
+						<h:inputText value="#{fam.codfisc}" maxlength="16">
+							<f:validateLength maximum="16" minimum="16" ></f:validateLength>
+						</h:inputText>
+					</rich:column>
+				</h:dataTable>
+				
+				<h:panelGrid columns="2">
+				<h:panelGrid columns="2" styleClass="clsButton"
+					style="margin-left: 10px;">
+					<h:graphicImage value="/images/add.png" />
+					<a4j:support event="onclick" reRender="areaRifiuti" action="#{dichiarazioneBean.addComponenteGruppo}">
+						<a4j:actionparam  value="#{rif.id}" name="progRifiuto" assignTo="#{dichiarazioneBean.progRifiutoSel}" />
+					</a4j:support>
+					<h:outputLabel value="Aggiungi Soggetto" style="cursor:pointer" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2" styleClass="clsButton"
+					style="margin-left: 10px;" rendered="#{fn:length(rif.gruppo) > 0}">
+					<h:graphicImage value="/images/delete.png" />
+					<a4j:support event="onclick" reRender="areaRifiuti" action="#{dichiarazioneBean.removeLastComponenteGruppo}">
+						<a4j:actionparam  value="#{rif.id}" name="progRifiuto" assignTo="#{dichiarazioneBean.progRifiutoSel}" />
+					</a4j:support>
+					<h:outputLabel value="Elimina ultima riga" style="cursor:pointer" />
+				</h:panelGrid>
+				</h:panelGrid>
+			
+			
+			</rich:column>
+			
+		</h:dataTable>
+		</a4j:outputPanel>
+		
+		<h:panelGrid columns="2" styleClass="clsButton"
+				style="margin-left: 10px;">
+				<h:graphicImage value="/images/add.png" />
+				<a4j:support event="onclick" reRender="areaRifiuti" action="#{dichiarazioneBean.doAddRifiuto}">
+				</a4j:support>
+				<h:outputLabel value="Aggiungi Modulo Rifiuto" style="cursor:pointer" />
+		</h:panelGrid>
+		
+<!-- 
+		<h:panelGrid columns="1">
+			<h:outputText value="* valori calcolati automaticamente" />
+		</h:panelGrid>
+ -->
+		<div align="center">
+			<rich:messages passedLabel="Operazione completata" layout="list"
+				errorClass="clsError" warnClass="clsWarn" infoClass="clsInfo">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="warnMarker">
+					<h:graphicImage value="/images/warning.png"
+						style="padding-right: 5px;" />
+				</f:facet>
+			</rich:messages>
+			<br />
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					rendered="#{dichiarazioneBean.idSelezionato == null}">
+					<a4j:actionparam value="/jsp/protected/content/dich1.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenter}" />
+					<a4j:actionparam value="1" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					rendered="#{dichiarazioneBean.idSelezionato != null}">
+					<a4j:actionparam value="/jsp/protected/content/dich1.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenterDati}" />
+					<a4j:actionparam value="1" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doCheckDati}"
+					rendered="#{dichiarazioneBean.idSelezionato == null}">
+					<a4j:actionparam value="/jsp/protected/content/dich3.xhtml"
+						name="visDt2" assignTo="#{pageBean.pageCenter}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doCheckDati}"
+					rendered="#{dichiarazioneBean.idSelezionato != null}">
+					<a4j:actionparam value="/jsp/protected/content/dich3.xhtml"
+						name="visDt2" assignTo="#{pageBean.pageCenterDati}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

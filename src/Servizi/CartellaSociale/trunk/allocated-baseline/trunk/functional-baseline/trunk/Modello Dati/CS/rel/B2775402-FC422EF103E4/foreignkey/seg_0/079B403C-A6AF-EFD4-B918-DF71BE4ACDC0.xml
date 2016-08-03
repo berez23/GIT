@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="079B403C-A6AF-EFD4-B918-DF71BE4ACDC0" directorySegmentName="seg_0" name="FK_SOGG_MEDIC_MEDICO">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>FK_SOGG_MEDIC_MEDICO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:23 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<containerWithKeyObject>7F0DA890-46C4-B4D6-A206-FB772B24F483</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>E42EB317-6A58-5EBF-5C8D-3800699BDAD6</localFKIndex>
+<keyObject>76A47831-5E68-8A0F-A992-85EF5E183438</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

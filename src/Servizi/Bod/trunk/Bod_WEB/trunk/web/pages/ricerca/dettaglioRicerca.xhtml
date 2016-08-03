@@ -1,0 +1,2517 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+   		   			
+			<ui:define name="pageTitle">Back Office Docfa</ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			<ui:define name="body">
+			<script src="#{ctxName}/js/dynamic.js" language="JavaScript"></script>
+			<script type="text/javascript" src="#{ctxName}/js/ricercaDettaglio.js"></script>
+			<script type="text/javascript">
+				function apriPdf(nomePdf, formato){
+					var finestra = window.open('openPdfSrv?nomePdf=' + nomePdf + '&amp;formato=' + formato, '_blank', 'scrollbars=auto, resizable=yes, width=800, height=600, toolbar=no, menubar=no, status=no');
+				}
+				function apriJpg(nomePdf, formato, descrizione){
+					var finestra = window.open('openPdfSrv?openJpg=true&amp;nomePdf=' + nomePdf + '&amp;formato=' + formato + '&amp;descrizione=' + descrizione, '_blank', 'scrollbars=auto, resizable=yes, width=800, height=600, toolbar=no, menubar=no, status=no');
+				}
+				function apriPopupStreetview()
+				{
+								var url = '../streetview/streetview.jsf';
+								var finestra=window.open(url,"_streetview","height=650,width=840,status=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no");			
+								finestra.focus();
+				}
+				function apriPopupVirtualEarth()
+				{
+						
+								var url = '../ricerca/showVirtualEarth.jsf';
+								var finestra=window.open(url,"_virtualEarth","height=650,width=840,status=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no");			
+								finestra.focus();
+				}
+
+			</script>
+			
+		<style>
+            .scrolls{
+                width:810px;
+                height:430px;
+                overflow:auto;
+                overflow-x:hidden;
+            }
+            .tabClass {
+				font-size: 14px;
+				font-family: inherit;
+				color: blue;
+				width: 810px;
+	 		}
+	 		.headerText{
+				font-size: 12px;
+				font-weight: bold;
+			}
+
+			
+        </style>
+
+        
+        <table>
+	        <tr>
+		        <td align="left"  width="100px"><a4j:commandLink 
+									id="btnPrecedente" 
+									 action="#{ricercaDettaglioBck.getBodBeanPrecedente}"
+									 reRender="ajaxTabPanel"><b>Docfa precedente</b></a4j:commandLink>
+				</td>
+									 
+									 
+				<td align="left"  width="100px"><a4j:commandLink 
+									id="btnSuccessivo" 
+									 action="#{ricercaDettaglioBck.getBodBeanSuccessivo}"
+									 reRender="ajaxTabPanel"><b>Docfa successivo</b></a4j:commandLink>
+				</td>
+				<td align="center" colspan="2">
+					<h:outputText id="statusPratica"  
+						value="#{ricercaDettaglioBck.msgPraticaStatus}" 
+						style="font-weight: bold"/><rich:spacer width="5px"/>
+				</td>
+			</tr>
+        </table>					
+		        <!--  <rich:tabPanel id="ajaxTabPanel" switchType="ajax" height="430px" width="810px"> -->
+		        <rich:tabPanel id="ajaxTabPanel" switchType="ajax" height="100%" tabClass="tabClass">
+			        <rich:tab id="ajaxFirst" label="Dichiarato">
+
+                		 <!-- <h:panelGroup layout="block" styleClass="scrolls">  -->
+                		 
+<!-- ****************************** LISTA DATI GENERALI ****************************** -->                		 
+                		  <rich:dataTable 
+                		  			width="400px"
+						        	id="datiGeneraliTbl" 
+						        	columnClasses="col" 
+						        	value="#{ricercaDettaglioBck.lstDatGen}" 
+						        	var="datGen"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Dati Generali"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Protocollo" />
+				                </f:facet>
+				                <h:outputText value="#{datGen.protocollo}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                    <h:outputText value="Fornitura" />
+				                </f:facet>
+				                <h:outputText value="#{datGen.fornitura}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Data Fine Lavori" />
+				                </f:facet>
+				                <h:outputText value="#{datGen.dataVariazione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Data Registrazione" />
+				                </f:facet>
+				                <h:outputText value="#{datGen.dataRegistrazione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Causale" />
+				                </f:facet>
+				                <h:outputText value="#{datGen.causale}" />
+				            </rich:column>
+				            <rich:column >
+				                <f:facet name="header">
+				                    <h:outputText value="Pdf" />
+				                </f:facet>
+
+				                <a href="javascript:apriPdf('#{ricercaDettaglioBck.pdfDocfa.link}', '4')" >
+									<h:outputText value="#{ricercaDettaglioBck.pdfDocfa.esiste?ricercaDettaglioBck.pdfDocfa.nomeFile:''}"/>
+								</a>
+
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+				        <rich:spacer height="15" />
+						<rich:dataTable 
+                		  			width="400px"
+						        	id="datiGeneraliHelpTbl" 
+						        	columnClasses="col" 
+						        	value="#{ricercaDettaglioBck.lstDatGenHelp}" 
+						        	var="datGenHelp"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <rich:column>
+				                <f:facet name="header">
+									<h:outputText value="Soppressione" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.uiuInSoppressione}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                    <h:outputText value="Variazione" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.uiuInVariazione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Costituzione" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.uiuInCostituzione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Der. Speciale" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.UDerivDestSpeciale}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Variazione Da" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.descVariazDa}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Variazione A" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.descVariazA}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Altre Variazioni" />
+				                </f:facet>
+				                <h:outputText value="#{datGenHelp.descVariazAltre}" />
+				            </rich:column>
+				            
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+
+<!-- *************************** LISTA INTESTATI *************************** -->
+		 				<rich:spacer height="15" />
+						<rich:dataTable 
+                		  			width="400px" 
+						        	id="intestatiTbl" 
+						        	columnClasses="col" 
+						        	value="#{ricercaDettaglioBck.lstIntestati}" 
+						        	var="intestato"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Lista Intestati"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Denominazione" />
+				                </f:facet>
+				                <h:outputText rendered="#{intestato.denominazione!=null}" value="#{intestato.denominazione}"/>
+				                <h:outputText rendered="#{intestato.denominazione==null}" value="#{intestato.cognome} #{intestato.nome}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                    <h:outputText value="Codice Fiscale" />
+				                </f:facet>
+				                <h:outputText value="#{intestato.codiceFiscale}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Partita IVA" />
+				                </f:facet>
+				                <h:outputText value="#{intestato.partitaIva}" />
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+
+<!-- ************************** LISTA DICHIARANTI ************************** -->
+		 				<rich:spacer height="15" />
+ 						<rich:dataTable 
+                		  			width="400px" 
+						        	id="dichiarantiTbl" 
+						        	columnClasses="col" 
+						        	value="#{ricercaDettaglioBck.lstDichiaranti}" 
+						        	var="dichiarante"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Lista Dichiaranti"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Cognome" />
+				                </f:facet>
+						                <h:outputText value="#{dichiarante[0]}" />
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+					                        <h:outputText value="Nome" />
+				                </f:facet>
+						                <h:outputText value="#{dichiarante[1]}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Comune" />
+				                </f:facet>
+						                <h:outputText value="#{dichiarante[2]}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Indirizzo" />
+				                </f:facet>
+						                <h:outputText value="#{dichiarante[3]}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Civico" />
+				                </f:facet>
+						                <h:outputText value="#{dichiarante[4]}" />
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+					
+<!-- ****************************** LISTA UIU ****************************** -->
+		 				<rich:spacer height="15" />
+							<rich:dataTable 
+									       width="400px" 
+								        	id="uiuTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstUiu}" 
+								        	var="uiu"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Lista Uiu"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Tipo Operazione" />
+				                </f:facet>
+						                <h:outputText value="#{uiu[0]}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+						                <h:outputText value="#{uiu[1]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+						                <h:outputText value="#{uiu[2]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Subalterno" />
+				                </f:facet>
+						                <h:outputText value="#{uiu[3]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Indirizzo" />
+				                </f:facet>
+						                <h:outputText value="#{uiu[5]}"/><h:outputText value=" "/><h:outputText value="#{uiu[6]}"/>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+
+<!-- ****************************** LISTA BENI NON CENSIBILI ****************************** -->
+		 						<rich:spacer height="15" />
+							<rich:dataTable 
+                		  			width="400px" 
+						        	id="bncTbl" 
+						        	columnClasses="col" 
+						        	value="#{ricercaDettaglioBck.lstBeniNonCensibili}" 
+						        	var="bnc"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Lista Beni non Censibili"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Foglio" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params01.foglio}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                   <h:outputText value="Particella" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params01.particella}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Subalterno" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params01.subalterno}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Foglio 2" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params02.foglio}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                   <h:outputText value="Particella 2" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params02.particella}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Subalterno 2" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params02.subalterno}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Foglio 3" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params03.foglio}"/>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                   <h:outputText value="Particella 3" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params03.particella}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+				                    <h:outputText value="Subalterno 3" />
+				                </f:facet>
+				                <h:outputText value="#{bnc.params03.subalterno}"/>
+				            </rich:column>
+
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+															            
+<!-- ****************************** LISTA ANNOTAZIONI ****************************** -->
+		 						<rich:spacer height="15" />
+		 					
+							<rich:dataTable 
+									       width="400px" 
+								        	id="annTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstAnnotazioni}" 
+								        	var="ann"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Annotazioni"/>
+				            </f:facet>
+				            <rich:column>
+					                <h:outputText value="#{ann}"/>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+				            	
+<!-- ****************************** LISTA DATI CENSUARI ****************************** -->
+		 						<rich:spacer height="15" />
+		 						
+		 						<rich:dataTable 
+									       width="400px" 
+								        	id="dcTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstDatiCensuari}" 
+								        	var="dc"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Lista Dati Censuari"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+						                <h:outputText value="#{dc[0]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+						                <h:outputText value="#{dc[1]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Subalterno" />
+				                </f:facet>
+						                <h:outputText value="#{dc[2]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Zona" />
+				                </f:facet>
+						                <h:outputText value="#{dc[3]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Categoria" />
+				                </f:facet>
+						                <h:outputText value="#{dc[5]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Classe" />
+				                </f:facet>
+						                <h:outputText value="#{dc[4]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Consistenza" />
+				                </f:facet>
+						                <h:outputText value="#{dc[6]}"/>
+				            </rich:column>
+   				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Rendita" />
+				                </f:facet>
+						                <h:outputText value="#{dc[8]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Superficie" />
+				                </f:facet>
+						                <h:outputText value="#{dc[7]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Data Registrazione" />
+				                </f:facet>
+						                <h:outputText value="#{dc[9]}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Dati Metrici" />
+				                </f:facet>
+							        
+							        <a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showLink" 
+						            	action="#{ricercaDettaglioBck.showPlanimetry}" 
+						            	value="#{dc[10]}" 
+						            	reRender="editPanel" 
+						            	oncomplete="#{rich:component('editPanel')}.show()">
+										<f:setPropertyActionListener value="#{dc}" target="#{ricercaDettaglioBck.selDatCen}" />
+				     				</a4j:commandLink>
+
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+				        
+<!-- ****************************** LISTA PARTE UNO ****************************** -->
+		 						<rich:spacer height="15" />
+		 						
+							<rich:dataTable 
+									       width="400px" 
+								        	id="pauTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstParteUno}" 
+								        	var="pau"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Quadro 1N I Parte"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+				                <h:outputText value="#{pau.docfaInParteUno.cuFoglio}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+						        <h:outputText value="#{pau.docfaInParteUno.cuNumero}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Subalterno" />
+				                </f:facet>
+						       <h:outputText value="#{pau.docfaInParteUno.cuDenominatore01}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Anno Cost." />
+				                </f:facet>
+								<h:outputText value="#{pau.docfaInParteUno.annoCostru}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Anno Rist." />
+				                </f:facet>
+						        <h:outputText value="#{pau.docfaInParteUno.annoRistru}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Posizione Fab." />
+				                </f:facet>
+						        <h:outputText value="#{pau.descrPosizFabb}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Tipo Accesso" />
+				                </f:facet>
+						        <h:outputText value="#{pau.descrTipoAcces}"/>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+		 						
+<!-- ****************************** LISTA OPERATORE ****************************** -->
+		 						<rich:spacer height="15" />
+							<rich:dataTable 
+									       width="400px" 
+								        	id="opeTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstOperatori}" 
+								        	var="ope"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <f:facet name="header">
+				                <h:outputText value="Operatore"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Codice Fiscale" />
+				                </f:facet>
+						         <h:outputText value="#{ope.cf}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                       <h:outputText value="Tipo operatore" />
+				                </f:facet>
+						        <h:outputText value="#{ope.tipo}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Note" />
+				                </f:facet>
+						        <h:outputText value="#{ope.note}"/>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+
+				          <!--   </h:panelGroup>  -->
+			        </rich:tab>
+
+			        <rich:tab id="ajaxSecond" label="Accertato" action="#{ricercaDettaglioBck.loadTab2}">
+<!-- ************************ LISTA CONTROLLO INCROCIATO ******************* -->
+							<rich:dataTable 
+									       width="400px" 
+								        	id="ciTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstControlliIncrociati}" 
+								        	var="cib"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+				            <f:facet name="header">
+				                <h:outputText value="Controllo Incrociato"/>
+				            </f:facet>
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                        Protocollo
+				                </f:facet>
+						        <h:outputText value="#{cib.protocollo_reg}"/>
+				            </rich:column>
+							<rich:column style="width:15px">
+				                <f:facet name="header">
+					                        Fornitura
+				                </f:facet>
+						        <h:outputText value="#{cib.fornitura}">
+						        	<f:convertDateTime pattern="MM/yyyy" type="date" timeZone="Europe/Rome"/>
+						        </h:outputText>
+				            </rich:column>
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                        Tipo<br/>Operazione
+				                </f:facet>
+						        <h:outputText value="#{cib.tipo_operazione}"/>
+				            </rich:column>
+				            <rich:column style="width:15px"> 
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+						                <h:outputText value="#{cib.foglio}"/>
+				            </rich:column>
+				            <rich:column  style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+						                <h:outputText value="#{cib.particella}"/>
+				            </rich:column>
+				            <rich:column  style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="Sub" />
+				                </f:facet>
+						                <h:outputText value="#{cib.subalterno}"/>
+				            </rich:column>
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                        Verifica<br/>Catasto
+				                </f:facet>
+								<h:commandLink value="Visualizza" rendered="#{not empty cib.verificaCatasto}"/>
+   				                 <rich:toolTip 
+   				                 		followMouse="false"
+   				                 		style="width: 635px" 
+   				                 		showEvent="onclick" 
+   				                 		direction="bottom-left" 
+   				                 		horizontalOffset="-100" 
+   				                 		verticalOffset="-100"
+   				                 		layout="block"
+   				                 		rendered="#{not empty cib.verificaCatasto}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+					            <!--
+					            <div style="height:200px; width:650px; overflow:auto; overflow-x:hidden;">
+						          -->
+						          <rich:dataTable 
+						          			style="width: 250px"
+								        	columnClasses="col" 
+								        	value="#{cib.verificaCatasto}" 
+								        	var="vc">
+								   <!-- 
+								  <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Foglio" />
+					                </f:facet>
+									<h:outputText value="#{vc.foglio}" >
+										<f:convertNumber pattern="###00"/>
+									</h:outputText>
+									</rich:column>
+								  <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Part" />
+					                </f:facet>
+										<h:outputText value="#{vc.particella}" />
+									</rich:column>
+									<rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Sub" />
+					                </f:facet>
+										<h:outputText value="#{vc.subalterno}" >
+											<f:convertNumber pattern="00000"/>
+										</h:outputText>
+						            </rich:column>
+						             -->
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Inizio Val" />
+					                </f:facet>
+										<h:outputText value="#{vc.dataInizioVal}" >
+											<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+				                      </h:outputText>
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Fine Val"/>
+					                </f:facet>
+										<h:outputText value="#{vc.dataFineVal}">
+											<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+				                      </h:outputText>
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Cat" />
+					                </f:facet>
+										<h:outputText value="#{vc.categoria}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Classe" />
+					                </f:facet>
+										<h:outputText value="#{vc.classe}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Cons" />
+					                </f:facet>
+										<h:outputText value="#{vc.consistenza}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Rend" />
+					                </f:facet>
+										<h:outputText value="#{vc.rendita}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Sup" />
+					                </f:facet>
+										<h:outputText value="#{vc.superficie}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Zona" />
+					                </f:facet>
+										<h:outputText value="#{vc.zona}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Edificio" />
+					                </f:facet>
+										<h:outputText value="#{vc.edificio}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Scala" />
+					                </f:facet>
+										<h:outputText value="#{vc.scala}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Interno" />
+					                </f:facet>
+										<h:outputText value="#{vc.interno}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Piano" />
+					                </f:facet>
+										<h:outputText value="#{vc.piano}" />
+						            </rich:column>
+						            <rich:column width="30px">
+					                <f:facet name="header">
+						                      <h:outputText value="Indirizzo" />
+					                </f:facet>
+										<h:outputText value="#{vc.indirizzo}" />
+						            </rich:column>
+						            <rich:column width="10px">
+					                <f:facet name="header">
+						                      <h:outputText value="Civico" />
+					                </f:facet>
+										<h:outputText value="#{vc.civico}" />
+						            </rich:column>
+						          </rich:dataTable>
+						        </rich:toolTip>
+				            </rich:column>
+				            <rich:column style="width:100px" width="100px">
+				                <f:facet name="header">
+					                        <h:outputText value="Indirizzo" />
+				                </f:facet>
+				                <h:outputText value="#{cib.indir_toponimo} "/>
+				                <h:outputText value=" #{cib.indir_nciv_uno}"/>
+				            </rich:column>
+							<rich:column style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="Graffati" />
+				                </f:facet>
+
+								<h:commandLink value="Visualizza"  rendered="#{not empty cib.graffati}"/>
+   				                 <rich:toolTip 
+   				                 		followMouse="false" 
+   				                 		style="width: 500px" 
+   				                 		showEvent="onclick" 
+   				                 		direction="bottom-right" 
+   				                 		mode="ajax" 
+   				                 		horizontalOffset="5" 
+   				                 		verticalOffset="5" 
+   				                 		layout="block"
+   				                 		rendered="#{not empty cib.graffati}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+						          <rich:dataTable 
+									       width="80px" 
+								        	columnClasses="col" 
+								        	value="#{cib.graffati}" 
+								        	var="gra">
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Foglio" />
+					                </f:facet>
+									<h:outputText value="#{gra.foglio}" />
+									</rich:column>
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Particella" />
+					                </f:facet>
+									<h:outputText value="#{gra.particella}" />
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Subalterno" />
+					                </f:facet>
+										<h:outputText value="#{gra.subalterno}" />
+						            </rich:column>
+						          </rich:dataTable>
+						        </rich:toolTip>
+				            </rich:column>
+				            
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="Comma 340" />
+				                </f:facet>
+								<h:commandLink value="Visualizza" rendered="#{not empty cib.commi}"/>
+   				                 <rich:toolTip 
+   				                 		followMouse="false" 
+   				                 		style="width: 500px" 
+   				                 		showEvent="onclick" 
+   				                 		direction="bottom-right" 
+   				                 		mode="ajax" 
+   				                 		horizontalOffset="5" 
+   				                 		verticalOffset="5" 
+   				                 		layout="block"
+   				                 		rendered="#{not empty cib.commi}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+						          <rich:dataTable 
+									       width="80px" 
+								        	columnClasses="col" 
+								        	value="#{cib.commi}" 
+								        	var="com">
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Vano" />
+					                </f:facet>
+									<h:outputText value="#{com.vano}" />
+									</rich:column>
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Piano" />
+					                </f:facet>
+									<h:outputText value="#{com.piano}" />
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Edificio" />
+					                </f:facet>
+										<h:outputText value="#{com.edificio}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Superficie" />
+					                </f:facet>
+										<h:outputText value="#{com.superficie}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Ambiente" />
+					                </f:facet>
+										<h:outputText value="#{com.ambiente}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Altezza Min" />
+					                </f:facet>
+										<h:outputText value="#{com.altezzaMin}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Altezza Max" />
+					                </f:facet>
+										<h:outputText value="#{com.altezzaMax}" />
+						            </rich:column>
+						          </rich:dataTable>
+						        </rich:toolTip>							
+				            </rich:column>
+				            
+				            <rich:column  style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="PRG" />
+				                </f:facet>
+				                <h:commandLink value="Visualizza"  rendered="#{not empty cib.prgs}"/>
+   				                 <rich:toolTip 
+   				                 	followMouse="false" 
+   				                 	style="width: 500px" 
+   				                 	showEvent="onclick" 
+   				                 	direction="bottom-right" 
+   				                 	mode="ajax" 
+   				                 	horizontalOffset="5" 
+   				                 	verticalOffset="5" 
+   				                 	layout="block"
+   				                 	rendered="#{not empty cib.prgs}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+
+						          <rich:dataTable 
+									       width="80px" 
+								        	columnClasses="col" 
+								        	value="#{cib.prgs}" 
+								        	var="prg">
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Dest. Funz." />
+					                </f:facet>
+									<h:outputText value="#{prg.destFunz}" />
+									</rich:column>
+								<rich:column>
+				                <f:facet name="header">
+					                      <h:outputText value="Legenda" />
+				                </f:facet>
+									<h:outputText value="#{prg.legenda}" />
+					            </rich:column>
+					            <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Area Part." />
+					                </f:facet>
+									<h:outputText value="#{prg.areaPart}" />
+								</rich:column>
+								<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Area PRG" />
+					                </f:facet>
+									<h:outputText value="#{prg.areaPrg}" />
+								</rich:column>
+								<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Area Int" />
+					                </f:facet>
+									<h:outputText value="#{prg.areaInt}" />
+								</rich:column>
+						          </rich:dataTable>
+						        </rich:toolTip>
+				            </rich:column>
+				            
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                      <h:outputText value="Vincolo" />
+				                </f:facet>
+								<h:commandLink value="Visualizza"  rendered="#{not empty cib.vincoli}"/>
+   				                 <rich:toolTip 
+   				                 		followMouse="false" 
+   				                 		style="width: 600px" 
+   				                 		showEvent="onclick" 
+   				                 		direction="bottom-right" 
+   				                 		mode="ajax" 
+   				                 		horizontalOffset="5" 
+   				                 		verticalOffset="5" 
+   				                 		layout="block"
+   				                 		rendered="#{not empty cib.vincoli}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+						          <rich:dataTable 
+						          			width="80px"
+								        	columnClasses="col" 
+								        	value="#{cib.vincoli}" 
+								        	var="vin">
+	  							<!-- 
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Foglio" />
+					                </f:facet>
+									<h:outputText value="#{vin.foglio}" />
+									</rich:column>
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Particella" />
+					                </f:facet>
+									<h:outputText value="#{vin.particella}" />
+									</rich:column>
+									 -->
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Vincolo" />
+					                </f:facet>
+										<h:outputText value="#{vin.vincolo}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Descrizione" />
+					                </f:facet>
+										<h:outputText value="#{vin.descrizione}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Area Part" />
+					                </f:facet>
+										<h:outputText value="#{vin.areaPart}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Area Vin" />
+					                </f:facet>
+										<h:outputText value="#{vin.areaVin}" />
+						            </rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Area Int" />
+					                </f:facet>
+										<h:outputText value="#{vin.areaInt}" />
+						            </rich:column>
+						          </rich:dataTable>
+						        </rich:toolTip>							
+				            </rich:column>
+				            
+				            
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="Concessioni" />
+				                </f:facet>
+				                <h:commandLink value="Visualizza"  rendered="#{not empty cib.concessioni}"/>
+   				                 <rich:toolTip 
+   				                 		followMouse="false" 
+   				                 		style="width: 550px" 
+   				                 		showEvent="onclick" 
+   				                 		direction="bottom-right" 
+   				                 		mode="ajax" 
+   				                 		horizontalOffset="5" 
+   				                 		verticalOffset="5" 
+   				                 		layout="block"
+   				                 		rendered="#{not empty cib.concessioni}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+						          <rich:dataTable 
+									       width="80px" 
+								        	columnClasses="col" 
+								        	value="#{cib.concessioni}" 
+								        	var="con">
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Protocollo" />
+					                </f:facet>
+									<h:outputText value="#{con.protocollo}" />
+									</rich:column>
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Data Protocollo" />
+					                </f:facet>
+									<h:outputText value="#{con.dataProtocollo}" />
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Codice Fiscale" />
+					                </f:facet>
+										<h:outputText value="#{con.codiceFiscale}" />
+						            </rich:column>
+						            <rich:column>
+						                <f:facet name="header">
+							                      <h:outputText value="Denominazione" />
+						                </f:facet>
+										<h:outputText value="#{con.denominazione}" />
+									</rich:column>
+									<rich:column>
+						                <f:facet name="header">
+							                      <h:outputText value="Tipo Soggetto" />
+						                </f:facet>
+										<h:outputText value="#{con.tipoSoggetto}" />
+									</rich:column>
+						          </rich:dataTable>
+						        </rich:toolTip>
+				            </rich:column>
+							
+				            <rich:column style="width:15px">
+				                <f:facet name="header">
+					                        <h:outputText value="Cartografia" />
+				                </f:facet>
+								<h:panelGrid columns="3">
+								
+									<h:outputLink  value="#{msg.urlCartografia}" target="_blank" >
+					            		<img src="#{ctxName}/images/Localizza.gif" width="24" height="24" title="2D" />
+					            		<f:param name="ente" value="#{ricercaDettaglioBck.codiceEnte}"/>
+					            		<f:param name="qryoper" value="equal"/>
+					            		<f:param name="foglio" value="#{cib.foglio}"/>
+					            		<f:param name="particella" value="#{cib.particella}"/>
+					            		<f:param name="cod_nazionale" value="A'OR'A'&lt;'B"/>
+					            	
+				        			</h:outputLink>
+								
+									<h:outputLink  value="#{ctxName}/pages/ricerca/showVirtualEarth.jsf" target="_blank" rendered="false">
+					            		<img src="#{ctxName}/images/3D.gif" border="0" width="19" height="24" title="3D"/>
+				            			<a4j:support event="onclick" action="#{ricercaDettaglioBck.openVirtualEarth}" immediate="true">
+					            			<f:setPropertyActionListener value="#{cib.virtualEarth}" target="#{ricercaDettaglioBck.currentVirtualEarth}" />
+				            			</a4j:support>
+				        			</h:outputLink>
+							
+									<h:outputLink value = "#{ctxName}/pages/streetview/streetviewPopUp.jsf" target="blank" rendered="false">
+										<img src="#{ctxName}/images/streetview.gif" border="0" width="12" height="24" title="Streetview"/>
+										<a4j:support event="onclick" action="#{ricercaDettaglioBck.openStreetView}" immediate="true">
+					            			<f:setPropertyActionListener value="#{cib.streetView}" target="#{ricercaDettaglioBck.currentStreetView}" />
+				            			</a4j:support>
+									</h:outputLink>
+									
+									<h:commandLink  onmouseup="javascript:apriPopupVirtualEarth()" rendered="#{cib.virtualEarth.latitudine!=null and cib.virtualEarth.longitudine!=null}">
+					            		<img src="#{ctxName}/images/3D.gif" border="0" width="19" height="24" title="3D"/>
+				            			<a4j:support event="onmousedown" action="#{ricercaDettaglioBck.openVirtualEarth}" immediate="true">
+					            			<f:setPropertyActionListener value="#{cib.virtualEarth}" target="#{ricercaDettaglioBck.currentVirtualEarth}" />
+				            			</a4j:support>
+				        			</h:commandLink>
+									
+									<h:commandLink  onmouseup="javascript:apriPopupStreetview()" rendered="#{cib.streetView.latitudine!=null and cib.streetView.longitudine!=null}">
+										<img src="#{ctxName}/images/streetview.gif" border="0" width="12" height="24" title="Streetview"/>
+										<a4j:support event="onmousedown" action="#{ricercaDettaglioBck.openStreetView}" immediate="true">
+					            			<f:setPropertyActionListener value="#{cib.streetView}" target="#{ricercaDettaglioBck.currentStreetView}" />
+				            			</a4j:support>
+									</h:commandLink>
+																	
+									<h:outputLink  value="http://server-telecom2.comune.milano.it/sitiprospettico/siti.jsp" target="_blank" rendered="#{cib.codiceEnte eq 'F205'}">
+									<!-- <h:outputLink  onclick="window.open('http://server-telecom2.comune.milano.it/sitiprospettico/siti.jsp','Mix','top=0,left=0,width=1000,height=550,resizable=yes'); return false;" >  -->
+					            		<h:outputText value="Mix" />
+					            		<f:param name="cod_nazionale" value="#{cib.codiceEnte}"/>
+					            		<f:param name="foglio" value="#{cib.foglio}"/>
+					            		<f:param name="particella" value="#{cib.particella}"/>
+					            		<f:param name="sub" value=""/>
+					            	</h:outputLink>							
+								</h:panelGrid>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+				        
+<!-- ************** LISTA PLANIMETRIE DOCFA ************** -->				        
+		 			<rich:spacer height="15" />
+		 			
+							<rich:dataTable
+										id="planDetailDocfaTbl" 
+										value="#{ricercaDettaglioBck.lstImagesFilesDocfa}" 
+										var="planDetail"
+										columnClasses="col" 
+						                onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							            rowKeyVar="indice">
+							            
+							                <f:facet name="header">
+								                        <h:outputText value="Planimetrie DOCFA"/>
+							                </f:facet>							            
+									
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+							                <f:facet name="header">
+								                        Foglio
+							                </f:facet>
+									        <h:outputText value="#{planDetail.foglio}"/>
+									        <f:facet name="footer">
+								                <rich:spacer width="5px"/>
+								            </f:facet>
+							            </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+							                <f:facet name="header">
+								                        Particella
+							                </f:facet>
+									        <h:outputText value="#{planDetail.particella}"/>
+									        <f:facet name="footer">
+								                <rich:spacer width="5px"/>
+								            </f:facet>
+							            </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+							                <f:facet name="header">
+								                        Subalterno
+							                </f:facet>
+									        <h:outputText value="#{planDetail.subalterno}"/>
+									        <f:facet name="footer">
+								                <rich:spacer width="5px"/>
+								            </f:facet>
+							            </rich:column>										
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+							                <f:facet name="header">
+								                        Protocollo
+							                </f:facet>
+									        <h:outputText value="#{planDetail.protocollo}"/>
+									        <f:facet name="footer">
+								                <rich:spacer width="5px"/>
+								            </f:facet>
+							            </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+							                <f:facet name="header">
+								                        Fornitura
+							                </f:facet>
+									        <h:outputText value="#{planDetail.fornitura}"/>
+									        <f:facet name="footer">
+								                <rich:spacer width="5px"/>
+								            </f:facet>
+							            </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+							                <f:facet name="header">
+								                        Tipo Operazione
+							                </f:facet>
+									        <h:outputText value="#{planDetail.tipoOperazione}"/>
+									        <f:facet name="footer">
+								                <rich:spacer width="5px"/>
+								            </f:facet>
+							            </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+									                <f:facet name="header">
+										                        <h:outputText value="Descrizione" />
+									                </f:facet>
+													<h:outputText value="#{planDetail.descrizione}" />
+													<f:facet name="footer">
+														<rich:spacer width="5px"/>
+													</f:facet>
+									     </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+									                <f:facet name="header">
+										                        <h:outputText value="Progressivo" />
+									                </f:facet>
+													<h:outputText value="#{planDetail.progressivo}" />
+													<f:facet name="footer">
+														<rich:spacer width="5px"/>
+													</f:facet>
+									       </rich:column>
+								        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+									                <f:facet name="header">
+										                        <h:outputText value="PDF" />
+									                </f:facet>
+													<a href="javascript:apriPdf('#{planDetail.file.absolutePath}', '#{planDetail.formato}')" >
+														<h:outputText value="#{planDetail.esiste ? 'PDF' : ''}" />
+													</a>
+													<f:facet name="footer">
+														<rich:spacer width="5px"/>
+													</f:facet>
+									        </rich:column>
+									        <rich:column style="background-color: #{planDetail.protocollo!=ricercaDettaglioBck.selBodBean.protocollo?'#C0C0C0':'white'}; background-image: none;">
+									                <f:facet name="header">
+										                        <h:outputText value="JPG" />
+									                </f:facet>
+													<a href="javascript:apriJpg('#{planDetail.file.absolutePath}', '#{planDetail.formato}', '#{planDetail.descrizione}')" >
+															<h:outputText value="#{planDetail.esiste ? 'JPG' : ''}" />
+													</a>
+													<f:facet name="footer">
+														<rich:spacer width="5px"/>
+													</f:facet>
+									            </rich:column> 
+
+				                    </rich:dataTable>
+				                    
+				    
+				        
+  <!-- ************** LISTA PLANIMETRIE COMMA 340 ************** -->				        
+		 			<rich:spacer height="15" />
+		 			
+		 		
+					
+					<rich:dataTable 
+				        	id="planC340Tbl" 
+							columnClasses="col" 
+							value="#{ricercaDettaglioBck.lstImagesFilesC340}" 
+							var="planC340"
+							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						    rowKeyVar="indice">
+						    
+						    <f:facet name="header">
+				                        <h:outputText value="Planimetrie Comma 340"/>
+			                </f:facet>			
+				            
+				            <rich:column >
+				                <f:facet name="header">
+					                        Foglio
+				                </f:facet>
+						        <h:outputText value="#{planC340.foglio}"/>
+				            </rich:column>
+							<rich:column >
+				                <f:facet name="header">
+					                        Particella
+				                </f:facet>
+						        <h:outputText value="#{planC340.particella}"/>
+				            </rich:column>
+				            <rich:column >
+				                <f:facet name="header">
+					                        Subalterno
+				                </f:facet>
+						        <h:outputText value="#{planC340.subalterno}"/>
+				            </rich:column>
+
+	                	    <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Descrizione" />
+				                </f:facet>
+							<h:outputText value="#{planC340.descrizione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                     <h:outputText value="Progressivo" />
+				                </f:facet>
+							<h:outputText value="#{planC340.progressivo}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="PDF" />
+				                </f:facet>
+							<a href="javascript:apriPdf('#{planC340.file.absolutePath}', '#{planC340.formato}')" >
+									<h:outputText value="#{planC340.esiste ? 'PDF' : ''}" />
+							</a>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="JPG" />
+				                </f:facet>
+							<a href="javascript:apriJpg('#{planC340.file.absolutePath}', '#{planC340.formato}', '#{planC340.descrizione}')" >
+									<h:outputText value="#{planC340.esiste ? 'JPG' : ''}" />
+							</a>
+				            </rich:column>                 
+			                        
+							<f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+				        
+
+<!-- ************** LISTA CONTROLLO CLASSAMENTO - CONSISTENZA ************** -->
+
+		 			<rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="cccTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstControlliClassCons}" 
+								        	var="ccc"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+				            <f:facet name="header">
+				                <h:outputText value="Controllo Classamento - Consistenza"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{ccc.foglio}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Part" />
+				                </f:facet>
+							<h:outputText value="#{ccc.particella}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Sub" />
+				                </f:facet>
+							<h:outputText value="#{ccc.subalterno}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Zona" />
+				                </f:facet>
+							<h:outputText value="#{ccc.zona}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Sup" />
+				                </f:facet>
+							<h:outputText value="#{ccc.superficie}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Categ" />
+				                </f:facet>
+							<h:outputText value="#{ccc.categoria}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Classe" />
+				                </f:facet>
+				                <table>
+				                	<tr>
+				                	<td width="50%">
+										<h:outputText value="#{ccc.classe}"  style="color:#{ccc.classeRif};">
+											<!-- <f:convertNumber pattern="#0"/>  -->
+										</h:outputText>
+				                	</td>
+				                	<td width="50%">
+				                		<h:outputText value="(" rendered="#{ccc.mostraClasseMaggiormenteFrequente}"/>
+					                	<h:outputText value="#{ccc.classeMin}" rendered="#{ccc.mostraClasseMaggiormenteFrequente}">
+											<f:convertNumber pattern="#0"/>
+										</h:outputText>
+										<h:outputText value=")" rendered="#{ccc.mostraClasseMaggiormenteFrequente}"/>
+				                	</td>
+				                	
+				                	</tr>
+				                </table>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Cons" />
+				                </f:facet>
+				                <table>
+				                <tr>
+				                <td width="20%" align="center">
+				                	<!--<h:outputText value="#{ccc.consistenza}" style="color:#{ ( (ccc.superfMediaMax > 0) and (!(ccc.consisAnomalia > ccc.superfMediaMin) or (ccc.consisAnomalia >= ccc.superfMediaMax)) )?'black':'red'};" >	-->
+				                	<h:outputText value="#{ccc.consistenza}" style="color:#{ccc.colore}" >
+				        	        	<f:convertNumber type="number" pattern="#0.00" />
+									</h:outputText>
+				                </td>
+				                <td width="30%" align="right">
+				                	<h:outputText value="(" rendered="#{ (ccc.superfMediaMax > 0) }"/>
+				                	<h:outputText value="#{ccc.superfMediaMin}" rendered="#{ (ccc.superfMediaMax > 0) and (ccc.superfMediaMax != 0.85) }">
+										<f:convertNumber type="number" pattern="#0.00" />
+									</h:outputText>
+				                </td>
+				                <td width="20%" align="center">
+				                	<h:outputText value="-" rendered="#{ (ccc.superfMediaMax > 0) and (ccc.superfMediaMax != 0.85)}"/>
+				                	<h:outputText value="#{ccc.consisAnomalia}" rendered="#{ (ccc.superfMediaMax == 0.85) and (ccc.consisAnomalia > 0) }">
+				                		<f:convertNumber pattern="#0.00"/>
+				                	</h:outputText>
+				                </td>
+				                <td width="30%" align="left">
+				                	<h:outputText value="#{ccc.superfMediaMax}" rendered="#{ (ccc.superfMediaMax > 0) and (ccc.superfMediaMax != 0.85) }">
+										<f:convertNumber type="number"  pattern="#0.00" />
+									</h:outputText>
+				                	<h:outputText value=")" rendered="#{ (ccc.superfMediaMax > 0) }"/>
+				                </td>
+				                </tr>
+				                </table>
+
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Rendita" />
+				                </f:facet>
+							<h:outputText value="#{ccc.rendita}" >
+								<f:convertNumber type="number" minFractionDigits="2" />
+							</h:outputText>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        Rendita Docfa<br/> x 100 (A)
+				                </f:facet>
+							<h:outputText value="#{ccc.renditaX100}" >
+								<f:convertNumber type="number" minFractionDigits="2" />
+							</h:outputText>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        Rendita Docfa<br/> x 105 (B)
+				                </f:facet>
+							<h:outputText value="#{ccc.renditaX105}" >
+								<f:convertNumber type="number" minFractionDigits="2" />
+							</h:outputText>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        Val Comm.le<br/> (C)
+				                </f:facet>
+							<h:outputText value="#{ccc.valoreCommerciale}" rendered="#{ccc.classamentoCompatibile}">
+								<f:convertNumber type="number" groupingUsed="true" minFractionDigits="2"/>
+							</h:outputText>
+				            </rich:column>
+							<rich:column >
+				                <f:facet name="header">
+					                        <h:outputText value="C/A" />
+				                </f:facet>
+			            
+							<h:outputText value="#{ccc.valComSuRen100}" style="color:#{(ccc.valComSuRen100 > ccc.rapporto)?'red':'black'};" rendered="#{ccc.classamentoCompatibile}">
+								<f:convertNumber type="number" pattern="#0.00"/>
+							</h:outputText>
+							
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="C/B" />
+				                </f:facet>
+							<h:outputText value="#{ccc.valComSuRen105}" style="color:#{(ccc.valComSuRen105 > ccc.rapporto)?'red':'black'};" rendered="#{ccc.classamentoCompatibile}">
+								<f:convertNumber type="number"  pattern="#0.00"/>
+							</h:outputText>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        Classamento<br/> Compatibile
+				                </f:facet>
+				                <h:panelGrid>
+									<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showClassamento" 
+						            	action="#{ricercaDettaglioBck.showClassamento}" 
+						            	value="Visualizza" 
+						            	reRender="classamentoPanel" 
+						            	oncomplete="#{rich:component('classamentoPanel')}.show()"
+						            	rendered="#{ccc.classamentoCompatibile and !ccc.erroreZoneOmi and empty ccc.lstPerZcDiverse}">
+										<f:setPropertyActionListener value="#{ccc}" target="#{ricercaDettaglioBck.selClaCom}" />
+				     				</a4j:commandLink>
+				      
+							<h:outputText style="color:red;"  value="#{ccc.msgZoneOmi}" />
+							
+								<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showZcClassamento" 
+						            	action="#{ricercaDettaglioBck.showClassamento}" 
+						            	value="Visualizza il classamento compatibile per le altre zone associate al foglio #{ccc.foglio}"
+						            	reRender="classamentoZcPanel" 
+						            	oncomplete="#{rich:component('classamentoZcPanel')}.show()"
+						            	rendered="#{ccc.classamentoCompatibile and ccc.erroreZoneOmi and !empty ccc.lstPerZcDiverse}">
+										<f:setPropertyActionListener value="#{ccc.lstPerZcDiverse}" target="#{ricercaDettaglioBck.selLstClaZcDiverse}" />
+				     				</a4j:commandLink>
+				     		<h:outputText rendered="#{!ccc.classamentoCompatibile}"  value="Nessun Classamento Compatibile" />
+				            </h:panelGrid>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+
+<!-- ************** LISTA CONTROLLO CLASSAMENTI CORPI DI FABBRICA ENTRO 200 m  -->
+		 			<rich:spacer height="15" />
+		 			<rich:dataTable
+							width="400px" 
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						<f:facet name="header">
+				                <h:outputText value="Controllo Classamenti Corpi di Fabbrica Entro 200 m"/>
+				        </f:facet>
+		            </rich:dataTable>
+		 			<a4j:repeat 
+		 				id="repTable" 
+		 				value="#{ricercaDettaglioBck.lstClassCorpiFabbrica}" 
+		 				var="ccf" 
+		 				rowKeyVar="indice">
+	 				<rich:spacer height="5px"></rich:spacer>
+					<table>
+					<tr bgcolor="#ebf3fd">
+					<td width="30%"></td>
+					<td align="center" width="15%"><font style="font-weight: bold">Foglio</font></td>
+					<td align="center" width="15%"><font style="font-weight: bold">Particella</font></td>
+					<td align="center" width="10%"><font style="font-weight: bold"></font></td>
+					<td width="30%"></td>
+					</tr>
+					<tr>
+					<td ></td>
+					<td align="center"><h:outputText value="#{ccf.foglio}" /></td>
+					<td align="center"><h:outputText value="#{ccf.particella}" /></td>
+					<td align="center">
+									<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showClaCorFab" 
+						            	action="#{ricercaDettaglioBck.showClaCorFab}" 
+						            	value="Visualizza" 
+						            	reRender="classamentoPanel" 
+						            	oncomplete="#{rich:component('classCorpiFabbricaPanel')}.show()">
+										<f:setPropertyActionListener value="#{ccf}" target="#{ricercaDettaglioBck.selClaCorpoFabbrica}" />
+				     				</a4j:commandLink>
+					</td>
+					<td ></td>
+					</tr>
+					<tr>
+					<td colspan="5">
+					<div style="height:120px; width:500px; overflow:auto; overflow-x:hidden;">
+						<rich:dataTable
+							width="490px" 
+							style="width: 490px"
+				        	columnClasses="col" 
+				        	value="#{ccf.corpiFabbrica}" 
+				        	var="cf200m"
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+							<rich:column>
+						            <f:facet name="header">
+  					                       <h:outputText value="Foglio" />
+       					            </f:facet>
+					                <h:outputText value="#{cf200m[0]}"/>
+					                <f:facet name="footer">
+  					                        <rich:spacer height="20px"></rich:spacer>
+					                </f:facet>
+					            </rich:column>
+								<rich:column >
+						            <f:facet name="header">
+  					                       <h:outputText value="Particella" />
+       					            </f:facet>
+					                <h:outputText value="#{cf200m[1]}"/>
+					                <f:facet name="footer">
+  					                        <rich:spacer height="20px"></rich:spacer>
+					                </f:facet>
+					            </rich:column>
+					            <rich:column >
+						            <f:facet name="header">
+  					                       <rich:spacer height="18px"></rich:spacer>
+       					            </f:facet>
+
+									<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showClassamentoSub" 
+						            	action="#{ricercaDettaglioBck.showClassamentoCorpiFabbrica}" 
+						            	value="Visualizza" 
+						            	onclick="javascript:this.style.color = 'green';"
+						            	reRender="classamentoPanel" 
+						            	oncomplete="#{rich:component('classCorpiFabbricaPanel')}.show()">
+										<f:setPropertyActionListener value="#{cf200m}" target="#{ricercaDettaglioBck.selClaSub}" />
+				     				</a4j:commandLink>					                
+
+					                <f:facet name="footer">
+  					                        <rich:spacer height="20px"></rich:spacer>
+					                </f:facet>
+					            </rich:column>
+					            <f:facet name="footer">
+									<rich:spacer height="20px"></rich:spacer>
+			    				</f:facet>
+					</rich:dataTable>
+					</div>
+					</td>
+					</tr>
+					</table>
+		 			</a4j:repeat>
+		 			
+<!-- ******* LISTA CONTROLLI TRASFORMAZIONI EDILIZIA (VARIAZIONI) **************  -->
+		 			<rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="cteTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstTrasfEdiliziaVariazioni}" 
+								        	var="cte"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+				            <f:facet name="header">
+				                <h:outputText value="Controllo Trasformazioni Edilizia - Variazione"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Tipo Operazione" />
+				                </f:facet>
+							<h:outputText value="#{cte.tipoOperazione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{cte.foglio}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+							<h:outputText value="#{cte.particella}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Subalterno" />
+				                </f:facet>
+							<h:outputText value="#{cte.subalterno}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Variazioni Censuarie" />
+				                </f:facet>
+							<h:commandLink value="Visualizza" rendered="#{not empty cte.dateVariazioni}"/>
+   				               <rich:toolTip 
+   				                 	followMouse="false" 
+   				                 	style="width: 500px" 
+   				                 	showEvent="onclick" 
+   				                 	direction="bottom-right" 
+   				                 	mode="ajax" 
+   				                 	horizontalOffset="5" 
+   				                 	verticalOffset="5" 
+   				                 	layout="block"
+   				                 	rendered="#{not empty cte.dateVariazioni}">
+				                 <f:facet name="defaultContent">
+					                <strong>Wait...</strong>
+					            </f:facet>
+						          <rich:dataTable 
+									       width="80px" 
+								        	columnClasses="col" 
+								        	value="#{cte.dateVariazioni}" 
+								        	var="datVar">
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Data Variazione" />
+					                </f:facet>
+									<h:outputText value="#{datVar}" >
+										<f:convertDateTime pattern="dd-MM-yyyy" type="date" timeZone="Europe/Rome"/>
+									</h:outputText>
+									</rich:column>
+						          </rich:dataTable>
+						          <rich:dataTable 
+									       width="80px" 
+								        	columnClasses="col" 
+								        	value="#{cte.variazioniCensuarie}" 
+								        	var="varCen">
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Data Inizio" />
+					                </f:facet>
+									<h:outputText value="#{varCen.dataInizio}" >
+										<f:convertDateTime pattern="dd-MM-yyyy" type="date" timeZone="Europe/Rome"/>
+									</h:outputText>
+									</rich:column>
+								  <rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Data Fine" />
+					                </f:facet>
+									<h:outputText value="#{varCen.dataFine}" >
+										<f:convertDateTime pattern="dd-MM-yyyy" type="date" timeZone="Europe/Rome"/>
+									</h:outputText>
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Categoria" />
+					                </f:facet>
+									<h:outputText value="#{varCen.categoria}" />
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Classe" />
+					                </f:facet>
+									<h:outputText value="#{varCen.classe}" />
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Consistenza" />
+					                </f:facet>
+									<h:outputText value="#{varCen.consistenza}" />
+									</rich:column>									
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Rendita" />
+					                </f:facet>
+									<h:outputText value="#{varCen.rendita}" />
+									</rich:column>
+									<rich:column>
+					                <f:facet name="header">
+						                      <h:outputText value="Superficie" />
+					                </f:facet>
+									<h:outputText value="#{varCen.superficie}" />
+									</rich:column>
+						          </rich:dataTable>
+						          
+						        </rich:toolTip>
+						        
+				            </rich:column>
+				            
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+<!-- ***** LISTA CONTROLLI TRASFORMAZIONI EDILIZIA (SOPPRESSIONI) *********  -->
+		 			 <rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="sopTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstTrasfEdiliziaSoppressioni}" 
+								        	var="sop"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+					        <f:facet name="header">
+				                <h:outputText value="Controllo Trasformazioni Edilizia - Soppressione / Costituzione"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Tipo Operazione" />
+				                </f:facet>
+							<h:outputText value="#{sop.tipoOperazione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{sop.foglio}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+							<h:outputText value="#{sop.particella}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Subalterno" />
+				                </f:facet>
+							<h:outputText value="#{sop.subalterno}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Categoria" />
+				                </f:facet>
+   							<h:outputText value="#{sop.categoria}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Rendita (A)" />
+				                </f:facet>
+   							<h:outputText value="#{sop.rendita}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Coefficiente (B)" />
+				                </f:facet>
+   							<h:outputText value="#{sop.coefficiente}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="A x B" />
+				                </f:facet>
+   							<h:outputText value="#{sop.renditaPerCoeff}" >
+   								<f:convertNumber minFractionDigits="2"/>
+   							</h:outputText>
+				            </rich:column>			
+				            	            
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				                <rich:columnGroup>
+	                            <rich:column  style="text-align:center">Totale</rich:column>
+                            <rich:column colspan="6">
+                                <h:outputText value="" />
+                            </rich:column>
+			              <rich:column  style="text-align:center">
+                                <h:outputText value="#{ricercaDettaglioBck.totRenPerCoefSop}">
+                                	<f:convertNumber pattern="#0.00"/>
+                                </h:outputText>
+                            </rich:column>
+                        </rich:columnGroup>
+				            </f:facet>
+				        </rich:dataTable>
+<!-- ***** LISTA CONTROLLI TRASFORMAZIONI EDILIZIA (COSTITUZIONI) *********  -->
+					<rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="cosTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstTrasfEdiliziaCostituzioni}" 
+								        	var="cos"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Tipo Operazione" />
+				                </f:facet>
+							<h:outputText value="#{cos.tipoOperazione}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{cos.foglio}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Particella" />
+				                </f:facet>
+							<h:outputText value="#{cos.particella}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Subalterno" />
+				                </f:facet>
+							<h:outputText value="#{cos.subalterno}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Categoria" />
+				                </f:facet>
+   							<h:outputText value="#{cos.categoria}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Rendita (A)" />
+				                </f:facet>
+   							<h:outputText value="#{cos.rendita}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Coefficiente (B)" />
+				                </f:facet>
+   							<h:outputText value="#{cos.coefficiente}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="A x B" />
+				                </f:facet>
+   							<h:outputText value="#{cos.renditaPerCoeff}" >
+   								<f:convertNumber pattern="#0.00"/>
+   							</h:outputText>
+				            </rich:column>				            
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				                <rich:columnGroup>
+	                            <rich:column  style="text-align:center">Totale</rich:column>
+                            <rich:column colspan="6">
+                                <h:outputText value="" />
+                            </rich:column>
+			              <rich:column  style="text-align:center">
+                                <h:outputText value="#{ricercaDettaglioBck.totRenPerCoefCos}"  style="color:#{(ricercaDettaglioBck.totRenPerCoefCos >= ricercaDettaglioBck.totRenPerCoefSop)?'black':'red'};">
+                                	<f:convertNumber  pattern="#0.00"/>
+                                </h:outputText>
+                            </rich:column>
+                        </rich:columnGroup>
+                        
+				            </f:facet>
+				        </rich:dataTable>
+<!-- ************ LISTA DOTAZIONI INFRASTRUTTURALI - ASCENSORI ************** -->
+		 			<rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="ascTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstAscensori}" 
+								        	var="asc"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+				            <f:facet name="header">
+				                <h:outputText value="Dotazioni Infrastrutturali - Ascensori"/>
+				            </f:facet>
+				            <!--
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Protocollo" />
+				                </f:facet>
+							<h:outputText value="#{asc[0]}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Fornitura" />
+				                </f:facet>
+							<h:outputText value="#{asc[1]}" >
+							               	<f:convertDateTime pattern="MM/yyyy" type="date" timeZone="Europe/Rome"/>
+	                        </h:outputText>
+				            </rich:column>
+				            -->
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{asc[2]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Part" />
+				                </f:facet>
+							<h:outputText value="#{asc[3]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Sub" />
+				                </f:facet>
+							<h:outputText value="#{asc[4]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Asc. ad Uso Esclusivo" />
+				                </f:facet>
+							<h:outputText value="#{asc[5]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Ascensore" />
+				                </f:facet>
+							<h:outputText value="#{asc[6]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Asc. di Servizio" />
+				                </f:facet>
+							<h:outputText value="#{asc[7]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Montacarichi" />
+				                </f:facet>
+							<h:outputText value="#{asc[8]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Asc. Nr" />
+				                </f:facet>
+							<h:outputText value="#{asc[9]}" />
+				            </rich:column>							
+							
+				        </rich:dataTable>
+<!-- ************ LISTA DOTAZIONI INFRASTRUTTURALI - BAGNI ************** -->
+		 			<rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="wcTbl" 
+								        	columnClasses="col" 
+								        	value="#{ricercaDettaglioBck.lstBagni}" 
+								        	var="wc"
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+						                    rowKeyVar="indice">
+				            <f:facet name="header">
+				                <h:outputText value="Dotazioni Infrastrutturali - Acessori Diretti - (Bagni, Wc)"/>
+				            </f:facet>
+				            <!--
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Protocollo" />
+				                </f:facet>
+							<h:outputText value="#{wc[0]}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Fornitura" />
+				                </f:facet>
+							<h:outputText value="#{wc[1]}" >
+							               	<f:convertDateTime pattern="MM/yyyy" type="date" timeZone="Europe/Rome"/>
+	                        </h:outputText>
+				            </rich:column>
+				            -->
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{wc[2]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Part" />
+				                </f:facet>
+							<h:outputText value="#{wc[3]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Sub" />
+				                </f:facet>
+							<h:outputText value="#{wc[4]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Acc. Diretti Nr" />
+				                </f:facet>
+							<h:outputText value="#{wc[5]}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Acc. Diretti Superf. Utile" />
+				                </f:facet>
+							<h:outputText value="#{wc[6]}" />
+				            </rich:column>
+				        </rich:dataTable>
+			        </rich:tab>
+			        <rich:tab id="ajaxThird" label="Istruttoria" action="#{ricercaDettaglioBck.loadTab3}">
+					<a4j:loadBundle basename="resources" var="msg" />
+			<!-- Pannello Esterno -->
+			<div style="overflow: auto; ">
+			   <rich:panel style="padding:5; width : 810px; position: relative; align:center;  " headerClass="outpanelHeader">
+			        <!--
+			        <f:facet name="header">
+			            <rich:spacer height="5"/>
+			        </f:facet>
+				-->
+						<a4j:outputPanel id="table" layout="block" ajaxRendered="true">
+						 <a4j:region ajaxRendered="true">
+						 <table>
+						<tr bgcolor="#E6E6FA">
+							<td colspan="4" align="center">
+								<h:outputText value="Istruttoria Presa in Carico da #{ricercaDettaglioBck.bodIstruttoria.operatore}" style="font-weight: bold" rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.mostraOperatore}"/>
+							</td>
+						</tr>
+						</table>
+						<rich:spacer height="15px"/>
+						<rich:dataTable 
+									       width="400px" 
+								        	id="titAnnoTbl" 
+								        	columnClasses="col" 
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+				            <f:facet name="header">
+				                <h:outputText value="Annotazioni"/>
+				            </f:facet>
+
+				        </rich:dataTable>
+						<h:inputTextarea 
+							id="txtAnnotazioni" 
+							rows="5" 
+							cols="70" 
+							value="#{ricercaDettaglioBck.bodIstruttoria.annotazioni}"
+							disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico}"/>
+						<rich:spacer height="15px" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="titStatoTbl" 
+								        	columnClasses="col" 
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+				            <f:facet name="header">
+				                <h:outputText value="Azioni"/>
+				            </f:facet>
+
+				        </rich:dataTable>
+						<table>
+							<tr bgcolor="#ebf3fd">
+								<td align="center" colspan="2" >
+
+								<a4j:commandButton 
+									id="btnPresaInCarico" 
+									styleClass="my-button" 
+									value="Prendi In Carico" 
+									style="width:150px" 
+									reRender="statusPratica"
+									disabled="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico}"
+									action="#{ricercaDettaglioBck.validatePresaInCaricoFlag}"/>
+									
+								<a4j:commandButton 
+									id="btnSalvaAnnotazioni" 
+									styleClass="my-button" 
+									value="Salva Annotazioni" 
+									style="width:150px; margin-left: 20px;"
+									rendered="#{!(!ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico)}"
+									action="#{ricercaDettaglioBck.salvaAnnotazioni}"/>
+							
+								</td>
+							</tr>
+						</table>
+				        <rich:spacer height="15" />
+						<rich:dataTable 
+									       width="400px" 
+								        	id="titEsitiTbl" 
+								        	columnClasses="col" 
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				        </rich:dataTable>
+						<table>
+						<tr bgcolor="#E6E6FA">
+							<td colspan="4" align="center">
+								<h:outputText value="Definisci Esito" style="font-weight: bold"/>
+							</td>
+						</tr>
+						<tr bgcolor="#ebf3fd">
+							<td colspan="2" align="right" width="50%">
+							<h:selectBooleanCheckbox 
+										id="cbxEsito662" 
+										value="#{ricercaDettaglioBck.bodIstruttoria.esitoIst662}"
+										disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa}">
+									<a4j:support 
+										ajaxSingle="false" 
+										action="#{ricercaDettaglioBck.validateL662Flag}"
+										event="onclick"/>
+							</h:selectBooleanCheckbox>
+							</td>
+							<td align="left" width="25%">
+								<h:outputText value="L.662/1996" style="font-weight: bold"/>
+							</td>
+							<td align="center" width="25%">
+								
+								<table>
+								<tr>
+								<td>
+				     			<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showModello662" 
+						            	action="#{ricercaDettaglioBck.precaricaAllegato662}" 
+						            	value="Compila Allegato" 
+						            	reRender="modello662Panel" 
+						            	oncomplete="#{rich:component('modello662Panel')}.show()"
+						            	rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">
+				     			</a4j:commandLink>
+								
+								</td>
+								</tr>
+								
+								<tr>
+								<td>
+				                
+				                <a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showUploadAllB" 
+						            	action="#{ricercaDettaglioBck.showUploadB}" 
+						            	value="Upload Allegato" 
+						            	reRender="uploadPanelB" 
+						            	oncomplete="#{rich:component('uploadPanelB')}.show()"
+						            	rendered="#{!(!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa)}">
+				     			</a4j:commandLink>
+				                
+				     			</td>
+				     			</tr>				     			
+				     			<tr>
+								<td>
+				                <h:commandLink  onclick="javascript:apriPdf('#{ricercaDettaglioBck.pathAllegatiSegnalazioni}#{ricercaDettaglioBck.nomeAllegato}', '4')"
+				     				rendered="#{ricercaDettaglioBck.bodSegnalazioneSwitch.mostraLinkAllegatoB and ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !(ricercaDettaglioBck.bodIstruttoria.chiusa and !ricercaDettaglioBck.bodIstruttoria.esitoIst662)}">
+								       	<h:outputText value="Mostra Allegato"/>
+								</h:commandLink>
+								
+				     			</td>
+				     			</tr>
+								
+								</table>
+							</td>
+						</tr>
+						<tr bgcolor="#ebf3fd">
+							<td colspan="2" align="right">
+							<h:selectBooleanCheckbox 
+										id="cbxEsito80" 
+										value="#{ricercaDettaglioBck.bodIstruttoria.esitoIst80}"
+										disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa}">
+									<a4j:support 
+										ajaxSingle="false" 
+										action="#{ricercaDettaglioBck.validateL80Flag}"
+										event="onclick"/>
+							</h:selectBooleanCheckbox>
+							</td>
+							<td align="left">
+								<h:outputText value="Art.34 quinquies L.80/2006" style="font-weight: bold"/>
+							</td>
+							<td align="center">
+								<table>
+								<tr>
+								<td>
+								<!-- tre link che erano rispettivamente "Compila Segnalazione", "Nuova Segnalazione" e "Segnalazione", ora unificati -->
+								<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showXmlManager" 
+						            	value="Segnalazione" 
+						            	action="#{ricercaDettaglioBck.showXmlManager}"
+						            	reRender="xmlManagerPanel" 
+						            	disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"
+						            	oncomplete="#{rich:component('xmlManagerPanel')}.show()"
+						            	rendered="#{not ricercaDettaglioBck.bodSegnalazioneSwitch.mostraLinkNuova and !(!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa)}">
+				     			</a4j:commandLink>
+				     			<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showXmlManagerNew" 
+						            	value="Segnalazione" 
+						            	action="#{ricercaDettaglioBck.showXmlManagerNew}"
+						            	reRender="xmlManagerPanel" 
+						            	disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa}"
+						            	oncomplete="#{rich:component('xmlManagerPanel')}.show()"
+						            	rendered="#{ricercaDettaglioBck.bodSegnalazioneSwitch.mostraLinkNuova and !(!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa)}">
+				     			</a4j:commandLink>
+				     			<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showXmlManagerSegn" 
+						            	value="Segnalazione" 
+						            	action="#{ricercaDettaglioBck.showXmlManager}"
+						            	reRender="xmlManagerPanel" 
+						            	oncomplete="#{rich:component('xmlManagerPanel')}.show()"
+						            	rendered="#{(ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato) and ricercaDettaglioBck.bodIstruttoria.esitoIst80 and ricercaDettaglioBck.bodIstruttoria.segnalazioneDisponibile }">
+				     			</a4j:commandLink>
+				     			</td>
+				     			</tr>
+				     			<tr>
+				     			<td>
+				                	<a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showModello80" 
+						            	action="#{ricercaDettaglioBck.precaricaAllegato80}" 
+						            	value="Compila Allegato" 
+						            	reRender="modello80Panel" 
+						            	oncomplete="#{rich:component('modello80Panel')}.show()"
+						            	rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">
+				     				</a4j:commandLink>
+									
+				                </td>
+				                </tr>
+								<tr>
+								<td>
+				                <a4j:commandLink 
+						            	ajaxSingle="true" 
+						            	id="showUploadAll" 
+						            	action="#{ricercaDettaglioBck.showUpload}" 
+						            	value="Upload Allegato" 
+						            	reRender="uploadPanel" 
+						            	oncomplete="#{rich:component('uploadPanel')}.show()"
+						            	rendered="#{!(!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa)}">
+				     			</a4j:commandLink>
+				     			</td>
+				     			</tr>				     			
+				     			<tr>
+								<td>
+				                <h:commandLink  onclick="javascript:apriPdf('#{ricercaDettaglioBck.pathAllegatiSegnalazioni}#{ricercaDettaglioBck.nomeAllegato}', '4')"
+				     				rendered="#{ricercaDettaglioBck.bodSegnalazioneSwitch.mostraLinkAllegato and ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !(ricercaDettaglioBck.bodIstruttoria.chiusa and !ricercaDettaglioBck.bodIstruttoria.esitoIst80)}">
+								       	<h:outputText value="Mostra Allegato"/>
+								</h:commandLink>
+				     			</td>
+				     			</tr>
+				     			</table>
+							</td>
+						</tr>
+						<tr bgcolor="#ebf3fd">
+							<td colspan="2" align="right">
+								<h:selectBooleanCheckbox 
+										id="cbxEsito311" 
+										value="#{ricercaDettaglioBck.bodIstruttoria.esitoIst311}"
+										disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa}">
+									<a4j:support 
+										ajaxSingle="false" 
+										action="#{ricercaDettaglioBck.validateL311Flag}"
+										event="onclick"/>
+								</h:selectBooleanCheckbox>
+							</td>
+							<td colspan="2" align="left">
+								<h:outputText value="Art.1 c.336 L.311/2004" style="font-weight: bold"/>
+							</td>
+						</tr>
+						<tr bgcolor="#ebf3fd">
+							<td colspan="2" align="right">
+								<h:selectBooleanCheckbox 
+										id="cbxEsitoNA" 
+										value="#{ricercaDettaglioBck.bodIstruttoria.esitoIstNA}"
+										disabled="#{!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa}">
+									<a4j:support id="checkboxSupport" event="onclick" action="#{ricercaDettaglioBck.validateNAFlag}" />
+								</h:selectBooleanCheckbox>
+							</td>
+							<td colspan="2" align="left">
+								<h:outputText value="Nessuna Anomalia" style="font-weight: bold"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4"><rich:spacer height="15px"></rich:spacer></td>
+						</tr>
+						<tr bgcolor="#ebf3fd">
+							<td colspan="4" align="center">
+								<h:outputText id="msgChiudiPratica" style="color: red; font-weight: bold" value="#{msg.msgChiudiPraticaError}" rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.mostraMsgChiudiPraticaError}"/>
+								<h:outputText id="msgChiudiPraticaErrorNonAutorizzato" style="color: red; font-weight: bold" value="#{msg.msgUtenteNonAutorizzatoError}" rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.mostraMsgUtenteNonAutorizzato}"/>
+								<h:outputText id="msgErrorChiusuraPratica" style="color: red; font-weight: bold" value="#{msg.msgErrorChiusuraPratica}" rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.mostraMsgErrorChiusuraPratica}"/>
+								<h:outputText id="msgErrorChiusuraPraticaNoAllegato" style="color: red; font-weight: bold" value="#{msg.msgErrorChiusuraPraticaNoAllegato}" rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.mostraMsgErrorChiusuraPraticaNoAllegato}"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="4">
+								<h:outputText 
+									id="msgSave" 
+									style="color: green; font-weight: bold"
+									value="#{msg.msgSuccess}" 
+									rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.mostraMsgIstruttoriaSave}"/>
+							</td>
+						</tr>
+					</table>
+					
+		        <table style="width : 810px; position: relative">
+					<tr>
+					<td align="center">
+						<a4j:commandButton 
+							id="btnConferma" 
+							styleClass="my-button" 
+							value="Chiudi Pratica" 
+							style="width:150px"
+							reRender="statusPratica" 
+							disabled="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledSaveButton or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"
+							onclick="#{rich:component('confirmation')}.show();return false"/>
+						<a4j:jsFunction id="chiudi" name="submit" reRender="statusPratica" action="#{ricercaDettaglioBck.saveIstruttoria}"/>
+
+					</td>
+					</tr>
+				</table>
+				
+				<rich:dataTable 
+							       width="400px" 
+						        	id="titCollaudoTbl" 
+						        	columnClasses="col" 
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+		            <f:facet name="header">
+		                <h:outputText value="Esito Collaudo"/>
+		            </f:facet>
+
+		        </rich:dataTable>
+				<table style="width : 810px; position: relative">
+					<tr>
+					<td align="center">
+
+					<h:outputText 
+						id="lblCollaudo1" 
+						value="Classamento rettificato con accoglimento integrale della segnalazione;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '1'}"/>
+					<h:outputText 
+						id="lblCollaudo2" 
+						value="Classamento rettificato in accoglimento parziale della segnalazione;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '2'}"/>
+					<h:outputText 
+						id="lblCollaudo3" 
+						value="Incoerenze segnalate non influenti sul classamento;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '3'}"/>
+					<h:outputText 
+						id="lblCollaudo4" 
+						value="Elementi segnalati insufficienti;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '4'}"/>
+					<h:outputText 
+						id="lblCollaudo5" 
+						value="Unita immobiliare segnalata movimentata da altro DOCFA;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '5'}"/>
+					<h:outputText 
+						id="lblCollaudo7" 
+						value="Unita immobiliare o fabbricato non presente nel documento DOCFA segnalato;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '7'}"/>
+					<h:outputText 
+						id="lblCollaudo8" 
+						value="Terna Protocollo-Anno-Comune non corrispondente ad un DOCFA Tecnico;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '8'}"/>
+					<h:outputText 
+						id="lblCollaudo9" 
+						value="Terna Protocollo-Anno-Comune non esistente in banca dati;" 
+						style="font-size: 14px; font-weight: bold"
+						rendered="#{ricercaDettaglioBck.selBodBean.collaudo == '9'}"/>
+						
+					</td>
+					</tr>
+				</table>
+				
+					</a4j:region>
+		        </a4j:outputPanel>
+				
+		        
+			    </rich:panel>
+			</div>
+			            
+			        </rich:tab>
+			    </rich:tabPanel>
+
+			</ui:define>
+			
+			<ui:define name="modalPanel">
+			
+<!-- ******************* MODALE CONFIRM  *********************************** -->
+   			<ui:include src="./confirmation.xhtml" />
+   			
+<!-- ******************* MODALE XML MANAGER  ******************************* -->
+			<ui:include src="./editorIstruttoria.xhtml" />
+			
+<!-- **************** MODALE CLASSAMENTO CORPI DI FABBRICA ENTRO 200 m  ** -->
+			<ui:include src="./classCorpiFabbrica.xhtml" />
+
+<!-- ******************* MODALE CLASSAMENTO COMPATIBILE  ******************* -->
+			<ui:include src="./classamento.xhtml" />
+
+<!-- ******************* MODALE CONTROLLOCLASSAMENTO ALTRE ZONE CENSUARIE ******************* -->
+			<ui:include src="./classamentoZc.xhtml" />
+		    
+<!-- ******************* MODALE PLANIMETRIE  ******************************* -->
+			<ui:include src="./planimetrie.xhtml" />
+									
+<!-- ******************* UPLOAD ALLEGATI  ******************************* -->
+			<ui:include src="./uploadAllegati.xhtml" />		
+			<ui:include src="./uploadAllegatiB.xhtml" />		
+			
+<!-- ******************* COMPILAZIONE MODELLO 662  ******************************* -->
+	<ui:include src="./modello662.xhtml" />						
+				
+<!-- ******************* COMPILAZIONE MODELLO 80  ******************************* -->
+	<ui:include src="./modello80.xhtml" />						
+				
+			</ui:define>
+			
+			<ui:define name="footer">
+			</ui:define>
+		</ui:composition>
+		
+</html>      

@@ -1,0 +1,252 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="E72A95CB-876F-BABD-3706-5C3F84665136" directorySegmentName="seg_1" name="CS_D_PAI">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_D_PAI</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>02AD8BC6-5B01-E78D-A6FC-7EF7D7FDF8D9</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<pkName>CS_D_PAI_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontSize>13</fontSize>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DIARIO_ID" id="33132254-5E4B-5B18-9347-A3D7453D2DC1">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>DIARIO_ID</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>FB96DD0C-3F49-C20C-EE59-00B0EEFF8AD3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D6F936C3-6E5D-F7BE-60C1-E8F9AA10E9A0</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E004C985-36A9-BBF3-F3EE-272D4EE1832B" referredColumn="D6F936C3-6E5D-F7BE-60C1-E8F9AA10E9A0"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="USER_INS" id="DEA6B681-EB72-BD45-C41F-A9C186A00367">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>USER_INS</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>F3DB0369-5B4A-00CE-9308-30A433D70D23</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DT_INS" id="0E624EE1-4DEE-EAE7-6E9E-6AF21CD2621B">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>DT_INS</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>3C2087F8-13CC-0E45-80D0-82B4CF221B12</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="USR_MOD" id="08670CF6-F90D-BD50-D4CE-814FF0EC3570">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>USR_MOD</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>05569A3D-05CE-D1B9-F06D-8FAE6200F8D2</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DT_MOD" id="FCC6EAEE-4F4F-EC4B-5FC1-919D34EB162F">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>DT_MOD</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>01179304-5428-51EB-E2EE-7ACE314B963D</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DATA_ATTIVAZIONE" id="E90DE8A8-3791-2F70-6160-3E12DD5BB9F6">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>DATA_ATTIVAZIONE</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>7F50A8C4-9598-31B3-1668-E496428EB8BE</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="VERIFICA_OGNI" id="AAD65C94-D5E9-6443-72D2-F1DC219D43A3">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>VERIFICA_OGNI</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>C2C4B92A-614D-417E-007A-5035BB28436C</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="VERIFICA_UNITA_MISURA" id="39CF2FE2-180A-3D51-FB89-18C819154F86">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>VERIFICA_UNITA_MISURA</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>A966E417-63C2-70FE-E2AD-8CCB1A3FB941</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DATA_CHIUSURA" id="F5FEAF72-198A-9932-FC8B-DBACB37D97DC">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>DATA_CHIUSURA</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>197D9E4F-C4EE-3E4A-EE4C-3CDDD2C89B61</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<dataTypeSize>7</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="OBIETTIVI" id="FDCB39ED-FCE4-D4A7-A6D8-A6B93B85D9A7">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>OBIETTIVI</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>F665DAB8-E55C-F5FD-B8FB-C90542BAA7DF</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="AZIONI_PREVISTE" id="DB54CA30-79F3-A3DE-CBA5-61CBDEA94DBF">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_PAI</sourceObjSchema>
+<sourceObjName>AZIONI_PREVISTE</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>2279D49D-74C9-7444-D936-617CA80C6C14</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="047396E9-CEE2-1554-1CC5-5054F9ED27DF" name="CS_D_PAI_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_D_PAI_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>7BE7068F-ECC5-1C10-F8F0-83AFED37A471</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="33132254-5E4B-5B18-9347-A3D7453D2DC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="2110E17F-E2EB-5490-D0C5-6DFD488C63A0" name="CS_D_PAI_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_D_PAI_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>A82B2C13-84CB-9A47-B17C-C90AB1F86C1F</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="33132254-5E4B-5B18-9347-A3D7453D2DC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="09678D25-21E5-CD02-0104-DCE621572045" name="CS_D_PAI_CS_D_DIARIO_FK">
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-27 12:53:08 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="33132254-5E4B-5B18-9347-A3D7453D2DC1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

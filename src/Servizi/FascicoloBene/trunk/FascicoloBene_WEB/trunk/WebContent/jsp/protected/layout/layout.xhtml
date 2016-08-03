@@ -1,0 +1,128 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<title>Fascicolo Bene Comune</title>
+	  <link rel="stylesheet" type="text/css"
+		href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+	<script type="text/javascript"
+		src="${facesContext.externalContext.requestContextPath}/js/it.js" />
+		
+	<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript" ></script>
+</h:head>
+
+<h:body >
+	<p:growl id="globalMessage" showDetail="true" />
+	
+	<p:layout fullPage="true">
+		<p:layoutUnit position="north" styleClass="layoutUnit" >
+		
+			<!-- Login -->
+			<ui:fragment rendered="#{!userBean.logged}">
+				<form id="frmLogin" action='j_security_check' method='post'>
+					<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<p:panelGrid styleClass="panelGrid" style="width:auto; float:right;" cellpadding="10">
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Nome utente: " styleClass="label" for="j_username" />
+											<p:inputText id="j_username"/>
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Password: " styleClass="label" for="j_password" />
+											<p:inputText id="j_password" type="password" />
+										</p:column>
+										<p:column colspan="2" style="text-align: right;">
+											<p:commandButton value="Login" onclick="document.forms['frmLogin'].submit();" />
+										</p:column>
+									</p:row>
+									
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>		
+				</form>
+			</ui:fragment>
+			<ui:fragment rendered="#{userBean.logged}">
+				<h:form id="frmUser">
+					<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+						<div class="ui-grid-row">
+							<div class="ui-grid-col-12">
+								<p:graphicImage id="imgLogoComune" value="#{userBean.logoComune}" rendered="#{userBean.logoComune!=NULL}" height="90" cache="false" />
+								<h:outputLabel value="Logo non presente" rendered="#{userBean.logoComune==NULL}"></h:outputLabel>
+							</div>
+							<div class="ui-grid-col-12">
+								<p:panelGrid styleClass="panelGrid" style="width:auto; float:right;" cellpadding="10">
+									<p:row>
+										<p:column>
+											<h:outputLabel for="esci" styleClass="label" value="Benvenuto #{userBean.username}" />
+											<p:commandButton id="esci" value="Esci" action="#{userBean.doLogout}" ajax="false" icon="ui-icon-extlink"/>
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+							</div>
+						</div>
+					</div>		
+				</h:form>
+			</ui:fragment>
+			
+		</p:layoutUnit>
+		
+		<p:layoutUnit position="center" styleClass="layoutUnit" >
+			<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+				<div class="ui-grid-row">
+					<div class="titleBar ui-grid-col-12"> Fascicolo Bene Comune	
+					<div align="right" style="float: right;">
+					<a style="font-weight:normal;color:white;" href="/AMProfiler">Torna al Men&#249; Applicazioni</a></div></div>
+								
+				</div>
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-12">
+						<ui:fragment rendered="#{userBean.logged}">
+							<h:form id="frmMenu">
+								<p:menubar>
+									<p:menuitem value="Home" action="#{navigationBean.goHome}" icon="ui-icon-home" />
+									<p:menuitem value="Caricatore Dati" action="#{navigationBean.goGestoreFlussi}" 
+												rendered="#{navigationBean.autorizzatoGestioneFlussi}" icon="ui-icon-gear" />
+									<p:menuitem value="Ricerca" action="#{navigationBean.goRicercaBene}" icon="ui-icon-search" />
+								</p:menubar>
+								<p:spacer height="5"/>
+							</h:form>
+						</ui:fragment>
+					 	<h:form id="frmMessages">
+							<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" escape="false"/>
+							<p:spacer height="5"/> 
+						</h:form>
+					</div>
+				</div>
+				<div class="ui-grid-row">
+					<div class="ui-grid-col-12">				
+						<ui:insert name="content"/>
+					</div>
+				</div>
+			</div>
+		</p:layoutUnit>
+		
+		<p:layoutUnit position="south" styleClass="layoutUnit" >
+			<!-- Footer -->
+			<ui:include id="footer" src="/jsp/protected/layout/footer.xhtml"/>
+		</p:layoutUnit>
+	</p:layout>
+	
+	<!-- loading -->
+	<p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" />  
+	<p:dialog modal="true" widgetVar="statusDialog" header="Operazione in corso..." 
+	        draggable="false" closable="false" resizable="false" >
+	    <p:graphicImage value="/images/ajaxloadingbar.gif" />  
+	</p:dialog>
+	<!-- Fine Loading --> 
+</h:body>
+</html>

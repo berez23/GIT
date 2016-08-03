@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Servizio_Dia_EJB">
+        <wb-resource deploy-path="/" source-path="/ejbModule"/>
+        <property name="java-output-path" value="/Servizio_Dia_EJB/build/classes"/>
+        <property name="ClientProject" value="Servizio_Dia_EJBClient"/>
+        <property name="ClientJARURI" value="Servizio_Dia_EJBClient.jar"/>
+    </wb-module>
+</project-modules>

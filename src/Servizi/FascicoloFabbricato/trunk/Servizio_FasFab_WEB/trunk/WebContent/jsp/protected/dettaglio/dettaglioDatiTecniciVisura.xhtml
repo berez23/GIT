@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+				
+		<rich:messages passedLabel="Operazione completata" 
+								   layout="list" >
+              <f:facet name="infoMarker">
+                   <h:graphicImage  value="/images/passed.gif" />
+              </f:facet>
+              <f:facet name="errorMarker">
+                    <h:graphicImage value="/images/error.gif" />   
+              </f:facet>
+        </rich:messages>	
+
+				<rich:panel>
+				<f:facet name="header">Dettaglio Visura</f:facet>
+				
+				<h:panelGrid columns="2" width="100%">
+				    <h:panelGrid columns="4" width="95%">
+					
+					    <h:outputText value="TIPO ATTO " styleClass="myLabel" />
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.descTipoAtto!=null ? datiTecniciBean.selConcVisura.descTipoAtto  : datiTecniciBean.selConcVisura.tipoAtto}" />
+					    
+					    <h:outputText value="NUM.ATTO" styleClass="myLabel" />
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.numeroAtto}" />
+					    
+					    <h:outputText value="PROT.GEN." styleClass="myLabel" />
+					    <h:panelGrid columns="4" cellpadding="0" cellspacing="0" style="align:right">
+					       <h:outputText value="Anno:" style="font-weight:bold" />
+						   <h:outputText value="#{datiTecniciBean.selConcVisura.annoProtGen}" />
+						   <h:outputText value="Numero:" styleClass="myLabel" />
+						   <h:outputText value="#{datiTecniciBean.selConcVisura.numProtGen}" />
+					    </h:panelGrid>
+					    
+					     <h:outputText value="PROT.SETT." styleClass="myLabel" />
+						 <h:outputText value="#{datiTecniciBean.selConcVisura.numProtSett}" />
+					    
+					    <h:outputText value="VIA" styleClass="myLabel" />
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.prefisso} #{datiTecniciBean.selConcVisura.nomeVia}" />
+					    
+					    <h:outputText value="ALTRA VIA" styleClass="myLabel" />
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.altravia!=null ? datiTecniciBean.selConcVisura.altravia : '-'}" />
+					    
+					    <h:outputText value="CIVICO" styleClass="myLabel" />
+					    <h:panelGroup>
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.civico}" />
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.civicoSub!=null and datiTecniciBean.selConcVisura.civicoSub ne datiTecniciBean.selConcVisura.civico ? (datiTecniciBean.selConcVisura.civicoSub) : ''}" />
+					    </h:panelGroup>
+					    
+					   <h:outputText value="ALTRI CIVICI" styleClass="myLabel" />
+					   <h:outputText value="#{datiTecniciBean.selConcVisura.altriciv!=null ? datiTecniciBean.selConcVisura.altriciv : '-'}" />
+					   
+					   	<h:outputText value="INTESTATARIO" styleClass="myLabel" />
+				   	    <h:outputText value="#{datiTecniciBean.selConcVisura.nomeIntestatario}" />
+				   
+					    <h:outputText value="" styleClass="myLabel" />
+					    <h:outputText value="" styleClass="myLabel" />
+					    
+					    <h:outputText value="TIPOLOGIA" styleClass="myLabel" />
+	   					<h:outputLabel value="#{datiTecniciBean.selConcVisura.descTipologia!=null ? datiTecniciBean.selConcVisura.descTipologia : (datiTecniciBean.selConcVisura.tipologia!=null ? datiTecniciBean.selConcVisura.tipologia : '-')}" />
+					   
+					   	<h:outputText value="" styleClass="myLabel" />
+					    <h:outputText value="" styleClass="myLabel" />
+					   
+					    <h:outputText value="DESTINAZIONE" styleClass="myLabel" />
+	   					<h:outputLabel value="#{datiTecniciBean.selConcVisura.descDestinazione!=null ? datiTecniciBean.selConcVisura.descDestinazione : (datiTecniciBean.selConcVisura.destinazione!=null ? datiTecniciBean.selConcVisura.destinazione : '-')}" />
+					   
+					    <h:outputText value="" styleClass="myLabel" />
+					    <h:outputText value="" styleClass="myLabel" />
+					    			
+					    <h:outputText value="PRIVATA" styleClass="myLabel" />
+					    <h:outputLabel value="#{datiTecniciBean.selConcVisura.privata ? 'SI' : 'NO' }" />
+					    
+					    <h:outputText value="RIPARTO" styleClass="myLabel" />
+					    <h:outputLabel value="#{datiTecniciBean.selConcVisura.riparto}" />
+					    
+					    <h:outputText value="VINC.AMBIENTALE" styleClass="myLabel" />
+					    <h:outputText value="#{datiTecniciBean.selConcVisura.vincoloAmbientale}" />
+							
+   					<h:outputText value="DATA DOCUMENTO" styleClass="myLabel" />
+   					<h:outputText value="#{datiTecniciBean.selConcVisura.dataDoc}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputText>
+					
+					   </h:panelGrid>
+				    
+				     <h:panelGrid>
+				    
+				     <h:commandLink  id="CL1" action="#{datiTecniciBean.showDocumentoVisura}" title="Apri Documento" >
+				     	<h:graphicImage value="/images/jpg_icon.png" />
+				      	<a4j:actionparam id="fileCorrente_w1" name="fileCorrente_w1" value="#{datiTecniciBean.selConcVisura.idFile}"   assignTo="#{datiTecniciBean.selIdDocVisura}"/>
+			   			<a4j:actionparam id="fileCorrente_w2"  name="fileCorrente_w2" value="#{datiTecniciBean.selConcVisura.pathFile}" assignTo="#{datiTecniciBean.selPathDocVisura}"/>
+			   			<a4j:actionparam id="openJpg" name="openJpg" value="true" assignTo="#{datiTecniciBean.openJpg}" />
+						<a4j:actionparam id="watermark" name="watermark" value="true" assignTo="#{datiTecniciBean.watermark}" />
+ 
+     				 </h:commandLink>
+     				
+     				 <h:commandLink  id="CL2" action="#{datiTecniciBean.showDocumentoVisura}"  title="Apri Documento (SENZA WATERMARK)" 
+     				 	rendered="#{datiTecniciBean.permDocConcVisura}">
+			   			<h:graphicImage value="/images/pdf_icon.png"/>
+			   			<a4j:actionparam id="fileCorrente_nw1" name="fileCorrente_nw1" value="#{datiTecniciBean.selConcVisura.idFile}"   assignTo="#{datiTecniciBean.selIdDocVisura}"/>
+			   			<a4j:actionparam id="fileCorrente_nw2" name="fileCorrente_nw2" value="#{datiTecniciBean.selConcVisura.pathFile}" assignTo="#{datiTecniciBean.selPathDocVisura}"/>
+			   			<a4j:actionparam id="openJpg1" name="openJpg1" value="false" assignTo="#{datiTecniciBean.openJpg}" />
+						<a4j:actionparam id="watermark1" name="watermark1" value="false" assignTo="#{datiTecniciBean.watermark}" />
+     				 	
+     				 </h:commandLink>
+				    	
+				 	</h:panelGrid>
+				 	
+				 	</h:panelGrid>
+				    
+		  </rich:panel>
+		      
+  		</ui:composition>
+</html>

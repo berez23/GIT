@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<type-mapping>
+		<sql-type jdbc-type="INTEGER" hibernate-type="java.lang.Long" />
+		<sql-type jdbc-type="DECIMAL" hibernate-type="java.lang.Long" />
+		<sql-type jdbc-type="NUMERIC" hibernate-type="java.lang.Long" />
+		<sql-type jdbc-type="DATE" hibernate-type="java.util.Date" />
+		<sql-type jdbc-type="OTHER"
+			hibernate-type="it.webred.diogene.db.HibernateXMLType" />
+
+	</type-mapping>
+
+
+
+	<table-filter match-name="DV_.*" exclude="false"/>
+	<table-filter match-name="DC_.*" exclude="false"/>
+	<table-filter match-name="AM_.*" exclude="false"/>
+
+
+	<table name="DV_USER_ENTITY">
+		<column name="SQL_STATEMENT" type="binary" property="sqlStatement" />
+	</table>
+	<table name="DC_REL">
+		<column name="CONDITION" type="binary" property="condition"/>
+	</table>
+	<table name="DC_EXPRESSION">
+		<column name="EXPRESSION" type="binary" property="expression"/>
+	</table>
+	<table name="DC_METADATA_CONNECTION">
+		<column name="HIBERNATE_MAPPING" type="binary" property="hibernateMapping"/>
+	</table>
+	<table name="DV_FORMAT_CLASSE">
+		<column name="FILTER" type="binary" property="filter"/>
+		<column name="LIST" type="binary" property="list"/>
+		<column name="DETAIL" type="binary" property="detail"/>
+	</table>
+</hibernate-reverse-engineering>

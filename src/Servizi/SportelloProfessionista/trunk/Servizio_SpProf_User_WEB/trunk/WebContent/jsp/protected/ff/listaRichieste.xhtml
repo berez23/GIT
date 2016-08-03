@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+<h:form id="lstForm">
+	<br />
+	<rich:panel id="panelContentTable">
+					<f:facet name="header">
+						<h:outputText value="LISTA RICHIESTE FASCICOLO FABBRICATO" />	
+					</f:facet>
+					<rich:dataTable width="100%"
+							id="listaFiltroTable"
+				        	var="filtro"
+				        	value="#{listaRichiesteBean.lista}"
+				        	rows="20"
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+		                
+		                <f:facet name="header">
+                       		<rich:columnGroup>
+                       		  <rich:column>Data richiesta</rich:column>
+                       		  <rich:column>Rich. numero</rich:column>
+                       		  <rich:column>Tipo</rich:column>
+							  <rich:column>Provenienza</rich:column>	
+                        	  <rich:column>S-F-P</rich:column>
+                        	  <rich:column>Data riferimento</rich:column>
+                        	  <rich:column>Soggetto</rich:column>
+                        	  <rich:column>Codice Fisc.</rich:column>
+                        	  <rich:column>Data nasc.</rich:column>
+                        	  <rich:column>Evasa</rich:column>
+                        	  <rich:column>Data Evasione</rich:column>			
+                        	</rich:columnGroup>
+                       </f:facet>    
+		                    
+						<rich:column>
+							<h:outputLabel value="#{filtro.richiesta.dataRichiesta}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
+							</h:outputLabel>
+						</rich:column>
+						<rich:column>							
+							<h:outputLabel value="#{filtro.richiesta.idRichiesta}" />
+						</rich:column>
+						<rich:column>							
+							<h:outputLabel value="#{filtro.descTipoRichiesta}" />
+						</rich:column>								            
+						<rich:column>							
+							<h:outputLabel value="#{filtro.descTipoProvenienza}" />
+						</rich:column>
+						<rich:column>							
+							<h:outputLabel value="#{filtro.richiesta.sezione} - #{filtro.richiesta.foglio} - #{filtro.richiesta.particella}" />
+						</rich:column>	
+						<rich:column>
+							<h:outputLabel value="#{filtro.richiesta.dataRif}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
+							</h:outputLabel>
+						</rich:column>											
+						<rich:column>
+							<h:outputLabel value="#{filtro.richiesta.cognome} #{filtro.richiesta.nome}" />
+						</rich:column>
+						<rich:column>							
+							<h:outputLabel value="#{filtro.richiesta.codFiscale}" />
+						</rich:column>
+						<rich:column>								
+							<h:outputLabel value="#{filtro.richiesta.strDataNascita}" />					
+						</rich:column>
+						<rich:column>												
+							<h:outputLabel value="#{filtro.richiesta.richEvasa=='1'?'SI':'NO'}" />
+						</rich:column>
+						<rich:column>													
+							<h:outputLabel value="#{filtro.richiesta.strDataEvasione}" />
+						</rich:column>						
+						<f:facet name="footer">
+							<rich:datascroller id="tableScroller" align="center" for="listaFiltroTable" />
+						</f:facet>
+					</rich:dataTable>
+				</rich:panel>
+				</h:form>
+	</ui:define>
+</ui:composition>
+</html>

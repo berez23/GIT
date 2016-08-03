@@ -1,0 +1,540 @@
+<%@ page contentType="text/css" %>
+BODY  {
+	font-family :  Tahoma, Arial;
+	font-size : 10pt;
+	background-color: #E4E4E4;
+}
+TD
+{
+	background-color: #E4E4E4;
+}
+
+.titolo  {
+	font-family : Tahoma, Arial;
+	font-size : 14pt;
+	color : Red;
+	font-weight : bold;
+}
+
+.titolo1  {
+	font-size : 10pt;
+	color : Red;
+	font-weight : bold;
+}
+
+.label  {
+	font-size : 10pt;
+	color : Red;
+	font-weight : bold;
+}
+
+.labelgray  {
+	font-size : 10pt;
+	color : Gray;
+	font-weight : bold;
+}
+
+.testoricerca  {
+	font-size : 8pt;
+	color : Red;
+	font-weight : bold;
+}
+
+.testoricerca1  {
+	font-size : 8pt;
+	color : Red;
+}
+
+.label1  {
+	font-size : 7pt;
+	color : Red;
+	text-align : center;
+	font-weight : bold;
+}
+
+
+.reportTit0  {
+	font-size : 16pt;
+	color : Red;
+	font-weight : bold;
+	border-color : Black;
+}
+
+.reportTit1  {
+	font-size : 12pt;
+	color : Red;
+	font-weight : bold;
+}
+
+.report0  {
+	font-size : 14pt;
+	color : black;
+	font-weight : bold;
+}
+
+.report1  {
+	font-size : 10pt;
+	color : black;
+	font-weight : bold;
+}
+
+.report2  {
+	font-size : 10pt;
+	color : black;
+}
+
+td.tdreport1 {
+	border-left-width : thin;
+	border-right-width : thin;
+	border-top-width : thin;
+	border-bottom-width : thin;
+	border-width : thin;
+	border-color : Black;
+	border-style : solid;
+}
+
+td.tdtitolodati  {
+	background-color : #5c5c5c;
+	text-align : center;
+}
+td.tdtitolodatiRT  {
+	background-color : #5c5c5c;
+	text-align : right;
+}
+
+td.tdtitolodati3  {
+	background-color : #fdfb9f;
+	text-align : center;
+}
+
+
+td.tdtitolodati2  {
+	text-align : center;
+}
+td.tddati  {
+	background-color : #c0d0fa;
+	text-align : left;
+}
+td.tddatiHead  {
+	background-color : #e3e3e3;
+	text-align : left;
+}
+td.tddati1  {
+	background-color : #e3e3e3;
+	text-align : right;
+}
+td.tddati1center  {
+	background-color : #e3e3e3;
+	text-align : center;
+}
+td.tddati2  {
+	background-color : #e3e3e3;
+	text-align : right;
+}
+
+td.tddatia  {
+	background-color : #f9f588;
+	text-align : left;
+}
+
+td.tddatib  {
+	background-color : #ffb380;
+	text-align : left;
+}
+td.tddatibcenter  {
+	background-color : #ffb380;
+	text-align : center;
+}
+
+td.tddatic  {
+	text-align : left;
+	background-color : LightGreen;
+}
+
+td.tddatid  {
+	text-align : left;
+	background-color : Lavender;
+}
+td.tddatie  {
+	text-align : left;
+	background-color : #FFFFCC;
+}
+td.tddatiecenter  {
+	text-align : center;
+	background-color : #FFFFCC;
+}
+td.tddatiF  {
+	text-align : left;
+	background-color : #FDFFEC;
+}
+.txttitolodati  {
+	font-size : 12pt;
+	color : white;
+	text-align : center;
+	font-weight : bold;
+}
+
+.txttitolodati1  {
+	font-size : 10pt;
+	color : #5c5c5c;
+	font-weight : bold;
+	text-decoration : underline;
+	text-align : center;
+	font-style : italic;
+}
+
+.txttitolodati2  {
+	font-size : 10pt;
+	color : white;
+	font-weight : bold;
+	text-align : center;
+}
+.txttitolodati3  {
+	font-size : 8pt;
+	color : white;
+	font-weight : bold;
+	text-align : center;
+}
+
+.txtdati  {
+	font-size : 9pt;
+	color : Red;
+	font-weight : bold;
+}
+
+.txtdatiinput  {
+	font-size : 9pt;
+	color : Red;
+	font-weight : bold;
+	width : 120pt;
+}
+
+.txtdatiHead  {
+	font-size : 9pt;
+	color : #5c5c5c;
+	font-weight : bold;
+}
+.txtdati1  {
+	font-size : 8pt;
+	color : Red;
+	font-weight : bold;
+}
+.txtdatiHyper  {
+	font-size : 9pt;
+	color : Red;
+	font-weight : bold;
+	font-style : italic;
+}
+H1  {
+	color : Navy;
+	font-size : 11pt;
+	text-align : center;
+	margin-bottom : 3px;
+	margin-top : 0px;
+}
+
+H2  {
+	color : Black;
+	font-size : 11pt;
+	text-align : center;
+	height : 18px;
+	margin-bottom : 5px;
+}
+
+H3  {
+	color : Black;
+	font-size : 10pt;
+	font-weight : bold;
+}
+
+H4  {
+	color : Black;
+	font-size : 10pt;
+}
+
+H5  {
+	color : Black;
+	font-size : 9pt;
+}
+
+H6  {
+	color : Black;
+	font-size : 8pt;
+}
+
+
+
+input  {
+	font-size : 10pt;
+}
+
+hr.hrstyle  {
+	color : Red;
+}
+
+.input1  {
+	font-family : "Arial narrow";
+	font-size : 10pt;
+	color : Red;
+	font-weight : bold;
+	width : 120pt;
+}
+
+.input2  {
+	font-family : "Arial narrow";
+	font-size : 10pt;
+	color : Red;
+	font-weight : bold;
+	width : 100pt;
+}
+
+.input3  {
+	font-family : "Arial narrow";
+	font-size : 8pt;
+	color : gray;
+	font-weight : bold;
+	width : 50pt;
+}
+.SEZIOs{
+	font-size: 8pt;
+	color: navy;
+	text-align: left;
+	font-weight : normal;
+	background-color: Khaki;
+}
+	
+.SEZIOd{
+	font-size: 8pt;
+	color : navy;
+	text-align : right;
+	font-weight : normal;
+	background-color: Ivory;
+}
+td.tdtitolodatisez  {
+	background-color : SkyBlue;
+	text-align : center;
+}
+td.tdtitolodatiIll  {
+	background-color : PaleGoldenrod;
+	text-align : center;
+}
+
+.txttitolodatiIll  {
+	font-size : 12pt;
+	color : MediumBlue;
+	text-align : center;
+	font-weight : bold;
+}
+
+td.tddatiIll  {
+	background-color : LightYellow;
+	text-align : left;
+}
+
+.txtdatiIll  {
+	font-size : 9pt;
+	color : Blue;
+	font-weight : bold;
+}
+.txtdatiISTAT  {
+	font-family : Tahoma;
+	font-size : 8pt;
+	color : #595959;
+	font-weight : bold;
+}
+
+table.conbordo{
+			border-left:1Px Solid #000000;
+			border-right:1px Solid #000000;
+			border-bottom:1Px Solid #000000;
+			border-top:1Px Solid #000000;
+			font-size:8pt;
+			font-family : Tahoma;
+		}
+		table.noborder{
+			border-left:0Px Solid #000000;
+			border-right:0px Solid #000000;
+			border-bottom:0Px Solid #000000;
+			border-top:0Px Solid #000000;
+		}
+font.mini
+	{
+		font-family : Tahoma;
+		color: Black;
+		font-size: 6pt;
+
+	}
+	font.bold
+	{
+		font-family : Tahoma;
+		color: Black;
+		font-size: 8pt;
+		font-weight : bold;
+
+	}
+	.divstile{
+	BACKGROUND-COLOR:#DCDCDC;
+	width:24px;
+	height:26px;
+	text-align : center;
+}
+.classinput{
+		font-family : Tahoma;
+		color: Black;
+		font-size: 8pt;
+		}
+	select{
+	font-family : Tahoma;
+	color: Black;
+	font-size: 8pt;
+	width : 110px;
+}
+	label{
+	font-family : Tahoma;
+	font-size: 8pt;
+}
+	.button
+	{
+		font-family : Tahoma;
+		color: Black;
+		font-size: 8pt;
+	}
+	.barra
+			{
+			border-top: 1Px #ffffff Solid;
+			border-bottom: 1Px #9A9A9A Solid;
+			border-left: 1Px #ffffff Solid;
+			border-right: 1Px #9A9A9A Solid; 
+			}
+		.barra2
+	 	 	{
+	  		background-color : #c0c0c0; 
+			border-top: 1Px #808080 Solid;
+			border-bottom: 1Px #ffffff Solid;
+			border-left: 1Px #ffffff Solid;
+			border-right: 1Px #808080 Solid;
+	  		}
+	  .testo
+	  		{
+	  		font-family : Tahoma;
+	  		font-size : 8Pt;
+	  
+	  		}
+	  .click
+	  		{
+	  		cursor: pointer;
+	  		}
+
+.tableBorder
+{
+	border-right: #D4CFC9;
+	border-top: #D4CFC9;
+	border-bottom: #D4CFC9;
+	border-left : #D4CFC9;
+}
+
+.mnuTitle
+{
+	font-weight: bold;
+	font-size: 8pt;
+	color: White;
+	font-family: Arial;
+	text-align: center;
+	color:#FFFFFF;
+}
+
+a{
+	text-decoration : none;
+	font-size : medium;
+	font-family: sans-serif;
+}
+
+.subMnu
+		{
+		font-size: 8pt;
+		width: 110px;
+		color: Black;
+		font-family: Tahoma;
+		background-color: #cfcfcf;
+		text-align: center;
+		border:ridge;
+		border-width: 3px;
+		border-top: none;
+		}
+	.fontalbero{
+	font-size:9px;
+	color: Blue;
+	font-family : Tahoma;
+	text-decoration : none;
+}	
+TD  {
+	font-size : 9pt;
+}
+
+TR  {
+	font-size : 9pt;
+}
+.sfondo{
+	background : transparent no-repeat;
+	background-image : url(images/sfondopuls.jpg);
+	font-style : normal;
+	font-weight: bold;
+	font-family : 'Comic Sans MS',sans-serif;
+	background-color : Teal;
+}
+.sfondo2{
+	background : transparent no-repeat;
+	background-image : url(images/sfondopuls2.jpg);
+	font-style : normal;
+	font-weight: bold;
+	font-family : 'Comic Sans MS',sans-serif;
+	background-color : Olive;
+}
+font.medio{
+	font-family : Tahoma;
+	font-size : smaller;
+	font-style : normal;
+	color : Black;
+}
+font.piccolo{
+	font-family : Tahoma;
+	font-size : smaller;
+	font-style : normal;
+	color : Black;
+}
+
+.extWinTable
+{
+	border: 1Px Solid #000000;
+	Vertical-align: Middle;
+	width : 80%;
+}
+.extWinTDData
+{
+	border: 1pt white Solid;
+	height: 22Px;
+	background-color: #e8f0ff;
+}
+.extWinTDTitle
+{
+	border: 1Px Solid #000000;
+	text-align: center;
+	height: 25pX;
+}
+.extWinTXTTitle
+{
+	font-size:8pt;
+	font-weight: bold;
+	color: #000099;
+}
+.tdRow
+{
+	cursor: pointer;
+	background-color:#d7d7d7;
+	border-bottom:1Px Solid #000000;
+	border-right:1Px Solid #000000;
+}
+.fontscritta{
+	color : #330099;
+	font-weight : bold;
+}

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodModello80Bean" table="BOD_MODELLO80" lazy="false"  >
+  
+  <id column="ID_MOD" name="idMod" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_MODELLO80</param>	   
+	   </generator>
+  </id>
+  
+  
+  
+  <property column="OGGETTODOMANDA" name="oggettoDomanda" type="java.lang.String"/>
+  <property column="TIPOINTERVENTO" name="tipoIntervento" type="java.lang.String"/>
+  <property column="OGGETTO" name="oggetto" type="java.lang.String"/>
+  <property column="NUMPROGRESSIVO" name="numProgressivo" type="java.lang.String"/>
+  <property column="NUMPROTOCOLLO" name="numProtocollo" type="java.lang.String"/>
+  <property column="NOTE" name="note" type="java.lang.String"/>
+  <property column="SETTORE" name="settore" type="java.lang.String"/>
+  <property column="DESTINAZIONEZONA" name="destinazioneZona" type="java.lang.String"/>
+  <property column="SIGNIFICATIVAPRESENZA" name="significativaPresenza" type="java.lang.String"/>
+  <property column="DESTINAZIONEUIU" name="destinazioneUiu" type="java.lang.String"/>
+  <property column="CATEGORIAPROPOSTA" name="categoriaProposta" type="java.lang.String"/>
+  <property column="CLASSEPROPOSTA" name="classeProposta" type="java.lang.String"/>
+  <property column="FLG662" name="flg662" type="java.lang.Boolean"/>
+  <property column="FLGALLINEAMENTO" name="flgAllineamento" type="java.lang.Boolean"/>
+  <property column="FLGNO336" name="flgNo336" type="java.lang.Boolean"/>
+  <property column="FLGASCENSORE" name="flgAscensore" type="java.lang.Boolean"/>
+  
+  
+  
+  <many-to-one name="istruttoria"
+                            class="it.bod.application.beans.BodIstruttoriaBean"
+                            column="ID_IST"
+                            not-null="true"
+                            lazy="false"
+                            unique="true"
+                           
+                            
+                            
+        />
+
+  
+     
+ </class>
+
+</hibernate-mapping>

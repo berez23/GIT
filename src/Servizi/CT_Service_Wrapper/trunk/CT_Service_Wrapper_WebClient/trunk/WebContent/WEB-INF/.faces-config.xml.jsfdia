@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="client.home::#jsp#protected#welcome.xhtml"
+    NAME="output" PATH="/jsp/protected/welcome.xhtml"
+    TARGET="rules:#jsp#protected#welcome.xhtml" TITLE="client.home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="client.IT.home::#jsp#protected#interrogazioniTerritorio#home.xhtml"
+    NAME="output1"
+    PATH="/jsp/protected/interrogazioniTerritorio/home.xhtml"
+    TARGET="rules:#jsp#protected#interrogazioniTerritorio#home.xhtml"
+    TITLE="client.IT.home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="client.VC.home::#jsp#protected#verificaCoordinate#home.xhtml"
+    NAME="output2" PATH="/jsp/protected/verificaCoordinate/home.xhtml"
+    TARGET="rules:#jsp#protected#verificaCoordinate#home.xhtml"
+    TITLE="client.VC.home" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#interrogazioniTerritorio#home.xhtml"
+  PATH="/jsp/protected/interrogazioniTerritorio/home.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#welcome.xhtml"
+  PATH="/jsp/protected/welcome.xhtml" SHAPE="240,145,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#verificaCoordinate#home.xhtml"
+  PATH="/jsp/protected/verificaCoordinate/home.xhtml"
+  SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

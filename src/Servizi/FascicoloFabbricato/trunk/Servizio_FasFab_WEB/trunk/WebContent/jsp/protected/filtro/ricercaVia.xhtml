@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition>			
+			
+		  <rich:contextMenu attached="false" id="menu" submitMode="server">
+			<rich:menuItem submitMode="none">
+				   	  <a4j:commandLink  id="viewLink" 
+				   	  					ajaxSingle="false"
+				   	  					reRender="sez,fgl,part"
+				   	  					oncomplete="Richfaces.hideModalPanel('panelListaVia')">				    
+					    	 Seleziona	  	
+					       <a4j:actionparam name="idsez" value="{sez}" assignTo="#{filtroDataModel.criteria.sezione}"/>
+					       <a4j:actionparam name="fgl" value="{foglio}" assignTo="#{filtroDataModel.criteria.foglio}"/>
+					       <a4j:actionparam name="part" value="{part}" assignTo="#{filtroDataModel.criteria.particella}"/>
+					    	  		
+					    </a4j:commandLink>
+		   </rich:menuItem>
+		</rich:contextMenu>		
+			
+		<rich:panel>
+			<f:facet name="header">Criterio ricerca</f:facet>
+				
+			<table style="width: 100%">
+			    <tr>
+			      	<td style="width: 30%"><h:outputLabel value="Nome via da ricercare" /> </td>
+			      	<td style="width: 40%"><h:inputText value="#{richiestaRicercaVie.nomeVia}" style="width: 95%;"/> </td>
+			      	<td style="width: 30%">
+			      		<a4j:commandLink value="Ricerca"
+			      						  action="#{richiestaRicercaVie.ricercaVie}" 
+			      			 			  reRender="viaList, civList, partList">											      			 			 
+			      		</a4j:commandLink>
+			      	  </td>
+			    </tr>
+			</table>
+		</rich:panel>
+			      
+		<rich:spacer height="10px"/>
+		
+		<rich:panel>
+			<f:facet name="header">Valori trovati</f:facet>
+			       	
+			<rich:panel id="selViaPanel">
+		     	<table style="width: 100%">
+					<tr>
+						<td style="width: 25%"><h:outputLabel value="Seleziona via" /> </td>							
+						<td style="width: 75%">
+							<h:selectOneMenu id="viaList" style="width: 75%" value="#{richiestaRicercaVie.idVia}"
+								valueChangeListener="#{richiestaRicercaVie.valueChanged}">
+	     							<f:selectItems value="#{richiestaRicercaVie.vieItemList}" />
+	     							<a4j:support event="onchange" reRender="civList, partList"/>
+		  					</h:selectOneMenu>	    						
+						</td>
+					</tr>
+				</table>
+			</rich:panel>
+				   
+			<rich:spacer height="5px"/>
+				
+		  	<rich:panel id="selCivPanel">
+		     	<table style="width: 100%">
+					<tr>
+						<td style="width: 25%"><h:outputLabel value="Seleziona civico" /> </td>							
+						<td style="width: 75%">
+							<h:selectOneMenu id="civList" style="width: 75%" value="#{richiestaRicercaVie.idCiv}"
+									valueChangeListener="#{richiestaRicercaVie.valueChanged}">
+	      							<f:selectItems value="#{richiestaRicercaVie.civItemList}" />
+	      							<a4j:support event="onchange" reRender="partList"/>
+	  						</h:selectOneMenu>	 
+						</td>
+					</tr>
+				</table>
+		   	</rich:panel>
+			
+			<rich:spacer height="5px"/>
+			
+			<rich:panel id="selPartPanel">
+				<f:facet name="header">
+					Lista particelle
+				</f:facet>
+					
+				<rich:dataTable  id="partList" style="width: 50%; margin-left: 25%;"
+								 onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                   				 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                   				 value="#{richiestaRicercaVie.partList}"
+                   				 var="part">
+				
+					<f:facet name="header">
+					  <rich:columnGroup>
+							<rich:column>Foglio</rich:column>
+							<rich:column>Particella</rich:column>
+						</rich:columnGroup>						
+					</f:facet>
+					<rich:column>#{part.foglio}</rich:column>
+					<rich:column>#{part.particella}</rich:column>
+					
+					<rich:componentControl event="onRowClick" for="menu" 
+										   operation="show">
+						<f:param name="sez" value="#{part.idSezc}" />
+						<f:param name="foglio" value="#{part.foglio}" />
+						<f:param name="part" value="#{part.particella}" />														
+					</rich:componentControl>
+					
+				</rich:dataTable>
+					
+					
+			</rich:panel>
+		</rich:panel>					
+	</ui:composition>
+</html>

@@ -1,0 +1,4 @@
+custom=true
+#manager.url=http://10.11.10.200:8080/manager
+manager.url=http://127.0.0.1:9090/manager
+

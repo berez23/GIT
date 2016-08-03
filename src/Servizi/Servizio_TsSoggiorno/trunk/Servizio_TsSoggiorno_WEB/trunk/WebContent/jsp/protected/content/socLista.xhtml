@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<rich:panel styleClass="clsCenterPanel">
+	<f:facet name="header">
+		<h:outputText value="Lista società" />
+	</f:facet>
+
+	<h:form id="frmSocLista">
+
+		<h:panelGrid columns="2"
+			rendered="#{fn:length(societaBean.listaSocieta) == 0}">
+			<h:outputLabel value="ATTENZIONE:"
+				style="color: orange; font-weight: bold;" />
+			<h:outputLabel
+				value="per poter creare una nuova dichiarazione è necessaria almeno una società" />
+			<br />
+		</h:panelGrid>
+
+		<rich:dataTable var="row" value="#{societaBean.listaSocieta}"
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Titolo" />
+				</f:facet>
+				<h:outputText value="#{row.societaSogg.descTitolo}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Ragione sociale" />
+				</f:facet>
+				<h:outputText value="#{row.societa.ragSoc}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Codice Fiscale" />
+				</f:facet>
+				<h:outputText value="#{row.societa.cf}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Partita iva" />
+				</f:facet>
+				<h:outputText value="#{row.societa.pi}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Sede legale" />
+				</f:facet>
+				<h:outputText
+					value="#{row.societa.indirizzoSede} #{row.societa.numeroCivSede} - #{row.societa.siglaProvSede}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="3">
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/pay_small.png" id="img2">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent" 
+							action="#{versamentoBean.doLoadVersamentiSocieta}">
+							<a4j:actionparam value="true" name="visPag"
+								assignTo="#{pageBean.visListaPagam}" />
+							<a4j:actionparam value="false" name="visPg"
+								assignTo="#{pageBean.visPagam}" />
+							<a4j:actionparam value="false" name="visDt"
+								assignTo="#{pageBean.visDati}" />
+							<a4j:actionparam value="#{row.societa.pi}" name="cfSel"
+								assignTo="#{versamentoBean.pIvaSelezionato}" />
+							<a4j:actionparam value="#{row.societa.cf}" name="piSel" 
+								assignTo="#{versamentoBean.codFiscSelezionato}" />
+						</a4j:support>
+						<h:outputLabel value="Versamenti" style="cursor:pointer" />
+					</h:panelGrid>
+					
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/edit.png" id="img1">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent"
+							action="#{societaBean.doLoadSocieta}">
+							<a4j:actionparam value="true" name="visDt"
+								assignTo="#{pageBean.visDati}" />
+							<a4j:actionparam value="#{row.societa.id}" name="idSel"
+								assignTo="#{societaBean.idSelezionato}" />
+						</a4j:support>
+						<h:outputLabel value="Modifica" style="cursor:pointer" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/delete.png" id="img3">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent"
+							action="#{societaBean.doDeleteSocieta}"
+							onsubmit="if (!confirm('Procedere con il salvataggio? Verranno eliminate anche le strutture collegate')) return false">
+							<a4j:actionparam value="false" name="visDt"
+								assignTo="#{pageBean.visDati}" />
+							<a4j:actionparam value="#{row.societa.id}" name="idSel"
+								assignTo="#{societaBean.idSelezionato}" />
+						</a4j:support>
+						<h:outputLabel value="Elimina" style="cursor:pointer" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:column>
+		</rich:dataTable>
+
+	</h:form>
+</rich:panel>
+
+<a4j:include id="centerContent" rendered="#{pageBean.visDati}"
+	viewId="/jsp/protected/content/soc.xhtml" />
+<a4j:include id="pagamContent" rendered="#{pageBean.visListaPagam}"
+	viewId="/jsp/protected/content/pagam.xhtml" />
+
+</html>

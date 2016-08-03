@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d001166a-d35e-4b51-a5dd-cd33e9c819cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="aumentoOre" class="java.lang.String"/>
+	<field name="diminuzioneOre" class="java.lang.String"/>
+	<field name="dal" class="java.lang.String"/>
+	<field name="orePreviste" class="java.lang.String"/>
+	<field name="nAccessi" class="java.lang.String"/>
+	<field name="contributoUtente" class="java.lang.String"/>
+	<field name="tipoOre" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="45" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="133" height="20" uuid="60c1d990-e430-492a-b33a-b9152cf5f324"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Aumento ore n.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="133" y="0" width="47" height="20" uuid="383791a2-4f0a-402e-a302-665afe198a2a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{aumentoOre}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="0" width="50" height="20" uuid="f4af8ff9-86fe-4959-8cf0-f76102511478"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{diminuzioneOre}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="202" y="0" width="105" height="20" uuid="3ac0f005-4314-486b-819c-92783da1cb1d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Diminuzione ore n.]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="462" y="0" width="93" height="20" uuid="b4ba2ae0-7876-4f30-857c-fe9e42dd6c45"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="368" y="0" width="94" height="20" uuid="ab5424a6-81f5-4650-96ba-b8e0c483b812"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Dal]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="368" y="25" width="94" height="20" uuid="8173a28a-8684-4d73-897f-33be16e7b652"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Contributo utente]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="462" y="25" width="93" height="20" uuid="fe0b0743-4912-4478-9ee8-7fde23a0a1e5"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contributoUtente}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="133" y="25" width="47" height="20" uuid="d591e45d-63b5-4ae7-b75c-daef5873991e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{orePreviste}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="202" y="25" width="105" height="20" uuid="a0845acc-91e0-4bad-a26d-7eac017c0cc0"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[N° accessi]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="307" y="25" width="50" height="20" uuid="4a496bd9-e522-4466-8b01-06660f4852ee"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nAccessi}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="0" y="25" width="133" height="20" uuid="e467c9d8-4a90-4f91-a5fa-c058da4e9ff8"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoOre}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

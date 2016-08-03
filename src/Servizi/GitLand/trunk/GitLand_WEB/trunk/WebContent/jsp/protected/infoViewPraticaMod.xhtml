@@ -1,0 +1,1296 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgPraticaMod" modal="true" height="600px" width="955px" header="MODIFICA PRATICA" widgetVar="dlgPraticaMod" showEffect="fade" hideEffect="explode" onShow="PrimeFaces.widgets.praticaModTab.select(0);" >
+		<h:form id="frmDlgPratica">
+			<p:panelGrid styleClass="ui-panelgrid-blank"
+				style="margin-top:2px;width:900px">
+				<f:facet name="header">
+					<p:row>
+						<p:column colspan="4">Dettaglio istruttoria</p:column>
+					</p:row>
+
+				</f:facet>
+				<p:row>
+					<p:column colspan="4">
+					    <p:tabView id="praticaTab" widgetVar="praticaModTab" >
+					        <p:tab title="Dati scheda istruttoria"  >
+					            <p:panelGrid styleClass="ui-panelgrid" >
+									<p:row>
+									<p:column colspan="4"> 
+									<p:accordionPanel   styleClass="ui-panelgrid" multiple="true">
+										<p:tab title="Dati Generali" id="accDatiGenerali" style="width:860px;"   >
+											<p:panelGrid styleClass="ui-panelgrid">
+
+												<p:row>
+													<p:column>
+														<p:outputLabel for="codicePraticaMod" value="Codice Pratica" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:inputText id="codicePraticaMod" value="#{ricercheBean.praticaCur.codicePratica}"
+															readonly="true" disabled="true" required="true" requiredMessage="Inserire il Codice Pratica" />
+													</p:column>
+													<p:column>
+														<p:outputLabel value="Tecnico Istruttore" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:outputLabel value="#{ricercheBean.praticaCur.utenteOperatore}" rendered="#{not ricercheBean.dirigente}"  />
+														<p:selectOneMenu value="#{ricercheBean.praticaCur.utenteOperatore}" 
+															rendered="#{ricercheBean.dirigente}" >
+															<f:selectItems value="#{ricercheBean.listaUtentiOperatoreItems}" />
+														</p:selectOneMenu>
+													</p:column>
+												</p:row>
+			
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Azienda(Asi-Ragione Sociale)"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText value="#{ricercheBean.praticaCur.codiceAsiAzienda}"
+															readonly="true" disabled="true" />
+														<p:spacer width="5px" />
+														
+														<p:inputText 
+															value="#{ricercheBean.praticaCur.azienda.ragioneSociale}"
+															readonly="true" disabled="true" style="width:380px;" />
+													</p:column>
+												</p:row>
+								
+												<p:row>
+													<p:column>
+														<p:outputLabel  value="Tipologia Richiesta"
+															style="font-weight:bold;"  />
+													</p:column>
+													<p:column colspan="3">
+														<p:selectOneMenu value="#{ricercheBean.praticaCur.codTipo}"
+															style="width:380px" disabled="#{ricercheBean.praticaReadOnly}">
+															<f:selectItems value="#{ricercheBean.listaTipologieItems}" />
+															<p:ajax event="change" update=":#{p:component('pnlDatiAccessori')}" />												
+														</p:selectOneMenu>
+													</p:column>
+												</p:row>
+								
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Protocollo Num" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:inputText value="#{ricercheBean.praticaCur.protocolloNum}"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}" />
+													</p:column>
+													<p:column>
+														<p:outputLabel value="Protocollo Data" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:calendar value="#{ricercheBean.praticaCur.protocolloData}"
+															mode="popup" showOn="button" pattern="dd/MM/yyyy"
+															popupIconOnly="true"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}" />
+													</p:column>
+								
+												</p:row>
+								
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Intergrazioni" style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText value="#{ricercheBean.praticaCur.integrazioni}"
+															style="width:560px;"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Rappr. Legale" style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText
+															value="#{ricercheBean.praticaCur.azienda.rapprLegale}" 
+															style="width:560px;"
+															readonly="true"
+															disabled="true"/>
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Atto Costituivo" style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText
+															value="#{ricercheBean.praticaCur.azienda.attoCostitutivo}"
+															style="width:560px;"
+															readonly="true"
+															disabled="true" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Attività" style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText
+															value="#{ricercheBean.praticaCur.azienda.codAttivita}"
+															readonly="true" disabled="true" />
+														<p:spacer width="5px" />
+														<p:inputText value="#{ricercheBean.praticaCur.azienda.attivita}" style="width:380px"
+															readonly="true" 
+															disabled="true" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Certificato Camera Commercio"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:inputText value="#{ricercheBean.aziendaCur.numIscCamCom}"
+															readonly="true" disabled="true" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Disponibilità Bene"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText value="#{ricercheBean.praticaCur.disponibilitaBene}"
+															style="width:560px;"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}" />
+													</p:column>
+												</p:row>
+			
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Conc. Edilizia Num"
+															style="font-weight:bold; color: orange;" />
+													</p:column>
+													<p:column>
+														<p:inputText value="#{ricercheBean.praticaCur.concedilNum}"
+														readonly="#{ricercheBean.praticaReadOnlyEnte}"
+														disabled="#{ricercheBean.praticaReadOnlyEnte}" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Conc. Edilizia C Data"
+															style="font-weight:bold; color: orange;" />
+													</p:column>
+													<p:column>
+														<p:calendar value="#{ricercheBean.praticaCur.concedilCData}"
+															mode="popup" showOn="button" pattern="dd/MM/yyyy"
+															popupIconOnly="true" disabled="#{ricercheBean.praticaReadOnlyEnte}"
+															readonly="#{ricercheBean.praticaReadOnlyEnte}" />
+													</p:column>
+													<p:column>
+														<p:outputLabel value="Conc. Edilizia R Data"
+															style="font-weight:bold; color: orange;" />
+													</p:column>
+													<p:column>
+														<p:calendar value="#{ricercheBean.praticaCur.concedilRData}"
+															mode="popup" showOn="button" pattern="dd/MM/yyyy"
+															popupIconOnly="true" 
+															readonly="#{ricercheBean.praticaReadOnlyEnte}"
+															disabled="#{ricercheBean.praticaReadOnlyEnte}" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Nulla Osta Num" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:inputText value="#{ricercheBean.praticaCur.nullaOstaNum}"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}" />
+													</p:column>
+													<p:column>
+														<p:outputLabel value="Nulla Osta Data" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:calendar value="#{ricercheBean.praticaCur.nullaOstaData}"
+															mode="popup" showOn="button" pattern="dd/MM/yyyy"
+															popupIconOnly="true"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}" />
+													</p:column>
+												</p:row>
+								
+												<p:row>
+													<p:column>
+														<p:outputLabel value="Agglom. Industriale di"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column colspan="3">
+														<p:inputText value="#{ricercheBean.lottoCur.agglomeratoIndustriale}"
+															style="width:560px;" readonly="true" disabled="true" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column>
+														<p:outputLabel value="PRTC" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<p:inputText value="#{ricercheBean.lottoCur.prtc}"
+															readonly="true" 
+															disabled="true" 
+															/>
+													</p:column>
+												
+												</p:row>
+
+										</p:panelGrid>
+									</p:tab>
+									</p:accordionPanel>	
+								</p:column>									
+							</p:row>
+							
+							<p:row>
+								<p:column colspan="4"> 
+									<p:accordionPanel   styleClass="ui-panelgrid" multiple="true">
+										<p:tab title="Dati Progetto"  >
+											<p:panelGrid styleClass="ui-panelgrid">
+
+							
+																
+									<p:row>
+										<p:column colspan="4">
+											<p:panelGrid styleClass="ui-panelgrid" style="margin-top:20px; ">
+												<f:facet name="header">
+													<p:row>
+														<p:column colspan="4">Dati Progetto</p:column>
+														<p:column rowspan="2">UM</p:column>
+														<p:column colspan="2">Zona Produttiva</p:column>
+													</p:row>
+													<p:row>
+														<p:column colspan="2"></p:column>
+														<p:column>Progetto</p:column>
+														<p:column>Ultimo Approvato</p:column>
+														<p:column>Minimo</p:column>
+														<p:column>Massimo</p:column>
+													</p:row>
+												</f:facet>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Sup Fondiaria Lotto"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duSupFondiaria}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duSupFondiaria}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mq" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Sup Edificabile Lotto"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber
+															value="#{ricercheBean.praticaCur.duSupEdificabile}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duSupEdificabile}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mq"/>
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Sup Coperta" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duSupCoperta}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duSupCoperta}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mq" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Sup Utile" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duSupUtile}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duSupUtile}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mq" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Sup Parcheggi" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duSupParcheggi}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duSupParcheggi}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mq" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Num Posti Auto" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duNumPostiAuto}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duNumPostiAuto}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="n." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Altezza Max" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duAltezzaMax}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duAltezzaMax}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="m" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Distanza Min Fabbricati"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber
+															value="#{ricercheBean.praticaCur.duDistanzaMinFabbricati}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duDistanzaMinFabbricati}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="m" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Distanza Min Confini"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber
+															value="#{ricercheBean.praticaCur.duDistanzaMinConfini}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duDistanzaMinConfini}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="m" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Volume" style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber value="#{ricercheBean.praticaCur.duVolume}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duVolume}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mc" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Volume Alloggio Custode"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber 
+															value="#{ricercheBean.praticaCur.duVolumeAlloggioCustode}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duVolumeAlloggioCustode}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mc" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Indice Fabbricabilita"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber
+															value="#{ricercheBean.praticaCur.duIndiceFabbricabilita}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duIndiceFabbricabilita}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mc/mq" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Indice Copertura"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber
+															value="#{ricercheBean.praticaCur.duIndiceCopertura}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duIndiceCopertura}" rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mc/mq" />
+													</p:column> 
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<p:row>
+													<p:column colspan="2">
+														<p:outputLabel value="Indice Utilizzazione Fondiaria"
+															style="font-weight:bold;" />
+													</p:column>
+													<p:column>
+														<pe:inputNumber
+															value="#{ricercheBean.praticaCur.duIndiceUtilFondiaria}"
+															styleClass="text-align-right"
+															readonly="#{ricercheBean.praticaReadOnly}"
+															disabled="#{ricercheBean.praticaReadOnly}"   
+															decimalSeparator=","  thousandSeparator="." />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="#{ricercheBean.praticaUltimaAppr.duIndiceUtilFondiaria}"  rendered="#{not empty ricercheBean.praticaUltimaAppr.pkPratica}" >
+															<f:convertNumber maxFractionDigits="2" minFractionDigits="2" locale="it" />
+														</p:outputLabel>
+														<p:outputLabel value="-" rendered="#{empty ricercheBean.praticaUltimaAppr.pkPratica}" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="mc/mq"  />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+													<p:column styleClass="text-align-center">
+														<p:outputLabel value="-" />
+													</p:column>
+												</p:row>
+												<f:facet name="footer">
+													<p:row>
+														<p:column colspan="8">
+															<p:spacer /> 
+														</p:column>
+													</p:row>
+												</f:facet>
+												
+											</p:panelGrid>
+										</p:column>
+									</p:row>
+
+
+										</p:panelGrid>
+									</p:tab>
+									</p:accordionPanel>	
+								</p:column>									
+							</p:row>
+							
+
+
+
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Descrizione sint. Intervento"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column colspan="3">
+											<p:inputText value="#{ricercheBean.praticaCur.sintesiIntervento}" style="width:600px;"
+											readonly="#{ricercheBean.praticaReadOnly}"
+											disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+										
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Layout Attività da insediare"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column colspan="3">
+											<p:inputText value="#{ricercheBean.praticaCur.layoutAttivita}" style="width:600px;"
+											readonly="#{ricercheBean.praticaReadOnly}"
+											disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+										
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Dato occupazionale"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column colspan="3">
+											<p:inputText value="#{ricercheBean.praticaCur.datoOccupazionale}" style="width:600px;"
+											readonly="#{ricercheBean.praticaReadOnly}"
+											disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Note" style="font-weight:bold;" />
+										</p:column>
+										<p:column colspan="3">
+											<p:inputText value="#{ricercheBean.praticaCur.note}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"   
+												style="width:600px;"/>
+										</p:column>
+									</p:row>
+										
+					
+			
+					            </p:panelGrid>
+					        </p:tab>
+					        <p:tab title="Dati accessori"  id="tabDatiAccessori">
+					            <p:panelGrid id="pnlDatiAccessori" styleClass="ui-panelgrid-blank" style="padding:0;" >
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Faldone" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{ricercheBean.praticaCur.faldone}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Delibera Num" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{ricercheBean.praticaCur.deliberaNum}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Delibera Data" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.deliberaData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+					
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Data Ritiro Progetto"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.dataRitiroProgetto}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"/>
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Scadenza Data" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.scadenzaData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Comunic. Inizio lavori Data"
+												style="font-weight:bold; color: orange;" />
+										</p:column>
+										<p:column>
+											<p:calendar
+												value="#{ricercheBean.praticaCur.comunicaInizioLavoriData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnlyEnte}"
+												disabled="#{ricercheBean.praticaReadOnlyEnte}" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Comunic. Fine lavori Data"
+												style="font-weight:bold; color: orange;" />
+										</p:column>
+										<p:column>
+											<p:calendar
+												value="#{ricercheBean.praticaCur.comunicaFineLavoriData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnlyEnte}"
+												disabled="#{ricercheBean.praticaReadOnlyEnte}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Attivita Inizio Data"
+												style="font-weight:bold; color: orange;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.attivitaInizioData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnlyEnte}"
+												disabled="#{ricercheBean.praticaReadOnlyEnte}" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Attivita Fine Data"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.attivitaFine}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Convenzione Data" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.convenzioneData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"/>
+					
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Convenzione Num" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{ricercheBean.praticaCur.convenzioneNum}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"/>
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Mod Acquisizione Area"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{ricercheBean.praticaCur.modificaAcqArea}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Vincolo" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{ricercheBean.praticaCur.vincolo}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"/>
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Inizio Lav Data" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.inizioLavData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"/>
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Fine Lav Data" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.fineLavData}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Chiudi Pratica" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:selectOneMenu value="#{ricercheBean.praticaCur.chiudip}" widgetVar="chiudip"
+												style="width: 165px"
+												disabled="#{ricercheBean.praticaReadOnly}" >
+												<f:selectItem itemValue="" itemLabel="" itemDescription="" />
+												<f:selectItem itemValue="0" itemLabel="Aperta"
+													itemDescription="Aperta" />
+												<f:selectItem itemValue="1" itemLabel="Chiusa"
+													itemDescription="Chiusa" />
+											</p:selectOneMenu>
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Tecnico Istruttore Cognome"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText
+												value="#{ricercheBean.praticaCur.tecnicoIstruttoreCognome}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}"  />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Tecnico Istruttore Nome"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText
+												value="#{ricercheBean.praticaCur.tecnicoIstruttoreNome}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Acquisizione Lotto"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText value="#{ricercheBean.praticaCur.acquisizioneLotto}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Data Istanza" style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar value="#{ricercheBean.praticaCur.dataIstanza}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+										<p:column>
+											<p:outputLabel value="Data Immissione In Possesso"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:calendar
+												value="#{ricercheBean.praticaCur.dataImmissioneInPossesso}"
+												mode="popup" showOn="button" pattern="dd/MM/yyyy"
+												popupIconOnly="true"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+					
+									<p:row>
+										<p:column>
+											<p:outputLabel value="Posizionamento Archivio"
+												style="font-weight:bold;" />
+										</p:column>
+										<p:column>
+											<p:inputText
+												value="#{ricercheBean.praticaCur.posizionamentoArchivio}"
+												readonly="#{ricercheBean.praticaReadOnly}"
+												disabled="#{ricercheBean.praticaReadOnly}" />
+										</p:column>
+									</p:row>
+
+									<p:row rendered="#{not ricercheBean.ente}">
+										<p:column colspan="4">
+											<p:panel header="Procedura Esproprio">
+												<p:panelGrid styleClass="ui-panelgrid" style="margin-top:20px; width:800px;">
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Delibera Numero" style="font-weight:bold;" />
+														</p:column>
+														<p:column>
+															<p:inputText value="#{ricercheBean.praticaCur.esproprioDeliberaNum}"
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+														</p:column>
+														<p:column>
+															<p:outputLabel value="Delibera Data" style="font-weight:bold;" />
+														</p:column>
+														<p:column>
+															<p:calendar value="#{ricercheBean.praticaCur.esproprioDeliberaData}"
+																mode="popup" showOn="button" pattern="dd/MM/yyyy"
+																popupIconOnly="true"
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+									
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Decreto Volontario" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.esproprioDecretoVolontario}"
+																style="width:560px;"
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Altri" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.esproprioAltri}"
+																style="width:560px;"
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Atto Trasferimento" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.esproprioAttoTrasferimento}"
+																style="width:560px;"
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Valore Stima" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<pe:inputNumber value="#{ricercheBean.praticaCur.esproprioValoreStima}"
+																styleClass="text-align-right"
+																decimalSeparator="," thousandSeparator="."
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Note" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.esproprioNote}"
+																style="width:560px;"
+																readonly="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}"
+																disabled="#{(ricercheBean.praticaCur.codTipo != '3' and ricercheBean.praticaCur.codTipo != '18') or ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+												</p:panelGrid>
+											</p:panel>
+										</p:column>									
+									</p:row>
+
+
+
+									<p:row rendered="#{not ricercheBean.ente}">
+										<p:column colspan="4">
+											<p:panel header="Dati Sanzione">
+												<p:panelGrid styleClass="ui-panelgrid" style="margin-top:20px; width:800px;">
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Delibera Num" style="font-weight:bold;" />
+														</p:column>
+														<p:column>
+															<p:inputText value="#{ricercheBean.praticaCur.sanzioneDeliberaNum}"
+																readonly="#{ricercheBean.praticaReadOnly}"
+																disabled="#{ricercheBean.praticaReadOnly}" />
+														</p:column>
+														<p:column>
+															<p:outputLabel value="Delibera Data" style="font-weight:bold;" />
+														</p:column>
+														<p:column>
+															<p:calendar value="#{ricercheBean.praticaCur.sanzioneDeliberaData}"
+																mode="popup" showOn="button" pattern="dd/MM/yyyy"
+																popupIconOnly="true"
+																readonly="#{ricercheBean.praticaReadOnly}"
+																disabled="#{ricercheBean.praticaReadOnly}" />
+									
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Decadenza" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.sanzioneDecadenza}"
+																style="width:560px;"
+																readonly="#{ricercheBean.praticaReadOnly}"
+																disabled="#{ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Revoca" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.sanzioneRevoca}"
+																style="width:560px;"
+																readonly="#{ricercheBean.praticaReadOnly}"
+																disabled="#{ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Motivazioni" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.sanzioneMotivazioni}"
+																style="width:560px;"
+																readonly="#{ricercheBean.praticaReadOnly}"
+																disabled="#{ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+													<p:row>
+														<p:column>
+															<p:outputLabel value="Note" style="font-weight:bold;" />
+														</p:column>
+														<p:column colspan="3">
+															<p:inputText value="#{ricercheBean.praticaCur.sanzioneNote}"
+																style="width:560px;"
+																readonly="#{ricercheBean.praticaReadOnly}"
+																disabled="#{ricercheBean.praticaReadOnly}" />
+														</p:column>
+													</p:row>
+												</p:panelGrid>
+											</p:panel>
+										</p:column>									
+									</p:row>
+
+					            </p:panelGrid>
+					        </p:tab>
+					        <p:tab title="Dati documenti" >
+					            <p:panelGrid id="pnlDatiDocumenti" styleClass="ui-panelgrid-blank" style="padding:0; width:500px;" >
+									
+									<p:row>
+										<p:column colspan="4">
+											<p:commandButton value="Scarica documento compilato" ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" icon="ui-icon-arrowthick-1-s" >
+								        			<p:fileDownload value="#{ricercheBean.praticaCorrenteAsWord}" />
+								    		</p:commandButton>
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column colspan="4">
+											<p:outputLabel value="Allegati" style="font-weight:bold;" />
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column colspan="4">
+									 		<p:dataTable value="#{ricercheBean.praticaCur.allegati}" 
+												emptyMessage="Nessun Allegato presente" 
+									 		 	var="alle">					 	 
+											 	<p:column headerText="Nome File" sortBy="#{alle.nomeFile}" >
+											 		<h:outputText value="#{alle.nomeFile}"/>
+											 	</p:column>
+											 	<p:column headerText="Descrizione" sortBy="#{alle.descrizione}" >
+											 		<h:outputText value="#{alle.descrizione}"/>
+											 	</p:column>
+											 	<p:column headerText="Azioni"  >
+													<p:commandButton value="Scarica" ajax="false" 
+														actionListener="#{ricercheBean.selezionaAllegato(alle)}" 
+														icon="ui-icon-arrowthick-1-s">
+														<p:fileDownload value="#{ricercheBean.allegatoDaScaricare}" />
+													</p:commandButton> 
+													<p:commandButton value="Elimina" ajax="true" 
+														actionListener="#{ricercheBean.eliminaAllegato(alle)}"
+														update=":#{p:component('pnlDatiDocumenti')}"  
+														icon="ui-icon-arrowthick-1-s">
+													</p:commandButton> 
+											 		
+											 	</p:column>
+										 	</p:dataTable>
+										</p:column>
+									</p:row>
+									<p:row>
+										<p:column>
+											<p:commandButton value="Carica allegato" ajax="true" onclick="PF('dlgUploadAllegato').show();" icon="ui-icon-arrowthick-1-s" />
+										</p:column>
+										<p:column>
+											<p:spacer width="5px"/>
+										</p:column>
+										<p:column colspan="2">
+											<p:spacer width="5px"/>
+										</p:column>
+									</p:row>
+								</p:panelGrid>
+							</p:tab>					        
+					    </p:tabView>
+					</p:column>
+				</p:row>
+			</p:panelGrid>
+			
+			
+			<div class="ui-grid ui-grid-responsive">
+			    <div class="ui-grid-row">
+			        <div class="ui-grid-col-10">
+						<p:commandButton id="btnSalva" value="Salva"
+							action="#{ricercheBean.praticaSaveMod}"
+							update=":#{p:component('pnlPraticaInfo')}, :#{p:component('dtListaPratiche')}"
+							process="@form" 
+							rendered="#{not ricercheBean.praticaReadOnly or not ricercheBean.praticaReadOnlyEnte}"/>
+			
+						<p:commandButton id="btnAnnulla" value="Chiudi Finestra"
+							onclick="PF('dlgPraticaMod').hide();"
+							process="@form"/>
+			        </div>
+			        <div class="ui-grid-col-2" align="right">
+							<p:commandButton id="btnChiudiPratica" value="Chiudi Pratica"
+								onclick="PF('chiudip').selectValue('1');"
+								action="#{ricercheBean.praticaSaveMod}"
+								oncomplete="PF('dlgPraticaMod').hide()"
+								update=":#{p:component('pnlPraticaInfo')}, :#{p:component('dtListaPratiche')}"
+								process="@form" 
+								rendered="#{ricercheBean.dirigente and ricercheBean.praticaCur.chiudip!='1'}"/>
+							<p:commandButton id="btnApriPratica" value="Apri Pratica"
+								onclick="PF('chiudip').selectValue('0');"
+								action="#{ricercheBean.praticaSaveMod}"
+								oncomplete="PF('dlgPraticaMod').hide()"
+								update=":#{p:component('pnlPraticaInfo')}, :#{p:component('dtListaPratiche')}"
+								process="@form" 
+								rendered="#{ricercheBean.dirigente and ricercheBean.praticaCur.chiudip=='1'}"/>
+				
+					</div>
+			    </div>
+			</div>
+
+    
+		</h:form>
+	</p:dialog>
+
+	<p:dialog id="dlgUploadAllegato" widgetVar="dlgUploadAllegato">
+		<h:form rendered="true" prependId="false">
+		    <p:fileUpload label="Scegli" uploadLabel="Carica" cancelLabel="Annulla" fileUploadListener="#{ricercheBean.handleFileUpload}" mode="advanced" dragDropSupport="true"
+		                          update=":#{p:component('pnlDatiDocumenti')} , :#{p:component('pnlDatiDocumentiNew')}" oncomplete="PF('dlgUploadAllegato').hide();" 
+		                           />
+	 		<p:inputText id="descrizione" name="descrizione" placeholder="Inserire una descrizione" />
+	    </h:form>
+	</p:dialog>
+<script type="text/javascript">
+function start() {
+    PF('statusDialog').show();
+}
+ 
+function stop() {
+    PF('statusDialog').hide();
+}
+</script>
+
+</ui:composition>
+

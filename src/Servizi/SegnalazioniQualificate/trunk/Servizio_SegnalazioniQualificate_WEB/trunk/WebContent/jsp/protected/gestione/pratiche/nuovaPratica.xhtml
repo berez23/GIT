@@ -1,0 +1,200 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<script type="text/javascript">
+	function setTxtAccComuneNascita(suggestionBox){	
+		var items = suggestionBox.getSelectedItems();
+		document.getElementById("frmMain:idAccComuNasc").value = items.pluck('codNazionale');
+		document.getElementById("frmMain:npt5").value = items.pluck('nome');	
+	}
+	</script>
+
+		<h:form id="frmMain">
+		
+		<h:inputHidden id="idAccComuNasc"  value="#{gestionePraticaBean.dto.pratica.accComuNasc}"/>
+		
+			<rich:spacer height="10px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Apertura Pratica di Accertamento" />
+				</f:facet>
+				
+					<h:panelGrid columns="2" width="100%">
+				<rich:panel>
+						<f:facet name="header">
+							<h:outputLabel value="Responsabile del Procedimento" />
+						</f:facet>
+						<h:panelGrid columns="4" width="100%">
+							
+							<h:outputLabel value="Codice Fiscale:" style="font-weight: bold;"  />
+							<h:inputText value="#{gestionePraticaBean.dto.pratica.resCodiFisc}"  maxlenght="16"
+										 label ="Codice Fiscale (Responsabile del Procedimento)" required="true">
+										  <f:validateLength maximum="16" minimum="16" />
+							</h:inputText>
+							<h:outputLabel/>
+							<h:outputLabel/>
+							
+							<h:outputLabel value="Cognome:" style="font-weight: bold;" />
+							<h:inputText value="#{gestionePraticaBean.dto.pratica.resCognome}"  
+										 label ="Cognome (Responsabile del Procedimento)" required="true"/>
+							
+							<h:outputLabel value="Nome:" style="font-weight: bold;" />
+							<h:inputText value="#{gestionePraticaBean.dto.pratica.resNome}"  
+										 label ="Nome (Responsabile del Procedimento)" required="true"/>
+							
+							<h:outputLabel value="Num.Telefono:" style="font-weight: bold;" />
+							<h:inputText value="#{gestionePraticaBean.dto.pratica.resTelefono}" />
+							
+							<h:outputLabel value="E-mail:" style="font-weight: bold;" />
+							<h:inputText value="#{gestionePraticaBean.dto.pratica.resEmail}" 
+										 validator="#{gestionePraticaBean.isValidEmailAddress}"
+							/>
+						</h:panelGrid>
+					</rich:panel>
+					
+					<rich:panel>
+						<f:facet name="header">
+							<h:outputLabel value="Soggetto Accertato" />
+						</f:facet>
+						
+						
+						
+						<h:panelGrid id="pnlDatiAcc" columns="4" width="100%">
+						
+							<h:outputLabel value="Tipo Soggetto:" style="font-weight: bold;" />
+							<h:selectOneMenu 
+							 	id="sltSogg" 
+								required="true" 
+								immediate="true"
+								value="#{gestionePraticaBean.dto.pratica.accTipoSogg}">
+								<f:selectItems value="#{commonDataBean.listaTipoSoggetto}" />
+								<a4j:support 
+									event="onchange" 
+									ajaxSingle="true"
+									action ="#{gestionePraticaBean.clearSoggAcc}" 
+									reRender="pnlDatiAcc">
+								</a4j:support>
+							</h:selectOneMenu>
+							
+							<h:outputLabel rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg  eq 'G'}"></h:outputLabel>
+							<h:outputLabel rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg  eq 'G'}"></h:outputLabel>
+							                                   
+							<h:outputLabel id="lbl6" value="Partita IVA:" style="font-weight: bold;"
+										   rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg  eq 'G'}" />
+							<h:inputText  id="npt6"  value="#{gestionePraticaBean.dto.pratica.accCodiPiva}" 
+										   label ="Partita IVA (Soggetto Accertato)" maxlenght="11"
+										   required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" 
+										   rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg  eq 'G'}">
+										    <f:validateLength maximum="11" minimum="11" />
+							</h:inputText>
+							
+							<h:outputLabel id="lbl7" value="Denominazione:" style="font-weight: bold;" 
+							               rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}"/>
+							<h:inputText id="npt7" value="#{gestionePraticaBean.dto.pratica.accDenominazione}"
+										  label ="Denominazione (Soggetto Accertato)"
+										  required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" 
+							              rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}"/>
+						
+							<h:outputLabel id="lbl1" value="Codice Fiscale:" style="font-weight: bold;"
+										   rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+							<h:inputText   id="npt1" value="#{gestionePraticaBean.dto.pratica.accCodiFisc}" 
+										   label ="Codice Fiscale (Soggetto Accertato)" maxlenght="16"
+										   required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"
+										   rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}">
+										   <f:validateLength maximum="16" minimum="16" />
+							</h:inputText>
+							
+							<h:outputLabel id="lbl2" value="Cognome:" style="font-weight: bold;" 
+							              rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"/>
+							<h:inputText  id="npt2" value="#{gestionePraticaBean.dto.pratica.accCognome}"
+										  label ="Cognome (Soggetto Accertato)"
+										  required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" 
+							              rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"/>
+							      
+							<h:outputLabel id="lbl3" value="Nome:" style="font-weight: bold;" 
+							              rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"/>
+							<h:inputText  id="npt3"  value="#{gestionePraticaBean.dto.pratica.accNome}" 
+							              label ="Nome (Soggetto Accertato)"
+							 			  required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" 
+							              rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"/>
+							           
+							<h:outputLabel id="lbl4" value="Data di Nascita:" style="font-weight: bold;" 
+							               rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"/>
+							<rich:calendar id="npt4" rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"
+							               label ="Data di Nascita (Soggetto Accertato)"
+										   required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" 
+										   value="#{gestionePraticaBean.dto.pratica.accDataNasc}" popup="true"
+										   enableManualInput="true" datePattern="dd/MM/yyyy"
+										   cellWidth="24px" cellHeight="22px" style="width:200px" />
+
+							<h:outputLabel id="lbl5" value="Comune di Nascita:" style="font-weight: bold;" 
+							               rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg  eq 'P'}"/>            
+							<a4j:region>	
+								<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" >
+		      					<h:inputText id="npt5" value="#{gestionePraticaBean.dto.descAccComuNasc}" style="width: 98%;" 
+		      					             label ="Comune di Nascita (Soggetto Accertato)"
+										     required ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" 
+		      								 rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg  eq 'P'}"/>
+								<h:graphicImage value="/images/arrow.png"  
+											rendered ="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}"
+                							onclick="#{rich:component('suggestionAccComuNasc')}.callSuggestion(true)"
+                   							alt="" />
+                   				 </h:panelGrid>
+		      					<rich:suggestionbox
+		      						id="suggestionAccComuNasc"
+		      						width="300" 
+					      			height="150" 
+					      			for="npt5"				      			
+					      			suggestionAction="#{suggestionBean.getSuggestionComune}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.nome}"
+						      		usingSuggestObjects="true"
+						      		frequency="1"
+						      		onobjectchange="setTxtAccComuneNascita(suggestion);">
+					      			<h:column> 
+					      				<h:outputText value="#{result.nome}"></h:outputText>
+					      			</h:column>
+					      		</rich:suggestionbox>
+					      	</a4j:region> 
+							              
+							         
+						</h:panelGrid>
+					</rich:panel>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+
+					<a4j:commandButton value="Apri Pratica" id="btnApriPratica" 
+						action="#{gestionePraticaBean.goApriNew}">
+					</a4j:commandButton>
+					<h:graphicImage style="cursor:pointer;" value="/images/reset.png"
+						title="Reset criteri">
+						<a4j:support event="onclick" reRender="frmMain"
+							ajaxSingle="true"	
+							action="#{gestionePraticaBean.resetData}">
+						</a4j:support>
+					</h:graphicImage>
+
+				</h:panelGrid>
+
+			</rich:panel>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

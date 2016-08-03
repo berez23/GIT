@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_AGGIORNAM_STEP" id="A66B0BC0-2EA5-08CE-7B97-B91E08460A58" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>3ABF38F0-63A6-5D2B-BF35-BB2DCCB1276D</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>059A587B-AFE2-B429-BD82-5E6D91564DDA</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

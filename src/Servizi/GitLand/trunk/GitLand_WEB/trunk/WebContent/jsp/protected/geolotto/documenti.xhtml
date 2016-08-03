@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+	<h:body>
+		
+      	<p:dataTable id="dtTipologie" var="doc" value="#{dettaglioBeneMan.documentiMan.listaDocs}" emptyMessage="Documenti non presenti"
+      				rowKey="#{doc.key}" selection="#{dettaglioBeneMan.documentiMan.selTipo}" selectionMode="single" >
+      		<f:facet name="header">Classificazione</f:facet>
+      		<p:ajax event="rowSelect" listener="#{dettaglioBeneMan.documentiMan.onRowTipoSelect}" update="@parent:dtDocs"/>
+        		 <p:column headerText="Tipologia">
+			        <h:outputText value="#{doc.key}" />
+			     </p:column>
+			     <p:column headerText="n°" style="width:10px;">
+			        <h:outputText value="#{doc.value.size()}" />
+			     </p:column>
+        </p:dataTable>
+        
+       <p:spacer height="10px"/>
+      
+        <p:dataTable id="dtDocs"  var="doc"  value="#{dettaglioBeneMan.documentiMan.listaDocTipo}" emptyMessage="Selezionare una tipologia dalla lista"
+        			 rendered="#{not empty dettaglioBeneMan.documentiMan.listaDocs}" 
+        			 paginator="true" rows="10" paginatorPosition="bottom">
+      			
+        		 <f:facet name="header">Documenti per Tipologia</f:facet>
+        		 <p:column headerText="Inventario" width="60" style="text-align:center;" >
+			        <h:outputText value="#{doc.dmBBene.chiave}" />
+			     </p:column>
+        		 <p:column headerText="Macro">
+			        <h:outputText value="#{doc.dmConfClassificazione.desMacro}" />
+			     </p:column>
+			      <p:column headerText="Categoria">
+			        <h:outputText value="#{doc.dmConfClassificazione.desCategoria}" />
+			     </p:column>
+			      <p:column headerText="Prog."  style="text-align:center;" width="20">
+			        <h:outputText value="#{doc.progDocumento}" />
+			     </p:column>
+        		 <p:column headerText="Descrizione">
+			        <h:outputText value="#{doc.descrizione!=null ? doc.descrizione : doc.nomeFileBase}" />
+			     </p:column>
+			      <p:column headerText="Ext" style="text-align:center;" width="20">
+			      	<h:outputText value="#{doc.ext}" />
+			      </p:column>
+			      <p:column headerText="Inizio Val." style="text-align:center;" width="80">
+			        <h:outputText value="#{doc.dataDa}" >
+			        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+			        </h:outputText>
+			     </p:column>
+			      <p:column headerText="Fine Val." style="text-align:center;" width="80">
+			        <h:outputText value="#{doc.dataA}" >
+			        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+			        </h:outputText>
+			     </p:column>
+			      <p:column headerText="Modifica"  style="text-align:center;" width="80">
+			        <h:outputText value="#{doc.dataMod}" rendered="#{doc.dataMod!=doc.dataDa}">
+			        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+			        </h:outputText>
+			     </p:column>
+			     <p:column style="text-align:center;vertical-align:middle;"  width="20">
+			     	<p:commandButton ajax="false" icon="ui-icon-arrowthick-1-s" immediate="true"
+			     					 title="Download" style="height:12px;" actionListener="#{documentiMan.prepareFileStream(doc)}">
+				        <p:fileDownload value="#{documentiMan.selFile}" contentDisposition="attachment" />
+				    </p:commandButton>
+			     </p:column>
+        </p:dataTable>
+      
+	</h:body>
+</html>

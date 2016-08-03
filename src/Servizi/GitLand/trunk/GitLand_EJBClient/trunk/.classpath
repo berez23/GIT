@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/CT-LIBS/JBOSS711/client/jboss-client.jar" sourcepath=""/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/CT_Config_Data_Model"/>
+	<classpathentry exported="true" kind="lib" path="/CT-LIBS/cet-lib/datarouter.jar"/>
+	<classpathentry kind="src" path="/GitLand_DataModel"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

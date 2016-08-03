@@ -1,0 +1,117 @@
+Ciao Francesco,
+ 
+In allegato trovi l'analisi relativa al conteggio del DAP (Detrazione Abitazione Principale) con le nuove integrazioni relative al numero dei componenti.
+ 
+Ho provato a fare l'importazione di un file MUI esportato con l'utilità di esportazione ed ho verificato i seguenti problemi:
+ 
+    a) non viene esportato il record di tipo 8 (Tabella MUI_DUP_TERRENI_INFO)
+ 
+    b) il numero dei record di tipo 6 (Tabella MUI_DUP_FABBRICATI_INFO) e quello dei record di tipo 7 (Tabella MUI_DUP_FABBRICATI_IDENTIFICA) dovrebbero essere sempre uguali ( In alcune forniture differiscono di 4 o 5 unità ma è una situazione corretta), ma nell'esportazionie di aprile 2006 sono 2845 per la tabella di tipo 6 e 3492 per quella di tipo 7.
+I graffati presenti nella fornitura sono 181 quindi credo che vada controllato l'algoritmo di elaborazione.
+ 
+Ci sentiamo al telefono per ulteriori chiarimenti.
+ 
+Paolo
+ 
+ 
+
+
+
+--------------------------------------------------------------------------------------------
+--- QUERY 2005
+--------------------------------------------------------------------------------------------
+--  DETTAGLIO SOGGETTO
+SELECT   DISTINCT
+		 p.nind AS matricola, p.codfisc AS codice_fisc, p.cognome, p.nome,
+         p.sesso, 
+         sto_fami.fper_cod_famiglia cod_famiglia,
+         sto_fami.fper_data_iniz, sto_fami.fper_motivo_iniz,
+         sto_fami.fper_data_fine, sto_fami.fper_motivo_fine
+    FROM dbtotalemi.sit_d_persone p,
+         (SELECT DISTINCT sto_fam.ID AS ident,
+		 		 		  sto_fam.fper_cod_persona, sto_fam.fper_cod_famiglia,
+                          sto_fam.fper_rapp_par, sto_fam.fper_peso_par,
+                          sto_fam.fper_data_iniz, sto_fam.fper_motivo_iniz,
+                          sto_fam.fper_data_fine, sto_fam.fper_motivo_fine
+                     FROM milano.MI_D_DUP_STO_FAM_COMPONENTI sto_fam) sto_fami
+   WHERE   
+   p.nind = 172492  --- ????    -- ricerca per MATRICOLA 
+--   p.CODFISC = ???? -- ricerca per  CODICE FISCALE 
+   AND p.nind = sto_fami.fper_cod_persona
+   AND p.codent = 'F205'
+   AND sto_fami.ident NOT IN ('69191','80113','80122','142194') 
+	AND TO_DATE('11/07/1964', 'DD/MM/YYYY')  -- data ricerca nel formato 'DD/MM/YYYY'				  
+       BETWEEN DECODE( NVL(sto_fami.fper_data_iniz, '-'),    
+	  		  		  '-', TO_DATE ('01011000', 'DDMMYYYY'),
+                      '00000000', TO_DATE ('01011000', 'DDMMYYYY'),
+                      TO_DATE(sto_fami.fper_data_iniz, 'YYYYMMDD') )  
+       AND DECODE( NVL(sto_fami.fper_data_fine, '-'), 
+      	  		 	  '-', TO_DATE ('01011000', 'DDMMYYYY'),
+                      '99999999', TO_DATE ('31129999', 'DDMMYYYY'),
+                      TO_DATE (sto_fami.fper_data_fine, 'YYYYMMDD') )      
+ORDER BY cognome, nome
+
+
+-- DETTAGLIO FAMIGLIA  
+SELECT DISTINCT p.cognome, p.nome, p.CODFISC, 
+	   			sto_fam.fper_cod_famiglia,
+       			sto_fam.fper_cod_persona AS MATRICOLA , 
+				sto_fam.fper_rapp_par,
+       			sto_fam.fper_data_iniz,
+       			sto_fam.fper_motivo_iniz, 
+	   			sto_fam.fper_data_fine,
+       			sto_fam.fper_motivo_fine
+FROM milano.MI_D_DUP_STO_FAM_COMPONENTI sto_fam, DBTOTALEMI.sit_d_persone p
+WHERE sto_fam.fper_cod_famiglia = 736705 --- ??????  -- codice famiglia 
+AND p.nind = TO_NUMBER (sto_fam.fper_cod_persona)
+AND TO_DATE('11/07/1964', 'DD/MM/YYYY') 	-- data ricerca	nel formato 'DD/MM/YYYY'   	 	  
+       BETWEEN DECODE( NVL(sto_fam.fper_data_iniz, '-'),    
+	  		  		  '-', TO_DATE ('01011000', 'DDMMYYYY'),
+                      '00000000', TO_DATE ('01011000', 'DDMMYYYY'),
+                      TO_DATE(sto_fam.fper_data_iniz, 'YYYYMMDD') )  
+       AND DECODE( NVL(sto_fam.fper_data_fine, '-'), 
+      	  		 	  '-', TO_DATE ('01011000', 'DDMMYYYY'),
+                      '99999999', TO_DATE ('31129999', 'DDMMYYYY'),
+                      TO_DATE (sto_fam.fper_data_fine, 'YYYYMMDD') )  
+ORDER BY cognome, nome
+
+
+-------------------------------------------------------------------------------------------
+++++++ QUERY 2006
+-------------------------------------------------------------------------------------------
+--  DETTAGLIO SOGGETTO    
+SELECT DISTINCT p.id_ext matricola, 
+	   			p.codfisc codice_fisc, 
+				p.cognome, 
+				p.nome,
+                p.sesso,
+                TO_CHAR (p.DT_INIZIO_VAL,'dd/mm/yyyy') data_inizio,
+				TO_CHAR (p.DT_FINE_VAL , 'dd/mm/yyyy') data_fine,
+                f.fk_d_famiglia fk_famiglia
+FROM diogene.sit_d_persona p, diogene.sit_d_pers_fam f
+           WHERE p.fk_ente_sorgente = 1
+           AND p.ID = f.fk_d_persona
+           AND 
+			   --p.id_ext = ???? -- ricerca per matricola (es. '0000357027')  
+			   p.CODFISC = ?????? --- ricerca per codice fiscale  
+		   AND TO_DATE(????, 'DD/MM/YYYY')  -- data ricerca  nel formato 'DD/MM/YYYY' 				  
+       			BETWEEN NVL(p.DT_INIZIO_VAL, TO_DATE ('01011000', 'DDMMYYYY'))  
+       			AND NVL(p.DT_FINE_VAL, TO_DATE ('31122099', 'DDMMYYYY'))
+ORDER BY p.cognome, p.nome, data_inizio ASC
+
+-- DETTAGLIO FAMIGLIA  
+SELECT DISTINCT pf.relaz_par, p.cognome, p.nome,p.CODFISC
+           FROM diogene.sit_d_pers_fam pf, diogene.sit_d_persona p
+          WHERE pf.fk_d_persona = p.ID 
+		  AND pf.fk_d_famiglia = ?????   --- FK_FAMIGLIA ottenuto da query precedente 
+		  AND TO_DATE(????, 'DD/MM/YYYY')  -- data ricerca nel formato 'DD/MM/YYYY' 				  
+       			BETWEEN NVL(p.DT_INIZIO_VAL, TO_DATE ('01011000', 'DDMMYYYY'))  
+       			AND NVL(p.DT_FINE_VAL, TO_DATE ('31122099', 'DDMMYY
+       			
+       			
+       			
+       			
+       			
+       			
+       			
+       			

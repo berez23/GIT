@@ -1,0 +1,182 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+	
+	<component>
+		<component-type>it.webred.faces.QBTablePane</component-type>
+		<component-class>it.webred.faces.components.UIQBTablePane</component-class>
+	</component>
+	
+	<component>
+		<component-type>it.webred.faces.HtmlBlock</component-type>
+		<component-class>it.webred.faces.components.UIHtmlBlock</component-class>
+	</component>
+	
+	<component>
+		<component-type>it.webred.faces.WinIco</component-type>
+		<component-class>it.webred.faces.components.WinIco</component-class>
+	</component>
+
+
+
+
+	
+	<navigation-rule>
+		<from-view-id>/querybuilder/entitiesList.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{entitiesBb.startLife}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entities.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.editUserEntity}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entities.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.editUserEntity}</from-action>
+			<from-outcome>explicitSql</from-outcome>
+			<to-view-id>/querybuilder/explicitSql.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.invalidateSession}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.getUserEntity}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/getUserEntity.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/querybuilder/entityLabels.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{userEntityLabelsBb.salva}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userEntityLabelsBb.salva}</from-action>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/querybuilder/entityLabels.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{userEntityLabelsBb.esci}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/querybuilder/getUserEntity.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{getUserEntityBb.connetti}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/getUserEntity.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{getUserEntityBb.connetti}</from-action>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/querybuilder/getUserEntity.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{getUserEntityBb.acquisisci}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{getUserEntityBb.acquisisci}</from-action>
+			<from-outcome>failure</from-outcome>
+			<to-view-id>/querybuilder/getUserEntity.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{getUserEntityBb.esci}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/querybuilder/explicitSql.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/menu/Menu.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/logout-redirect.secure</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/querybuilder/entities.jsp</from-view-id>
+		<navigation-case>
+			<from-action>#{entitiesBb.startLife}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.saveUserEntity}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.deleteUserEntity}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{entitiesBb.editExplicitSql}</from-action>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/explicitSql.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/querybuilder/conditionsBuilder.jsp</from-view-id>
+		<navigation-case>
+			<from-outcome>success</from-outcome>
+			<to-view-id>/querybuilder/closeConditionsBuilderPopUpListener.html</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/querybuilder/*</from-view-id>
+		<navigation-case>
+			<from-outcome>sessionExpired</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+			<!--redirect /-->
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/querybuilder/*</from-view-id>
+		<navigation-case>
+			<from-outcome>cannotPerformHistoryBack</from-outcome>
+			<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+			<redirect />
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>filterEntity</from-outcome>
+	    	<to-view-id>/querybuilder/filterEntity.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>entityLabels</from-outcome>
+	    	<to-view-id>/querybuilder/entityLabels.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+
+	
+</faces-config>

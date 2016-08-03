@@ -1,0 +1,260 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>CeT - Sportello Professionista</title>
+<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+<script type="text/javascript"
+	src="${facesContext.externalContext.requestContextPath}/js/extendedDataTableFixScrollable.js">
+</script>
+<script type="text/javascript">
+	function openAdmin()
+	{
+		url = document.getElementById('menuForm:urlAdmin').value;
+		var width = screen.availWidth - 20;
+	    var height = screen.availHeight - 100;
+	    var left = parseInt((screen.availWidth/2) - (width/2) - 10);
+	    var top = parseInt((screen.availHeight/2) - (height/2) - 20);
+		var windowFeatures = "width=" + width + ",height=" + height + ",status,resizable,left=" + left + ",top=" + top + "screenX=" + left + ",screenY=" + top;
+		myWindow=window.open(url,'',windowFeatures);
+		myWindow.focus();
+	}
+	function openWin()
+	{
+		url = document.getElementById('menuForm:urlClassamento').value + "?fgl=1";;
+		myWindow=window.open(url,'','width=800,height=800,top=50');
+		myWindow.focus();
+	}
+	function openWinPrecompiled(foglio,particella,categoria)
+	{
+		cat = "";
+		if(categoria != "")
+			{cat = "&amp;cat="+categoria}
+		url = document.getElementById('menuForm:urlClassamento').value + "?fgl=" +foglio + "&amp;par=" +particella+ cat;
+		myWindow=window.open(url,'','width=800,height=600,top=250');
+		myWindow.focus();
+	}
+</script>
+<style type="text/css">
+.ccDIV {
+	margin-bottom: 25px;
+	float: left;
+	margin-right: 25px;
+}
+
+.ccStyle TD {
+	width: 15px;
+	height: 15px;
+	line-height: 12px;
+	cursor: pointer;
+	border-top: 1px solid gray;
+	border-left: 1px solid gray;
+	border-bottom: 1px solid gainsboro;
+	border-right: 1px solid gainsboro;
+}
+</style>
+
+</head>
+<body onload="var h = screen.availHeight -360 +'px'; setScreenInfo(h); document.getElementById('mapFrame').style.height = h">
+	<script type="text/javascript">
+	function homeHover(){	
+		document.getElementById("menuForm:homelink").className = 'homeClassHover';	
+	}
+	function homeOut(){	
+		document.getElementById("menuForm:homelink").className = 'homeClassOut';	
+	}
+	function nuovoHover(){	
+		document.getElementById("menuForm:nuovolink").className = 'homeClassHover';	
+	}
+	function nuovoOut(){	
+		document.getElementById("menuForm:nuovolink").className = 'homeClassOut';	
+	}
+	function soloNumeri(id){
+		 var valore=document.getElementById(id).value
+		 valore=valore.replace (/[^\d\/]/g,'')
+		 document.getElementById(id).value=valore
+	}
+	function soloDecimale(id) {
+		 var c_char = new RegExp ("[^0-9\,\.]");
+		 var value=document.getElementById(id).value
+		 if (c_char.test(value)) {
+			 document.getElementById(id).value = value.substr(0, value.length - 1);
+		 }
+		 if(value.indexOf(",") != (-1)){
+			 document.getElementById(id).value = value.replace(/\,/g,'.')
+		 }
+		 if(value.indexOf(".") != (-1)){
+				var split = value.split(".");
+				if(split[1].length > 2){
+					document.getElementById(id).value = value.substr(0, value.length - 1);
+				}
+		}
+	}
+</script>
+
+	<a4j:form>
+        <a4j:jsFunction name="setScreenInfo">
+            <a4j:actionparam name="height" assignTo="#{mapBean.mapHeight}"  />                  
+        </a4j:jsFunction>
+    </a4j:form>
+
+	<div id="header">
+		<h:panelGrid style="text-align: center; border: 1px solid #C0C0C0; border-bottom:0" cellpadding="0" cellspacing="0" bgcolor="white" width="100%"> 
+				<h:graphicImage value="/images/spprof.png"/>
+		</h:panelGrid>
+	</div>
+
+	<div id="menu">
+		<h:form id="menuForm">
+			<h:inputHidden id="urlClassamento"
+				value="#{pageBean.pageClassamento}" />
+			<h:inputHidden id="urlAdmin" value="#{pageBean.pageAdmin}" />
+
+			<rich:toolBar>
+
+				<rich:dropDownMenu onmouseover="javascript:homeHover();"
+					onmouseout="javascript:homeOut();" verticalOffset="-3">
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:graphicImage value="/images/home.png">
+								<a4j:support event="onclick" action="#{pageBean.goInterventi}"
+									reRender="upPage, leftPage, userPage" />
+							</h:graphicImage>
+							<rich:spacer width="2px" />
+							<h:outputLabel value="Interventi" id="homelink"
+								styleClass="homeClassOut">
+								<a4j:support event="onclick" action="#{pageBean.goInterventi}"
+									reRender="upPage, leftPage, userPage" />
+							</h:outputLabel>
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+
+				<rich:dropDownMenu onmouseover="javascript:nuovoHover();"
+					onmouseout="javascript:nuovoOut();" verticalOffset="-3">
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:graphicImage value="/images/create.png">
+								<a4j:support event="onclick" action="#{pageBean.goNuovo}"
+									reRender="upPage, leftPage, userPage" />
+							</h:graphicImage>
+							<rich:spacer width="2px" />
+							<h:outputLabel value="Nuovo intervento" id="nuovolink"
+								styleClass="homeClassOut">
+								<a4j:support event="onclick" action="#{pageBean.goNuovo}"
+									reRender="upPage, leftPage, userPage" />
+							</h:outputLabel>
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+
+				<rich:dropDownMenu onmouseover="javascript:nuovoHover();"
+					onmouseout="javascript:nuovoOut();" verticalOffset="-3"
+					rendered="#{userBean.administrator}">
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:graphicImage value="/images/keys.png"
+								onclick="openAdmin()" />
+							<rich:spacer width="2px" />
+							<h:outputLabel value="Amministrazione" id="adm"
+								styleClass="homeClassOut" onclick="openAdmin()" />
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+
+				<rich:dropDownMenu onmouseover="javascript:nuovoHover();"
+					onmouseout="javascript:nuovoOut();" verticalOffset="-3">
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:graphicImage value="/images/calculator.png"
+								onclick="openWin()" />
+							<rich:spacer width="2px" />
+							<h:outputLabel value="Calcolo Classamento" id="class"
+								styleClass="homeClassOut" onclick="openWin()" />
+						</h:panelGroup>
+					</f:facet>
+				</rich:dropDownMenu>
+
+				<rich:dropDownMenu onmouseover="javascript:nuovoHover();"
+					onmouseout="javascript:nuovoOut();" verticalOffset="-3">
+					<f:facet name="label">
+						<h:panelGroup>
+							<h:graphicImage value="/images/folder.png">
+								<a4j:support event="onclick"
+									action="#{pageBean.goListaRichiesteFasFab}" />
+							</h:graphicImage>
+							<rich:spacer width="2px" />
+							<h:outputLabel value="Fascicolo Fabbricato" id="fasfablink"
+								styleClass="homeClassOut">
+
+							</h:outputLabel>
+						</h:panelGroup>
+					</f:facet>
+					<rich:menuItem icon="/images/filter.gif" submitMode="ajax"
+						action="#{pageBean.goListaRichiesteFasFab}">
+						<h:outputLabel value="Lista Richieste">
+						</h:outputLabel>
+					</rich:menuItem>
+					<rich:menuItem icon="/images/add.png" submitMode="ajax"
+						action="#{pageBean.goNuovaRichiestaFasFab}">
+						<h:outputLabel value="Immissione Nuova Richiesta">
+						</h:outputLabel>
+					</rich:menuItem>
+				</rich:dropDownMenu>
+			</rich:toolBar>
+		</h:form>
+	</div>
+
+	<a4j:include id="userPage" viewId="/jsp/protected/user/user.xhtml" />
+
+	<!-- LOADING BOX -->
+	<a4j:status
+		onstart="Richfaces.showModalPanel('ajaxLoadingModalBox',{width:250, top:100})"
+		onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')">
+	</a4j:status>
+
+	<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
+		minWidth="450" height="100" width="250" zindex="2000">
+		<f:facet name="header">
+			<h:outputText value="Richiesta in corso"></h:outputText>
+		</f:facet>
+		<center>
+			<h:outputText value="Attendere prego" style="font-size:15px"></h:outputText>
+			<br /> <br />
+			<h:graphicImage value="/images/wait.gif" />
+		</center>
+	</rich:modalPanel>
+	<!-- FINE LOADING BOX -->
+
+	<center>
+		<rich:messages passedLabel="Operazione completata" layout="list">
+			<f:facet name="infoMarker">
+				<h:graphicImage value="/images/passed.gif"
+					style="padding-right: 5px;" />
+			</f:facet>
+			<f:facet name="errorMarker">
+				<h:graphicImage value="/images/error.gif"
+					style="padding-right: 5px;" />
+			</f:facet>
+		</rich:messages>
+	</center>
+
+	<rich:spacer height="5px" />
+
+	<div id="content">
+		<ui:insert name="content">
+
+		</ui:insert>
+	</div>
+</body>
+
+</html>

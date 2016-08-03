@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:form id="datiForm">
+
+	<rich:panel id="panelDownload" style="margin-right:10px;"
+		rendered="#{datiBean.mostraDownload}">
+		<f:facet name="header">
+			<h:outputText value="Download file shape" />
+		</f:facet>
+
+		<center>
+			<h:commandLink action="#{downloadBean.doDownload}">
+				<h:graphicImage style="border: 0; cursor: pointer;"
+					value="/images/download_big.png" title="Download file Shape">
+				</h:graphicImage>
+				<a4j:actionparam value="#{datiBean.idIntervento}" name="idInt"
+					assignTo="#{downloadBean.idIntervento}" />
+			</h:commandLink>
+		</center>
+
+	</rich:panel>
+
+	<rich:spacer width="10px" height="10px"
+		rendered="#{datiBean.mostraDownload}" />
+
+	<rich:panel id="panelDati" style="margin-right:10px;">
+		<f:facet name="header">
+			<h:outputText value="Dettaglio intervento" />
+		</f:facet>
+
+		<h:panelGrid columns="2" width="100%">
+
+			<h:outputLabel value="Numero posti auto" />
+			<h:inputText id="iptNum1" value="#{datiBean.nPostiAuto}"
+				onblur="soloNumeri('leftPage:datiForm:iptNum1')"
+				onkeyup="soloNumeri('leftPage:datiForm:iptNum1')" />
+
+			<h:outputLabel value="Numero box auto" />
+			<h:inputText id="iptNum2" value="#{datiBean.nBoxAuto}"
+				onblur="soloNumeri('leftPage:datiForm:iptNum2')"
+				onkeyup="soloNumeri('leftPage:datiForm:iptNum2')" />
+
+			<h:outputLabel value="Numero passi carrai previsti" />
+			<h:inputText id="iptNum3" value="#{datiBean.nPassiCarrai}"
+				onblur="soloNumeri('leftPage:datiForm:iptNum3')"
+				onkeyup="soloNumeri('leftPage:datiForm:iptNum3')" />
+
+			<h:outputLabel value="Numero accessi carrai previsti" />
+			<h:inputText id="iptNum4" value="#{datiBean.nAccessiCarrai}"
+				onblur="soloNumeri('leftPage:datiForm:iptNum4')"
+				onkeyup="soloNumeri('leftPage:datiForm:iptNum4')" />
+		</h:panelGrid>
+
+		<br />
+
+		<table>
+			<tr>
+				<td><h:outputLabel value="" /></td>
+				<td><h:outputLabel value="Numero concessione"
+						style="font-weight: bold;" /></td>
+				<td><h:outputLabel value="Numero progressivo"
+						style="font-weight: bold;" /></td>
+				<td><h:outputLabel value="Anno progressivo"
+						style="font-weight: bold;" /></td>
+				<td><h:outputLabel value="Data protocollo"
+						style="font-weight: bold;" /></td>
+				<td><h:outputLabel value="Numero protocollo"
+						style="font-weight: bold;" /></td>
+			</tr>
+			<ui:repeat value="#{datiBean.listaConcessioni}" var="conc">
+				<tr>
+					<td><h:panelGrid columns="1" cellpadding="0" cellspacing="0"
+							rendered="#{datiBean.concessioneNum ne conc.concessioneNumero}">
+							<input type="radio" name="concessione" value="#{conc.idOrig}">
+								<a4j:support event="onclick"
+									action="#{datiBean.doAggiornaConcessioneScelta}">
+									<a4j:actionparam value="#{conc.idOrig}" name="id#{conc.idOrig}"
+										assignTo="#{datiBean.concessioneIdScelta}" />
+								</a4j:support> </input>
+						</h:panelGrid> <h:panelGrid columns="1" cellpadding="0" cellspacing="0"
+							rendered="#{datiBean.concessioneNum eq conc.concessioneNumero}">
+							<input type="radio" name="concessione" value="#{conc.idOrig}"
+								checked="checked"><a4j:support event="onclick"
+									action="#{datiBean.doAggiornaConcessioneScelta}">
+									<a4j:actionparam value="#{conc.idOrig}" name="id#{conc.idOrig}"
+										assignTo="#{datiBean.concessioneIdScelta}" />
+								</a4j:support> </input>
+						</h:panelGrid></td>
+					<td><h:outputLabel value="#{conc.concessioneNumero}" /></td>
+					<td><h:outputLabel value="#{conc.progressivoNumero}" /></td>
+					<td><h:outputLabel value="#{conc.progressivoAnno}" /></td>
+					<td><h:outputLabel value="#{conc.protocolloData}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:outputLabel></td>
+					<td><h:outputLabel value="#{conc.protocolloNumero}" /></td>
+				</tr>
+			</ui:repeat>
+		</table>
+		<h:outputLabel value="Non sono state trovate concessioni collegate"
+			rendered="#{!datiBean.concessioniExists}" />
+		<br />
+		<br />
+
+		<h:panelGrid columns="2" width="100%">
+			<h:outputLabel value="Note" />
+			<h:inputTextarea value="#{datiBean.note}" rows="4" cols="65" />
+		</h:panelGrid>
+
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="3" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Salva" id="btnOk"
+					rendered="#{datiBean.stato eq 'IN LAVORAZIONE' or datiBean.stato eq 'RESPINTO'}"
+					action="#{datiBean.doSalva}" reRender="leftPage, modalPage"
+					oncomplete="Richfaces.hideModalPanel('datiModalBox'); return false;">
+					<a4j:support event="onclick"
+						onsubmit="if (!confirm('Procedere con il salvataggio?')) return false" />
+					<a4j:actionparam value="#{datiBean.idIntervento}"
+						name="idIntervento" assignTo="#{datiBean.idIntervento}" />
+					<a4j:actionparam value="/jsp/protected/empty.xhtml"
+						name="emptyPage" assignTo="#{pageBean.pageModal}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+
+		<rich:spacer height="15px" />
+
+		<rich:extendedDataTable width="100%" height="170px" var="row"
+			value="#{datiBean.listaEdifici}" id="listEdifici" rowKeyVar="idx"
+			enableContextMenu="false" noDataLabel="Nessun elemento trovato"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="6" width="99%">
+						<h:outputText value="Edifici" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column width="16%">
+				<f:facet name="header">
+					<h:outputText value="Coordinate" />
+				</f:facet>
+				<h:outputText
+					value="#{row.particella.foglio}, #{row.particella.particella}" />
+			</rich:column>
+			<rich:column width="20%">
+				<f:facet name="header">
+					<h:outputText value="Tipologia" />
+				</f:facet>
+				<h:outputText value="#{row.tipologia.descr}" />
+			</rich:column>
+			<rich:column width="40%">
+				<f:facet name="header">
+					<h:outputText value="Civico" />
+				</f:facet>
+				<h:outputText
+					value="#{row.edificio.viaPrefisso} #{row.edificio.viaNome} #{row.edificio.civicoNumero}" />
+			</rich:column>
+			<rich:column width="22%">
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="4">
+					<h:graphicImage style="cursor:pointer;" value="/images/list.png"
+						title="Vai al dettaglio">
+						<a4j:support event="onclick" reRender="modalPage"
+							action="#{edificioBean.doDettagli}"
+							oncomplete="Richfaces.showModalPanel('ediModalBox'); return false;">
+							<a4j:actionparam value="#{idx}" name="index"
+								assignTo="#{edificioBean.index}" />
+							<a4j:actionparam value="#{datiBean.idIntervento}" name="idInterv"
+								assignTo="#{edificioBean.idIntervento}" />
+							<a4j:actionparam value="true" name="update"
+								assignTo="#{edificioBean.update}" />
+						</a4j:support>
+					</h:graphicImage>
+					<h:graphicImage style="cursor:pointer;" value="/images/uv.png"
+						title="Unità volumetriche">
+						<a4j:support event="onclick" reRender="modalPage"
+							action="#{unitaVolBean.doLista}"
+							oncomplete="Richfaces.showModalPanel('unitaVolModalBox'); return false;">
+							<a4j:actionparam value="#{row.edificio.fkSpCedificato}"
+								name="idEdi" assignTo="#{unitaVolBean.idEdificio}" />
+							<a4j:actionparam value="false" name="mostraDatiUV"
+								assignTo="#{unitaVolBean.mostraDati}" />
+						</a4j:support>
+					</h:graphicImage>
+					<h:graphicImage style="cursor:pointer;" value="/images/ua.png"
+						title="Unità abitative">
+						<a4j:support event="onclick" reRender="modalPage"
+							action="#{uiuBean.doLista}"
+							oncomplete="Richfaces.showModalPanel('uiuModalBox'); return false;">
+							<a4j:actionparam value="#{row.edificio.fkSpCedificato}"
+								name="idEdi" assignTo="#{uiuBean.idEdificio}" />
+							<a4j:actionparam value="#{row.particella.foglio}" name="fgl"
+								assignTo="#{uiuBean.foglio}" />
+							<a4j:actionparam value="#{row.particella.particella}" name="part"
+								assignTo="#{uiuBean.particella}" />
+							<a4j:actionparam value="false" name="mostraDatiUA"
+								assignTo="#{uiuBean.mostraDati}" />
+						</a4j:support>
+					</h:graphicImage>
+					<h:graphicImage style="cursor:pointer;" value="/images/delete.png"
+						title="Elimina"
+						rendered="#{datiBean.stato eq 'IN LAVORAZIONE' or datiBean.stato eq 'RESPINTO'}">
+						<a4j:support event="onclick" reRender="leftPage"
+							action="#{edificioBean.doElimina}"
+							onsubmit="if (!confirm('Procedere con la eliminazione?')) return false">
+							<a4j:actionparam value="#{idx}" name="index"
+								assignTo="#{edificioBean.index}" />
+						</a4j:support>
+					</h:graphicImage>
+				</h:panelGrid>
+			</rich:column>
+			<f:facet name="footer">
+				<h:panelGrid columns="1" style="float: right;margin-bottom:8px;">
+					<a4j:commandLink value="Nuovo edificio" reRender="modalPage"
+						rendered="#{datiBean.stato eq 'IN LAVORAZIONE' or datiBean.stato eq 'RESPINTO'}"
+						oncomplete="Richfaces.showModalPanel('ediModalBox'); return false;"
+						action="#{edificioBean.doNuovo}">
+						<a4j:actionparam value="#{datiBean.idIntervento}" name="idInt"
+							assignTo="#{edificioBean.idIntervento}" />
+						<a4j:actionparam value="false" name="update"
+							assignTo="#{edificioBean.update}" />
+					</a4j:commandLink>
+				</h:panelGrid>
+			</f:facet>
+		</rich:extendedDataTable>
+
+		<rich:spacer height="15px" />
+
+		<rich:extendedDataTable width="100%" height="170px" var="row"
+			value="#{datiBean.listaEdificiMinori}" id="listEdificiMinori"
+			enableContextMenu="false" noDataLabel="Nessun elemento trovato"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'" rowKeyVar="idx"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="6" width="39%">
+						<h:outputText value="Edifici minori" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column width="20%">
+				<f:facet name="header">
+					<h:outputText value="Coordinate" />
+				</f:facet>
+				<h:outputText
+					value="#{row.particella.foglio}, #{row.particella.particella}" />
+			</rich:column>
+			<rich:column width="64%">
+				<f:facet name="header">
+					<h:outputText value="Tipologia" />
+				</f:facet>
+				<h:outputText value="#{row.tipologiaMin.descr}" />
+			</rich:column>
+			<rich:column width="15%">
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="2">
+					<h:graphicImage style="cursor:pointer;" value="/images/list.png"
+						title="Vai al dettaglio">
+						<a4j:support event="onclick" reRender="modalPage"
+							action="#{edificioMinBean.doDettagli}"
+							oncomplete="Richfaces.showModalPanel('ediMinModalBox'); return false;">
+							<a4j:actionparam value="#{idx}" name="index"
+								assignTo="#{edificioMinBean.index}" />
+							<a4j:actionparam value="#{datiBean.idIntervento}" name="idInterv"
+								assignTo="#{edificioMinBean.idIntervento}" />
+							<a4j:actionparam value="true" name="update"
+								assignTo="#{edificioMinBean.update}" />
+						</a4j:support>
+					</h:graphicImage>
+					<h:graphicImage style="cursor:pointer;" value="/images/delete.png"
+						title="Elimina"
+						rendered="#{datiBean.stato eq 'IN LAVORAZIONE' or datiBean.stato eq 'RESPINTO'}">
+						<a4j:support event="onclick" reRender="leftPage"
+							action="#{edificioMinBean.doElimina}"
+							onsubmit="if (!confirm('Procedere con la eliminazione?')) return false">
+							<a4j:actionparam value="#{idx}" name="index"
+								assignTo="#{edificioMinBean.index}" />
+						</a4j:support>
+					</h:graphicImage>
+				</h:panelGrid>
+			</rich:column>
+			<f:facet name="footer">
+				<h:panelGrid columns="1" style="float: right;margin-bottom:8px;">
+					<a4j:commandLink value="Nuovo edificio minore" reRender="modalPage"
+						rendered="#{datiBean.stato eq 'IN LAVORAZIONE' or datiBean.stato eq 'RESPINTO'}"
+						oncomplete="Richfaces.showModalPanel('ediMinModalBox'); return false;"
+						action="#{edificioMinBean.doNuovo}">
+						<a4j:actionparam value="#{datiBean.idIntervento}" name="idInt"
+							assignTo="#{edificioMinBean.idIntervento}" />
+						<a4j:actionparam value="false" name="update"
+							assignTo="#{edificioMinBean.update}" />
+					</a4j:commandLink>
+				</h:panelGrid>
+			</f:facet>
+		</rich:extendedDataTable>
+
+	</rich:panel>
+</h:form>
+
+</html>

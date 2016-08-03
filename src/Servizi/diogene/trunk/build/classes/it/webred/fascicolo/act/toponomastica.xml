@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL toponomastica</comment>
+	<entry key="sqlToponomastica">
+	<![CDATA[
+		SELECT replace(NVL (uk_civico, ' - '),'''','\''' ) AS uk_civicof, NVL (uk_civico, ' - ') AS uk_civico, NVL (sedime, ' - ') AS sedime,
+		       NVL (nome_via, ' - ') AS nome_via,
+		       NVL (descrizione_civico, ' - ') AS descrizione_civico, pk_sequ_civico,
+		       cod_nazionale,
+		       latitudine,
+		       longitudine
+		  FROM (SELECT DISTINCT uk_civico, sedime, nome_via, descrizione_civico,
+		                        pk_sequ_civico, cod_nazionale, 
+		                        '0' latitudine,
+		       					'0' longitudine
+		                   FROM vista_civici_uiu
+		                  WHERE uk_civico IS NOT NULL
+		                    AND foglio_catastale = ?
+		                    AND particella_catastale = LPAD (TRIM (?), 5, '0')
+		               ORDER BY nome_via, descrizione_civico)
+	]]>
+	</entry>
+	
+</properties>
+
+

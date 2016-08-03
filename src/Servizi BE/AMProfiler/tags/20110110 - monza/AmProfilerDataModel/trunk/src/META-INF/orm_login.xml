@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+<named-native-query name="Login.getPermission" result-set-mapping="permMap" >
+    <query>
+		<![CDATA[
+			select 'permission@-@'|| ISTANZA ||'@-@'|| SEL.FK_AM_ITEM ||'@-@'|| p.NAME PERMISSION , '1'
+			                        from (
+			                        select distinct air.ID ID_AIR,  i.NAME ISTANZA  , AI.FK_AM_ITEM,  u.NAME uname, u.DISABLE_CAUSE udiscause
+			                        from AM_AI_ROLE air
+			                        LEFT JOIN AM_USER_AIR uair on uair.FK_AM_AI_ROLE=air.ID
+			                        LEFT JOIN AM_USER u on uair.FK_AM_USER=u.NAME
+			                        LEFT JOIN AM_APPLICATION_ITEM ai ON air.FK_AM_APPLICATION_ITEM = ai.ID
+			                        LEFT JOIN AM_INSTANCE i ON ai.FK_AM_APPLICATION = i.FK_AM_APPLICATION
+			                        UNION
+			                        select distinct air.ID ID_AIR, i.NAME ISTANZA , AI.FK_AM_ITEM,  u.NAME uname, u.DISABLE_CAUSE udiscause
+			                        from AM_AI_ROLE air
+			                        LEFT JOIN AM_GROUP_AIR gair on gair.FK_AM_AI_ROLE=air.ID
+			                        LEFT JOIN AM_GROUP g on gair.FK_AM_GROUP=g.NAME
+			                        LEFT JOIN AM_USER_GROUP ug on ug.FK_AM_GROUP=g.NAME
+			                        LEFT JOIN AM_USER u on ug.FK_AM_USER=u.NAME
+			                        LEFT JOIN AM_APPLICATION_ITEM ai ON air.FK_AM_APPLICATION_ITEM = ai.ID
+			                        LEFT JOIN AM_INSTANCE i ON ai.FK_AM_APPLICATION = i.FK_AM_APPLICATION
+			                        ) sel ,
+			                        AM_PERMISSION_AIR PAIR, AM_PERMISSION P
+			                        where PAIR.FK_AM_AI_ROLE = sel.id_air
+			                        and PAIR.FK_AM_PERMISSION = P.NAME
+			                        AND P.FK_AM_ITEM =  SEL.FK_AM_ITEM
+			                        and udiscause IS NULL
+			                        and uname= :username
+				]]>
+		</query>
+		
+	</named-native-query>
+	
+	<named-native-query name="Login.getEnte" result-set-mapping="enteMap">
+	 <query>
+		<![CDATA[
+	 		select FK_AM_COMUNE ente FROM AM_GROUP G, AM_USER U, AM_USER_GROUP UG
+		       WHERE U.name=:username AND u.name=UG.FK_AM_USER AND G.NAME=UG.FK_AM_GROUP
+		]]>
+		</query>
+	</named-native-query>	
+	
+	<sql-result-set-mapping name="permMap">
+		<entity-result entity-class="it.webred.amprofiler.model.perm.Permission"/>		
+	</sql-result-set-mapping>
+
+	<sql-result-set-mapping name="enteMap">
+		<entity-result entity-class="it.webred.amprofiler.model.perm.PermEnte"/>		
+	</sql-result-set-mapping>
+	
+
+</entity-mappings>
+	

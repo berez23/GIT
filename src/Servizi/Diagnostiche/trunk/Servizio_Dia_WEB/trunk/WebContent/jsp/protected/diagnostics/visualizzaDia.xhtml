@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmEsecuzioni">
+			<a4j:keepAlive beanName="visualizzaDiaBean" />
+			<a4j:keepAlive beanName="viewDataProviderImpl" />
+			<rich:panel id="panelSelFontiDati">
+				<f:facet name="header">
+					<h:outputText
+						value="Seleziona le Fonti e la tipologia delle diagnostiche" />					
+				</f:facet>
+
+				<a4j:repeat id="idFonti" value="#{fonteBean.fontiForEnteView}"
+					var="item">
+					<h:selectBooleanCheckbox id="chkFonte" value="#{item.checked}" />
+					<h:outputText value="[#{item.fonte.id}] #{item.fonte.descrizione}" style="color:#4a75b5;"/>
+					<rich:spacer width="10px"/>
+				</a4j:repeat>
+				
+				<br /><br />
+				
+				<h:commandButton value="Seleziona tutte" onclick="return selTutte('frmEsecuzioni', true);"/>
+				<rich:spacer width="5px"/>
+				<h:commandButton value="Deseleziona tutte" onclick="return selTutte('frmEsecuzioni', false);" />
+
+				<br /><br />
+
+				<rich:tabPanel switchType="ajax">
+					<rich:tab id="tab1" label="Diagnostiche Coerenza"
+						action="#{visualizzaDiaBean.doResetPage}">
+						<h:panelGrid columns="1" width="100%">
+							<h:selectOneRadio value="#{fonteBean.typeDiagnostiche}"
+								layout="lineDirection">
+								<f:selectItem itemLabel="Controllo" itemValue="31" />
+								<f:selectItem itemLabel="Confronto" itemValue="32" />
+								<a4j:support event="onclick"
+									action="#{visualizzaDiaBean.doToro}" reRender="frmEsecuzioni"/>
+							</h:selectOneRadio>
+						</h:panelGrid>
+						<a4j:include id="diaTestataList1"
+							viewId="#{visualizzaDiaBean.paginaDettaglio}" />
+
+					</rich:tab>
+					<rich:tab id="tab2" label="Diagnostiche Indagine"
+						action="#{visualizzaDiaBean.doResetPage}">
+						<h:panelGrid columns="1" width="100%">
+							<h:selectOneRadio value="#{fonteBean.typeDiagnostiche}"
+								layout="lineDirection">
+								<f:selectItem itemLabel="Elaborazione" itemValue="34" />
+								<f:selectItem itemLabel="Accertamento" itemValue="35" />
+								<f:selectItem itemLabel="Statistica" itemValue="36" />
+								<f:selectItem itemLabel="Ricerca" itemValue="37" />
+								<a4j:support event="onclick"
+									action="#{visualizzaDiaBean.doToro}" reRender="frmEsecuzioni"/>
+							</h:selectOneRadio>
+						</h:panelGrid>
+						<a4j:include id="diaTestataList2"
+							viewId="#{visualizzaDiaBean.paginaDettaglio}" />
+
+					</rich:tab>
+				</rich:tabPanel>
+			</rich:panel>
+
+
+			<!-- Menu 0 -->
+			<rich:contextMenu attached="false" id="menu0" submitMode="ajax">
+				
+				<rich:menuItem submitMode="none" icon="/images/storicoesec.jpg">
+					<a4j:commandLink action="#{storicoEsecuzioniBean.goStorico}">
+						<h:outputText value="Visualizza storico esecuzioni"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{storicoEsecuzioniBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{storicoEsecuzioniBean.idCatalogoDia}" />	
+						<a4j:actionparam value="{diaDescr}"
+							assignTo="#{storicoEsecuzioniBean.descrizione}" />	
+						<a4j:actionparam value="{comando}"
+							assignTo="#{storicoEsecuzioniBean.codCmdOrCmdGrp}" />							
+					</a4j:commandLink>
+				</rich:menuItem>
+				
+				<rich:menuItem submitMode="none" icon="/images/sql.png">
+					<a4j:commandLink action="#{dettaglioSqlBean.doInit}"
+						reRender="sqlPage"
+						oncomplete="Richfaces.showModalPanel('sqlModalBox'); return false;">
+						<h:outputText value="Visualizza query SQL completa"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{dettaglioSqlBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagesqlnew}"
+							assignTo="#{dettaglioSqlBean.sqlPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>				
+			</rich:contextMenu>
+			<!-- Fine menu 0 -->
+
+
+			<!-- Menu 1 -->
+			<rich:contextMenu attached="false" id="menu1" submitMode="ajax">
+				<rich:menuItem submitMode="none" icon="/images/search.gif">
+					<a4j:commandLink action="#{diaDettaglioBean.goDettaglio}">
+						<h:outputText value="Visualizza dettaglio diagnostica standard"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{diaDettaglioBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaDescr}"
+							assignTo="#{diaDettaglioBean.diaDescr}" />
+						<a4j:actionparam value="{modelclassname}"
+							assignTo="#{diaDettaglioBean.modelClassname}" />
+						<a4j:actionparam value="{comando}"
+							assignTo="#{diaDettaglioBean.codCommand}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{diaDettaglioBean.idCatalogoDia}" />	
+					</a4j:commandLink>
+				</rich:menuItem>
+				
+				<rich:menuItem submitMode="none" icon="/images/storicoesec.jpg">
+					<a4j:commandLink action="#{storicoEsecuzioniBean.goStorico}">
+						<h:outputText value="Visualizza storico esecuzioni"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{storicoEsecuzioniBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{storicoEsecuzioniBean.idCatalogoDia}" />	
+						<a4j:actionparam value="{diaDescr}"
+							assignTo="#{storicoEsecuzioniBean.descrizione}" />	
+						<a4j:actionparam value="{comando}"
+							assignTo="#{storicoEsecuzioniBean.codCmdOrCmdGrp}" />							
+					</a4j:commandLink>
+				</rich:menuItem>
+				
+				<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{logAccessiBean.doInit}"
+						reRender="logAccessiPage"
+						oncomplete="Richfaces.showModalPanel('logAccessiModalBox'); return false;">
+						<h:outputText value="Visualizza log" style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{logAccessiBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagenew}"
+							assignTo="#{logAccessiBean.logAccessiPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+
+				<rich:menuItem submitMode="none" icon="/images/sql.png">
+					<a4j:commandLink action="#{dettaglioSqlBean.doInit}"
+						reRender="sqlPage"
+						oncomplete="Richfaces.showModalPanel('sqlModalBox'); return false;">
+						<h:outputText value="Visualizza query SQL completa"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{dettaglioSqlBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagesqlnew}"
+							assignTo="#{dettaglioSqlBean.sqlPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu 1 -->
+
+
+			<!-- Menu 2 -->
+			<rich:contextMenu attached="false" id="menu2" submitMode="ajax">
+				<rich:menuItem submitMode="none" icon="/images/search.gif">
+					<a4j:commandLink action="#{diaDettaglioBean.doNavigationCase}">
+						<h:outputText value="Visualizza dettaglio diagnostica custom"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{parametersBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{diaDettaglioBean.idDiaTestata}" />
+						<a4j:actionparam value="{comando}"
+							assignTo="#{parametersBean.codCommand}" />
+						<a4j:actionparam value="{numTipoGestValue}"
+							assignTo="#{diaDettaglioBean.numTipoGestValue}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{diaDettaglioBean.idCatalogoDia}" />	
+					</a4j:commandLink>
+				</rich:menuItem>
+				
+				<rich:menuItem submitMode="none" icon="/images/storicoesec.jpg">
+					<a4j:commandLink action="#{storicoEsecuzioniBean.goStorico}">
+						<h:outputText value="Visualizza storico esecuzioni"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{storicoEsecuzioniBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{storicoEsecuzioniBean.idCatalogoDia}" />	
+						<a4j:actionparam value="{diaDescr}"
+							assignTo="#{storicoEsecuzioniBean.descrizione}" />	
+						<a4j:actionparam value="{comando}"
+							assignTo="#{storicoEsecuzioniBean.codCmdOrCmdGrp}" />							
+					</a4j:commandLink>
+				</rich:menuItem>
+				
+				<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{logAccessiBean.doInit}"
+						reRender="logAccessiPage"
+						oncomplete="Richfaces.showModalPanel('logAccessiModalBox'); return false;">
+						<h:outputText value="Visualizza log" style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{logAccessiBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagenew}"
+							assignTo="#{logAccessiBean.logAccessiPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+
+				<rich:menuItem submitMode="none" icon="/images/sql.png">
+					<a4j:commandLink action="#{dettaglioSqlBean.doInit}"
+						reRender="sqlPage"
+						oncomplete="Richfaces.showModalPanel('sqlModalBox'); return false;">
+						<h:outputText value="Visualizza query SQL completa"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{dettaglioSqlBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagesqlnew}"
+							assignTo="#{dettaglioSqlBean.sqlPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu 2 -->
+
+
+			<!-- Menu 3 -->
+			<rich:contextMenu attached="false" id="menu3" submitMode="ajax">
+				<rich:menuItem submitMode="none" icon="/images/search.gif">
+					<a4j:commandLink action="#{diaDettaglioBean.doOtherPath}">
+						<h:outputText
+							value="Visualizza dettaglio diagnostica da altro contesto"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{parametersBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{diaDettaglioBean.idDiaTestata}" />
+						<a4j:actionparam value="{comando}"
+							assignTo="#{parametersBean.codCommand}" />
+						<a4j:actionparam value="{numTipoGest}"
+							assignTo="#{diaDettaglioBean.numTipoGest}" />
+						<a4j:actionparam value="{numTipoGestValue}"
+							assignTo="#{diaDettaglioBean.numTipoGestValue}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{diaDettaglioBean.idCatalogoDia}" />	
+					</a4j:commandLink>
+				</rich:menuItem>
+
+				<rich:menuItem submitMode="none" icon="/images/storicoesec.jpg">
+					<a4j:commandLink action="#{storicoEsecuzioniBean.goStorico}">
+						<h:outputText value="Visualizza storico esecuzioni"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{storicoEsecuzioniBean.idDiaTestata}" />
+						<a4j:actionparam value="{diaCatalogo}"
+							assignTo="#{storicoEsecuzioniBean.idCatalogoDia}" />	
+						<a4j:actionparam value="{diaDescr}"
+							assignTo="#{storicoEsecuzioniBean.descrizione}" />	
+						<a4j:actionparam value="{comando}"
+							assignTo="#{storicoEsecuzioniBean.codCmdOrCmdGrp}" />							
+					</a4j:commandLink>
+				</rich:menuItem>
+				
+				<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{logAccessiBean.doInit}"
+						reRender="logAccessiPage"
+						oncomplete="Richfaces.showModalPanel('logAccessiModalBox'); return false;">
+						<h:outputText value="Visualizza log" style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{logAccessiBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagenew}"
+							assignTo="#{logAccessiBean.logAccessiPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+
+				<rich:menuItem submitMode="none" icon="/images/sql.png">
+					<a4j:commandLink action="#{dettaglioSqlBean.doInit}"
+						reRender="sqlPage"
+						oncomplete="Richfaces.showModalPanel('sqlModalBox'); return false;">
+						<h:outputText value="Visualizza query SQL completa"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{diaTestata}"
+							assignTo="#{dettaglioSqlBean.idDiaTestata}" />
+						<a4j:actionparam value="{pagesqlnew}"
+							assignTo="#{dettaglioSqlBean.sqlPage}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+
+			</rich:contextMenu>
+			<!-- Fine menu 3 -->
+
+		</h:form>
+
+		<!-- POPUP SQL -->
+		<a4j:include id="sqlPage" viewId="#{dettaglioSqlBean.sqlPage}" />
+
+		<!-- POPUP LOG ACCESSI -->
+		<a4j:include id="logAccessiPage"
+			viewId="#{logAccessiBean.logAccessiPage}" />
+
+	</ui:define>
+</ui:composition>
+</html>

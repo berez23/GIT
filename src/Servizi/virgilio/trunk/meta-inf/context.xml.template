@@ -1,0 +1,25 @@
+<Context @@DOCBASE@@ path="@@APPPATH@@" debug="@@DEBUG@@" cachingAllowed="@@CACHINGALLOWED@@" cacheTTL="@@CACHETTL@@"  swallowOutput="true" reloadable="@@RELOADABLE@@" crossContext="true">
+<!--
+
+  /**
+   * <p>Title: @@WEBAPPNAME@@ - WEB APPLICATION</p>
+   * <p>Description: $Id: context.xml.template,v 1.2 2007/09/13 13:38:45 ciacca Exp $ $Source: /cvs_repos/virgilio/meta-inf/context.xml.template,v $</p>
+   * <p>Copyright: Copyright (c) 2004</p>
+   * <p>Company: $Author: ciacca $</p>
+   * <p> Date:</p>$Date: 2007/09/13 13:38:45 $
+   * @author: Francesco Ciacca & Antonio Castaldi - SkillBill
+   * @version $Revision: 1.2 $
+  */
+-->
+<Loader  debug="@@DEBUG@@" checkInterval="@@CHECKINTERVAL@@"/>
+<Logger verbosity="@@VERBOSITY@@" className="org.apache.catalina.logger.FileLogger" prefix="@@APPNAME@@." suffix=".log" timestamp="true"/>
+<Realm className="org.apache.catalina.realm.DataSourceRealm"  debug="@@DEBUG@@"
+   dataSourceName="jdbc/@@APPNAME@@"
+   userTable="MI_DUP_USER" userNameCol="LOGIN" userCredCol="PASSWORD"
+   userRoleTable="MI_DUP_USER_ROLE" roleNameCol="ROLENAME"/>
+    <ResourceLink
+        name="jdbc/mui"
+        global="jdbc/@@GLOBALJNDINAME@@"
+        type="javax.sql.DataSource"
+    />
+</Context>

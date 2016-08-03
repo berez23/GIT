@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="GitLand_WEB">
+        <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="datarouter.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/datarouter.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="WebredEJBUtility.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WebredEJBUtility/WebredEJBUtility">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="webred-ui-comp-jsf.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/webred-ui-comp-jsf/webred-ui-comp-jsf">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cetsecutil.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/cetsecutil.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="JGeometry.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/JGeometry/JGeometry">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/GitLand_WEB/build/classes"/>
+        <property name="context-root" value="GitLand"/>
+    </wb-module>
+</project-modules>

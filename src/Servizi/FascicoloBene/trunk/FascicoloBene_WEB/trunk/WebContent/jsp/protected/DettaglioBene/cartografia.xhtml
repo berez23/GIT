@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:body>
+
+		<p:outputPanel style="text-align:center;" rendered="false">
+		<p:selectOneButton value="#{dettaglioBeneMan.mapMan.selectedMap}" >
+            <f:selectItem itemLabel="Cartografia" itemValue="C" />
+            <f:selectItem itemLabel="Google Maps" itemValue="S" />
+            <p:ajax event="change" update="opMappe,somMappale"/>
+        </p:selectOneButton>
+		</p:outputPanel>
+
+		
+		<p:outputPanel id="opMappe" style="text-align:center;">
+		
+			<p:selectOneMenu id="somMappale" value="#{dettaglioBeneMan.mapMan.selectedMappale}"
+		                 rendered="#{dettaglioBeneMan.mapMan.selectedMap eq 'Q'}">        
+			    <f:selectItems value="#{dettaglioBeneMan.mapMan.listaMappali}" />
+			    <p:ajax event="change" update="opMappe"/>
+			</p:selectOneMenu>
+		
+			<p:outputPanel id="opCartografia" rendered="#{dettaglioBeneMan.mapMan.selectedMap eq 'C'}">
+				<iframe id="mapFrame" scrolling="no" height="500px"
+				width="100%" src="#{mapMan.mapUrl}"></iframe>
+			</p:outputPanel>
+			
+			<p:outputPanel id="opStreetview" rendered="#{dettaglioBeneMan.mapMan.selectedMap eq 'S'}">			
+				<h:outputText value="Mappale selezionato:#{dettaglioBeneMan.mapMan.selectedMappale} " rendered="false"/>
+				<h:outputText value="Coordinate #{dettaglioBeneMan.mapMan.centroCoord[0]}, #{dettaglioBeneMan.mapMan.centroCoord[1]}" rendered="false"/>
+				<f:view contentType="text/html">
+				<p:gmap id="gmap" center="#{dettaglioBeneMan.mapMan.centroCoord[0]}, #{dettaglioBeneMan.mapMan.centroCoord[1]}" 
+				    zoom="#{dettaglioBeneMan.mapMan.zoom}" type="HYBRID" style="width:100%;height:500px" model="#{dettaglioBeneMan.mapMan.simpleModel}"
+                    streetView="true"  />
+                </f:view>
+			</p:outputPanel>
+		</p:outputPanel>
+	</h:body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition>
+	<rich:panel>
+		<f:facet name="header">DATI RICHIESTA</f:facet>
+		<div id="divTable" >  				
+			<table border="0" style="width:100%" cellspacing="1">
+				<tbody>
+					<tr >
+						<td align="left">
+							<h:outputText value="ID RICHIESTA" styleClass="myLabel" />									
+						</td>
+						<td align="left">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.idRichiesta}" /></span>
+						</td>
+						<td align="left">
+							<h:outputText value="DATA RICHIESTA" styleClass="myLabel" />
+						</td>
+						<td align="left" colspan="3">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.strDataRichiesta}" /></span>			
+						</td>						
+					</tr>
+					<tr >
+						<td align="left">
+							<h:outputText value="TIPO RICHIESTA" styleClass="myLabel" />
+						</td>
+						<td align="left">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.descTipoRichiesta}" /></span>			
+						</td>
+						<td align="left" >
+							<h:outputText value="PROVENIENZA" styleClass="myLabel" />
+						</td>
+						<td align="left" colspan="3">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.descTipoProvenienza}" /></span>			
+						</td>															
+					</tr>		
+					<tr>
+						<td style="height:10px;" colspan="6"></td>
+					</tr>					
+					<tr >
+						<td align="left" style="width: 220px;">
+							<h:outputText value="SEZIONE - FOGLIO - PARTICELLA" styleClass="myLabel" />									
+						</td>
+						<td>
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.sezione} - #{filtroBean.richiestaSelezionata.richiesta.foglio} - #{filtroBean.richiestaSelezionata.richiesta.particella}" /></span>
+						</td>
+						<td align="left">
+							<h:outputText value="DATA RIFERIMENTO " styleClass="myLabel" />									
+						</td>
+						<td colspan="3">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.strDataRif}" /></span>
+						</td>
+					</tr>
+					<tr>
+						<td style="height:10px;" colspan="6"></td>
+					</tr>					
+					<c:if test="#{empty filtroBean.richiestaSelezionata.richiesta.idSoggettoRichiedente}">
+						<tr >
+							<td align="left">
+								<h:outputText value="SOGGETTO RICHIEDENTE" styleClass="myLabel" />
+							</td>
+							<td colspan="5">
+								<span class="labelRicOutPut"><h:outputText value="OPERATORE : #{filtroBean.richiestaSelezionata.richiesta.userNameRichiedente}" /></span>									
+							</td>
+						</tr>					
+					</c:if>
+					<c:if test="#{not empty filtroBean.richiestaSelezionata.richiesta.idSoggettoRichiedente}">
+						<tr >
+							<td align="left">
+								<h:outputText value="SOGGETTO RICHIEDENTE" styleClass="myLabel" />
+							</td>
+							<td align="left">
+								<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.soggettoRichiedente.cognome}  #{filtroBean.richiestaSelezionata.richiesta.soggettoRichiedente.nome}" /></span>									
+							</td>
+							<td align="left">
+								<h:outputText value="COD. FISCALE / P. IVA" styleClass="myLabel" />
+							</td>
+							<td align="left">
+								<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.soggettoRichiedente.codFis}" /></span>			
+							</td>					
+							<td align="left">
+					        	<h:outputText value="DATA NASCITA" styleClass="myLabel" />									
+							</td>
+							<td align="left">
+								<span class="labelRicOutPut">
+									<h:outputFormat value="{0,date,dd/MM/yyyy}" >
+										<f:param value="#{filtroBean.richiestaSelezionata.richiesta.soggettoRichiedente.dtNas}"/>
+									</h:outputFormat>
+								</span>																	
+							</td>									
+						</tr>
+						<tr >
+							<td align="left">
+								<h:outputText value="DOC. RICONOSC." styleClass="myLabel" />
+							</td>
+							<td align="left">
+								<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.descTipoDocRicon}" /></span>			
+							</td>
+							<td align="left">
+								<h:outputText value="NUMERO" styleClass="myLabel" />
+							</td>
+							<td align="left">
+								<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.numeroDocRicon}" /></span>			
+							</td>												
+							<td align="left">
+					        	<h:outputText value="DATA EMISSIONE" styleClass="myLabel" />									
+							</td>
+							<td>
+								<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.strDtEmissDocRicon}" /></span>																			
+							</td>
+						</tr>						
+					</c:if>
+					<tr>
+						<td style="height:10px;" colspan="6"></td>
+					</tr>					
+					<tr >
+						<td align="left">
+							<h:outputText value="E-MAIL" styleClass="myLabel" />
+						</td>
+						<td>
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.email}" /></span>									
+						</td>
+						<td align="left">
+							<h:outputText value="NUM. TELEFONO" styleClass="myLabel" />
+						</td>															
+						<td colspan="3">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.numTel}" /></span>
+						</td>
+					</tr>
+					<tr >
+						<td align="left">
+							<h:outputText value="TESTO RICHIESTA" styleClass="myLabel" />
+						</td>
+						<td colspan="5">
+							<span class="labelRicOutPut"><h:outputText value="#{filtroBean.richiestaSelezionata.richiesta.note}" /></span>									
+						</td>									
+					</tr>								
+				</tbody>
+			</table>
+		</div>
+			</rich:panel>
+</ui:composition>
+
+</html>  		

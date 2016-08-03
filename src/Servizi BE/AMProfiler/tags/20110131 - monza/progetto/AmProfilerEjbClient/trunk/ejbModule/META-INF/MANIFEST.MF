@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: AmProfilerDataModel.jar 
+ CT_Config_Data_Model.jar
+

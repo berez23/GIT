@@ -1,0 +1,492 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	<ui:composition>
+
+	<h:panelGrid columns="2" width="100%" id="detGesPra"> 
+		<h:form id ="formOperatori">
+		<h:panelGrid columns="1" width="100%" id="detOperGesPra">
+			<rich:dataTable width="100%" var="row" value="#{detailBean.dtoGesPratica.listaOperatoriPratica}"
+				id="listOperPratica" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				rows="30">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column colspan="20">
+							<h:outputText value="Storico Operatori Pratica" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Utente" />
+					</f:facet>
+					<h:outputText value="#{row.id.userName}"/>
+				</rich:column>
+				<rich:column style="text-align:center" >
+					<f:facet name="header">
+						<h:outputText value="Data inizio" />
+					</f:facet>
+					<h:outputText value="#{row.id.dtIniGes}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+					</h:outputText>
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">
+						<h:outputText value="Data fine" />
+					</f:facet>
+					<h:outputText value="#{row.dtFinGes}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+					</h:outputText>
+				</rich:column>
+			</rich:dataTable>
+			<a4j:commandLink ajaxSingle="true" 
+  							     action="#{detailBean.doPrendiInCaricoPratica}"
+  							     rendered="#{detailBean.btnPrendiInCarico.visible}"
+  				  				 oncomplete=""
+  								 reRender="detOperGesPra,testata,detGesIstr,detAll,detGesSchede,detGesGriglie,datiSchede,detFinIstr,linkGesGriglie"
+  								 id="prendiInCarico">
+  			 <a4j:support event="onclick"
+					onsubmit="if (!confirm('Prendere in carico la pratica?')) return false" />
+   						PRENDI IN CARICO
+   			</a4j:commandLink>			
+		</h:panelGrid>
+		</h:form>
+	<h:form id ="formAllegati">
+		<h:panelGrid columns="1" width="100%" id ="detAll">
+			<rich:dataTable width="100%" var="row" value="#{detailBean.dtoGesPratica.listaAllegatiPratica}"
+				id="listAllPratica" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				rows="30">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column colspan="20">
+							<h:outputText value="Allegati" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Tipo" />
+					</f:facet>
+					<h:outputText value="#{row.desTipDoc}"/>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="Descrizione" />
+					</f:facet>
+					<h:outputText value="#{row.descrizione}"/>
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">
+						<h:outputText value="File" />
+					</f:facet>
+					<h:commandLink   title="Visualizza file" 
+						action="#{allegatoDetailBean.doDownload}">
+						<h:graphicImage value="/images/#{row.fileImg}" id="imgAll"
+							style="padding-left:10px; border: 0; cursor: pointer;" />
+						<a4j:actionparam
+							value="#{row.nomeFile}.#{row.extFile}"
+							name="nomeFileAll" assignTo="#{allegatoDetailBean.fileName}" />		
+						<a4j:actionparam
+							value="#{row.extFile}"
+							name="contentType" assignTo="#{allegatoDetailBean.contentType}" />											
+					</h:commandLink>
+				</rich:column>
+			</rich:dataTable>
+			<a4j:commandLink ajaxSingle="true" 
+				     action="#{allegatoDetailBean.doInitPanel}"
+	  				 oncomplete="Richfaces.showModalPanel('panelGesAll')"
+					 reRender="panelGesAll"
+					 rendered="#{detailBean.btnAllegato.visible}"
+					 id="linkGesAllegato">
+				GESTISCI ALLEGATI
+		   </a4j:commandLink> 		
+		</h:panelGrid>
+	</h:form>	
+	</h:panelGrid>
+	<rich:spacer height="5px" />
+	<h:panelGrid columns="1" width="100%">
+	<h:form id ="formFabbricato">
+	<rich:panel id="detGesSchede" rendered="#{detailBean.visSchede}">
+		<f:facet name="header">
+			<h:outputLabel value="Schede di valutazione e controllo" />
+		</f:facet>
+		
+		<h:panelGrid columns="4" cellspacing="5" width="100%"  id ="datiSchede" rendered="#{not empty detailBean.dtoGesPratica.schedaFabbricato.idPratica || not empty detailBean.dtoGesPratica.schedaUiu.idPratica  }">
+			<h:outputLabel value="SCHEDA GENERALE FABBRICATO" style="font-weight: bold;" />
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value="Caratteristiche architettoniche/decorative" style="font-weight: bold;" />
+			<h:outputText id="carArch" value="#{detailBean.dtoGesPratica.schedaFabbricato.valCarArchitDecorative}" />
+			<h:outputLabel value="Liv. manutenz. generale/rifiniture" style="font-weight: bold;" />
+			<h:outputText id="manutGen" value="#{detailBean.dtoGesPratica.schedaFabbricato.valManutGenERifiniture}" />
+
+			<h:outputLabel value="Struttura portante" style="font-weight: bold;" />
+			<h:outputText id="struttPort" value="#{detailBean.dtoGesPratica.schedaFabbricato.valStrutturaPortante}"/>
+			<h:outputLabel value="Piani fuori terra" style="font-weight: bold;" />
+			<h:outputText id="pianiFuoriTerra" value="#{detailBean.dtoGesPratica.schedaFabbricato.valPianiFuoriTerra}" />	
+
+			<h:outputLabel value="Numero scale" style="font-weight: bold;" />
+			<h:outputText id="numScale" value="#{detailBean.dtoGesPratica.schedaFabbricato.valNumeroScale}" />		
+			<h:outputLabel value="Numero Ingressi" style="font-weight: bold;" /> 
+			<h:outputText id="numIngr" value="#{detailBean.dtoGesPratica.schedaFabbricato.valNumeroIngressi}" />	
+
+			<h:outputLabel value="Androne/scale/pianerottoli" style="font-weight: bold;" />
+			<h:outputText id="androne" value="#{detailBean.dtoGesPratica.schedaFabbricato.valAndrone}" />	
+			<h:outputLabel value="Altezza media" style="font-weight: bold;" />
+			<h:outputText id="hMedia" value="#{detailBean.dtoGesPratica.schedaFabbricato.valAltezzaMedia}" >
+				<f:convertNumber minFractionDigits="2" type="number"></f:convertNumber>
+			</h:outputText>		
+
+			<h:outputLabel value="Numero uiu per piano" style="font-weight: bold;" />
+			<h:outputText id="numUiuPiano" value="#{detailBean.dtoGesPratica.schedaFabbricato.valNumeroUiuPerPiano}" />					
+			<h:outputLabel value="Presenza Ascensore" style="font-weight: bold;" />
+			<h:outputText id="ascensore" value="#{detailBean.dtoGesPratica.schedaFabbricato.valAscensore}" />	
+
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+		
+			<h:outputLabel value="SCHEDA GENERALE U.I." style="font-weight: bold;" />
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			
+			<h:outputLabel value="Affaccio principale" style="font-weight: bold;" />
+			<h:outputText id="affprinc" value="#{detailBean.dtoGesPratica.schedaUiu.valAffaccioPrinc}" />
+			<h:outputLabel value="Numero affacci fronte strada" style="font-weight: bold;" />
+			<h:outputText id="affFronteStrada" value="#{detailBean.dtoGesPratica.schedaUiu.valAffacciFronteStrada}" />
+
+			<h:outputLabel value="Piano o livello medio di piano" style="font-weight: bold;" />
+			<h:outputText id="piano" value="#{detailBean.dtoGesPratica.schedaUiu.valPiano}"/>
+			<h:outputLabel value="Ristrutturazione" style="font-weight: bold;" />
+			<h:outputText id="ristr" value="#{detailBean.dtoGesPratica.schedaUiu.valRistrutturazione}" />	
+
+			<h:outputLabel value="Stato interno" style="font-weight: bold;" />
+			<h:outputText id="statoInt" value="#{detailBean.dtoGesPratica.schedaUiu.valStatoInterno}"/>
+			<h:outputLabel value="Condizionamento" style="font-weight: bold;" />
+			<h:outputText id="cond" value="#{detailBean.dtoGesPratica.schedaUiu.valCondizionamento}" />	
+
+			<h:outputLabel value="Riscaldamento" style="font-weight: bold;" />
+			<h:outputText id="risc" value="#{detailBean.dtoGesPratica.schedaUiu.valRiscaldamento}"/>
+			<h:outputLabel value="Altri impianti" style="font-weight: bold;" />
+			<h:outputText id="altriImp" value="#{detailBean.dtoGesPratica.schedaUiu.valAltriImpianti}" />	
+			
+			<h:outputLabel value="Pavimentazioni" style="font-weight: bold;" />
+			<h:outputText id="pav" value="#{detailBean.dtoGesPratica.schedaUiu.valPavimentazioni}"/>
+			<h:outputLabel value="Qualita infissi" style="font-weight: bold;" />
+			<h:outputText id="inf" value="#{detailBean.dtoGesPratica.schedaUiu.valInfissi}" />	
+
+			<h:outputLabel value="Ampiezza camere mq" style="font-weight: bold;" />
+			<h:outputText id="ampCamere" value="#{detailBean.dtoGesPratica.schedaUiu.valAmpiezzaMediaCamere}">
+				<f:convertNumber minFractionDigits="2" type="number"></f:convertNumber>
+			</h:outputText>	
+			<h:outputLabel value="Ampiezza servizi mq" style="font-weight: bold;" />
+			<h:outputText id="ampServizi" value="#{detailBean.dtoGesPratica.schedaUiu.valAmpiezzaMediaServizi}">
+				<f:convertNumber minFractionDigits="2" type="number"></f:convertNumber>
+			</h:outputText>		
+	
+			<h:outputLabel value="Ampiezza vani accessori mq" style="font-weight: bold;" />
+			<h:outputText id="ampVaniAcc" value="#{detailBean.dtoGesPratica.schedaUiu.valAmpiezzaMediaAccessori}">
+				<f:convertNumber minFractionDigits="2" type="number"></f:convertNumber>
+			</h:outputText>	>
+			<h:outputLabel value="Funzionalit&#x00E0; spazi abitativi" style="font-weight: bold;" />
+			<h:outputText id="funzSpazi" value="#{detailBean.dtoGesPratica.schedaUiu.valSpazi}" />		
+		   <h:outputLabel rendered="#{!detailBean.btnSchede.visible}" value=""/>
+		</h:panelGrid>	
+		<a4j:commandLink ajaxSingle="true" 
+				oncomplete="Richfaces.showModalPanel('panelGesSchede')"
+				reRender="panelGesSchede"
+				rendered="#{detailBean.btnSchede.visible}"
+				id="linkGesSkFabbr">
+			COMPILA SCHEDE
+	   </a4j:commandLink> 	
+
+		<h:panelGrid columns="3" cellspacing="5" width="100%" rendered="false">
+			<h:outputLabel value="Scostamento da rendita catastale attesa per la zona" style="font-weight: bold;" />
+			<h:outputLabel value="Rendita media attesa per la U.I." style="font-weight: bold;" />
+			<h:outputLabel value="Categoria/Classe attesa per la U.I" style="font-weight: bold;" />
+			<h:outputText id="deltaRendita" value="-10%" />
+			<h:outputText id="renditaMedia" value="1206" />
+			<h:outputText id="catClasse" value="A03-C02" />
+		</h:panelGrid>
+	</rich:panel>
+	</h:form>
+	<rich:spacer height="5px" rendered="#{detailBean.visGriglie and detailBean.visGriglieCat}"/>
+	<h:form id="formGriglie">
+	<rich:panel id="detGesGriglie" rendered="#{detailBean.visGriglie and detailBean.visGriglieCat}">
+		<f:facet name="header">
+			<h:outputLabel value="Griglie di valutazione" />
+		</f:facet>
+		<rich:panel rendered="#{not empty detailBean.dtoGesPratica.tabellaValutIncrA4A3.idPratica and (detailBean.catUltimaUiu eq 'A04' or detailBean.catUltimaUiu eq 'A03')}">		
+			<f:facet name="header">
+				<h:outputLabel value="Griglia Valutativa Incremento Classi Categ. A4/A3" />
+			</f:facet>
+			<h:panelGrid columns="3" cellspacing="5" width="100%"  id ="datiGriglieA4A3" rendered="#{not empty detailBean.dtoGesPratica.tabellaValutIncrA4A3.idPratica}">
+			<h:outputLabel value="INNOVAZIONI" style="font-weight: bold;" />
+			<h:outputLabel value="" />
+			<h:outputLabel value="NOTE" style="font-weight: bold;" />
+			
+			<h:outputLabel value="Ascensore" style="font-weight: bold;" />
+			<h:outputText id="asca3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAscensoreDecoded}" />
+			<h:inputTextarea  id="ascNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAscensoreNote}" readonly="true" style="height:30px; width : 300px;" />
+			
+			<h:outputLabel value="Riscaldamento" style="font-weight: bold;" />
+			<h:outputText id="risca3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRiscaldamentoDecoded}" />
+			<h:inputTextarea  id="riscNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRiscaldamentoNote}" readonly="true" style="height:30px; width : 300px;" />
+			
+			<h:outputLabel value="Ristrutturazione" style="font-weight: bold;" />
+			<h:outputText id="ristra3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRistrutturazioneDecoded}" />
+			<h:inputTextarea  id="ristrNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRistrutturazioneNote}" readonly="true" style="height:30px; width : 300px;" />
+	
+			<h:outputLabel value="Miglioramento Distribuzione Vani" style="font-weight: bold;" />
+			<h:outputText id="mdva3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valMiglDistrVaniDecoded}" />
+			<h:inputTextarea  id="mdvNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valMiglDistrVaniNote}" readonly="true" style="height:30px; width : 300px;" />
+	
+			<h:outputLabel value="Aumento Servizi" style="font-weight: bold;" />
+			<h:outputText id="serva3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAumentoServiziDecoded}" />
+			<h:inputTextarea  id="servNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAumentoServiziNote}" readonly="true" style="height:30px; width : 300px;" />
+					
+		   <h:outputLabel rendered="#{!detailBean.btnGriglie.visible}" value=""/>
+		</h:panelGrid>	
+		</rich:panel>
+		<rich:panel rendered="#{not empty detailBean.dtoGesPratica.tabellaValutIncrA5A6.idPratica and (detailBean.catUltimaUiu eq 'A05' or detailBean.catUltimaUiu eq 'A06')}">
+			<f:facet name="header">
+				<h:outputLabel value="Griglia Valutativa Incremento Classi Categ. A5/A6" />
+			</f:facet>
+			<h:panelGrid columns="3" cellspacing="5" width="100%"  id ="datiGriglieA5A6" rendered="#{not empty detailBean.dtoGesPratica.tabellaValutIncrA5A6.idPratica}">
+			<h:outputLabel value="INNOVAZIONI" style="font-weight: bold;" />
+			<h:outputLabel value="" />
+			<h:outputLabel value="NOTE" style="font-weight: bold;" />
+			
+			<h:outputLabel value="Riscaldamento" style="font-weight: bold;" />
+			<h:outputText id="risca5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRiscaldamentoDecoded}" />
+			<h:inputTextarea  id="riscNotea5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRiscaldamentoNote}" readonly="true" style="height:30px; width : 300px;" />
+			
+			<h:outputLabel value="Ristrutturazione" style="font-weight: bold;" />
+			<h:outputText id="ristra5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRistrutturazioneDecoded}" />
+			<h:inputTextarea  id="ristrNotea5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRistrutturazioneNote}" readonly="true" style="height:30px; width : 300px;" />
+	
+			<h:outputLabel value="Inserimento Servizi" style="font-weight: bold;" />
+			<h:outputText id="serva5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valAggiuntaServiziDecoded}" />
+			<h:inputTextarea id="servNotea5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valAggiuntaServiziNote}" readonly="true" style="height:30px; width : 300px;" />
+					
+		   <h:outputLabel rendered="#{!detailBean.btnGriglie.visible}" value=""/>
+		</h:panelGrid>	
+		</rich:panel>
+		<rich:spacer height="10px"/>
+		<rich:panel id="pnlGrigliaCat1" rendered="#{not empty detailBean.dtoGesPratica.grigliaAttribA2.idPratica and detailBean.catUltimaUiu eq 'A04'}">
+				<f:facet name="header">
+					<h:outputLabel value="Griglia Valutativa Incremento Categoria - Parte 1" />
+				</f:facet>
+			<table cellpadding="5px" width="100%">
+			<tr>
+				<td><h:outputLabel value="CARATTERISTICHE" style="font-weight: bold;" /></td>
+				<td colspan="2" ><h:outputLabel value="PARAMETRI" style="font-weight: bold;"/></td>
+			</tr>
+			<tr>
+				<td rowspan="5" valign="middle"><h:outputLabel value="Caratteristiche Generali"/></td>
+				<td><h:outputLabel value="u.i.u. con accesso da ballatoio" /></td>
+				<td><h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valUiuAccessoBallatoioDecoded}"/></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel value="u.i.u. seminterrate" /></td>
+				<td><h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valUiuSeminterrateDecoded}"/></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel value="unit&#224; abitative ricavate da ex locali lavatoi, soffitte, con altezze particolarmente ridotte" /></td>
+				<td><h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valAltRidottaDecoded}"/></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel value="u.i.u. con servizio igienico unico collocato sul balcone" /></td>
+				<td><h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valSerIgienicoEsternoDecoded}"/></td>
+			</tr>
+			<tr>
+				<td><h:outputLabel value="modesti o precari corpi accessori a fabbricati principali " /></td>
+				<td><h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valCorpiAccessoriDecoded}"/></td>
+			</tr>
+			</table>
+		</rich:panel>
+		<rich:panel id="pnlGrigliaCat2" rendered="#{not empty detailBean.dtoGesPratica.grigliaAttribA2.idPratica and detailBean.catUltimaUiu eq 'A04' and detailBean.visPnlGrigliaCat2}">
+			<f:facet name="header">
+				<h:outputLabel value="Griglia Valutativa Incremento Categoria - Parte 2" />
+			</f:facet>
+			<h:panelGrid columns="3" width="100%">
+				<h:panelGrid columns="1" cellpadding="5px" width="100%">
+					<h:panelGrid columns="3" width="100%">
+					<h:outputLabel value="CARATTERISTICHE" style="font-weight: bold;" />
+					<h:outputLabel value="PARAMETRO" style="font-weight: bold;"/>
+					<h:outputLabel value="PESO" style="font-weight: bold;"/>
+					
+					<h:outputLabel value="Androne, Scale e Pianerottolo"/>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valCarAndroneDecoded}"/>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valCarAndrone}"/>
+					
+					<h:outputLabel value="Numero di abitazioni per piano"/>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valNumUiuPianoDecoded}"/>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valNumUiuPiano}"/>
+					
+					<h:outputLabel value="Superficie catastale media delle u.i.u. del fabbricato (Dpr 138/98)"/>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valSupMediaUiuDecoded}"/>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.grigliaAttribA2.valSupMediaUiu}"/>
+				
+					<h:outputLabel value="PUNTEGGIO" style="font-weight: bold;" />
+					<rich:spacer width="10px"></rich:spacer>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.punteggio}" style="font-weight: bold;" />
+					
+					<h:outputLabel value="CATEGORIA SUGGERITA" style="font-weight: bold;" />
+					<rich:spacer width="10px"></rich:spacer>
+					<h:outputLabel value="#{detailBean.dtoGesPratica.suggestedCat}" style="font-weight: bold;" />
+					</h:panelGrid>
+					
+					<rich:spacer height="5px"></rich:spacer>
+					Nella casella corrispondente a PUNTEGGIO viene riportato il totale  calcolato sulla base dei valori immessi nella griglia. 
+					nella casella sottostante viene riportata la categoria suggerita in relazione al punteggio, sulla base della tabella a destra
+					</h:panelGrid>
+					
+				<rich:spacer width="10px"></rich:spacer>
+				<a4j:include id="punteggioPage" viewId="/jsp/protected/search/detail/tabellaPunteggio.xhtml" />
+		</h:panelGrid>
+		</rich:panel>
+		
+		
+		
+		<a4j:commandLink ajaxSingle="true" 
+				oncomplete="Richfaces.showModalPanel('panelGesGriglie')"
+				reRender="panelGesGriglie"
+				rendered="#{detailBean.btnGriglie.visible}"
+				id="linkGesGriglie">
+			COMPILA GRIGLIE
+	   </a4j:commandLink> 	
+	</rich:panel>
+	</h:form>
+	<rich:spacer height="5px" />
+	<h:form id ="formIstr">
+	<rich:panel id="detGesIstr">
+		<f:facet name="header">
+			<h:outputLabel value="Decisioni e azioni intraprese" />
+		</f:facet>
+		<h:panelGrid columns="6" cellspacing="5" width="100%">
+			<h:outputLabel value="Nota" style="font-weight: bold;width : 80px;" />
+			<h:inputTextarea id="notaIstr" value="#{detailBean.dtoGesPratica.datiPratica.pratica.notaIstruttoria}" readonly="true" style=" width : 300px;" />
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+			<h:outputLabel value=""/>
+		    <h:outputLabel value="Irregolarit&#x00E0; riscontrata" style="font-weight: bold;width : 80px;" />
+			<h:outputText id="desIrreg" value="#{detailBean.dtoGesPratica.datiPratica.desIrregolarita}" />  
+			<h:outputLabel value="Notificato al titolare" style="font-weight: bold;"/>
+			<h:selectBooleanCheckbox
+				 title="notificaTit"  value="#{detailBean.dtoGesPratica.datiPratica.flNotificatoTit}" disabled="true">
+			</h:selectBooleanCheckbox>	
+			<h:outputLabel value="Notificato AdT" style="font-weight: bold;"/>
+			<h:selectBooleanCheckbox
+				 title="notificaAdt"  value="#{detailBean.dtoGesPratica.datiPratica.flNotificatoAdt}" disabled="true">
+			</h:selectBooleanCheckbox> 
+			<a4j:commandLink ajaxSingle="true" 
+				     action="#{detailBean.doPreparaGesIstr}"
+	  				 oncomplete="Richfaces.showModalPanel('panelDetIstr')"
+					 reRender="panelDetIstr"
+					 rendered="#{detailBean.btnModifica.visible}"
+					 id="linkGesIstr">
+				MODIFICA
+		   </a4j:commandLink> 	
+		</h:panelGrid>	
+	</rich:panel> 
+	</h:form>
+	<rich:spacer height="5px" />
+	<h:form id ="formChiusura">
+	<rich:panel id="detFinIstr">
+		<f:facet name="header">
+			<h:outputLabel value="Chiusura Istruttoria" />
+		</f:facet>
+		<h:panelGrid columns="4" cellspacing="5" width="100%">
+			<h:outputLabel value="Data Chiusura" style="font-weight: bold;" />
+			<h:outputText id="dtFin" value="#{detailBean.dtoGesPratica.datiPratica.pratica.dtFin}" >
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+			</h:outputText>
+			<h:outputLabel value="Operatore" style="font-weight: bold;" />
+			<h:outputText id="operChiusura" value="#{detailBean.dtoGesPratica.datiPratica.pratica.userNameFin}" />
+			<h:outputLabel value="Nota Chiusura" style="font-weight: bold;" rendered="false"/>
+			<h:outputText id="notaChiusura" value="#{detailBean.dtoGesPratica.datiPratica.pratica.notaChiusura}" rendered="false" />
+			<a4j:commandLink ajaxSingle="true" 
+  							     action="#{detailBean.doChiudiPratica}"
+  							     rendered="#{detailBean.btnChiudi.visible}"
+  				  				 oncomplete=""
+  								 reRender="detOperGesPra,testata,detGesIstr,detAll,detGesSchede,detGesGriglie,detFinIstr"
+  								 id="chiudiPra">
+  			 <a4j:support event="onclick"
+					onsubmit="if (!confirm('Effettuare la chiusura istruttoria per la pratica?')) return false" />
+   						CHIUDI PRATICA
+   			</a4j:commandLink>			
+		</h:panelGrid>	
+	</rich:panel>
+	</h:form>
+	</h:panelGrid>
+	
+	<rich:modalPanel id="panelDetIstr" height="500" width="600" >
+		<f:facet name="header">
+			<h:outputText value="Dati Istruttoria"></h:outputText>
+		</f:facet>
+ 	
+	 	<f:facet name="controls">
+      		<h:panelGroup>
+          		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelDetIstr"/>
+          		<rich:componentControl for="panelDetIstr" attachTo="hidelinkPanelDetIstr" operation="hide" event="onclick"/>
+      		</h:panelGroup>
+	    </f:facet>
+		<ui:include src="panIstrPratica.xhtml"/>
+	</rich:modalPanel>	
+		
+	<rich:modalPanel id="panelGesAll" height="700" width="600" style="overflow:auto;">
+		<f:facet name="header">
+			<h:outputText value="Gestione Allegati"></h:outputText>
+		</f:facet>
+ 	
+   		<f:facet name="controls">
+       		<h:panelGroup>
+           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkpanelGesAll"/>
+           		<rich:componentControl for="panelGesAll" attachTo="hidelinkpanelGesAll" operation="hide" event="onclick"/>
+       		</h:panelGroup>
+	   	</f:facet>
+		<ui:include src="panGesAllegato.xhtml"/>
+	</rich:modalPanel>			
+	
+	<rich:modalPanel id="panelGesSchede" height="700" width="600" >
+		<f:facet name="header">
+			<h:outputText value="Schede di valutazione e controllo"></h:outputText>
+		</f:facet>
+ 	
+   		<f:facet name="controls">
+       		<h:panelGroup>
+           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkpanelGesSchede"/>
+           		<rich:componentControl for="panelGesSchede" attachTo="hidelinkpanelGesSchede" operation="hide" event="onclick"/>
+       		</h:panelGroup>
+	   	</f:facet>
+		<ui:include src="panSchede.xhtml"/>
+	</rich:modalPanel>			
+	
+		<rich:modalPanel id="panelGesGriglie" height="700" width="800" style="overflow:auto;">
+		<f:facet name="header">
+			<h:outputText value="Griglie di valutazione"></h:outputText>
+		</f:facet>
+ 	
+   		<f:facet name="controls">
+       		<h:panelGroup>
+           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkpanelGesGriglie"/>
+           		<rich:componentControl for="panelGesGriglie" attachTo="hidelinkpanelGesGriglie" operation="hide" event="onclick"/>
+       		</h:panelGroup>
+	   	</f:facet>
+		<ui:include src="panGriglie.xhtml"/>
+	</rich:modalPanel>			
+	
+	</ui:composition>
+</html>

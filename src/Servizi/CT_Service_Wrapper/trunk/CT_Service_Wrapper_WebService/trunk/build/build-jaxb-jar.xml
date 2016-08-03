@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<project default="init">
+    <property file="build-jaxb-jar.properties"/>
+    
+    <target name="init">
+       <tstamp/>
+    </target>
+    
+    <path id="classpath">
+      <fileset dir="${librariesPath}">
+          <include name="**/*.jar"/>
+      </fileset>
+    </path>
+
+    <target name="build" 
+             description="Creazione JAR classi jaxb DTO" depends="init">
+        <antcall target="clean" />
+        <antcall target="prepare" />
+        <antcall target="compile" /> 
+        <antcall target="createJAR" />
+        <antcall target="finalize" />
+     </target>
+
+
+     <target name="clean"
+            description="Cancellazione delle directory di lavoro">
+        <echo message="Cancellazione delle directory di lavoro"></echo>
+        <delete dir="${buildPath}\jar\jaxb"/>
+        <delete file="${buildPath}\jar\jaxb\${jar.name.ref}.jar"/>
+    </target>
+    
+     <target name="prepare" description="Creazione delle directory necessarie"
+            depends="init">
+        <echo message="Creazione delle directory necessarie alla build"></echo>
+        <mkdir dir="${buildPath}/jar/jaxb"/>
+        <mkdir dir="${buildPath}/jar/jaxb/classes"/>
+    </target>
+    
+    
+    <target name="compile" description="Compilazione sorgenti java" depends="init">
+        <echo message="Compilo e copio i file compilati ...${buildPath}"/>
+        <javac srcdir="../src/it/webred/ct/service/jaxb" 
+               destdir="${buildPath}/jar/jaxb/classes" >            
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+    
+    
+    <target name="createJAR" description="Creazione JAR jaxb" depends="init">
+        <jar destfile="${buildPath}/jar/jaxb/${jar.name.ref}.jar">
+            <fileset dir="${buildPath}/jar/jaxb/classes" includes="**\*" />
+		</jar>
+    	
+    	<!--
+    	<copy file="${buildPath}/jar/jaxb/${jar.name.ref}.jar" 
+    	    		  tofile="../lib/${jar.name.ref}.jar" 
+    	    		  overwrite="true"/>
+    	-->
+    </target>
+     
+    
+    <target name="finalize"
+            description="Cancellazione delle directory di lavoro">
+        <echo message="Cancellazione delle directory di lavoro"></echo>
+        <delete dir="${buildPath}/jar/jaxb/classes"/>
+    </target>
+
+   
+</project>

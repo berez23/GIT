@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<h:form id="myForm">
+				<div class="divTitolo">
+					<h:outputText value="ESAME RICHIESTE FASCICOLO FABBRICATO - DETTAGLIO RICHIESTA" />
+				</div>			
+   				
+			<rich:messages passedLabel="Operazione completata" 
+									   layout="list" >
+		                      <f:facet name="infoMarker">
+		                      	<h:graphicImage value="/images/passed.gif" />
+		                      </f:facet>
+		                      <f:facet name="errorMarker">
+		                            <h:graphicImage value="/images/error.gif" />   
+		                      </f:facet>
+		      </rich:messages>   				
+   				
+   				
+				<ui:include src="/jsp/protected/filtro/datiDichiatanteRichiesta.xhtml" />
+	  			<rich:spacer height="20px" />
+				<rich:panel>
+					<f:facet name="header">DATI EVASIONE RICHIESTA</f:facet>
+					<div>
+						<table border="0" style="width:100%" cellspacing="1">
+							<tbody>
+								<tr >
+									<td align="left" style="width:220px;">
+										<h:outputText value="DATA EVASIONE" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut">
+											<h:outputFormat value="{0,date,dd/MM/yyyy}" >
+												<f:param value="#{filtroBean.rispostaEvasa.dtRis}"/>
+											</h:outputFormat>											
+										</span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left" style="width:220px;">
+										<h:outputText value="OPERATORE" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.userName}" /></span>			
+									</td>									
+								</tr>
+								<tr >
+									<td align="left" style="width:220px;">
+										<h:outputText value="MEZZO RISPOSTA EFFETTIVO" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.descMezzoRisposta}" /></span>			
+									</td>									
+								</tr>									
+								<tr >
+									<td align="left" style="width:220px;">
+										<h:outputText value="NOTA OPERATORE" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.desNotUser}" /></span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left" style="width:220px;">
+										<h:outputText value="TESTO RISPOSTA" styleClass="labelRicDesc" />
+									</td>
+									<td align="left">
+										<span class="labelRicOutPut"><h:outputText value="#{filtroBean.rispostaEvasa.desRis}" /></span>			
+									</td>
+								</tr>
+								<tr >
+									<td colspan="2" style="height:40px;padding-left: 10px;" >
+										<h:commandLink  rendered="#{not empty filtroBean.richiestaSelezionata.richiesta.nomePdf}" 
+														value="MOSTRA PDF" 
+														action="#{pdfBean.doDownloadPDF}"  
+														style="width:150px;font-weight: bold;color:black;" >
+											<a4j:actionparam name="filename" value="#{filtroBean.richiestaSelezionata.richiesta.nomePdf}" assignTo="#{pdfBean.filename}" />																									
+										</h:commandLink>
+									</td>
+								</tr>							
+							</tbody>
+						</table>
+					</div>
+	  			</rich:panel>
+	  			
+	  			<center>
+	  					<a4j:commandButton  styleClass="my-button" value="Indietro" 
+											style="width:150px" action="#{filtroBean.goToList}"/>
+				</center>
+	    	</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

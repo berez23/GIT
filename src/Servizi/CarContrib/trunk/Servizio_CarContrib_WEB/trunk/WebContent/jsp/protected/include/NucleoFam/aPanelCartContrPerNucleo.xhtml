@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+			<rich:modalPanel id="CartContribParentePanel"
+				height="610" width="1020"
+				moveable="true" resizeable="true" style="overflow: auto;" >	
+				<h:form>
+				    	<a4j:outputPanel ajaxRendered="true">
+					    	<div style="overflow: auto; position: relative;height: 500px;">
+					  			<table>
+					  				<tr>
+					  					<td style="height: 40px;">
+					  						<h:outputText value="#{contribuenteBean.intestazione}" styleClass="titolo" />
+					  					</td>
+					  				</tr>
+					  			</table>
+								<rich:tabPanel id="ajaxTabPanelNF" switchType="ajax" height="100%" tabClass="tabClass">
+									<rich:tab id="ajaxZeroPanelNF">
+								  		<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribPatrimonialePerNucleo.xhtml" />
+								  	</rich:tab>
+									<rich:tab id="ajaxUnoPanelNF" >
+										<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribIciPerNucleo.xhtml" />
+						  			</rich:tab>
+								  	<rich:tab id="ajaxDuePanelNF">
+								  		<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribTarsuPerNucleo.xhtml" />
+								  	</rich:tab>
+								  	<rich:tab id="ajaxDodiciPanelNF">
+										<ui:include src="/jsp/protected/include/cartellaContribRuoliVers.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxTrePanelNF">
+										<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribCosapPerNucleo.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxQuattroPanelNF">
+										<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribCNCPerNucleo.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxCinquePanelNF">
+											<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribRedditiPerNucleo.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxSeiPanel">	
+										<ui:include src="/jsp/protected/include/cartellaContribAcqua.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxSettePanel">	
+										<ui:include src="/jsp/protected/include/cartellaContribMulte.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxOttoPanel">	
+										<ui:include src="/jsp/protected/include/cartellaContribRette.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxNovePanel">	
+										<ui:include src="/jsp/protected/include/cartellaContribPratiche.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxDieciPanelNF">
+										<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribNucleoPerNucleo.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxUndiciPanelNF">
+										<ui:include src="/jsp/protected/include/NucleoFam/cartellaContribCarSocialePerNucleo.xhtml" />
+									</rich:tab>
+									<rich:tab id="ajaxTrediciPanelNF">
+										<ui:include src="/jsp/protected/include/cartellaContribImu.xhtml" />
+									</rich:tab>
+									
+								</rich:tabPanel>					  
+							</div>
+							<c:if test="#{contribuenteBean.showButtonProduciPdfPerNucleo}" >
+								<div class="divBottoniFooter" style="height:30px;">				
+									<table style="width:100%">
+										<tr>
+											<td>
+												<a4j:commandButton 
+												value="PRODUCI PDF" style="width:150px;"
+												reRender="SelectSezioniPdfPanelPerNucleo" 
+												oncomplete="#{rich:component('SelectSezioniPdfPanelPerNucleo')}.show()" />
+											</td>
+										</tr>
+									</table>
+								</div>
+							</c:if>							
+							<rich:spacer height="10px"/>			  					
+						 	<table border="0" style="width:100%">
+				             	<tr>
+				             		<td align="center" >
+										<a4j:commandLink 
+											id="hideBtnCartContribParentePanel"
+											value="Chiudi finestra" 
+											action="#{contribuenteBean.ClosePanelCartellaComponenteNucleo}"
+											oncomplete="#{rich:component('CartContribParentePanel')}.hide();"  />		             	
+				             		</td>
+								</tr>	
+					        </table>							
+				        </a4j:outputPanel>
+		        </h:form>
+			</rich:modalPanel>
+  		</ui:composition>
+</html>

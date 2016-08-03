@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmTar">
+
+	<rich:panel id="dati" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Lista tariffe" />
+		</f:facet>
+
+		<rich:dataTable var="row" value="#{tariffaBean.listaTariffe}"
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Categoria" />
+				</f:facet>
+				<h:outputText value="#{row.classe.descrizione}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Tariffa" />
+				</f:facet>
+				<h:outputText value="#{row.tariffa.valore} €" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Valida da" />
+				</f:facet>
+				<h:outputText value="#{row.periodo.descrizione}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/delete.png" id="img1">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent"
+							action="#{tariffaBean.doDeleteTariffa}"
+							onsubmit="if (!confirm('Procedere con il salvataggio?')) return false">
+							<a4j:actionparam value="#{row.periodo.id}" name="idPer"
+								assignTo="#{tariffaBean.idPeriodoSelezionato}" />
+							<a4j:actionparam value="#{row.classe.codice}" name="idCla"
+								assignTo="#{tariffaBean.idClasseSelezionato}" />
+						</a4j:support>
+						<h:outputLabel value="Elimina" style="cursor:pointer" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:column>
+		</rich:dataTable>
+
+	</rich:panel>
+
+</h:form>
+
+</html>

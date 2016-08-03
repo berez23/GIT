@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="2">
+					<h:graphicImage value="/images/info.gif" rendered="true"/>
+					<h:outputText value="Inserire tutte le informazioni in blu per poter effettuare il calcolo relativo alle UTENZE DOMESTICHE" style="font-weight: bold" />
+			</h:panelGrid>
+			<br/>
+			<br/>
+			<h:panelGrid columns="3">
+				<h:outputText value="Zona Geografica"/>
+				<h:selectOneMenu value="#{tariffeBean.criteriaCoeff.geo}" style="color: blue; width: 80px;">
+				    <f:selectItem itemValue="NORD" itemLabel="NORD"/>
+				    <f:selectItem itemValue="CENTRO" itemLabel="CENTRO" />
+				    <f:selectItem itemValue="SUD" itemLabel="SUD" />
+				</h:selectOneMenu>
+				<rich:spacer width="5px"/>
+								
+				<h:outputText value="Numero Abitanti Minore o Maggiore di 5000 "/>
+				<h:selectOneMenu value="#{tariffeBean.abitanti}" 
+					style="color: blue; width: 80px;" 
+					required="false"
+					label="Numero Abitanti Minore o Maggiore di 5000 ">
+				    <f:selectItem itemValue="UNDER" itemLabel="MINORE"/>
+				    <f:selectItem itemValue="OVER" itemLabel="MAGGIORE" />
+				</h:selectOneMenu>
+				<rich:spacer width="5px"/>
+				
+				<h:outputText value="Costi di Bilancio Parte Fissa "/>
+				<h:inputText id="txtBilancioCF" label="Costi di Bilancio Parte Fissa " 
+					value="#{tariffeBean.bilancioCF}" 
+					required="true" 
+					style="width: 150px; text-align: right; color: blue;" />
+				<a4j:commandButton id="btnResetPF" 
+							value="Valorizza da Bilancio" 
+							action="#{tariffeBean.doResetPFUD}"
+							reRender="txtBilancioCF, lblGettitoTot" />
+					
+				<h:outputText value="Costi di Bilancio Parte Variabile "/>
+				<h:inputText id="txtBilancioCV" label="Costi di Bilancio Parte Variabile " 
+					value="#{tariffeBean.bilancioCV}" 
+					required="true" 
+					style="width: 150px; text-align: right; color: blue;" />
+				<a4j:commandButton id="btnResetPV" 
+								value="Valorizza da Bilancio" 
+								action="#{tariffeBean.doResetPVUD}"
+								reRender="txtBilancioCV, lblGettitoTot" />
+				
+				<h:outputText value="Tot. Gettito" style="font-weight: bold"/>
+				<h:outputText id="lblGettitoTot" value="#{tariffeBean.totGettito}" style="font-weight: bold"/>
+				<a4j:commandButton id="btnResetValori" 	
+									value="Ripristina Valori" 
+									action="#{tariffeBean.goElaborazioneUD}"
+									disabled="false"/>
+				
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<rich:spacer width="5px"/>
+			</td></tr></table>
+			
+	<rich:spacer width="5px" height="30px"/>
+    
+    <rich:dataTable id="tblList" value="#{tariffeBean.lstTariffe}" var="tar" style="width: 100%" rendered="true">
+	        	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column >
+                                <a4j:commandButton id="btnResetValori" 	
+									value="Ripristina Valori" 
+									action="#{tariffeBean.goElaborazioneUD}"
+									disabled="false"/>
+                            </rich:column>
+                            <rich:column >
+      							<a4j:commandButton id="btnValorizzaDaAnagrafe" 	
+									value="Valorizza da Anagrafe" 
+									reRender="tblList, lblTotNum"
+									action="#{tariffeBean.doValorizzaNuclei}"
+									disabled="false"/>
+                            </rich:column>
+                            <rich:column >
+								<a4j:commandButton value="Stima e Confronto da TARSU"
+									oncomplete="Richfaces.showModalPanel('stimaConfrontoDaCatastoModalBox'); return false;"
+									reRender="tblClassiTARSU, stimaConfrontoDaCatastoModalBox"
+									action="#{tariffeBean.doValorizzaSupTotAbit}">
+								</a4j:commandButton>
+                            </rich:column>
+                            <rich:column rowspan="2" breakBefore="true">
+                                <h:outputText value="Famiglie" id="lblFam" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Numero Nuclei" id="lblNc"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Superficie Totale Abitazioni m" id="lblSta"/><SUP>2</SUP>
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column>
+				<h:outputText value="#{tar.voce.descrizione}" />
+				<rich:spacer width="5px"/>
+				<h:outputText value="(* voce non considerata nei totali)" rendered="#{tar.voce.id == 108}" style="color: red" />
+	        </rich:column>
+	       	<rich:column align="center">
+				<h:inputText label="#{tar.voce.descrizione} Numero Nuclei" 
+					value="#{tar.numEntita}" 
+					style="width: 100px; color: blue; text-align: right;"
+					required="true">
+					<a4j:support event="onblur" action="#{tariffeBean.onBlurUD}"  reRender="tblList" />
+					<f:convertNumber pattern="#0.00"/>
+				</h:inputText>
+	        </rich:column>
+	       	<rich:column align="center">
+				<h:inputText label="#{tar.voce.descrizione} Superficie Totale Abitazioni" 
+					value="#{tar.supTot}" 
+					style="width: 100px; color: blue; text-align: right;"
+					required="true">
+					<a4j:support event="onblur" action="#{tariffeBean.onBlurUD}"  reRender="tblList" />
+					<f:convertNumber pattern="#0.00"/>
+				    </h:inputText>
+	        </rich:column>
+	        
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+ 					<rich:column>
+                         <h:outputText id="lblTot" value="TOTALE" />
+                    </rich:column>
+   					<rich:column style="text-align: center">
+                        <h:outputText id="lblTotNum" value="#{tariffeBean.totNumEntita}" >
+                        <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+ 					<rich:column style="text-align: center">
+                        <h:outputText id="lblTotSup" value="#{tariffeBean.totSupTot}" >
+                        <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+                	<rich:column breakBefore="true" colspan="3">
+                		<div align="center">
+
+							<a4j:commandButton id="btnCalcola" 
+								value="Calcola" 
+								action="#{tariffeBean.goCalcolaUD}" />
+
+						</div>
+					</rich:column>
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+				
+	
+			</rich:panel>			
+		</h:form>
+		
+		<ui:include src="/jsp/protected/tariffe/stimaConfrontoDaCatastoModal.xhtml" />
+		
+		
+	</div>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

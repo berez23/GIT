@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.59 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.am.AmItemRole" table="AM_ITEM_ROLE" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="amRole" class="it.webred.diogene.db.model.am.AmRole" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_AM_ROLE" length="16"/>
+        </many-to-one>
+        <many-to-one name="amApplicationItem" class="it.webred.diogene.db.model.am.AmApplicationItem" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_AM_APPLICATION_ITEM" precision="10" scale="0"/>
+        </many-to-one>
+        <set name="amUserIrs" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_AM_ITEM_ROLE" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.am.AmUserIr" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="amRolePermissions" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_AM_ITEM_ROLE" precision="10" scale="0" not-null="true"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.am.AmRolePermission" not-found="exception" embed-xml="true"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,108 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="62746396-D9A3-36DF-B709-F026BFA890DF" directorySegmentName="seg_1" name="CS_D_CLOB">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_D_CLOB</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>F65BF4DA-0586-B976-8426-B1A84E0C3125</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<pkName>CS_D_CLOB_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontSize>13</fontSize>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ID" id="F5995851-8930-71E6-C0B1-778F49A5803A">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_CLOB</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>3192E3A5-E8DE-2848-A925-C2748F585585</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DATI_CLOB" id="B7ED41EC-B15B-ADA5-BE3F-7F7CC9157F0A">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_D_CLOB</sourceObjSchema>
+<sourceObjName>DATI_CLOB</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>945543FB-3F9E-4753-D0CD-8759257600F0</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT028</logicalDatatype>
+<dataTypeSize>4000</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="DAC43E30-1F20-ABA1-5DBC-F9BBDC33DCCC" name="CS_D_CLOB_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_D_CLOB_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>35FA60D8-E7EB-CB7B-D1EA-F6D04631E497</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="F5995851-8930-71E6-C0B1-778F49A5803A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="3649D174-A535-1AC5-FCA7-A0D5E6A32360" name="CS_D_CLOB_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_D_CLOB_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>18F0CDF7-4C2C-62E0-AE4C-3A833153F792</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="F5995851-8930-71E6-C0B1-778F49A5803A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

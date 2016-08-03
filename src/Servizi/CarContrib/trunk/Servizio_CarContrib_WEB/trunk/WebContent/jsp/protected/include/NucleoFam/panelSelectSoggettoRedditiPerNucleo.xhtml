@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+			<rich:modalPanel id="altriSoggRedditiPanelPerNucleo" autosized="true" 
+				width="400" height="250" moveable="false" resizeable="false" label="SOGGETTI REDDITI">
+				<f:facet name="controls">
+					<h:panelGroup>
+						<rich:componentControl for="altriSoggRedditiPanelPerNucleo" attachTo="hideLinkRedditiPerNucleo" operation="hide" event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<h:form>
+					<h:panelGrid columns="1">
+				    	<a4j:outputPanel ajaxRendered="true">
+						<rich:panel style="width:100%">
+	  						<f:facet name="header">SOGGETTI REDDITI</f:facet>		
+							<rich:dataTable width="100%"
+						        	rowKeyVar="indexSoggettoRedditi"
+						        	var="sogg"
+						        	value="#{contribuenteBean.listaSoggettiRedditi}"
+						        	columnClasses="col" 
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+								<rich:column>
+									<h:outputLabel value="#{indexSoggettoRedditi+1}" />
+								</rich:column>				                    
+								<rich:column>
+									<f:facet name="header"><h:outputText value="Cognome" /></f:facet>
+									<h:outputLabel value="#{sogg.cognome}" />
+								</rich:column>					            
+								<rich:column>
+									<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+									<h:outputLabel value="#{sogg.nome}" />
+								</rich:column>
+								<rich:column>
+									<f:facet name="header"><h:outputText value="Data di Nascita " /></f:facet>
+									<h:outputLabel value="#{sogg.dataNascita}" />
+								</rich:column>								
+								<rich:column>
+									<f:facet name="header"><h:outputText value="COD. FISCALE" /></f:facet>
+									<h:outputLabel value="#{sogg.codiceFiscaleDic}" />
+								</rich:column>
+								<rich:column>
+									<f:facet name="header"><h:outputText value="COM. NASCITA" /></f:facet>
+									<h:outputLabel value="#{sogg.desComuneNascita}" />
+								</rich:column>
+								<c:if test="#{not empty contribuenteBean.padre and contribuenteBean.padre=='1'}">								
+						            <rich:column>
+						                <f:facet name="header">
+											<h:outputText value="Seleziona" />
+						                </f:facet>
+									        <a4j:commandLink 
+								            	ajaxSingle="true" 
+								            	action="#{contribuenteBean.hideSoggettiRedditi}" 
+								            	value="Seleziona1" 
+								            	reRender="CartContribParentePanel" 
+								            	oncomplete="#{rich:component('altriSoggRedditiPanelPerNucleo')}.hide();#{rich:component('CartContribParentePanel')}.hide();#{rich:component('CartContribParentePanel')}.show()">								            	
+								            	<f:setPropertyActionListener value="#{sogg}" target="#{contribuenteBean.soggettoRedditiSelezionato}" />
+								            	<f:setPropertyActionListener value="#{indexSoggettoRedditi+1}" target="#{contribuenteBean.indiceSoggettoTabellaRedditi}" />
+						     				</a4j:commandLink>
+						            </rich:column>							
+					            </c:if>
+					            <f:facet name="footer">
+					                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+					            </f:facet>																								
+							</rich:dataTable>
+						</rich:panel>
+				        </a4j:outputPanel>
+					</h:panelGrid>  
+		             <table border="0" width="100%">
+		             	<tr>
+		             		<td align="center" >
+								<a4j:commandButton id="hideLinkRedditiPerNucleo" styleClass="my-button" value="Chiudi" ajaxSingle="false" oncomplete="#{rich:component('altriSoggRedditiPanelPerNucleo')}.hide();"/>		             	
+		             		</td>
+						</tr>	
+			        </table>  
+		        </h:form>
+			</rich:modalPanel>
+  		</ui:composition>
+</html>

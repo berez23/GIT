@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!DOCTYPE faces-config PUBLIC "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN" "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+<faces-config>
+
+	<managed-bean>
+	    <managed-bean-name>Menu</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.menu.MenuBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>MenuMetadata</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.metadata.backingbeans.MenuMetadataBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>MenuVisualizzatore</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.visualizzatore.backingbeans.MenuVisualizzatoreBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>CaricaTabelle</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.metadata.backingbeans.CaricaTabelleBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>CaricaColonne</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.metadata.backingbeans.CaricaColonneBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>DefinizioneEntita</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.visualizzatore.backingbeans.DefinizioneEntitaBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>DefinizioneFolder</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.visualizzatore.backingbeans.DefinizioneFolderBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+	    <managed-bean-name>DefinizioneClasse</managed-bean-name>
+	    <managed-bean-class>it.webred.diogene.visualizzatore.backingbeans.DefinizioneClasseBB</managed-bean-class>
+	    <managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiAMenuMetadata</from-outcome>
+	    	<to-view-id>/metadata/MenuMetadata.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiAListaEntita</from-outcome>
+	    	<to-view-id>/querybuilder/entitiesList.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiACaricaTabelle</from-outcome>
+	    	<to-view-id>/metadata/CaricaTabelle.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiACaricaColonne</from-outcome>
+	    	<to-view-id>/metadata/CaricaColonne.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiAMenu</from-outcome>
+	    	<to-view-id>/menu/Menu.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiAMenuVisualizzatore</from-outcome>
+	    	<to-view-id>/visualizzatore/MenuVisualizzatore.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiADefinizioneEntita</from-outcome>
+	    	<to-view-id>/visualizzatore/DefinizioneEntita.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+	  	<navigation-case>
+	    	<from-outcome>vaiAMenuNavigatore</from-outcome>
+	    	<to-view-id>/navigatore/search.jsp</to-view-id>
+	  	</navigation-case>
+	</navigation-rule>
+
+
+</faces-config>

@@ -1,0 +1,778 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	
+	<ui:define name="navInfo">
+		<h:outputLabel value="Dettaglio Immobile" style="font-size: 18px; font-weight: bold;" />
+    </ui:define>
+
+	<ui:define name="content">
+	<h:outputLink value="${facesContext.externalContext.requestContextPath}/jsp/protected/visualizzatore/listRicercaCatasto.faces">
+				<h:outputText value="Torna alla Lista" />
+	</h:outputLink>
+
+		<h:form id="frmMain">
+			<a4j:region>
+				<rich:panel>				
+					<h:panelGrid columns="3" style="text-align: center; width: 100%;">
+						<h:panelGroup style="text-align: left; width: 100%;">
+							<a4j:commandLink id="linkRepTarsu"
+							rendered="#{not empty comma340DettaglioBean.dettImmobile.catasto.repTarsu}"
+							action="#{comma340DettaglioBean.apriRepTarsu}"
+							style="text-decoration: none;"
+							ajaxSingle="true"
+							reRender="infoIcona, linkRepTarsu, repTarsu">
+								<h:graphicImage
+									rendered="#{comma340DettaglioBean.dettImmobile.catasto.nonANorma == null and !empty comma340DettaglioBean.dettImmobile.catasto.repTarsu}"
+									height="40px" width="40px" value="/images/big_round_alert.png" style="border: 0;"
+									title="Immobile non elaborato ai fini del Comma 340:cliccare per #{comma340DettaglioBean.viewRepTarsu ? 'chiudere' : 'aprire'} il report completo Tarsu per unità immobiliare" />
+								<h:graphicImage
+									rendered="#{comma340DettaglioBean.dettImmobile.catasto.nonANorma == true}"
+									height="40px" width="40px" value="/images/redround.png" style="border: 0;"
+									title="Immobile NON a NORMA: cliccare per #{comma340DettaglioBean.viewRepTarsu ? 'chiudere' : 'aprire'} il report completo Tarsu per unità immobiliare" />
+								<h:graphicImage
+									rendered="#{comma340DettaglioBean.dettImmobile.catasto.nonANorma == false}"
+									height="40px" width="40px" value="/images/greenround.png" style="border: 0;"
+									title="Immobile a NORMA: cliccare per #{comma340DettaglioBean.viewRepTarsu ? 'chiudere' : 'aprire'} il report completo Tarsu per unità immobiliare" />
+							</a4j:commandLink>
+							<h:graphicImage
+									rendered="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsu and comma340DettaglioBean.dettImmobile.catasto.nonANorma == null}"
+									height="40px" width="40px" value="/images/big_round_alert.png" style="border: 0;"
+									title="Immobile non elaborato ai fini del Comma 340. Report completo Tarsu, per l'unità immobiliare, non disponibile." />
+							<h:graphicImage
+								rendered="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsu and comma340DettaglioBean.dettImmobile.catasto.nonANorma == true}"
+								height="40px" width="40px" value="/images/redround.png" style="border: 0;"
+								title="Immobile NON a NORMA: dati report completo Tarsu per unità immobiliare non disponibili" />
+							<h:graphicImage
+								rendered="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsu and comma340DettaglioBean.dettImmobile.catasto.nonANorma == false}"
+								height="40px" width="40px" value="/images/greenround.png" style="border: 0;"
+								title="Immobile a NORMA: dati report completo Tarsu per unità immobiliare non disponibili" />
+						</h:panelGroup>
+						<a4j:commandButton
+							action="#{gestionePraticheBean.apriGestionePratiche}"
+							style="width: 180px;" 
+							styleClass="myButton"
+							value="Apri gestione pratiche"
+							disabled="#{!comma340DettaglioBean.dettImmobile.catasto.nonANorma}">
+						</a4j:commandButton>
+
+						<h:panelGroup>
+							<h:outputLabel value="Altre date validità"
+								style="font-size: 14px; font-weight: bold; padding-right: 10px;" />
+							<h:selectOneMenu id="cboDtVal"
+								value="#{comma340DettaglioBean.selIdUiu}"
+								styleClass="dettComboItem" onchange="document.frmMain.submit();"
+								immediate="false"
+								valueChangeListener="#{comma340DettaglioBean.apriDettaglioDtVal}">
+								<f:selectItems value="#{comma340DettaglioBean.dtValCatImmItems}" />
+								<a4j:support event="onchange" ajaxSingle="true"
+									reRender="cboDtVal, pnlDatiImm, listTitolarita" />
+							</h:selectOneMenu>
+						</h:panelGroup>
+					</h:panelGrid>
+					
+					<h:panelGrid id="infoIcona" columns="1" style="width: 100%; padding-left: 5%; padding-top: 5px;">
+						<h:panelGroup>
+							<h:graphicImage
+								rendered="#{not empty comma340DettaglioBean.dettImmobile.catasto.repTarsu}" 
+								value="/images/info.gif" style="border: 0; padding-right: 5px;" />
+							<h:outputLabel 
+								rendered="#{not empty comma340DettaglioBean.dettImmobile.catasto.repTarsu}" 
+								style="font-size: 10px;"
+								value="Cliccare sull'icona sovrastante per #{comma340DettaglioBean.viewRepTarsu ? 'chiudere' : 'aprire'} 
+								il report completo Tarsu per unità immobiliare" />
+						</h:panelGroup>						
+					</h:panelGrid>
+					
+					<h:panelGrid id="repTarsu" columns="1">
+						
+						<rich:spacer height="5px" rendered="#{comma340DettaglioBean.viewRepTarsu}" />
+						
+						<h:outputLabel rendered="#{comma340DettaglioBean.viewRepTarsu}"  style="font-size: 14px;"
+										   value="Report completo Tarsu per unità immobiliare" />
+						
+						<rich:dataTable width="100%" rendered="#{comma340DettaglioBean.viewRepTarsu}"
+							var="repTarsuRec" value="#{comma340DettaglioBean.dettImmobile.catasto.repTarsu}"
+							id="listRepTarsu">
+							<f:facet name="header">
+								<rich:columnGroup>
+									<rich:column>
+										<h:outputText value="Soggetto" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Resid. nel comune" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Resid. al civico" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="N. di partic. in cui è propriet." />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Contrib. Tarsu" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Ha familiari contrib. Tarsu" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Paga Tarsu su questa UIU" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Locatore" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="N. di UIU in cui è propriet." />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Titol. utenza idrica" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Titol. utenza idrica al civico" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Titol. utenza idrica in FPS" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Titol. utenza Enel" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Titol. utenza Enel al civico" />
+									</rich:column>
+									<rich:column>
+										<h:outputText value="Titol. utenza Enel in FPS" />
+									</rich:column>
+								</rich:columnGroup>
+							</f:facet>
+							<rich:column style="width: 15%;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{repTarsuRec.denominazione}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.res ? 'N.D.' : (repTarsuRec.res == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.resCiv ? 'N.D.' : (repTarsuRec.resCiv == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.propPart ? 'N.D.' : repTarsuRec.propPart}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.tarsu ? 'N.D.' : (repTarsuRec.tarsu == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.tarsuFam ? 'N.D.' : (repTarsuRec.tarsuFam == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.tarsuTit ? 'N.D.' : (repTarsuRec.tarsuTit == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.locatore ? 'N.D.' : (repTarsuRec.locatore == 1 ? 'SI' : 'NO')}" />
+							</rich:column>							
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.propUiu ? 'N.D.' : repTarsuRec.propUiu}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.FAcq ? 'N.D.' : (repTarsuRec.FAcq == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.FAcqCiv ? 'N.D.' : (repTarsuRec.FAcqCiv == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.FAcqFps ? 'N.D.' : (repTarsuRec.FAcqFps == 1 ? 'SI' : 'NO')}" />
+							</rich:column>							
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.FEnel ? 'N.D.' : (repTarsuRec.FEnel == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.FEnelCiv ? 'N.D.' : (repTarsuRec.FEnelCiv == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+							<rich:column style="text-align: center;">
+								<h:outputLabel style="font-weight: normal;"
+									value="#{empty repTarsuRec.FEnelFps ? 'N.D.' : (repTarsuRec.FEnelFps == 1 ? 'SI' : 'NO')}" />
+							</rich:column>
+						</rich:dataTable>
+						
+						<rich:spacer height="5px" rendered="#{comma340DettaglioBean.viewRepTarsu}" />
+
+						<h:panelGrid columns="1" style="width: 100%;" rendered="#{comma340DettaglioBean.viewRepTarsu}">
+							<rich:panel>
+								<f:facet name="header">
+									<h:outputLabel value="Unità immobiliare" />
+								</f:facet>
+								<h:panelGrid columns="6"
+								style="width: 100%; background-color: #fafaff; padding: 3px;"
+								columnClasses="repTarsuLabel, repTarsuText, repTarsuLabel, repTarsuTextVuota, repTarsuLabel, repTarsuText3Vuota">
+									<h:outputLabel value="Numero locatari" />
+									<h:outputLabel
+										value="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsuLocatari ? 'N.D.' : comma340DettaglioBean.dettImmobile.catasto.repTarsuLocatari}" />									
+									<h:outputLabel value="" />
+									<h:outputLabel value="" />
+									<h:outputLabel value="" />
+									<h:outputLabel value="" />
+								</h:panelGrid>
+							</rich:panel>
+							
+							<rich:panel>
+								<f:facet name="header">
+									<h:outputLabel value="Civico" />
+								</f:facet>
+								<h:panelGrid columns="6"
+								style="width: 100%; background-color: #fafaff; padding: 3px;"
+								columnClasses="repTarsuLabel, repTarsuText, repTarsuLabel, repTarsuText, repTarsuLabel, repTarsuText3Vuota">
+									<h:outputLabel value="Numero UIU" />
+									<h:outputLabel
+										value="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsuUiuCiv ? 'N.D.' : comma340DettaglioBean.dettImmobile.catasto.repTarsuUiuCiv}" />									
+									<h:outputLabel value="Numero altri residenti" />
+									<h:outputLabel
+										value="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsuAltriResCiv ? 'N.D.' : comma340DettaglioBean.dettImmobile.catasto.repTarsuAltriResCiv}" />
+									<h:outputLabel value="" />
+									<h:outputLabel value="" />
+								</h:panelGrid>
+							</rich:panel>
+							
+							<rich:panel>
+								<f:facet name="header">
+									<h:outputLabel value="Tarsu" />
+								</f:facet>
+								<h:panelGrid columns="6"
+								style="width: 100%; background-color: #fafaff; padding: 3px;"
+								columnClasses="repTarsuLabel, repTarsuText, repTarsuLabel, repTarsuText, repTarsuLabel, repTarsuText3">
+									<h:outputLabel value="Il locatario è contrib." />
+									<h:outputLabel
+										value="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsuLocatarioTarsu ? 'N.D.' : 
+											(comma340DettaglioBean.dettImmobile.catasto.repTarsuLocatarioTarsu ? 'SI' : 'NO')}" />									
+									<h:outputLabel value="Numero altri residenti contrib." />
+									<h:outputLabel
+										value="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsuAltriResTarsu ? 'N.D.' : comma340DettaglioBean.dettImmobile.catasto.repTarsuAltriResTarsu}" />
+									<h:outputLabel value="Numero locatari contrib." />
+									<h:outputLabel
+										value="#{empty comma340DettaglioBean.dettImmobile.catasto.repTarsuLocatariTarsu ? 'N.D.' : comma340DettaglioBean.dettImmobile.catasto.repTarsuLocatariTarsu}" />
+								</h:panelGrid>
+							</rich:panel>
+						</h:panelGrid>
+				</h:panelGrid>
+				</rich:panel>
+				
+				<rich:spacer height="15px" />
+				
+				<rich:panel>
+					<f:facet name="header">
+						<h:outputLabel value="Immobile" />
+					</f:facet>
+					<h:panelGrid columns="3" style="width: 100%;"
+						columnClasses="dettHeaderLabelImmobile, dettHeaderLabelSoggetti, dettHeaderLabelIndirizzi" >
+						<h:outputLabel value="Dati Immobile" />
+						<h:outputLabel value="Titolarità" />
+						<h:outputLabel value="Localizzazione (SIT)"/>
+					</h:panelGrid>
+					<h:panelGrid id="pnlDatiImm" columns="3" style="width: 100%;"
+						columnClasses="dettDataImmobile, dettDataSoggetti, dettDataIndirizzi" >
+						<h:panelGrid columns="1" style="width: 100%;">
+							<h:panelGrid columns="4"
+								style="width: 100%; background-color: #fafaff; padding: 3px;"
+								columnClasses="dettLabel, dettText, dettLabel, dettText">
+								<h:outputLabel value="Sezione" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.sezione}" />
+								<h:outputLabel value="Foglio" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.foglio}" />
+
+								<h:outputLabel value="Particella" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.particella}" />
+								<h:outputLabel value="Subalterno" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.unimm}" />
+
+								<h:outputLabel value="Zona" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.zona}" />
+								<h:outputLabel value="Microzona" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.microzona}" />
+
+								<h:outputLabel value="Partita" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.partita}" />
+								<h:outputLabel value="Rendita" />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.rendita}">
+									<f:convertNumber type="number" groupingUsed="true"
+										locale="IT.it" />
+								</h:outputLabel>
+
+								<h:outputLabel value="Data Inizio Val." />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.dataInizioVal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" type="date"
+										timeZone="Europe/Rome" />
+								</h:outputLabel>
+								<h:outputLabel value="Data Fine Val." />
+								<h:outputLabel
+									value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.dataFineVal}">
+									<f:convertDateTime pattern="dd/MM/yyyy" type="date"
+										timeZone="Europe/Rome" />
+								</h:outputLabel>
+							</h:panelGrid>
+						</h:panelGrid>
+
+						<h:panelGrid columns="1" style="width: 100%; float: top;">
+							<rich:dataTable width="100%" var="soggetto"
+								value="#{comma340DettaglioBean.dettImmobile.catasto.soggetti}"
+								id="listTitolarita">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="Tipo" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Denominazione" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Data Inizio" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Data Fine" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Quota %" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Titolo" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;" value="#{soggetto.tipo}" />
+									<rich:toolTip direction="top-right" mode="ajax" layout="inline"
+										value="#{soggetto.descTipo}"></rich:toolTip>
+								</rich:column>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;"
+										value="#{soggetto.nominativoVis}" />
+								</rich:column>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;"
+										value="#{soggetto.dataInizioPoss}">
+										<f:convertDateTime pattern="dd/MM/yyyy" type="date"
+											timeZone="Europe/Rome" />
+									</h:outputLabel>
+								</rich:column>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;"
+										value="#{soggetto.dataFinePoss}">
+										<f:convertDateTime pattern="dd/MM/yyyy" type="date"
+											timeZone="Europe/Rome" />
+									</h:outputLabel>
+								</rich:column>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;" value="#{soggetto.quota}" >
+										<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+									</h:outputLabel>
+								</rich:column>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;"
+										value="#{soggetto.tipoDocumento}" />
+								</rich:column>
+							</rich:dataTable>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" style="width:100%; float: top;">
+							<rich:dataTable width="100%" var="locsit" columnsWidth="90%, 10%"
+								value="#{comma340DettaglioBean.dettImmobile.catasto.localizzazioneSIT}"
+								id="listLocalizzazioneSIT">
+								<f:facet name="header">
+									<rich:columnGroup>
+										<rich:column>
+											<h:outputText value="Indirizzo" />
+										</rich:column>
+										<rich:column>
+											<h:outputText value="Numero Civico" />
+										</rich:column>
+									</rich:columnGroup>
+								</f:facet>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;" value="#{locsit.strada}" />
+								</rich:column>
+								<rich:column>
+									<h:outputLabel style="font-weight: normal;" value="#{locsit.numCivico}" />
+								</rich:column>
+							</rich:dataTable>
+						</h:panelGrid>
+					</h:panelGrid>
+				</rich:panel>
+			</a4j:region>
+
+			<rich:spacer height="15px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Superfici" />
+				</f:facet>
+
+				<h:panelGrid columns="1" style="width: 100%;">
+					<h:panelGrid columns="1" style="width: 100%;"
+						columnClasses="dettSubHeaderLabel">
+						<h:outputLabel value="Catasto" />
+					</h:panelGrid>
+
+					<rich:dataTable width="100%" columnsWidth="20%, 20%, 20%, 20%, 20%">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="Categoria" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Classe" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Consistenza - N° Vani" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Superficie" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="" />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+					</rich:dataTable>
+
+					<h:panelGrid columns="5"
+						style="width: 100%; background-color: #fafaff; border-collapse: collapse;"
+						columnClasses="dettSupCatastoText, dettSupCatastoText, dettSupCatastoText, dettSupCatastoText, dettSupCatastoText">
+						<h:outputLabel style="font-weight: normal;" value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.categoria} - #{comma340DettaglioBean.dettImmobile.catasto.descrizioneCategoria}"/>
+						<h:outputLabel style="font-weight: normal;"
+							value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.classe}" />
+						<h:outputLabel style="font-weight: normal;"
+							value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.consistenza}">
+							<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+						</h:outputLabel>
+						<h:outputLabel style="font-weight: bold;"
+							value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.supCat}">
+							<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+						</h:outputLabel>
+						<h:outputLabel style="font-weight: normal;" value="" />
+					</h:panelGrid>
+
+					<rich:spacer height="15px" />
+
+					<h:panelGrid columns="1" style="width: 100%;"
+						columnClasses="dettSubHeaderLabel">
+						<h:outputLabel value="Docfa" />
+					</h:panelGrid>
+
+					<rich:dataTable width="100%" columnsWidth="20%, 20%, 20%, 20%, 20%"
+						var="docfa" value="#{comma340DettaglioBean.dettImmobile.docfa}"
+						id="listDocfa">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="Categoria" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Classe" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Consistenza - N° Vani" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Superficie" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Fornitura" />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{docfa.categoria}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{docfa.classe}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{docfa.consistenza}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: bold;"
+								value="#{docfa.superficie}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{docfa.fornitura}">
+								<f:convertDateTime pattern="dd/MM/yyyy" type="date"
+									timeZone="Europe/Rome" />
+							</h:outputLabel>
+						</rich:column>
+					</rich:dataTable>
+
+					<h:panelGrid columns="1"
+						style="width: 100%; background-color: white;"
+						rendered="#{empty comma340DettaglioBean.dettImmobile.docfa}"
+						columnClasses="dettLabel">
+						<h:outputLabel value="Nessun Docfa associato" />
+					</h:panelGrid>
+
+					<rich:spacer height="15px" />
+
+					<h:panelGrid columns="1" style="width: 100%;"
+						columnClasses="dettSubHeaderLabel">
+						<h:outputLabel value="Tarsu" />
+					</h:panelGrid>
+
+					<rich:dataTable width="100%" columnsWidth="20%, 20%, 20%, 20%, 20%"
+						var="tarsu" value="#{comma340DettaglioBean.dettImmobile.tarsu}"
+						id="listTarsu">
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="Tipo Oggetto" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Classe" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Data Inizio - Data Fine" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Superficie" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Provenienza" />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{tarsu.oggettoTarsu.desTipOgg}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{tarsu.oggettoTarsu.desClsRsu}" />
+						</rich:column>
+						<rich:column>
+							<h:panelGrid columns="3">
+								<h:outputLabel style="font-weight: normal;" value="#{tarsu.oggettoTarsu.datIni}" >
+									<f:convertDateTime pattern="dd/MM/yyyy"/>
+								</h:outputLabel>
+								<h:outputLabel style="font-weight: normal;" value=" - " />
+								<h:outputLabel style="font-weight: normal;" value="#{tarsu.oggettoTarsu.datFin}" >
+									<f:convertDateTime pattern="dd/MM/yyyy"/>
+								</h:outputLabel>
+							</h:panelGrid>
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: bold;"
+								value="#{tarsu.oggettoTarsu.supTot}">
+								<f:convertNumber type="number" groupingUsed="true"
+									locale="IT.it" />
+							</h:outputLabel>
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{tarsu.oggettoTarsu.provenienza}" />
+						</rich:column>
+					</rich:dataTable>
+
+					<h:panelGrid columns="1"
+						style="width: 100%; background-color: white;"
+						rendered="#{empty comma340DettaglioBean.dettImmobile.tarsu}"
+						columnClasses="dettLabel">
+						<h:outputLabel value="Nessun oggetto Tarsu associato" />
+					</h:panelGrid>
+
+				</h:panelGrid>
+				<rich:spacer height="15px" />
+				<!-- Pannello per il dettaglio delle superfici per vano (scarico comma 340) -->
+			
+					<h:panelGrid width="100%" >
+					<h:panelGrid columns="1" style="width: 100%;"
+						columnClasses="dettSubHeaderLabel">
+						<h:outputLabel value="Dettaglio Superfici Per Vano (Scarico Comma 340)" />
+					</h:panelGrid>
+				
+					<!--Tabella contenente la lista delle planimetrie C340  -->
+					<rich:dataTable width="100%"  
+						columnsWidth="14% 14% 14% 14% 14% 14% 14%"
+						var="dettaglioVani"
+						value="#{comma340DettaglioBean.dettImmobile.catasto.dettaglioVaniComma340}"
+						id="listDettaglioVaniC340">
+						
+						<f:facet name="header">
+							<rich:columnGroup>
+								<rich:column>
+									<h:outputText value="Vano" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Piano" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Edificio" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Ambiente" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Superficie" />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Altezza Min." />
+								</rich:column>
+								<rich:column>
+									<h:outputText value="Altezza Max." />
+								</rich:column>
+							</rich:columnGroup>
+						</f:facet>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.vano}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.piano}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.edificio}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.ambiente}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.supeAmbiente}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.altezzamin}" />
+						</rich:column>
+						<rich:column>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{dettaglioVani.altezzamax}" />
+						</rich:column>
+					</rich:dataTable>
+					
+					<!-- Pannello visualizzato in caso di lista delle planimetrie c340 vuota -->
+					<h:panelGrid columns="1"
+						style="width: 100%; background-color: white;"
+						rendered="#{empty comma340DettaglioBean.dettImmobile.catasto.dettaglioVaniComma340}"
+						columnClasses="dettLabel">
+						<h:outputLabel
+							value="Nessuna informazione disponibile sui singoli vani" />
+					</h:panelGrid>
+					
+				</h:panelGrid>
+				
+				
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+			
+			
+
+			<!--Pannello per la presentazione delle planimetrie-->
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Planimetrie" />
+				</f:facet>
+				
+				<!-- Pannello visualizzato in caso di lista delle planimetrie c340 vuota -->
+				<h:panelGrid width="100%" >
+					<h:panelGrid columns="1" style="width: 100%;"
+						columnClasses="dettSubHeaderLabel"
+						rendered="#{empty comma340DettaglioBean.dettImmobile.catasto.planimetrieComma340}">
+						<h:outputLabel value="Planimetrie Comma 340" />
+					</h:panelGrid>
+					<h:panelGrid columns="1"
+						style="width: 100%; background-color: white;"
+						rendered="#{empty comma340DettaglioBean.dettImmobile.catasto.planimetrieComma340}"
+						columnClasses="dettLabel">
+						<h:outputLabel
+							value="Nessuna Planimetria Comma 340 associata all'immobile" />
+					</h:panelGrid>
+					
+					<!-- Link per accedere alla finestra con l'elenco delle planimetrie c340 -->
+					<a4j:commandLink 
+						id="listPlanimetrieC340Link"
+						rendered = "#{!empty comma340DettaglioBean.dettImmobile.catasto.planimetrieComma340}"
+						ajaxSingle="true"
+						action = "#{comma340DettaglioBean.creaListaPlanimetrieC340}"
+						oncomplete="Richfaces.showModalPanel('panelListaPlanimetrie', {height:'450px', width:'600px'})"
+						reRender="panelListaPlanimetrie"> 
+						Lista Planimetrie Comma 340
+						<a4j:actionparam 
+							name="foglio" 
+							value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.foglio}" 
+							assignTo="#{listaPlanimetrieBean.foglio}"/>
+						<a4j:actionparam 
+							name="particella"
+							value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.particella}"
+							assignTo="#{listaPlanimetrieBean.particella}"/>
+						<a4j:actionparam 
+							name="unimm"
+							value="#{comma340DettaglioBean.dettImmobile.catasto.immobile.id.unimm}"
+							assignTo="#{listaPlanimetrieBean.unimm}"/>
+						<a4j:actionparam  
+							name="viewPage"
+							value="./listPlanimetrieC340.xhtml"
+							assignTo="#{comma340DettaglioBean.viewPage}"/>
+					</a4j:commandLink>
+				
+				</h:panelGrid>
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+			
+		</h:form>
+		
+		<rich:modalPanel id="panelListaPlanimetrie" style="background-color: #ebf3fd; overflow: auto;" height="550" width="790">
+			<f:facet name="header">
+				<h:outputText value="Planimetrie Comma 340"></h:outputText>
+			</f:facet>
+			
+		  	<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink" />
+				<rich:componentControl for="panelListaPlanimetrie" attachTo="hidelink"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+			</f:facet>
+		
+			<a4j:include viewId="./listPlanimetrieC340.xhtml" /> 
+	  
+		</rich:modalPanel>
+		
+
+	</ui:define>
+</ui:composition>
+</html>

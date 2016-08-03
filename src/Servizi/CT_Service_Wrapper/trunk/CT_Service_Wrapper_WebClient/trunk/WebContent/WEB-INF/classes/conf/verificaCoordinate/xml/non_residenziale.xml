@@ -1,0 +1,39 @@
+<verificaCoordinate>
+        <infoUtente>
+                <enteId>F205</enteId>
+                <userId>manager</userId>
+                <password>m</password>
+        </infoUtente>
+        <credenziali>
+                <sistema>DIA-AUTO</sistema>
+                <utente>pippo</utente>
+                <token>XDDFFF$$FFGGGDDS120</token>
+        </credenziali>
+        <datiToponomastici>
+                <tipoArea>VIA</tipoArea>
+                <nomeVia>SALEMI</nomeVia>
+                <civico>5</civico>
+                <esponente></esponente>
+                <codiceVia></codiceVia>
+        </datiToponomastici>
+        <datiCatastali>
+                <foglio>14</foglio>
+                <mappale>36</mappale>
+                <subalterno>2</subalterno>
+                <sezione></sezione>
+                <tipoCatasto>Fabbricati</tipoCatasto>
+        </datiCatastali>
+        <residenziale>
+                <categoriaEdilizia />
+                <tipoIntervento />
+                <ascensoreOrMin3mFT />
+                <consistenza />
+                <superficie />
+        </residenziale>
+        <nonResidenziale>
+                <categoriaEdilizia>C06</categoriaEdilizia>
+                <C6>
+                	<postoAutoCoperto>S</postoAutoCoperto>
+                </C6>
+        </nonResidenziale>
+</verificaCoordinate>

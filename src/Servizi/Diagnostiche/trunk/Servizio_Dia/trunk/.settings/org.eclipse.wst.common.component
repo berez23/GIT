@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Servizio_Dia">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module archiveName="Servizio_Dia_EJB.jar" deploy-path="/" handle="module:/resource/Servizio_Dia_EJB/Servizio_Dia_EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Controller_Data_Model.jar" deploy-path="/lib" handle="module:/resource/CT_Controller_Data_Model/CT_Controller_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_Dia_Data_Model.jar" deploy-path="/lib" handle="module:/resource/Servizio_Dia_Data_Model/Servizio_Dia_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="BeanBridge.jar" deploy-path="/" handle="module:/resource/BeanBridge/BeanBridge">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.springsource.org.aspectj.tools-1.6.8.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/aspectj/1.6.8/com.springsource.org.aspectj.tools-1.6.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.asm-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.asm-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.core-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.core-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.beans-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.beans-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aopalliance.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/aopalliance/1.0/aopalliance.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.expression-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.expression-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.jdbc-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.jdbc-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="datarouter.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/datarouter.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/aspectj/1.6.8/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.context.support-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.context.support-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.context-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.context-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="asm-all-3.3.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/asm/3.3/asm-all-3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.aop-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.aop-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.orm-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.orm-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.transaction-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.transaction-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pitchfork-1.0-m5.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/pitchfork/1.0/pitchfork-1.0-m5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="org.springframework.web-3.0.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.0.4/org.springframework.web-3.0.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Controller_EJBClient.jar" deploy-path="/lib" handle="module:/resource/CT_Controller_EJBClient/CT_Controller_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cetsecutil.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/cetsecutil.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_Dia_EJBClient.jar" deploy-path="/lib" handle="module:/resource/Servizio_Dia_EJBClient/Servizio_Dia_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_Dia_WEB.war" deploy-path="/" handle="module:/resource/Servizio_Dia_WEB/Servizio_Dia_WEB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO MODAL PANEL NUOVO COMUNE -->
+<rich:modalPanel id="segnalazioneVanoAddModalBox" height="200" width="300" style="overflow:auto;">
+
+<center><rich:messages passedLabel="Operazione completata"
+	layout="list">
+	<f:facet name="infoMarker">
+		<h:graphicImage value="/images/passed.gif" style="padding-right: 5px;" />
+	</f:facet>
+	<f:facet name="errorMarker">
+		<h:graphicImage value="/images/error.gif" style="padding-right: 5px;" />
+	</f:facet>
+</rich:messages></center>
+
+	<f:facet name="header">
+		<h:outputText value="Informazioni Vano da Aggiungere"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick"
+						oncomplete="javascript:Richfaces.hideModalPanel('segnalazioneVanoAddModalBox');" />
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<rich:spacer height="10px" />
+
+	<h:form id="frmAddVano">
+
+			<h:panelGrid columns="2" >
+				
+				<h:outputText value="Ambiente"  />
+				<h:selectOneMenu value="#{segnalaBean.segnala2Cur.ambiente}" >
+					<f:selectItems value="#{segnalaBean.lstAmbientiItems}" />
+				</h:selectOneMenu>
+				<h:outputText value="Sup. Ambiente"  />
+				<h:inputText id="txtSupAmb" style="width: 80px" value="#{segnalaBean.segnala2Cur.superficieAmbiente}" required="true"  label="Sup. Ambiente"/>
+				<h:outputText value="Altezza Min"  />
+				<h:inputText id="txtAltMin" style="width: 80px" value="#{segnalaBean.segnala2Cur.altezza}" required="true" label="Altezza Min"/>
+				<h:outputText value="Altezza Max"  />
+				<h:inputText id="txtAltMax" style="width: 80px" value="#{segnalaBean.segnala2Cur.altezzaMax}" required="true"  label="Altezza Max"/>
+				
+			</h:panelGrid>
+			
+		<rich:spacer height="10px" />
+	
+		<div align="center"><h:panelGrid columns="3">
+
+		<a4j:commandButton id="btnApplyClose"
+				value="Salva e Chiudi"
+				action="#{segnalaBean.doVanoAddSave}"
+				reRender="tblSegnalazioni">
+				<a4j:support event="onclick"
+					oncomplete="javascript:Richfaces.hideModalPanel('segnalazioneVanoAddModalBox');" />
+			</a4j:commandButton>
+			
+			<a4j:commandButton id="btnApply"
+				value="Salva"
+				action="#{segnalaBean.doVanoAddSave}"
+				reRender="tblSegnalazioni, txtSupAmb, txtAltMin, txtAltMax ">
+			</a4j:commandButton>
+			
+		</h:panelGrid></div>
+
+	</h:form>
+</rich:modalPanel>
+<!-- FINE MODAL PANEL -->
+
+</html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#visualizzatore#listRicercaCatasto.xhtml"
+  PATH="/jsp/protected/visualizzatore/listRicercaCatasto.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#visualizzatore#listRicercaCatasto.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/visualizzatore/listRicercaCatasto.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="comma340DettaglioBean.apriDettaglio::#jsp#protected#visualizzatore#dettaglioImmobile.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/visualizzatore/dettaglioImmobile.xhtml"
+    TARGET="rules:#jsp#protected#visualizzatore#dettaglioImmobile.xhtml"
+    TITLE="comma340DettaglioBean.apriDettaglio" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#visualizzatore#dettaglioImmobile.xhtml"
+  PATH="/jsp/protected/visualizzatore/dettaglioImmobile.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#visualizzatore#dettaglioImmobile.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/visualizzatore/dettaglioImmobile.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="gestionePraticheBean.apriGestionePratiche::#jsp#protected#gestione#gestionePratiche.xhtml"
+    NAME="output" PATH="/jsp/protected/gestione/gestionePratiche.xhtml"
+    TARGET="rules:#jsp#protected#gestione#gestionePratiche.xhtml"
+    TITLE="gestionePraticheBean.apriGestionePratiche" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#gestione#gestionePratiche.xhtml"
+  PATH="/jsp/protected/gestione/gestionePratiche.xhtml"
+  SHAPE="32,129,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,273,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="c340.search::#jsp#protected#visualizzatore#listRicercaCatasto.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/visualizzatore/listRicercaCatasto.xhtml"
+    TARGET="rules:#jsp#protected#visualizzatore#listRicercaCatasto.xhtml"
+    TITLE="c340.search" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodSegnalazioneBean" table="BOD_SEGNALAZIONI" >
+  <id column="ID_SEG" name="idSeg" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_SEGNALAZIONI</param>	   
+	   </generator>
+  </id>
+  
+  <property column="PROTOCOLLO" name="protocollo" type="java.lang.String"/>
+  <property column="ESITO_CONTROLLO" name="esitoControllo" type="java.lang.String"/>
+  <property column="CODICE_ENTE" name="codiceEnte" type="java.lang.String"/>
+  <property column="TOTALE_ALLEGATI" name="totaleAllegati" type="java.lang.Integer"/>
+  <property column="NOME_FILE" name="nomeFile" type="java.lang.String"/>
+  <property column="SOPRALLUOGO" name="sopralluogo" type="java.lang.Boolean"/>
+  <property column="DATA_FINE_LAVORI" name="dataFineLavori" type="java.util.Date"/>
+  <property column="FILE_SIZE" name="fileSize" type="java.lang.Double"/>
+  <property column="ZIP_FILE_SIZE" name="zipFileSize" type="java.lang.Double"/>
+  
+  <!--<property column="IST_FK" name="istFk" type="java.lang.Long"/>
+  
+  --><!--<many-to-one 
+  		name="istFk" 
+  		class="it.bod.application.beans.BodIstruttoriaBean" 
+  		column="IST_FK" 
+  		lazy="false"
+  		insert="false"
+  		update="false"/>
+  		
+  	--><set name="fabbricati" lazy="false" cascade="all-delete-orphan" order-by="foglio,particella">
+		<key column="SEG_FK" />
+		<one-to-many class="it.bod.application.beans.BodFabbricatoBean"/>
+	</set>
+	<set name="uius" lazy="false" cascade="all-delete-orphan" order-by="foglio,particella,subalterno">
+		<key column="SEG_FK" />
+		<one-to-many class="it.bod.application.beans.BodUiuBean"/>
+	</set>
+    
+ </class>
+
+</hibernate-mapping>

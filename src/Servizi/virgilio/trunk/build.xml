@@ -1,0 +1,668 @@
+<project name="mui" default="war" basedir=".">
+	
+	<property file="build.properties"/>
+
+	<property name="app.name" value="mui"/>
+	<property name="app.path" value="/virgilio"/>
+	<property name="app.globaljndi" value="${app.name}"/>
+	<property name="meta.home" value="metadata"/>
+	<property name="metainf.home" value="meta-inf"/>
+	<property name="lib.home" value="WebContent/WEB-INF/lib"/>
+	<property name="db.home" value="db"/>
+	<property name="lib.compile" value="lib.compile"/>
+	<property name="web.home" value="WebContent/"/>
+	<property name="build.home" value="build"/>
+	<property name="dist.home" value="dist"/>
+	<property name="src.home" value="src"/>
+	<property name="src_generated.home" value="src_generated"/>
+	<property name="inputfile.home" value="park/Forniture_Formato_txt"/>
+	
+	<property name="muidb.url" value="jdbc:oracle:thin:@grifone.ciacca.com:1521:ch92"/>
+	<property name="muidb.driver" value="oracle.jdbc.driver.OracleDriver"/>
+	<property name="muidb.username" value="MUI"/>
+	<property name="muidb.password" value="MUI"/>
+	<property name="muidb.tablespace" value="MUIMILANO"/>
+	<property name="muidb.dba.username" value="SYSTEM"/>
+	<property name="muidb.dba.password" value="MANAGER"/>
+	
+	<property name="jasper.home" value="${build.home}/jasper"/>
+	<property name="jspsrc.home" value="${jasper.home}/src"/>
+	<property name="jspclasses.home" value="${jasper.home}/classes"/>	
+
+	<property name="manager.url" value="http://localhost:8080/manager"/>
+	<property name="manager.username" value="tomcat"/>
+	<property name="manager.password" value="tomcat"/>
+	<property name="catalina.home" value="/opt/tomcat"/>
+
+	<property name="jspsrc.home" value="${jasper.home}/src"/>
+	<property name="jspclasses.home" value="${jasper.home}/classes"/>	
+	
+	<property name="compile.debug" value="true"/>	
+	
+	
+	<tstamp/>
+	<tstamp>
+		<format property="mui.ant.time" pattern="MM/dd/yyyy hh:mm aa"/>
+	</tstamp>
+	<path id="compile.classpath">
+		<!-- Include all JAR and class files required to compile -->
+		<fileset dir="${lib.home}">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${lib.compile}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+	<path id="build.classpath">
+		<!-- Include all compiled classes -->
+		<dirset dir="${build.home}/classes">
+		</dirset>
+	</path>
+
+	<taskdef 
+	     name="hibernatetool" 
+	     classname="org.hibernate.tool.ant.HibernateToolTask" >
+			<classpath refid="compile.classpath"/>
+    </taskdef>
+	  <!-- ================== Custom Ant Task Definitions ======================= -->
+	  <!--
+	    These properties define custom tasks for the Ant build tool that interact
+	    with the "/manager" web application installed with Tomcat 5.  Before they
+	    can be successfully utilized, you must perform the following steps:
+	    - Copy the file "server/lib/catalina-ant.jar" from your Tomcat 5
+	    installation into the "lib" directory of your Ant installation.
+	    - Create a "build.properties" file in your application's top-level
+	    source directory (or your user login home directory) that defines
+	    appropriate values for the "manager.password", "manager.url", and
+	    "manager.username" properties described above.
+	    For more information about the Manager web application, and the functionality
+	    of these tasks, see <http://localhost:8080/tomcat-docs/manager-howto.html>.
+	  -->
+	  <taskdef name="deploy" classname="org.apache.catalina.ant.DeployTask">
+	    <classpath>
+	      <path location="${catalina.home}/server/lib/catalina-ant.jar"/>
+	    </classpath>
+	  </taskdef>
+	  <taskdef name="list" classname="org.apache.catalina.ant.ListTask">
+	    <classpath>
+	      <path location="${catalina.home}/server/lib/catalina-ant.jar"/>
+	    </classpath>
+	  </taskdef>
+	  <taskdef name="reload" classname="org.apache.catalina.ant.ReloadTask">
+	    <classpath>
+	      <path location="${catalina.home}/server/lib/catalina-ant.jar"/>
+	    </classpath>
+	  </taskdef>
+	  <taskdef name="undeploy" classname="org.apache.catalina.ant.UndeployTask">
+	    <classpath>
+	      <path location="${catalina.home}/server/lib/catalina-ant.jar"/>
+	    </classpath>
+	  </taskdef>
+
+	
+	
+	<target name="clean-debug">
+		<delete dir="${web.home}/WEB-INF/classes" /> 
+	</target>
+	
+	<target name="clean" depends="clean-debug">
+		<!-- delete build and dist directories  -->
+		<delete dir="${build.home}"/>
+		<delete dir="${dist.home}" />
+		<delete dir="${meta.home}" />
+		<delete dir="${src_generated.home}" />
+		<!--
+		<delete>
+			<fileset dir="${meta.home}">
+				<include name="*generated*"/>
+			</fileset>
+		</delete>
+		-->
+		<delete>
+			<fileset dir="${basedir}" defaultexcludes="no">
+				<patternset>
+					<!-- emacs backup files -->
+					<include name="**/*~"/>
+					<include name="**/*.bak"/>
+				</patternset>
+			</fileset>
+		</delete>
+	</target>
+	
+	<target name="prepare" >
+		<!-- Create  build and dist directories as needed -->
+		<mkdir dir="${build.home}"/>
+                <mkdir dir="${build.home}/classes"/>
+		<mkdir dir="${build.home}/war"/>
+		<mkdir dir="${build.home}/jasper"/>
+		<mkdir dir="${build.home}/jasper/src"/>
+		<mkdir dir="${build.home}/jasper/classes"/>
+		<mkdir dir="${dist.home}" />
+                <mkdir dir="${meta.home}" />
+		<uptodate property="warBuild.notRequired" targetfile="${dist.home}/${app.name}.war">
+			<srcfiles dir= "${jspsrc.home}" includes="**/*"/>
+			<srcfiles dir= "${src.home}" includes="**/*.java"/>
+			<srcfiles dir= "${src.home}" includes="**/*.properties"/>
+			<srcfiles dir= "${src.home}" includes="**/*.xml"/>
+			<srcfiles dir= "${build.home}/classes" includes="**/*.properties"/>
+			<srcfiles dir= "${build.home}/classes" includes="**/*.class"/>
+			<srcfiles dir= "${build.home}/classes" includes="**/*.properties"/>
+			<srcfiles dir= "${build.home}/classes" includes="**/*.xml"/>
+		</uptodate>
+	</target>
+	
+	<target name="compile" depends="hb-build-pojos,prepare" description="compiles source classfiles">
+		<javac destdir="${build.home}/classes"  source="1.5" target="1.5" encoding="iso8859-1" debug="${compile.debug}" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<src path="${src.home}"/>
+			<src path="${src_generated.home}"/>
+			<classpath refid="compile.classpath"/>
+		</javac>
+		<copy todir="${build.home}/classes">
+			<fileset dir="${src.home}">
+				<include name="**/*.properties"/>
+				<include name="**/*.sql"/>
+                                <include name="**/*.xml"/>
+			</fileset>
+		</copy>
+	</target> 
+	
+	<target name="debug" depends="compile">
+		<mkdir dir="${web.home}/WEB-INF/lib"/>
+		<mkdir dir="${web.home}/WEB-INF/classes"/>
+		<copy todir="${web.home}/WEB-INF/lib">
+			<fileset dir="${lib.home}">
+				<include name="*.jar"/>
+			</fileset>
+		</copy>
+		<copy todir="${web.home}/WEB-INF/classes">
+			<fileset dir="${build.home}/classes">
+				<include name="**/*.class"/>
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
+		<copy todir="${web.home}/WEB-INF/" file="${meta.home}/web.xml"/>
+	</target>
+
+	<target name="war" depends="jspc,read.env.properties" description="build war file" unless="warBuild.notRequired">
+    	<antcall target="set.version"/>
+		<delete file="${metainf.home}/context.xml"/>
+	    <copy file="${metainf.home}/context.xml.template" tofile="${metainf.home}/context.xml"/>
+		<replace file="${metainf.home}/context.xml" token="@@DOCBASE@@" value=""/>
+	    <replace file="${metainf.home}/context.xml" token="@@DEBUG@@" value="0"/>
+	    <replace file="${metainf.home}/context.xml" token="@@RELOADABLE@@" value="false"/>
+	    <replace file="${metainf.home}/context.xml" token="@@CHECKINTERVAL@@" value="1000"/>
+	    <replace file="${metainf.home}/context.xml" token="@@APPNAME@@" value="${env.webapp.name}"/>
+	    <replace file="${metainf.home}/context.xml" token="@@WEBAPPNAME@@" value="${env.webapp.name}"/>
+		<replace file="${metainf.home}/context.xml" token="@@APPPATH@@" value="${app.path}"/>
+	    <replace file="${metainf.home}/context.xml" token="@@CACHINGALLOWED@@" value="true"/>
+	    <replace file="${metainf.home}/context.xml" token="@@CACHETTL@@" value="86400"/>
+	    <replace file="${metainf.home}/context.xml" token="@@VERBOSITY@@" value="0"/>
+	    <replace file="${metainf.home}/context.xml" token="@@GLOBALJNDINAME@@" value="${app.globaljndi}"/>
+		
+
+		<replace file="${web.home}/WEB-INF/web.xml" token="virgilio" value="${env.webapp.name}"/>
+		<replace file="${web.home}/WEB-INF/web.xml" token="MUI-WEB" value="${env.webapp.name}"/>
+		<replace file="${web.home}/WEB-INF/web.xml" token="Milano" value="${env.desc_comune}"/>
+		<replace file="${web.home}/WEB-INF/web.xml" token="F205" value="${env.belfiore}"/>
+		<replace file="${web.home}/WEB-INF/web.xml" token="NOMEAPPLICAZIONE" value="${env.webapp.name}"/>
+		<replace file="${build.home}/classes/log4j.properties" token="NOMEFILEDINAMICOLOGVIRGILIO" value="${env.webapp.name}"/>
+		<replace file="${web.home}/comunicazioneDetail.jsp" token="F205" value="${env.belfiore}"/>
+		<replace file="${web.home}/docfaComunicazioneDetail.jsp" token="F205" value="${env.belfiore}"/>
+		<replace file="${web.home}/template.jsp" token="F205" value="${env.belfiore}"/>
+	
+		<war destfile="${dist.home}/${env.webapp.name}.war" basedir="${web.home}" webxml="${web.home}/WEB-INF/web.xml">
+			<manifest>
+				<attribute name="Built-By" value="${user.name}"/>
+				<attribute name="Built-With" value="${os.name} (${os.arch}, ${os.version})"/>
+				<attribute name="Built-Date" value="${mui.ant.time}"/>
+			</manifest>
+			<!--
+			<lib dir="${web.home}/WEB-INF/lib">
+			</lib>
+			-->
+			<classes dir="${build.home}/classes"/>
+		    <metainf dir="${metainf.home}">
+		        <include name="context.xml"/>
+		    </metainf>
+		</war>
+	</target> 
+    
+	
+	<target name="install" description="Install application to servlet container">
+	    <deploy url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}" war="${dist.home}/${app.name}.war"/>
+	</target>
+ 	<target name="uninstall" description="Remove application on servlet container">
+	    <undeploy url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}"/>
+	</target>
+ 	<target name="reinstall"  description="Remove application on servlet container">
+	    <undeploy url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}"/>
+	    <deploy url="${manager.url}" username="${manager.username}" password="${manager.password}" path="/${app.name}" war="${dist.home}/${app.name}.war"/>
+	</target>
+	
+	<!-- ==================== Jsp Compile Target ================================== -->
+	<!--
+		The "compile" target transforms jsp files (from your webapp directory)
+		into source files in the src directory.
+		-->
+	<target name="jspc" depends="compile">
+		<echo message="checking jsp compilation.."/>
+		<taskdef classname="org.apache.jasper.JspC" name="jasper2">
+			<classpath id="jspc.classpath">
+				<pathelement location="${java.home}/../lib/tools.jar"/>
+			</classpath>
+			<classpath id="project.classpath">
+				<pathelement location="${build.home}/classes"/>
+			</classpath>
+			<classpath refid="compile.classpath"/>
+		</taskdef>
+		<jasper2 validateXml="false" uriroot="${web.home}" webXmlFragment="${meta.home}/generated_web.xml" outputDir="${jspsrc.home}"/>
+		<mkdir dir="${jspclasses.home}"/>
+		<javac destdir="${jspclasses.home}" debug="${compile.debug}" source="1.4" encoding="iso8859-1" deprecation="${compile.deprecation}" optimize="${compile.optimize}">
+			<src path="${jspsrc.home}"/>
+			<classpath refid="compile.classpath"/>
+			<classpath id="project.classpath">
+				<pathelement location="${build.home}/classes"/>
+			</classpath>
+		</javac>
+		<delete file="${meta.home}/generated_web.xml"/>
+	</target>
+		
+	<!--SEZIONE HIBERNATE -->
+	<target name="hb-build-pojos" >
+		<hibernatetool
+		  destdir="src_generated" >
+	    	<classpath refid="compile.classpath"/>
+			<configuration configurationfile="hibernate.ant-cfg.xml">
+				<fileset dir="${src.home}" defaultexcludes="yes">
+					<patternset>
+						<!-- hibernate mapping files -->
+						<include name="**/*.hbm.xml"/>
+					</patternset>
+				</fileset>
+			</configuration>	
+			<hbm2java jdk5="true" ejb3="false"/>
+		</hibernatetool>
+	</target>
+
+	<target name="hb-build-ddl-create" >
+		<hibernatetool
+		  destdir="${db.home}/generated" >
+	    	<classpath refid="compile.classpath"/>
+			<classpath refid="build.classpath"/>
+			<configuration configurationfile="hibernate.ant-cfg.xml">
+				<!-- hibernate mapping files -->
+				<fileset dir="${src.home}" defaultexcludes="yes">
+					<patternset>
+						<include name="**/*.hbm.xml"/>
+						<exclude name="**/MiVw*.hbm.xml"/>
+					</patternset>
+				</fileset>
+			</configuration>
+			<hbm2ddl
+			 drop="false"
+			 create="true"
+			 export="false"
+			 update="false"
+			 outputfilename="ora-muidb_create_schema.sql"
+			 delimiter=";" 
+			 format="true"
+			/>
+		</hibernatetool>
+	</target>
+
+	<!-- SEZIONE DATABASE -->
+	<target name="create-muidb-schema" depends="hb-build-ddl-create">
+		<sql
+			driver="${muidb.driver}"
+			url="${muidb.url}"
+			userid="${muidb.username}"
+			password="${muidb.password}"
+			src="${db.home}/generated/ora-muidb_create_schema.sql"
+		>
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+		<sql
+			driver="${muidb.driver}"
+			url="${muidb.url}"
+			userid="${muidb.username}"
+			password="${muidb.password}"
+			src="${db.home}/ora-muidb_create_schema_trigger.sql"
+			delimiter="/"
+		>
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+	</target>
+	<target name="insert-codice-belfiore-data">
+		<sql
+			driver="${muidb.driver}"
+			url="${muidb.url}"
+			userid="${muidb.username}"
+			password="${muidb.password}"
+			src="${db.home}/ora-muidb_insert_codice_belfiore_data.sql"
+		>
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+	</target>
+	<target name="insert-sample-data">
+		<echo file="${build.home}/tmp.sql">
+			INSERT INTO MI_DUP_USER(LOGIN,PASSWORD) VALUES ('sadmin','passwd');
+			INSERT INTO MI_DUP_USER(LOGIN,PASSWORD) VALUES ('admin','passwd');
+			INSERT INTO MI_DUP_USER(LOGIN,PASSWORD) VALUES ('user','passwd');
+			INSERT INTO MI_DUP_USER_ROLE(IID,LOGIN,ROLENAME) VALUES (1,'sadmin','mui-adm');
+			INSERT INTO MI_DUP_USER_ROLE(IID,LOGIN,ROLENAME) VALUES (2,'sadmin','mui-usr');
+			INSERT INTO MI_DUP_USER_ROLE(IID,LOGIN,ROLENAME) VALUES (3,'sadmin','mui-supusr');
+			INSERT INTO MI_DUP_USER_ROLE(IID,LOGIN,ROLENAME) VALUES (4,'user','mui-usr');
+			INSERT INTO MI_DUP_USER_ROLE(IID,LOGIN,ROLENAME) VALUES (5,'admin','mui-adm');
+			INSERT INTO MI_DUP_USER_ROLE(IID,LOGIN,ROLENAME) VALUES (6,'admin','mui-usr');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('1', 'Proprietà');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('1S', 'Proprietà superficiaria');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('1T', 'Proprietà per l''aria');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('2', 'Nuda proprietà' );
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('2S', 'Nuda proprietà superficiaria');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('3', 'Abitazione su');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('3S', 'Abitazione su proprietà superficiaria');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('4', 'Diritto del concedente');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('5', 'Diritto dell''enfiteuta');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('6', 'Superficie');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('7', 'Uso');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('7S', 'Uso su proprietà superficiaria');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('8', 'Usufrutto');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('8A', 'Usufrutto con diritto di accrescimento');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('8E', 'Usufrutto su enfiteusi');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('8S', 'Usufrutto su proprietà superficiaria');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('9', 'Servitù');
+			INSERT INTO CODICI_DUP (CODI_DIRITTO, DESCR_DIRITTO) VALUES ('10', 'Oneri');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'G0000','La colonna :colonna della tabella :tabella e` un campo obbligatorio');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'G0001','La colonna :colonna della tabella :tabella non e` un campo di tipo data');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'G0002','La colonna :colonna della tabella :tabella non e` un campo di tipo anno');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0200','Valore non ammesso in TIPO_NOTA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0201','Valore non ammesso in Esito Nota');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0202','Valore non ammesso in Esito Nota non Reg');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0203','Valore non ammesso in FLAG_RETTIFICA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0203.1','Valore non ammesso in FLAG_RETTIFICA, FLAG_RETTIFICA == 1 => da verificare se non non e` gia` stata trasferita sotto forma di comunicazione');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0204','Valore non ammesso in TIPO_NOTA_RET');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0205','Valore non ammesso in NUMERO_NOTA_RET');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0206','Valore non ammesso in DATA_PRES_ATTO_RET');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0207','Valore non ammesso in REGISTRAZIONE_DIF');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0301','Valore non ammesso in TIPO_SOGGETTO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0302','Valore non ammesso in COGNOME');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0303','Valore non ammesso in NOME');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0304','Valore non ammesso in SESSO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0305','Valore non ammesso in DATA_NASCITA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0306','Valore non ammesso in LUOGO_NASCITA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0307','Valore non ammesso in CODICE_FISCALE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0308','Valore non ammesso in DENOMINAZIONE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0309','Valore non ammesso in SEDE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0310','Valore non ammesso in CODICE_FISCALE_G');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0401','Valore non ammesso in TIPO_SOGGETTO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0402','Valore non ammesso in TIPOLOGIA_IMMOBILE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0403','Valore non ammesso in SC_FLAG_TIPO_TITOL_NOTA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0404','Valore non ammesso in SC_CODICE_DIRITTO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0405','Valore non ammesso in SC_QUOTA_DENOMINATORE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0405.1','Valore non ammesso in SC_QUOTA_DENOMINATORE,Se il campo SC_REGIME = ‘C’ la percentuale non può essere = 100');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0405.2','Valore non ammesso in SC_QUOTA_NUMERATORE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0405.3','Valore non ammesso in SC_QUOTA_NUMERATORE, Se il campo SC_REGIME = ‘C’ la percentuale non può essere = 100');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0406','Valore non ammesso in SC_REGIME');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0407','Valore non ammesso in SC_SOGGETTO_RIF');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0408','Valore non ammesso in SF_FLAG_TIPO_TITOL_NOTA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0409','Valore non ammesso in SF_CODICE_DIRITTO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0410','Valore non ammesso in SF_QUOTA_DENOMINATORE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0410.1','Valore non ammesso in SF_QUOTA_DENOMINATORE,Se il campo SF_REGIME = ‘C’ la percentuale non può essere = 100');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0410.2','Valore non ammesso in SF_QUOTA_NUMERATORE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0410.3','Valore non ammesso in SF_QUOTA_NUMERATORE, Se il campo SF_REGIME = ‘C’ la percentuale non può essere = 100');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0411','Valore non ammesso in SF_REGIME');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0412','Valore non ammesso in SF_SOGGETTO_RIF');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0501','Valore non ammesso in TIPO_INDIRIZZO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0601','Valore non ammesso in TIPOLOGIA_IMMOBILE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0602','Valore non NULL in CODICE_ESITO ricerca a catasto effettuata dal notaio non ha avuto esito positivo');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0603','Valore non ammesso in VANI');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0604','Valore non ammesso in MC');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0605','Valore non ammesso in MQ');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0606','Valore NULL non ammesso in C_INDIRIZZO se immobile riconosciuto a catasto');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0701','Valore NULL in FOGLIO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0701.1','Valore NULL in NUMERO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0701.2','Valore NULL in SUBALTERNO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0702','Valore non ammesso in TIPO_DENUNCIA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0703','Valore NULL in ANNO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0703.1','Valore NULL in NUMERO_PROTOCOLLO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0703.2','Valore NULL in TIPO_DENUNCIA');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0704','Valore non ammesso in ANNO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0801','Valore non amesso in TIPOLOGIA_IMMOBILE');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0802','Valore non NULL in CODICE_ESITO ricerca a catasto effettuata dal notaio non ha avuto esito positivo');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0803','Valore NULL in FOGLIO verificare la presenza del fabbricato in catasto con i parametri catastali');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0803.1','Valore NULL in NUMERO verificare la presenza del fabbricato in catasto con i parametri catastali');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0803.2','Valore NULL in SUBALTERNO verificare la presenza del fabbricato in catasto con i parametri catastali');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0804','Valore non amesso in FLAG_REDDITO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0805','Valore 0 non ammesso in REDDITO_DOMINICALE_EURO va controllata in seguito ma la situazione non e` bloccante');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA) VALUES ( 1, 'N', 'R0805.1','Valore non ammesso in REDDITO_DOMINICALE_EURO');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'A1','La nota di trascrizione non risulta compilata nel quadro B, quadro degli immobili','Nota scartata');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'A2','La nota di trascrizione non risulta compilata nel quadro C, quadro dei soggetti, nella sezione relativa ai soggetti a favore','Nota scartata');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'A4','La nota di trascrizione è interessata da annotazione di annullamento, cancellazione, inefficacia totale o nullità','Nota scartata');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'A5','La nota di trascrizione in rettifica non è elaborabile ','Nota scartata');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'B1','L’immobile ha una natura non di interesse catastale (bene futuro o sua porzione, palco teatrale, pozzo, ecc.)','Immobile scartato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'B2','L’immobile è negoziato per diritti non di interesse catastale (diritto di servitù, ecc.)','Immobile scartato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'B3','L’immobile risulta in Catasto già volturato con atto avente data successiva   a quella della trascrizione oppure presenta un’intestazione non aggiornata   ','Immobile non volturato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'B4','L’immobile è dichiarato ubicato in un Comune il cui codice è sconosciuto in Catasto','Immobile scartato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'B5','L’immobile è identificato con dati non conformi a quelli catastali','Immobile scartato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'B6','La voltura sull’immobile è già stata effettuata','Immobile scartato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'E1','L’immobile non risulta iscritto negli atti catastali','Immobile non volturato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'E2','L’immobile in Catasto risulta soppresso ','Immobile non volturato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'E3','L’immobile  risulta iscritto in una partita speciale del Catasto Urbano oppure  del Catasto Terreni','Immobile non volturato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'E4','L’immobile risulta identificato negli atti  del Catasto Urbano in maniera difforme da quanto indicato nella nota di trascrizione (graffato)','Immobile non volturato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'E5','L’immobile presenta un’intestazione non aggiornata e negli atti del Catasto sono presenti più immobili con stesso foglio, particella e subalterno ma sezioni diverse','Immobile non volturato');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'D1','La ditta è stata registrata con intestazione parziale','Voltura eseguita ');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'D2','L’immobile è stato registrato con annotazione di passaggi intermedi da esaminare            ','Voltura eseguita ');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'D3','La ditta è stata registrata con intestazione parziale e l’immobile con annotazione di passaggi intermedi da esaminare','Voltura eseguita ');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'D4','L’immobile è sato registrato con Riserva1 e con annotazione di passaggi intermedi da esaminare','');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'D5','L’immobile è sato registrato con Riserva1 e con annotazione di intestazione e passaggi da esaminare','');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'D6','Intestazione precedente da verificare','');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'R1','Immobile recuperato dall’ufficio','');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'R2','Immobile recuperato con un documento di voltura','');
+			INSERT INTO CODICE_ERRORE_IMPORT (CLASSE,BLOCCANTE,CODICE_REGOLA,DESCR_REGOLA,EFFETTO) VALUES ( 2, 'N', 'R3','Immobile recuperato in automatico (ex esiti E9, E10)','');
+		</echo>
+		<sql
+			driver="${muidb.driver}"
+			url="${muidb.url}"
+			userid="${muidb.username}"
+			password="${muidb.password}"
+			src="${build.home}/tmp.sql"
+		>
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+		<delete file="${build.home}/tmp.sql"/>
+	</target>
+
+	<target name="hb-build-ddl-drop">
+		<hibernatetool
+		  destdir="${db.home}/generated" >
+	    	<classpath refid="compile.classpath"/>
+			<classpath refid="build.classpath"/>
+			<configuration configurationfile="hibernate.ant-cfg.xml">
+				<fileset dir="${src.home}" defaultexcludes="yes">
+					<patternset>
+						<!-- hibernate mapping files -->
+						<include name="**/*.hbm.xml"/>
+						<exclude name="**/MiVw*.hbm.xml"/>
+					</patternset>
+				</fileset>
+			</configuration>
+			<hbm2ddl
+			 drop="true"
+			 create="false"
+			 export="false"
+			 update="false"
+			 outputfilename="ora-muidb_drop_schema.sql"
+			 delimiter=";" 
+			 format="true"
+			/>
+		</hibernatetool>
+	</target>
+	<target name="drop-muidb-schema" depends="hb-build-ddl-drop">	
+		<sql
+		    driver="${muidb.driver}"
+		    url="${muidb.url}"
+		    userid="${muidb.username}"
+		    password="${muidb.password}"
+		    src="${db.home}/generated/ora-muidb_drop_schema.sql"
+		    >
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+	</target>
+	
+	<target name="refresh-muidb-schema" depends="drop-muidb-schema,create-muidb-schema,insert-sample-data">
+	</target>
+	
+	<target name="create-muidb-user">
+		<echo file="${build.home}/tmp.sql">
+			CREATE USER ${muidb.username}  IDENTIFIED BY ${muidb.username}  DEFAULT TABLESPACE ${muidb.tablespace}  PROFILE DEFAULT;
+			GRANT CONNECT TO ${muidb.username};
+			GRANT RESOURCE TO ${muidb.username};
+			GRANT SELECT ON DBTOTALE.SIT_T_CONTRIBUENTI TO ${muidb.username};
+			GRANT SELECT ON DBTOTALE.SIT_T_OGGETTI_ICI TO ${muidb.username};
+			GRANT SELECT ON SITI.AGGR_LOCALIZZA TO ${muidb.username};
+			GRANT SELECT ON SITI.SITILOC_UIU TO ${muidb.username};
+			GRANT SELECT ON SITI.AGGR_TOPO TO ${muidb.username};
+			GRANT SELECT ON SITI.CONS_ATTI_TAB TO ${muidb.username};
+			GRANT SELECT ON SITI.CONS_AZIE_TAB TO ${muidb.username};
+			GRANT SELECT ON SITI.CONS_DECO_TAB TO ${muidb.username};
+			GRANT SELECT ON SITI.SITIUIU TO ${muidb.username};
+			GRANT SELECT ON SITI.CONS_CSUI_TAB TO ${muidb.username};
+			GRANT SELECT ON SITI.CONS_URUI_TAB TO ${muidb.username};
+			GRANT SELECT ON SITI.SITICIVI_UIU TO ${muidb.username};
+			GRANT SELECT ON SITI.SITICIVI TO ${muidb.username};
+			GRANT SELECT ON SITI.SITIDSTR TO ${muidb.username};
+		</echo>
+		<sql
+			driver="${muidb.driver}"
+			url="${muidb.url}"
+			userid="${muidb.dba.username}"
+			password="${muidb.dba.password}"
+			src="${build.home}/tmp.sql"
+		>
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+		<delete file="${build.home}/tmp.sql"/>
+	</target>
+	
+	<target name="drop-muidb-user">
+		<echo file="${build.home}/tmp.sql">
+			DROP USER ${muidb.username}  CASCADE;
+		</echo>
+		<sql
+			driver="${muidb.driver}"
+			url="${muidb.url}"
+			userid="${muidb.dba.username}"
+			password="${muidb.dba.password}"
+			src="${build.home}/tmp.sql"
+		>
+			<classpath>
+				<pathelement location="${lib.compile}/ojdbc14.jar"/>
+			</classpath>	
+		</sql>
+		<delete file="${build.home}/tmp.sql"/>
+	</target>
+	
+	<!-- SQL SECTION -->
+	<target name="sqlprod">
+		<delete>
+			<fileset dir="${src.home}/sql/" defaultexcludes="no">
+				<patternset>
+					<include name="*.sql"/>
+				</patternset>
+			</fileset>
+		</delete>
+		<copy todir="${src.home}/sql/">
+			<fileset dir="${src.home}/sql/Prod">
+				<include name="*.sql"/>
+			</fileset>
+		</copy>
+	</target>
+	<target name="sqltest">
+		<delete>
+			<fileset dir="${src.home}/sql/" defaultexcludes="no">
+				<patternset>
+					<include name="*.sql"/>
+				</patternset>
+			</fileset>
+		</delete>
+		<copy todir="${src.home}/sql/">
+			<fileset dir="${src.home}/sql/Test">
+				<include name="*.sql"/>
+			</fileset>
+		</copy>
+	</target>
+
+	<!--
+		C:\Documents and Settings\Ciacca>copy \\tsclient\ciacca\proj\MUI-WEB\dist\MUI-WEB.war Desktop\
+		del  c:\temp\MUIWEB\MUI-WEB.war
+		C:\Documents and Settings\Ciacca>copy Desktop\MUI-WEB.war c:\temp\MUIWEB\MUI-WEB.war
+	
+		copy \\tsclient\c\temp\MUIWEB\MUI-WEB.war Desktop\
+	    -->
+	<!-- BATCH IMPORT SECTION -->
+	<target name="import-files">
+		<java classname="it.webred.mui.cmdline.BatchImporter" newenvironment="true">
+	      <arg value="${inputfile.home}"/>
+	   	  <classpath refid="compile.classpath"/>
+		  <classpath refid="build.classpath"/>
+		  <classpath>
+		    <pathelement path="${build.home}/classes"/>
+		    <pathelement path="."/>
+		  </classpath>
+	    </java>
+	</target>
+	
+
+    <target name="take.gestionePermessi.from.cvs">
+        <input message="Utente cvs per export gestionePermessi.jar" addproperty="gp.user" />
+	   	<property name="cvs.root" value=":pserver:${gp.user}:${gp.user}@172.16.2.188:/cvs_repos" />
+    	<mkdir dir="${lib.home}/.gestionePermessi"/>
+    	<cvs command="export -d ${basedir}/${lib.home}/.gestionePermessi -r HEAD josso/gestionePermessi/releases/last/gestionePermessi.jar" cvsRoot="${cvs.root}" />
+        <delete file="${lib.home}/gestionePermessi.jar"/>
+        <copy file="${lib.home}/.gestionePermessi/gestionePermessi.jar" todir="${lib.home}"/>
+        <delete dir="${lib.home}/.gestionePermessi"/>
+    </target>
+	<target name="set.cliente.default" unless="cliente.settato">
+			<property name="cliente" value="" />
+			<echo message="Non si e' specificato il cliente per il deploy. Si utilizza il file properties di default!!!"/>
+		</target>
+		<target name="check.env.properties" if="cliente.settato">
+			<echo message="Cerco:${basedir}/env${cliente}virgilio.properties"/>
+			<available file="${basedir}/env${cliente}virgilio.properties" property="isFileAvailable" type="file"/>
+		    <fail unless="isFileAvailable" message="Il file env${cliente}virgilio.properties non esiste!!!"/>
+		</target>
+		<target name="check.cliente">
+		    <condition property="cliente.settato">
+		    	<isset property="cliente"/>
+		    </condition>
+		</target>
+		<target name="read.env.properties" depends="check.cliente, set.cliente.default, check.env.properties">    
+		    <echo message="Lettura del file : env${cliente}virgilio.properties"/>
+			<property file="env${cliente}virgilio.properties" prefix="env"/>
+			<property name="webapp.name" value="${env.webapp.name}"/>
+			<echo message="webapp.name=${webapp.name}"/>
+		</target> 
+	<target name="set.version">
+		<replace 
+		    file="WebContent/template.jsp"
+		    propertyFile="src/version.properties">
+		  <replacefilter 
+		    token="@@version.label@@" 
+		    property="version.label"/>
+		</replace>
+		<echo message="Inserito numero di versione"/>
+	</target>	
+	
+</project>

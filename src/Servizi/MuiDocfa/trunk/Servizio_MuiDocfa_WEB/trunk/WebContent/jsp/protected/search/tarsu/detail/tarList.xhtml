@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA OGGETTI TARSU MODAL BOX -->
+<rich:modalPanel id="tarModalBox" minHeight="250" minWidth="1000"
+	height="250" width="1000" style="overflow:auto;">
+	<f:facet name="header">
+		<h:outputText value="Lista delle dichiarazioni Tarsu"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="tarPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('tarModalBox');">
+						<a4j:actionparam name="pageI" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageTarList}" />
+						<a4j:actionparam value="false" name="fam"
+						assignTo="#{tarDetailBean.familiare}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="tarForm">
+		
+		<rich:dataTable width="100%"  var="row"
+			value="#{tarDetailBean.listaTar}" id="listTarTable" rowKeyVar="index"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+			<rich:column width="70px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Inizio" title="Data inizio" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.datIni}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			<rich:column width="70px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Fine" title="Data fine" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.datFin}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			<rich:column width="46px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Foglio" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.foglio}" />
+			</rich:column>
+			<rich:column width="68px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Particella" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.numero}" />
+			</rich:column>
+			<rich:column width="80px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Subalterno" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.sub}" />
+			</rich:column>
+			<rich:column width="150px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Classe" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.desClsRsu}" />
+			</rich:column>
+			<rich:column width="150px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Tipo oggetto" />
+				</f:facet>
+				<h:outputText value="#{row.sitTTarOggetto.desTipOgg}" />
+			</rich:column>
+			<rich:column width="80px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Superficie" />
+				</f:facet>
+				<h:outputText value="mq #{row.sitTTarOggetto.supTot}"
+					rendered="#{row.sitTTarOggetto.supTot != null}" />
+			</rich:column>
+			<rich:column width="80px" rendered="#{tarDetailBean.familiare}">
+				<f:facet name="header">
+					<h:outputText value="Soggetti" />
+				</f:facet>
+				<center><h:graphicImage value="/images/list.png" id="img101"
+					style="cursor: pointer;">
+					<a4j:support event="onclick" reRender="tarSubjectPage"
+						oncomplete="Richfaces.showModalPanel('tarSubjectModalBox'); return false;"
+						action="#{tarDetailBean.doCaricaTarsuFamiliari}">
+						<a4j:actionparam value="#{index}" name="rIndex"
+							assignTo="#{tarDetailBean.rowIndex}" />
+						<a4j:actionparam
+							value="/jsp/protected/search/tarsu/detail/tarSubjectList.xhtml"
+							name="pgSubtar" assignTo="#{pageUiBean.pageTarSubjectList}" />
+					</a4j:support>
+				</h:graphicImage></center>
+			</rich:column>
+			<rich:column width="#{tarDetailBean.familiare?'151': '234'}px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Indirizzo" />
+				</f:facet>
+				<h:outputText value="#{row.via} #{row.sitTTarOggetto.numCiv}" />
+			</rich:column>
+		</rich:dataTable>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Chiudi" id="btnEsci" reRender="tarPage"
+					oncomplete="Richfaces.hideModalPanel('tarModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="tPage"
+						assignTo="#{pageUiBean.pageTarList}" />
+					<a4j:actionparam value="false" name="fam"
+						assignTo="#{tarDetailBean.familiare}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA OGGETTI TARSU MODAL BOX -->
+
+</html>

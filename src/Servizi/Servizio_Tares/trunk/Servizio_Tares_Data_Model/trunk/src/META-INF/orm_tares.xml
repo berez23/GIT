@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+	<!-- Query AmApplication 
+	<named-query name="CataSezioni.getSezioniByName">
+		<query>
+			<![CDATA[
+				select o 
+				from CataSezioni o
+				where o.nome = :nome
+				order by o.nome
+			]]>
+		</query>
+	</named-query>
+	-->
+</entity-mappings>
+	

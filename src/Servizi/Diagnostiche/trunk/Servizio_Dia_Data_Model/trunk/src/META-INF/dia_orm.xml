@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+	<named-query name="DIA.getDiagnostiche">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT dc 
+				FROM DiaCatalogo dc, DiaTestata dt
+				WHERE dc.id=dt.idCatalogoDia
+				ORDER BY dc.descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiagnosticaById">
+		<query>
+			<![CDATA[
+				SELECT dc 
+				FROM DiaCatalogo dc
+				WHERE dc.id= :idDiagnostica
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiagnosticheByCodCmdGrp">
+		<query>
+			<![CDATA[
+				SELECT dc 
+				FROM DiaCatalogo dc
+				WHERE dc.codCommandGrp= :codCommandGrp
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiagnosticheByCodCommand">
+		<query>
+			<![CDATA[
+				SELECT dc 
+				FROM DiaCatalogo dc
+				WHERE dc.codCommandGrp = :codCommand
+				or dc.codCommand = :codCommand
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="DIA.getDiaEsecuzioneByIdDia">
+		<query>
+			<![CDATA[
+				SELECT dt 
+				FROM DiaTestata dt
+				WHERE dt.idCatalogoDia= :idCatalogoDia
+				ORDER BY dt.dataEsec DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiaTestata">
+		<query>
+			<![CDATA[
+				SELECT dt 
+				FROM DiaTestata dt
+				WHERE dt.id = :idDiaTestata
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getLogAccessiByIdDiaTestata">
+		<query>
+			<![CDATA[
+				SELECT log 
+				FROM DiaLogAccesso log
+				WHERE log.diaTestata.id= :idDiaTestata
+				ORDER BY log.dataAccesso DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getCountLogByDiaTestata">
+		<query>
+			<![CDATA[
+				SELECT count(log) 
+				FROM DiaLogAccesso log
+				WHERE log.diaTestata.id= :idDiaTestata				
+			]]>
+		</query>
+	</named-query>
+	
+		
+
+	<named-query name="DIA.getDiagnostichePag">
+		<query>
+			<![CDATA[
+				SELECT distinct dc 
+				FROM DiaCatalogo dc, RCommand rc, RFontedatiCommand rfc, REnteEsclusioni ree
+				WHERE (dc.codCommandGrp = rc.codCommand or dc.codCommand = rc.codCommand)	
+				AND rc.RCommandType.id = :tipoComando
+				AND rfc.id.fkCommand = rc.id
+				AND rfc.id.idFonte in (:fonti)
+				AND ree.fkCommand = rc.id
+				AND (ree.enteOn like :idEnte or ree.enteOn = '*')
+				ORDER BY dc.id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiagnosticheCount">
+		<query>
+			<![CDATA[
+				SELECT count(distinct dc) 
+				FROM DiaCatalogo dc, RCommand rc, RFontedatiCommand rfc, REnteEsclusioni ree
+				WHERE (dc.codCommandGrp = rc.codCommand or dc.codCommand = rc.codCommand)	
+				AND rc.RCommandType.id = :tipoComando
+				AND rfc.id.fkCommand = rc.id
+				AND rfc.id.idFonte in (:fonti)
+				AND ree.fkCommand = rc.id
+				AND (ree.enteOn like :idEnte or ree.enteOn = '*')		
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getAllDiagnosticheFonte">
+		<query>
+			<![CDATA[
+				SELECT distinct dc 
+				FROM DiaCatalogo dc, RCommand rc, RFontedatiCommand rfc, REnteEsclusioni ree
+				WHERE (dc.codCommandGrp = rc.codCommand or dc.codCommand = rc.codCommand)
+				AND rc.RCommandType.id in (31,32,34,35,36,37)
+				AND rfc.id.fkCommand = rc.id
+				AND rfc.id.idFonte = :fonte
+				AND ree.fkCommand = rc.id
+				AND (ree.enteOn like :idEnte or ree.enteOn = '*')		
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiaCatalogoForFindKeys">
+		<query>
+			<![CDATA[
+				SELECT dci
+				FROM DiaCatalogoTipoInfo dci, DiaCatalogo dc
+				WHERE
+				dci.desBeanClassName = :beanClassName				
+				AND dc.abilitata = :abilitata
+				AND dc.id = dci.diaCatalogo.id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiaCatalogoForFindKeysNoBean">
+		<query>
+			<![CDATA[
+				SELECT dci
+				FROM DiaCatalogoTipoInfo dci, DiaCatalogo dc
+				WHERE
+				dc.abilitata = :abilitata
+				AND dc.id = dci.diaCatalogo.id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiaCatalogoForFindKeysFonteETipo">
+		<query>
+			<![CDATA[
+				SELECT dci
+				FROM DiaCatalogoTipoInfo dci, DiaCatalogo dc
+				WHERE
+				dci.fkAmFonte IN (:listaFonti)
+				AND dci.informazione IN (:listaTipoFonti)
+				AND dc.abilitata = :abilitata
+				AND dc.id = dci.diaCatalogo.id											
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDiaCatalogoTipoInfoById">
+		<query>
+			<![CDATA[
+				SELECT dci
+				FROM DiaCatalogoTipoInfo dci
+				WHERE dci.id= :idDiaCatalogoTipoInfo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getLastEsecuzioneByIdDia">
+		<query>
+			<![CDATA[
+				SELECT dt 
+				FROM DiaTestata dt
+				WHERE dt.id = ( SELECT MAX(dt.id)  
+							  FROM dt WHERE dt.idCatalogoDia = :idCatalogoDia ) 				
+											
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getStoricoEsecuzioniCount">
+		<query>
+			<![CDATA[
+				SELECT count(dt) 
+				FROM DiaTestata dt
+				WHERE dt.idCatalogoDia= :idCatalogoDia				
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getCategorieDocfaNonResidenziale">
+		<query>
+			<![CDATA[
+				SELECT distinct(dc.cat) 
+				FROM DocfaReportNoRes dc
+				ORDER BY dc.cat		
+			]]>
+		</query>
+	</named-query>
+	
+	
+	<named-query name="DIA.getCategorieDocfaResidenziale">
+		<query>
+			<![CDATA[
+				SELECT distinct(dc.cat) 
+				FROM DocfaReport dc
+				ORDER BY dc.cat				
+			]]>
+		</query>
+	</named-query>
+	
+	
+	<named-query name="DIA.getFornitureDocfaNonResidenziale">
+		<query>
+			<![CDATA[
+				SELECT distinct(dc.fornitura) 
+				FROM DocfaNonResidenziale dc
+				ORDER BY dc.fornitura				
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getFornitureDocfaResidenziale">
+		<query>
+			<![CDATA[
+				SELECT distinct(dc.fornitura) 
+				FROM DocfaResidenziale dc
+				ORDER BY dc.fornitura				
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDocfaNonResidenziale">
+		<query>
+			<![CDATA[
+				SELECT dc
+				FROM DocfaNonResidenziale dc
+				WHERE dc.fornitura between :fornituraDa AND :fornituraA 
+				ORDER BY dc.fornitura				
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="DIA.getDocfaNonResidenzialeCount">
+		<query>
+			<![CDATA[
+				SELECT count(dc)
+				FROM DocfaNonResidenziale dc
+				WHERE dc.fornitura between :fornituraDa AND :fornituraA 						
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="DIA.getDocfaResidenziale">
+		<query>
+			<![CDATA[
+				SELECT dc
+				FROM DocfaResidenziale dc
+				WHERE dc.fornitura between :fornituraDa AND :fornituraA 
+				ORDER BY dc.fornitura				
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="DIA.getDocfaResidenzialeCount">
+		<query>
+			<![CDATA[
+				SELECT count(dc)
+				FROM DocfaResidenziale dc
+				WHERE dc.fornitura between :fornituraDa AND :fornituraA 							
+			]]>
+		</query>
+	</named-query>
+	
+	
+	
+	<named-query name="DIA.getDocfaReport">
+		<query>
+			<![CDATA[
+				SELECT dr 
+				FROM DocfaReport dr
+				WHERE dr.forn between :dataDa and :dataA
+				ORDER BY dr.forn, dr.prot, dr.foglio, dr.cat, dr.sub asc				
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDocfaReportWithCategoria">
+		<query>
+			<![CDATA[
+				SELECT dr 
+				FROM DocfaReport dr
+				WHERE dr.forn between :dataDa and :dataA
+				AND dr.cat = :categoria
+				ORDER BY dr.forn, dr.prot, dr.foglio, dr.cat, dr.sub asc				
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDocfaReportNoRes">
+		<query>
+			<![CDATA[
+				SELECT dr 
+				FROM DocfaReportNoRes dr
+				WHERE dr.forn between :dataDa and :dataA
+				ORDER BY dr.forn, dr.prot, dr.foglio, dr.cat, dr.sub asc				
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DIA.getDocfaReportNoResWithCategoria">
+		<query>
+			<![CDATA[
+				SELECT dr 
+				FROM DocfaReportNoRes dr
+				WHERE dr.forn between :dataDa and :dataA
+				AND dr.cat = :categoria
+				ORDER BY dr.forn, dr.prot, dr.foglio, dr.cat, dr.sub asc				
+			]]>
+		</query>
+	</named-query>
+			
+</entity-mappings>

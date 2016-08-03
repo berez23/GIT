@@ -1,0 +1,236 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition>
+	
+	
+	
+	<h:form id="formIci">
+	
+	 
+		<rich:simpleTogglePanel switchType="client" opened="false" id="tributiPanelIci" >
+			
+			<f:facet name="header">ICI - Sintesi unit&#x00E0;  immobiliari dichiarate (alla data di riferimento)</f:facet>
+			
+			 
+				<rich:dataTable width="100%" id="listaIci"
+			        	var="elem"
+			        	value="#{tributiBean.listaIci}"
+			        	columnClasses="col" 
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						
+					<rich:column style="text-align:center">
+						<f:facet name="header">Sez.</f:facet>
+						<h:outputLabel value="#{elem.sezione}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">F-P-S</f:facet>
+						<h:outputLabel value="#{elem.foglio} - #{elem.particella} - #{elem.sub}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Ultimo anno Rif/Den.</f:facet>
+						<h:outputLabel value="#{elem.annoRifConfr}" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<f:facet name="header">Valore Ici dich.</f:facet>
+						<h:outputLabel value="#{elem.valImmobileF}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">Cat. Ici</f:facet>
+						<h:outputLabel value="#{elem.categoria}" />
+					</rich:column>						
+					<rich:column style="text-align:center">
+						<f:facet name="header">Cat. catastale</f:facet>
+						<h:outputLabel value="#{elem.categoriaDaCatasto}" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<f:facet name="header">Rendita catastale</f:facet>
+						<h:outputLabel value="#{elem.renditaDaCatasto}" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<f:facet name="header">Impon. Ici calcolato</f:facet>
+						<h:outputLabel value="#{elem.imponibileIciCalcolatoStr}" />
+					</rich:column>	
+		            <rich:column>
+		            	<f:facet name="header"></f:facet>
+				        <a4j:commandLink action="#{tributiBean.showDettaglioICI}" 
+			            	value="Dettaglio" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+				   			<a4j:actionparam id="sez" name="sez" value="#{elem.sezione}" assignTo="#{tributiBean.sezione}"/>
+				   			<a4j:actionparam id="foglio" name="foglio" value="#{elem.foglio}" assignTo="#{tributiBean.foglio}"/>
+				   			<a4j:actionparam id="part" name="part" value="#{elem.particella}" assignTo="#{tributiBean.particella}"/>
+				   			<a4j:actionparam id="sub" name="sub" value="#{elem.sub}" assignTo="#{tributiBean.sub}"/>				
+				   			<a4j:actionparam id="dataRif" name="dataRif" value="#{tributiBean.dataRifStr}" assignTo="#{tributiBean.dataRifStr}"/>   			
+				   			<a4j:actionparam id="annoRif" name="annoRif" value="#{elem.annoRifConfr}" assignTo="#{tributiBean.annoRiferIci}"/>
+			            	<a4j:actionparam id="uiPageIci1" name="uiPageIci1" value="dettaglioTributiICI.xhtml" assignTo="#{uiPageBean.page}"/>		            	
+	     				</a4j:commandLink>
+		            </rich:column>													
+				</rich:dataTable>
+				<table style="width:100%">
+					<tr style="background-color: #ebf3fd;height:40px;width:100%">
+						<td>
+							<a4j:commandLink  
+								action="#{tributiBean.showOggettiIciCivici}" 
+								value="Visualizza la lista degli oggetti Ici dichiarati ai civici della particella, non individuati tramite coordinate catastali"
+								style="font-weight: bold;color:black;"
+								reRender="panelDettaglio" ajaxSingle="true"
+								oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+					   			<a4j:actionparam id="sez2" name="sez2" value="#{tributiBean.sezione}" assignTo="#{tributiBean.sezione}"/>
+					   			<a4j:actionparam id="foglio2" name="foglio2" value="#{tributiBean.foglio}" assignTo="#{tributiBean.foglio}"/>
+					   			<a4j:actionparam id="part2" name="part2" value="#{tributiBean.particella}" assignTo="#{tributiBean.particella}"/>
+					   			<a4j:actionparam id="dataRif2" name="dataRif2" value="#{tributiBean.dataRifStr}" assignTo="#{tributiBean.dataRifStr}"/>
+					   			<a4j:actionparam id="uiPageIci2" name="uiPageIci2" value="dettaglioTributiICI.xhtml" assignTo="#{uiPageBean.page}"/>
+					  	   </a4j:commandLink>
+						</td>	
+					</tr>
+				</table>
+		
+		</rich:simpleTogglePanel>
+		<rich:simpleTogglePanel switchType="client" opened="false" id="tributiPanelTarsu">
+	
+			<f:facet name="header">TARSU - Sintesi unit&#x00E0; immobiliari dichiarate (alla data di riferimento)</f:facet>
+				<rich:dataTable width="100%" 
+			        	var="elem"
+			        	value="#{tributiBean.listaTarsu}"
+			        	columnClasses="col" 
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					
+					<rich:column>
+						<f:facet name="header">Sez.</f:facet>
+						<h:outputLabel value="#{elem.sezione}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">F-P-S</f:facet>
+						<h:outputLabel value="#{elem.foglio} - #{elem.particella} - #{elem.sub}" />
+					</rich:column>	
+					<rich:column style="text-align:right">
+						<f:facet name="header">Sup. dich.</f:facet>
+						<h:outputLabel value="#{elem.supTot}" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<f:facet name="header">Sup. C340</f:facet>
+						<h:outputLabel value="#{elem.superficieC340}" />
+					</rich:column>		
+					<rich:column style="text-align:center">
+						<f:facet name="header">Inizio poss.</f:facet>
+						<h:outputLabel value="#{elem.dtIniPos}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">Fine poss.</f:facet>
+						<h:outputLabel value="#{elem.dtFinPos}" />
+					</rich:column>
+					<rich:column style="text-align:left">
+						<f:facet name="header">Classe</f:facet>
+						<h:outputLabel value="#{elem.desClasse}" />
+					</rich:column>										
+					<rich:column style="text-align:left">
+						<f:facet name="header">Tipo</f:facet>
+						<h:outputLabel value="#{elem.desTipOgg}" />
+					</rich:column>
+		            <rich:column>
+		            	<f:facet name="header"></f:facet>
+				        <a4j:commandLink action="#{tributiBean.showDettaglioTarsu}" 
+			            	value="Dettaglio" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+				   			<a4j:actionparam id="sezT1" name="sezT1" value="#{elem.sezione}" assignTo="#{tributiBean.sezione}"/>
+				   			<a4j:actionparam id="foglioT1" name="foglioT1" value="#{elem.foglio}" assignTo="#{tributiBean.foglio}"/>
+				   			<a4j:actionparam id="partT1" name="partT1" value="#{elem.particella}" assignTo="#{tributiBean.particella}"/>
+				   			<a4j:actionparam id="subT1" name="subT1" value="#{elem.sub}" assignTo="#{tributiBean.sub}"/>
+	   			  			<a4j:actionparam id="dataRifT1" name="dataRifT1" value="#{tributiBean.dataRifStr}" assignTo="#{tributiBean.dataRifStr}"/>
+			            	<a4j:actionparam id="uiPageTarsu1" name="uiPageTarsu1" value="dettaglioTributiTARSU.xhtml" assignTo="#{uiPageBean.page}"/>
+	     				</a4j:commandLink>
+		            </rich:column>								
+				</rich:dataTable>
+				<table style="width:100%">
+					<tr style="background-color: #ebf3fd;height:40px;width:100%">
+						<td >
+							<a4j:commandLink action="#{tributiBean.showOggettiTarsuCivici}" 
+								value="Visualizza la lista degli oggetti Tarsu dichiarati ai civici della particella, non individuati tramite coordinate catastali"  
+								style="font-weight: bold;color:black;"
+								reRender="panelDettaglio" ajaxSingle="true"
+								oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+					   			<a4j:actionparam id="sezT2" name="sezT2" value="#{tributiBean.sezione}" assignTo="#{tributiBean.sezione}"/>
+					   			<a4j:actionparam id="foglioT2" name="foglioT2" value="#{tributiBean.foglio}" assignTo="#{tributiBean.foglio}"/>
+					   			<a4j:actionparam id="partT2" name="partT2" value="#{tributiBean.particella}" assignTo="#{tributiBean.particella}"/>
+					   			<a4j:actionparam id="dataRifT2" name="dataRifT2" value="#{tributiBean.dataRifStr}" assignTo="#{tributiBean.dataRifStr}"/>
+					   			<a4j:actionparam id="uiPageTarsu2" name="uiPageTarsu2" value="dettaglioTributiTARSU.xhtml" assignTo="#{uiPageBean.page}"/>
+					   	   </a4j:commandLink>
+						</td>	
+					</tr>
+				</table>
+			
+			
+		</rich:simpleTogglePanel>
+		<rich:simpleTogglePanel switchType="client" opened="false" id="tributiPanelCosap">
+						
+			<f:facet name="header">COSAP - Sintesi dati occupazione (alla data di riferimento)</f:facet>
+				<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{tributiBean.listaCosap}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" >
+					
+					<rich:column>
+						<f:facet name="header"><h:outputText value="F-P-S" /></f:facet>
+						<h:outputLabel value="#{elem.foglio} - #{elem.particella} - #{elem.subalterno}" />
+					</rich:column>	
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Num. doc." /></f:facet>
+						<h:outputLabel value="#{elem.numeroDocumento}" />
+					</rich:column>	
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Anno doc." /></f:facet>
+						<h:outputLabel value="#{elem.annoDocumento}" />
+					</rich:column>	
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Cod. immobile" /></f:facet>
+						<h:outputLabel value="#{elem.codiceImmobile}" />
+					</rich:column>	
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Tipo occupaz." /></f:facet>
+						<h:outputLabel value="#{elem.tipoOccupazione}" />
+					</rich:column>	
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Inizio val." /></f:facet>
+						<h:outputLabel value="#{elem.dtIniValidita}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{tributiBean.timeZone}"/>
+						</h:outputLabel>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header"><h:outputText value="Fine val." /></f:facet>	
+						<h:outputLabel value="#{elem.dtFinValidita}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{tributiBean.timeZone}"/>
+						</h:outputLabel>
+					</rich:column>
+					<rich:column>	
+						<f:facet name="header"></f:facet>
+						<a4j:commandLink action="#{tributiBean.showDettaglioCosap}" 
+				            	value="Dettaglio" reRender="panelDettaglio" ajaxSingle="true"
+				            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">			
+				            	<a4j:actionparam id="sezT3" name="sezT3" value="#{tributiBean.sezione}" assignTo="#{tributiBean.sezione}"/>
+						   		<a4j:actionparam id="foglioT3" name="foglioT3" value="#{tributiBean.foglio}" assignTo="#{tributiBean.foglio}"/>
+						   		<a4j:actionparam id="partT3" name="partT3" value="#{tributiBean.particella}" assignTo="#{tributiBean.particella}"/>	
+					   			<a4j:actionparam id="numDoc" name="numDoc" value="#{elem.numeroDocumento}" assignTo="#{tributiBean.numeroDocumento}"/>   			
+					   			<a4j:actionparam id="annoDoc" name="annoDoc" value="#{elem.annoDocumento}" assignTo="#{tributiBean.annoDocumento}"/>
+					   			<a4j:actionparam id="tipoOcc" name="tipoOcc" value="#{elem.tipoOccupazione}" assignTo="#{tributiBean.tipoOccupazione}"/>   			
+					   			<a4j:actionparam id="codImm" name="codImm" value="#{elem.codiceImmobile}" assignTo="#{tributiBean.codiceImmobile}"/>
+					   			<a4j:actionparam id="dtIniValiditaStr" name="dtIniValiditaStr" value="#{elem.dtIniValiditaStr2}" assignTo="#{tributiBean.dtIniValiditaStr}"/>   			
+					   			<a4j:actionparam id="dtFinValiditaStr" name="dtFinValiditaStr" value="#{elem.dtFinValiditaStr}" assignTo="#{tributiBean.dtFineValiditaStr}"/>
+				            	<a4j:actionparam id="uiPageCosap" name="uiPageCosap" value="dettaglioTributiCOSAP.xhtml" assignTo="#{uiPageBean.page}"/>		            	
+		     			</a4j:commandLink>
+					</rich:column>
+				</rich:dataTable>
+			
+		</rich:simpleTogglePanel>
+	</h:form>
+	</ui:composition>
+</html>

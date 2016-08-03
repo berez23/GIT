@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_INTERVENTO_DIARIOV1" id="F9ACB711-E531-EAC9-4929-FE03DFAF243F" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>6ACC7903-A5C6-26D9-38E1-A967A533136A</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>6EC1B9A3-6560-E516-2C88-1E8149723333</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

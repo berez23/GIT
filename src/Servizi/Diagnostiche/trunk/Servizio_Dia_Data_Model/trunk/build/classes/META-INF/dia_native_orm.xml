@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+	<named-native-query name="DIA.getZCErrate" result-set-mapping="zcErrataMap">
+		<query>
+			<![CDATA[
+				SELECT  TO_NUMBER(ZC_DOCFA) ZONADIC, 
+			            TO_NUMBER(ZC_CAT) ZONA, 
+			            TO_NUMBER(FOGLIO) FOGLIO,
+			            OLD_MZ OLDMZ, 
+			            NEW_MZ NEWMZ, 
+			            count(*) OCCORRENZE 
+				FROM DOCFA_REPORT C1
+				WHERE TO_NUMBER(C1.ZC_DOCFA) <> TO_NUMBER(C1.ZC_CAT)
+				AND TO_DATE(C1.DATA_REG,'dd/mm/yyyy') BETWEEN TO_DATE(:dataDa,'dd/mm/yyyy') AND TO_DATE(:dataA,'dd/mm/yyyy')
+				GROUP BY TO_NUMBER(ZC_DOCFA), TO_NUMBER(ZC_CAT), TO_NUMBER(FOGLIO), OLD_MZ, NEW_MZ 
+				ORDER BY TO_NUMBER(FOGLIO)
+			]]>
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="DIA.getZCErrateWithCategoria" result-set-mapping="zcErrataMap">
+		<query>
+			<![CDATA[
+				SELECT  TO_NUMBER(ZC_DOCFA) ZONADIC, 
+			            TO_NUMBER(ZC_CAT) ZONA, 
+			            TO_NUMBER(FOGLIO) FOGLIO,
+			            OLD_MZ OLDMZ, 
+			            NEW_MZ NEWMZ, 
+			            count(*) OCCORRENZE  
+				FROM DOCFA_REPORT C1
+				WHERE TO_NUMBER(C1.ZC_DOCFA) <> TO_NUMBER(C1.ZC_CAT)
+				AND TO_DATE(C1.DATA_REG,'dd/mm/yyyy') BETWEEN TO_DATE(:dataDa,'dd/mm/yyyy') AND TO_DATE(:dataA,'dd/mm/yyyy')
+				AND CAT = :categoria
+				GROUP BY TO_NUMBER(ZC_DOCFA), TO_NUMBER(ZC_CAT), TO_NUMBER(FOGLIO), OLD_MZ, NEW_MZ 
+				ORDER BY TO_NUMBER(FOGLIO)
+			]]>
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="DIA.getZCErrateNores" result-set-mapping="zcErrataMap">
+		<query>
+			<![CDATA[
+				SELECT  TO_NUMBER(ZC_DOCFA) ZONADIC, 
+			            TO_NUMBER(ZC_CAT) ZONA, 
+			            TO_NUMBER(FOGLIO) FOGLIO,
+			            OLD_MZ OLDMZ, 
+			            NEW_MZ NEWMZ, 
+			            count(*) OCCORRENZE 
+				FROM DOCFA_REPORT_NORES C2
+				WHERE TO_NUMBER(C2.ZC_DOCFA) <> TO_NUMBER(C2.ZC_CAT)
+				AND TO_DATE(C2.DATA_REG,'dd/mm/yyyy') BETWEEN TO_DATE(:dataDa,'dd/mm/yyyy') AND TO_DATE(:dataA,'dd/mm/yyyy')
+				GROUP BY TO_NUMBER(ZC_DOCFA), TO_NUMBER(ZC_CAT), TO_NUMBER(FOGLIO), OLD_MZ, NEW_MZ 
+				ORDER BY TO_NUMBER(FOGLIO)
+			]]>
+		</query>
+	</named-native-query>
+	
+	<named-native-query name="DIA.getZCErrateNoresWithCategoria" result-set-mapping="zcErrataMap">
+		<query>
+			<![CDATA[
+				SELECT  TO_NUMBER(ZC_DOCFA) ZONADIC, 
+			            TO_NUMBER(ZC_CAT) ZONA, 
+			            TO_NUMBER(FOGLIO) FOGLIO,
+			            OLD_MZ OLDMZ, 
+			            NEW_MZ NEWMZ, 
+			            count(*) OCCORRENZE 
+				FROM DOCFA_REPORT_NORES C2
+				WHERE TO_NUMBER(C2.ZC_DOCFA) <> TO_NUMBER(C2.ZC_CAT)
+				AND TO_DATE(C2.DATA_REG,'dd/mm/yyyy') BETWEEN TO_DATE(:dataDa,'dd/mm/yyyy') AND TO_DATE(:dataA,'dd/mm/yyyy')
+				AND CAT = :categoria
+				GROUP BY TO_NUMBER(ZC_DOCFA), TO_NUMBER(ZC_CAT), TO_NUMBER(FOGLIO), OLD_MZ, NEW_MZ 
+				ORDER BY TO_NUMBER(FOGLIO)
+			]]>
+		</query>
+	</named-native-query>
+	
+	
+	<sql-result-set-mapping name="zcErrataMap">
+		<entity-result entity-class="it.webred.ct.diagnostics.service.data.model.zc.ZCErrata"/>		
+	</sql-result-set-mapping>
+		
+</entity-mappings>

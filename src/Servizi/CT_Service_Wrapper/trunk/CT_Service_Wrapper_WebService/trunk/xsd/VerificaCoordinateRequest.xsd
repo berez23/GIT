@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   jaxb:version="2.0" 
+		   jaxb:extensionBindingPrefixes="xjc">
+
+
+	<xs:include schemaLocation="UserAuth.xsd"/>
+         
+		
+	<xs:element name="verificaCoordinate">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="infoUtente" type="userInfo" minOccurs="0" />
+                <xs:element name="credenziali" type="credenziali" minOccurs="0" />
+                <xs:element name="datiToponomastici" type="datiToponomastici" minOccurs="0" />
+                <xs:element name="datiCatastali" type="datiCatastali" minOccurs="0" />
+                <xs:element name="residenziale" type="residenziale" minOccurs="0" />
+                <xs:element name="nonResidenziale" type="nonResidenziale" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+		   
+	
+	<xs:complexType name="credenziali">
+        <xs:sequence>
+            <xs:element name="sistema" type="xs:string" minOccurs="0"/>
+            <xs:element name="utente" type="xs:string" minOccurs="0" />
+            <xs:element name="token" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	
+	<xs:complexType name="datiToponomastici">
+        <xs:sequence>
+            <xs:element name="tipoArea" type="xs:string" minOccurs="0" />
+            <xs:element name="nomeVia" type="xs:string" minOccurs="0"  />
+            <xs:element name="civico" type="xs:string" minOccurs="0"/>
+            <xs:element name="esponente" type="xs:string" minOccurs="0"/>
+            <xs:element name="codiceVia" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="datiCatastali">
+        <xs:sequence>
+            <xs:element name="foglio" type="xs:string" minOccurs="0" />
+            <xs:element name="mappale" type="xs:string" minOccurs="0"  />
+            <xs:element name="subalterno" type="xs:string" minOccurs="0"/>
+            <xs:element name="sezione" type="xs:string" minOccurs="0"/>
+            <xs:element name="tipoCatasto" type="tipoCatasto" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="residenziale">
+        <xs:sequence>
+            <xs:element name="categoriaEdilizia" minOccurs="0" >
+			 	<xs:simpleType>
+			        <xs:restriction base="xs:string">
+			            <xs:enumeration value="Civile"/>
+			            <xs:enumeration value="Economica"/>
+			          </xs:restriction>
+			    </xs:simpleType>
+            </xs:element>
+            <xs:element name="tipoIntervento" minOccurs="0" >
+			<xs:simpleType>
+		        <xs:restriction base="xs:string">
+		            <xs:enumeration value="Ristrutturazione"/>
+		            <xs:enumeration value="Nuova Costruzione"/>
+		        </xs:restriction>
+			</xs:simpleType>
+            </xs:element>
+            <xs:element name="ascensoreOrMin3mFT" minOccurs="0" >
+			 	<xs:simpleType>
+			        <xs:restriction base="xs:string">
+			            <xs:enumeration value="S"/>
+			            <xs:enumeration value="N"/>
+			          </xs:restriction>
+			    </xs:simpleType>
+            </xs:element>
+            <xs:element name="consistenza" type="xs:decimal" minOccurs="0" />
+            <xs:element name="superficie" type="xs:decimal" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="nonResidenziale">
+        <xs:sequence>
+            <xs:element name="categoriaEdilizia" minOccurs="0" >
+		<xs:simpleType>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="A10"/>
+            <xs:enumeration value="C1"/>
+            <xs:enumeration value="C2"/>
+            <xs:enumeration value="C3"/>
+            <xs:enumeration value="C6"/>
+          </xs:restriction>
+	    </xs:simpleType>	            
+            </xs:element>
+            
+            <xs:element name="C6" type="c6" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="c6">
+        <xs:sequence>
+            <xs:element name="postoAutoCoperto" minOccurs="0" >
+		 	<xs:simpleType>
+		        <xs:restriction base="xs:string">
+		            <xs:enumeration value="S"/>
+		            <xs:enumeration value="N"/>
+		          </xs:restriction>
+		    </xs:simpleType>
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+		  
+ 	<xs:simpleType name="tipoCatasto">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Terreni"/>
+            <xs:enumeration value="Fabbricati"/>
+          </xs:restriction>
+    </xs:simpleType>
+		  
+		  
+</xs:schema>

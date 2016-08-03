@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Servizio_SpProf">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module archiveName="Indice_Data_Model.jar" deploy-path="/lib" handle="module:/resource/Indice_Data_Model/Indice_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="GeospatialProvider_EJBClient.jar" deploy-path="/lib" handle="module:/resource/GeospatialProvider_EJBClient/GeospatialProvider_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="GeospatialProvider_JPA.jar" deploy-path="/lib" handle="module:/resource/GeospatialProvider_JPA/GeospatialProvider_JPA">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_SpProf_Admin_WEB.war" deploy-path="/" handle="module:/resource/Servizio_SpProf_Admin_WEB/Servizio_SpProf_Admin_WEB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_SpProf_EJB.jar" deploy-path="/" handle="module:/resource/Servizio_SpProf_EJB/Servizio_SpProf_EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_SpProf_JPA.jar" deploy-path="/lib" handle="module:/resource/Servizio_SpProf_JPA/Servizio_SpProf_JPA">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_SpProf_User_WEB.war" deploy-path="/" handle="module:/resource/Servizio_SpProf_User_WEB/Servizio_SpProf_User_WEB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_SpProf_Classamento_WEB.war" deploy-path="/" handle="module:/resource/Servizio_SpProf_Classamento_WEB/Servizio_SpProf_Classamento_WEB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_FasFab_Data_Model.jar" deploy-path="/lib" handle="module:/resource/Servizio_FasFab_Data_Model/Servizio_FasFab_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="datarouter.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/datarouter.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cglib-2.2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/cglib/2.2/cglib-2.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/aspectj/1.6.8/com.springsource.org.aspectj.weaver-1.6.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="aopalliance.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/aopalliance/1.0/aopalliance.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="com.springsource.org.aspectj.tools-1.6.8.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/aspectj/1.6.8/com.springsource.org.aspectj.tools-1.6.8.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="pitchfork-1.0-m5.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/pitchfork/1.0/pitchfork-1.0-m5.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="asm-all-3.3.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/asm/3.3/asm-all-3.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gdal.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/gdal/gdal.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ogr2ogr.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/ogr2ogr.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_FasFab_EJBClient.jar" deploy-path="/lib" handle="module:/resource/Servizio_FasFab_EJBClient/Servizio_FasFab_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cetsecutil.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/cetsecutil.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_SpProf_EJBClient.jar" deploy-path="/lib" handle="module:/resource/Servizio_SpProf_EJBClient/Servizio_SpProf_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jump-workbench-1.2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/jump/1.2/jump-workbench-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jump-core-1.2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/jump/1.2/jump-core-1.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-kml-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-kml-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-metadata-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-metadata-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-app-schema-resolver-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-app-schema-resolver-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-epsg-extension-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-epsg-extension-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-epsg-hsql-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-epsg-hsql-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-arcsde-common-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-arcsde-common-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-wms-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-wms-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-imagemosaic-jdbc-8.0-M2.jar" deploy-path="/" handle="module:/classpath/lib/CT-LIBS/geotools/gt-imagemosaic-jdbc-8.0-M2.jar">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-wcs-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-wcs-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-geotiff-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-geotiff-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-wfs-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-wfs-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-app-schema-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-app-schema-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-grid-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-grid-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-opengis-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-opengis-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-sample-data-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-sample-data-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-ows-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-ows-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-grassraster-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-grassraster-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-data-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-data-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xml-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xml-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-graph-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-graph-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-h2-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-h2-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-imageio-ext-gdal-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-imageio-ext-gdal-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-referencing3D-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-referencing3D-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-mysql-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-mysql-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-swt-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-swt-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-sample-data-access-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-sample-data-access-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-gtopo30-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-gtopo30-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-sqlserver-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-sqlserver-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-main-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-main-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-epsg-wkt-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-epsg-wkt-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-gml3-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-gml3-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-coverage-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-coverage-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-feature-pregeneralized-8.0-M2.jar" deploy-path="/" handle="module:/classpath/lib/CT-LIBS/geotools/gt-feature-pregeneralized-8.0-M2.jar">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-shapefile-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-shapefile-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-charts-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-charts-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-cql-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-cql-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-imagemosaic-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-imagemosaic-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-imagepyramid-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-imagepyramid-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-geojson-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-geojson-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-epsg-postgresql-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-epsg-postgresql-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-db2-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-db2-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-arcgrid-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-arcgrid-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-wfs-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-wfs-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jp2k-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jp2k-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-swing-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-swing-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-teradata-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-teradata-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-api-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-api-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-referencing-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-referencing-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-sld-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-sld-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-core-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-core-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-postgis-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-postgis-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-gml2-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-gml2-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-svg-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-svg-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-oracle-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-oracle-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-process-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-process-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-fes-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-fes-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-validation-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-validation-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-brewer-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-brewer-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-spatialite-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-spatialite-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-property-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-property-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-render-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-render-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-image-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-image-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-wms-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-wms-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-jdbc-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-jdbc-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-filter-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-filter-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-xsd-wps-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-xsd-wps-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="gt-arcsde-8.0-M2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/geotools/gt-arcsde-8.0-M2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jts-1.7.2.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/vividsolutions/jts-1.7.2.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="commons-jxpath-1.3.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/apache-commons/main/commons-jxpath-1.3.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-web-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-web-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-aop-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-aop-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-expression-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-expression-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-beans-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-beans-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-orm-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-orm-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-tx-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-tx-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-asm-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-asm-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-core-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-core-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-jdbc-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-jdbc-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="spring-context-3.1.4.RELEASE.jar" deploy-path="/lib" handle="module:/classpath/lib/CT-LIBS/spring/3.1.4/spring-context-3.1.4.RELEASE.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="JGeometry.jar" deploy-path="/lib" handle="module:/resource/JGeometry/JGeometry">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

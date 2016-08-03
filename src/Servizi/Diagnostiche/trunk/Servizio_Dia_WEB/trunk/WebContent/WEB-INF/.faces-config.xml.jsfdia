@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="menu.home::#jsp#protected#welcome.xhtml"
+    NAME="output" PATH="/jsp/protected/welcome.xhtml"
+    TARGET="rules:#jsp#protected#welcome.xhtml" TITLE="menu.home" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.visualizzaDia::#jsp#protected#diagnostics#visualizzaDia.xhtml"
+    NAME="output1" PATH="/jsp/protected/diagnostics/visualizzaDia.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#visualizzaDia.xhtml"
+    TITLE="menu.visualizzaDia" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.eseguiDia::#jsp#protected#diagnostics#eseguiDia.xhtml"
+    NAME="output2" PATH="/jsp/protected/diagnostics/eseguiDia.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#eseguiDia.xhtml"
+    TITLE="menu.eseguiDia" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.diagnostiche.sottoscrittori::#jsp#protected#diagnostics#diaSottoscrittori.xhtml"
+    NAME="output3"
+    PATH="/jsp/protected/diagnostics/diaSottoscrittori.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#diaSottoscrittori.xhtml"
+    TITLE="menu.diagnostiche.sottoscrittori" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="diagnostica.dettaglio::#jsp#protected#diagnostics#diaDettaglio.xhtml"
+    NAME="output4" PATH="/jsp/protected/diagnostics/diaDettaglio.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#diaDettaglio.xhtml"
+    TITLE="diagnostica.dettaglio" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="ebj.result::#jsp#protected#ejbResult.xhtml"
+    NAME="output5" PATH="/jsp/protected/ejbResult.xhtml"
+    TARGET="rules:#jsp#protected#ejbResult.xhtml" TITLE="ebj.result" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="diagnostica.storicoTestata::#jsp#protected#diagnostics#storicoEsecuzioniDia.xhtml"
+    NAME="output6"
+    PATH="/jsp/protected/diagnostics/storicoEsecuzioniDia.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#storicoEsecuzioniDia.xhtml"
+    TITLE="diagnostica.storicoTestata" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="diagnostica.docfaNoRes::#jsp#protected#diagnostics#docfa#filtriDocfaNoRes.xhtml"
+    NAME="output7"
+    PATH="/jsp/protected/diagnostics/docfa/filtriDocfaNoRes.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#docfa#filtriDocfaNoRes.xhtml"
+    TITLE="diagnostica.docfaNoRes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="diagnostica.docfaRes::#jsp#protected#diagnostics#docfa#filtriDocfa.xhtml"
+    NAME="output8"
+    PATH="/jsp/protected/diagnostics/docfa/filtriDocfa.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#docfa#filtriDocfa.xhtml"
+    TITLE="diagnostica.docfaRes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="diagnostiche.docfaListaNoRes::#jsp#protected#diagnostics#docfa#listaDocfaNoRes.xhtml"
+    NAME="output9"
+    PATH="/jsp/protected/diagnostics/docfa/listaDocfaNoRes.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#docfa#listaDocfaNoRes.xhtml"
+    TITLE="diagnostiche.docfaListaNoRes" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="diagnostiche.docfaListaRes::#jsp#protected#diagnostics#docfa#listaDocfaRes.xhtml"
+    NAME="output10"
+    PATH="/jsp/protected/diagnostics/docfa/listaDocfaRes.xhtml"
+    TARGET="rules:#jsp#protected#diagnostics#docfa#listaDocfaRes.xhtml"
+    TITLE="diagnostiche.docfaListaRes" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#welcome.xhtml"
+  PATH="/jsp/protected/welcome.xhtml" SHAPE="272,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#diaDettaglio.xhtml"
+  PATH="/jsp/protected/diagnostics/diaDettaglio.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#diaSottoscrittori.xhtml"
+  PATH="/jsp/protected/diagnostics/diaSottoscrittori.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#visualizzaDia.xhtml"
+  PATH="/jsp/protected/diagnostics/visualizzaDia.xhtml"
+  SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#diagnostics#eseguiDia.xhtml"
+  PATH="/jsp/protected/diagnostics/eseguiDia.xhtml" SHAPE="304,385,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#ejbResult.xhtml"
+  PATH="/jsp/protected/ejbResult.xhtml" SHAPE="304,305,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#storicoEsecuzioniDia.xhtml"
+  PATH="/jsp/protected/diagnostics/storicoEsecuzioniDia.xhtml"
+  SHAPE="304,401,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#docfa#filtriDocfa.xhtml"
+  PATH="/jsp/protected/diagnostics/docfa/filtriDocfa.xhtml"
+  SHAPE="304,961,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#docfa#filtriDocfaNoRes.xhtml"
+  PATH="/jsp/protected/diagnostics/docfa/filtriDocfaNoRes.xhtml"
+  SHAPE="304,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#docfa#listaDocfaNoRes.xhtml"
+  PATH="/jsp/protected/diagnostics/docfa/listaDocfaNoRes.xhtml"
+  SHAPE="304,433,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostics#docfa#listaDocfaRes.xhtml"
+  PATH="/jsp/protected/diagnostics/docfa/listaDocfaRes.xhtml"
+  SHAPE="304,465,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

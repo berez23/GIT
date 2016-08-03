@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition>
+	<h:form>
+	 <rich:simpleTogglePanel switchType="client" opened="false" id="statoOccRes" rendered="#{permessiFonteBean.fonteDemografia}">
+		<f:facet name="header">Residenti da anagrafe (situazione attuale)</f:facet>	
+		
+		
+		 	<table border="1" class="dr-table rich-table" width="100%">
+            	<a4j:repeat value="#{statoOccupazioneBean.dettResidenti}" var="item">
+						<tr>
+						  <td style="background-color:yellow">
+							<b><h:outputLabel value="#{item.indirizzoAng.indirizzoCompleto}" /> </b>  <h:outputLabel value=" Totale Residenti: #{item.numTotaleResidenti}" />
+						  </td>
+						</tr>
+						<tr>
+							<td>
+								<rich:dataTable onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	                    						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+	                    						cellpadding="0" cellspacing="0" 
+	                   							width="100%" border="0" var="res" value="#{item.componentiFam}">						
+							
+									<f:facet name="header">
+	                        			<rich:columnGroup>
+											<rich:column>
+	                                			Famiglia/Rel. par.
+	                            			</rich:column>                        			
+	                            			<rich:column>
+	                                			Soggetto
+	                            			</rich:column>
+	                          				<rich:column>
+	                                			Data Nasc.
+	                            			</rich:column>
+	                          				<rich:column>
+	                                			Cod. Fisc.
+	                            			</rich:column>                          				                            			
+	                            			<rich:column>
+	                                			Tit. catastali
+	                            			</rich:column>
+	                            			<rich:column>
+	                                			Locazioni
+	                            			</rich:column>
+										</rich:columnGroup>
+								   </f:facet>
+								   <rich:column style="text-align:left; background-color:#{res.backgroundColor?'#ebf3fd':'white'}; ">
+								   		<font color="red">#{res.idExtDFamiglia}</font>/#{res.relazPar}
+								   </rich:column>
+								   <rich:column style="text-align:left; background-color:#{res.backgroundColor?'#ebf3fd':'white'}; ">
+								   	#{res.persona.cognome} #{res.persona.nome}
+								   </rich:column >
+									<rich:column style="background-color:#{res.backgroundColor?'#ebf3fd':'white'}; ">
+								   	  <h:outputText value="#{res.persona.dataNascita}">
+								   	  	<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{statoOccupazioneBean.timeZone}"/>
+								   	  </h:outputText>
+								   </rich:column>
+								   <rich:column style="background-color:#{res.backgroundColor?'#ebf3fd':'white'}; ">
+								   		#{res.persona.codfisc}
+								   </rich:column>
+								   <rich:column style="background-color:#{res.backgroundColor?'#ebf3fd':'white'}; ">
+								   		<a4j:commandLink action="#{titolariCatastoBean.doFindTitolarita}"
+								   						 oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'500px', width:'600px'})"				    	  					
+								   					     reRender="panelDettaglio"
+								   					     ajaxSingle="true">
+									   			<a4j:actionparam id="idSogg" name="idSogg" value="#{res.persona.id}" assignTo="#{titolariCatastoBean.idPersona}"/>
+									   			<a4j:actionparam id="sez" name="sez" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{titolariCatastoBean.sezione}"/>
+									   			<a4j:actionparam id="foglio" name="foglio" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{titolariCatastoBean.foglio}"/>
+									   			<a4j:actionparam id="part" name="part" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{titolariCatastoBean.particella}"/>
+									   			
+									   			<a4j:actionparam id="anagName" name="anagName" value="#{res.persona.nome}" assignTo="#{titolariCatastoBean.anagNome}"/>
+									   			<a4j:actionparam id="anagCogn" name="anagCogn" value="#{res.persona.cognome}" assignTo="#{titolariCatastoBean.anagCogn}"/>
+									   			<a4j:actionparam id="anagCF" name="anagCF" value="#{res.persona.codfisc}" assignTo="#{titolariCatastoBean.anagCF}"/>
+									   			
+									   			<a4j:actionparam id="uiPage" name="uiPage" value="dettaglioTit.xhtml" assignTo="#{uiPageBean.page}"/>
+											Dettaglio							   		
+								   		</a4j:commandLink>
+								   </rich:column>
+								   <rich:column style="background-color:#{res.backgroundColor?'#ebf3fd':'white'}; ">
+								   		<a4j:commandLink action="#{locazioniBean.doFindLocazioni}"
+								   						 oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'500px', width:'750px'})"				    	  					
+								   					     reRender="panelDettaglio"
+								   					     ajaxSingle="true">
+									   			<a4j:actionparam id="sezloc" name="sez" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{locazioniBean.sezione}"/>
+									   			<a4j:actionparam id="foglioloc" name="foglio" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{locazioniBean.foglio}"/>
+									   			<a4j:actionparam id="partloc" name="part" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{locazioniBean.particella}"/>
+									   			
+									   			<a4j:actionparam id="anagNameloc" name="anagName" value="#{res.persona.nome}" assignTo="#{locazioniBean.anagNome}"/>
+									   			<a4j:actionparam id="anagCognloc" name="anagCogn" value="#{res.persona.cognome}" assignTo="#{locazioniBean.anagCogn}"/>
+									   			<a4j:actionparam id="anagCFloc" name="anagCF" value="#{res.persona.codfisc}" assignTo="#{locazioniBean.anagCF}"/>
+									   			
+									   			<a4j:actionparam id="uiPageloc" name="uiPage" value="dettaglioLoc.xhtml" assignTo="#{uiPageBean.page}"/>
+											Dettaglio							   		
+								   		</a4j:commandLink>
+								   </rich:column>
+	
+								</rich:dataTable>
+							</td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+				   </a4j:repeat>
+		
+				</table>
+			
+		</rich:simpleTogglePanel>
+		<rich:simpleTogglePanel switchType="client" opened="false" id="statoOccLoc" rendered="#{permessiFonteBean.fonteLocazioni}">
+		 	<f:facet name="header">Soggetti in locazione (situazione completa) </f:facet>
+				 
+		 	<rich:dataTable onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    	 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                    	 cellpadding="0" cellspacing="0" 
+                   		 width="100%" border="0" var="loc" value="#{statoOccupazioneBean.dettLocazioni}"
+                   		 >
+		   
+						  <rich:column>
+						  	<f:facet name="header">Soggetto</f:facet>
+						  	#{loc.soggetto.codicefiscale}
+						  </rich:column>   
+						  <rich:column>
+						   	<f:facet name="header">Posiz.Anag.</f:facet>
+						   	#{loc.posizAnagSoggetto}
+						  </rich:column>   
+						  <rich:column style="text-align:left">
+						  	<f:facet name="header">Ind. residenza</f:facet>
+						  	#{loc.soggetto.indirizzoResidenza} - #{loc.soggetto.cittaResidenza} - (#{loc.soggetto.provResidenza})
+						  </rich:column>	
+						  <rich:column style="text-align:left">
+						  	<f:facet name="header">Ind. ogg. locazione</f:facet>
+						  	#{loc.oggetto.indirizzo}
+						  </rich:column>
+						  <rich:column>
+						  	<f:facet name="header">Data Stipula</f:facet>
+				  			<h:outputLabel value="#{loc.oggetto.dataStipula}">
+				 				<f:convertDateTime pattern="dd/MM/yyyy"  timeZone="#{statoOccupazioneBean.timeZone}"/> 
+				 	 		</h:outputLabel>
+						  </rich:column>		
+						  <rich:column>
+						  	<f:facet name="header">Data Inizio</f:facet>
+				  			<h:outputLabel value="#{loc.oggetto.dataInizio}">
+				 				<f:convertDateTime pattern="dd/MM/yyyy"  timeZone="#{statoOccupazioneBean.timeZone}"/> 
+				 	 		</h:outputLabel>
+						  </rich:column>
+						  <rich:column>
+						  	<f:facet name="header">Data Registraz.</f:facet>
+				  			<h:outputLabel value="#{loc.oggetto.dataRegistrazione}">
+				 				<f:convertDateTime pattern="dd/MM/yyyy"  timeZone="#{statoOccupazioneBean.timeZone}"/> 
+				 	 		</h:outputLabel>
+						  </rich:column>
+						   <rich:column>
+						   	<f:facet name="header">Data Fine</f:facet>
+				  			<h:outputLabel value="#{loc.oggetto.dataFine}">
+				 				<f:convertDateTime pattern="dd/MM/yyyy"  timeZone="#{statoOccupazioneBean.timeZone}"/> 
+				 	 		</h:outputLabel>
+						  </rich:column>
+						  <rich:column>
+						  	<f:facet name="header">Canone</f:facet>
+						  	#{loc.oggetto.importoCanone}
+						  </rich:column>
+							  		
+		 	</rich:dataTable>			
+		</rich:simpleTogglePanel>
+		<rich:simpleTogglePanel switchType="client" opened="false" id="statoOccLicCom" rendered="#{permessiFonteBean.fonteLicCommerciali}">
+		 	<f:facet name="header">Licenze di commercio (situazione completa)</f:facet>
+				 
+
+		 	<rich:dataTable onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    	 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+                    	 cellpadding="0" cellspacing="0" 
+                   		 width="100%" border="0" var="licCom" value="#{statoOccupazioneBean.dettLicenzeCommercio}"
+                   		 >
+						
+						  <rich:column style="text-align:left"><f:facet name="header">Numero</f:facet>#{licCom.licenzaCommercio.numero}</rich:column>   
+						  <rich:column style="text-align:left"><f:facet name="header">Prot. num.</f:facet>#{licCom.licenzaCommercio.numeroProtocollo}</rich:column>   
+						  <rich:column><f:facet name="header">Prot. anno</f:facet>#{licCom.licenzaCommercio.annoProtocollo}</rich:column>    
+						  <rich:column>
+						  	<f:facet name="header">Data rilascio</f:facet>
+				  			<h:outputLabel value="#{licCom.licenzaCommercio.dataRilascio}">
+				 				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{statoOccupazioneBean.timeZone}"/> 
+				 	 		</h:outputLabel>
+						  </rich:column>	
+						  <rich:column>
+						  	<f:facet name="header">Data val.</f:facet>
+				  			<h:outputLabel value="#{licCom.licenzaCommercio.dataValidita}">
+				 				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{statoOccupazioneBean.timeZone}"/> 
+				 	 		</h:outputLabel>
+						  </rich:column>		
+						  <rich:column style="text-align:left"><f:facet name="header">Indirizzo</f:facet>#{licCom.indirizzoLicenza}</rich:column>
+						  <rich:column style="text-align:left"><f:facet name="header">Tipologia</f:facet>#{licCom.licenzaCommercio.tipologia}</rich:column>
+						  <rich:column style="text-align:right"><f:facet name="header">Sup. min.</f:facet>#{licCom.licenzaCommercio.superficieMinuto}</rich:column>
+						  <rich:column style="text-align:right"><f:facet name="header">Sup. tot.</f:facet>#{licCom.licenzaCommercio.superficieTotale}</rich:column>
+						  <rich:column style="text-align:left"><f:facet name="header">Ragione Sociale</f:facet>#{licCom.licenzaCommercio.ragSoc}</rich:column>
+							  		
+		 	</rich:dataTable>			
+		</rich:simpleTogglePanel>
+	</h:form>
+	</ui:composition>
+</html>

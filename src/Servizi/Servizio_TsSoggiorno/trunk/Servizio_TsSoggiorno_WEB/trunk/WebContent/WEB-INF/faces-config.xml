@@ -1,0 +1,108 @@
+<?xml version="1.0"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+ <managed-bean>
+  <managed-bean-name>userBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.util.UserBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>pageBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.util.PageBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>anagraficaBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.anagrafica.AnagraficaBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>societaBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.anagrafica.SocietaBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>strutturaBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.anagrafica.StrutturaBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>dichiarazioneBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.dichiarazione.DichiarazioneBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>gestioneFileBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.dichiarazione.GestioneFileBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>suggestionBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.util.SuggestionBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>dichiarazioneDataModel</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.dichiarazione.DichiarazioneDataModel</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+  <managed-property>
+   <property-name>dataProvider</property-name>
+   <property-class>it.webred.ct.service.tsSoggiorno.web.bean.dichiarazione.DichiarazioneDataProvider</property-class>
+   <value>#{dichiarazioneBean}</value>
+  </managed-property>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>tariffaBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.tariffa.TariffaBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>rimbsanzBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.rimbsanz.RimbSanzBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ <managed-bean>
+  <managed-bean-name>rimbsanzDataModel</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.rimbsanz.RimbSanzDataModel</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+  <managed-property>
+   <property-name>dataProvider</property-name>
+   <property-class>it.webred.ct.service.tsSoggiorno.web.bean.rimbsanz.RimbSanzDataProvider</property-class>
+   <value>#{rimbsanzBean}</value>
+  </managed-property>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>versamentoBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.versamento.VersamentoBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ 
+  <managed-bean>
+  <managed-bean-name>repRiepilogoBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.report.RepRiepilogoBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ 
+  <managed-bean>
+  <managed-bean-name>repVersamentiBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tsSoggiorno.web.bean.report.RepVersamentiBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ 
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+  <navigation-case>
+   <from-outcome>tssoggiorno.overview</from-outcome>
+   <to-view-id>/jsp/protected/home.xhtml</to-view-id>
+  </navigation-case>
+ </navigation-rule>
+ 
+ <application>
+  <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+  <message-bundle>it.webred.ct.service.tsSoggiorno.web.resources.messages</message-bundle>
+ </application>
+</faces-config>

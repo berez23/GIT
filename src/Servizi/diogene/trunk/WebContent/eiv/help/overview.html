@@ -1,0 +1,75 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+	<title>Untitled</title>
+</head>
+<body link="#0000ff" vlink="#0000ff" alink="#0000ff" bgcolor="#ededed" leftmargin="16" rightmargin="16">
+
+<style>
+.body
+	{
+	font-family: Tahoma;
+	font-size: 10Pt;
+	}
+	.title
+	{
+	font-family: Tahoma;
+	font-size: 20Px;
+	}
+
+</style>
+<script>
+	function up(val)
+		{
+		val.style.color = "red"
+		}
+	function up1(val)
+		{
+		val.style.color = ""
+		}
+	function indietro()
+	{
+	history.back()
+	}
+	function avanti()
+	{
+	history.forward()
+	}
+</script>
+<table>
+ <tr>
+ <td><span class="title">Overview<br><br> </span></td>
+ </tr>
+ <tr>
+ <td><span class="body">
+<u><strong>Esc Intranet Viewer</strong></u> è un'applicazione basata su Autodesk MapGuide Client per la condivisione di dati territoriali in reti Intranet/Internet.<br>
+Lo sviluppo che è stato messo a punto consente di visualizzare, navigare, ricercare, interrogare e modificare le informazioni presenti nel Sistema Informativo Territoriale sia grafiche che alfanumeriche.<br>
+L'applicazione consente, attraverso un'interfaccia WEB standard, di rendere fruibili tali informazioni anche a personale che non ha una preparazione specifica sui GIS (amministrativi, operai, addetti al pubblico, ecc.) 
+e di condividere i dati tra uffici e sedi diverse.<br>
+Essa richiede l'uso di un browser standard (quale Microsoft Internet Explorer o Netscape) e di installare un client disponibile in 3 versioni:<br>
+<MENU>
+<LI> ActiveX per Microsoft Explorer
+<LI> Plug-In per Netscape
+<LI> Applet Java per qualsiasi browser
+</MENU> 
+<br>
+Le principali funzioni dell'applicazione sono:<br>
+<MENU>
+<LI> <A onmouseover="up(this)" onmouseout="up1(this)"  href="help_mapviewer.html" TARGET="contestuale">Funzioni di zoom e pan.</A> Consentono di effettuare tutti i pi&ugrave; tradizionali metodi di spostamento e di consultazione delle mappe quali: zoom in, zoom out, pan, zoom in scala, zoom precedente, zoom estensione, zoom sulla selezione, ecc..
+<LI> <A onmouseover="up(this)" onmouseout="up1(this)"  href="help_geocatalogo.html" TARGET="contestuale">Funzioni di selezione dei temi.</A> Consente di selezionare le cartografie ed i tematismi da consultare scegliendo tra quelli presenti nel catalogo cartografico gestito con il modulo ESC Catalogo. I temi scelti vengono portati in <A onmouseover="up(this)" onmouseout="up1(this)"  href="help_legenda.html" TARGET="contestuale">legenda</A> da cui è possibile effettuare operazioni di accendi/spegni layer oltre che visualizzare i temi attivi.
+<LI> Funzioni di interrogazione. Consentono di poter richiamare tramite un indirizzo URL, associato ad ogni singolo oggetto, documenti o schede dati.
+<LI> Funzioni di labeling. Consentono di arricchire le mappe attraverso label statiche o tooltip (label attivate al passaggio del mouse) che riportano informazioni sugli oggetti grafici provenienti anche da interrogazioni su database associato.
+<LI> <A onmouseover="up(this)" onmouseout="up1(this)"  href="help_cerca.html" TARGET="contestuale">Funzioni di ricerca sulla mappa.</A> Permettono di trovare ed inquadrare rapidamente un oggetto sulla mappa conoscendone il nome.
+<LI><A onmouseover="up(this)" onmouseout="up1(this)"  href="help_sele.html" TARGET="contestuale">Funzioni di selezione.</A> Consentono di selezionare gli oggetti grafici con vari metodi quali: nome, posizione, selezione rettangolare, selezione circolare, selezione poligonale, ecc.. Sugli oggetti selezionati è possibile poi effettuare una serie di operazioni quali: report, zoom ed analisi spaziali.
+<LI><A onmouseover="up(this)" onmouseout="up1(this)"  href="help_ana.html" TARGET="contestuale">Funzioni di analisi spaziale.</A> Il modulo client consente due forme di analisi spaziale: il buffering e l'overlay. La prima analisi consiste nel tracciare l'area equidistante dagli oggetti selezionati (ad esempio: 300 metri dall'edificato). La seconda forma di analisi consiste nell'individuare gli oggetti che si sovrappongono agli elementi poligonali selezionati (ad esempio: tutti i numeri civici di una determinata zona).
+<LI> <A onmouseover="up(this)" onmouseout="up1(this)"  href="help_info.html" TARGET="contestuale">Funzioni di report.</A> Consentono di costruire un report personalizzato di tutti gli oggetti selezionati appartenenti ad un determinato layer.
+<LI><A onmouseover="up(this)" onmouseout="up1(this)"  href="help_digi.html" TARGET="contestuale">Funzioni di digitalizzazione.</A> Funzioni che consentono di tracciare direttamente sul browser elementi geometrici quali poligoni, linee e punti, con la possibilit&agrave; di attribuire un codice ad ogni oggetto. E' inoltre possibile salvare questi oggetti in file in formato DXF mantenendo la stessa georeferenziazione della mappa su cui si è disegnato.
+<LI><A onmouseover="up(this)" onmouseout="up1(this)"  href="help_stam.html" TARGET="contestuale">Funzioni di stampa.</A> Consentono di preparare ed eseguire la stampa definendo scala, formato e layout. E' inoltre possibile copiare negli appunti la vista della mappa corrente.
+</MENU>
+ </span>
+ </td>
+ </tr>
+</table>
+</body>
+</html>

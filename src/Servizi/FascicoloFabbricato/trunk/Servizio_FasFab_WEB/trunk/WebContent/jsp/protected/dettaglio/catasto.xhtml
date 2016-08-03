@@ -1,0 +1,399 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+
+	<ui:composition>
+	<h:form>
+	<rich:panel id="catastoPanel">
+			<rich:simpleTogglePanel switchType="client" opened="false" id="catastoUiu">
+				<f:facet name="header">Unit&#x00E0; Immobiliari Urbane (situazione alla data di riferimento)</f:facet>
+							
+				<rich:dataTable width="100%"
+					id ="listaUiu"
+		        	var="uiu"
+		        	value="#{empty catastoBean.listaUiu ? sessionScope.catastoBean.listaUiu : catastoBean.listaUiu}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+							
+				<rich:column>
+					<f:facet name="header">Sub</f:facet>
+					<h:outputLabel value="#{uiu.id.unimm}" />
+				</rich:column>					            
+				<rich:column>	
+					<f:facet name="header">Cat.</f:facet>				
+					<h:outputLabel value="#{uiu.categoria}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Classe</f:facet>
+					<h:outputLabel value="#{uiu.classe}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Rend.</f:facet>											
+					<h:outputLabel value="#{uiu.rendita}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Sup.</f:facet>						
+					<h:outputLabel value="#{uiu.supCat}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">N.Vani</f:facet>										
+					<h:outputLabel value="#{uiu.consistenza}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Piano</f:facet>						
+					<h:outputLabel value="#{uiu.piano}"  />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Inizio Val.</f:facet>						
+					<h:outputLabel value="#{uiu.dataInizioVal}"  >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{catastoBean.timeZone}"/>  
+					</h:outputLabel>																																				
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Fine Val.</f:facet>						
+					<h:outputLabel value="#{uiu.id.dataFineVal}"  >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{catastoBean.timeZone}"/>  
+					</h:outputLabel>																																												
+				</rich:column>	
+				
+	            <rich:column>
+	                	<f:facet name="header">Titolari</f:facet>				
+				        <a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	action="#{catastoBean.loadTitolariUiu}" 
+			            	value="Dettaglio" 
+			            	reRender="panelDettaglio"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+	     					<a4j:actionparam id="idUiu" name="idUiu" value="#{uiu.pkidUiu}" assignTo="#{catastoBean.idUiu}" />
+	     					<a4j:actionparam id="sub1" name="sub" value="#{uiu.id.unimm}" assignTo="#{catastoBean.sub}"/>
+					    	<a4j:actionparam id="par1" name="par" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{catastoBean.particella}"/>
+					    	<a4j:actionparam id="fog1" name="fog" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{catastoBean.foglio}"/>
+	     					<a4j:actionparam id="titolPan" name="titolPan" value="dettaglioTitolariUiu.xhtml" assignTo="#{uiPageBean.page}"/>
+	     				</a4j:commandLink>
+	            </rich:column>	
+	            
+	            <rich:column>
+	            		<f:facet name="header">Compravendite</f:facet>		
+				        <a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	action="#{compravenditeBean.loadCompravenditeUiu}" 
+			            	value="Dettaglio" 
+			            	reRender="panelDettaglio" 
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+			            	<a4j:actionparam id="fog2" name="foglio" value="#{uiu.id.foglio}" assignTo="#{compravenditeBean.foglio}" />
+			            	<a4j:actionparam id="par2" name="particella" value="#{uiu.id.particella}" assignTo="#{compravenditeBean.particella}" />
+			            	<a4j:actionparam id="sub2" name="sub" value="#{uiu.id.unimm}" assignTo="#{compravenditeBean.sub}" />
+			            	<a4j:actionparam id="sezione" name="sezione" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{compravenditeBean.sezione}" />
+			            	<a4j:actionparam id="compPanel" name="compPanel" value="dettaglioCompravenditeUiu.xhtml" assignTo="#{uiPageBean.page}" />
+			            	
+	     				</a4j:commandLink>
+	            </rich:column>		
+	            
+	             <rich:column>
+	               		<f:facet name="header">Docfa</f:facet>		
+				        <a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	action="#{docfaBean.loadDocfaUiu}" 
+			            	value="Dettaglio" 
+			            	reRender="panelDettaglio" 
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+			            	<a4j:actionparam id="fog3" name="foglio" value="#{uiu.id.foglio}" assignTo="#{docfaBean.foglio}" />
+			            	<a4j:actionparam id="par3" name="particella" value="#{uiu.id.particella}" assignTo="#{docfaBean.particella}" />
+			            	<a4j:actionparam id="sub3" name="sub" value="#{uiu.id.unimm}" assignTo="#{docfaBean.sub}" />
+			            	<a4j:actionparam id="sez3" name="sezione" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{docfaBean.sezione}" />
+			            	<a4j:actionparam id="docfaUiuPanel" name="docfaUiuPanel" value="dettaglioDocfaUiu.xhtml" assignTo="#{uiPageBean.page}" />
+	     				</a4j:commandLink>
+	            </rich:column>	
+	            	  																						
+			</rich:dataTable>
+		</rich:simpleTogglePanel>
+			
+		<!--  LISTA TERRENI -->
+		<rich:simpleTogglePanel switchType="client" opened="false" id="catastoTerreni">
+			<f:facet name="header">Unita' Territoriali (situazione alla data di riferimento)</f:facet>
+							
+				<rich:dataTable width="100%"
+		        	var="ter"
+		        	value="#{empty catastoBean.listaTerreni ? sessionScope.catastoBean.listaTerreni : catastoBean.listaTerreni}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				<rich:column>
+					<f:facet name="header">Qualita'</f:facet>				
+					<h:outputLabel value="#{ter.qualCat}" /> - <h:outputLabel value="#{ter.descQualita}" />
+				</rich:column>					            
+				<rich:column>	
+					<f:facet name="header">Classe</f:facet>								
+					<h:outputLabel value="#{ter.classeTerreno}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Sup.</f:facet>								
+					<h:outputLabel value="#{ter.areaPart}" />
+				</rich:column>
+				<rich:column>		
+					<f:facet name="header">Redd. Domin.</f:facet>													
+					<h:outputLabel value="#{ter.redditoDominicale}" />
+				</rich:column>
+				<rich:column>		
+					<f:facet name="header">Redd. Agrario</f:facet>																		
+					<h:outputLabel value="#{ter.redditoAgrario}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Data Fine Val.</f:facet>				
+					<h:outputLabel value="#{ter.id.dataFine}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{catastoBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+	            <rich:column>
+	            		<f:facet name="header">Titolari</f:facet>				
+	                     <a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	action="#{catastoBean.loadTitolariTerreno}" 
+			            	value="Dettaglio" 
+			            	reRender="panelDettaglio"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+	     					
+	     					<a4j:actionparam id="sez7" name="sez" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{catastoBean.sezione}"/>
+					    	<a4j:actionparam id="par7" name="par" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{catastoBean.particella}"/>
+					    	<a4j:actionparam id="fog7" name="fog" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{catastoBean.foglio}"/>
+	     					<a4j:actionparam id="titPanel2" name="titPanel2" value="dettaglioTitolariUiu.xhtml" assignTo="#{uiPageBean.page}" />
+	     				</a4j:commandLink>
+	            </rich:column>	
+	            <rich:column>
+	            		<f:facet name="header">Compravendite</f:facet>					                
+				        <a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	action="#{compravenditeBean.loadCompravenditeTerreno}" 
+			            	value="Dettaglio" 
+			            	reRender="panelDettaglio" 
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+			            	<a4j:actionparam id="fog8" name="foglio" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{compravenditeBean.foglio}" />
+			            	<a4j:actionparam id="par8" name="particella" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{compravenditeBean.particella}" />
+			             	<a4j:actionparam id="sez8" name="sezione" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{compravenditeBean.sezione}" />
+	     					<a4j:actionparam id="compPanel3" name="compPanel3" value="dettaglioCompravenditeUiu.xhtml" assignTo="#{uiPageBean.page}" />
+	     				</a4j:commandLink>
+	            </rich:column>		            																	
+			</rich:dataTable>
+		</rich:simpleTogglePanel>
+		
+		
+		<!-- ELENCO DOCFA PARTICELLA -->
+		<rich:simpleTogglePanel switchType="client" opened="false" id="catastoDocfa">
+			<f:facet name="header">Docfa (situazione alla data di riferimento)</f:facet>	
+						
+			<rich:dataTable width="100%"
+		        	var="docfa"
+		        	value="#{empty docfaBean.listaDocfaParticella ? sessionScope.docfaBean.listaDocfaParticella : docfaBean.listaDocfaParticella}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+    
+					<rich:column>
+						<f:facet name="header">Protocollo</f:facet>
+			   	     	<h:outputLabel value="#{docfa.protocollo}"  />
+				    </rich:column>
+					<rich:column>
+						<f:facet name="header">Data Registrazione</f:facet>
+			   	     	<h:outputLabel value="#{docfa.dataRegistrazioneView}"  />
+				    </rich:column>
+					<rich:column>
+						<f:facet name="header">Data Ultimazione Lavori</f:facet>
+		       	     	<h:outputLabel value="#{docfa.dataVariazione}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{catastoBean.timeZone}"/>
+						</h:outputLabel>
+				  	</rich:column>
+				  	<rich:column style="text-align:left">
+						<f:facet name="header">Causale</f:facet>
+				       	<h:outputLabel value="#{docfa.causale}" />
+				    </rich:column> 
+					<rich:column>
+						<f:facet name="header">Sopp./Var./Cost.</f:facet>
+				       	<h:outputLabel value="#{docfa.numUiInSoppressione}" /> 
+				       	<h:outputLabel value="/" />
+				       	<h:outputLabel value="#{docfa.numUiInVariazione}" />
+				       	<h:outputLabel value="/" />
+				       	<h:outputLabel value="#{docfa.numUiInCostituzione}" />
+				    </rich:column>
+				  	<rich:column>
+						<f:facet name="header">UI coinvolte</f:facet>
+				       	<h:outputLabel value="#{docfa.elencoUI}"/> 
+				  	</rich:column>
+				  	<rich:column>
+						<f:facet name="header">Planimetrie</f:facet>
+	       	     	  	<a4j:commandLink 
+			            	ajaxSingle="true"
+			            	action="#{docfaBean.loadDocfaPlanimetrie}" 
+			            	value="Vai alla lista" 
+			            	reRender="panelDettaglio" 
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+			            	
+			            	<a4j:actionparam  name="protocollo" value="#{docfa.protocollo}" assignTo="#{docfaBean.protocollo}" />
+			            	<a4j:actionparam  name="fornitura" value="#{docfa.dataFornituraStr}" assignTo="#{docfaBean.fornituraStr}" />
+			            	<a4j:actionparam  name="foglio" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{docfaBean.foglio}" />
+			            	<a4j:actionparam  name="particella" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{docfaBean.particella}" />
+			            	<a4j:actionparam name="planPanel" value="dettaglioDocfaPlanimetrie.xhtml" assignTo="#{uiPageBean.page}"/>
+						</a4j:commandLink>
+					</rich:column>
+				  	<rich:column>
+						<f:facet name="header">Dettaglio</f:facet>
+	       	     	 	<a4j:commandLink 
+				            	ajaxSingle="true"
+				            	action="#{docfaBean.loadDettaglioDocfaParticella}" 
+				            	value="Dettaglio" 
+				            	reRender="panelDettaglio" 
+				            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+				            	<a4j:actionparam  name="foglio" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{docfaBean.foglio}" />
+				            	<a4j:actionparam  name="particella" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{docfaBean.particella}" />
+				            	<a4j:actionparam  name="sezione" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{docfaBean.sezione}" />
+				            	<a4j:actionparam  name="protocollo" value="#{docfa.protocollo}" assignTo="#{docfaBean.protocollo}" />
+				            	<a4j:actionparam  name="fornitura" value="#{docfa.dataFornituraStr}" assignTo="#{docfaBean.fornituraStr}" />
+				            	<a4j:actionparam  name="varazione" value="#{docfa.dataVariazioneStr}" assignTo="#{docfaBean.dataVariazioneStr}" />
+				            	<a4j:actionparam  name="causale" value="#{docfa.causale}" assignTo="#{docfaBean.causale}" />
+				            	<a4j:actionparam  name="numSop" value="#{docfa.numUiInSoppressione}" assignTo="#{docfaBean.numSop}" />
+				            	<a4j:actionparam  name="numVar" value="#{docfa.numUiInVariazione}" assignTo="#{docfaBean.numVar}" />
+				            	<a4j:actionparam  name="numCos" value="#{docfa.numUiInCostituzione}" assignTo="#{docfaBean.numCost}" />
+				            	<a4j:actionparam  name="docfaPartPanel" value="dettaglioDocfaParticella.xhtml" assignTo="#{uiPageBean.page}"/>
+		     			</a4j:commandLink>
+				     </rich:column>
+				   </rich:dataTable>		
+				</rich:simpleTogglePanel>
+				
+				
+			<!-- ELENCO DATI PREGEO -->
+			<rich:simpleTogglePanel switchType="client" opened="false" id="catastoPregeo">
+				<f:facet name="header">Pregeo (situazione alla data di riferimento) </f:facet>
+				
+				<rich:dataTable width="100%"
+		        	var="preg"
+		        	value="#{empty pregeoBean.listaPregeo ? sessionScope.pregeoBean.listaPregeo : pregeoBean.listaPregeo}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                    
+					<rich:column>
+						<f:facet name="header">Data</f:facet>
+				    	<h:outputLabel value="#{preg.dataPregeo}"  >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{catastoBean.timeZone}"/>  
+						</h:outputLabel>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">Codice</f:facet>																	
+						<h:outputLabel value="#{preg.codicePregeo}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">Denominazione</f:facet>																	
+						<h:outputLabel value="#{preg.denominazione}" />
+					</rich:column>
+					<rich:column style="text-align:left">	
+						<f:facet name="header">Tecnico</f:facet>																
+						<h:outputLabel value="#{preg.tecnico}" /> 
+					</rich:column>
+					<rich:column >	
+						<f:facet name="header">Data Inserimento</f:facet>
+						<h:outputLabel value="#{preg.dataInserimento}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{catastoBean.timeZone}"/>  
+						</h:outputLabel> 
+					</rich:column>			
+					<rich:column >		
+						<f:facet name="header">Pdf</f:facet>															
+						<h:commandLink  action="#{pregeoBean.openPregeoPdf}" value="Apri">
+				      		<a4j:actionparam name="nomePdfPregeo" value="#{preg.nomeFilePdf}" assignTo="#{pregeoBean.nomePdfPregeo}" />
+				       	</h:commandLink>
+					</rich:column>		  																						
+				</rich:dataTable>						
+		
+		</rich:simpleTogglePanel>
+				
+		<!-- ELENCO COMPRAVENDITE PARTICELLA -->
+		<rich:simpleTogglePanel switchType="client" opened="false" id="catastoCompravendite">
+			<f:facet name="header">Note di Compravendita Immobili (situazione alla data di riferimento)</f:facet>		
+										
+				<rich:dataTable width="100%"
+		        	var="comp"
+		        	value="#{empty compravenditeBean.listaCompravenditeParticella ? sessionScope.compravenditeBean.listaCompravenditeParticella : compravenditeBean.listaCompravenditeParticella}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+                    
+					<rich:column>
+						<f:facet name="header">Data Atto</f:facet>
+						<h:outputLabel value="#{comp.dataValiditaAttoDate}"  >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{compravenditeBean.timeZone}" />  
+						</h:outputLabel>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">N. Rep.</f:facet>																	
+						<h:outputLabel value="#{comp.numeroRepertorio}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">Elenco UI</f:facet>																	
+						<h:outputLabel value="#{comp.elencoUI}" />
+					</rich:column>
+					<rich:column style="text-align:left">	
+						<f:facet name="header">Rogito Effettuato da:</f:facet>																
+						<h:outputLabel value="#{comp.cognomeNomeRog}" /> - 
+						<h:outputLabel value="#{comp.codFiscRog}" />
+					</rich:column>
+					<rich:column style="text-align:left">		
+						<f:facet name="header">Soggetti</f:facet>															
+						<h:panelGrid columns="1">
+							<h:dataTable   value="#{comp.listaSoggettiString}" var="sogg">
+								<h:column>
+									<h:outputLabel value="#{sogg}"  />
+								</h:column>
+							</h:dataTable> 
+						</h:panelGrid>
+					</rich:column>		  																						
+				</rich:dataTable>
+		</rich:simpleTogglePanel>
+			
+		<!-- ELENCO COMPRAVENDITE PARTICELLA TERRENO-->
+		<rich:simpleTogglePanel switchType="client" opened="false" id="catastoCompravenditeTerreno">
+			<f:facet name="header">Note di Compravendita Terreni (situazione alla data di riferimento)</f:facet>		
+									
+				<rich:dataTable width="100%"
+		        	var="comp"
+		        	value="#{empty compravenditeBean.listaCompravenditeParticellaTerreno ? sessionScope.compravenditeBean.listaCompravenditeParticellaTerreno : compravenditeBean.listaCompravenditeParticellaTerreno}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+										
+				  <rich:column>
+						<f:facet name="header">Data Atto</f:facet>	
+						<h:outputLabel value="#{comp.dataValiditaAttoDate}"  >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{compravenditeBean.timeZone}" />  
+						</h:outputLabel>
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">N. Rep.</f:facet>																				
+						<h:outputLabel value="#{comp.numeroRepertorio}" />
+					</rich:column>
+					<rich:column style="text-align:left">
+						<f:facet name="header">Rogito effettuato da:</f:facet>																		
+						<h:outputLabel value="#{comp.cognomeNomeRog}" /> - 
+						<h:outputLabel value="#{comp.codFiscRog}" />
+					</rich:column>
+					<rich:column style="text-align:left">
+						<f:facet name="header">Soggetti</f:facet>																		
+						<h:panelGrid columns="1">
+							<h:dataTable   value="#{comp.listaSoggettiString}" var="sogg">
+								<h:column>
+									<h:outputLabel value="#{sogg}"  />
+								</h:column>
+							</h:dataTable> 
+						</h:panelGrid>
+					</rich:column>																			
+				</rich:dataTable>
+			</rich:simpleTogglePanel>
+		</rich:panel>
+	</h:form>	
+	
+	</ui:composition>
+</html>

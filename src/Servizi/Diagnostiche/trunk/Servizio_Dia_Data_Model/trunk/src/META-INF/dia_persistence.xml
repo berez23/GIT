@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+	<persistence-unit name="Servizio_Dia_Data_Model" transaction-type="JTA">
+	
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/dia_orm.xml</mapping-file>
+		<mapping-file>META-INF/dia_native_orm.xml</mapping-file>
+		
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrCat01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrCat02</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrCatTarsu</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrEcog1C1</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrEcog1C2</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrEcog1V1</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrEcog1V2</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrEcog2</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrEdiC</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrIci201</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrIci202</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrIci203</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrIci204</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrTar01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrTar02</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrTar03</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrTarC</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCfrTop01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrCat01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrCat02</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrCat03</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrDem</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrDem01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrDem02</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrDem03</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrDem04</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrDem05</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrIci01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrIci02</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrIci03</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTr201</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTr202</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTr203</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTr204</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTr205</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTr206</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri01</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri02</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri03</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri04</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri05</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri06</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri07</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDCtrTri08</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDNonStdTest</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaDettaglioDStcRepred</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaTestata</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DiaLogAccesso</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DocfaNonResidenziale</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DocfaResidenziale</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DocfaReport</class>
+		<class>it.webred.ct.diagnostics.service.data.model.DocfaReportNoRes</class>
+		
+		<class>it.webred.ct.diagnostics.service.data.model.zc.ZCErrata</class>
+		
+		<class>it.webred.ct.diagnostics.service.data.model.controller.DiaCatalogo</class>
+		<class>it.webred.ct.diagnostics.service.data.model.controller.DiaCatalogoTipoInfo</class>
+		<class>it.webred.ct.diagnostics.service.data.model.controller.RCommand</class>
+		<class>it.webred.ct.diagnostics.service.data.model.controller.RCommandType</class>
+		<class>it.webred.ct.diagnostics.service.data.model.controller.RFontedatiCommandPK</class>
+		<class>it.webred.ct.diagnostics.service.data.model.controller.RFontedatiCommand</class>
+		<class>it.webred.ct.diagnostics.service.data.model.controller.REnteEsclusioni</class>
+		
+		<properties>
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<!-- property name="hibernate.hbm2ddl.auto" value="update"/-->
+			<property name="hibernate.show_sql" value="false"/>
+			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+		</properties>
+	
+	</persistence-unit>
+</persistence>

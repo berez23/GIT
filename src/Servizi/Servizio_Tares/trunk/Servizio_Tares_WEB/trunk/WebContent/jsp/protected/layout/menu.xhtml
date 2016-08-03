@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:form id="menuForm"> 
+<rich:toolBar>
+   
+   <rich:dropDownMenu>
+		<f:facet name="label"> 
+	        <h:panelGroup>
+	        	<h:commandLink value="Home" action="#{sezioniBean.doInfoUpdate}" style="color: white" />
+	        </h:panelGroup>
+		</f:facet>
+	</rich:dropDownMenu>
+			
+	<rich:dropDownMenu>
+		<f:facet name="label"> 
+	        <h:panelGroup>	            
+	            <h:outputText value="Valutazione Stato Banca Dati Catastale"/>
+	        </h:panelGroup>
+		</f:facet>
+		<rich:menuItem submitMode="ajax" target="_blank" value="Consulta Dati Metrici Unita Immobiliari" action="#{valutazioniBean.goDatiMetriciUiu}" rendered="true"/>
+		<rich:menuItem submitMode="ajax" target="_blank" value="Consulta Statistiche per Categoria" action="#{staticheBean.goStatistichePerCategoria}" rendered="true"/>
+	</rich:dropDownMenu>
+	
+	<rich:dropDownMenu>
+		<f:facet name="label"> 
+	        <h:panelGroup>	            
+	            <h:outputText value="Simulazione Tariffe"/>
+	        </h:panelGroup>
+		</f:facet>
+		<rich:menuItem submitMode="ajax" value="SubMenu1" action="#{sezioniBean.doCercaSezioni}" rendered="true"/>
+		<rich:menuItem submitMode="ajax" value="SubMenu2" action="#{sezioniBean.doCercaSezioni}" rendered="true"/>
+	</rich:dropDownMenu>
+	
+	<rich:dropDownMenu>
+		<f:facet name="label"> 
+	        <h:panelGroup>	            
+	            <h:outputText value="Aggancio Oggetto Soggetto"/>
+	        </h:panelGroup>
+		</f:facet>
+		<rich:menuItem submitMode="ajax" value="SubMenu1" action="#{sezioniBean.doCercaSezioni}" rendered="true"/>
+		<rich:menuItem submitMode="ajax" value="SubMenu2" action="#{sezioniBean.doCercaSezioni}" rendered="true"/>
+	</rich:dropDownMenu>
+	
+	<rich:dropDownMenu>
+		<f:facet name="label"> 
+	        <h:panelGroup>	            
+	            <h:outputText value="Segnalazioni"/>
+	        </h:panelGroup>
+		</f:facet>
+				<rich:menuItem submitMode="ajax" value="Gestione Segnalazioni da Esportare" action="#{segnalaBean.goSegnalaShow}" rendered="true" />
+				<rich:menuItem submitMode="ajax" value="Gestione Segnalazioni Esportate" action="#{segnalaBean.goEsportateLst}" rendered="true" />
+	</rich:dropDownMenu>
+
+    
+</rich:toolBar>
+</h:form>	
+
+</html>

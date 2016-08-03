@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmRicercaLotti">
+			<p:panel header="Gestione Lotti">				
+				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+				
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Codice ASI"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodiceAsi" value="#{lottiBean.lottoNew.codiceAsi}" rendered="false"/>
+							<p:autoComplete id="azi" value="#{lottiBean.lottoNew.codiceAsi}"  
+				    				completeMethod="#{lottiBean.completeLotti}" maxResults="10"  minQueryLength="2" >
+			    			</p:autoComplete>  
+								
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Foglio"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtFoglio" value="#{lottiBean.foglioSearch}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Particella"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtParticella" value="#{lottiBean.particellaSearch}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Libero/Occupato"/>
+						</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{lottiBean.statusUltimo}" >
+								<f:selectItem itemLabel="Tutti" itemValue="" />
+								<f:selectItem itemLabel="Libero" itemValue="false" />
+								<f:selectItem itemLabel="Occupato" itemValue="true" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Attivo/Cessato"/>
+						</p:column>
+						<p:column>
+							<p:selectOneMenu value="#{lottiBean.cessato}" >
+								<f:selectItem itemLabel="Tutti" itemValue="" />
+								<f:selectItem itemLabel="Attivo" itemValue="false" />
+								<f:selectItem itemLabel="Cessato" itemValue="true" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Cerca" action="#{lottiBean.searchLotti}" process="@form" update="pnlListaLotti" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Reset" action="#{lottiBean.resetForm}" process="@this" update="frmRicercaLotti"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaLotti">				
+					 <p:dataTable id="dtListaLotti" 
+					 	rendered="#{not empty lottiBean.listaLotti}" 
+					 	var="lotcoo" 
+					 	value="#{lottiBean.listaLotti}" 
+					 	rowIndexVar="rowIndex"
+                        paginator="true" 
+                        rowKey="#{lotcoo}" 
+                        selection="#{lotcoo}" 
+                        selectionMode="single"                        
+						emptyMessage="Nessun elemento trovato" 
+						style="width:100%; table-layout:auto !important;" 
+						paginatorPosition="bottom"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+           				rows="50">
+
+					 	<p:ajax event="rowSelect" listener="#{lottiBean.onRowSelect}" />
+					 	
+					 	<f:facet name="header">Lista Lotti</f:facet>
+					 	<p:column headerText="Cod. ASI" >
+					 		<h:outputText value="#{lotcoo.codiceAsi}"/>
+					 	</p:column>
+<!-- 					 	<p:column headerText="Foglio" > -->
+<!-- 					 		<h:outputText value="#{lotcoo.foglio}"/> -->
+<!-- 					 	</p:column> -->
+<!-- 					 	<p:column headerText="Particella" > -->
+<!-- 					 		<h:outputText value="#{lotcoo.particella}"/> -->
+<!-- 					 	</p:column> -->
+					 	<p:column headerText="Area" >
+					 		<h:outputText value="#{lotcoo.area}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Indirizzo">
+					 		<h:outputText value="#{lotcoo.indirizzo}"/>
+					 	</p:column>
+					 	<p:column headerText="Comune">
+					 		<h:outputText value="#{lotcoo.comune.nome}"/>
+					 	</p:column>
+					 	<p:column headerText="Perimetro">
+						 	<h:outputText value="#{lotcoo.perimetro}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</h:outputText>
+					 	</p:column>
+					 	<p:column headerText="N. Addetti">
+						 	<h:outputText value="#{lotcoo.numAddetti}"/>
+					 	</p:column>
+					 	<p:column headerText="libero / Occupato">
+						 	<h:outputText value="Occupato" rendered="#{not empty lotcoo.statusUltimo and lotcoo.statusUltimo}"/>
+						 	<h:outputText value="Libero" rendered="#{not empty lotcoo.statusUltimo and !lotcoo.statusUltimo}"/>
+					 	</p:column>
+					 	<p:column headerText="Cessato / Attivo">
+						 	<h:outputText value="Cessato" rendered="#{not empty lotcoo.cessato and lotcoo.cessato}"/>
+						 	<h:outputText value="Attivo" rendered="#{not empty lotcoo.cessato and !lotcoo.cessato}"/>
+					 	</p:column>
+					 	<p:column headerText="Data Cessazione">
+						 	<h:outputText value="#{lotcoo.dataCessazione}" >
+						 		<f:convertDateTime pattern="dd/MM/yyyy"/>
+						 	</h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Lotti Avi">
+						 	<h:outputText value="#{lotcoo.lottiAvi}"/>
+					 	</p:column>
+					 	<p:column headerText="Lotti Eredi">
+						 	<h:outputText value="#{lotcoo.lottiEredi}"/>
+					 	</p:column>
+					 </p:dataTable>
+				</p:outputPanel>
+				
+				<p:spacer height="15"/>
+				
+				<h:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:commandButton value="Nuovo" action="#{lottiBean.lottoShowNew}" process="@form" rendered="false" />
+				</h:panelGrid>
+				
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

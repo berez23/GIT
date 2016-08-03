@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   jaxb:version="2.0" 
+		   jaxb:extensionBindingPrefixes="xjc">
+
+	<xs:element name="hetGit">
+        <xs:complexType>
+            <xs:sequence>                
+                <xs:element name="getImmobiliAccatastatiInput" type="getImmobiliAccatastatiInput" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>		   
+	
+	<xs:complexType name="baseInput">
+        <xs:sequence>
+            <xs:element name="userID" type="xs:string" minOccurs="0" />
+            <xs:element name="userPwd" type="xs:string" minOccurs="0" />
+            <xs:element name="userDomain" type="xs:string" minOccurs="0" />
+            <xs:element name="userService" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>	
+	
+	<xs:complexType name="getImmobiliAccatastatiInput">
+        <xs:sequence>
+        	<xs:element name="baseInput" type="baseInput" minOccurs="0" />
+            <xs:element name="codiceFiscale" type="xs:string" minOccurs="0" />
+            <xs:element name="cognome" type="xs:string" minOccurs="0"  />
+            <xs:element name="nome" type="xs:string" minOccurs="0" />
+            <xs:element name="dataNascita" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="dataInizio" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="dataFine" type="xs:dateTime" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>	  
+		  
+</xs:schema>

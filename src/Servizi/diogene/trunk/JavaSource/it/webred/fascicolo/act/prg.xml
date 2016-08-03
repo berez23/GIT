@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL prg</comment>
+	<entry key="sqlPrg">
+	<![CDATA[
+		SELECT foglio, particella, allegato, codice as dest_funz, descrizione as legenda, 
+        TO_CHAR (area_part, '999999d00') as area_part, 
+        TO_CHAR (area_prg, '999999d00') as area_prg
+       FROM (SELECT p.foglio, p.particella, p.allegato, pr.codice, l.descrizione,
+              sdo_geom.sdo_area (p.shape, 0.005) area_part,
+              sdo_geom.sdo_area (pr.shape, 0.005) area_prg
+         FROM sitipart p, prg pr, sitideco_catalog l, siticomu c 
+        WHERE c.codi_fisc_luna = ?
+          AND p.cod_nazionale = c.cod_nazionale
+          AND p.foglio = ?
+          AND p.particella = LPAD (TRIM (?), 5, '0')
+          AND p.data_fine_val = TO_DATE ('31/12/9999', 'dd/mm/yyyy')
+          AND l.id_cat = 1
+          AND l.codut = pr.codice
+          AND sdo_relate (pr.shape,
+                          (SELECT shape
+                             FROM sitipart pp, siticomu cc
+                            WHERE cc.codi_fisc_luna = ?
+                              AND pp.cod_nazionale = cc.cod_nazionale
+                              AND pp.foglio = ?
+                              AND pp.particella = LPAD (TRIM (?), 5, '0')
+                              AND pp.data_fine_val =
+                                         TO_DATE ('31/12/9999', 'dd/mm/yyyy')),
+                          'MASK=ANYINTERACT'
+                         ) = 'TRUE')  
+	]]>
+	</entry>
+
+
+</properties>
+
+

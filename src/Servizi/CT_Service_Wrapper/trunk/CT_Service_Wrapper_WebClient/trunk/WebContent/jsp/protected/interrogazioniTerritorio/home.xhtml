@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	
+	<h2>Interrogazioni Territorio</h2>
+	
+	
+	<rich:panel>
+		<h:form>			
+			<h:panelGrid columns="1">
+				<a4j:commandLink action="#{itHomeBean.goHome}" value="Home" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Codice ente" style="font-weight:bold;"/>
+				<h:inputText value="#{itHomeBean.enteId}" maxlength="4"  id="ente"
+							 style="border:1px solid 	#D8D8D8  ;" />
+				
+				<h:outputLabel value="Utente" style="font-weight:bold;"/>
+				<h:inputText value="#{itHomeBean.userId}" 
+							 style="border:1px solid 	#D8D8D8  ;"/>
+				
+				<h:outputLabel value="Toponimo" style="font-weight:bold;" />
+				<h:selectOneMenu value="#{itHomeBean.toponimo}" 
+								 style="border:1px solid 	#D8D8D8  ;" >
+					<f:selectItem itemLabel="Corso" itemValue="corso" />
+					<f:selectItem itemLabel="Via" itemValue="via" />
+					<f:selectItem itemLabel="Viale" itemValue="viale" />
+					<f:selectItem itemLabel="Vocabolo" itemValue="vocabolo" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Indirizzo" style="font-weight:bold;" />
+				<h:inputText value="#{itHomeBean.via}" 
+							 style="border:1px solid 	#D8D8D8  ;" />
+				
+				<h:outputLabel value="Numero civico" style="font-weight:bold;" />
+				<h:inputText value="#{itHomeBean.civico}" 
+							 style="border:1px solid 	#D8D8D8  ;"  />
+				
+				
+				<a4j:commandLink action="#{itHomeBean.doWSSServiceInvoke}" value="Chiama servizio" />
+			</h:panelGrid>
+		</h:form>
+		
+		<h:messages showDetail="true" showSummary="true" 
+					errorStyle="color:#ff0000;"
+					warnStyle="color:#ff6600;"
+					infoStyle="color:#339900;"/>
+		
+	</rich:panel>
+	
+	<rich:spacer height="25px" />
+	
+	<rich:panel rendered="#{itHomeBean.xml != null ? true : false}" >
+		<h:panelGrid columns="1"> 	
+			<rich:spacer height="30px" />
+			
+			<h:outputLabel value="Esito chiamata al servizio web di Interrogazione Territorio" />
+			<rich:spacer height="10px" />
+			
+			
+			<h:panelGrid columns="1">
+			
+				<h:outputLabel value="countUnder18: #{itHomeBean.datiCivico.risposta.countUnder18}" style="color:#900000;" />
+				<h:outputLabel value="count1865: #{itHomeBean.datiCivico.risposta.count1865}" style="color:#900000;" />
+				<h:outputLabel value="countOver65: #{itHomeBean.datiCivico.risposta.countOver65}" style="color:#900000;" />
+				<h:outputLabel value="countFamResidenti: #{itHomeBean.datiCivico.risposta.countFamResidenti}" style="color:#900000;" />
+				<h:outputLabel value="countFamResidentiProprietarie: #{itHomeBean.datiCivico.risposta.countFamResidentiProprietarie}" style="color:#900000;" />
+				<h:outputLabel value="countLocazioni: #{itHomeBean.datiCivico.risposta.countLocazioni}" style="color:#900000;" />
+				<h:outputLabel value="countLicenzeCommercio: #{itHomeBean.datiCivico.risposta.countLicenzeCommercio}" style="color:#900000;" />
+				<h:outputLabel value="[more...]" style="color:#808080; font-size:9px;" />
+			</h:panelGrid>
+			
+			
+			
+			<rich:spacer height="10px" />
+			<h:outputText value="#{itHomeBean.xml}" />
+		</h:panelGrid>
+		
+	</rich:panel>
+	
+</html>

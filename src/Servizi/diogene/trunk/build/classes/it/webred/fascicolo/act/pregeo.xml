@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL pregeo</comment>
+	<entry key="sqlPregeo">
+	<![CDATA[
+		select * from PREGEO_INFO where LPAD (FOGLIO, 4, '0') = LPAD (?, 4, '0') and LPAD (PARTICELLA, 5, '0') = LPAD (?, 5, '0')
+	]]>
+	</entry><!--
+	<entry key="sqlConcessioniSub">
+	<![CDATA[
+			 AND LPAD (TRIM (SUBALTERNO), 4, '0') = LPAD (TRIM (?), 4, '0')
+	]]>
+	</entry>
+	--><entry key="sqlPregeoOrder">			
+	<![CDATA[
+		 order by FOGLIO, PARTICELLA, DATA_PREGEO
+	]]>
+	</entry>		
+</properties>
+
+

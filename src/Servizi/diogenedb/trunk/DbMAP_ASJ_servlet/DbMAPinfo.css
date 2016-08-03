@@ -1,0 +1,9 @@
+BODY { background: #ffffff; font-family: Verdana, Arial, Helvetica; font-size: 14px; color: #000000 }
+
+TABLE, TR, TD {	border: 1px solid #000000; border-spacing: 2px; padding: 2px;font-size: 14px }
+
+TR.even  {background:#ffffff }
+TR.odd  {background:#dddddd }
+TD.tdSx  {font-weight: bold }
+
+#logo {}

@@ -1,0 +1,199 @@
+BODY
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    MARGIN: 0px;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    BACKGROUND-COLOR: #FFFFFF;
+
+    scrollbar-arrow-color: #FFFFFF;
+    scrollbar-3dlight-color: #000000;
+    scrollbar-highlight-color: #2c68a6;
+    scrollbar-face-color: #2c68a6;
+    scrollbar-shadow-color: #2c68a6;
+    scrollbar-track-color: #FFFFFF;
+    scrollbar-darkshadow-color: #2c68a6;
+}
+TABLE
+{
+    BORDER-RIGHT: thin;
+    BORDER-TOP: thin;
+    MARGIN-TOP: 0pt;
+    BORDER-LEFT: thin;
+    BORDER-BOTTOM: thin
+}
+TD
+{
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif
+}
+TD.sectionTitle
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    BACKGROUND-COLOR: #e0e0e0;
+    BORDER: thin solid #000000;
+}
+TD.formLabels
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+}
+TABLE.LISTA
+{
+    MARGIN-TOP: 5pt;
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    CURSOR: default;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    BACKGROUND-COLOR: #999999
+}
+TABLE.LISTA TD
+{
+    PADDING-LEFT: 3px; PADDING-RIGHT: 3px;
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    CURSOR: default;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    HEIGHT: 16pt;
+    BACKGROUND-COLOR: #f0f0f0
+}
+TABLE.LISTA TD.changed
+{
+    BACKGROUND-COLOR: #e0e0ff;
+}
+TABLE.LISTA TD.deleted
+{
+    BACKGROUND-COLOR: #ffe0e0;
+}
+TABLE.LISTA TH
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    HEIGHT: 20pt;
+    BACKGROUND-COLOR: #e0e0e0
+}
+HR
+{
+    COLOR: #2c68a6;
+}
+INPUT.BUT
+{
+    BORDER-TOP: #999999 1px outset;
+    BORDER-BOTTOM: #999999 1px outset;
+    BORDER-RIGHT: #999999 1px outset;
+    BORDER-LEFT: #999999 1px outset;
+    FONT-SIZE: 12px;
+    BACKGROUND-IMAGE: none;
+    WIDTH: 90px;
+    CURSOR: hand;
+    BACKGROUND-REPEAT: repeat;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    BACKGROUND-COLOR: #ffff99
+}
+INPUT.TEXT
+{
+    BORDER-TOP: #999999 1px outset;
+    BORDER-BOTTOM: #999999 1px outset;
+    BORDER-RIGHT: #999999 1px outset;
+    BORDER-LEFT: #999999 1px outset;
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    BACKGROUND-COLOR: #ffffff
+}
+INPUT.BUT_NODIM
+{
+    BORDER-TOP: #999999 1px outset;
+    BORDER-BOTTOM: #999999 1px outset;
+    BORDER-RIGHT: #999999 1px outset;
+    BORDER-LEFT: #999999 1px outset;
+    FONT-SIZE: 12px;
+    BACKGROUND: #ffff99;
+    CURSOR: hand;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif
+}
+SELECT
+{
+    FONT-SIZE: 12px;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    BACKGROUND-COLOR: #ffffff
+}
+TEXTAREA
+{
+    BORDER-RIGHT: #999999 1px outset;
+    BORDER-TOP: #999999 1px outset;
+    FONT-SIZE: 12px;
+    BORDER-LEFT: #999999 1px outset;
+    BORDER-BOTTOM: #999999 1px outset;
+    FONT-FAMILY: Verdana, Arial, Helvetica, sans-serif;
+    BACKGROUND-COLOR: #ffffff
+}
+P
+{
+    MARGIN-TOP: 0pt;
+    FONT-WEIGHT: normal;
+    FONT-SIZE: 8pt;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif
+}
+A:link
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    TEXT-DECORATION: underline
+}
+A:visited
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #000000;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    TEXT-DECORATION: underline
+}
+A:active
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0000cc;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    TEXT-DECORATION: underline
+}
+A:hover
+{
+    FONT-WEIGHT: bold;
+    FONT-SIZE: 8pt;
+    COLOR: #0000ff;
+    FONT-STYLE: normal;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    TEXT-DECORATION: underline
+}
+
+#errore
+{
+    TEXT-ALIGN: center;
+    FONT-WEIGHT: BOLD;
+    FONT-SIZE: 8pt;
+    COLOR: #ff0000;
+    FONT-FAMILY: Verdana, Geneva, Helvetica, Arial, sans-serif;
+    MARGIN-TOP: 5px;
+    MARGIN-BOTTOM: 5px;
+}

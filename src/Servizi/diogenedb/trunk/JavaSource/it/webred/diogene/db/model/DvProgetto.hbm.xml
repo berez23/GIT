@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.51 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.DvProgetto" table="DV_PROGETTO" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="NAME" length="50"/>
+        </property>
+        <property name="sortOrder" type="java.lang.Long" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="SORT_ORDER" precision="3" scale="0"/>
+        </property>
+        <set name="dvClasses" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_PROGETTO" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DvClasse" not-found="exception" embed-xml="true"/>
+        </set>
+    </class>
+</hibernate-mapping>

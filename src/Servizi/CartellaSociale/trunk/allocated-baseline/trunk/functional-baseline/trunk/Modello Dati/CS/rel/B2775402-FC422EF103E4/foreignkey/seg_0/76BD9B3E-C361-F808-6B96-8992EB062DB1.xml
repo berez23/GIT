@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="76BD9B3E-C361-F808-6B96-8992EB062DB1" directorySegmentName="seg_0" name="CS_ALERT_OPERATORE_FK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_ALERT_OPERATORE_FK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-09-16 07:06:08 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>60C25139-9068-BBE0-9DFC-7AD006812558</importedID>
+<containerWithKeyObject>F3067B5A-6228-A6D2-CF8F-2848E2614672</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>D6D9EC7D-54CF-2D29-DDF8-C26B2FEA5990</localFKIndex>
+<keyObject>6FBB508D-F234-EC9B-FC9D-0FDE29B213DC</keyObject>
+<mandatory>false</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

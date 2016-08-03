@@ -1,0 +1,230 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="navInfo">
+				Ricerca Anagrafica - Flusso Ruoli Vistati
+      	   </ui:define>
+
+	<ui:define name="content">
+
+		<h:form>
+
+			<!-- Menu tabella  -->
+			<rich:contextMenu attached="false" id="menu" submitMode="server">
+				<rich:menuItem submitMode="none">
+					<a4j:commandLink action="#{flusso750Bean.doFindDettaglioRuoliVistati}"
+									 ajaxSingle="false">
+						   Visualizza dettaglio ruolo di <B>{cognomeNome}</B>
+						
+						<a4j:actionparam name="annoRiferimento" value="{annoRiferimento}" assignTo="#{flusso750Bean.chiavePartita.annoRiferimento}"/>
+						<a4j:actionparam name="annoRuolo" value="{annoRuolo}" assignTo="#{flusso750Bean.chiavePartita.annoRuolo}"/>
+						<a4j:actionparam name="codAmbito" value="{codAmbito}" assignTo="#{flusso750Bean.chiavePartita.codAmbito}"/>
+						<a4j:actionparam name="codEnteCreditore" value="{codEnteCreditore}" assignTo="#{flusso750Bean.chiavePartita.codEnteCreditore}"/>
+						<a4j:actionparam name="codTipoUfficio" value="{codTipoUfficio}" assignTo="#{flusso750Bean.chiavePartita.codTipoUfficio}"/>
+						<a4j:actionparam name="codUfficio" value="{codUfficio}" assignTo="#{flusso750Bean.chiavePartita.codUfficio}"/>
+						<a4j:actionparam name="codicePartita" value="{codicePartita}" assignTo="#{flusso750Bean.chiavePartita.codicePartita}"/>
+						<a4j:actionparam name="progressivoRuolo" value="{progressivoRuolo}" assignTo="#{flusso750Bean.chiavePartita.progressivoRuolo}"/>
+						
+					</a4j:commandLink>
+				</rich:menuItem>
+				<rich:menuItem submitMode="none">
+					<a4j:commandLink action="#{flusso750Bean.doGotoRiscossioni}"
+									 ajaxSingle="false">
+						   Visualizza riscossioni di <B>{cognomeNome}</B> per cod. fiscale
+						
+						<a4j:actionparam name="codiceFiscale" value="{codiceFiscale}" assignTo="#{statoRiscossioneDataModel.criteria.codiceFiscale}"/>
+					</a4j:commandLink>
+				</rich:menuItem>
+				<!-- 
+				<rich:menuItem submitMode="none">
+					<a4j:commandLink action="#{flusso750Bean.doGotoRiscossioni}"
+									 ajaxSingle="false">
+						   Visualizza riscossioni per ruolo <B>{progressivoRuolo}/{annoRuolo}</B>
+
+						<a4j:actionparam name="annoRuolo" value="{annoRuolo}" assignTo="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.annoRuolo}"/>
+						<a4j:actionparam name="progressivoRuolo" value="{progressivoRuolo}" assignTo="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.progressivoRuolo}"/>
+						   
+					</a4j:commandLink>
+				</rich:menuItem>
+ 				-->
+			</rich:contextMenu>
+			<!-- Fine menu -->			
+
+			<rich:messages passedLabel="Operazione completata" layout="list">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+
+			<rich:panel>
+				<f:facet name="header">Criteri di ricerca</f:facet>
+				<h:panelGrid columns="8">
+					<h:outputLabel value="Numero ruolo" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiaveRuolo.progressivoRuolo}" />
+
+					<h:outputLabel value="Anno ruolo" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiaveRuolo.annoRuolo}" />
+
+					<h:outputLabel value="Cod. Ambito" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiaveRuolo.codAmbito}" />
+
+					<h:outputLabel value="Cod. Ente cred." />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiaveRuolo.codEnteCreditore}" />
+
+					<h:outputLabel value="Anno rif. trib." />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiavePartita.annoRiferimento}" />
+
+					<h:outputLabel value="Cod. partita" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiavePartita.codicePartita}" />
+						
+					<h:outputLabel value="Cod. tipo uff." />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiavePartita.codTipoUfficio}" />
+						
+					<h:outputLabel value="Cod. ufficio" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.chiavePartita.codUfficio}" />
+						
+					<h:outputLabel value="Cod. fiscale/P. Iva" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.codiceFiscale}" />
+
+						
+					<h:outputLabel value="Cod. Tributo" />
+					<h:inputText
+						value="#{flusso750AnagDataModel.criteria.codiceTributo}" />
+						
+					<h:selectOneRadio value="#{flusso750AnagDataModel.criteria.tipoInt}">
+						<f:selectItem itemLabel="Intest." itemValue="D" />
+						<f:selectItem itemLabel="Cointest." itemValue="C"/>
+					</h:selectOneRadio>	
+						
+
+				</h:panelGrid>
+
+				<a4j:commandLink reRender="anagTable, tableScroller">
+					<h:outputLabel value="Ricerca" />
+				</a4j:commandLink>
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+
+			<rich:dataTable width="800" var="anag" value="#{flusso750AnagDataModel}"
+				id="anagTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				rows="30">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Progr." />
+						</rich:column>					
+						<rich:column>
+							<h:outputText value="Cognome/Denominazione" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Nome" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Fiscale/P. Iva" />
+						</rich:column>							
+						<rich:column>
+							<h:outputText value="Cod. Partita" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Data Nascita" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Ruolo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Anno rif." />
+						</rich:column>												
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{anag.progressivoRecord}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel
+						value="#{anag.cognome}#{anag.denominazione}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.nome}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.codFiscale}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{anag.chiavePartita.codicePartita}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.dtNascita}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel
+						value="#{anag.chiavePartita.progressivoRuolo}/#{anag.chiavePartita.annoRuolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel
+						value="#{anag.chiavePartita.annoRiferimento}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				
+				<rich:componentControl event="onRowClick" for="menu"
+					operation="show">
+					<f:param name="cognomeNome"
+					   	     value="#{anag.cognome}#{anag.denominazione} #{anag.nome}" />					
+					<f:param name="annoRuolo" 
+							 value="#{anag.chiavePartita.annoRuolo}" />
+					<f:param name="codAmbito" 
+							 value="#{anag.chiavePartita.codAmbito}" />
+					<f:param name="codEnteCreditore" 
+							 value="#{anag.chiavePartita.codEnteCreditore}" />
+					<f:param name="progressivoRuolo" 
+							 value="#{anag.chiavePartita.progressivoRuolo}" />
+					<f:param name="annoRiferimento" 
+							 value="#{anag.chiavePartita.annoRiferimento}" />
+ 				    <f:param name="codTipoUfficio" 
+							 value="#{anag.chiavePartita.codTipoUfficio}" />
+					<f:param name="codUfficio" 
+							 value="#{anag.chiavePartita.codUfficio}" />				
+					<f:param name="codicePartita" 
+							 value="#{anag.chiavePartita.codicePartita}" />				
+
+					<f:param name="codiceFiscale" 
+							 value="#{anag.codFiscale}" />				
+					
+				</rich:componentControl>
+			</rich:dataTable>
+			
+
+			<rich:datascroller id="tableScroller" align="center" for="anagTable" />
+		</h:form>
+
+
+	</ui:define>
+</ui:composition>
+</html>

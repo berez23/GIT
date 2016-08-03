@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form>
+
+			<rich:panel>
+				<f:facet name="header">Creazione nuova anagrafica</f:facet>
+				<h:panelGrid columns="4" width="50%">
+					<h:outputLabel value="Nome" />
+					<h:inputText value="#{anagraficaBean.soggetto.nome}" />
+
+					<h:outputLabel value="Cognome" />
+					<h:inputText value="#{anagraficaBean.soggetto.cognome}" />
+
+					<h:outputLabel value="Username" />
+					<h:inputText value="#{anagraficaBean.soggetto.username}" />
+
+					<h:outputLabel value="Codice fiscale" />
+					<h:inputText value="#{anagraficaBean.soggetto.codFis}"
+						maxlength="16" />
+
+					<h:outputLabel value="Data nascita" />
+					<rich:calendar value="#{anagraficaBean.soggetto.dtNas}"
+						enableManualInput="true" datePattern="dd/MM/yyyy"
+						timeZone="#{anagraficaBean.timeZone}" />
+
+					<h:outputLabel value="Qualifica" />
+					<h:selectOneMenu value="#{anagraficaBean.soggetto.idQualifica}">
+						<f:selectItems value="#{qualificaBean.qualificaItemList}" />
+					</h:selectOneMenu>
+
+					<h:outputLabel value="Denominazione" />
+					<h:inputText value="#{anagraficaBean.soggetto.denomSoc}" />
+
+					<h:outputLabel value="P. Iva" />
+					<h:inputText value="#{anagraficaBean.soggetto.parIva}"
+						maxlength="11" />
+
+
+					<h:panelGroup />
+					<h:panelGroup />
+
+				</h:panelGrid>
+
+				<br />
+
+				<a4j:commandButton value="Salva" action="#{anagraficaBean.doSave}"
+					onsubmit="if (!confirm('Procedere con il salvataggio?')) return false" />
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

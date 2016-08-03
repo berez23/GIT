@@ -1,0 +1,41 @@
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Accesso Negato</title>
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+
+		<link href="css/style.css" type="text/css" rel="stylesheet" />	
+		<link href="css/menuH.css" type="text/css" rel="stylesheet" />	
+		<link href="css/styleNavigatore.css" type="text/css" rel="stylesheet" />	
+		<!--[if IE]> <style type="text/css">IMG,INPUT,A {behavior:url("iepngfix.htc")};</style> <![endif]-->
+	</head>
+	<body>
+		<div id="contentwrap">
+			<br>
+			<br>
+			<br>						
+			<form method="POST" action='j_security_check' >
+			  <table border="0" cellspacing="5" align="center">
+			    <tr>
+			      <th align="right">Username:</th>
+			      <td align="left"><input type="text" name="j_username"></td>
+			    </tr>
+			    <tr>
+			      <th align="right">Password:</th>
+			      <td align="left"><input type="password" name="j_password"></td>
+			    </tr>
+			    <tr>
+			      <td align="right"><input type="submit" value="Log In"></td>
+			      <td align="left"><input type="reset"></td>
+			    </tr>
+			  </table>
+			</form>
+		</div>
+	</body>
+</html>
+  
+
+
+

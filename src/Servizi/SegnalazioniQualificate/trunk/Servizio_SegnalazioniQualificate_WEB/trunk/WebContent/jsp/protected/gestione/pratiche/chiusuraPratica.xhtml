@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmMain">
+			<rich:spacer height="10px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Chiusura Istruttoria Pratica di Accertamento" />
+				</f:facet>
+
+				<table width="100%">
+				<ui:include src="gestionePraticaBaseDetail.xhtml" />
+
+				<tr><td colspan="2" width="66%">
+				<rich:panel >
+						<f:facet name="header">
+							<h:outputLabel value="Esito Istruttorria Comunale" />
+						</f:facet>
+						<h:inputTextarea style="width:100%" rows="3" maxlength="3000" autoscroll="true" value="#{gestionePraticaBean.dto.pratica.accEsito}" />
+					</rich:panel>
+				</td>
+				<td width="33%">
+				   <rich:panel>
+						<f:facet name="header">
+							<h:outputLabel value="Azione da Intraprendere" />
+						</f:facet>
+						<h:selectOneRadio id="smcAzioni" value="#{gestionePraticaBean.dto.pratica.accAzione}" 
+							border="0" label="Azioni da Intraprendere"
+							title="Azioni da Intraprendere" layout="pageDirection" required="true">
+							<f:selectItems id="sif" value="#{commonDataBean.listaAzioniChiusura}" />
+						</h:selectOneRadio>
+					</rich:panel>
+				</td></tr>
+				</table>
+				
+				<h:panelGroup>
+					<a4j:commandButton value="Salva" id="btnSalva" 
+						action="#{gestionePraticaBean.goSalvaChiusura}">
+					</a4j:commandButton>
+
+					<a4j:commandButton value="Annulla" id="btnAnnulla" 
+						ajaxSingle="true"	
+						action="#{gestionePraticaBean.goDetail}">
+					</a4j:commandButton>
+				</h:panelGroup>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

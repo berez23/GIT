@@ -1,0 +1,471 @@
+body {
+	font-size: 12px;
+	font-family: Arial, Verdana, sans-serif;
+	padding: 15px;
+}
+
+.ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
+	opacity: .55;
+	filter: Alpha(Opacity=55);
+}
+
+.ui-selectonemenu label.ui-selectonemenu-label {
+    padding-right: 28px;
+    text-align: left;
+}
+
+/* GROWL MESSAGES */
+.ui-growl {
+	width: 550px;
+	right: 28%;
+	left: 28%;
+}
+
+.ui-growl-message {
+	width: 450px;
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+	background: #D3E9F5;
+}
+
+.ui-growl-item-container {
+	opacity: 1;
+}
+/* FINE GROWL MESSAGES */
+
+.ui-panel {
+	font-size: 12px;
+	font-family: Arial, Verdana, sans-serif;
+	padding: 0;
+}
+
+.ui-panelgrid {
+	width: 100%;	
+}
+
+.ui-panelgrid td, .ui-panelgrid tr
+{
+    border-style: none;
+}
+
+.ui-tabs .ui-tabs-panel 
+{
+	/*padding-left: 0;
+	padding-right: 0;*/
+}
+
+.ui-panel .ui-panel-titlebar
+{
+	text-align: center;
+}
+
+.ui-dialog .ui-dialog-buttonpane
+{
+	background-image: inherit;
+}
+
+.datalist-noborder .ui-widget-content {
+	border: none !important;
+	background: none !important;
+}
+
+.panelPadding
+{
+	padding: 0.5em 1em 0.3em;
+}
+
+.noBorder
+{
+	border: none !important;
+	vertical-align: top;
+}
+
+.noBorderBackground
+{
+	border: none !important;
+	background: none !important;
+}
+
+.topVertical>tbody>tr>td {
+    vertical-align: top;
+}
+
+td
+{
+	padding-top: 3px;
+	padding-bottom: 3px;	
+}
+
+.home_icon {
+	background: url(../images/home.png) no-repeat !important;
+	width: 30px;
+    height: 25px;
+    margin-top: -5px;
+}
+
+.loggedTable td
+{
+	padding-top: 0;
+	padding-bottom: 0;	
+}
+
+.myAutoComplete .ui-autocomplete-input::-ms-clear {
+	display: none;
+}
+
+.inattivo {
+	background-color: #CCC;
+    background-image: none;
+    color: grey;
+}
+
+.leftAlign {
+	text-align: left;
+	/*float: left;*/
+}
+
+.rightAlign {
+	text-align: right;
+	float: right;
+}
+
+.centerAlign {
+	margin: 0 auto;
+	text-align: center;
+}
+
+.bold {
+	font-weight:bold;
+}
+
+.h1 { font-weight:bold; font-size: 2em; }
+.h2 { font-weight:bold; font-size: 1.5em; }
+.h3 { font-weight:bold; font-size: 1.17em; }
+.h4 { font-weight:bold; font-size: 1.00em; }
+.h5 {  font-weight:bold; font-size: .83em; }
+.h6 { font-weight:bold; font-size: .75em; }
+
+.block		{overflow: hidden;}
+.column		{float: left;}
+.last 		{ margin-right: 0!important; }
+.span-1		{ width: 5%; }
+.span-2		{ width: 10%; }
+.span-3		{ width: 15%; }
+.span-4		{ width: 20%; }
+.span-5		{ width: 25%; }
+.span-6		{ width: 30%; }
+.span-7		{ width: 35%; }
+.span-8		{ width: 40%; }
+.span-9		{ width: 45%; }
+.span-10	{ width: 50%; }
+.span-11	{ width: 55%; }
+.span-12	{ width: 60%; }
+.span-13	{ width: 65%; }
+.span-14	{ width: 70%; }
+.span-15	{ width: 75%; }
+.span-16	{ width: 80%; }
+.span-17	{ width: 85%; }
+.span-18	{ width: 90%; }
+.span-19	{ width: 95%; }
+.span-20	{ width: 100%; }
+
+/* Component Iter Info Stato */
+.label{
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+.headerBotton{
+	float: right;
+	margin-top: -0.2em;
+	margin-bottom: -0.1em;
+	width: 18px;
+	height: 18px;
+}
+
+.aperto > div:first-child{
+	background: #76FF7A;
+	border-color: #76FF7A;
+}
+
+.chiuso > div:first-child{
+	background: #FF5349;
+	border-color: #FF5349;
+}
+
+.presaInCarico > div:first-child{
+	background: #1CAC78;
+	border-color: #1CAC78;
+}
+
+.respinto > div:first-child{
+	background: #CD4A4A;
+	border-color: #CD4A4A;
+}
+
+.riaperto > div:first-child{
+	background: #FFCF48;
+	border-color: #FFCF48;
+}
+
+.pausa > div:first-child{
+	background: #F664AF;
+	border-color: #F664AF;
+}
+
+.insoluto > div:first-child{
+	background: #dbdbdb;
+	border-color: #dbdbdb;
+}
+
+.risolto > div:first-child{
+	background: #14ff5b;
+	border-color: #14ff5b;
+}
+
+.segnalaVersoOperatore > div:first-child{
+	background: #5D76CB;
+	border-color: #5D76CB;
+}
+
+.segnalato > div:first-child{
+	background: #1DACD6;
+	border-color: #1DACD6;
+}
+
+.segnalaVersoEnte > div:first-child{
+	background: #1FCECB;
+	border-color: #1FCECB;
+}
+
+.pnlIterInfoStato  div:nth-child(2){
+	padding:0;
+}
+
+.pnlIterInfoStato{
+	margin-top: 3px;
+	margin-bottom: 3px;
+}
+
+.itertDialogTab .ui-widget-content{
+	border: none!important;
+}
+
+.itertDialogTab .ui-tabs-panels div:first-child{
+	padding: 3px;
+}
+
+.itertDialogTab .ui-tabs-panels{
+	overflow: auto;
+	height: 350px;
+}
+
+#iterDialogForm{
+	margin: -1.5em;
+}
+
+.segnalatoLabel{
+	text-align: center!important;
+	font-weight: bold!important;
+	font-size: 1.2em!important;
+	border-bottom: 1px #B4B2B2 solid!important;
+	padding-top: 20px!important;
+}
+
+.operatore{
+	border-bottom: 1px #B4B2B2 solid!important;
+}
+
+.fieldsetStep{
+	border: 1px #CCC solid;
+	margin: 18px 0;
+}
+
+.fieldsetStep legend{
+	font-weight: bold;
+}
+
+.noStyleTable{
+	border: none!important;
+}
+
+.noStyleTable th{
+	border: none!important;
+}
+
+.noStyleTable td{
+	border: none!important;
+}
+
+.noStyleTable tbody{
+	border: none!important;
+}
+
+.iterStatoRow{
+	padding-top: 0.8em!important;
+	padding-bottom: 0.8em!important;
+}
+
+/* All Accordion Style */
+.ui-accordion .ui-accordion-content {
+	margin-top: 0px;
+	border-left: 1px solid #C4C4C4;
+	border-right: 1px solid #C4C4C4;
+	border-bottom: 1px solid #C4C4C4;
+}
+
+.ui-accordion .ui-accordion-content {
+	padding-left: 0;
+	padding-right: 0;
+	padding-bottom: 0;
+}
+
+.accordionFooter {
+	background: #C4C4C4;
+	border-radius: 4px;
+	padding-top: 5px;
+	padding-bottom: 0px;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.buttonFooter .ui-button.ui-state-default {
+	background: #C4C4C4;
+}
+
+/* Component Cambio Stato */
+.pnlIterDialog div:nth-child(2){
+	padding:0;
+}
+
+.itertDialogTab .ui-tabs-panels div:nth-child(2){
+	padding: 3px;
+}
+
+.footerPanel{
+	width: 100%;
+	margin: 18px 0;
+}
+
+/* Notification Component */
+
+a, img {
+    border:none;
+}
+
+.notificaButton{
+	position: relative;
+	width: 40px;
+	margin-top: -10px;
+	margin-left: 10px;
+}
+
+.notificaButton > label{
+	position: absolute;
+	left: 19px;
+	top: 10px;
+	color: #FFF;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: center;
+	width: 20px;
+}
+
+.alertMenu{
+	max-height: 300px;
+	width: 200px;
+	overflow: auto;
+	padding-bottom: 20px;
+}
+
+.noMessages{
+	text-align: center;
+}
+
+.isNotLetto span{
+	font-weight: bold;
+}
+
+.buttonNotificaFooter span{
+	margin-left: 35px;
+	margin-top: 10px;
+	font-size: 14px;
+}
+
+/* Dialog */
+.dialogClose {
+	background-position: 0 -176px;
+}
+
+.buttonClose{
+	margin-top: -17px;
+	margin-right: -10px;
+	margin-bottom: -12px;
+}
+
+/* Pannello di Controllo*/
+#panelloControllo_footer{
+	padding: 0 1em;
+	margin:0;
+}
+
+/* Fascicolo Cartella Utente */
+div[id="fCU:fascicoloTab:colloquio"]{
+	padding:0!important;
+}
+
+.outputSpace{
+	padding: 4px 10px;
+}
+
+.tableNoBg tr{
+	background: transparent;
+}
+
+.fascCartellaUtenteDialog .ui-dialog-content {
+	padding: .5em 0;
+}
+
+.anagCorrente .ui-dialog-titlebar {
+	cursor: pointer;
+}
+
+.valFamRating .ui-rating-star{
+	margin: 10px 24px
+}
+
+.adAbitRating .ui-rating-star{
+	margin: 10px 30px
+}
+
+.valEconRating .ui-rating-star{
+	margin: 10px 30px
+}
+
+.mapRisCenter label{
+	display: none;
+}
+
+.mapRisCenter td, .mapRisleft td{ 
+	padding: 10px;
+}
+
+.mapRisTop td{
+	padding: 0 10px;
+}
+
+.noBorder td
+{
+	border: none !important;
+	padding: 2px !important;
+	vertical-align: top;
+}
+
+.noBorder th
+{
+	border: none !important;
+	padding-left:0px !important;
+	text-align:left !important;
+}
+

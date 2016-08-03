@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition>
+		<c:if test="#{empty contribuenteBean.numeroSoggettiICI or contribuenteBean.numeroSoggettiICI=='0'}" >
+			<f:facet name="label">
+				<h:outputText value="ICI" />
+			</f:facet>
+			<rich:spacer height="20px" />
+			<div style="height:60px;">
+				<h:outputText value="DATI NON TROVATI" styleClass="titoloNero" style="font-weight: bold;" />
+			</div>
+		</c:if>
+		<c:if test="#{not empty contribuenteBean.numeroSoggettiICI and contribuenteBean.numeroSoggettiICI!='0'}" >
+			<c:if test="#{contribuenteBean.numeroSoggettiICI=='1'}" >
+				<f:facet name="label">
+					<h:outputText value="ICI" />	
+				</f:facet>
+			</c:if>
+			<c:if test="#{contribuenteBean.numeroSoggettiICI=='2'}" >
+				<f:facet name="label">
+					<h:outputText value="ICI (!)"/>
+				</f:facet>
+				<div>
+					<table style="width:100%">
+						<tr>
+							<td style="height:10px;" align="center">
+								<a4j:commandLink 
+							    	ajaxSingle="true" 
+							    	value="Altri soggetti trovati" 
+							    	reRender="altriSoggICIPanel" 
+							    	oncomplete="#{rich:component('altriSoggICIPanel')}.show()">
+								</a4j:commandLink>				
+							</td>
+						</tr>
+						<c:if test="#{contribuenteBean.labelDatiSoggettoIci ne ''}" >
+							<tr>
+								<td style="height:10px;" align="center">
+									<h:outputText value="#{contribuenteBean.labelDatiSoggettoIci}"/>
+								</td>
+							</tr>
+						</c:if>
+					</table>
+				</div>
+			</c:if>
+			<a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Dettaglio_Cartella_Ici.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a>
+			<div>
+			<h:panelGrid columns="1" width="100%">
+				<h:outputText value="#{contribuenteBean.tribIciFonte.strDataAgg}"/>
+				<h:outputText value="#{contribuenteBean.tribIciFonte.nota}"/>
+			</h:panelGrid>
+			</div>		
+			<rich:panel>
+				<f:facet name="header"><h:outputText value="DATI ANAGRAFICI DICHIARATI"/></f:facet>
+				<table border="0" style="width:100%" cellspacing="1" class="#{contribuenteBean.tribIciFonte.coloreJsp}">
+		            <tbody>
+		            	<tr>
+		            		<td style="width:30%;">
+		            			<h:outputText value="Denominazione" styleClass="labelDesc" />
+		            		</td>
+		            		<td>
+		            			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.denominazione}" /></span>
+		            		</td>
+		            	</tr>
+		            	<tr>
+		            		<td>
+		            			<h:outputText value="#{contribuenteBean.descLabelIndirizzo}" styleClass="labelDesc" />
+		            		</td>
+		            		<td>
+		            			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.indirizzo}" /></span>
+		            		</td>
+		            	</tr>
+		            	<tr>
+		            		<td>
+		            			<h:outputText value="#{contribuenteBean.labelDescTipoSogg}" styleClass="labelDesc" />
+		            		</td>
+		            		<td>
+		            			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.codFiscalePIVA}" /></span>
+		            		</td>
+		            	</tr>
+		            	<tr>
+		            		<td>
+		            			<h:outputText value="Comune Residenza" styleClass="labelDesc" />
+		            		</td>
+		            		<td>
+		            			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.comuneResidenza}" /></span>
+		            		</td>
+		            	</tr>					            	
+		            </tbody>
+				</table>	  				
+			</rich:panel>
+			<rich:spacer height="20px" />
+				<rich:simpleTogglePanel switchType="client" opened="false">
+					<f:facet name="header">DATI IMMOBILI DICHIARATI </f:facet>		
+				<rich:dataTable width="100%"
+		        	var="immDic"
+		        	value="#{contribuenteBean.listaImmobiliDichiaratiICI}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+                    rowClasses="#{contribuenteBean.tribIciFonte.coloreJsp}" >>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Sez." /></f:facet>
+					<h:outputLabel value="#{immDic.sezione}" />
+				</rich:column>					            
+				<rich:column>
+					<f:facet name="header"><h:outputText value="F/P/S" /></f:facet>
+					<h:outputLabel value="#{immDic.descFPS}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Anno Den." /></f:facet>
+					<h:outputLabel value="#{immDic.annoDenuncia}" />
+				</rich:column>
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Anno Rif." /></f:facet>
+					<h:outputLabel value="#{immDic.annoRif}" />
+				</rich:column>
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Num. Den." /></f:facet>						
+					<h:outputLabel value="#{immDic.numeroDenuncia}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Tipo Den." /></f:facet>						
+					<h:outputLabel value="#{immDic.tipoDenuncia}" />
+				</rich:column>
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Cat(*)" /></f:facet>
+					<h:outputLabel value="#{immDic.categoria}" title="Categoria riscontrata in banca dati catastale (nell'anno di riferimento o denuncia): #{immDic.categoriaDaCatasto} -  #{immDic.desCategoriaDaCatasto}" />
+				</rich:column>
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Classe (*)" /></f:facet>
+					<h:outputLabel value="#{immDic.classe}" title="Classe riscontrata in banca dati catastale (nell'anno di riferimento o denuncia): #{immDic.classeDaCatasto}" />																																				
+				</rich:column>
+				<rich:column width="60px" style="text-align:right">						
+					<f:facet name="header"><h:outputText value="Valore (*)" /></f:facet>
+					<h:outputLabel value="#{immDic.valImmobileF}" title="Valore della rendita riscontrata in banca dati catastale (nell'anno di riferimento o denuncia): #{immDic.renditaDaCatasto}; Valore ICI calcolato in base alla rendita catastale:  #{immDic.imponibileIciCalcolatoStr}" />																																				
+				</rich:column>	
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+					<h:outputLabel value="#{immDic.tipologiaCatastale}" />																																				
+				</rich:column>		
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Imm. Stor." /></f:facet>					
+					<h:outputLabel value="#{immDic.flImmStorico=='1'?'Si':'No'}" />																																				
+				</rich:column>	
+				<rich:column>
+					<f:facet name="header"><h:outputText value="% Poss.(*)" /></f:facet>
+					<h:outputLabel value="#{immDic.perPossessoF}" 
+					title="Valore della percentuale di possesso da Catasto riscontrata in banca dati catastale (nell'anno di riferimento o denuncia):  #{immDic.perPossessoDaCatasto}" />										
+				</rich:column>	
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Mesi Poss.(*)" /></f:facet>
+					<h:outputLabel value="#{immDic.mesiPossesso}" 
+						title="Date possesso riscontrata in banca dati catastale - Inizio Possesso: #{immDic.dtIniPossDaCatasto} ; Fine Possesso: #{immDic.dtFinPossDaCatasto} " />
+				</rich:column>	
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Poss.31/12(*)" /></f:facet>
+					<h:outputLabel 
+						value="#{immDic.flPoss3112=='1'?'Si':'No'}"
+						title="Date possesso riscontrata in banca dati catastale - Inizio Possesso: #{immDic.dtIniPossDaCatasto} ; Fine Possesso: #{immDic.dtFinPossDaCatasto} " />																																				
+				</rich:column>		
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Acq/Css(*)" /></f:facet>
+					<h:outputLabel 
+						value="#{immDic.flAcq=='1'?'Si':'No'}/#{immDic.flCss=='1'?'Si':'No'}"
+						title="Flag acquisto/cessione valutati in base alle risultanze in banca dati catastale - Acquisto #{immDic.flAcqValutatoDaCatasto};  Cessione: #{immDic.flCssValutatoDaCatasto}" />																																				
+				</rich:column>		
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Ab. Princ." /></f:facet>
+					<h:outputLabel value="#{immDic.flAbitPrinc=='1'?'Si':'No'}" />																																				
+				</rich:column>
+	            <rich:column>
+	                <f:facet name="header">
+						<h:outputText value="Altri Dati" />
+	                </f:facet>
+				        <a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	action="#{contribuenteBean.showDettaglioICI}" 
+			            	value="Altri Dati" 
+			            	reRender="immobiliIciPanel" 
+			            	oncomplete="#{rich:component('immobiliIciPanel')}.show()">
+			            	<f:setPropertyActionListener value="#{immDic}" target="#{contribuenteBean.immobileIci}" />
+	     				</a4j:commandLink>
+	            </rich:column>							
+	            <f:facet name="footer">
+	                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+	            </f:facet>																								
+			</rich:dataTable>
+		</rich:simpleTogglePanel>
+		<rich:spacer height="20px" />		  		
+				<rich:simpleTogglePanel switchType="client" opened="false">
+			<f:facet name="header">VERSAMENTI</f:facet>
+			<rich:dataTable width="100%"
+	        	var="vers"
+	        	value="#{contribuenteBean.listaVersamenti}" 
+	        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+                rowClasses="#{contribuenteBean.tribIciFonte.coloreJsp}" >
+				<rich:column >
+					<f:facet name="header"><h:outputText value="ANNO" /></f:facet>
+					<span><h:outputLabel  value="#{vers.annoRif}" styleClass="colAlignCenter" /></span>
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="VERSATO" /></f:facet>
+					<h:outputLabel  value="#{vers.impTotVer}" />
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="ISCRITTO A RUOLO" /></f:facet>
+					<h:outputLabel value="#{vers.impTotRuolo}" />
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="RISCOSSO" /></f:facet>
+					<h:outputLabel  value="#{vers.impTotRiscosso}" />
+				</rich:column>
+	            <f:facet name="footer">
+	                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+	            </f:facet>																								
+			</rich:dataTable>
+	  	</rich:simpleTogglePanel>
+		</c:if>
+	</ui:composition>
+</html>

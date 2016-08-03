@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<br/><br/>
+<h:form id="frmRicerca" rendered="#{userBean.administrator and pageBean.pageLeft eq '/jsp/protected/interventi/interventi.xhtml'}">
+
+	<rich:panel id="panelRic">
+		<f:facet name="header">
+			<h:outputLabel value="Criteri ricerca" />
+		</f:facet>
+		<h:panelGrid columns="5" width="100%">
+
+			<h:outputLabel value="Numero concessione" />
+			<h:selectOneMenu
+				value="#{interventiDataProviderImpl.criteria.concNumero}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{interventiDataProviderImpl.listaConcNumero}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Numero protocollo" />
+			<h:selectOneMenu
+				value="#{interventiDataProviderImpl.criteria.protNumero}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{interventiDataProviderImpl.listaProtNumero}" />
+			</h:selectOneMenu>
+
+			<h:panelGrid columns="4">
+				<h:outputLabel value="Data protocollo da" />
+				<rich:calendar
+					value="#{interventiDataProviderImpl.criteria.protDataDa}"
+					datePattern="dd/MM/yyyy" enableManualInput="true"
+					label="Data protocollo da" />
+				<h:outputLabel value="a" />
+				<rich:calendar
+					value="#{interventiDataProviderImpl.criteria.protDataA}"
+					datePattern="dd/MM/yyyy" enableManualInput="true"
+					label="Data protocollo a" />
+			</h:panelGrid>
+
+			<h:outputLabel value="Stato" />
+			<h:selectOneMenu value="#{interventiDataProviderImpl.criteria.stato}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{interventiDataProviderImpl.listaStati}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Utente" />
+			<h:selectOneMenu
+				value="#{interventiDataProviderImpl.criteria.fkSoggetto}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{interventiDataProviderImpl.listaSoggetti}" />
+			</h:selectOneMenu>
+
+			<h:panelGrid columns="4">
+				<h:outputLabel value="Data inserimento da" />
+				<rich:calendar value="#{interventiDataProviderImpl.criteria.dataDa}"
+					datePattern="dd/MM/yyyy" enableManualInput="true"
+					label="Data inserimento da" />
+				<h:outputLabel value="a" />
+				<rich:calendar value="#{interventiDataProviderImpl.criteria.dataA}"
+					datePattern="dd/MM/yyyy" enableManualInput="true"
+					label="Data inserimento a" />
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+		<h:panelGrid columns="2">
+
+			<a4j:commandButton value="Ricerca" id="btnRicerca"
+				reRender="leftPage">
+			</a4j:commandButton>
+			<h:graphicImage style="cursor:pointer;" value="/images/reset.png"
+				title="Reset criteri">
+				<a4j:support event="onclick" reRender="upPage, leftPage"
+					action="#{interventiDataProviderImpl.resetData}">
+				</a4j:support>
+			</h:graphicImage>
+
+		</h:panelGrid>
+
+	</rich:panel>
+
+	<rich:spacer height="10px" />
+
+</h:form>
+
+</html>

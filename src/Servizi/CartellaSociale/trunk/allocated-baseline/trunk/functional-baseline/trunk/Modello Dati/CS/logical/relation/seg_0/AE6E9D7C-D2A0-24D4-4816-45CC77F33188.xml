@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_COMUNICAZ_COMUNICAZ" id="AE6E9D7C-D2A0-24D4-4816-45CC77F33188" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>CEFAD68C-30EF-31BA-6636-375843C2B18F</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>923D0E5A-006A-625C-9440-3C83A2F8D212</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>923D0E5A-006A-625C-9440-3C83A2F8D212</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

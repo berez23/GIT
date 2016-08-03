@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.51 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.DvUeFromEntity" table="DV_UE_FROM_ENTITY" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <many-to-one name="dcEntity" class="it.webred.diogene.db.model.DcEntity" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_DC_ENTITY" precision="10" scale="0"/>
+        </many-to-one>
+        <many-to-one name="dvUserEntity" class="it.webred.diogene.db.model.DvUserEntity" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_DV_USER_ENTITY" precision="10" scale="0"/>
+        </many-to-one>
+        <property name="alias" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="ALIAS" length="100"/>
+        </property>
+        <set name="dcFromRelsForFkDvEuFrom2" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DV_EU_FROM2" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcFromRel" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dcFromRelsForFkDvEuFrom1" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DV_EU_FROM1" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcFromRel" not-found="exception" embed-xml="true"/>
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<relationalModel class="oracle.dbtools.crest.model.design.relational.RelationalDesign" name="CS_F704-ROMA" id="B2775402-0E36-D840-45AE-FC422EF103E4" mainViewID="03882C7F-5E38-B489-8ADC-066A526E601E">
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:20 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<shouldBeOpen>true</shouldBeOpen>
+<selectedRDBMSSite>32076570-2523-435C-2E92-BF29817DFF70</selectedRDBMSSite>
+<importConnectionStamps>
+<importConnectionStamp class="oracle.dbtools.crest.imports.DBConnectionStamp">
+<connName>CS_F704-ROMA</connName>
+<connUrl>jdbc:oracle:thin:@ROMA:1521/DBCAT</connUrl>
+<connUser>CS_F704</connUser>
+<connType>1</connType>
+</importConnectionStamp>
+</importConnectionStamps>
+</relationalModel>

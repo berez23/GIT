@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.DichiaranteBean" table="DOCFA_DICHIARANTI" >
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-property column="FORNITURA" name="fornitura" type="java.util.Date"/>
+   <key-property column="PROTOCOLLO_REG" name="protocollo_reg" type="java.lang.String"/>
+  </composite-id>
+  <property column="DIC_COGNOME" generated="never" lazy="false"
+   name="dic_cognome" type="java.lang.String"/>
+  <property column="DIC_NOME" generated="never" lazy="false"
+   name="dic_nome" type="java.lang.String"/>
+  <property column="DIC_RES_COM" generated="never" lazy="false"
+   name="dic_res_com" type="java.lang.String"/>
+  <property column="DIC_RES_PROV" generated="never" lazy="false"
+   name="dic_res_prov" type="java.lang.String"/>
+  <property column="DIC_RES_INDIR" generated="never" lazy="false"
+   name="dic_res_indir" type="java.lang.String"/>
+  <property column="DIC_RES_NUMCIV" generated="never" lazy="false"
+   name="dic_res_numciv" type="java.lang.String"/>
+  <property column="DIC_RES_CAP" generated="never" lazy="false"
+   name="dic_res_cap" type="java.lang.String"/>
+  <property column="TEC_COGNOME" generated="never" lazy="false"
+   name="tec_cognome" type="java.lang.String"/>
+  <property column="TEC_NOME" generated="never" lazy="false"
+   name="tec_nome" type="java.lang.String"/>
+  <property column="TEC_CODFISC" generated="never" lazy="false"
+   name="tec_codfisc" type="java.lang.String"/>
+  <property column="TEC_ISC_ALBO" generated="never" lazy="false"
+   name="tec_isc_albo" type="java.lang.Integer"/>
+  <property column="TEC_ISC_NUMORD" generated="never" lazy="false"
+   name="tec_isc_numord" type="java.lang.Integer"/>
+  <property column="TEC_ISC_PROV" generated="never" lazy="false"
+   name="tec_isc_prov" type="java.lang.String"/>
+  <property column="FLAG_DOC_TELEM" generated="never" lazy="false"
+   name="flag_doc_telem" type="java.lang.Byte"/>
+ </class>
+ <query name="getListaDichiaranti">from DichiaranteBean as D</query>
+ <!-- <query name="getListaDichiarantiCognomi">from DichiaranteBean as D where D.dic_cognome like :cog order by D.dic_cognome, D.dic_nome</query>  -->
+  <query name="getListaDichiarantiCognomi">from DichiaranteBean as D where D.dic_cognome|| ' ' ||D.dic_nome like :cog order by D.dic_cognome, D.dic_nome</query>
+  <query name="getListaProfessionistiCognomi">from DichiaranteBean as D where concat(D.tec_cognome, ' ', D.tec_nome) like :cog order by D.tec_cognome, D.tec_nome</query>
+</hibernate-mapping>

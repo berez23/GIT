@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.UiuBean" table="DOCFA_UIU" >
+
+	<composite-id mapped="false" unsaved-value="undefined">
+	   <key-property column="FORNITURA" name="fornitura" type="java.util.Date"/>
+	   <key-property column="PROTOCOLLO_REG" name="protocollo_reg" type="java.lang.String"/>
+    </composite-id>
+  
+  <property column="INDIR_TOPONIMO" generated="never" lazy="false" name="indir_toponimo" type="java.lang.String"/>
+  <property column="INDIR_NCIV_UNO" generated="never" lazy="false" name="indir_nciv_uno" type="java.lang.String"/>
+  <property column="FOGLIO" generated="never" lazy="false" name="foglio" type="java.lang.String"/>
+  <property column="NUMERO" generated="never" lazy="false" name="particella" type="java.lang.String"/>
+  <property column="SUBALTERNO" generated="never" lazy="false" name="subalterno" type="java.lang.String"/>
+  <property column="PROP_CATEGORIA" generated="never" lazy="false" name="categoria" type="java.lang.String"/>
+  <property column="TIPO_OPERAZIONE" generated="never" lazy="false" name="tipo_operazione" type="java.lang.String"/>
+ </class>
+ <query name="getListaIndirizzi">select distinct I.indir_toponimo, I.indir_nciv_uno from UiuBean as I where UPPER(I.indir_toponimo) LIKE :des order by I.indir_toponimo, I.indir_nciv_uno</query>
+</hibernate-mapping>

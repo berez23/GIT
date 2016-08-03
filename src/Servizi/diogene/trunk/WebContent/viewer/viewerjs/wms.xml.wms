@@ -1,0 +1,78 @@
+<%@page import="it.escsolution.escwebgis.common.EnvUtente"%>
+<%@page import="it.escsolution.escwebgis.common.EnvSource"%>
+<%@page import="it.escsolution.escwebgis.common.EscLogic"%>
+<%@page import="java.io.*"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="javax.sql.DataSource"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="javax.naming.Context"%>
+<%@page import="javax.naming.InitialContext"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="javax.naming.NamingException"%>
+<%@page import="org.apache.log4j.Logger"%>
+
+<%response.setHeader("Cache-Control","no-cache");
+response.setHeader("Pragma","no-cache");
+response.setDateHeader ("Expires", 0);
+response.setHeader("Content-Type", "text/xml");
+
+%>
+		
+			<%if(true){%>
+		
+<DbMAP_asj_Project>
+	<ServerURL>http://172.16.2.107:8081/DbMAP_ASJ_servlet/D279/DbMAPservlet?function=</ServerURL>
+	<InfoURL>http://172.16.2.107:8081/DbMAP_ASJ_servlet/D279/DbMAPinfo</InfoURL>
+	<Palette>
+		<BackgroundColor>
+			<rgb>255 255 255</rgb>
+		</BackgroundColor>
+		<HiliteColor>
+			<rgb>0 255 127</rgb>
+		</HiliteColor>
+		<HiliteColor2>
+			<rgb>0 0 255</rgb>
+		</HiliteColor2>
+	</Palette>
+	<default_view_fixed>
+		<x1>2276808.9430533117</x1>
+		<y1>4770479.5</y1>
+		<x2>2308933.5569466883</x2>
+		<y2>4784127.5</y2>
+	</default_view_fixed>
+	<Layer>
+		<name>w4326</name>
+		<ServerURL>http://172.16.2.107:8081/DbMAP_ASJ_servlet/D279/DbMAPservlet?wmsqueryDst=3004&amp;wmsquerySrs=4326&amp;function=</ServerURL>
+		<table>http://geo.umbriaterritorio.it/arcgis/services/public/ORTOFOTO_2000_WGS84/MapServer/WMSServer|image/jpeg|EPSG:3004,forced</table>
+		<shape_field>a</shape_field>
+		<where/>
+		<shape_type>6</shape_type>
+		<always_listed>Y</always_listed>
+		<text_visible>N</text_visible>
+		<text_font>SansSerif</text_font>
+		<poly_fill_color>232</poly_fill_color>
+		<poly_fill_style>1</poly_fill_style>
+		<poly_fill_xor>N</poly_fill_xor>
+		<union_type>WMS_PROXYED</union_type>
+	</Layer>
+	<Layer>
+		<name>w3004</name>
+		<ServerURL>http://172.16.2.107:8081/DbMAP_ASJ_servlet/D279/DbMAPservlet?function=</ServerURL>
+		<table>http://geo.umbriaterritorio.it/arcgis/services/CTR_10K/MapServer/WMSServer|image/gif|EPSG:3004,forced</table>
+		<shape_field>a</shape_field>
+		<where/>
+		<shape_type>6</shape_type>
+		<always_listed>Y</always_listed>
+		<text_visible>N</text_visible>
+		<text_font>SansSerif</text_font>
+		<poly_fill_color>120</poly_fill_color>
+		<poly_fill_style>1</poly_fill_style>
+		<poly_fill_xor>N</poly_fill_xor>
+		<union_type>WMS_PROXYED</union_type>
+	</Layer>	
+	
+</DbMAP_asj_Project>
+	    
+		    
+			<%}%>			    					

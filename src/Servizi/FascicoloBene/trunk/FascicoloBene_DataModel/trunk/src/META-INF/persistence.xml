@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="FascicoloBene_DataModel" transaction-type="JTA">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm_fb.xml</mapping-file>
+	
+		<class>it.webred.fb.data.model.SsTest</class>
+		<class>it.webred.fb.data.model.DemanioBene</class>
+		<class>it.webred.fb.data.model.DmConfCaricamento</class>
+		<class>it.webred.fb.data.model.DmConfCaricamentoPK</class>
+		<class>it.webred.fb.data.model.DmBBene</class>
+		<class>it.webred.fb.data.model.DmBBeneNOTEAGER</class>
+		<class>it.webred.fb.data.model.DmBBeneInv</class>
+		<class>it.webred.fb.data.model.DmBFascicolo</class>
+		<class>it.webred.fb.data.model.DmBTipoUso</class>
+		<class>it.webred.fb.data.model.DmEEvento</class>
+		<class>it.webred.fb.data.model.DmBIndirizzo</class>
+		<class>it.webred.fb.data.model.DmBMappale</class>
+		<class>it.webred.fb.data.model.DmDDoc</class>
+		<class>it.webred.fb.data.model.DmDCartella</class>
+		<class>it.webred.fb.data.model.DmConfClassificazione</class>
+		<class>it.webred.fb.data.model.DmConfClassificazionePK</class>
+		<class>it.webred.fb.data.model.DmConfDocDir</class>
+		<class>it.webred.fb.data.model.DmBTitolo</class>
+		<class>it.webred.fb.data.model.DmBInfo</class>
+		<class>it.webred.fb.data.Siticomu</class>
+		<class>it.webred.fb.data.model.DmConfDocLog</class>
+		<class>it.webred.fb.data.model.DmConfDocLogPK</class>
+		<class>it.webred.fb.data.model.DmBTerreno</class>
+		
+		<properties>
+			<!-- property name="hibernate.dialect" value="org.hibernate.dialect.Oracle9iDialect" /-->
+			<property name="hibernate.dialect" value="it.webred.ct.data.spatial.OracleSpatialDialect" />
+			
+			<!-- <property name="hibernate.hbm2ddl.auto" value="update"/>  -->
+			<property name="hibernate.show_sql" value="false" />
+		    <property name="hibernate.transaction.manager_lookup_class"
+				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> 
+			
+		</properties>
+
+
+	</persistence-unit>
+</persistence>

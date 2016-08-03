@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL del fascicolo</comment>
+	<entry key="sqlDatiCatastali">
+	<![CDATA[
+			select sititrkc.cod_nazionale, sititrkc.foglio, sititrkc.particella, sititrkc.area_part  as superficie,  data_fine,
+			decode(to_char(sititrkc.data_fine,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(sititrkc.data_fine,'dd/mm/yyyy')) data_finef,
+			sititrkc.SUB subalterno,
+			'0' as latitudine,
+			'0' as longitudine
+			from sititrkc, siticomu
+			where siticomu.codi_fisc_luna = ?
+			and sititrkc.cod_nazionale = siticomu.cod_nazionale
+			and sititrkc.foglio = ?
+			and sititrkc.particella = LPAD (TRIM (?), 5, '0')
+			and nvl(upper(sititrkc.annotazioni), '-') <> 'CREATO AUTOMATICAMENTE IN FASE DI IMPORTAZIONE UIU'
+			order by sititrkc.data_fine, to_number(decode(trim(sititrkc.SUB),'', '0', trim(sititrkc.SUB) ))
+	]]>
+	</entry>
+	<entry key="sqlDatiCatastaliAttuali">
+	<![CDATA[
+			select sititrkc.cod_nazionale, sititrkc.foglio, sititrkc.particella, sititrkc.area_part  as superficie,  data_fine,
+			decode(to_char(sititrkc.data_fine,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(sititrkc.data_fine,'dd/mm/yyyy')) data_finef,
+			sititrkc.SUB subalterno,
+			'0' as latitudine,
+			'0' as longitudine
+			from sititrkc, siticomu
+			where siticomu.codi_fisc_luna = ?
+			and sititrkc.cod_nazionale = siticomu.cod_nazionale
+			and sititrkc.foglio = ?
+			and sititrkc.particella = LPAD (TRIM (?), 5, '0')
+			and nvl(upper(sititrkc.annotazioni), '-') <> 'CREATO AUTOMATICAMENTE IN FASE DI IMPORTAZIONE UIU'
+			and sititrkc.data_fine >= sysdate
+			order by sititrkc.data_fine, to_number(decode(trim(sititrkc.SUB),'', '0', trim(sititrkc.SUB) ))
+	]]>
+	</entry>	
+	
+	<entry key="sqlCostituzioneCatastale">
+	<![CDATA[
+			SELECT   u.cod_nazionale, u.foglio, u.particella, u.unimm, u.categoria, u.classe, u.consistenza, u.rendita,
+	         u.sup_cat, u.piano, u.data_inizio_val, u.data_fine_val, 
+	         decode(to_char(u.data_inizio_val,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(u.data_inizio_val,'dd/mm/yyyy')) data_inizio_valf,
+	         decode(to_char(u.data_fine_val,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(u.data_fine_val,'dd/mm/yyyy')) data_fine_valf,
+	         (SELECT 'X'
+	            FROM sit_t_ici_oggetto i
+	           WHERE TRIM (i.foglio) = TO_CHAR (u.foglio)
+	             AND LPAD (TRIM (i.numero), 5, '0') = u.particella
+	             AND trim(i.sub)=to_char(u.unimm)
+	              and rownum <=1) AS flag_ici,
+	              (SELECT 'X'
+	            FROM sit_t_tar_oggetto t
+	           WHERE TRIM (t.foglio) = TO_CHAR (u.foglio)
+	             AND LPAD (TRIM (t.numero), 5, '0') = u.particella
+	             AND trim(t.sub)=to_char(u.unimm)
+	              and rownum <=1) AS flag_tarsu
+				    FROM sitiuiu u, siticomu c
+				   WHERE c.codi_fisc_luna = ?
+				   	 AND u.cod_nazionale = c.cod_nazionale
+				     AND u.foglio = ?
+				     AND u.particella = LPAD (TRIM (?), 5, '0')
+				     AND u.data_fine_val > u.data_inizio_val
+				
+	]]>	
+	</entry>
+	<entry key="sqlCostituzioneCatastaleAttuali">
+	<![CDATA[
+			SELECT   u.cod_nazionale, u.foglio, u.particella, u.unimm, u.categoria, u.classe, u.consistenza, u.rendita,
+	         u.sup_cat, u.piano, u.data_inizio_val, u.data_fine_val, 
+	         decode(to_char(u.data_inizio_val,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(u.data_inizio_val,'dd/mm/yyyy')) data_inizio_valf,
+	         decode(to_char(u.data_fine_val,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(u.data_fine_val,'dd/mm/yyyy')) data_fine_valf,
+	         (SELECT 'X'
+	            FROM sit_t_ici_oggetto i
+	           WHERE TRIM (i.foglio) = TO_CHAR (u.foglio)
+	             AND LPAD (TRIM (i.numero), 5, '0') = u.particella
+	             AND trim(i.sub)=to_char(u.unimm)
+	              and rownum <=1) AS flag_ici,
+	              (SELECT 'X'
+	            FROM sit_t_tar_oggetto t
+	           WHERE TRIM (t.foglio) = TO_CHAR (u.foglio)
+	             AND LPAD (TRIM (t.numero), 5, '0') = u.particella
+	             AND trim(t.sub)=to_char(u.unimm)
+	              and rownum <=1) AS flag_tarsu
+				    FROM sitiuiu u, siticomu c
+				   WHERE c.codi_fisc_luna = ?
+				   	 AND u.cod_nazionale = c.cod_nazionale
+				     AND u.foglio = ?
+				     AND u.particella = LPAD (TRIM (?), 5, '0')
+				     AND u.data_fine_val >= sysdate
+				     AND u.data_fine_val > u.data_inizio_val
+				
+	]]>	
+	</entry>
+	<entry key="sqlCostituzioneCatastaleSub">
+	<![CDATA[
+			AND unimm = ?
+	]]>	
+	</entry>
+	<entry key="sqlCostituzioneCatastaleOrder">
+	<![CDATA[
+			ORDER BY unimm, data_inizio_val, data_fine_val
+	]]>	
+	</entry>
+		
+	<entry key="sqlTitolarita">
+	<![CDATA[
+			SELECT * FROM (
+			SELECT c.CODI_FISC_LUNA, cct.foglio, cct.particella, cct.unimm, cct.allegato, csv.cuaa, csv.ragi_soci, DECODE(cct.tipo_titolo,1,'Proprieta''',9,(decode(trim(cct.tipo_documento),'990',cct.tit_no_cod,'99',decode(cct.tit_no_cod,null,'Titolo non codificato',cct.tit_no_cod), 'Altro'))) AS tipo_titolo,			
+			round(cct.perc_poss, 2) perc_poss, cct.data_inizio, cct.data_fine,
+			 decode(to_char(cct.data_inizio,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_inizio,'dd/mm/yyyy')) data_iniziof,
+	         decode(to_char(cct.data_fine,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_fine,'dd/mm/yyyy')) data_finef			
+			FROM cons_csui_tab cct, cons_sogg_viw csv, siticomu c		
+			where cct.COD_NAZIONALE = c.COD_NAZIONALE						
+			AND cct.pk_cuaa=csv.pk_cuaa			
+			AND data_fine_val > data_inizio_val
+			UNION ALL
+			SELECT c.CODI_FISC_LUNA, cct.foglio, cct.particella, cct.unimm, cct.allegato, csv.cuaa, csv.ragi_soci, DECODE(cct.tipo_titolo,1,'Proprieta''',9,(decode(trim(cct.tipo_documento),'990',cct.tit_no_cod,'99',decode(cct.tit_no_cod,null,'Titolo non codificato',cct.tit_no_cod), 'Altro'))) AS tipo_titolo,			
+			round(cct.perc_poss, 2) perc_poss, cct.data_inizio, cct.data_fine,
+			 decode(to_char(cct.data_inizio,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_inizio,'dd/mm/yyyy')) data_iniziof,
+	         decode(to_char(cct.data_fine,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_fine,'dd/mm/yyyy')) data_finef			
+			FROM cons_urui_tab cct, cons_sogg_viw csv, siticomu c		
+			where cct.COD_NAZIONALE = c.COD_NAZIONALE						
+			AND cct.pk_cuaa=csv.pk_cuaa			
+			AND data_fine_val > data_inizio_val
+			)
+			WHERE CODI_FISC_LUNA = ?
+			AND foglio = ?			
+			AND particella = LPAD (TRIM (?), 5, '0')			
+			]]>
+	</entry>
+	<entry key="sqlTitolaritaAttuali">
+	<![CDATA[
+			SELECT * FROM (
+			SELECT c.CODI_FISC_LUNA, cct.foglio, cct.particella, cct.unimm, cct.allegato, csv.cuaa, csv.ragi_soci, DECODE(cct.tipo_titolo,1,'Proprieta''',9,(decode(trim(cct.tipo_documento),'990',cct.tit_no_cod,'99',decode(cct.tit_no_cod,null,'Titolo non codificato',cct.tit_no_cod), 'Altro'))) AS tipo_titolo,			
+			round(cct.perc_poss, 2) perc_poss, cct.data_inizio, cct.data_fine,
+			 decode(to_char(cct.data_inizio,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_inizio,'dd/mm/yyyy')) data_iniziof,
+	         decode(to_char(cct.data_fine,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_fine,'dd/mm/yyyy')) data_finef			
+			FROM cons_csui_tab cct, cons_sogg_viw csv, siticomu c		
+			where cct.COD_NAZIONALE = c.COD_NAZIONALE		
+			AND cct.pk_cuaa=csv.pk_cuaa			
+			AND data_fine_val > data_inizio_val			
+			AND data_fine >= sysdate
+			UNION ALL
+			SELECT c.CODI_FISC_LUNA, cct.foglio, cct.particella, cct.unimm, cct.allegato, csv.cuaa, csv.ragi_soci, DECODE(cct.tipo_titolo,1,'Proprieta''',9,(decode(trim(cct.tipo_documento),'990',cct.tit_no_cod,'99',decode(cct.tit_no_cod,null,'Titolo non codificato',cct.tit_no_cod), 'Altro'))) AS tipo_titolo,			
+			round(cct.perc_poss, 2) perc_poss, cct.data_inizio, cct.data_fine,
+			 decode(to_char(cct.data_inizio,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_inizio,'dd/mm/yyyy')) data_iniziof,
+	         decode(to_char(cct.data_fine,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(cct.data_fine,'dd/mm/yyyy')) data_finef			
+			FROM cons_urui_tab cct, cons_sogg_viw csv, siticomu c		
+			where cct.COD_NAZIONALE = c.COD_NAZIONALE		
+			AND cct.pk_cuaa=csv.pk_cuaa			
+			AND data_fine_val > data_inizio_val			
+			AND data_fine >= sysdate
+			)
+			WHERE CODI_FISC_LUNA = ?
+			AND foglio = ?			
+			AND particella = LPAD (TRIM (?), 5, '0')
+			]]>
+	</entry>
+	<entry key="sqlTitolaritaSub">
+	<![CDATA[
+		AND unimm = ?	 
+	]]>	
+	</entry>
+	
+	<entry key="sqlTitolaritaOrder">
+	<![CDATA[
+		order by unimm, data_inizio, data_fine
+	]]>	
+	</entry>
+	
+	<entry key="sqlaggregati">
+	<![CDATA[
+			SELECT u.foglio, u.particella, u.unimm, u.sup_cat,
+			       (SELECT SUM (supe_ambiente) * 0.8
+			          FROM sitiedi_vani
+			         WHERE foglio = u.foglio
+			           AND particella = u.particella
+			           AND unimm = u.unimm
+			           AND data_fine_val = TO_DATE ('99991231', 'yyyymmdd')
+			           AND ambiente IN ('A', 'B', 'C')) AS sup_tarsu,
+			       decode(to_char(data_fine_val,'dd/mm/yyyy'),'31/12/9999','ATTUALE',to_char(data_fine_val,'dd/mm/yyyy')) data_fine_valf
+			  FROM sitiuiu u, siticomu c 
+			 WHERE 
+			   c.CODI_FISC_LUNA = ?
+			   AND u.COD_NAZIONALE = c.COD_NAZIONALE
+			   AND u.foglio = ?
+			   AND u.particella = ?
+			   AND u.data_fine_val =
+			          (SELECT MAX (data_fine_val)
+			             FROM sitiuiu
+			            WHERE foglio = u.foglio
+			              AND particella = u.particella
+			              AND unimm = u.unimm)
+	]]>
+	</entry>
+	<entry key="sqlSupVano">
+	<![CDATA[	
+			select vano, piano,edificio, ambiente, supe_ambiente, altezzamin, altezzamax 
+			from sitiedi_vani e, siticomu c
+			where 
+			c.CODI_FISC_LUNA = ?
+			and e.COD_NAZIONALE = c.COD_NAZIONALE
+			and e.foglio = ?
+			and e.particella = LPAD (TRIM (?), 5, '0') 
+			and e.unimm = ?
+			and e.data_fine_val=to_date('99991231','yyyymmdd')
+			
+	]]>
+	</entry>	
+	<entry key="sqlSupVano">
+	<![CDATA[
+			order by vano
+	]]>
+	</entry>
+
+</properties>
+
+

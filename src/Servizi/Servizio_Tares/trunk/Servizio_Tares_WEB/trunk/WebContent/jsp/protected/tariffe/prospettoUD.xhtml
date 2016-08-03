@@ -1,0 +1,247 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="1">
+					<h:outputText value="UTENZE DOMESTICHE" style="font-weight: bold" />
+			</h:panelGrid>
+			<br/>
+			<br/>
+			<h:panelGrid columns="1">
+				<h:outputText value="Numero Abitanti #{tariffeBean.abitanti == 'UNDER'?'MINORE':'MAGGIORE'} di 5000 "/>
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+					<h:outputText value="Quota Unitaria Parte Fissa (Quf): "/>
+					<h:outputText value="#{tariffeBean.quf}">
+					<f:convertNumber pattern="#0.00"/>
+                	</h:outputText>
+                    <a4j:commandButton value="Dettaglio"
+						oncomplete="Richfaces.showModalPanel('uteDomQufModalBox'); return false;" >
+					</a4j:commandButton>					
+					<h:outputText value="Quota Unitaria Parte Variabile (Quv): "/>
+					<h:outputText value="#{tariffeBean.quv}">
+					<f:convertNumber pattern="#0.00"/>
+                	</h:outputText>
+					 <a4j:commandButton value="Dettaglio"
+						oncomplete="Richfaces.showModalPanel('uteDomQuvModalBox'); return false;" >
+					</a4j:commandButton>
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<h:commandLink action="#{tariffeBean.goXlsUD}" target="_blank">
+			        <h:graphicImage value="/images/xls.png"/>
+				</h:commandLink>
+			</td></tr></table>
+			
+	<rich:spacer width="5px" height="30px"/>
+    
+    <rich:dataTable id="tblList" value="#{tariffeBean.lstTariffeUD}" var="tar" style="width: 100%" rendered="true">
+	        	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Famiglie" id="lblFam" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Numero Nuclei" id="lblNc"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Superficie Totale Abitazioni m" id="lblSta"/><SUP>2</SUP>
+                            </rich:column>
+ 							<rich:column rowspan="2">
+                                <h:outputText value="Quote Famiglia %" id="lblQuoFam"/>
+                            </rich:column>
+                             <rich:column rowspan="2">
+                                <h:outputText value="Superficie Media Abitazioni m" id="lblSma"/><SUP>2</SUP>
+                            </rich:column>
+							
+							<rich:column rowspan="2">
+                                <h:outputText value="Coeff. Attribuzione Parte Fissa (Ka)" id="lblCAPF"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Coeff. Kb selezione" id="lblKbSel"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Coeff. Attribuzione Parte Variabile (Kb)" id="lblCAPB"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(Quf * Ka) Quota Fissa Eur/m" id="lblQF"/><SUP>2</SUP>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(TF) Quota Fissa Media " id="lblQFM"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(TV) Quota Variabile per Famiglia Eur" id="lblQVF"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Quota Variabile per Persona Eur" id="lblQVP"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Tariffa Media Eur/Utenza" id="lblTM"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Totale GETTITO" id="lblTotGettito"/>
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column>
+				<h:outputText value="#{tar.voce.descrizione}" />
+				<rich:spacer width="5px"/>
+				<h:outputText value="(* voce non considerata nei totali)" rendered="#{tar.voce.id == 108}" style="color: red" />
+	        </rich:column>
+	       	<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.numEntita}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+	       	<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.supTot}" >
+					<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+	        <rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.quoteFam}" >
+	       		<f:convertNumber pattern="#0.00"/>
+               	</h:outputText>
+	        </rich:column>
+	        <rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.superfMedAbit}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.coeffKa}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.selKb}" />
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.coeffKb}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.qufPerKa}" >
+	       		<f:convertNumber pattern="#0.000000"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.quotaFissaMedia}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.quvPerKb}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.quotaVariabilePerPersona}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.tariffaMed}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+	        <rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.gettitoTot}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+	        	        
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+ 					<rich:column>
+                        <h:outputText value="TOTALE" />
+                    </rich:column>
+   					<rich:column style="text-align: right">
+                        <h:outputText value="#{tariffeBean.totNumEntita}" >
+                        	<f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+ 					<rich:column style="text-align: right">
+                        <h:outputText value="#{tariffeBean.totSupTot}" >
+                        <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column style="text-align: right">
+                         <h:outputText value="#{tariffeBean.totGettito}" >
+                        <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+                    <rich:column breakBefore="true" colspan="14">
+                    <div align="center" >
+                    	<a4j:commandButton action="#{tariffeBean.goElaborazioneUD}" id="btnElaboraUD" value="Indietro"/>
+                    </div>
+                    </rich:column>
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+				
+	
+			</rich:panel>			
+		</h:form>
+		
+		<ui:include src="/jsp/protected/tariffe/prospettoUDmodQuf.xhtml" />
+		<ui:include src="/jsp/protected/tariffe/prospettoUDmodQuv.xhtml" />
+		
+		
+	</div>
+	</ui:define>
+	
+	
+
+
+</ui:composition>
+
+</html>

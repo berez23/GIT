@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred"
+	xmlns:webredcs="http://java.sun.com/jsf/composite/webredcs">
+
+<h:head>
+	<title>Componente lista casi</title>
+</h:head>
+<h:body>
+	<composite:interface componentType="pnlListaCasi">
+		<composite:attribute name="listaCasiManBean" type="it.webred.cs.jsf.interfaces.IListaCasi" />
+		<composite:attribute name="styleClass" />
+		<composite:attribute name="renderVisualizzaFascicolo" default="false"/>
+		<composite:attribute name="renderVisualizzaDocIndividuali" default="true"/>
+		<composite:attribute name="modificaSchedaListener" method-signature="void action(java.lang.Object)" required="true" default="null"/>
+		<composite:attribute name="initializeFascicoloListener" method-signature="void action(java.lang.Object)" required="true" default="null"/>
+		<composite:attribute name="initializeDocIndividualiListener" method-signature="void action(java.lang.Object)" required="true" default="null"/>
+		<composite:attribute name="initializeCatSocialeListener" method-signature="void action(java.lang.Object)" required="true" default="null"/>
+		<composite:attribute name="initializeStampaListener" method-signature="void action(java.lang.Object)" required="true" default="null"/>
+	</composite:interface>
+	<composite:implementation>
+
+		<webredcs:pnlIterDialog id="pnlIterDialog" iIterDialog="#{cc.attrs.listaCasiManBean.iterDialogMan}" widgetVar="dlg" closeDialogActionListener="#{cc.attrs.listaCasiManBean.closeDialog}"/>
+		
+		<p:dataTable id="dataTableCasiId"  styleClass="#{cc.attrs.styleClass}"
+			var="caso" value="#{cc.attrs.listaCasiManBean.lazyListaCasiModel}" rowIndexVar="rowIndex"
+			rowKey="#{caso.soggetto.anagraficaId}" selection="#{cc.attrs.listaCasiManBean.selectedCaso}" selectionMode="single"
+			emptyMessage="Nessun elemento trovato" widgetVar="dataTableCasi"
+			paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+            rows="10" rowsPerPageTemplate="10,20,40" lazy="true">
+			
+			<f:facet name="header">
+            	Lista casi
+        	</f:facet>
+
+			<p:column headerText="Cognome - Nome" filterBy="soggetto">
+				<h:outputText value="#{caso.soggetto.csAAnagrafica.cognome} #{caso.soggetto.csAAnagrafica.nome}" />
+			</p:column>
+
+			<p:column headerText="Data nascita" filterBy="dataNascita">
+				<h:outputText value="#{caso.soggetto.csAAnagrafica.dataNascita}">
+					<f:convertDateTime pattern="dd/MM/yyyy" />
+				</h:outputText>
+			</p:column>
+
+			<p:column headerText="Codice fiscale" filterBy="codiceFiscale">
+				<h:outputText value="#{caso.soggetto.csAAnagrafica.cf}" />
+			</p:column>
+			
+			<p:column headerText="Assistente sociale" filterBy="assistenteSociale">
+				<h:outputText value="#{caso.operatoreAnagrafica.cognome} #{caso.operatoreAnagrafica.nome}" />
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Int." title="Interventi"/>
+	        	</f:facet>
+				<h:outputText value="#{caso.nInterventi}" />
+			</p:column>
+			
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="Cat. sociale" title="Categoria sociale"/>
+	        	</f:facet>
+				<h:outputText value="#{caso.catSociale}" />
+			</p:column>
+			
+			<p:column width="310">
+				<webredcs:pnlIterInfoStato iIterInfoStato="#{caso.lastIterStepInfo}" widgetDialog="dlg" openDialogListener="#{cc.attrs.listaCasiManBean.iterDialogMan.openDialog(caso.soggetto.csACaso.id)}" />
+			</p:column>
+			
+			<f:facet name="footer">
+           		<p:commandButton id="btnModifica" value="Cartella" icon="ui-icon-pencil"
+           		action="#{cc.attrs.modificaSchedaListener}" title="Carica Cartella"/>
+           	
+           		<p:commandButton id="btnFascicolo" value="Fascicolo" icon="ui-icon-folder-open" title="Carica Fascicolo"
+           		action="#{cc.attrs.initializeFascicoloListener}" rendered="#{cc.attrs.renderVisualizzaFascicolo}"/>
+           	
+           		<p:commandButton id="btnDocIndividuali" value="Doc. Individuali" icon="ui-icon-document" title="Carica Documenti individuali"
+           		action="#{cc.attrs.initializeDocIndividualiListener}" rendered="#{cc.attrs.renderVisualizzaDocIndividuali}"/>
+           
+           		<p:commandButton id="btnCatSociale" value="Cat.Sociale" icon="ui-icon-person" title="Gestione Categoria Sociale"
+           		action="#{cc.attrs.initializeCatSocialeListener}" update="@form"/>
+           
+           		<p:commandButton id="btnStampa" value="Stampa" icon="ui-icon-print" title="Creazione stampa cartella"
+           		action="#{cc.attrs.initializeStampaListener}"/>
+           	
+           		<p:spacer width="50" height="20"/>
+           
+           		<p:commandButton id="btnDeseleziona" process="@this" update="@form" actionListener="#{cc.attrs.listaCasiManBean.rowDeselect}" value="Deseleziona" icon="ui-icon-circle-minus"/>
+        	</f:facet>
+
+		</p:dataTable>
+
+	</composite:implementation>
+</h:body>
+
+</html>

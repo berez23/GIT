@@ -1,0 +1,957 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="navInfo">
+		<h:outputLabel value="Gestione Pratiche relative all'Immobile" style="font-size: 18px; font-weight: bold;" />
+    </ui:define>
+
+	<ui:define name="content">
+<script type="text/javascript">
+function setTxtComuneDichiaranteP(suggestionBox){	
+	var items = suggestionBox.getSelectedItems();
+	document.getElementById("frmMain:idComuneDichiaranteP").value = items.pluck('codice');;
+	document.getElementById("frmMain:txtComuneDichiaranteP").value = items.pluck('descrComune');	
+}
+
+function setTxtComuneDichiaranteS(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+	document.getElementById("frmMain:idComuneDichiaranteS").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneDichiaranteS").value = items.pluck('descrComune');
+}
+
+function setTxtComuneUiuP(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+	document.getElementById("frmMain:idComuneUiuP").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneUiuP").value = items.pluck('descrComune');
+}
+
+function setTxtComuneUiuS(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+      document.getElementById("frmMain:idComuneUiuS").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneUiuS").value = items.pluck('descrComune');
+}
+
+function setTxtComuneNCEUP(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+      document.getElementById("frmMain:idComuneNCEUP").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneNCEUP").value = items.pluck('descrComune');
+}
+
+function setTxtComuneNCEUS(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+      document.getElementById("frmMain:idComuneNCEUS").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneNCEUS").value = items.pluck('descrComune');
+}
+
+function setTxtComuneEnteP(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+	document.getElementById("frmMain:idComuneEnteP").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneEnteP").value = items.pluck('descrComune');
+}
+
+function setTxtComuneEnteS(suggestionBox){
+	var items = suggestionBox.getSelectedItems();
+      document.getElementById("frmMain:idComuneEnteS").value = items.pluck('codice');
+	document.getElementById("frmMain:txtComuneEnteS").value = items.pluck('descrComune');
+}
+
+</script>
+
+		<h:form id="frmMain">
+    
+			<rich:messages passedLabel="Operazione completata" layout="list" styleClass="messageLabel">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+			
+			<a4j:region>
+			
+				<rich:dataTable width="100%" var="pratica" value="#{gestionePraticheBean.listaPratiche}"
+					id="listTable"
+					rendered="#{not empty gestionePraticheBean.listaPratiche}">
+					<f:facet name="header">
+						<rich:columnGroup>
+							<rich:column>
+								<h:outputText value="Tipo pratica" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Dichiarante" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Codice Fiscale" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Indirizzo Dichiarante" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Indirizzo Immobile" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="Data Protocollo" />
+							</rich:column>
+							<rich:column>
+								<h:outputText value="" />
+							</rich:column>
+						</rich:columnGroup>
+					</f:facet>
+					<rich:column>
+						<h:outputLabel style="font-weight: normal;" value="#{pratica.descTipo}" />			
+					</rich:column>
+					<rich:column>
+						<h:outputLabel style="font-weight: normal;" value="#{pratica.dichiarante}" />			
+					</rich:column>
+					<rich:column>
+						<h:outputLabel style="font-weight: normal;" value="#{pratica.cf}" />			
+					</rich:column>
+					<rich:column>
+						<h:outputLabel style="font-weight: normal;" value="#{pratica.indDich}" />			
+					</rich:column>
+					<rich:column>
+						<h:outputLabel style="font-weight: normal;" value="#{pratica.indImm}" />			
+					</rich:column>
+					<rich:column>
+						<h:outputLabel style="font-weight: normal;" value="#{pratica.dtProt}" />			
+					</rich:column>
+					<rich:column>
+					 <h:panelGrid columns="4" style="width: 100%; text-align: left;">
+						<a4j:commandButton							
+						styleClass="myButton"
+						style="width: 75px;"
+						value="Modifica"
+						id="btnModificaPraPlanimetria"
+						action="#{gestionePraticheBean.apriModificaPraticaPlanimetria}" 
+						rendered="#{pratica.tipo == 'P'}" 
+						reRender="pnlDatiPratica">
+		            	</a4j:commandButton>
+		            	
+		            	<a4j:commandButton							
+						styleClass="myButton"
+						style="width: 75px;"
+						value="Modifica"
+						id="btnModificaPraSuperficie"
+						action="#{gestionePraticheBean.apriModificaPraticaSuperficie}" 
+						rendered="#{pratica.tipo == 'S'}" 
+						reRender="pnlDatiPratica">
+		            	</a4j:commandButton>
+		            	
+						<a4j:commandButton							
+						styleClass="myButton"
+						style="width: 75px;"
+						value="Cancella"
+						id="btnCancellaPraPlanimetria"
+						action="#{gestionePraticheBean.cancellaPraticaPlanimetria}" 
+						rendered="#{pratica.tipo == 'P'}" 
+						reRender="frmMain">
+							<a4j:support event="onclick" 
+							onsubmit="if (!confirm('Procedere con la cancellazione della pratica? Verranno rimossi anche gli eventuali allegati.')) return false" />
+		            	</a4j:commandButton>
+		            	
+		            	<a4j:commandButton							
+						styleClass="myButton"
+						style="width: 75px;"
+						value="Cancella"
+						id="btnCancellaPraSuperficie"
+						action="#{gestionePraticheBean.cancellaPraticaSuperficie}" 
+						rendered="#{pratica.tipo == 'S'}" 
+						reRender="frmMain">
+							<a4j:support event="onclick" 
+							onsubmit="if (!confirm('Procedere con la cancellazione della pratica? Verranno rimossi anche gli eventuali allegati.')) return false" />
+						</a4j:commandButton>
+						
+						<a4j:commandButton
+						ajaxSingle="true"		
+						styleClass="myButton"
+						style="width: 75px;"
+						value="Allegati"
+						id="btnAllegati"
+						action="#{gestioneAllegatiBean.initPanel}"
+						reRender="frmPanel"
+						oncomplete="Richfaces.showModalPanel('gestioneAllegatiPanel', {height:'450px', width:'600px'})">
+		            		<f:setPropertyActionListener value="#{pratica.id}" target="#{gestioneAllegatiBean.idPratica}" />
+		            	</a4j:commandButton>
+		            	
+						<h:commandButton							
+						styleClass="myButton"
+						style="width: 110px;"
+						value="Scarica Modulo"
+						id="btnDownloadPraPlanimetria"
+						action="#{gestioneTemplateBean.creaModelloPraticaDepPlanimetria}" 
+						rendered="#{pratica.tipo == 'P'}" 
+						reRender="frmMain">
+						<f:setPropertyActionListener value="#{pratica.idUiu}" target="#{gestioneTemplateBean.idUiu}" />
+		            	</h:commandButton>
+		            	
+		            	<h:commandButton							
+						styleClass="myButton"
+						style="width: 110px;"
+						value="Scarica Modulo"
+						id="btnDownloadPraSuperficie"
+						action="#{gestioneTemplateBean.creaModelloPraticaRetSuperficie}" 
+						rendered="#{pratica.tipo == 'S'}" 
+						reRender="frmMain">
+						<f:setPropertyActionListener value="#{pratica.idUiu}" target="#{gestioneTemplateBean.idUiu}" />
+						</h:commandButton>
+		            	</h:panelGrid>
+					</rich:column>
+				</rich:dataTable>
+			
+				<rich:spacer height="15px" />
+			
+				<rich:panel rendered="#{gestionePraticheBean.visBtnNuoPraPla or gestionePraticheBean.visBtnNuoPraSup}">
+					<h:panelGrid columns="1" style="width: 100%; text-align: center;">
+						<h:panelGroup>
+						
+							<a4j:commandButton							
+							styleClass="myButton"
+							style="width: 300px;"
+							value="Nuova pratica: Deposito planimetria catastale"						
+							id="btnNuovaPraPlanimetria" 
+							action="#{gestionePraticheBean.nuovaPraticaPlanimetria}" 
+							rendered="#{gestionePraticheBean.visBtnNuoPraPla}" 
+							reRender="pnlDatiPratica" >
+			            	</a4j:commandButton>
+			            	
+			            	<a4j:commandButton							
+							styleClass="myButton"
+							style="width: 300px; margin-left: 20px;"
+							value="Nuova pratica: Istanza di rettifica della superficie"						
+							id="btnNuovaPraSuperficie" 
+							action="#{gestionePraticheBean.nuovaPraticaSuperficie}"
+							rendered="#{gestionePraticheBean.visBtnNuoPraSup}"
+							reRender="pnlDatiPratica" >
+			            	</a4j:commandButton>
+			            	
+			            </h:panelGroup>
+					</h:panelGrid>
+				</rich:panel>
+				
+				<rich:spacer height="15px" />
+				
+				<h:panelGrid id="pnlDatiPratica" columns="1" style="width: 100%;">
+					<rich:panel rendered="#{gestionePraticheBean.visPnlDatiPratica}">		
+						<f:facet name="header">
+							<h:outputLabel value="#{gestionePraticheBean.titoloPannello}" />
+						</f:facet>
+						
+						<h:inputHidden id="idComuneDichiaranteP" value="#{gestionePraticheBean.praticaPlanimetria.pratica.comuneDichiarante}"/>
+						<h:inputHidden id="idComuneDichiaranteS" value="#{gestionePraticheBean.praticaSuperficie.pratica.comuneDichiarante}"/>
+						<h:inputHidden id="idComuneUiuP" value="#{gestionePraticheBean.praticaPlanimetria.pratica.comuneUiu}"/>
+						<h:inputHidden id="idComuneNCEUP" value="#{gestionePraticheBean.praticaPlanimetria.pratica.comuneNCEU}"/>
+						<h:inputHidden id="idComuneUiuS" value="#{gestionePraticheBean.praticaSuperficie.pratica.comuneUiu}"/>
+						<h:inputHidden id="idComuneNCEUS" value="#{gestionePraticheBean.praticaSuperficie.pratica.comuneNCEU}"/>
+						<h:inputHidden id="idComuneEnteP" value="#{gestionePraticheBean.praticaPlanimetria.pratica.comuneEnte}"/>
+						<h:inputHidden id="idComuneEnteS" value="#{gestionePraticheBean.praticaSuperficie.pratica.comuneEnte}"/>
+						
+						<h:panelGrid columns="1" style="width: 100%;">
+							<h:outputLabel value="Informazioni relative all'intestatario / proprietario" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="width: 100%; border: 1px solid #bed6f8;" rendered="#{gestionePraticheBean.tipo == 'P'}">
+							<h:panelGrid columns="6" style="width: 100%;"
+							columnClasses="praticaLabel, praticaText, praticaLabel, praticaText,praticaLabel, praticaText">
+								<h:outputLabel value="Cognome" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="200" 
+								required="#{gestionePraticheBean.tipo == 'P'}"
+								label="Cognome Dichiarante"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.cognomeDichiarante}" />
+								<h:outputLabel value="Nome" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="50" 
+								required="#{gestionePraticheBean.tipo == 'P'}"
+							 	label="Nome Dichiarante"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.nomeDichiarante}" />
+								<h:outputLabel value="Codice Fiscale" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="16" 
+								required="#{gestionePraticheBean.tipo == 'P'}"
+								label="Cod.Fiscale Dichiarante"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.cfDichiarante}" />
+								<h:outputLabel value="Indirizzo residenza" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="70" 
+								required="#{gestionePraticheBean.tipo == 'P'}"
+								label="Via di residenza del Dichiarante"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.viaDichiarante}" />
+								<h:outputLabel value="N. Civico" />							
+								<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="11" 
+								required="#{gestionePraticheBean.tipo == 'P'}"
+								label="Num.Civico di residenza del dichiarante"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.civicoDichiarante}" />
+								<h:outputLabel value="Comune residenza" />							
+								<a4j:region>	
+									<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+			      					<h:inputText id="txtComuneDichiaranteP" styleClass="myInputText" style="width: 98%;" 
+			      					required="#{gestionePraticheBean.tipo == 'P'}"
+									label="Comune di residenza del dichiarante"
+									value="#{gestionePraticheBean.praticaPlanimetria.descComuneResidenzaDichiarante}"
+									valueChangeListener="#{gestionePraticheBean.clearComuneDichiarante}" />
+									<h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionComuneDichP')}.callSuggestion(true)"
+                    								 alt="" />
+                    				 </h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionComuneDichP"
+			      						width="300" 
+						      			height="150" 
+						      			for="txtComuneDichiaranteP"				      			
+						      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.descrComune}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtComuneDichiaranteP(#{rich:component('suggestionComuneDichP')});">
+	
+						      			<h:column> 
+						      				<h:outputText value="#{result.descrComune}"></h:outputText>
+						      			</h:column>
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+								<h:outputLabel value="Tel. residenza" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="15"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.telefonoDichiarante}" />
+								<h:outputLabel value="Ruolo Dichiarante" />							
+								<h:selectOneRadio
+				        			id="rdoQualitaP"
+				        			label="Ruolo del dichiarante"
+				        			immediate="true"
+				        			required="#{gestionePraticheBean.tipo == 'P'}"
+				        			styleClass="praticaLabel"
+				        			style="width: 100%;"
+				        			value="#{gestionePraticheBean.titoloPersonaP}"
+				        			valueChangeListener="#{gestionePraticheBean.resetComuneEnte}">
+				        			<f:selectItem itemValue="INTESTATARIO" itemLabel="Intestatario/a"/>
+				        			<f:selectItem itemValue="PROPRIETARIO" itemLabel="Proprietario/a"/>
+				        			<f:selectItem itemValue="ALTRO" itemLabel="Altro"/>
+				        			<a4j:support
+				        				actionListener="#{gestionePraticheBean.selQualitaP}" 
+				        				event="onclick"
+				        				ajaxSingle="true"
+				        				reRender="pnlDatiAggP"/>
+				        		</h:selectOneRadio>
+				        		<h:outputLabel value="" />
+								<h:outputLabel value="" />							
+								<h:outputLabel value="" />
+							</h:panelGrid>
+						
+							<h:panelGrid id="pnlDatiAggP" columns="6" style="width: 100%;"
+							columnClasses="praticaLabel, praticaText, praticaLabel, praticaText, praticaLabel, praticaText">
+								<h:outputLabel value="ovvero, nella qualità di" rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="50" 
+								label="Ruolo del dichiarante nell'Ente"
+								required="#{gestionePraticheBean.visPnlDatiAggP}"
+								rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+								value="#{gestionePraticheBean.altroTitoloPersonaP}" />
+								<h:outputLabel value="della Società / Ente / ecc." rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="2000" 
+								label="Denominazione Ente"
+								required="#{gestionePraticheBean.visPnlDatiAggP}"
+								rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.denomEnte}" />
+								<h:outputLabel value="Cod.Fiscale / P.IVA" rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="11" 
+								label="Cod.Fiscale / P.IVA Ente"
+								required="#{gestionePraticheBean.visPnlDatiAggP}"
+								rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.pivaEnte}" />								
+								<h:outputLabel value="con sede nel Comune di " rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<a4j:region>	
+								<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+			      					<h:inputText id="txtComuneEnteP" styleClass="myInputText" style="width: 98%;" 
+			      					label="Comune Ente"
+			      					required="#{gestionePraticheBean.visPnlDatiAggP}"
+			      					rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+									value="#{gestionePraticheBean.praticaPlanimetria.descComuneSedeEnte}"
+									valueChangeListener="#{gestionePraticheBean.clearComuneEnte}" />
+			      					<h:graphicImage value="/images/arrow.png"
+			      									rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+                 									onclick="#{rich:component('suggestionComuneEnteP')}.callSuggestion(true)"
+                    							    alt="" />
+                    				 </h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionComuneEnteP"
+			      						width="300" 
+						      			height="150" 
+						      			for="txtComuneEnteP"				      			
+						      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.descrComune}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtComuneEnteP(#{rich:component('suggestionComuneEnteP')});">
+	
+						      			<h:column> 
+						      				<h:outputText value="#{result.descrComune}"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>								
+								<h:outputLabel value="Indirizzo" rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="70"
+								rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+								label="Indirizzo Ente"
+								required="#{gestionePraticheBean.visPnlDatiAggP}"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.viaEnte}" />
+								<h:outputLabel value="N. Civico" rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="11"
+								rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+								required="#{gestionePraticheBean.visPnlDatiAggP}"
+								label="Num.Civico Ente"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.civicoEnte}" />
+								<h:outputLabel value="Telefono" rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="15"
+								rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.telefonoEnte}" />
+								<h:outputLabel value="Ruolo Ente" rendered="#{gestionePraticheBean.visPnlDatiAggP}" />
+								<h:selectOneRadio
+				        			id="rdoQualitaPE"
+				        			required="#{gestionePraticheBean.visPnlDatiAggP}"
+				        			label="Ruolo Ente"
+				        			rendered="#{gestionePraticheBean.visPnlDatiAggP}"
+				        			styleClass="praticaLabel"
+				        			style="width: 100%;"
+				        			value="#{gestionePraticheBean.praticaPlanimetria.pratica.titoloEnte}">
+				        			<f:selectItem itemValue="INTESTATARIO" itemLabel="Intestatario/a"/>
+				        			<f:selectItem itemValue="PROPRIETARIO" itemLabel="Proprietario/a"/>
+				        		</h:selectOneRadio>
+							</h:panelGrid>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1" style="width: 100%; border: 1px solid #bed6f8;" rendered="#{gestionePraticheBean.tipo == 'S'}">
+							<h:panelGrid columns="6" style="width: 100%;"
+							columnClasses="praticaLabel, praticaText, praticaLabel, praticaText, praticaLabel, praticaText">
+								<h:outputLabel value="Cognome" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="200" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Cognome Dichiarante"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.cognomeDichiarante}" />
+								<h:outputLabel value="Nome" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="50" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Nome Dichiarante"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.nomeDichiarante}" />
+								<h:outputLabel value="Codice Fiscale" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="16" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Cod.Fiscale Dichiarante"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.cfDichiarante}" />
+								<h:outputLabel value="Indirizzo residenza" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="70" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Indirizzo di residenza del Dichiarante"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.viaDichiarante}" />
+								<h:outputLabel value="N. Civico" />
+								<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="11" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Num.Civico di residenza del Dichiarante"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.civicoDichiarante}" />
+								<h:outputLabel value="Comune residenza" />
+								<a4j:region>
+								<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 98%;">	
+			      					<h:inputText id="txtComuneDichiaranteS" styleClass="myInputText" style="width: 96%;" 
+			      					required="#{gestionePraticheBean.tipo == 'S'}"
+			      					label="Comune di residenza del dichiarante"
+									value="#{gestionePraticheBean.praticaSuperficie.descComuneResidenzaDichiarante}" 
+									valueChangeListener="#{gestionePraticheBean.clearComuneDichiarante}"/>
+			      					<h:graphicImage value="/images/arrow.png"
+                 					onclick="#{rich:component('suggestionComuneDichS')}.callSuggestion(true)" alt="" />
+                    				 </h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionComuneDichS"
+			      						width="300" 
+						      			height="150" 
+						      			for="txtComuneDichiaranteS"				      			
+						      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.descrComune}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtComuneDichiaranteS(#{rich:component('suggestionComuneDichS')});">
+	
+						      			<h:column> 
+						      				<h:outputText value="#{result.descrComune}"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>							
+								<h:outputLabel value="Tel. residenza" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="15"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.telefonoDichiarante}" />
+								<h:outputLabel value="Ruolo Dichiarante" />							
+								<h:selectOneRadio
+				        			id="rdoQualitaS"
+				        			styleClass="praticaLabel"
+				        			style="width: 100%;"
+				        			immediate="true"
+				        			value="#{gestionePraticheBean.titoloPersonaS}"
+				        			required="#{gestionePraticheBean.tipo == 'S'}"
+				        			label="Ruolo del dichiarante"
+				        			valueChangeListener="#{gestionePraticheBean.resetComuneEnte}">
+				        			<f:selectItem itemValue="INTESTATARIO" itemLabel="Intestatario/a"/>
+				        			<f:selectItem itemValue="PROPRIETARIO" itemLabel="Proprietario/a"/>
+				        			<f:selectItem itemValue="ALTRO" itemLabel="Altro"/>
+				        			<a4j:support
+				        				actionListener="#{gestionePraticheBean.selQualitaS}" 
+				        				event="onclick"
+				        				ajaxSingle ="true"
+				        				reRender="pnlDatiAggS"/>
+				        		</h:selectOneRadio>
+				        		<h:outputLabel value="" />
+								<h:outputLabel value="" />
+								<h:outputLabel value="" />
+							</h:panelGrid>
+							
+							<h:panelGrid id="pnlDatiAggS" columns="6" style="width: 100%;"
+							columnClasses="praticaLabel, praticaText, praticaLabel, praticaText, praticaLabel, praticaText">
+								<h:outputLabel value="ovvero, nella qualità di" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="50"
+								rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+								required="#{gestionePraticheBean.visPnlDatiAggS}"
+								label="Ruolo del dichiarante nell'Ente"
+								value="#{gestionePraticheBean.altroTitoloPersonaS}" />
+								<h:outputLabel value="della Società / Ente / ecc..." rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="2000"
+								rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+								required="#{gestionePraticheBean.visPnlDatiAggS}"
+								label="Denominazione Ente"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.denomEnte}" />
+								<h:outputLabel value="Cod.Fiscale / P.IVA" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="11"
+								rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+								required="#{gestionePraticheBean.visPnlDatiAggS}"
+								label="Cod.Fiscale / P.IVA Ente"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.pivaEnte}" />
+								<h:outputLabel value="con sede nel Comune di" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<a4j:region>	
+									<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+				      					<h:inputText id="txtComuneEnteS" styleClass="myInputText" style="width: 98%;" maxlength="50"
+				      					rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+				      					required="#{gestionePraticheBean.visPnlDatiAggS}"
+				      					label="Comune Ente"
+										value="#{gestionePraticheBean.praticaSuperficie.descComuneSedeEnte}" 
+										valueChangeListener="#{gestionePraticheBean.clearComuneEnte}"/>
+				      					<h:graphicImage value="/images/arrow.png"
+				      					rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+	                 					onclick="#{rich:component('suggestionComuneEnteS')}.callSuggestion(true)"
+	                    				alt="" />
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionComuneEnteS"
+			      						width="300" 
+						      			height="150" 
+						      			for="txtComuneEnteS"				      			
+						      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.descrComune}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtComuneEnteS(#{rich:component('suggestionComuneEnteS')});">
+	
+						      			<h:column> 
+						      				<h:outputText value="#{result.descrComune}"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+								<h:outputLabel value="Indirizzo" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="70"
+								rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+								required="#{gestionePraticheBean.visPnlDatiAggS}"
+								label = "Indirizzo Sede Ente"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.viaEnte}" />
+								<h:outputLabel value="N. Civico" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="11"
+								rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+								required="#{gestionePraticheBean.visPnlDatiAggS}"
+								label = "Num.Civico Sede Ente"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.civicoEnte}" />
+								<h:outputLabel value="Telefono" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="15"
+								rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.telefonoEnte}" />
+								<h:outputLabel value="Ruolo Ente" rendered="#{gestionePraticheBean.visPnlDatiAggS}" />
+								<h:selectOneRadio
+				        			id="rdoQualitaSE"
+				        			rendered="#{gestionePraticheBean.visPnlDatiAggS}"
+				        			required="#{gestionePraticheBean.visPnlDatiAggS}"
+				        			label = "Ruolo Ente"
+				        			styleClass="praticaLabel"
+				        			style="width: 100%;"
+				        			value="#{gestionePraticheBean.praticaSuperficie.pratica.titoloEnte}">
+				        			<f:selectItem itemValue="INTESTATARIO" itemLabel="Intestatario/a"/>
+				        			<f:selectItem itemValue="PROPRIETARIO" itemLabel="Proprietario/a"/>
+				        		</h:selectOneRadio>
+							</h:panelGrid>
+						</h:panelGrid>
+																		
+						<rich:spacer height="15px" />					
+						<h:panelGrid columns="1" style="width: 100%;">
+							<h:outputLabel value="Informazioni relative all'immobile" />							
+						</h:panelGrid>
+						<h:panelGrid columns="6" style="width: 100%; border: 1px solid #bed6f8;" rendered="#{gestionePraticheBean.tipo == 'P'}"
+						columnClasses="praticaLabel, praticaText, praticaLabel, praticaText, praticaLabel, praticaText">
+							<h:outputLabel value="Indirizzo immobile" />
+							<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="70"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label = "Indirizzo Immobile"
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.viaUiu}" />
+							<h:outputLabel value="N. Civico" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="11"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label = "Num.Civico Immobile" 
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.civicoUiu}" />
+							<h:outputLabel value="Comune Immobile" />
+							<a4j:region>
+							<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">	
+		      					<h:inputText id="txtComuneUiuP" styleClass="myInputText" style="width: 98%;"
+		      					required="#{gestionePraticheBean.tipo == 'P'}"
+		      					label = "Comune Immobile" 
+								value="#{gestionePraticheBean.praticaPlanimetria.descComuneImmmobile}" 
+								valueChangeListener="#{gestionePraticheBean.clearComuneImmobile}"/>
+		      					<h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionComuneUIUP')}.callSuggestion(true)"
+                    								 alt="" />
+                    			 </h:panelGrid>
+			      				<rich:suggestionbox
+			      					id="suggestionComuneUIUP"
+		      						width="300" 
+					      			height="150" 
+					      			for="txtComuneUiuP"				      			
+					      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.descrComune}"
+						      		usingSuggestObjects="true"
+						      		frequency="1"
+						      		onobjectchange="javascript:setTxtComuneUiuP(#{rich:component('suggestionComuneUIUP')});">
+
+					      			<h:column> 
+					      				<h:outputText value="#{result.descrComune}"></h:outputText>
+					      			</h:column>
+					      			
+					      		</rich:suggestionbox>
+					      	</a4j:region>							
+							<h:outputLabel value="Identificato nel N.C.E.U. del Comune di" />
+							<a4j:region>
+							<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">	
+		      					<h:inputText id="txtComuneNCEUP" styleClass="myInputText" style="width: 98%;" 
+								value="#{gestionePraticheBean.praticaPlanimetria.descComuneNCEU}" 
+								required="#{gestionePraticheBean.tipo == 'P'}"
+								label = "Comune sede del N.C.E.U "
+								valueChangeListener="#{gestionePraticheBean.clearComuneNCEU}"/>
+		      					<h:graphicImage value="/images/arrow.png"
+                 				onclick="#{rich:component('suggestionComuneNCEUP')}.callSuggestion(true)"
+                    			alt="" />
+                    			</h:panelGrid>
+			      				<rich:suggestionbox
+			      					id="suggestionComuneNCEUP"
+		      						width="300" 
+					      			height="150" 
+					      			for="txtComuneNCEUP"				      			
+					      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.descrComune}"
+						      		usingSuggestObjects="true"
+						      		frequency="1"
+						      		onobjectchange="javascript:setTxtComuneNCEUP(#{rich:component('suggestionComuneNCEUP')});">
+
+					      			<h:column> 
+					      				<h:outputText value="#{result.descrComune}"></h:outputText>
+					      			</h:column>
+					      			
+					      		</rich:suggestionbox>
+					      	</a4j:region>		
+							<h:outputLabel value="Sezione" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="3"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label="Sezione Catastale Immobile"
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.sezione}" />
+							<h:outputLabel value="" />
+							<h:outputLabel value="" />
+							<h:outputLabel value="Foglio" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="4"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label="Foglio Catastale Immobile"
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.foglio}">
+								<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+							</h:inputText>
+							<h:outputLabel value="Particella" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="5"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label="Particella Catastale Immobile"
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.particella}">
+								<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+							</h:inputText>
+							<h:outputLabel value="Subalterno" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="5"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label="Subalterno Catastale Immobile"
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.unimm}">
+								<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+							</h:inputText>
+							<h:outputLabel value="Con riferimento alla richiesta del Comune prot. num." />
+							<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="9"
+							required="#{gestionePraticheBean.tipo == 'P'}"
+							label="Num. Protocollo Richiesta"
+							value="#{gestionePraticheBean.praticaPlanimetria.pratica.protRichiesta}" />
+							<h:outputLabel value="Data protocollo" />
+							<a4j:region >
+                   			<rich:calendar
+                   					required="#{gestionePraticheBean.tipo == 'P'}"
+									label="Data Protocollo Richiesta" 
+                   					value="#{gestionePraticheBean.praticaPlanimetria.pratica.dataRichiesta}"
+                       				locale="#{facesContext.viewRoot.locale}"
+                       				popup="true"
+                       				datePattern="dd/MM/yyyy"
+                       				showApplyButton="false" 
+                       				cellWidth="24px" cellHeight="22px" style="width:200px">
+                       		</rich:calendar>
+           					</a4j:region>
+						</h:panelGrid>
+						<h:panelGrid columns="6" style="width: 100%; border: 1px solid #bed6f8;" rendered="#{gestionePraticheBean.tipo == 'S'}"
+						columnClasses="praticaLabel, praticaText, praticaLabel, praticaText">
+							<h:outputLabel value="Indirizzo immobile" />
+							<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="70"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label = "Indirizzo Immobile"
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.viaUiu}" />
+							<h:outputLabel value="N. Civico" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="11"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label = "Num.Civico Immobile" 
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.civicoUiu}" />
+							<h:outputLabel value="Comune Immobile" />
+							<a4j:region>	
+							<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+		      					<h:inputText id="txtComuneUiuS" styleClass="myInputText" style="width: 98%;" 
+		      					required="#{gestionePraticheBean.tipo == 'S'}"
+		      					label = "Comune Immobile" 
+								value="#{gestionePraticheBean.praticaSuperficie.descComuneImmmobile}" 
+								valueChangeListener="#{gestionePraticheBean.clearComuneImmobile}"/>
+		      					<h:graphicImage value="/images/arrow.png"
+                 				onclick="#{rich:component('suggestionComuneUIUS')}.callSuggestion(true)"
+                    			alt="" />
+                    			</h:panelGrid>
+			      				<rich:suggestionbox
+			      					id="suggestionComuneUIUS"
+		      						width="300" 
+					      			height="150" 
+					      			for="txtComuneUiuS"				      			
+					      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.descrComune}"
+						      		usingSuggestObjects="true"
+						      		frequency="1"
+						      		onobjectchange="javascript:setTxtComuneUiuS(#{rich:component('suggestionComuneUIUS')});">
+
+					      			<h:column> 
+					      				<h:outputText value="#{result.descrComune}"></h:outputText>
+					      			</h:column>
+					      			
+					      		</rich:suggestionbox>
+					      	</a4j:region>
+							<h:outputLabel value="Identificato nel N.C.E.U. del Comune di" />
+							<a4j:region>	
+							<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+		      					<h:inputText id="txtComuneNCEUS" styleClass="myInputText" style="width: 98%;" 
+		      					required="#{gestionePraticheBean.tipo == 'S'}"
+		      					label = "Comune sede del N.C.E.U "
+								value="#{gestionePraticheBean.praticaSuperficie.descComuneNCEU}" 
+								valueChangeListener="#{gestionePraticheBean.clearComuneNCEU}"/>
+		      					<h:graphicImage value="/images/arrow.png"
+                 				onclick="#{rich:component('suggestionComuneNCEUS')}.callSuggestion(true)" alt="" />
+                    			</h:panelGrid>
+			      				<rich:suggestionbox
+			      					id="suggestionComuneNCEUS"
+		      						width="300" 
+					      			height="150" 
+					      			for="txtComuneNCEUS"				      			
+					      			suggestionAction="#{gestionePraticheBean.getListaComuni}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.descrComune}"
+						      		usingSuggestObjects="true"
+						      		frequency="1"
+						      		onobjectchange="javascript:setTxtComuneNCEUS(#{rich:component('suggestionComuneNCEUS')});">
+
+					      			<h:column> 
+					      				<h:outputText value="#{result.descrComune}"></h:outputText>
+					      			</h:column>
+					      			
+					      		</rich:suggestionbox>
+					      	</a4j:region>
+							<h:outputLabel value="Sezione" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="3"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label="Sezione Catastale Immobile"
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.sezione}" />
+							<h:outputLabel value="" />
+							<h:outputLabel value="" />
+							<h:outputLabel value="Foglio" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="4"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label="Foglio Catastale Immobile"
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.foglio}">
+								<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+							</h:inputText>
+							<h:outputLabel value="Particella" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="5"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label="Particella Catastale Immobile"
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.particella}">
+								<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+							</h:inputText>
+							<h:outputLabel value="Subalterno" />
+							<h:inputText styleClass="myInputText" style="width: 25%;" maxlength="5"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label="Subalterno Catastale Immobile"
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.unimm}">
+								<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+							</h:inputText>
+							<h:outputLabel value="Con riferimento alla richiesta del Comune prot. num." />
+							<h:inputText styleClass="myInputText" style="width: 90%;" maxlength="9"
+							required="#{gestionePraticheBean.tipo == 'S'}"
+							label="Num. Protocollo Richiesta"
+							value="#{gestionePraticheBean.praticaSuperficie.pratica.protRichiesta}" />
+							<h:outputLabel value="Data protocollo" />
+							<a4j:region >
+	                   			<rich:calendar 
+	                   			        required="#{gestionePraticheBean.tipo == 'S'}"
+	                   			        label="Data Protocollo Richiesta"
+	                   					value="#{gestionePraticheBean.praticaSuperficie.pratica.dataRichiesta}"
+	                       				locale="#{facesContext.viewRoot.locale}"
+	                       				popup="true"
+	                       				datePattern="dd/MM/yyyy"
+	                       				showApplyButton="false" 
+	                       				cellWidth="24px" cellHeight="22px" style="width:200px">
+	                       		</rich:calendar>
+           					</a4j:region>
+						</h:panelGrid>
+						<rich:spacer height="15px" />
+						<h:panelGrid columns="1" style="width: 100%;" rendered="#{gestionePraticheBean.tipo == 'P'}">
+							<h:outputLabel value="Informazioni relative alla denuncia di nuova costruzione / variazione" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="width: 100%;" rendered="#{gestionePraticheBean.tipo == 'P'}">							
+							<h:panelGrid columns="6" style="width: 100%; border: 1px solid #bed6f8;" 
+										 columnClasses="praticaLabel, praticaText, praticaLabel, praticaText, praticaLabel, praticaText">
+								<h:outputLabel value="Num. prot. denuncia" />
+								<h:inputText styleClass="myInputText" style="width: 50%;" maxlength="9"
+								required="#{gestionePraticheBean.tipo == 'P'}"
+								label="Num. Protocollo Denuncia"
+								value="#{gestionePraticheBean.praticaPlanimetria.pratica.protDenuncia}" />
+								<h:outputLabel value="Data prot. denuncia" />
+								<a4j:region >
+	                   			<rich:calendar 
+	                   					required="#{gestionePraticheBean.tipo == 'P'}"
+	                   					label="Data Protocollo Denuncia"
+	                   					value="#{gestionePraticheBean.praticaPlanimetria.pratica.dataDenuncia}"
+	                       				locale="#{facesContext.viewRoot.locale}"
+	                       				popup="true"
+	                       				datePattern="dd/MM/yyyy"
+	                       				showApplyButton="false" 
+	                       				cellWidth="24px" cellHeight="22px" style="width:200px">
+	                       		</rich:calendar>
+           						</a4j:region>
+           						<h:outputLabel value="" />
+								<h:outputLabel value="" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="width: 100%;" rendered="#{gestionePraticheBean.tipo == 'S'}">
+							<h:outputLabel value="Informazioni relative alla richiesta di rettifica della superficie catastale" />
+						</h:panelGrid>
+						<h:panelGrid columns="1" style="width: 100%;" rendered="#{gestionePraticheBean.tipo == 'S'}">							
+							<h:panelGrid columns="6" style="width: 100%; border: 1px solid #bed6f8;" 
+										 columnClasses="praticaLabel, praticaText, praticaLabel, praticaText,praticaLabel, praticaLabel">
+								<h:outputLabel value="Mq iniziali" />
+								<h:inputText styleClass="myInputText" style="width: 25%;" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Mq. Iniziali"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.mqIniziali}">
+									<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+								</h:inputText>
+								<h:outputLabel value="Mq finali" />
+								<h:inputText styleClass="myInputText" style="width: 25%;" 
+								required="#{gestionePraticheBean.tipo == 'S'}"
+								label="Mq. Finali"
+								value="#{gestionePraticheBean.praticaSuperficie.pratica.mqFinali}" >
+									<f:convertNumber type="number" groupingUsed="true" locale="IT.it" />
+								</h:inputText>
+								<h:outputLabel value="" />
+								<h:outputLabel value="" />
+							</h:panelGrid>
+						</h:panelGrid>
+						<rich:spacer height="15px" />
+						<h:panelGrid columns="1" style="width: 100%; text-align: center;">
+							<a4j:commandButton							
+							styleClass="myButton"
+							style="width: 75px;"
+							value="Salva" 							
+							id="btnSalva"
+							action="#{gestionePraticheBean.salva}"
+							reRender="frmMain">
+			            	</a4j:commandButton>
+			            	
+						</h:panelGrid>	
+					</rich:panel>					
+				</h:panelGrid>
+				
+			</a4j:region>
+			
+			<h:panelGrid columns="1" style="width: 100%; text-align: center;">
+				<a4j:commandButton							
+				styleClass="myButton"
+				style="width: 200px;"
+				value="Torna al dettaglio dell'immobile" 							
+				id="btnIndietro"				
+				onclick="document.location.href='${facesContext.externalContext.requestContextPath}/jsp/protected/visualizzatore/dettaglioImmobile.faces'; return false;">
+            	</a4j:commandButton>
+			</h:panelGrid>
+			
+		</h:form>
+		
+		<rich:modalPanel id="gestioneAllegatiPanel" style="background-color: #ebf3fd; overflow: auto;">
+			<f:facet name="header">
+		  		<h:outputLabel value="Gestione allegati pratica" />
+		  	</f:facet>
+		  	
+		  	<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/images/close.png" style="cursor:pointer"
+						id="hidelink" />
+					<rich:componentControl for="gestioneAllegatiPanel" attachTo="hidelink"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			
+			<ui:include src="../gestione/gestioneAllegatiModal.xhtml" />
+					
+		</rich:modalPanel>
+		
+	</ui:define>
+
+</ui:composition>
+</html>

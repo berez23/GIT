@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.CategoriaBean" table="DOCFA_UIU" >
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-property column="PROP_CATEGORIA" name="codice" type="java.lang.String"/>
+  </composite-id>
+
+ </class>
+ <query name="getListaCategorie">select distinct C.codice from CategoriaBean as C order by C.codice</query>
+</hibernate-mapping>

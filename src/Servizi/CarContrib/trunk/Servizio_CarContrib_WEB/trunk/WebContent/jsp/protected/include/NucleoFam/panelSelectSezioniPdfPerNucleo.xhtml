@@ -1,0 +1,290 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+			<rich:modalPanel id="SelectSezioniPdfPanelPerNucleo" autosized="true" 
+				width="650" height="250" moveable="false" resizeable="false" label="SEZIONI PDF">
+				<f:facet name="controls">
+					<h:panelGroup>
+						<rich:componentControl for="SelectSezioniPdfPanelPerNucleo" attachTo="hideLink" operation="hide" event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<h:form>
+					<h:panelGrid columns="1">
+				    	<a4j:outputPanel ajaxRendered="true">
+							<rich:panel style="width:100%">
+		  						<f:facet name="header">PROFILAZIONE SEZIONI CARTELLA CONTRIBUENTE FORMATO PDF</f:facet>
+		  						<a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Preparazione_PDF.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a>
+		  						<div style="text-align: center;">
+			  						<table style="width:100%">
+			  							<tr >
+											<td align="left" colspan="3">
+												<h:outputText style="font-weight: bold;font-size: 12px;margin-left: 10px;" value="Selezionare le schede da includere nel file pdf da produrre" />
+											</td>		  							
+			  							</tr>	
+			  							<tr >
+											<td align="left" colspan="3">
+												<h:outputText style="font-weight: bold;font-size: 10px;margin-left: 10px;" value="Nella casella si pu&#x00F3; indicare il motivo per cui si intende escludere la scheda. Il motivo verr&#x00E0; riportato sul file" />
+											</td>		
+										</tr>  		  		
+			  							<c:if test="#{contribuenteBean.catastoFonte.abilitata or contribuenteBean.locazioniFonte.abilitata}">
+				  							<tr >
+												<td align="left">
+													<h:outputText value="SCHEDA PATRIMONIALE" styleClass="labelRicDesc" style="width:175px;"/>
+												</td>		  							
+				  								<td>
+				  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezionePatrimoniale}" />
+				  								</td>
+				  								<td align="left">
+													<h:inputText  id="motivoPatrimoniale" value="#{contribuenteBean.motivoPatrimoniale}" size="100"/>			
+												</td>
+				  							</tr>
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.tribIciFonte.abilitata}">		  					
+			  							<tr style="background-color: #ebf3fd">
+											<td align="left">
+												<h:outputText value="SCHEDA ICI" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneIci}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoIci" value="#{contribuenteBean.motivoIci}" size="100"/>			
+											</td>
+			  							</tr>
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA TARSU" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneTarsu}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoTarsu" value="#{contribuenteBean.motivoTarsu}" size="100"/>			
+											</td>
+			  							</tr>
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.cosapFonte.abilitata}">
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA COSAP" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneCosap}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoCosap" value="#{contribuenteBean.motivoCosap}" size="100"/>			
+											</td>
+			  							</tr>
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.cncFonte.abilitata}">
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA CNC" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneCnc}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoCnc" value="#{contribuenteBean.motivoCnc}" size="100"/>			
+											</td>
+			  							</tr>		  	
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.redditiFonte.abilitata}">						
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA REDDITI" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneRedditi}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoRedditi" value="#{contribuenteBean.motivoRedditi}" size="100"/>			
+											</td>
+			  							</tr>	
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.acquaFonte.abilitata}">						
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA FORNITURE IDRICHE" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneAcqua}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoAcqua" value="#{contribuenteBean.motivoAcqua}" size="100"/>			
+											</td>
+			  							</tr>	
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.multeFonte.abilitata}">						
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA MULTE" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneMulte}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoMulte" value="#{contribuenteBean.motivoMulte}" size="100"/>			
+											</td>
+			  							</tr>	
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.retteFonte.abilitata}">						
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA RETTE SCOLASTICHE" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneRette}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoRette" value="#{contribuenteBean.motivoRette}" size="100"/>			
+											</td>
+			  							</tr>	
+			  							</c:if>							  							
+			  							<c:if test="#{contribuenteBean.carsocialeFonte.abilitata}">		  							
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA CARTELLA SOCIALE" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneCarSociale}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoCarSociale" value="#{contribuenteBean.motivoCarSociale}"  size="100" />			
+											</td>
+			  							</tr>
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.praticheFonte.abilitata}">						
+			  							<tr >
+											<td align="left">
+												<h:outputText value="SCHEDA PRATICHE PORTALE" styleClass="labelRicDesc" style="width:175px;"/>
+											</td>		  							
+			  								<td>
+			  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezionePratiche}" />
+			  								</td>
+			  								<td align="left">
+												<h:inputText  id="motivoPratiche" value="#{contribuenteBean.motivoPratiche}" size="100"/>			
+											</td>
+			  							</tr>	
+			  							</c:if>				
+			  							  <c:if test="#{contribuenteBean.ruoliVersCarContrib.fontiAbilitate}">		  							
+				  							<tr >
+												<td align="left">
+													<h:outputText value="SCHEDA RUOLI e VERSAMENTI" styleClass="labelRicDesc" style="width:175px;"/>
+												</td>		  							
+				  								<td>
+				  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneRuoliVersamenti}" />
+				  								</td>
+				  								<td align="left">
+													<h:inputText  id="motivoF24" value="#{contribuenteBean.motivoRuoliVersamenti}"  size="100" />			
+												</td>
+				  							</tr>
+			  							</c:if>
+			  							<c:if test="#{contribuenteBean.imuFonte.abilitata}">		  							
+				  							<tr >
+												<td align="left">
+													<h:outputText value="SCHEDA CONSULENZE SALDO IMU" styleClass="labelRicDesc" style="width:175px;"/>
+												</td>		  							
+				  								<td>
+				  									<h:selectBooleanCheckbox value="#{contribuenteBean.cbxSezioneImu}" />
+				  								</td>
+				  								<td align="left">
+													<h:inputText  id="motivoImu" value="#{contribuenteBean.motivoImu}"  size="100" />			
+												</td>
+				  							</tr>
+			  							</c:if>	  							
+			  						</table>
+		  						</div>
+		  						<rich:spacer height="20px" />
+		  						<table>
+		  							<tr >
+										<td align="left" style="width:150px;">
+											<h:outputText value="IDENTIFICATIVO RICHIESTA" styleClass="myLabel"/>
+										</td>		  							
+		  								<td style="width:80px;">
+		  									<span class="labelRicOutPut"><h:outputText value="#{contribuenteBean.idRichiestaCartella}" /></span>
+		  								</td>
+										<td align="left" style="width:120px;">
+											<h:outputText value="DATA RICHIESTA" styleClass="myLabel" />
+										</td>		  							
+		  								<td>
+		  									<span class="labelRicOutPut"><h:outputText value="#{contribuenteBean.strDataRichiesta}" /></span>
+		  								</td>		  								
+		  							</tr>
+		  							<tr >
+										<td align="left">
+											<h:outputText value="SOGGETTO CARTELLA" styleClass="myLabel" />
+										</td>		  							
+		  								<td colspan="3">
+		  									<span class="labelRicOutPut"><h:outputText value="#{contribuenteBean.intestazione}" /></span>
+		  								</td>
+		  							</tr>
+		  							<tr >
+										<td align="left">
+											<h:outputText value="SOGGETTO RICHIEDENTE" styleClass="myLabel" />
+										</td>		  							
+		  								<td colspan="3">
+		  									<span class="labelRicOutPut"><h:outputText value="#{contribuenteBean.strSoggettoRichiedente}" /></span>
+		  								</td>
+		  							</tr>
+		  							<tr >
+										<td align="left">
+											<h:outputText value="OPERATORE" styleClass="myLabel"/>
+										</td>		  							
+		  								<td colspan="3">
+		  									<span class="labelRicOutPut"><h:outputText value="#{userBean.username}" /></span>
+		  								</td>
+		  							</tr>
+		  							<tr>
+		  								<td style="height:10px" colspan="4"></td>
+		  							</tr>		  									  									  							
+		  							<tr >
+		  								<td colspan="4">
+		  									<h:outputText styleClass="myLabel" style="font-style:italic;"
+		  									value="Ai fini della privacy dei dati trattati, si fa presente che tutti i dati associati alla richiesta (soggetto cartella, soggetto richiedente, operatore che ha gestito la richiesta) sono stati memorizzati." />
+		  								</td>
+		  							</tr>		  								  									  									  							
+		  							<tr >
+		  								<td colspan="4">
+		  									<h:outputText styleClass="myLabel" 
+		  									value="Premere il tasto CREA per creare il file PDF. Il file creato verra associato alla richiesta della cartella." />
+		  								</td>
+		  							</tr>		  							
+		  						</table>		
+							</rich:panel>
+				        </a4j:outputPanel>
+					</h:panelGrid>  
+		             <table border="0" width="100%">
+		             	<tr>
+		             		<td align="right" style="padding-right:10px;width:20%;" >
+	             				<a4j:commandButton value="CREA" 
+	             				id ="btnFai"
+	             				disabled="#{contribuenteBean.viewPDF}">
+	             				<a4j:support ajaxSingle="false" action="#{contribuenteBean.CreateAndSavePdfPerNucleo}" event="onclick" reRender="btnFai, btnMostra" />
+	             				</a4j:commandButton>
+	             			</td>
+	             			<td align="center" style="padding-right:10px;padding-left:10px;width:20%;" >
+	             				<h:commandButton value="MOSTRA PDF CREATO" 
+	             				id ="btnMostra"
+	             				disabled="#{!contribuenteBean.viewPDF}"
+	             				action="#{contribuenteBean.ShowFile}"/>
+		             		</td>
+		             		<td align="left" style="padding-left:10px;width:20%;"  >
+		             			<a4j:commandButton value="CHIUDI"
+		             				ajaxSingle="true"
+		             				reRender="panelCartContrPerNucleoPanel" 
+		             				oncomplete="#{rich:component('SelectSezioniPdfPanelPerNucleo')}.hide();#{rich:component('CartContribParentePanel')}.hide();#{rich:component('CartContribParentePanel')}.show()" />
+		             		</td>
+						</tr>	
+			        </table>  
+		        </h:form>
+			</rich:modalPanel>
+  		</ui:composition>
+</html>

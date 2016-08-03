@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+    
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+		 	<div class="divTitolo">
+				<h:outputText value="ESAME RICHIESTE CARTELLA CONTRIBUENTE - GESTIONE RICHIESTA" />
+			</div>		
+			<ui:include src="../protected/include/panelCartellaContr.xhtml" />
+				<h:form>
+   				<rich:panel rendered="#{not empty filtroBean.msgErrore}">
+   					<h:outputText value="#{filtroBean.msgErrore}" styleClass="errorStyleRicerca" />
+   					<rich:spacer height="10px" />
+   				</rich:panel>
+   				<ui:include src="/jsp/protected/include/datiDichiatanteRichiesta.xhtml" />
+	  			<rich:spacer height="20px" />
+				<rich:panel>
+					<f:facet name="header">EVADI RICHIESTA</f:facet> 
+					<div>
+						<table border="0" style="width:100%" cellspacing="1">
+							<tr >
+								<td align="left">
+									<h:outputText value="MEZZO RISPOSTA" styleClass="myLabel" />
+								</td>							
+								<td align="left">
+									<span class="labelRicOutPut">
+										<h:selectOneMenu id="mezzoRisposta" value="#{filtroBean.mezzoRisposta}">
+											<f:selectItem id="m0" itemLabel="Seleziona" itemValue="0"/>
+											<f:selectItems value="#{filtroBean.codiciRisposta}"/>
+											<a4j:support event="onchange" reRender="cbxEmail" action="#{filtroBean.abilitaEmail}"/>
+										</h:selectOneMenu>									
+									</span>											
+								</td>
+							</tr>
+							<tr >
+								<td align="left">
+									<h:outputText value="NOTA OPERATORE" styleClass="myLabel" />
+								</td>
+								<td align="left" colspan="3">
+									<span class="labelRicOutPut">
+										<h:inputTextarea value="#{filtroBean.notaOperatore}" rows="2" cols="100" />
+									</span>			
+								</td>								
+							</tr>							
+							<tr >
+								<td align="left">
+									<h:outputText value="TESTO RISPOSTA" styleClass="myLabel" />
+								</td>
+								<td align="left" colspan="3">
+									<span class="labelRicOutPut">
+										<h:inputTextarea value="#{filtroBean.testoRisposta}" rows="2" cols="100" />
+									</span>			
+								</td>
+							</tr>
+							<c:if test="#{filtroBean.showEmailCheck}">
+								<tr >
+									<td align="left">
+										<h:outputText value="INVIA PER E-MAIL" styleClass="myLabel" />
+									</td>								
+									<td align="left" colspan="3">
+										<h:selectBooleanCheckbox id="cbxEmail" value="#{filtroBean.inviaPerEmail}" disabled="#{filtroBean.disabilitaEmailCheck}" />
+									</td>
+								</tr>
+							</c:if>
+						</table>
+						<table style="width:100%">
+							<tr style="background-color: #ebf3fd;height:40px;width:100%">
+								<td style="width:100px;padding-left: 10px;">
+									<a4j:commandLink  
+										action="#{filtroBean.ApriCartella}" 
+										value="PRODUCI PDF"  
+										style="width:150px;font-weight: bold;color:black;"
+										reRender="panelCartellaContribuentePanel" 
+										oncomplete="#{rich:component('panelCartellaContribuentePanel')}.show()" />
+								</td>	
+								<td style="width:100px;">
+									<c:if test="#{not empty filtroBean.nomePdf}" >
+										<h:commandLink  value="MOSTRA PDF" 
+											action="#{filtroBean.MostraPdf}"  
+											style="width:150px;font-weight: bold;color:black;"  />
+									</c:if>
+								</td>
+								<td>
+									<c:if test="#{not empty filtroBean.nomePdf}" >
+										<a4j:commandLink value="CANCELLA PDF" 
+											action="#{filtroBean.CancellaPdf}"  
+											style="width:150px;font-weight: bold;color:black;"  />
+									</c:if>
+								</td>
+							</tr>
+						</table>
+						<table style="width:100%">
+							<tr style="height:30px;width:100%">
+								<td align="right" style="width:40%;">
+									<a4j:commandButton  
+										styleClass="my-button" value="EVADI RICHIESTA" 
+										style="width:150px" action="#{filtroBean.EvadiRichiesta}"/>
+								</td>
+								<td style="width:20%;"></td>
+								<td align="left" style="width:40%;">
+									<a4j:commandButton  
+										styleClass="my-button" value="RESPINGI RICHIESTA" 
+										style="width:150px" action="#{filtroBean.RespingiRichiesta}"/>
+								</td>								
+							</tr>	
+						</table>															
+					</div>
+	  			</rich:panel>
+				<div>
+					<table>
+						<tr>
+							<td valign="middle" style="height: 40px;">
+								<a4j:commandLink action="#{filtroBean.returnListaRicerca}" value="Torna a lista richieste" /> 
+							</td>
+						</tr>
+					</table>	  	
+				</div>		
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

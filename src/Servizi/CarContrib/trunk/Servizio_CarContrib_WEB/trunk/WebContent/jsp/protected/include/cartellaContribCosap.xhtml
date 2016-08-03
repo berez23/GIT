@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition>
+	<c:if test="#{empty contribuenteBean.numeroSoggettiCosap or contribuenteBean.numeroSoggettiCosap=='0'}" >
+		<f:facet name="label">
+			<h:outputText value="COSAP" />
+		</f:facet>
+		<rich:spacer height="20px" />
+		<div style="height:60px;">
+			<h:outputText value="DATI NON TROVATI" styleClass="titoloNero" style="font-weight: bold" />
+		</div>
+	</c:if>
+	<c:if test="#{not empty contribuenteBean.numeroSoggettiCosap and contribuenteBean.numeroSoggettiCosap!='0'}" >
+		<c:if test="#{contribuenteBean.numeroSoggettiCosap=='1'}" >
+			<f:facet name="label">
+				<h:outputText value="COSAP" />
+			</f:facet>
+		</c:if>	
+		<c:if test="#{contribuenteBean.numeroSoggettiCosap=='2'}" >
+			<f:facet name="label">
+				<h:outputText value="COSAP (!)"/>
+			</f:facet>
+			<span>
+				<table style="width:100%">
+					<tr>
+						<td style="height:40px;" align="center">
+							<a4j:commandLink 
+						    	ajaxSingle="true" 
+						      	value="Altri soggetti trovati" 
+						    	reRender="altriSoggCosapPanel" 
+						    	oncomplete="#{rich:component('altriSoggCosapPanel')}.show()">
+							</a4j:commandLink>				
+						</td>
+					</tr>
+					<c:if test="#{contribuenteBean.labelDatiSoggettoCosap ne ''}" >
+						<tr>
+							<td style="height:10px;" align="center">
+								<h:outputText value="#{contribuenteBean.labelDatiSoggettoCosap}"/>
+							</td>
+						</tr>
+					</c:if>					
+				</table>
+			</span>
+		</c:if>	
+		<div>
+			<h:panelGrid columns="1" width="100%">
+					<h:outputText value="#{contribuenteBean.cosapFonte.strDataAgg}"/>
+					<h:outputText value="#{contribuenteBean.cosapFonte.nota}"/>
+			</h:panelGrid>
+		</div>			
+		<rich:panel>
+			<f:facet name="header"><h:outputText value="DATI ANAGRAFICI DICHIARATI"/></f:facet>
+			<table border="0" style="width:100%" cellspacing="1" class="#{contribuenteBean.cosapFonte.coloreJsp}">
+		           <tbody>
+		           	<tr>
+		           		<td style="width:30%;">
+		           			<h:outputText value="Denominazione" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.denominazioneCosap}"/></span>
+		           		</td>
+		           	</tr>
+		           	<tr>
+		           		<td>
+		           			<h:outputText value="#{contribuenteBean.descLabelIndirizzoCosap}" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.indirizzoCosap}" /></span>
+		           		</td>
+		           	</tr>
+		           	<tr>
+		           		<td>
+		           			<h:outputText value="#{contribuenteBean.labelDescTipoSogg}" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.codFiscalePIVACosap}" /></span>
+		           		</td>
+		           	</tr>
+		           	<tr>
+		           		<td>
+		           			<h:outputText value="Comune Residenza" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.comuneResidenzaCosap}" /></span>
+		           		</td>
+		           	</tr>					            	
+		           </tbody>
+			</table>	  				
+		</rich:panel>
+		<rich:spacer height="20px" />
+		<rich:panel >
+			<f:facet name="header">DATI AUTORIZZAZIONI</f:facet>
+			<rich:dataTable width="100%"
+		        	var="conc"
+		        	value="#{contribuenteBean.listaConcessioniCosap}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+					rowClasses="#{contribuenteBean.cosapFonte.coloreJsp}" >
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Data Richiesta" /></f:facet>
+					<h:outputLabel value="#{conc.dtRichiestaStr}" />
+				</rich:column>					            
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Data Inizio valid." /></f:facet>
+					<h:outputLabel value="#{conc.dtIniValiditaStr}" />
+				</rich:column>				
+				<rich:column style="text-align:left">						
+					<f:facet name="header"><h:outputText value="Occupazione" /></f:facet>
+					<h:outputLabel value="#{conc.tipoOccupazione}" />
+				</rich:column>	
+				<rich:column style="text-align:left">						
+					<f:facet name="header"><h:outputText value="Anno-Num. Doc." /></f:facet>
+					<h:outputLabel value="#{conc.annoDocumento}-#{conc.numeroDocumento}" />
+				</rich:column>				
+				<rich:column style="text-align:left">						
+					<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+					<h:outputLabel value="#{conc.indirizzo}" />
+				</rich:column>			
+				<rich:column style="text-align:right">						
+					<f:facet name="header"><h:outputText value="Tariffa unitaria" /></f:facet>
+					<h:outputLabel value="#{conc.tariffaPerUnitaStr}" />
+				</rich:column>	
+					<rich:column style="text-align:left">						
+					<f:facet name="header"><h:outputText value="Val.Tariffa" /></f:facet>
+					<h:outputLabel value="#{conc.dtIniValiditaTariffaStr} - #{conc.dtFinValiditaTariffaStr}" />
+				</rich:column>
+				<rich:column>						
+					<f:facet name="header"><h:outputText value="Cons. occup." /></f:facet>
+					<h:outputLabel value="#{conc.unitaMisuraQuantita} #{conc.quantita}" />
+				</rich:column>
+				<rich:column style="text-align:right">						
+					<f:facet name="header"><h:outputText value="Canone" /></f:facet>
+					<h:outputLabel value="#{conc.importoCanoneStr}" />
+				</rich:column>
+			</rich:dataTable>					
+		</rich:panel>
+	</c:if>		
+</ui:composition>
+</html>

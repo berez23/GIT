@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="2">
+				<h:outputText value="Coeff"/>
+				<h:selectOneMenu value="#{tariffeBean.criteriaCoeff.coeff}">
+				    <f:selectItem itemValue="KA" itemLabel="KA"/>
+				    <f:selectItem itemValue="KB" itemLabel="KB"/>
+				</h:selectOneMenu>
+				<h:outputText value="Zona Geografica"/>
+				<h:selectOneMenu value="#{tariffeBean.criteriaCoeff.geo}">
+				    <f:selectItem itemValue="NORD" itemLabel="NORD"/>
+				    <f:selectItem itemValue="CENTRO" itemLabel="CENTRO" />
+				    <f:selectItem itemValue="SUD" itemLabel="SUD" />
+				</h:selectOneMenu>
+				<h:outputText value="Numero Abitanti Fino a 5000 o Maggiore di 5000"/>
+				<h:selectOneMenu value="#{tariffeBean.criteriaCoeff.abit}">
+				    <f:selectItem itemValue="UNDER" itemLabel="FINO A 5000"/>
+				    <f:selectItem itemValue="OVER" itemLabel="MAGGIORE" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<a4j:commandButton id="btnCerca" 
+					value="Cerca" 
+					action="#{tariffeBean.doCercaCoeffUD}"
+					reRender="tblList" />
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<rich:spacer width="5px"/>
+			</td></tr></table>
+			
+	<rich:spacer width="5px" height="30px"/>
+    
+    <rich:dataTable id="tblList" value="#{tariffeBean.lstCoeff}" var="coef" style="width: 100%" rendered="true">
+	        
+	        <f:facet name="header">
+				<h:outputText value="Coeff. Utenze Domestiche " />
+	        </f:facet>
+	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Componenti nucleo fam" id="lblComp" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Min" id="lblMin" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Max" id="lblMax" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Med" id="lblMed" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="AdHoc" id="lblAdHoc" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+                                <h:outputText value="Val" id="lblVal" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KA'}"/>
+                            </rich:column>
+ 							<rich:column rowspan="2">
+                                <h:outputText value="Sel" id="lblSel" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column>
+				<h:outputText value="#{coef.voce.descrizione}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{coef.min}" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{coef.max}" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{coef.med}" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+	        </rich:column>
+	       	<rich:column>
+				<h:inputText value="#{coef.adhoc}" style="width: 60px" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}"/>
+				<h:outputText value="#{coef.adhoc}" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KA'}"/>
+	        </rich:column>
+	       	<rich:column>
+				<h:selectOneMenu value="#{coef.selezione}" rendered="#{tariffeBean.criteriaCoeff.coeff == 'KB'}">
+				    <f:selectItem itemValue="" itemLabel=""/>
+				    <f:selectItem itemValue="MIN" itemLabel="MIN"/>
+				    <f:selectItem itemValue="MED" itemLabel="MED" />
+				    <f:selectItem itemValue="MAX" itemLabel="MAX" />
+				    <f:selectItem itemValue="ADHOC" itemLabel="ADHOC" />
+				</h:selectOneMenu>
+	        </rich:column>
+	        
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+                	<rich:column colspan="6">
+                		<div align="center">
+							<a4j:commandButton id="btnAggiorna" 
+								value="Aggiorna" 
+								action="#{tariffeBean.doAggiornaCoeffUD}"
+								disabled="#{tariffeBean.cnt == 0}"
+								reRender="tblList" />
+						</div>
+					</rich:column>
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+				
+	
+			</rich:panel>			
+		</h:form>
+	</div>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

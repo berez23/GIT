@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<rich:dataTable width="100%" var="row" value="#{iciDataModel}"
+	id="listTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+	rows="30">
+	<f:facet name="header">
+		<rich:columnGroup>
+			<rich:column colspan="21">
+				<h:outputText value="Lista report" />
+			</rich:column>
+		</rich:columnGroup>
+	</f:facet>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img1"
+			rendered="#{row.docfaIciReport.flgElaborato eq '1' and row.docfaIciReport.flgAnomalie eq '0'}">
+			<rich:toolTip direction="top-right" mode="client" layout="inline"
+				value="Elaborato #{row.docfaIciReport.annotazioni}" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img2"
+			rendered="#{row.docfaIciReport.flgElaborato eq '0'}">
+			<rich:toolTip direction="top-right" mode="client" layout="inline"
+				value="Non elaborato; #{row.docfaIciReport.annotazioni}" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img3"
+			rendered="#{row.docfaIciReport.flgElaborato eq '1' and row.docfaIciReport.flgAnomalie eq '1'}">
+			<rich:toolTip direction="top-right" mode="client" layout="inline"
+				value="Elaborato con anomalie; #{row.docfaIciReport.annotazioni}" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Fornitura" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.fornitura}">
+			<f:convertDateTime pattern="MM/yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Protocollo" title="Protocollo Docfa" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.protocolloDocfa}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Data reg."
+				title="Data registrazione Docfa" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.dataDocfaToDate}">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Foglio" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.foglio}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Particella" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.particella}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Subalterno" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.subalterno}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Tipo operazione" title="Tipo operazione Docfa" />
+		</f:facet>
+		<h:outputText value="Soppressione"
+			rendered="#{row.docfaIciReport.tipoOperDocfa eq 'S'}" />
+		<h:outputText value="Costituzione"
+			rendered="#{row.docfaIciReport.tipoOperDocfa eq 'C'}" />
+		<h:outputText value="Variazione"
+			rendered="#{row.docfaIciReport.tipoOperDocfa eq 'V'}" />
+
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Causale" title="Causale Docfa" />
+		</f:facet>
+		<h:outputText id="cauD" value="#{row.docfaIciReport.causaleDocfa}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="#{row.causaleDocfaExt}" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Categoria" title="Categoria Docfa" />
+		</f:facet>
+		<h:outputText id="catD" value="#{row.docfaIciReport.categoriaDocfa}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="#{row.categoriaDocfaExt}" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Classe" title="Classe Docfa" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.classeDocfa}"
+			rendered="#{row.docfaIciReport.flgAnomaliaClasse ne '1'}" />
+		<h:outputText id="text1"
+			value="#{row.docfaIciReport.classeDocfa} (#{row.docfaIciReport.classeMin})"
+			rendered="#{row.docfaIciReport.flgAnomaliaClasse eq '1'}"
+			style="color: red;">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Anomalia. Classe minima prevista riportata tra parentesi" />
+		</h:outputText>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Rendita" title="Rendita Docfa" />
+		</f:facet>
+		<h:outputText value="&#8364; #{row.docfaIciReport.renditaDocfa}"
+			rendered="#{row.docfaIciReport.renditaDocfa != null}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Var.&#931; Imponibili" 
+			title="Variazione % tra: somma dei val.imponibili per uiu cessate/variate e quella per le uiu costutuite/variate (nel docfa)" />
+		</f:facet>
+		<h:outputText value="#{row.docfaIciReport.varPercSumImponibile} %"
+			rendered="#{row.docfaIciReport.varPercSumImponibile != null}" />
+			<h:outputText value="% non calcolabile" style="color:red;" title="% non calcolabile (val.iniziale di riferimento = 0)"
+			rendered="#{row.docfaIciReport.varPercSumImponibile == null}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Indirizzo" title="Indirizzo Docfa" />
+		</f:facet>
+		<h:outputText
+			value="#{row.docfaIciReport.prefissoViaDocfa} #{row.docfaIciReport.viaDocfa} #{row.docfaIciReport.civiciDocfa}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:graphicImage value="/images/icoici.jpg" id="imgici1">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presenza uiu in ICI ante docfa" />
+			</h:graphicImage>
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img4"
+			rendered="#{row.docfaIciReport.flgIciAnteDocfa eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente in Ici ante Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img5"
+			rendered="#{row.docfaIciReport.flgIciAnteDocfa eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Assente in Ici ante Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img6"
+			rendered="#{row.docfaIciReport.flgIciAnteDocfa == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:graphicImage value="/images/icoici.jpg" id="imgici2">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presenza uiu in ICI post docfa" />
+			</h:graphicImage>
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img7"
+			rendered="#{row.docfaIciReport.flgIciPostDocfa eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente in Ici post Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img8"
+			rendered="#{row.docfaIciReport.flgIciPostDocfa eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Assente in Ici post Docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img9"
+			rendered="#{row.docfaIciReport.flgIciPostDocfa == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:graphicImage value="/images/map.png" id="imgcatasto">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presenza uiu a catasto alla data del docfa" />
+			</h:graphicImage>
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img10"
+			rendered="#{row.docfaIciReport.flgUiuCatasto eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Presente a catasto alla data del docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img11"
+			rendered="#{row.docfaIciReport.flgUiuCatasto eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Assente a catasto alla data del docfa" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img12"
+			rendered="#{row.docfaIciReport.flgUiuCatasto == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Non elaborato (Presenza a catasto alla data del docfa)" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img13"
+			rendered="#{row.docfaIciReport.flgDocfaSNoC eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di cessazione senza costituzione:SI" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img14"
+			rendered="#{row.docfaIciReport.flgDocfaSNoC == null or row.docfaIciReport.flgDocfaSNoC eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di cessazione senza costituzione:NO" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img15"
+			rendered="#{row.docfaIciReport.flgVarAnteCategoria eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione categoria:SI" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img16"
+			rendered="#{row.docfaIciReport.flgVarAnteCategoria eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione categoria:NO" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img16a"
+			rendered="#{row.docfaIciReport.flgVarAnteCategoria == null }">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione categoria: Non elaborato " />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img17"
+			rendered="#{row.docfaIciReport.flgVarAnteClasse eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione classe:SI" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img18"
+			rendered="#{row.docfaIciReport.flgVarAnteClasse eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione classe:NO" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img18a"
+			rendered="#{row.docfaIciReport.flgVarAnteClasse == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="ocfa di variazione classe:Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="" />
+		</f:facet>
+		<h:graphicImage value="/images/passed.gif" id="img19"
+			rendered="#{row.docfaIciReport.flgVarAnteRendita eq '1'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione rendita" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/error.gif" id="img20"
+			rendered="#{row.docfaIciReport.flgVarAnteRendita eq '0'}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione rendita" />
+		</h:graphicImage>
+		<h:graphicImage value="/images/warning.png" id="img20a"
+			rendered="#{row.docfaIciReport.flgVarAnteRendita == null}">
+			<rich:toolTip direction="top-left" mode="client" layout="inline"
+				value="Docfa di variazione rendita:Non elaborato" />
+		</h:graphicImage>
+	</rich:column>
+	<f:facet name="footer">
+		<rich:datascroller id="tableScroller" style="padding-bottom: 13px;" />
+	</f:facet>
+
+	<rich:componentControl event="onRowClick" for="menu" operation="show">
+		<f:param name="idRepSelected" value="#{row.docfaIciReport.idRep}" />
+	</rich:componentControl>
+</rich:dataTable>
+
+<rich:spacer height="10px" />
+
+<center>
+<h:panelGrid columns="2">
+<h:outputText value="Esporta la lista in " />
+<h:commandLink
+	action="#{exportXLSBean.resultListIciExportToXls}">
+	<h:graphicImage value="/images/xls.png"
+		style="padding-left:10px; border: 0; cursor: pointer;" />
+</h:commandLink>
+<h:outputText value="Esporta la lista con TITOLARI in " />
+<h:commandLink
+	action="#{exportXLSBean.resultListIciSoggExportToXls}">
+	<h:graphicImage value="/images/xls.png"
+		style="padding-left:10px; border: 0; cursor: pointer;" />
+</h:commandLink>
+</h:panelGrid>
+</center>
+
+</html>

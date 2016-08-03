@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	
+	<h2>Verifica Coordinate</h2>
+	
+	
+	<rich:panel>
+		<h:form>			
+			<h:panelGrid columns="1">
+				<a4j:commandLink action="#{vcHomeBean.goHome}" value="Home" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="2">
+				<h:outputLabel value="Selezionare il file xml di richiesta" style="font-weight:bold;" />
+				<h:selectOneMenu value="#{vcHomeBean.requestXmlSelected}" 
+								 style="border:1px solid 	#D8D8D8  ;" >
+								 
+					<f:selectItems value="#{vcHomeBean.requestXmls}" />
+				</h:selectOneMenu>
+				
+				
+				<a4j:commandLink action="#{vcHomeBean.doWSSServiceInvoke}" value="Chiama servizio WSS" />
+				
+				<a4j:commandLink action="#{vcHomeBean.doServiceInvoke}" value="Chiama servizio" />
+			</h:panelGrid>
+		</h:form>
+		
+		<h:messages showDetail="true" showSummary="true" 
+					errorStyle="color:#ff0000;"
+					warnStyle="color:#ff6600;"
+					infoStyle="color:#339900;"/>
+		
+	</rich:panel>
+	
+	<rich:spacer height="25px" />
+	
+	<rich:panel rendered="#{vcHomeBean.xml != null ? true : false}" >
+		<h:panelGrid columns="1"> 	
+			<rich:spacer height="30px" />
+			
+			<h:outputLabel value="Esito chiamata al servizio web di Verifica Coordinate" />
+			<rich:spacer height="10px" />
+			
+			
+			<rich:spacer height="10px" />
+			<h:outputText value="#{vcHomeBean.xml}" />
+		</h:panelGrid>
+		
+	</rich:panel>
+	
+</html>

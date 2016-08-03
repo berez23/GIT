@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14-mar-2007 12.05.11 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="it.webred.docfa.model.DocfaDataLog" table="DOCFA_DATA_LOG">
+        <id name="iid" type="big_decimal">
+            <column name="IID" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="idFornitura" type="string">
+            <column name="ID_FORNITURA" length="10" />
+        </property>
+        <property name="idProtocollo" type="string">
+            <column name="ID_PROTOCOLLO" length="20" />
+        </property>
+        <property name="tabellaRecord" type="string">
+            <column name="TABELLA_RECORD" length="64" />
+        </property>
+        <property name="colonnaRecord" type="string">
+            <column name="COLONNA_RECORD" length="64" />
+        </property>
+        <property name="codiceRegola" type="string">
+            <column name="CODICE_REGOLA" length="100" />
+        </property>
+        <property name="uiuFoglio" type="string">
+            <column name="UIU_FOGLIO" length="10" />
+        </property>
+        <property name="uiuNumero" type="string">
+            <column name="UIU_NUMERO" length="10" />
+        </property>
+        <property name="uiuSubalterno" type="string">
+            <column name="UIU_SUBALTERNO" length="10" />
+        </property>
+        <property name="proveninza" type="string">
+            <column name="PROVENINZA" length="3" not-null="true" />
+        </property>
+    </class>
+</hibernate-mapping>

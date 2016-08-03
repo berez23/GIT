@@ -1,0 +1,87 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+			<rich:modalPanel id="immobiliTarsuPanelPerNucleo" autosized="true" 
+				width="500" height="200" label="DATI DICHIARAZIONI"
+				moveable="false" resizeable="false">
+				<f:facet name="controls">
+					<h:panelGroup>
+						<rich:componentControl for="immobiliTarsuPanelPerNucleo" attachTo="hideLink" operation="hide" event="onclick" />
+					</h:panelGroup>
+				</f:facet>
+				<h:form>
+					<h:panelGrid columns="1">
+				    	<a4j:outputPanel ajaxRendered="true">
+				    		<table>
+				    			<tr>
+				    				<td>
+				    					<h:outputText value="Soggetti coinvolti" styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<c:forEach items="#{contribuenteBean.listaSoggettiCoinvoltiTarsu}" var="soggetti">
+								      		<h:outputText value="#{soggetti}" />
+								      		<br />
+										</c:forEach>
+				    				</td>
+				    			</tr>
+				    			<tr>
+				    				<td>
+				    					<h:outputText value="Indirizzo TARSU" styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value="#{contribuenteBean.indirizzoPanelTarsu}" />
+				    				</td>
+				    			</tr>
+				    			
+				    			<tr>
+				    				<td>
+				    					<h:outputText value="Indirizzo Catasto" styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<c:forEach items="#{contribuenteBean.listaIndirizziCatastoTarsu}" var="indirizziC">
+								      		<h:outputText value="#{indirizziC}" />
+								      		<br />
+										</c:forEach>
+				    				</td>
+				    			</tr>				    	
+				    			<tr>
+				    				<td>
+				    					<h:outputText value="Indirizzo SIT" styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<c:forEach items="#{contribuenteBean.listaIndirizziSITTarsu}" var="indirizziS">
+								      		<h:outputText value="#{indirizziS}" />
+								      		<br />
+										</c:forEach>
+				    				</td>
+				    			</tr>
+				    			<tr>
+				    				<td>
+				    					<h:outputText value="Indirizzo Residenza Soggetto" styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value="#{contribuenteBean.immobileTarsu.indirizzoDaAnagrafe.desIndirizzo}" />
+				    				</td>
+				    			</tr>			    			
+				    		</table>
+				        </a4j:outputPanel>
+					</h:panelGrid>  
+					<rich:spacer height="20px"/>
+		            <table border="0" width="100%">
+		             	<tr>
+		             		<td align="center" >
+								<a4j:commandButton styleClass="my-button" value="Chiudi" ajaxSingle="false" oncomplete="#{rich:component('immobiliTarsuPanelPerNucleo')}.hide();"/>		             	
+		             		</td>
+						</tr>	
+			        </table>  
+		        </h:form>
+			</rich:modalPanel>
+  		</ui:composition>
+</html>

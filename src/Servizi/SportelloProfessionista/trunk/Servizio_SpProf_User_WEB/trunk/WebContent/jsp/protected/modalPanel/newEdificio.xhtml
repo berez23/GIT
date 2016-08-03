@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO EDIFICIO MODAL BOX -->
+<rich:modalPanel id="ediModalBox" minHeight="260" minWidth="400"
+	height="200" width="400">
+	<f:facet name="header">
+		<h:outputText
+			value="#{edificioBean.update?'Dettagli edificio':'Nuovo edificio'}"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick"
+						oncomplete="javascript:Richfaces.hideModalPanel('ediModalBox');" />
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="ediForm">
+
+		<a4j:keepAlive beanName="edificioBean" />
+
+		<h:panelGrid columns="2" width="100%">
+			<h:outputLabel value="Coordinate catastali" />
+			<h:selectOneMenu value="#{edificioBean.idAreaPart}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{edificioBean.selectParticella}" />
+				<a4j:support event="onchange"
+					action="#{edificioBean.doCaricaCivici}" reRender="ediForm"></a4j:support>
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Civico collegato" />
+			<h:selectOneMenu id="civ" value="#{edificioBean.idCivico}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{edificioBean.selectCivici}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Tipologia edificio" />
+			<h:selectOneMenu id="tipologia" value="#{edificioBean.tipologia}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{edificioBean.selectTipologia}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Destinazione d'uso" />
+			<h:selectOneMenu id="dest" value="#{edificioBean.destinazioneUso}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{edificioBean.selectDestUso}" />
+				<a4j:support event="onchange"
+					action="#{edificioBean.doMostraDUPrev}" reRender="ediForm"></a4j:support>
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Destinazione d'uso prevalente"
+				rendered="#{edificioBean.mostraDUPrev}" />
+			<h:selectOneMenu id="destPrev"
+				value="#{edificioBean.destinazioneUsoPrev}"
+				rendered="#{edificioBean.mostraDUPrev}">
+				<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+				<f:selectItems value="#{edificioBean.selectDestUso}" />
+			</h:selectOneMenu>
+
+			<h:outputLabel value="Note" />
+			<h:inputTextarea value="#{edificioBean.note}" rows="4" />
+		</h:panelGrid>
+
+		<rich:spacer height="15px" />
+
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Salva" id="btnSalva" styleClass="button"
+					action="#{edificioBean.doSalva}" rendered="#{datiBean.stato eq 'IN LAVORAZIONE' or datiBean.stato eq 'RESPINTO'}"
+					oncomplete="Richfaces.hideModalPanel('ediModalBox'); return false;"
+					reRender="leftPage, modalPage">
+					<a4j:support event="onclick"
+						onsubmit="if (!confirm('Procedere con il salvataggio?')) return false" />
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="empty"
+						assignTo="#{pageBean.pageModal}" />
+				</a4j:commandButton>
+
+				<rich:spacer width="15px" />
+
+				<a4j:commandButton value="Annulla" id="btnEsciUpl"
+					styleClass="button"
+					onclick="Richfaces.hideModalPanel('ediModalBox'); return false;">
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE EDIFICIO MODAL BOX -->
+
+</html>

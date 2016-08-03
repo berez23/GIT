@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d001166a-d35e-4b51-a5dd-cd33e9c819cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="contrRichiesto" class="java.lang.String"/>
+	<field name="perErogazione" class="java.lang.String"/>
+	<field name="richiestoPer" class="java.lang.String"/>
+	<field name="tipoRiscossione" class="java.lang.String"/>
+	<field name="accreditoA" class="java.lang.String"/>
+	<field name="iban" class="java.lang.String"/>
+	<field name="delDenominazione" class="java.lang.String"/>
+	<field name="delIndirizzo" class="java.lang.String"/>
+	<field name="delLuogo" class="java.lang.String"/>
+	<field name="delTelefono" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="126" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="103" height="20" uuid="60c1d990-e430-492a-b33a-b9152cf5f324"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Contributo richiesto]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="103" y="0" width="151" height="20" uuid="383791a2-4f0a-402e-a302-665afe198a2a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrRichiesto}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="359" y="0" width="196" height="20" uuid="f4af8ff9-86fe-4959-8cf0-f76102511478"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{perErogazione}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="254" y="0" width="105" height="20" uuid="3ac0f005-4314-486b-819c-92783da1cb1d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Periodo erogazione]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="103" y="25" width="151" height="20" uuid="b4ba2ae0-7876-4f30-857c-fe9e42dd6c45"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{richiestoPer}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="25" width="103" height="20" uuid="ab5424a6-81f5-4650-96ba-b8e0c483b812"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Richiesto per]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="359" y="25" width="196" height="20" uuid="d591e45d-63b5-4ae7-b75c-daef5873991e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoRiscossione}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="254" y="106" width="81" height="20" isRemoveLineWhenBlank="true" uuid="ab267284-8e3b-4f21-a27b-d6abc96fd0ac">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="81" width="93" height="20" isRemoveLineWhenBlank="true" uuid="f26fc1f9-925f-4c41-b096-26d57ffcc3cc">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Denominazione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="106" width="93" height="20" isRemoveLineWhenBlank="true" uuid="cfba0734-6b3e-474b-8110-55d9a9072fc9">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Luogo]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="335" y="81" width="220" height="20" isRemoveLineWhenBlank="true" uuid="cec3e2ab-df23-4d46-8922-61318c11f97b">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delIndirizzo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="254" y="81" width="81" height="20" isRemoveLineWhenBlank="true" uuid="931ab5a9-cd21-49ea-9a74-3dcbd85ad234">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Indirizzo]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="93" y="81" width="161" height="20" isRemoveLineWhenBlank="true" uuid="74d1813a-a743-48a5-9700-8915a3975d5e">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delDenominazione}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="93" y="106" width="161" height="20" isRemoveLineWhenBlank="true" uuid="fe3db62a-6c6a-4123-9555-8b40aa7c56ef">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delLuogo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="335" y="106" width="220" height="20" isRemoveLineWhenBlank="true" uuid="f4aa904c-a5da-4b0c-af45-6c62a75e585d">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{delTelefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="56" width="254" height="20" isRemoveLineWhenBlank="true" uuid="661aa304-bb72-4d7b-adee-f80b8d45b02e">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Delegato" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Familiare delegato alla riscossione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="50" width="93" height="20" isRemoveLineWhenBlank="true" uuid="9d903f43-73c7-4365-a9b3-09f679ce5505">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Accredito" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[Accredito a]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="93" y="50" width="161" height="20" isRemoveLineWhenBlank="true" uuid="dd0e0a0b-cc66-4828-be5b-9361d41b53c7">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Accredito" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{accreditoA}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="307" y="50" width="248" height="20" isRemoveLineWhenBlank="true" uuid="47e5162c-31bb-4378-bfee-9b24830ca0df">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Accredito" )]]></printWhenExpression>
+				</reportElement>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{iban}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="254" y="50" width="53" height="20" isRemoveLineWhenBlank="true" uuid="4c2f4a1d-b4cf-4aa0-9d2c-511d2ebb03d9">
+					<printWhenExpression><![CDATA[$F{tipoRiscossione}.equals( "Accredito" )]]></printWhenExpression>
+				</reportElement>
+				<text><![CDATA[IBAN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="254" y="25" width="105" height="20" uuid="49740f86-a82d-4ebc-bd77-ddf57405302b"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Tipo riscossione]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

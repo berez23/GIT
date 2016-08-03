@@ -1,0 +1,12 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="452744A4-7DFF-09D0-8288-742A625CC547" directorySegmentName="seg_0" name="CS_D_COLL_TIPO_COLLOQUIO_FK">
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-04-07 14:03:40 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<containerWithKeyObject>39691311-A96C-EC25-A66F-FEAAA4E30D49</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>DE9D92E2-D18C-436A-9354-88506BDCC991</localFKIndex>
+<keyObject>D6A9DD45-3C38-F0AC-785A-F3ACC6325FA7</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

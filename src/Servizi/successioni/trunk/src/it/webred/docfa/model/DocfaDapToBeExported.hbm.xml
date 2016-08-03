@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="it.webred.docfa.model.DocfaDapToBeExported">
+		<subselect>
+			select distinct  PROTOCOLLO_REG as IID_PROTOCOLLO_REG ,TO_CHAR(fornitura,'YYYYMMDD') as IID_FORNITURA from docfa_dati_generali               
+			minus 
+			select distinct IID_PROTOCOLLO_REG,IID_FORNITURA from docfa_dap 
+		</subselect>
+		<synchronize table="docfa_dap"/>
+		<composite-id>
+			<key-property name="iidFornitura" type="string"><column name="iid_fornitura" length="8" /></key-property>
+			<key-property name="iidProtocolloReg"  type="string"><column name="IID_PROTOCOLLO_REG" length="9" /></key-property>
+		</composite-id>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_ITER_STEP" id="EE1DA805-8EB2-2E97-224C-53D986E9476D" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>434511E8-6CF8-2123-F91B-7D47C5E60893</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>FD2960D8-C95C-6134-3A0C-0024E4FD1770</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a4j="http://richfaces.org/a4j"
+	  xmlns:rich="http://richfaces.org/rich">
+
+	
+	<head>
+		<title>CT - Ruolo Coattivo</title>
+		<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+	</head>
+	
+	<body>
+	
+	   <!--  Gestione stato richiesta -->
+	  <div id="header">
+		<h:panelGrid style="text-align: center; border: 1px solid #C0C0C0; border-bottom:0" cellpadding="0" cellspacing="0" bgcolor="white" width="100%"> 
+				<h:graphicImage value="/images/serviziocnc.png"/>
+		</h:panelGrid>
+	  </div>
+	  
+	  <div id="menu">	  	
+			<h:form id="menuForm">
+				<rich:toolBar>
+					<rich:dropDownMenu>
+			                <f:facet name="label"> 
+			                    <h:panelGroup>                        
+			                        <h:outputText value="Flusso 290"/>
+			                    </h:panelGroup>
+			                </f:facet>
+							<rich:menuItem submitMode="server" action="#{menuBean.doRicercaAnag290}">
+									<a4j:actionparam name="param" value="" assignTo="#{flusso290DataModel.resetData}"/>																
+									<h:outputText value="Ricerca" />																	
+							</rich:menuItem>
+					</rich:dropDownMenu>
+					<rich:dropDownMenu>
+			                <f:facet name="label"> 
+			                    <h:panelGroup>                        
+			                        <h:outputText value="Flusso Ruoli vistati"/>
+			                    </h:panelGroup>
+			                </f:facet>
+							<rich:menuItem submitMode="server" action="#{menuBean.doRicercaAnagVistati}">																								
+									<a4j:actionparam name="param" value="" assignTo="#{flusso750AnagDataModel.resetData}"/>
+									<h:outputText value="Ricerca anagrafica" />									
+							</rich:menuItem>
+							<rich:menuItem submitMode="server" action="#{menuBean.doRicercaRuoliVistati}">																
+									<a4j:actionparam name="param" value="" assignTo="#{flusso750AnagDataModel.resetData}"/>
+									<h:outputText value="Ricerca ruoli" />									
+							</rich:menuItem>
+					</rich:dropDownMenu>
+					<rich:dropDownMenu>
+			                <f:facet name="label"> 
+			                    <h:panelGroup>                        
+			                        <h:outputText value="Flusso Stato Riscossione"/>
+			                    </h:panelGroup>
+			                </f:facet>
+							<rich:menuItem submitMode="server" action="#{menuBean.doRicercaRiscossioni}"> 
+									<a4j:actionparam name="param" value="" assignTo="#{statoRiscossioneDataModel.resetData}"/>
+									<h:outputText value="Ricerca riscossioni" />																	
+							</rich:menuItem>
+					</rich:dropDownMenu>
+			
+			    </rich:toolBar>		
+			</h:form>    
+			
+	</div>
+	
+	<a4j:include id="userPage" viewId="/jsp/protected/user/user.xhtml" />
+	  
+	<rich:spacer height="8px"></rich:spacer>
+	<div id="info">	 
+		<rich:panel bodyClass="navInfo">
+	 		<center>
+	             <ui:insert name="navInfo"/>
+		    </center>		    	       
+		</rich:panel>  
+	</div>
+	
+	<div>		
+		<a4j:status onstart="Richfaces.showModalPanel('ajaxLoadingModalBox',{width:250, top:100})" 
+    				onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')">
+					
+		</a4j:status>
+				
+		 	<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="450" 
+  					         height="100" width="250" zindex="2000">
+     			<f:facet name="header">
+       			   <h:outputText value="Richiesta in corso"></h:outputText>
+     			</f:facet>
+     			<center>
+     			  	<h:panelGrid columns="1">
+     			  	    <h:panelGroup></h:panelGroup>
+     			  	    <h:panelGroup></h:panelGroup>
+	     				
+	     				<h:outputText value="Attendere prego" style="font-size:15px"></h:outputText>
+	     				&nbsp; &nbsp; <h:graphicImage  value="/images/wait.gif"/>
+     				</h:panelGrid>
+     			</center>
+		</rich:modalPanel> 				
+		
+	</div>
+		  
+	<div id="content">  
+  			<ui:insert name="content">
+  				Benvenuto
+  			</ui:insert>
+  		
+	</div>
+	
+
+	</body>
+
+</html>

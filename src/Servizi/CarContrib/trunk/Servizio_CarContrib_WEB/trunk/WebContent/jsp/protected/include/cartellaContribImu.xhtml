@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition>
+		<f:facet name="label">
+				<h:outputText value="Consulenza Imu" />
+		</f:facet>
+		<rich:spacer height="20px" />
+		<c:if test="#{empty contribuenteBean.consulenzaImu}" >
+			<div style="height:60px;">
+				<h:outputText value="DATI NON TROVATI" styleClass="titoloNero" style="font-weight: bold;" />
+			</div>
+		</c:if>
+		<c:if test="#{not empty contribuenteBean.consulenzaImu}" >
+			<ui:include src="/jsp//protected/include/cartellaContribImuDatiElab.xhtml" />
+			<rich:spacer height="20px" />
+			 <rich:simpleTogglePanel switchType="client" label="DETTAGLIO CONSULENZA" opened="true" >
+			 <div>
+			 <h:panelGroup>
+			  <h:outputText value="Consulenza fornita il " ></h:outputText>
+			  <h:outputText value="#{contribuenteBean.consulenzaImu.dtConsulenza}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputText>
+			 </h:panelGroup>
+			 <rich:spacer height="10px" />
+			 </div>
+			 <rich:simpleTogglePanel switchType="client" label="Dati Anagrafici Dichiarante" opened="true" >
+				 
+				 <h:panelGrid columns="4" >
+                    <h:outputText value="Denominazione" styleClass="labelDesc" ></h:outputText>
+                    <h:panelGroup>
+                    	 <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.cog}" />
+                    	 <h:outputText value=" " />
+                    	 <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.nom}" />
+                    </h:panelGroup>
+  					<h:outputText value="Cod.Fiscale" styleClass="labelDesc" ></h:outputText>
+                    <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.codFisc}" />
+                    <h:outputText value="Sesso" styleClass="labelDesc" ></h:outputText>
+                    <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.sesso}" />                    
+                    <h:outputText value="Comune di nascita" styleClass="labelDesc" ></h:outputText>
+ 	                <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.comNas} (#{contribuenteBean.consulenzaImu.dichiarante.provNas})" />
+                    <h:outputText value="Residenza" styleClass="labelDesc" ></h:outputText>
+                    <h:panelGroup>
+                       <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.indRes}" />
+ 	                   <h:outputText value=" #{contribuenteBean.consulenzaImu.dichiarante.comRes} " />
+ 	                   <h:outputText value="(#{contribuenteBean.consulenzaImu.dichiarante.provRes})" />
+                    </h:panelGroup>	
+                     <h:outputText value="IBAN" styleClass="labelDesc" ></h:outputText>
+                    <h:outputText value="#{contribuenteBean.consulenzaImu.dichiarante.iban}" />		
+                  </h:panelGrid>
+			</rich:simpleTogglePanel>
+			<rich:spacer height="20px" />
+			 
+			<rich:simpleTogglePanel switchType="client" label="Lista Immobili" opened="false" >
+				
+				   <rich:dataTable width="100%"
+				        	var="elem"
+				        	value="#{contribuenteBean.consulenzaImu.lstImmobili}"
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						
+							<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Dati Immobile principale e pertinenze" /></f:facet>
+								
+							<rich:simpleTogglePanel switchType="client" label="#{elem.catDescrizione}" opened="false">
+								<rich:dataTable  width="100%"
+				        	var="val"
+				        	value="#{elem.listaValori}"
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+							<rich:column style="text-align:left;" rendered="#{!val.vuoto}" >
+								<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+								<h:outputText title="#{val.descCat}" value="#{val.cod}" style="font-weight:bold;"></h:outputText>
+								
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText value="Rendita" /></f:facet>
+								  <h:outputText value="#{val.rendita}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText title="Rendita rivalutata" value="Rival." /></f:facet>
+								  <h:outputText value="#{val.renditaRivalutata}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText value="Valore" /></f:facet>
+								  <h:outputText value="#{val.valore}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							</rich:column>
+							<rich:column style="text-align:center;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText title="Mesi di possesso" value="Mesi" /></f:facet>
+								 <h:outputText value="#{val.mesiPoss}" />
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText title="Quota di possesso" value="%" /></f:facet>
+								 <h:outputText value="#{val.quotaPoss}" ><f:convertNumber type="number"/></h:outputText>
+							</rich:column>
+							<rich:column style="text-align:center;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText title="Immobile storico e/o inagibile" value="Storico" /></f:facet>
+								 <h:panelGroup style="margin-right: 10px; float: right;">
+						    		<h:graphicImage rendered="#{val.storico}"  value="/images/passed.gif" title="SI"/>
+									<h:graphicImage rendered="#{!val.storico}"  value="/images/no.gif" title="NO"/>
+							</h:panelGroup>
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText value="Imposta" /></f:facet>
+								  <h:outputText value="#{val.dovuto}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText value="Detrazione" /></f:facet>
+								  <h:outputText value="#{val.detrazione}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							</rich:column>
+							<rich:column style="text-align:right;" rendered="#{!val.vuoto}">
+								<f:facet name="header"><h:outputText value="Dovuto" /></f:facet>
+								  <h:outputText value="#{val.dovutoMenoDetrazione}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							</rich:column>
+	
+						</rich:dataTable>
+						
+						</rich:simpleTogglePanel>
+							   <h:panelGrid columns="4"  width="95%" style="text-align:right;">
+						   	   <h:outputText value="Somma Rendite Rivalutate: " style="font-weight:bold;"/>
+							   <h:outputText value="#{elem.renditaImmobileRiv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							   <h:outputText value="Dovuto Quota Stato"  style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="#{elem.dovutoStato}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							   <h:outputText value="  " style="font-weight:bold;"/>
+							   <h:outputText value=" " style="font-weight:bold;"/>
+							   <h:outputText value="Dovuto Quota Comune" style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="#{elem.dovutoComune}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+						</h:panelGrid>
+						
+							</rich:column>
+						
+                    	<rich:column style="text-align:right;">
+								<f:facet name="header"><h:outputText value="Aliquota" /></f:facet>
+							    <h:outputText value="#{elem.aliquota} &#8240;"/>
+                    	</rich:column>
+                    
+							<rich:column style="text-align:top;">
+							   <f:facet name="header"><h:outputText value="Acconto" /></f:facet>
+							   
+							   <h:panelGrid columns="3" style="text-align:right;">
+							   <h:outputText value="" style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="Detraz. " style="font-weight:bold;"></h:outputText>
+							    <h:outputText value="Dovuto " style="font-weight:bold;"></h:outputText>
+							   <h:outputText title="Quota Stato" value="S: " style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="#{elem.detrazioneAccStato}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							    <h:outputText value="#{elem.dovutoAccStato}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							   <h:outputText title="Quota Comune" value="C: " style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="#{elem.detrazioneAccComune}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText> 
+							    <h:outputText value="#{elem.dovutoAccComune}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							  
+							  </h:panelGrid>
+							</rich:column>
+							
+							<rich:column >
+							   <f:facet name="header"><h:outputText value="Terr.Agricolo" /></f:facet>
+							   <h:outputText value="-" rendered="#{elem.vuotoTerrAgr}"></h:outputText>
+							   <h:panelGrid columns="3" rendered="#{!elem.vuotoTerrAgr}">
+							   <h:outputText value="" style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="Detraz. " style="font-weight:bold;"></h:outputText>
+							    <h:outputText value="Dovuto " style="font-weight:bold;"></h:outputText>
+							   
+							   <h:outputText title="Quota Stato" value="S: " style="font-weight:bold;"></h:outputText>
+							    <h:outputText value="#{elem.detrTerrAgr}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							    <h:outputText value=" - "></h:outputText>
+							   <h:outputText title="Quota Comune" value="C: " style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="#{elem.detrTerrAgrComune}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							   <h:outputText value=" - "></h:outputText>
+							   <h:outputText title="Totale" value="T:" style="font-weight:bold;"></h:outputText>
+							   <h:outputText value="#{elem.detrTerrAgr}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							   <h:outputText value="#{elem.dovutoTerrAgr}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+							   </h:panelGrid>
+							   
+						
+							   </rich:column>
+							  <rich:column style="text-align:right;">
+								<f:facet name="header"><h:outputText title="Tasso Interesse per ravvedimento operoso" value="Tasso" /></f:facet>
+							    	<h:outputLabel value="#{elem.tasso}" > <f:convertNumber type="number" /></h:outputLabel>
+                    	</rich:column>
+                    	<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText title="Numero contitolari conviventi" value="Cont." /></f:facet>
+							    	<h:outputText value="#{elem.numContitolari}" />
+                    	</rich:column>
+                    	<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText title="Numero figli conviventi" value="Figli" /></f:facet>
+							    <h:outputText value="#{elem.numFigli}" />
+							   
+									<rich:dataTable rendered="#{elem.numFigli ne '0'}"
+							        	var="figlio"
+							        	value="#{elem.lstFigli}"
+							        	columnClasses="col" 
+							        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									
+										<rich:column style="text-align:center;">
+											<f:facet name="header"><h:outputText value="" /></f:facet>
+											<h:graphicImage rendered="#{figlio.presente}"  value="/images/passed.gif" title="Presente"/>
+											<h:graphicImage rendered="#{!figlio.presente}"  value="/images/no.gif" title="Assente"/>
+										</rich:column>
+										<rich:column style="text-align:center;">
+											<f:facet name="header"><h:outputText title="% detrazione" value="%" /></f:facet>
+											<h:outputLabel value="#{figlio.percDetrazione}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</rich:column>
+										<rich:column style="text-align:center;">
+											<f:facet name="header"><h:outputText title="Mesi detrazione" value="Mesi" /></f:facet>
+											<h:outputLabel value="#{figlio.mesiDetrazione}" ></h:outputLabel>
+										</rich:column>
+									</rich:dataTable>
+							
+                    	</rich:column>
+                    	  	<rich:column style="text-align:right;" width="30px">
+								<f:facet name="header"><h:outputText value="IACP" /></f:facet>
+								 <h:panelGrid columns="2" style="text-align:right;">
+								 <h:outputText title="Totale immobili per I.A.C.P." value="T:" style="font-weight:bold;"></h:outputText>
+							    <h:outputText value="#{elem.immTotali}" />
+							    <h:outputText title="Immobili assegnati per I.A.C.P. " value="A:" style="font-weight:bold;"></h:outputText>
+							    <h:outputText value="#{elem.immAssegnati}" />
+							    </h:panelGrid>
+                    	</rich:column>
+                    	<rich:column style="text-align:right;">
+								<f:facet name="header"><h:outputText value="" /></f:facet>
+								<h:panelGrid columns="1">
+							    <h:graphicImage rendered="#{elem.terremotato}" width="25" height="25" value="/images/T.png" title="Comune Terremotato"/>
+							    <h:graphicImage rendered="#{elem.variazione}"  width="25" height="25" value="/images/V.png" title="Immobili Variati"/>
+							    </h:panelGrid>
+                    	</rich:column>
+                    	
+					</rich:dataTable>
+					
+				
+			</rich:simpleTogglePanel>
+			<rich:spacer height="20px" />	
+			<rich:panel>
+				<f:facet name="header">Lista F24</f:facet>
+				<rich:dataTable width="100%"
+			        	var="elem"
+			        	value="#{contribuenteBean.consulenzaImu.lstF24}"
+			        	columnClasses="col" 
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Ravv." /></f:facet>
+							<h:graphicImage rendered="#{elem.flgRav}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{!elem.flgRav}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Imm.Var." /></f:facet>
+							<h:graphicImage rendered="#{elem.flgImmVar}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{!elem.flgImmVar}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Acconto" /></f:facet>
+							<h:graphicImage rendered="#{elem.flgAcconto}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{!elem.flgAcconto}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Saldo" /></f:facet>
+							<h:graphicImage rendered="#{elem.flgSaldo}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{!elem.flgSaldo}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="n&#176;Imm." /></f:facet>
+							<h:outputLabel value="#{elem.numImm}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Tributo" /></f:facet>
+							<h:outputLabel title="#{elem.descTributo}" value="#{elem.codTributo}" />
+						</rich:column>
+							<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Rateazione" /></f:facet>
+							<h:outputLabel value="#{elem.flgRateazione}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Anno" /></f:facet>
+							<h:outputLabel value="#{elem.annoRif}" />
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Dov.Scad." /></f:facet>
+							<h:outputLabel value="#{elem.dovutoScadenza}"> <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Pag.Scad." /></f:facet>
+							<h:outputLabel value="#{elem.pagatoScadenza}"> <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Da Ravv." /></f:facet>
+							<h:outputLabel value="#{elem.impDaRavvedere}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Sanzione" /></f:facet>
+							<h:outputLabel value="#{elem.sanzione}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Interessi" /></f:facet>
+							<h:outputLabel value="#{elem.interessi}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Tasso" /></f:facet>
+							<h:outputLabel value="#{elem.tasso}" > <f:convertNumber type="number" /></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Detrazione" /></f:facet>
+							<h:outputLabel value="#{elem.detrazione}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Imp.Debito" /></f:facet>
+							<h:outputLabel value="#{elem.impDebito}"> <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						
+				</rich:dataTable>					
+			</rich:panel>
+			</rich:simpleTogglePanel>
+		</c:if>
+	</ui:composition>
+
+</html>

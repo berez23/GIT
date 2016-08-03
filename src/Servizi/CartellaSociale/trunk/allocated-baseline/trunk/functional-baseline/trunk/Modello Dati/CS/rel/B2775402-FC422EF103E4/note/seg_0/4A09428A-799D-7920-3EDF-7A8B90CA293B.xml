@@ -1,0 +1,13 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Note class="oracle.dbtools.crest.model.design.Note" name="Note_1" id="4A09428A-799D-7920-3EDF-7A8B90CA293B" directorySegmentName="seg_0">
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 10:58:14 UTC</createdTime>
+<comment>SPECIFICA LA RELAZIONE FRA UNA VOCE DI DIARIO E UN&apos;ALTRA: PER ESEMPIO UNA RELAZIONE A VALLE DI UNA RELAZIONE</comment>
+<ownerDesignName>CS</ownerDesignName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+</Note>

@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+	<h:body>
+      	<p:dataTable id="dtTitoli" var="tit" value="#{dettaglioBeneMan.titoloMan.listaTitoli}" emptyMessage="Titoli non presenti"
+      				rowKey="#{tit}" selection="#{dettaglioBeneMan.titoloMan.selTitolo}" selectionMode="single" paginator="true" rows="5"
+      				paginatorPosition="bottom"
+      				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+      			<p:ajax event="rowSelect" listener="#{dettaglioBeneMan.titoloMan.onRowTitoloSelect}" update="@parent:pnlTitoloDettaglio"/>
+      			 
+      			 <p:column headerText="Inventario" width="70">
+			        <h:outputText value="#{tit.dmBBene.chiave}" />
+			     </p:column >
+      			 <p:column headerText="Mod. Acquisizione Bene" width="150">
+			        <h:outputText value="#{tit.tipoAcquisizione}" />
+			     </p:column >
+			     <p:column headerText="Anno Acq." width="40" style="text-align:center;">
+			        <h:outputText value="#{tit.annoAcquisizione}" />
+			     </p:column>
+			     <p:column headerText="Tipo Diritto Reale" width="150">
+			        <h:outputText value="#{tit.tipoDirittoReale}" />
+			     </p:column>
+			      <p:column headerText="Strumento Costitutivo" width="150">
+			        <h:outputText value="#{tit.strumentoCostruttivo}" />
+			     </p:column>
+			      <p:column headerText="Normativa" width="80">
+			        <h:outputText value="#{tit.normativaUtilizzata}" />
+			     </p:column>
+			       <p:column headerText="n° doc. prop." width="80">
+			        <h:outputText value="#{tit.docpropNumero}" />
+			     </p:column>
+        </p:dataTable>
+        
+        <p:spacer height="5px;"></p:spacer>
+        <p:panel id="pnlTitoloDettaglio" header="Titolo di Proprietà" >
+        	<p:outputPanel style="border:none" rendered="#{dettaglioBeneMan.titoloMan.selTitolo!=null}">
+				 <h:panelGrid columns="2" cellspacing="5">
+				 	<h:outputLabel value="Modalità di acquisizione del bene" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.tipoAcquisizione}" />
+				 	
+				 	<h:outputLabel value="Tipologia del Diritto reale Acquisto" styleClass="boldStyle" />
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.tipoDirittoReale}" />
+				 	
+				 	<h:outputLabel value="Oggetto" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.oggetto)}" escape="false" />
+				 	
+				     <h:outputLabel value="Strumento costitutivo del Diritto Reale" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.strumentoCostruttivo}" />
+				 	
+				 	<h:outputLabel value="Annotazioni" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.annotazioni}" />
+				 </h:panelGrid>	
+				 
+				 
+				 <p:panel id="pnlDocProp" header="Individuazione Documento Attestante la Proprietà" 
+				 	toggleable="true"  toggleSpeed="500" closeSpeed="500"  >
+ 
+					 <h:panelGrid columns="2" rendered="#{dettaglioBeneMan.titoloMan.selTitolo.strumentoCostruttivo eq 'ROGITO (Atto Notarile)'}" style="width:100%">
+					
+					    <h:outputLabel value="Notaio" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropOrigine}" />
+					 	
+					 	<h:outputLabel value="N°Rep/Racc." styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropNumero}" />
+					 	
+					 	<h:outputLabel value="Contraenti" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.docpropContraenti)}" escape="false" />
+					 
+					 	<h:outputLabel value="Patti e condizioni" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.docpropPatticond)}" escape="false" />
+					 	
+					 	<h:outputLabel value="Servitù attive" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.docpropServatt)}" escape="false" />
+					 	
+					 	<h:outputLabel value="Servitù passive" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.docpropServpass)}" escape="false" />
+					 
+					 	<h:outputLabel value="Pagamento" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.docpropPagamento)}" escape="false" />
+					 </h:panelGrid>
+					 
+					 <h:panelGrid columns="2" cellspacing="5" rendered="#{dettaglioBeneMan.titoloMan.selTitolo.strumentoCostruttivo eq 'DECRETO DI ESPROPRIO'}" >
+					   <h:panelGroup>
+					    <h:outputLabel value="Autorità" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropOrigine}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Numero" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropNumero}" />
+					 </h:panelGroup>
+					 </h:panelGrid>
+					 
+					 <h:panelGrid columns="2" cellspacing="5" rendered="#{dettaglioBeneMan.titoloMan.selTitolo.strumentoCostruttivo eq 'DELIBERA'}" >
+					  <h:panelGroup>
+					    <h:outputLabel value="Organo" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropOrigine}" />
+					  </h:panelGroup>
+					  <h:panelGroup> 	
+					 	<h:outputLabel value="n° delibera/Anno" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropNumero}" />
+					 </h:panelGroup>
+					 </h:panelGrid>
+					 
+					  <h:panelGroup rendered="#{dettaglioBeneMan.titoloMan.selTitolo.strumentoCostruttivo eq 'ALTRO'}">
+					    <h:outputLabel value="Tipo Documento" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.docpropOrigine}" />
+					 </h:panelGroup>
+					 </p:panel>
+					 
+					 <p:spacer height="10px;"></p:spacer>
+					 <p:panel id="pnlDesTitolo" header="Descrizione Titolo" 
+					 	toggleable="true"  toggleSpeed="500" closeSpeed="500"  collapsed="false">
+					 <h:panelGrid columns="7" style="width:100%">
+					 	<h:panelGroup>
+					   <h:outputLabel value="Data" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titData}" >
+					 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+					 	</h:outputText>
+					   </h:panelGroup>
+					    <h:panelGroup>
+					 	<h:outputLabel value="Reg. agli Atti" styleClass="boldStyle" /><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titRegAtti}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="dell'uff.Reg. di" styleClass="boldStyle" /><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titRegUfficio}" />
+					   </h:panelGroup>
+					   <h:panelGroup>	 	
+					 	<h:outputLabel value="al num." styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titRegNumero}" />
+					 						   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Volume" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titRegVolume}" />
+					  </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Serie" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titRegSerie}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="il" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titRegData}" >
+					 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+					 	</h:outputText>
+					 </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Trascritto alla C.R.I. di" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.trascrLocalita}" />
+					 	</h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="in data" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.trascrData}" ><p:spacer width="10px"/>
+					 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+					 	</h:outputText>
+					 	</h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="al n° gen. d'ordine" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.trascrNumordine}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="al n° part. di trascrizione" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.trascrNum}" />
+					 	</h:panelGroup>
+					 </h:panelGrid>
+				 </p:panel>
+				 
+				 <h:panelGrid columns="2" cellspacing="5" >
+				 	<h:panelGroup>
+				 	<h:outputLabel value="Anno acquisizione" styleClass="boldStyle"/><p:spacer width="10px"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.annoAcquisizione}" />
+				 	</h:panelGroup>
+				    <h:panelGroup>
+				 	<h:outputLabel value="Normativa utilizzata" styleClass="boldStyle" /><p:spacer width="10px"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.normativaUtilizzata}" />
+				 	</h:panelGroup>
+				 </h:panelGrid>	
+				
+			</p:outputPanel>
+			<h:outputText rendered="#{dettaglioBeneMan.titoloMan.selTitolo==null}" value="Selezionare un titolo dalla lista" />
+			
+		</p:panel>
+		
+	</h:body>
+</html>

@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+
+
+	<!-- Area -->
+	
+	<named-query name="SpProf.getSSpAreaLayerFromHiddenKey">
+		<query>
+			<![CDATA[
+				SELECT al FROM SSpAreaLayer al
+				WHERE al.idGeometriaLayer = :idGeometriaLayer
+				AND al.desLayer = :desLayer
+				AND al.fkSpIntervento = :fkSpIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpAreaFabb">
+		<query>
+			<![CDATA[
+				SELECT af FROM SSpAreaFabb af
+				WHERE af.fkSpIntervento = :idIntervento
+				ORDER BY af.idSpAreaFabb asc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpAreaPart">
+		<query>
+			<![CDATA[
+				SELECT ap FROM SSpAreaPart ap
+				WHERE ap.fkSpIntervento = :idIntervento
+				ORDER BY ap.idSpAreaPart asc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpAreaPartById">
+		<query>
+			<![CDATA[
+				SELECT ap FROM SSpAreaPart ap
+				WHERE ap.idSpAreaPart = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpAreaLayer">
+		<query>
+			<![CDATA[
+				SELECT al FROM SSpAreaLayer al
+				WHERE al.fkSpIntervento = :idIntervento
+				ORDER BY al.idSpAreaLayer asc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteAreaFabbByIntervento">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpAreaFabb sp
+				WHERE sp.fkSpIntervento = :idIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteAreaPartByIntervento">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpAreaPart sp
+				WHERE sp.fkSpIntervento = :idIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteAreaLayerByIntervento">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpAreaLayer sp
+				WHERE sp.fkSpIntervento = :idIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Intervento -->
+
+	<named-query name="SpProf.getSSpInterventi">
+		<query>
+			<![CDATA[
+				SELECT it FROM SSpIntervento it
+				ORDER BY dtIns DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getCountSSpInterventi">
+		<query>
+			<![CDATA[
+				SELECT COUNT(it.idSpIntervento) FROM SSpIntervento it
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="SpProf.getSSpInterventoByUser">
+		<query>
+			<![CDATA[
+				SELECT it FROM SSpIntervento it
+				WHERE it.userIns = :user
+				ORDER BY dtIns DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getCountSSpInterventoByUser">
+		<query>
+			<![CDATA[
+				SELECT COUNT(it.idSpIntervento) FROM SSpIntervento it
+				WHERE it.userIns = :user
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="SpProf.getSSpIntervento">
+		<query>
+			<![CDATA[
+				SELECT it FROM SSpIntervento it
+				WHERE it.idSpIntervento = :idSpIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.updateSSpIntervento">
+		<query>
+			<![CDATA[
+				UPDATE SSpIntervento it
+				SET it.stato = :stato
+				WHERE it.idSpIntervento = :idSpIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpInterventoLayerByFkSpIntervento">
+		<query>
+			<![CDATA[
+				SELECT il FROM SSpInterventoLayer il
+				WHERE il.id.fkSpIntervento = :fkSpIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteIntervento">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpIntervento it
+				WHERE it.idSpIntervento = :idSpIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	
+	<!-- Progetto -->
+	
+	<named-query name="SpProf.deleteProgettoByIntervento">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpProgetto sp
+				WHERE sp.fkIntervento = :fkIntervento
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Edifici -->
+	
+	<named-query name="SpProf.getSSpTipologiaEdi">
+		<query>
+			<![CDATA[
+				SELECT tip FROM SSpTipologiaEdi tip
+				ORDER BY tip.descr
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpTipologiaEdiMin">
+		<query>
+			<![CDATA[
+				SELECT tip FROM SSpTipologiaEdiMin tip
+				ORDER BY tip.descr
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getTipologiaEdiById">
+		<query>
+			<![CDATA[
+				SELECT tip FROM SSpTipologiaEdi tip
+				WHERE codTipologiaEdi = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getTipologiaEdiMinById">
+		<query>
+			<![CDATA[
+				SELECT tip FROM SSpTipologiaEdiMin tip
+				WHERE codTipologiaEdiMin = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpCedificatoById">
+		<query>
+			<![CDATA[
+				SELECT edi FROM SSpCedificato edi
+				WHERE edi.idSpCedificato = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpEdificiByIntervento">
+		<query>
+			<![CDATA[
+				SELECT edi FROM SSpEdificio edi, SSpCedificato cedi, SSpAreaPart part
+				WHERE part.fkSpIntervento = :intervento
+				AND part.idSpAreaPart = cedi.fkSpAreaPart
+				AND cedi.idSpCedificato = edi.fkSpCedificato
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpEdificiMinByIntervento">
+		<query>
+			<![CDATA[
+				SELECT edi FROM SSpEdificioMinore edi, SSpCedificato cedi, SSpAreaPart part
+				WHERE part.fkSpIntervento = :intervento
+				AND part.idSpAreaPart = cedi.fkSpAreaPart
+				AND cedi.idSpCedificato = edi.fkSpCedificato
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteEdificato">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpCedificato sp
+				WHERE sp.idSpCedificato = :edificato
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteEdificio">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpEdificio sp
+				WHERE sp.fkSpCedificato = :edificato
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteEdificioMinore">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpEdificioMinore sp
+				WHERE sp.fkSpCedificato = :edificato
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpDestUrb">
+		<query>
+			<![CDATA[
+				SELECT du FROM SSpDestUrb du
+				ORDER BY du.descr
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSSpDestUrbById">
+		<query>
+			<![CDATA[
+				SELECT du FROM SSpDestUrb du
+				WHERE du.codDestUrb = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteUiu">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpUiu sp
+				WHERE sp.idSpUiu = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.deleteUnitaVol">
+		<query>
+			<![CDATA[
+				DELETE FROM SSpUnitaVol sp
+				WHERE sp.idSpUnitaVol = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getUiuByEdificio">
+		<query>
+			<![CDATA[
+				SELECT sp FROM SSpUiu sp
+				WHERE sp.fkSpEdificio = :edificio
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getUnitaVolByEdificio">
+		<query>
+			<![CDATA[
+				SELECT sp FROM SSpUnitaVol sp
+				WHERE sp.fkSpEdificio = :edificio
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getUiuByUnitaVol">
+		<query>
+			<![CDATA[
+				SELECT sp FROM SSpUiu sp
+				WHERE sp.fkSpUnitaVol = :uv
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Campi ricerca intervento -->
+	
+	<named-query name="SpProf.getStatiForSearch">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT i.stato FROM SSpIntervento i
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getSoggettiForSearch">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT s FROM SSpIntervento i, SSpSoggetto s
+				WHERE i.fkSogg = s.idSogg
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getConcNumeroForSearch">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT i.cConcessioneNumero FROM SSpIntervento i
+				WHERE i.cConcessioneNumero is not null
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getProtDataForSearch">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT i.cProtocolloData FROM SSpIntervento i
+				WHERE i.cProtocolloData is not null
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SpProf.getProtNumeroForSearch">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT i.cProtocolloNumero FROM SSpIntervento i
+				WHERE i.cProtocolloNumero is not null
+			]]>
+		</query>
+	</named-query>
+	
+</entity-mappings>

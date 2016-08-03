@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d001166a-d35e-4b51-a5dd-cd33e9c819cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="speseExtra" class="java.lang.String"/>
+	<field name="provvAG" class="java.lang.String"/>
+	<field name="pernottamento" class="java.lang.String"/>
+	<field name="cene" class="java.lang.String"/>
+	<field name="pranzi" class="java.lang.String"/>
+	<field name="interventoEducativo" class="java.lang.String"/>
+	<field name="altro" class="java.lang.String"/>
+	<field name="trasporto" class="java.lang.String"/>
+	<field name="anno" class="java.lang.String"/>
+	<field name="nGiorni" class="java.lang.String"/>
+	<field name="tipoRetta" class="java.lang.String"/>
+	<field name="valoreRetta" class="java.lang.String"/>
+	<field name="comunita" class="java.lang.String"/>
+	<field name="contrFamOrigine" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="170" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="142" height="20" uuid="60c1d990-e430-492a-b33a-b9152cf5f324"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[importo spese extra retta]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="142" y="0" width="126" height="20" uuid="383791a2-4f0a-402e-a302-665afe198a2a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{speseExtra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="25" width="142" height="20" uuid="48bf2a3b-4325-45a8-bb63-e9f6be8b419f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Pernottamento]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="142" y="25" width="42" height="20" uuid="71f0b47c-cfd3-44f6-a777-87feb5a33e5a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pernottamento}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="268" y="0" width="287" height="20" uuid="da351ecd-00ba-474e-83a5-5fae7ebdb3b4"/>
+				<textElement markup="html">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provvAG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="212" y="25" width="110" height="20" uuid="58251ffb-27c0-4994-acba-f82251535dea"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Cene]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="335" y="25" width="40" height="20" uuid="e66e0820-3dad-48f8-a7fb-9d3c75aba0be"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cene}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="142" y="75" width="248" height="20" uuid="02d199a5-b091-4287-8c0e-7a6d10d995e1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{trasporto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="75" width="141" height="20" uuid="f806ad8a-5a0e-4f12-ad63-865d700517c5"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Trasporto]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="335" y="50" width="40" height="20" uuid="9d01d5dc-e71f-4c62-ba6b-40962e763152"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{altro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="142" height="20" uuid="a61c34a3-e9da-4d11-9642-d3dbb1a19db6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Intervento educativo]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="142" y="50" width="42" height="20" uuid="021bf006-f657-495d-9d0b-652c99fd6cfa"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interventoEducativo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="142" y="100" width="110" height="20" uuid="d397ba80-b144-448d-8897-d1a651b31e30"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="1" y="100" width="141" height="20" uuid="a2e3399d-9bc6-49f7-8bec-9c27cbd97b90"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Anno]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="184" y="125" width="371" height="20" uuid="7100727e-f270-4480-a51b-95d78acaaac1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contrFamOrigine}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="125" width="184" height="20" uuid="c77ea19b-8056-4c9e-a057-fec716bc9215"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Contributo della famiglia d'origine]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="515" y="25" width="40" height="20" uuid="667a0b8e-06ec-4837-8766-da82297f3ff1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pranzi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="25" width="125" height="20" uuid="3d8929cb-48f6-4188-921e-6b3ecaa5490e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Pranzi]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="515" y="75" width="40" height="20" uuid="ee0c16b2-c1af-4310-8f0b-c1b5f22a3881"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nGiorni}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="390" y="75" width="125" height="20" uuid="0517b2bc-bdc4-470a-8772-ca7dc1f96eee"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[N. giorni alla settimana]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="252" y="100" width="175" height="20" uuid="fefa7daf-a2aa-4d3d-90ad-4787663af595"/>
+				<textElement>
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Con retta " + $F{tipoRetta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="427" y="100" width="128" height="20" uuid="194346db-4f68-4471-9f84-cab7fc5a1f90"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valoreRetta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="184" y="150" width="371" height="20" uuid="c7393c75-ae0f-4f25-97f1-c88815891a1f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comunita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="150" width="184" height="20" uuid="3e599ace-f6e7-4d1c-b29f-129d6823380c"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Comunità]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="212" y="50" width="110" height="20" uuid="36c78604-a7a8-4f00-b138-cc7ba781edcc"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Altro]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

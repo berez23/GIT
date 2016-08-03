@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.DatiGeneraliBean" table="DOCFA_DATI_GENERALI"  >
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-property column="FORNITURA" name="fornitura" type="java.util.Date"/>
+   <key-property column="PROTOCOLLO_REG" name="protocollo_reg" type="java.lang.String"/>
+  </composite-id>
+	<property column="DATA_VARIAZIONE" generated="never" lazy="false" name="data_variazione" type="java.util.Date"/>
+	<property column="UIU_IN_SOPPRESSIONE" generated="never" lazy="false" name="uiu_in_soppressione" type="java.lang.Integer"/>
+	<property column="UIU_IN_VARIAZIONE" generated="never" lazy="false" name="uiu_in_variazione" type="java.lang.Integer"/>
+	<property column="UIU_IN_COSTITUZIONE" generated="never" lazy="false" name="uiu_in_costituzione" type="java.lang.Integer"/>
+	<property column="CAUSALE_NOTA_VAX" generated="never" lazy="false" name="causale_nota_vax" type="java.lang.String"/>
+   
+ </class>
+ <query name="getAnniFornitura">select distinct to_char(DG.fornitura, 'yyyy') from DatiGeneraliBean as DG order by to_char(DG.fornitura, 'yyyy')</query>
+</hibernate-mapping>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+	<resource-ref>
+		<res-ref-name>jdbc/AM_Profile_F704</res-ref-name>
+		<jndi-name>java:/AMProfiler</jndi-name>
+	</resource-ref>
+	<security-domain>java:/jaas/CeTSecurityDomain</security-domain>
+	<context-root>/TsSoggiorno</context-root>
+</jboss-web>

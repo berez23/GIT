@@ -1,0 +1,256 @@
+/***** Start Base Class *****/
+body {
+	font-size: 0.7em;
+	font-family: Arial, Verdana, sans-serif;
+	padding: 1em;
+}
+
+.titleBar{
+	border-radius: 5px;
+	padding: 0.5em 1em 0.3em;
+	background: url("/GitLand_WEB/javax.faces.resource/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png.faces?ln=primefaces-redmond") repeat-x scroll 50% 50% #86b5d9;
+    border: 1px solid #4297d7;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.mainTitleBar{
+	border-radius: 5px;
+	font-size: 1.5em;
+    padding: 0;
+	background: url("/GitLand_WEB/javax.faces.resource/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png.faces?ln=primefaces-redmond") repeat-x scroll 50% 50% #86b5d9;
+    border: 1px solid #4297d7;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.bold {
+	font-weight:bold;
+}
+
+.panelGrid{
+	width: 100%;
+}
+
+.panelGrid tr{
+	border: none;
+}
+
+.panelGrid td 
+{
+    border-style: none!important;
+}
+
+.notValidated{
+	background-position: -40px 0;
+	width: 16px;
+	height: 16px;
+}
+
+.validated{
+	background-position: 0 0;
+	width: 16px;
+	height: 16px;
+}
+
+.warning{
+	background-position: -20px 0;
+	width: 16px;
+	height: 16px;
+}
+
+.dettaglioDeneLayout{
+	margin-bottom: 1em;
+	/*background-color: transparent;
+	background-image: none;*/
+}
+
+.label{
+	margin-right: 1em;
+}
+
+.space{
+	padding: 1em 0.5em;
+}
+
+.ui-grid-col{
+	overflow: auto;
+}
+/***** End Base Class *****/
+
+/* Start Dettaglio */
+.layout{
+	min-width:400px;
+	min-height:500px;
+}
+
+.layoutUnit{
+	border: none;	
+}
+
+.tabView{
+	padding: 0;
+	border: none;
+}
+
+.tabView > .ui-tabs-panels > div {
+	padding: 0.5em 0;
+}
+        
+.dataTable{
+	width: 100%;
+	border-color: #a6c9e2!important;
+	
+}
+
+.dataTable td{
+	border-color: #a6c9e2!important;	
+}
+
+.dataTable tr{
+	border: none;
+}
+
+.carousel{
+	border: none;
+}
+
+.carousel .ui-carousel-header-title{
+	width: auto!important;
+}
+
+.itemCarouselTerr{
+	border: none;
+	height: 500px;
+	width: 1500px;
+	overflow: auto;
+	font-size: 10px;
+}
+
+.itemCarouselMap{
+	border: none;
+	height: 150px;
+	width: 500px;
+	overflow: auto;
+}
+
+.itemCarouselInd{
+	border: none;
+	height: 150px;
+	width: 500px;
+	overflow: auto;
+}
+
+.panel{
+	border: none;
+}
+
+.panel div:nth-child(2){
+	padding: 0.01em;
+}
+
+.panel > div{
+	padding: 0!important;
+}
+
+.treeMap{
+	border: none;
+	width: 100%;
+}
+
+.boldStyle{
+	font-weight: bold;
+	color: #2e6e9e;
+}
+
+.complAccordion > div{
+	padding: 1em !important;
+	border: 1px solid #a6c9e2!important;
+}
+
+.tableInherit{
+	width: 100%;
+}
+
+.tableInherit td{
+	padding:0!important;
+	border: none!important;
+	vertical-align: middle;
+	text-align: center;
+}
+
+.table{
+	width: 100%;
+}
+
+.table{
+	width: 100%;
+	border-spacing: 0;
+}
+
+.table td, .table th{
+	text-align: center;
+	padding: 6px;
+}
+
+.table th{
+	background: url("/GitLand_WEB/javax.faces.resource/images/ui-bg_glass_85_dfeffc_1x400.png.faces?ln=primefaces-redmond") repeat-x scroll 50% 50% #dfeffc;
+    color: #2e6e9e;
+    font-weight: bold;
+}
+
+.overlayPanel .ui-overlaypanel-content{
+	padding: 0;
+}
+
+.ui-datatable table {
+  table-layout : auto!important;
+}
+
+/* End Dettaglio */
+
+
+/* classe da usare per panelGrid senza bordi*/
+
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-content.ui-widget-content, 
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header.ui-widget-header,
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-footer.ui-widget-header,
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-header > tr.ui-widget-header, 
+.ui-panelgrid.ui-panelgrid-blank tbody > tr.ui-widget-content,
+.ui-panelgrid.ui-panelgrid-blank tbody > tr.ui-widget-content > td.ui-panelgrid-cell,
+.ui-panelgrid.ui-panelgrid-blank .ui-panelgrid-footer > tr.ui-widget-footer {
+    background: none !important;
+    border: 0 none !important;
+}
+/* Fine panelGrid senza bordi*/
+
+.text-align-right{
+	text-align: right;
+}
+.text-align-center{
+	text-align: center;
+}
+
+.text-align-right .pe-inputNumber {
+	text-align: right;
+}
+.non-modificabile {
+	background: lightgray;
+}
+.pratica-chiusa {
+	background: gray;
+	color:white;
+}
+
+
+.ui-accordion-content {
+    padding: 1em 2.2em;
+    border: 1px solid #a6c9e2;
+    border-top: 0;
+    margin-top: -2px;
+    position: relative;
+    top: 1px;
+    margin-bottom: 2px;
+    overflow: auto;
+    zoom: 1;
+}

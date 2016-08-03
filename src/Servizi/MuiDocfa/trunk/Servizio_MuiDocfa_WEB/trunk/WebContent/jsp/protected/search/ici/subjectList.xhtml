@@ -1,0 +1,163 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA SOGGETTI MODAL BOX -->
+<rich:modalPanel id="subjectModalBox" minHeight="400" minWidth="900"
+	height="400" width="900" style="overflow:auto;">
+	<f:facet name="header">
+		<h:outputText value="Soggetti titolari nell'anno del docfa"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="subjectPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('subjectModalBox');">
+						<a4j:actionparam name="pageS" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageSubjectList}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="subjectForm">
+		<rich:spacer height="20px" />
+
+		<rich:dataTable width="100%"  var="row"
+			value="#{iciSubjectBean.listaSoggetti}" id="listDettTable"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+			<rich:column width="300px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Denominazione"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.ragiSoci} #{row.nome}"
+					style="font-weight: bold;" title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}" />
+				<h:outputText value="#{row.ragiSoci} #{row.nome}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}" />
+			</rich:column>
+			<rich:column width="120px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Codice fiscale"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.codiFisc}" style="font-weight: bold;"
+					title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}" />
+				<h:outputText value="#{row.codiFisc}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}" />
+			</rich:column>
+			<rich:column width="120px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Partita IVA"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.codiPiva}" style="font-weight: bold;"
+					title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}" />
+				<h:outputText value="#{row.codiPiva}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}" />
+			</rich:column>
+			<rich:column width="45px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Sesso"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.sesso}" style="font-weight: bold;"
+					title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}" />
+				<h:outputText value="#{row.sesso}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}" />
+			</rich:column>
+			<rich:column sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Data di nascita"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.dataNasc}" style="font-weight: bold;"
+					title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+				<h:outputText value="#{row.dataNasc}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			<rich:column sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Inizio validit&#224;"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.id.dataInizioPossesso}"
+					style="font-weight: bold;" title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+				<h:outputText value="#{row.id.dataInizioPossesso}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			<rich:column  sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Fine validit&#224;"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.id.dataFinePossesso}"
+					style="font-weight: bold;" title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+				<h:outputText value="#{row.id.dataFinePossesso}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			<rich:column  width="30px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="%"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.percPoss}" style="font-weight: bold;"
+					title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}" />
+				<h:outputText value="#{row.percPoss}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}" />
+			</rich:column>
+			<rich:column  width="200px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Titolo"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.titolo}" style="font-weight: bold;"
+					title="Attivo alla data del dofca"
+					rendered="#{row.flgTitolareDataDocfa eq '1'}" />
+				<h:outputText value="#{row.titolo}"
+					rendered="#{row.flgTitolareDataDocfa ne '1'}" />
+			</rich:column>
+
+		</rich:dataTable>
+
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Chiudi" id="btnEsci"
+					reRender="subjectPage"
+					oncomplete="Richfaces.hideModalPanel('subjectModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="subPage"
+						assignTo="#{pageUiBean.pageSubjectList}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA SOGGETTI MODAL BOX -->
+
+</html>

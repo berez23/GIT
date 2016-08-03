@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+
+		<br />
+		<a4j:form>
+
+			<rich:panel>
+				<f:facet name="header">
+						Dati fabbricato
+					</f:facet>
+
+				<table>
+					<tr>
+						<td><h:outputLabel value="Data riferimento" /></td>
+						<td><rich:calendar
+							value="#{richiesteBean.richiesta.richiesta.dtRif}"
+							datePattern="dd/MM/yyyy" enableManualInput="true"
+							required="true" 
+							label="Data riferimento" /></td>
+						<td colspan="4">&nbsp;</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="Sezione" /></td>
+						<td><h:inputText
+							value="#{richiesteBean.richiesta.richiesta.sezione}"
+							label="Sezione" id="sez" /></td>
+						<td><h:outputLabel value="Foglio" /></td>
+						<td><h:inputText
+							value="#{richiesteBean.richiesta.richiesta.foglio}"
+							required="true" label="Foglio" id="fgl" /></td>
+
+						<td><h:outputLabel value="Particella" /></td>
+						<td><h:inputText
+							value="#{richiesteBean.richiesta.richiesta.particella}"
+							required="true" label="Particela" id="part" /></td>
+
+					</tr>
+
+					<tr>
+						<td colspan="6" align="center"><a4j:commandLink
+							oncomplete="Richfaces.showModalPanel('panelListaVia', {height:'400px', width:'500px'})"
+							reRender="panelListaVia" ajaxSingle="false" immediate="true">
+							<a4j:actionparam name="nomeVia" value="#{richiesteBean.via}"
+								assignTo="#{richiestaRicercaVie.nomeVia}" />
+							<a4j:actionparam name="uiPage" value=".\ricercaVia.xhtml"
+								assignTo="#{pageBean.page}" />
+					    	  					Cerca per via
+					    	  	</a4j:commandLink></td>
+						<td>&nbsp;</td>
+					</tr>
+				</table>
+
+			</rich:panel>
+
+			<rich:panel>
+				<f:facet name="header">
+						Dati richiedente
+					</f:facet>
+				<table>
+					<tr>
+						<td><h:outputLabel value="Cod. Fiscale" /></td>
+						<td><h:inputText
+							value="#{richiesteBean.richiesta.soggetto.codFis}" /></td>
+						<td colspan="4">&nbsp;</td>
+					</tr>
+
+					<tr>
+						<td>Cognome/Nome</td>
+						<td colspan="2"><h:inputText
+							value="#{richiesteBean.richiesta.soggetto.cognome}" size="30" />
+						</td>
+						<td colspan="2"><h:inputText
+							value="#{richiesteBean.richiesta.soggetto.nome}" size="30" /></td>
+						<td>&nbsp;</td>
+					</tr>
+
+					<tr>
+						<td><h:outputLabel value="Data nascita" /></td>
+						<td><rich:calendar
+							value="#{richiesteBean.richiesta.soggetto.dtNas}"
+							datePattern="dd/MM/yyyy" enableManualInput="true"
+							/></td>
+
+						<td colspan="4">&nbsp;</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="Doc. riconoscimento" /></td>
+						<td><h:selectOneMenu
+							value="#{richiesteBean.richiesta.richiesta.codTipDocRicon}">
+							<f:selectItems value="#{FFCommonBean.tipoDocItems}"></f:selectItems>
+						</h:selectOneMenu></td>
+						<td><h:outputLabel value="Numero" /></td>
+						<td><h:inputText
+							value="#{richiesteBean.richiesta.richiesta.numDocRicon}" /></td>
+						<td><h:outputLabel value="Data Emiss." /></td>
+						<td><rich:calendar
+							value="#{richiesteBean.richiesta.richiesta.dtEmiDocRicon}"
+							datePattern="dd/MM/yyyy" enableManualInput="true"
+							/></td>
+					</tr>
+
+					<tr>
+						<td><h:outputLabel value="Email" /></td>
+						<td colspan="3"><h:inputText
+							value="#{richiesteBean.richiesta.richiesta.EMail}" size="60" /></td>
+						<td><h:outputLabel value="Num. Telefono" /></td>
+						<td><h:inputText
+							value="#{richiesteBean.richiesta.richiesta.numTel}" /></td>
+
+					</tr>
+					<tr>
+						<td colspan="1"><h:outputLabel value="Motivazioni" /></td>
+						<td colspan="5">
+							<h:inputTextarea value="#{richiesteBean.richiesta.richiesta.desNotRic}"
+							rows="3" cols="100" />
+						</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+
+				</table>
+			</rich:panel>
+
+			<rich:spacer height="10px" />
+
+			<div align="center"><a4j:commandButton id="saveBtn"
+				action="#{richiesteBean.doSave}" value="Salva"
+				disabled="#{richiesteBean.saveComplete}"
+				reRender="saveBtn,idRich,  sez2, par2, fog2, dtrif2">
+			</a4j:commandButton></div>
+
+
+		</a4j:form>
+
+
+		<rich:modalPanel id="panelListaVia" height="550" width="790">
+			<f:facet name="header">
+				<h:outputText value="Ricerca via"></h:outputText>
+			</f:facet>
+
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/images/close.png" style="cursor:pointer"
+						id="hidelinkPanelListaVia" />
+					<rich:componentControl for="panelListaVia"
+						attachTo="hidelinkPanelListaVia" operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+			<h:form id="form1">
+				<h:inputHidden value="#{pageBean.page}" />
+				<ui:include src="#{pageBean.page}" />
+			</h:form>
+		</rich:modalPanel>
+
+
+
+	</ui:define>
+
+</ui:composition>
+</html>

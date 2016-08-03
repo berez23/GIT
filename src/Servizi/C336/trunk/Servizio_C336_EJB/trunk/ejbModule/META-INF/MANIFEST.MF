@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: Servizio_C336_Data_Model.jar 
+ Servizio_C336_EJBClient.jar
+

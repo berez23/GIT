@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="navInfo">
+				Dettaglio Riscossione - Flusso Stato riscossione
+    </ui:define>
+
+	<ui:define name="content">
+      <h:form>
+	 	  <rich:panel>
+			<f:facet name="header">Dettaglio riscossione</f:facet>
+			<a4j:repeat value="#{statoRiscossioneBean.riscossioneInfo.riscossioniList}" var="risc">
+				<rich:panel>
+					<f:facet name="header">Riscossione n. #{risc.progressivoRecord}</f:facet>
+					<h:panelGrid columns="8">
+						<h:outputText value="Ruolo" />
+						<h:outputText value="#{risc.chiaveRiscossione.progressivoRuolo}/#{risc.chiaveRiscossione.annoRuolo}" styleClass="dettAnag"/>
+
+						<h:outputText value="Cod. Ambito" />
+						<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{risc.chiaveRiscossione.codAmbito}"
+                        		           assignTo="#{CNCToolTipBean.ambitoCode}" />
+                    
+							<h:outputText value="#{risc.chiaveRiscossione.codAmbito}" styleClass="dettAnag"/>
+					    </a4j:commandLink>                        			 			
+
+						<h:outputText value="Cod. ente creditore" />
+						<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+
+					 	  <a4j:actionparam name="codePart" value="#{risc.chiaveRiscossione.codEnteCreditore}"
+                        		           assignTo="#{CNCToolTipBean.codEnte}" />
+
+					 	  <a4j:actionparam name="code" value="#{risc.chiaveRiscossione.codPartita}"
+                        		           assignTo="#{CNCToolTipBean.codiceUfficioDaPartita}" />
+                    
+							<h:outputText value="#{risc.chiaveRiscossione.codEnteCreditore}" styleClass="dettAnag" />
+					    </a4j:commandLink> 						
+
+						<h:outputText value="Cod. fiscale Sogg." />
+						<h:outputText value="#{risc.codFiscale}" styleClass="dettAnag"/>
+
+						<h:outputText value="Cod. Entrata" />
+						<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{risc.codEntrata}"
+                        		           assignTo="#{CNCToolTipBean.codiceEntrataCode}" />
+                    
+							<h:outputText value="#{risc.codEntrata}" styleClass="dettAnag"/>
+					    </a4j:commandLink> 						
+						
+	
+						<h:outputText value="Tipo entrata" />
+						<h:outputText value="Imposta" styleClass="dettAnag" 
+								  rendered="#{risc.codTipoCodEntrata eq 'I'}"/>
+						<h:outputText value="Sanzioni" styleClass="dettAnag"
+								  rendered="#{risc.codTipoCodEntrata eq 'S'}"/>
+						<h:outputText value="Interessi" styleClass="dettAnag" 
+								  rendered="#{risc.codTipoCodEntrata eq 'T'}"/>
+						<h:outputText value="Altro" styleClass="dettAnag"
+								  rendered="#{risc.codTipoCodEntrata eq 'A'}"/>
+
+						<h:outputText value="Imp. carico risc." />
+						<h:outputText value="#{risc.importoCaricoRisc}" styleClass="dettAnag"/>
+
+						<h:outputText value="Imp. carico orig." />
+						<h:outputText value="#{risc.importoCaricoOrigin}" styleClass="dettAnag"/>
+
+						<h:outputText value="Imp. interessi" />
+						<h:outputText value="#{risc.importoInteressiMora}" styleClass="dettAnag"/>
+
+						<h:outputText value="Spese proc. esec." />
+						<h:outputText value="#{risc.speseProcEsecutiveTab}" styleClass="dettAnag"/>
+
+						<h:outputText value="Spese proc. pie' lista." />
+						<h:outputText value="#{risc.speseProcEsecutivePie}" styleClass="dettAnag"/>
+
+						<h:panelGroup></h:panelGroup>
+						<h:panelGroup></h:panelGroup>
+
+						
+						<h:outputText value="Num. operaz. contabile" />
+						<h:outputText value="#{risc.chiaveRiscossione.numeroOperazContab}" styleClass="dettAnag"/>
+
+						<h:outputText value="Progr. art. ruolo" />
+						<h:outputText value="#{risc.chiaveRiscossione.progressivoArticoloRuolo}" styleClass="dettAnag"/>
+
+					</h:panelGrid>
+					
+					
+				</rich:panel>
+			
+			</a4j:repeat>
+			
+		  </rich:panel>
+		  
+		  <rich:panel>
+		  	<f:facet name="header">Dettaglio riversamenti</f:facet>
+		  	<a4j:repeat var="riv" value="#{statoRiscossioneBean.riscossioneInfo.riversamentiList}">
+		  		<rich:panel>
+		  		   <f:facet name="header">Riversamento #{riv.numeroRiversamento}</f:facet>
+			  		<h:panelGrid columns="6">
+			  			<h:outputText value="Progr. articolo" />
+			  			<h:outputText value="#{riv.chiaveRiscossione.progressivoArticoloRuolo}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Cod. Benef." />
+			  			<h:outputText value="#{riv.codEnteBenef}" styleClass="dettAnag"/>
+	
+			  			<h:outputText value="Tipo ufficio" />
+			  			<h:outputText value="#{riv.codTipoUfficioDest}" styleClass="dettAnag"/>
+	
+			  			<h:outputText value="Ufficio" />
+			  			<h:outputText value="#{riv.codUfficioBenef}" styleClass="dettAnag"/>
+	
+			  			<h:outputText value="Capo bilancio Orig" />
+			  			<h:outputText value="#{riv.capoBilancioOrigin}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Capitolo bilancio Orig" />
+			  			<h:outputText value="#{riv.capitoloBilancioOrigin}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Articolo bilancio Orig" />
+			  			<h:outputText value="#{riv.articoloBilancioOrigin}" styleClass="dettAnag"/>
+	
+			  			<h:outputText value="Capo bilancio Eff." />
+			  			<h:outputText value="#{riv.capoBilancioEffett}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Capitolo bilancio Eff." />
+			  			<h:outputText value="#{riv.capitoloBilancioEffett}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Articolo bilancio Eff." />
+			  			<h:outputText value="#{riv.articoloBilancioEffett}" styleClass="dettAnag"/>
+			  					  		  		
+			  			<h:outputText value="Importo da vers." />
+			  			<h:outputText value="#{riv.importoDaVersare}" styleClass="dettAnag"/>
+	
+			  			<h:outputText value="Importo da vers." />
+			  			<h:outputText value="#{riv.importoDaVersare}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Importo carico" />
+			  			<h:outputText value="#{riv.importoCarico}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Importo interessi" />
+			  			<h:outputText value="#{riv.importoInteressiMora}" styleClass="dettAnag"/>
+	
+			  			<h:outputText value="Importo rimborsi" />
+			  			<h:outputText value="#{riv.importoRimbSpeseRest}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Data riversamento" />
+			  			<h:outputText value="#{riv.dtRiversamento}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Num. quietanza prov." />
+			  			<h:outputText value="#{riv.numeroQuietanzaProvvis}" styleClass="dettAnag"/>
+			  			
+			  			<h:outputText value="Num. operaz. cont." />
+			  			<h:outputText value="#{riv.chiaveRiscossione.numeroOperazContab}" styleClass="dettAnag"/>
+			  			
+			  		</h:panelGrid>
+				</rich:panel>		  	
+		  	</a4j:repeat>
+		  </rich:panel>
+    	  
+    	  <a4j:commandLink action="#{statoRiscossioneBean.doGotoList}">
+    	  		Indietro    	  
+    	  </a4j:commandLink>
+    	  
+      </h:form>
+      
+      <ui:include src="../include/descrizioneCodici.xhtml" />
+      
+     </ui:define>
+  </ui:composition>
+</html>

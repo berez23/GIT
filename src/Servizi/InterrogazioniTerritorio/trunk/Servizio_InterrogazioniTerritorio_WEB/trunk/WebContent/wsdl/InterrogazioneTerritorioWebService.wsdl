@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://bean.web.intTerritorio.service.ct.webred.it" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://bean.web.intTerritorio.service.ct.webred.it" xmlns:intf="http://bean.web.intTerritorio.service.ct.webred.it" xmlns:tns1="http://datarouter.support.ct.webred.it" xmlns:tns2="http://dto.common.basic.access.data.ct.webred.it" xmlns:tns3="http://dto.catasto.basic.access.data.ct.webred.it" xmlns:tns4="http://licenzecommercio.model.data.ct.webred.it" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://bean.web.intTerritorio.service.ct.webred.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://dto.catasto.basic.access.data.ct.webred.it"/>
+   <import namespace="http://dto.common.basic.access.data.ct.webred.it"/>
+   <import namespace="http://datarouter.support.ct.webred.it"/>
+   <import namespace="http://licenzecommercio.model.data.ct.webred.it"/>
+   <element name="getDatiCivico">
+    <complexType>
+     <sequence>
+      <element name="codEnte" type="xsd:string"/>
+      <element name="toponimo" type="xsd:string"/>
+      <element name="indirizzo" type="xsd:string"/>
+      <element name="civico" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="getDatiCivicoResponse">
+    <complexType>
+     <sequence>
+      <element name="getDatiCivicoReturn" type="impl:DatiCivicoDTO"/>
+     </sequence>
+    </complexType>
+   </element>
+   <complexType name="ArrayOf_xsd_string">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns3_IndirizzoDTO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns3:IndirizzoDTO"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns3_InfoPerCategoriaDTO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns3:InfoPerCategoriaDTO"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns3_ParticellaInfoDTO">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns3:ParticellaInfoDTO"/>
+    </sequence>
+   </complexType>
+   <complexType name="ArrayOf_tns4_SitLicenzeCommercio">
+    <sequence>
+     <element maxOccurs="unbounded" minOccurs="0" name="item" type="tns4:SitLicenzeCommercio"/>
+    </sequence>
+   </complexType>
+   <complexType name="DatiCivicoDTO">
+    <complexContent>
+     <extension base="tns1:CeTBaseObject">
+      <sequence>
+       <element name="avgOMImq" nillable="true" type="xsd:double"/>
+       <element name="civico" nillable="true" type="tns2:RicercaCivicoDTO"/>
+       <element name="count18_65" type="xsd:int"/>
+       <element name="countFamResidenti" type="xsd:int"/>
+       <element name="countFamResidentiProprietarie" type="xsd:int"/>
+       <element name="countLicenzeCommercio" type="xsd:int"/>
+       <element name="countLocazioni" type="xsd:int"/>
+       <element name="countOver65" type="xsd:int"/>
+       <element name="countUnder18" type="xsd:int"/>
+       <element name="infoParticelleCivico" nillable="true" type="impl:ArrayOf_tns3_ParticellaInfoDTO"/>
+       <element name="listaLicenzeCommercio" nillable="true" type="impl:ArrayOf_tns4_SitLicenzeCommercio"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://datarouter.support.ct.webred.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://bean.web.intTerritorio.service.ct.webred.it"/>
+   <import namespace="http://dto.catasto.basic.access.data.ct.webred.it"/>
+   <import namespace="http://dto.common.basic.access.data.ct.webred.it"/>
+   <import namespace="http://licenzecommercio.model.data.ct.webred.it"/>
+   <complexType name="CeTBaseObject">
+    <sequence>
+     <element name="enteId" nillable="true" type="xsd:string"/>
+     <element name="userId" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://dto.common.basic.access.data.ct.webred.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://bean.web.intTerritorio.service.ct.webred.it"/>
+   <import namespace="http://dto.catasto.basic.access.data.ct.webred.it"/>
+   <import namespace="http://datarouter.support.ct.webred.it"/>
+   <import namespace="http://licenzecommercio.model.data.ct.webred.it"/>
+   <complexType name="RicercaCivicoDTO">
+    <complexContent>
+     <extension base="tns1:CeTBaseObject">
+      <sequence>
+       <element name="civico" nillable="true" type="xsd:string"/>
+       <element name="dataRif" nillable="true" type="xsd:dateTime"/>
+       <element name="descrizioneVia" nillable="true" type="xsd:string"/>
+       <element name="idCivico" nillable="true" type="xsd:string"/>
+       <element name="idVia" nillable="true" type="xsd:string"/>
+       <element name="listaId" nillable="true" type="impl:ArrayOf_xsd_string"/>
+       <element name="toponimoVia" nillable="true" type="xsd:string"/>
+      </sequence>
+     </extension>
+    </complexContent>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://dto.catasto.basic.access.data.ct.webred.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://bean.web.intTerritorio.service.ct.webred.it"/>
+   <import namespace="http://dto.common.basic.access.data.ct.webred.it"/>
+   <import namespace="http://datarouter.support.ct.webred.it"/>
+   <import namespace="http://licenzecommercio.model.data.ct.webred.it"/>
+   <complexType name="IndirizzoDTO">
+    <sequence>
+     <element name="numCivico" nillable="true" type="xsd:string"/>
+     <element name="strada" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="InfoPerCategoriaDTO">
+    <sequence>
+     <element name="categoria" nillable="true" type="xsd:string"/>
+     <element name="consistenzaTot" nillable="true" type="xsd:decimal"/>
+     <element name="countUiu" nillable="true" type="xsd:int"/>
+    </sequence>
+   </complexType>
+   <complexType name="ParticellaKeyDTO">
+    <sequence>
+     <element name="foglio" nillable="true" type="xsd:string"/>
+     <element name="idSezc" nillable="true" type="xsd:string"/>
+     <element name="particella" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="ParticellaInfoDTO">
+    <sequence>
+     <element name="indirizzi" nillable="true" type="impl:ArrayOf_tns3_IndirizzoDTO"/>
+     <element name="infoPerCategoria" nillable="true" type="impl:ArrayOf_tns3_InfoPerCategoriaDTO"/>
+     <element name="particella" nillable="true" type="tns3:ParticellaKeyDTO"/>
+     <element name="subalterni" nillable="true" type="impl:ArrayOf_xsd_string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://licenzecommercio.model.data.ct.webred.it" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://bean.web.intTerritorio.service.ct.webred.it"/>
+   <import namespace="http://dto.catasto.basic.access.data.ct.webred.it"/>
+   <import namespace="http://dto.common.basic.access.data.ct.webred.it"/>
+   <import namespace="http://datarouter.support.ct.webred.it"/>
+   <complexType name="SitLicenzeCommercio">
+    <sequence>
+     <element name="annoProtocollo" nillable="true" type="xsd:string"/>
+     <element name="carattere" nillable="true" type="xsd:string"/>
+     <element name="civico" nillable="true" type="xsd:string"/>
+     <element name="civico2" nillable="true" type="xsd:string"/>
+     <element name="civico3" nillable="true" type="xsd:string"/>
+     <element name="codiceFabbricato" nillable="true" type="xsd:string"/>
+     <element name="ctrHash" nillable="true" type="xsd:string"/>
+     <element name="dataFineSospensione" nillable="true" type="xsd:dateTime"/>
+     <element name="dataInizioSospensione" nillable="true" type="xsd:dateTime"/>
+     <element name="dataRilascio" nillable="true" type="xsd:dateTime"/>
+     <element name="dataValidita" nillable="true" type="xsd:dateTime"/>
+     <element name="dtExpDato" nillable="true" type="xsd:dateTime"/>
+     <element name="dtFineDato" nillable="true" type="xsd:dateTime"/>
+     <element name="dtFineVal" nillable="true" type="xsd:dateTime"/>
+     <element name="dtInizioDato" nillable="true" type="xsd:dateTime"/>
+     <element name="dtInizioVal" nillable="true" type="xsd:dateTime"/>
+     <element name="dtIns" nillable="true" type="xsd:dateTime"/>
+     <element name="dtMod" nillable="true" type="xsd:dateTime"/>
+     <element name="fkEnteSorgente" nillable="true" type="xsd:decimal"/>
+     <element name="flagDtValDato" nillable="true" type="xsd:decimal"/>
+     <element name="foglio" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:string"/>
+     <element name="idExt" nillable="true" type="xsd:string"/>
+     <element name="idExtVie" nillable="true" type="xsd:string"/>
+     <element name="idOrig" nillable="true" type="xsd:string"/>
+     <element name="note" nillable="true" type="xsd:string"/>
+     <element name="numero" nillable="true" type="xsd:string"/>
+     <element name="numeroProtocollo" nillable="true" type="xsd:string"/>
+     <element name="particella" nillable="true" type="xsd:string"/>
+     <element name="processid" nillable="true" type="xsd:string"/>
+     <element name="provenienza" nillable="true" type="xsd:string"/>
+     <element name="ragSoc" nillable="true" type="xsd:string"/>
+     <element name="riferimAtto" nillable="true" type="xsd:string"/>
+     <element name="sezioneCatastale" nillable="true" type="xsd:string"/>
+     <element name="stato" nillable="true" type="xsd:string"/>
+     <element name="subalterno" nillable="true" type="xsd:string"/>
+     <element name="superficieMinuto" nillable="true" type="xsd:decimal"/>
+     <element name="superficieTotale" nillable="true" type="xsd:decimal"/>
+     <element name="tipologia" nillable="true" type="xsd:string"/>
+     <element name="zona" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="getDatiCivicoResponse">
+
+      <wsdl:part element="impl:getDatiCivicoResponse" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="getDatiCivicoRequest">
+
+      <wsdl:part element="impl:getDatiCivico" name="parameters"/>
+
+   </wsdl:message>
+
+   <wsdl:portType name="InterrogazioneTerritorioWebService">
+
+      <wsdl:operation name="getDatiCivico">
+
+         <wsdl:input message="impl:getDatiCivicoRequest" name="getDatiCivicoRequest"/>
+
+         <wsdl:output message="impl:getDatiCivicoResponse" name="getDatiCivicoResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="InterrogazioneTerritorioWebServiceSoapBinding" type="impl:InterrogazioneTerritorioWebService">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="getDatiCivico">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="getDatiCivicoRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="getDatiCivicoResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="InterrogazioneTerritorioWebServiceService">
+
+      <wsdl:port binding="impl:InterrogazioneTerritorioWebServiceSoapBinding" name="InterrogazioneTerritorioWebService">
+
+         <wsdlsoap:address location="http://localhost:8080/Servizio_InterrogazioniTerritorio_WEB/services/InterrogazioneTerritorioWebService"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

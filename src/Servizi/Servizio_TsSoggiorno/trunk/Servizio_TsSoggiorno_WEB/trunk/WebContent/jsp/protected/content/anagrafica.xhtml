@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:form id="frmAna">
+
+	<rich:panel id="dati" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Anagrafica" />
+		</f:facet>
+		
+		<h:outputText style="font-weight:bold;" value="I campi contrassegnati da * sono obbligatori" />
+		<br></br>
+		<rich:spacer height="20px"></rich:spacer>
+		
+		<table border="0" width="100%">
+			<tr>
+				<td>Codice fiscale</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.codfisc}"
+						styleClass="clsDisabled" /></td>
+				
+				<td>Cognome *</td>
+				<td><h:inputText requiredMessage="Il campo 'Cognome' è obbligatorio" value="#{anagraficaBean.soggetto.cognome}"  required="true"/></td>
+
+				<td>Nome *</td>
+				<td><h:inputText requiredMessage="Il campo 'Nome' è obbligatorio" value="#{anagraficaBean.soggetto.nome}" required="true" /></td>
+			
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="DATI NASCITA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Comune</td>
+				<td><h:inputText value="#{anagraficaBean.soggetto.comuneNasc}" /></td>
+
+				<td>Provincia</td>
+				<td><h:inputText
+						value="#{anagraficaBean.soggetto.siglaProvNasc}" /></td>
+
+				<td>Stato estero</td>
+				<td><h:inputText
+						value="#{anagraficaBean.soggetto.statoEsteroNasc}" /></td>
+			</tr>
+			<tr>
+				<td>Data (gg/MM/aaaa)</td>
+				<td><rich:calendar value="#{anagraficaBean.soggetto.dtNasc}"
+						popup="true" enableManualInput="true" direction="top-right"
+						datePattern="dd/MM/yyyy" showApplyButton="true" cellWidth="24px"
+						cellHeight="22px" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="DATI RESIDENZA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Comune</td>
+				<td><h:inputText value="#{anagraficaBean.soggetto.comuneRes}" /></td>
+
+				<td>Provincia</td>
+				<td><h:inputText
+						value="#{anagraficaBean.soggetto.siglaProvRes}" /></td>
+
+				<td>Stato estero</td>
+				<td><h:inputText
+						value="#{anagraficaBean.soggetto.statoEsteroRes}" /></td>
+			</tr>
+			<tr>
+				<td>Via</td>
+				<td><h:inputText
+						value="#{anagraficaBean.soggetto.indirizzoRes}" /></td>
+
+				<td>Civico</td>
+				<td><h:inputText
+						value="#{anagraficaBean.soggetto.numeroCivRes}" /></td>
+
+				<td>CAP</td>
+				<td><h:inputText value="#{anagraficaBean.soggetto.capRes}" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="ALTRI DATI"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Telefono</td>
+				<td><h:inputText value="#{anagraficaBean.soggetto.tel}" /></td>
+
+				<td>Cellulare</td>
+				<td><h:inputText value="#{anagraficaBean.soggetto.cell}" /></td>
+
+				<td>Fax</td>
+				<td><h:inputText value="#{anagraficaBean.soggetto.fax}" /></td>
+			</tr>
+			<tr>
+				<td>E-mail</td>
+				<td><h:inputText requiredMessage="Il campo 'e-mail' è obbligatorio" value="#{anagraficaBean.soggetto.email}" required="true"/></td>
+			</tr>
+		</table>
+
+		<br />
+
+		<div align="center">
+
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Salva"
+					action="#{anagraficaBean.doUpdateSoggetto}"
+					onclick="if (!confirm('Procedere con il salvataggio?')) return false" />
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

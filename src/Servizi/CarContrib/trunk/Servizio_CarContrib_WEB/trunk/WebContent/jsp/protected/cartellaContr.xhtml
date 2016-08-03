@@ -1,0 +1,133 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">        
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<ui:include src="../protected/include/NucleoFam/aPanelCartContrPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelSelectSezioniPdfPerNucleo.xhtml" />		
+
+		<ui:include src="../protected/include/NucleoFam/panelImmobiliIciPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelImmobiliTarsuPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelSelectSoggettoIciPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelSelectSoggettoTarsuPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelSelectSoggettoRedditiPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelSelectSoggettoCNCPerNucleo.xhtml" />
+		<ui:include src="../protected/include/NucleoFam/panelSelectSoggettoCosapPerNucleo.xhtml" />		
+		
+		<ui:include src="../protected/include/panelRTarsu.xhtml" />
+		<ui:include src="../protected/include/panelRTares.xhtml" />
+		<ui:include src="../protected/include/panelImmobiliIci.xhtml" />
+		<ui:include src="../protected/include/panelImmobiliTarsu.xhtml" />
+		<ui:include src="../protected/include/panelSelectSoggettoIci.xhtml" />
+		<ui:include src="../protected/include/panelSelectSoggettoTarsu.xhtml" />
+		<ui:include src="../protected/include/panelSelectSoggettoCosap.xhtml" />
+		<ui:include src="../protected/include/panelSelectSoggettoCNC.xhtml" />
+		<ui:include src="../protected/include/panelSelectSoggettoRedditi.xhtml" />
+		<ui:include src="../protected/include/panelSelectSezioniPdf.xhtml" />
+		<h:form id ="carContrib">
+		  <div style="padding-left:0px;margin-bottom:10px;">
+			<div class="divTitolo" >
+				<h:outputText value="DATI CARTELLA CONTRIBUENTE" />
+				<a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Dettaglio_Cartella_Testata.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a>
+			</div>		  
+		  	<rich:panel>
+		  		<table style="width:100%;">
+		  			<tr style="width:100%;">
+		  				<td align="left">
+		  					<font styleClass="titoloNero" style="font-weight: bold"><h:outputText value="NUMERO RICHIESTA " /></font>
+		  					<h:outputText value="#{contribuenteBean.idRichiestaCartella}" styleClass="titoloNero" />
+		  					<font styleClass="titoloNero" style="font-weight: bold"><h:outputText value=" DEL " /></font>
+		  					<h:outputText value=" #{contribuenteBean.strDataRichiesta} " styleClass="titoloNero" />
+		  				</td>
+		  			</tr>		  			
+		  			<tr>
+		  				<td style="height: 40px;" colspan="5">
+		  					<h:outputText value="#{contribuenteBean.intestazione}" styleClass="titoloNero" />
+		  				</td>
+		  			</tr>
+		  		</table>
+		  		
+				<rich:tabPanel id="ajaxTab" switchType="ajax" height="100%" tabClass="tabClass" selectedTab="#{contribuenteBean.selectedTab}">
+					<rich:tab id="ajaxZero" rendered="#{contribuenteBean.catastoFonte.abilitata or contribuenteBean.locazioniFonte.abilitata}">
+				  		<ui:include src="../protected/include/cartellaContribPatrimoniale.xhtml" />
+				  	</rich:tab>
+					<rich:tab id="ajaxIciPanel" rendered="#{contribuenteBean.tribIciFonte.abilitata}">
+						<ui:include src="../protected/include/cartellaContribIci.xhtml" />
+		  			</rich:tab>
+				  	<rich:tab id="ajaxTarsuPanel" rendered="#{contribuenteBean.tribTarsuFonte.abilitata}">
+				  		<ui:include src="../protected/include/cartellaContribTarsu.xhtml" />
+				  	</rich:tab>
+				  	<rich:tab id="ajaxRuoliPanel" rendered="#{contribuenteBean.ruoliVersCarContrib.fontiAbilitate}"  >
+						<ui:include src="../protected/include/cartellaContribRuoliVers.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxCosapPanel" rendered="#{contribuenteBean.cosapFonte.abilitata}">
+						<ui:include src="../protected/include/cartellaContribCosap.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxCncPanel" rendered="#{contribuenteBean.cncFonte.abilitata}">
+						<ui:include src="../protected/include/cartellaContribCNC.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxReddPanel" rendered="#{contribuenteBean.redditiFonte.abilitata}">	
+						<ui:include src="../protected/include/cartellaContribRedditi.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxAcquaPanel" rendered="#{contribuenteBean.acquaFonte.abilitata}">	
+						<ui:include src="/jsp/protected/include/cartellaContribAcqua.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxMultePanel" rendered="#{contribuenteBean.multeFonte.abilitata}">	
+						<ui:include src="/jsp/protected/include/cartellaContribMulte.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxRettePanel" rendered="#{contribuenteBean.retteFonte.abilitata}">	
+						<ui:include src="/jsp/protected/include/cartellaContribRette.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxPratichePanel" rendered="#{contribuenteBean.praticheFonte.abilitata}">	
+						<ui:include src="/jsp/protected/include/cartellaContribPratiche.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxNucleoPanel" rendered="#{contribuenteBean.soggettoCartella.tipoSogg=='F' and contribuenteBean.nucleoFonte.abilitata}">
+						<ui:include src="../protected/include/cartellaContribNucleo.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxCarSocPanel" rendered="#{contribuenteBean.carsocialeFonte.abilitata}">
+						<ui:include src="../protected/include/cartellaContribCarSociale.xhtml" />
+					</rich:tab>
+					<rich:tab id="ajaxImuPanel" rendered="#{contribuenteBean.imuFonte.abilitata}">
+						<ui:include src="../protected/include/cartellaContribImu.xhtml" />
+					</rich:tab>
+					
+				</rich:tabPanel>
+		  	</rich:panel>
+  			<c:if test="#{contribuenteBean.showButtonProduciPdf}" >
+			  	<div class="divBottoniFooter">
+					<table style="width:100%">
+						<tr>
+							<td>
+								<a4j:commandButton 
+									value="PRODUCI PDF"  
+									style="width:150px;" 
+									reRender="SelectSezioniPdfPanel" 
+									oncomplete="#{rich:component('SelectSezioniPdfPanel')}.show()" />		  					
+							</td>
+						</tr>
+					</table>		  		
+			  	</div>
+		  	</c:if>
+		  	<c:if test="#{not empty contribuenteBean.returnToList and contribuenteBean.returnToList==true}" >
+				<div>
+					<table>
+						<tr>
+							<td valign="middle" style="height: 40px;">
+								<a4j:commandLink action="#{richiestaBean.goSelectContribuente}" value="Torna a lista soggetti" /> 
+							</td>
+						</tr>
+					</table>	  	
+				</div>		  
+			</c:if>
+		</div>
+		</h:form>
+	</ui:define>
+	
+	</ui:composition>
+</html>

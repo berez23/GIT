@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+	  	xmlns:composite="http://java.sun.com/jsf/composite">
+      
+	<h:head>
+		<title>Gestione Relazioni</title>
+	</h:head>
+	<h:body>
+		<composite:interface componentType="pnlRelazioni">
+			<composite:attribute name="iRelazioni" type="it.webred.cs.jsf.interfaces.IRelazioni" required="true"/>
+			<composite:attribute name="iDiarioDocs" type="it.webred.cs.jsf.interfaces.IDiarioDocs" required="true"/>
+			<composite:attribute name="styleClass"/>
+		</composite:interface>
+		<composite:implementation xmlns:webredcs="http://java.sun.com/jsf/composite/webredcs">
+			
+		   <h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+				<p:commandButton value="Nuovo" action="#{cc.attrs.iRelazioni.nuovo}" icon="ui-icon-document-b" disabled="#{cc.attrs.iRelazioni.readOnly}"
+					process="@this"	oncomplete="wdgRelazModal.show();" update=":#{p:component('dlgRelazione')}">
+				</p:commandButton>
+				<p:spacer height="2"/>
+			</h:panelGrid>
+			
+			<p:outputPanel id="tblRelazioni">
+			<p:dataTable var="rowRel" rowIndexVar="rowKeyRel" emptyMessage="Nessun elemento presente"
+				value="#{cc.attrs.iRelazioni.listaRelazioni}" rows="10" paginator="true">
+				
+				<f:facet name="header">  
+		            <p:outputLabel value="Lista relazioni"/>
+		        </f:facet>
+		        
+		         <p:column style="width:2%">
+			            <p:rowToggler rendered="#{!empty rowRel.listaPai}"/>
+			        </p:column>
+				
+				<p:column headerText="Data">	
+					<h:outputText value="#{rowRel.relazione.dataProposta}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+					</h:outputText>	
+				</p:column>
+				
+				<p:column headerText="Tipo relazione">	
+				</p:column>
+				
+				<p:column headerText="Situazione socio ambientale">	
+					<h:outputText value="#{rowRel.relazione.situazioneAmb}"/>
+				</p:column>
+				
+				<p:column headerText="Situazione socio parentale">
+					<h:outputText value="#{rowRel.relazione.situazioneParentale}"/>	
+				</p:column>
+				
+				<p:column headerText="Situazione socio sanitaria">
+					<h:outputText value="#{rowRel.relazione.situazioneSanitaria}"/>	
+				</p:column>
+				
+				<p:column headerText="Proposta">	
+					<h:outputText value="#{rowRel.relazione.proposta}"/>
+				</p:column>
+				
+				<p:column headerText="" style="text-align:center;" width="250px;">
+					<table border="0" width="100%">
+						<tr><td style="border: 0; padding: 0;">
+							<p:commandButton value="Modifica" process="@this" icon="ui-icon-pencil"
+								action="#{cc.attrs.iRelazioni.carica}" update=":#{p:component('dlgRelazione')}"
+								oncomplete="wdgRelazModal.show()">
+								<f:setPropertyActionListener value="#{rowKeyRel}" target="#{cc.attrs.iRelazioni.idxSelected}" />
+							</p:commandButton>
+						</td>
+						<td style="border: 0; padding: 0;"><p:spacer width="5"/></td>
+						<td style="border: 0; padding: 0;">
+							<p:outputPanel rendered="#{!cc.attrs.iRelazioni.readOnly and !cc.attrs.iRelazioni.disableNuovoPAI}">
+							<webredcs:pnlSchedaPAI iSchedaPai="#{cc.attrs.iRelazioni.managerPai}" refreshBean="#{cc.attrs.iRelazioni}"
+						          relazione="#{rowRel.relazione}" nomePulsante="Schede PAI (#{fn:length(rowRel.listaPai)})" icona="ui-icon-note"
+						          tooltipPulsante="Nuova Scheda PAI" pnlToUpdate="#{p:component('tblRelazioni')}" styleClass="#{cc.attrs.styleClass}"/>
+						    </p:outputPanel>
+						</td></tr>
+					</table>
+				</p:column>
+				
+			    <p:rowExpansion>
+			    		
+			    		<h:outputLabel value="Schede PAI" styleClass="h4"/>
+			    		<p:spacer height="3px;"/>
+		            	<p:dataTable id="dataTablePai"  
+							var="pai" value="#{rowRel.listaPai}" rowIndexVar="rowIndex">
+							
+							<p:column headerText="Data Attivazione" width="100px;">
+								<h:outputText value="#{pai.dataAttivazione}" >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Data Chiusura" width="100px;">
+								<h:outputText value="#{pai.dataChiusura}" >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							
+							<p:column headerText="Verifica">
+								<h:outputText value="ogni #{pai.verificaOgni} #{pai.verificaUnitaMisura}" />
+							</p:column>
+							
+							<p:column headerText="Obiettivi" >
+								<h:outputText value="#{pai.obiettivi}" />
+							</p:column>
+							
+							<p:column headerText="Azioni Previste" >
+								<h:outputText value="#{pai.azioniPreviste}" />
+							</p:column>
+							
+							<p:column width="350px;">
+							   <h:panelGroup rendered="#{!cc.attrs.iRelazioni.readOnly}">
+								   <table border="0" width="100%">
+									<tr><td style="border: 0; padding: 0;">
+								   		<webredcs:pnlSchedaPAI iSchedaPai="#{cc.attrs.iRelazioni.managerPai}" schedaSel="#{pai}"
+						            		relazione="#{rowRel.relazione}" nomePulsante="Modifica" icona="ui-icon-pencil" refreshBean="#{cc.attrs.iRelazioni}"
+						             		tooltipPulsante="Modifica Scheda PAI" pnlToUpdate="#{p:component('tblRelazioni')}" styleClass="#{cc.attrs.styleClass}"/>
+						             </td><td style="border: 0; padding: 0;"><p:spacer width="5"/></td>
+									<td style="border: 0; padding: 0;">
+								    	<p:commandButton value="Elimina" icon="ui-icon-trash" oncomplete="confermaEliminaPai.show()" process="@this"/>
+							    		<p:confirmDialog header="Conferma eliminazione"
+											widgetVar="confermaEliminaPai" severity="alert"
+											closable="false" appendTo="@(body)"
+											message="Vuoi eliminare il PAI selezionato">
+											<table border="0" width="100%">
+												<tr>
+													<td style="text-align: center;">
+														<p:commandButton value="SI" update=":#{p:component('tblRelazioni')}"
+															process="@this" actionListener="#{cc.attrs.iRelazioni.eliminaPai(pai)}" 
+															oncomplete="if (args &amp;&amp; args.eliminato) {PF('confermaEliminaPai').hide();}else{alert('errore salvataggio');}">
+														</p:commandButton>
+													   <p:commandButton value="NO" onclick="PF('confermaEliminaPai').hide();" type="button" />
+													</td>
+												</tr>
+											</table>
+										</p:confirmDialog>	
+									</td>
+									<td style="border: 0; padding: 0;"><p:spacer width="5"/></td>
+									<td style="border: 0; padding: 0;">
+										<p:commandButton value="Documenti (#{fn:length(pai.csDDiario.csDDiarioDocs)})" process="@this" icon="ui-icon-folder-open"
+											action="#{cc.attrs.iDiarioDocs.caricaDocumenti(pai.diarioId)}" update=":#{p:component('dlgDocRel')}"
+											oncomplete="wdgRelazDocModal.show()">
+										</p:commandButton>
+									</td></tr></table>
+								</h:panelGroup>									
+							</p:column>
+							
+							</p:dataTable>
+							
+		        </p:rowExpansion>
+				
+			</p:dataTable>
+			</p:outputPanel>
+			
+			
+			<p:dialog dynamic="true" modal="true" id="dlgRelazione"
+				widgetVar="wdgRelazModal" width="800" height="650" 
+				closable="true" header="#{cc.attrs.iRelazioni.modalHeader}">
+									
+  
+					
+						<h:panelGrid columns="2">
+							<h:outputText value="Fonti utilizzate per la relazione"/>
+							<p:inputTextarea rows="4" cols="90" value="#{cc.attrs.iRelazioni.relazione.fontiUtilizzate}"/>
+						
+							<h:outputText value="Situazione ambientale *"/>
+							<p:inputTextarea rows="4" cols="90" value="#{cc.attrs.iRelazioni.relazione.situazioneAmb}"/>
+							
+							<h:outputText value="Situazione parentale"/>
+							<p:inputTextarea rows="4" cols="90" value="#{cc.attrs.iRelazioni.relazione.situazioneParentale}"/>
+							
+							<h:outputText value="Situazione sanitaria"/>
+							<p:inputTextarea rows="4" cols="90" value="#{cc.attrs.iRelazioni.relazione.situazioneSanitaria}"/>
+							
+							<h:outputText value="Proposta"/>
+							<p:inputTextarea rows="4" cols="90" value="#{cc.attrs.iRelazioni.relazione.proposta}"/>
+							
+							<h:outputText value="Data relazione *"/>
+							<h:panelGrid columns="8" cellpadding="0" cellspacing="0">
+			           			<p:calendar value="#{cc.attrs.iRelazioni.relazione.dataProposta}" pattern="dd/MM/yyyy" size="11"
+					     			validatorMessage="Data non valida" navigator="true" showButtonPanel="true">
+				        				<f:validator validatorId="dateValidator"/>
+				        		</p:calendar>
+				        		<p:spacer width="10px"/>
+					            <h:outputText value="(gg/mm/aaaa)"/>
+			           		</h:panelGrid>
+		           			
+		           			<h:outputText value="Data prossima relazione dal"/>
+		           			<h:panelGrid columns="8" cellpadding="0" cellspacing="0">
+		            			<p:calendar value="#{cc.attrs.iRelazioni.relazione.dataProssimaRelazioneDal}" size="11"
+		            				navigator="true" showButtonPanel="true" mindate="#{commonSessionMan.currentDate}"
+		            				pattern="dd/MM/yyyy" converterMessage="Data non valida">
+		            				<p:ajax event="dateSelect"/>
+		            			</p:calendar>
+		            			<p:spacer width="10"/>
+		            			<h:outputText value="al"/>
+		            			<p:spacer width="10"/>
+		            			<p:calendar value="#{cc.attrs.iRelazioni.relazione.dataProssimaRelazioneAl}" size="11"
+		            				navigator="true" showButtonPanel="true" mindate="#{commonSessionMan.currentDate}"
+		            				pattern="dd/MM/yyyy" converterMessage="Data non valida">
+		            				<f:attribute name="startDate" value="#{cc.attrs.iRelazioni.relazione.dataProssimaRelazioneDal}" />
+				    				<f:validator validatorId="dateRangeValidator"/>
+		            			</p:calendar>
+		            			<p:spacer width="10"/>
+		            			<h:outputText value="(gg/mm/aaaa)"/>
+		           			</h:panelGrid>
+						</h:panelGrid>
+						
+						<h:panelGrid columns="1">
+							<h:outputText value="* Campi obbligatori" styleClass="bold"/>
+							<p:spacer height="20"/>
+						</h:panelGrid>
+				
+						<h:panelGrid id="pnlSelectTI" columns="3" style="margin-left:auto; margin-right:auto;">
+							<h:outputText value="Tipo intervento"/>
+							<p:selectOneMenu value="#{cc.attrs.iRelazioni.idTipoInterventoSelezionato}">
+								<f:selectItems value="#{cc.attrs.iRelazioni.listaTipiIntervento}"/>
+							</p:selectOneMenu>
+							
+							<p:commandButton value="Aggiungi" action="#{cc.attrs.iRelazioni.aggiungiTipoIntervento}" disabled="#{cc.attrs.iRelazioni.readOnly}"
+								update=":#{p:component('tblTipiIntervento')}" process="pnlSelectTI"
+								icon="ui-icon-circle-plus"/>
+								
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						
+						<p:outputPanel id="tblTipiIntervento">
+						<p:dataTable var="rowTI" rowIndexVar="rowKeyTI"
+							emptyMessage="Nessun elemento presente"	value="#{cc.attrs.iRelazioni.listaTipiInterventoAttivi}">
+							
+							<f:facet name="header">  
+					            <p:outputLabel value="Lista Tipi Intervento"/>
+					        </f:facet>
+							
+							<p:column headerText="Descrizione">	
+								<h:outputText value="#{rowTI.descrizione}"/>
+							</p:column>
+							
+							<p:column headerText="" style="text-align: center;">
+								<p:commandButton value="Elimina" process="@this" icon="ui-icon-circle-minus" disabled="#{cc.attrs.iRelazioni.readOnly}"
+									action="#{cc.attrs.iRelazioni.eliminaTipoIntervento}" update=":#{p:component('tblTipiIntervento')}">
+									<f:setPropertyActionListener value="#{rowKeyTI}" target="#{cc.attrs.iRelazioni.idxSelected}" />
+								</p:commandButton>
+							</p:column>
+						</p:dataTable>
+						</p:outputPanel>
+						
+						<p:outputPanel rendered="#{not empty cc.attrs.iRelazioni.listaFogliAmmCollegati}">
+						<p:spacer height="15"/>
+						<p:dataList value="#{cc.attrs.iRelazioni.listaFogliAmmCollegati}" 
+							var="int" type="unordered" paginator="true" rows="3"
+							paginatorPosition="bottom">
+					        <f:facet name="header">
+					            Lista Fogli amministrativi collegati
+					        </f:facet>
+					        <h:outputText value="#{int.descTipoIntervento} - " />
+					        <h:outputText value="Inizio: " />
+					        <h:panelGroup rendered="#{int.inizioDa ne NULL}">
+								<h:outputText value="Dal " rendered="#{int.inizioA ne NULL}"/> 
+								<h:outputText value="#{int.inizioDa} " >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</h:panelGroup>			
+							<h:panelGroup rendered="#{int.inizioA ne NULL}">
+								<h:outputText value=" al " /> 
+								<h:outputText value="#{int.inizioA} " >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							 </h:panelGroup>
+							 <h:outputText value="Fine: " />
+								 <h:panelGroup rendered="#{int.fineDa ne NULL}">
+								<h:outputText value="Dal " rendered="#{int.fineA ne NULL}"/> 
+								<h:outputText value="#{int.fineDa} " >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</h:panelGroup>			
+							<h:panelGroup rendered="#{int.fineA ne NULL}">
+								<h:outputText value=" al " /> 
+								<h:outputText value="#{int.fineA} " >
+									<f:convertDateTime type="date" pattern="dd/MM/yyyy" />
+								</h:outputText>
+							 </h:panelGroup>
+					    </p:dataList>
+					    </p:outputPanel>
+			
+				<table border="0" width="100%">
+					<tr><td><p:spacer height="20"/></td></tr>
+					<tr>
+						<td style="text-align: center;">
+							<p:commandButton value="Salva" process="@this" 
+								onclick="confermaSalvaRel.show()" disabled="#{cc.attrs.iRelazioni.readOnly}"/>
+							<p:spacer width="15px;" />
+							<p:commandButton value="Esci"
+								process="@this"
+								oncomplete="wdgRelazModal.hide();"/>
+						</td>
+					</tr>
+				</table>
+			
+			</p:dialog>
+			
+			<p:confirmDialog header="Salva" 
+				widgetVar="confermaSalvaRel" severity="alert"
+				closable="false"
+				message="Procedere con il salvataggio?">
+				<p:panelGrid>
+					<p:row>
+						<p:column style="text-align: center;">
+							<p:commandButton value="SI" onclick="PF('confermaSalvaRel').hide()"
+								action="#{cc.attrs.iRelazioni.salva}" update=":#{p:component('tblRelazioni')}"
+								oncomplete="if (args &amp;&amp; !args.validationFailed &amp;&amp; args.saved) PF('wdgRelazModal').hide();"/>
+							<p:commandButton value="NO"
+								onclick="PF('confermaSalvaRel').hide();" type="button" />
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:confirmDialog>
+			
+			<p:dialog dynamic="true" modal="true" id="dlgDocRel"
+				widgetVar="wdgRelazDocModal" width="600" minHeight="500"
+				closable="false" header="Gestione Documenti">
+			    	
+			    <webredcs:pnlDiarioDocs iDiarioDocs="#{cc.attrs.iDiarioDocs}" isReadOnly="#{cc.attrs.iRelazioni.readOnly}"/> 
+				
+				<table border="0" width="100%">
+					<tr><td><p:spacer height="20"/></td></tr>
+					<tr>
+						<td style="text-align: center;">
+							<p:commandButton value="Esci" update=":#{p:component('tblRelazioni')}"
+								process="@this" action="#{cc.attrs.iRelazioni.initializeData}"
+								oncomplete="wdgRelazDocModal.hide();"/>
+						</td>
+					</tr>
+				</table>
+			</p:dialog>
+			
+		</composite:implementation>
+	</h:body>
+		
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Servizio_C340">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module archiveName="CT_Service_Data_Model.jar" deploy-path="/" handle="module:/resource/CT_Service_Data_Model/CT_Service_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Service_Data_AccessClient.jar" deploy-path="/" handle="module:/resource/CT_Service_Data_AccessClient/CT_Service_Data_AccessClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_C340_WEB.war" deploy-path="/" handle="module:/resource/Servizio_C340_WEB/Servizio_C340_WEB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_C340_EJB.jar" deploy-path="/" handle="module:/resource/Servizio_C340_EJB/Servizio_C340_EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="ServizioC340_TEST.war" deploy-path="/" handle="module:/resource/ServizioC340_TEST/ServizioC340_TEST">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_C340_Data_Model.jar" deploy-path="/" handle="module:/resource/Servizio_C340_Data_Model/Servizio_C340_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_C340_Data_Model.jar" deploy-path="/" handle="module:/resource/Servizio_C340_Data_Model/Servizio_C340_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#pages#ricerca#homeRicerca.xhtml"
+  PATH="/pages/ricerca/homeRicerca.xhtml" SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#index.xhtml" PATH="/index.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#statistica#homeStatistica.xhtml"
+  PATH="/pages/statistica/homeStatistica.xhtml" SHAPE="320,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#esporta#homeEsporta.xhtml"
+  PATH="/pages/esporta/homeEsporta.xhtml" SHAPE="624,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#ricerca#listaRicerca.xhtml"
+  PATH="/pages/ricerca/listaRicerca.xhtml" SHAPE="624,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#ricerca#dettaglioRicerca.xhtml"
+  PATH="/pages/ricerca/dettaglioRicerca.xhtml" SHAPE="1184,673,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#ricerca#showPdf.xhtml"
+  PATH="/pages/ricerca/showPdf.xhtml" SHAPE="1632,1137,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#statistica#listaStatistica.xhtml"
+  PATH="/pages/statistica/listaStatistica.xhtml" SHAPE="640,369,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#nonAutorizzato.xhtml"
+  PATH="/pages/nonAutorizzato.xhtml" SHAPE="368,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#logout-redirect.jsp"
+  PATH="/logout-redirect.jsp" SHAPE="336,545,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#classamento#menuClassamento.xhtml"
+  PATH="/pages/classamento/menuClassamento.xhtml" SHAPE="640,1281,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#classamento#classamentoUno.xhtml"
+  PATH="/pages/classamento/classamentoUno.xhtml" SHAPE="96,849,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#classamento#classamentoDue.xhtml"
+  PATH="/pages/classamento/classamentoDue.xhtml" SHAPE="96,417,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#classamento#classamentoTre.xhtml"
+  PATH="/pages/classamento/classamentoTre.xhtml" SHAPE="96,1777,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="96,529,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="classamentoUnoBck.init::#pages#classamento#classamentoUno.xhtml"
+    NAME="output" PATH="/pages/classamento/classamentoUno.xhtml"
+    TARGET="rules:#pages#classamento#classamentoUno.xhtml"
+    TITLE="classamentoUnoBck.init" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="classamentoDueBck.init::#pages#classamento#classamentoDue.xhtml"
+    NAME="output1" PATH="/pages/classamento/classamentoDue.xhtml"
+    TARGET="rules:#pages#classamento#classamentoDue.xhtml"
+    TITLE="classamentoDueBck.init" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="classamentoTreBck.init::#pages#classamento#classamentoTre.xhtml"
+    NAME="output2" PATH="/pages/classamento/classamentoTre.xhtml"
+    TARGET="rules:#pages#classamento#classamentoTre.xhtml"
+    TITLE="classamentoTreBck.init" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercaDettaglioBck.openPDF::#pages#ricerca#showPdf.xhtml"
+    NAME="output3" PATH="/pages/ricerca/showPdf.xhtml"
+    TARGET="rules:#pages#ricerca#showPdf.xhtml"
+    TITLE="ricercaDettaglioBck.openPDF" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercaDettaglioBck.getBodBeanSuccessivo::#pages#ricerca#dettaglioRicerca.xhtml"
+    NAME="output4" PATH="/pages/ricerca/dettaglioRicerca.xhtml"
+    TARGET="rules:#pages#ricerca#dettaglioRicerca.xhtml"
+    TITLE="ricercaDettaglioBck.getBodBeanSuccessivo" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercaDettaglioBck.getBodBeanPrecedente::#pages#ricerca#dettaglioRicerca.xhtml"
+    NAME="output5" PATH="/pages/ricerca/dettaglioRicerca.xhtml"
+    TARGET="rules:#pages#ricerca#dettaglioRicerca.xhtml"
+    TITLE="ricercaDettaglioBck.getBodBeanPrecedente" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercaDettaglioBck.selectionChanged::#pages#ricerca#dettaglioRicerca.xhtml"
+    NAME="output6" PATH="/pages/ricerca/dettaglioRicerca.xhtml"
+    TARGET="rules:#pages#ricerca#dettaglioRicerca.xhtml"
+    TITLE="ricercaDettaglioBck.selectionChanged" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="menuBck.starting::#index.xhtml"
+    NAME="output7" PATH="/index.xhtml" TARGET="rules:#index.xhtml"
+    TITLE="menuBck.starting" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="menuBck.logout::#logout-redirect.jsp"
+    NAME="output8" PATH="/logout-redirect.jsp"
+    TARGET="rules:#logout-redirect.jsp" TITLE="menuBck.logout" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="classamentoBck.init::#pages#classamento#menuClassamento.xhtml"
+    NAME="output9" PATH="/pages/classamento/menuClassamento.xhtml"
+    TARGET="rules:#pages#classamento#menuClassamento.xhtml"
+    TITLE="classamentoBck.init" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticaFiltroBck.preparaFiltro::#pages#statistica#homeStatistica.xhtml"
+    NAME="output10" PATH="/pages/statistica/homeStatistica.xhtml"
+    TARGET="rules:#pages#statistica#homeStatistica.xhtml"
+    TITLE="statisticaFiltroBck.preparaFiltro" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statisticaFiltroBck.ricerca::#pages#statistica#listaStatistica.xhtml"
+    NAME="output11" PATH="/pages/statistica/listaStatistica.xhtml"
+    TARGET="rules:#pages#statistica#listaStatistica.xhtml"
+    TITLE="statisticaFiltroBck.ricerca" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercaFiltroBck.ricerca::#pages#ricerca#listaRicerca.xhtml"
+    NAME="output12" PATH="/pages/ricerca/listaRicerca.xhtml"
+    TARGET="rules:#pages#ricerca#listaRicerca.xhtml"
+    TITLE="ricercaFiltroBck.ricerca" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="ricercaFiltroBck.autocomplete::#pages#ricerca#homeRicerca.xhtml"
+    NAME="output13" PATH="/pages/ricerca/homeRicerca.xhtml"
+    TARGET="rules:#pages#ricerca#homeRicerca.xhtml"
+    TITLE="ricercaFiltroBck.autocomplete" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="esportaFiltroBck.importaEsitiShow::#pages#esporta#homeImporta.xhtml"
+    NAME="output14" PATH="/pages/esporta/homeImporta.xhtml"
+    TARGET="rules:#pages#esporta#homeImporta.xhtml"
+    TITLE="esportaFiltroBck.importaEsitiShow" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="esportaFiltroBck.ricerca::#pages#esporta#homeEsporta.xhtml"
+    NAME="output15" PATH="/pages/esporta/homeEsporta.xhtml"
+    TARGET="rules:#pages#esporta#homeEsporta.xhtml"
+    TITLE="esportaFiltroBck.ricerca" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="esportaFiltroBck.confrontoShow::#pages#esporta#homeConfronto.xhtml"
+    NAME="output16" PATH="/pages/esporta/homeConfronto.xhtml"
+    TARGET="rules:#pages#esporta#homeConfronto.xhtml"
+    TITLE="esportaFiltroBck.confrontoShow" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#pages#esporta#homeConfronto.xhtml"
+  PATH="/pages/esporta/homeConfronto.xhtml" SHAPE="304,1073,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#pages#esporta#homeImporta.xhtml"
+  PATH="/pages/esporta/homeImporta.xhtml" SHAPE="368,33,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

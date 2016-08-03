@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+
+<service name="WSMatteo">
+
+	<description>Web Service Wrapper</description>
+
+	<parameter name="ServiceClass">it.webred.ct.service.wrapper.matteo.ws.WSMatteo</parameter>
+	<parameter name="ServiceTCCL">composite</parameter>
+	
+	<operation name="execMatteo">
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+	</operation>
+
+
+</service>

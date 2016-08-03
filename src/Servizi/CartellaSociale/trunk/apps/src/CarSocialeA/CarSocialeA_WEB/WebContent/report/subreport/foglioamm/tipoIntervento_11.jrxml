@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d001166a-d35e-4b51-a5dd-cd33e9c819cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="codice" class="java.lang.String"/>
+	<field name="anno" class="java.lang.String"/>
+	<field name="educatore" class="java.lang.String"/>
+	<field name="tipoCirc4" class="java.lang.String"/>
+	<field name="intervento" class="java.lang.String"/>
+	<field name="tipoProgetto" class="java.lang.String"/>
+	<field name="note" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="120" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="116" height="20" uuid="60c1d990-e430-492a-b33a-b9152cf5f324"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Codice utente]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="116" y="0" width="163" height="20" uuid="383791a2-4f0a-402e-a302-665afe198a2a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codice}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="407" y="0" width="148" height="20" uuid="b4ba2ae0-7876-4f30-857c-fe9e42dd6c45"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{anno}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="0" width="97" height="20" uuid="ab5424a6-81f5-4650-96ba-b8e0c483b812"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Anno]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="116" height="20" uuid="e0584df4-2b57-4b25-94df-1eaaa69317da"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Educatore]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="116" y="25" width="439" height="20" uuid="52fe1a6d-642a-40c8-956c-2966e6f075bd"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{educatore}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="116" y="50" width="439" height="20" uuid="455071cd-fd0a-49b7-9174-dfa15c631a86"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoCirc4}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="116" height="20" uuid="648b8def-173b-4409-841c-5ef0a7c27644"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Tipologia Circ.4]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="407" y="75" width="148" height="20" uuid="4c50fd43-d967-4e53-ad55-00b095efeca4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipoProgetto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="75" width="116" height="20" uuid="396505b9-d7ad-490e-a955-7894b29ce626"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Intervento]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="116" y="75" width="194" height="20" uuid="20252d39-ec97-4224-ad4a-6f6e43c2a01e"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{intervento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="75" width="97" height="20" uuid="ac5dbdb8-626c-49d6-bd42-3ff7c51d09f4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Tipologia progetto]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="116" y="100" width="439" height="20" uuid="c3730506-cede-419c-8005-640c0341c175"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{note}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="100" width="116" height="20" uuid="6b5abd00-7de7-4434-aade-cf916ebfa99a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Note]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

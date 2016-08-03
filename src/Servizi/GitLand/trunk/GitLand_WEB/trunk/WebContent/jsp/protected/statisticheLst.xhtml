@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmRicercaStatistiche">
+			<p:panel header="Gestione Statistiche/Report">				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+				
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Categoria"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCategoria" value="#{statisticheBean.categoriaSearch}" rendered="false"/>
+							<p:selectOneMenu value="#{statisticheBean.idCategoriaSearch}">
+								<f:selectItems value="#{statisticheBean.listaCategorieItems}" />
+							</p:selectOneMenu>
+							
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Descrizione"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtDescrizione" value="#{statisticheBean.descrizioneSearch}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Cerca" action="#{statisticheBean.statisticheSearch()}" process="@form" update="pnlListaStatistiche" />
+						</p:column>
+						<p:column>
+							<p:spacer></p:spacer>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaStatistiche">				
+					 <p:dataTable id="dtListaQuery" 
+					 	rendered="#{not empty statisticheBean.listaQuery}" 
+					 	var="query"
+					 	value="#{statisticheBean.listaQuery}" 
+					 	rowIndexVar="rowIndex"
+                        paginator="true" 
+                        rowKey="#{query}" 
+                        selection="#{query}" 
+                        selectionMode="single"                        
+						emptyMessage="Nessun elemento trovato" 
+						style="width:100%; table-layout:auto !important;" 
+						paginatorPosition="bottom"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+           				rows="50">
+
+					 	<p:ajax event="rowSelect" listener="#{statisticheBean.onRowSelect}" />
+					 	
+					 	<f:facet name="header">Lista Interrogazioni</f:facet>
+					 	<p:column headerText="Id" >
+					 		<h:outputText value="#{query.id}"/>
+					 	</p:column>
+					 	<p:column headerText="Categoria" >
+					 		<h:outputText value="#{query.categoria.descrizione}" />
+					 	</p:column>
+					 	<p:column headerText="Descrizione" >
+					 		<h:outputText value="#{query.descrizione}" />
+					 	</p:column>
+					 </p:dataTable>
+					 
+				</p:outputPanel>
+				
+				<p:spacer height="15"/>
+				
+				<h:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10" rendered="false">
+					<p:commandButton value="Nuova" action="#{statisticheBean.statisticaShowNew}" process="@form" />
+					<p:commandButton value="Modifica" action="#{statisticheBean.statisticaShowMod}" process="@form" />
+				</h:panelGrid>
+				
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

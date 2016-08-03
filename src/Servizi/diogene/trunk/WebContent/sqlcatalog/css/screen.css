@@ -1,0 +1,123 @@
+<%@ page contentType="text/css" %>
+body{ 
+	padding:0 0 0 0; 
+	margin:0 0 0 0;
+	background-color: #FFFFFF;
+	font-family: Verdana;
+}
+
+
+body, input, select, td, textarea{ 
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+}
+h1, h2, h3, h4, h5, h6, p, strong, div, form, acronym, label, table, td, th, span, a, hr, code, pre, hr {
+	margin:0;
+	padding:0;
+	font-size: 1em;
+	background-repeat:no-repeat;
+	list-style-type:none;
+}
+a, a:visited, a:hover { 
+	color:#666; text-decoration:none; 
+}
+a:hover {
+	text-decoration: underline;
+}
+img{ 
+	border:none;
+}
+
+
+
+
+table {
+	border: 1px solid #666;
+	margin: 20px 0 20px 0;
+}
+th, td {
+	padding: 2px 4px 2px 4px;
+	text-align: left;
+
+}
+
+
+
+
+thead tr {
+  background-color: #C0C0C0;
+}
+
+th a, th a:visited {
+  color: black;
+}
+th a:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+tr.odd {
+  background-color: #F0F5FF;
+}
+tr.tableRowEven, tr.even {
+  background-color: #E8F0FF;
+}
+
+
+
+
+
+span.pagebanner {
+	background-color: #E8F0FF;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	width: 99%;
+	margin-top: 10px;
+	display:block;
+	border-bottom: none;
+	position: relative;
+	top: 0;
+	left:0;
+}
+
+span.pagelinks {
+	background-color: #E8F0FF;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	width: 99%;
+	display:block;
+	border-top: none;
+	margin-bottom: -5px;
+}
+
+div.exportlinks {
+	background-color: #E8F0FF;
+	border: 1px dotted #999;
+	padding: 2px 4px 2px 4px;
+	margin: -10px 0 10px 0;
+	width: 99%; 
+	
+}
+
+.TXTmainLabel
+{
+	font-size: 8pt;
+	color: #000099;
+	text-align: left;
+	font-weight: Bold;
+}
+#wait {
+  	position: absolute;
+  	top: 0;
+  	left: 0;
+  	visibility: hidden;
+  	width: 100%;
+  	height: 100%;
+  	margin: 0;
+  	padding: 0;
+  	background-color: white;
+  	background-repeat: no-repeat;
+  	background-position: 50% 50%;
+  	background-image: url("<%= it.escsolution.escwebgis.common.EscServlet.URL_PATH %>/images/loading-380x228.gif");
+  	z-index: 1000; 
+  }

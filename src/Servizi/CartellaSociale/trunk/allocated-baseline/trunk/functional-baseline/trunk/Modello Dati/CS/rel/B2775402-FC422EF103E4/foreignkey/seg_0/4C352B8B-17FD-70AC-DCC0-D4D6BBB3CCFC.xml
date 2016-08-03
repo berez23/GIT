@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="4C352B8B-17FD-70AC-DCC0-D4D6BBB3CCFC" directorySegmentName="seg_0" name="FK_ATTR_TO_OPTION">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>FK_ATTR_TO_OPTION</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:23 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<containerWithKeyObject>37C46822-38E9-7CB1-BF5C-42E3907C4BCA</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>24F03F9D-D1DB-6624-E4CC-7132D8B657EB</localFKIndex>
+<keyObject>8C60CD8E-710D-BD7A-80F7-EED2211088C3</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

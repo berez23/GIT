@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+      
+			<ui:define name="pageTitle">Confronto Situazione Segnalata, a Catasto e Esito</ui:define>
+  
+			<ui:define name="pageHeader">Facelets Hello Application Comparazione</ui:define>
+
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			
+			<script type="text/javascript">
+				function apriXls(nomePdf, formato){
+					var finestra = window.open('openPdfSrv?openXls=true&amp;nomePdf=' + nomePdf + '&amp;formato=' + formato, '_blank', 'scrollbars=auto, resizable=yes, width=800, height=600, toolbar=no, menubar=no, status=no');
+				}
+				function apriPdf(nomePdf, formato){
+					var finestra = window.open('openPdfSrv?nomePdf=' + nomePdf + '&amp;formato=' + formato, '_blank', 'scrollbars=auto, resizable=yes, width=800, height=600, toolbar=no, menubar=no, status=no');
+				}
+			</script>
+
+			 <div style="overflow: auto">
+			 <rich:panel style="padding:5; width : 100%; position: relative">
+			        <f:facet name="header">
+			        	<h:outputText value="Confronto tra Segnalazione - Docfa - Esito - Catasto" />
+			        </f:facet>
+			 
+			<a4j:outputPanel ajaxRendered="true" layout="block" >
+			<h:panelGrid columns="4">
+					<f:facet name="header">
+			        	<h:outputText value="Filtro di ricerca " />
+			        </f:facet>
+			        
+			        <h:outputText value="Protocollo" />
+			        <h:inputText id="txtProtocollo" binding="#{esportaFiltroBck.txtProtocollo}" styleClass="MyInput"/>
+			        
+			        <h:outputText value="Foglio" />
+			        <h:inputText id="txtFoglio" binding="#{esportaFiltroBck.txtFoglio}" styleClass="MyInput"/>
+			        
+			        <h:outputText value="Particella" />
+			        <h:inputText id="txtParticella" binding="#{esportaFiltroBck.txtParticella}" styleClass="MyInput"/>
+			        
+			        <h:outputText value="Subalterno" />
+			        <h:inputText id="txtSubalterno" binding="#{esportaFiltroBck.txtSubalterno}" styleClass="MyInput"/>
+			        
+   			        <h:outputText value="Anno Mese (AAAAMM)" />
+			        <h:inputText id="txtAnnoMese" binding="#{esportaFiltroBck.txtAnnoMese}" styleClass="MyInput"/>
+
+   			        <h:outputText value="Esito Incoerenza Consistenza" />
+			        <h:selectOneMenu id="txtIncConsistenza" value="#{esportaFiltroBck.txtIncConsistenza}" >
+			            <f:selectItems value="#{esportaFiltroBck.aylIncOpz}" />
+			        </h:selectOneMenu>
+			        			        
+   			        <h:outputText value="Esito Incoerenza Classamento" />
+			        <h:selectOneMenu id="txtIncClassamento" value="#{esportaFiltroBck.txtIncClassamento}" >
+			            <f:selectItems value="#{esportaFiltroBck.aylIncOpz}" />
+			        </h:selectOneMenu>
+			        			        
+   			        <h:outputText value="Esito Incoerenza Destinazione" />
+			        <h:selectOneMenu id="txtIncDestinazione" value="#{esportaFiltroBck.txtIncDestinazione}" >
+			            <f:selectItems value="#{esportaFiltroBck.aylIncOpz}" />
+			        </h:selectOneMenu>
+			        
+  			        <h:outputText value="Esito Incoerenza Planimetria" />
+			        <h:selectOneMenu id="txtIncPlanimetria" value="#{esportaFiltroBck.txtIncPlanimetria}" >
+			            <f:selectItems value="#{esportaFiltroBck.aylIncOpz}" />
+			        </h:selectOneMenu>
+			        
+			        <h:outputText value="Esito Collaudo" />
+			        <h:selectOneMenu
+                      	id="cbxEsitiCollaudo"
+                      	style="width: 120px"
+						value="#{esportaFiltroBck.cbxEsitoCollaudo}">
+							<f:selectItems value="#{esportaFiltroBck.aylEsitiCollaudoOpz}" var="collaudo" itemLabel="#{collaudo.label}" itemValue="#{collaudo.value}"/>
+					</h:selectOneMenu>
+			
+			</h:panelGrid>
+			<h:panelGrid columns="1">
+				<a4j:commandButton id="btnCerca" 
+					value="Cerca" 
+					style="width:150px" 
+					action="#{esportaFiltroBck.cerca}" 
+					reRender="confrontiList, btnGeneraXLS"/>
+			</h:panelGrid>
+			
+			<table border='0' width="100%">
+			<tr>
+			<td align="left" width="20%">
+			<a4j:commandButton id="btnGeneraXLS" 
+					value="Genera XLS" 
+					style="width:150px" 
+					action="#{esportaFiltroBck.esporta}"
+					disabled="#{esportaFiltroBck.generaXls}"
+					reRender="lnkEsportXLS"/>
+			</td>
+			<td align='left'>
+				
+				<h:commandLink id="lnkEsportXLS" 
+					 onclick="javascript:apriXls('#{esportaFiltroBck.xlsPath}', '4')" 
+					 target="_blank" 
+					 rendered="#{esportaFiltroBck.esportaXls}">
+				      <h:graphicImage value="/images/xls.png" style="border: 0"/>
+				</h:commandLink>
+				
+			</td>
+			<td align="left">
+				<rich:spacer width="5px"/>
+			</td>
+			<td align="left">
+				<rich:spacer width="5px"/>
+			</td>
+			<td align="left">
+				<rich:spacer width="5px"/>
+			</td>
+			</tr></table>
+				
+			</a4j:outputPanel>
+			
+			
+						
+							<h:panelGrid columns="1">
+								<f:facet name="header">
+						        	<rich:panel>
+							        	<h:outputText value="Confronto tra Segnalazione - Docfa - Esito - Catasto" />
+						        	</rich:panel>
+						        </f:facet>
+						        
+						        <rich:dataTable 
+						        	id="confrontiList" 
+						        	columnClasses="col" 
+						        	value="#{esportaFiltroBck.listaConfronti}" 
+						        	var="confronto"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						            <f:facet name="header">
+						                <rich:columnGroup>
+						                	<rich:column colspan="7">
+						                        <h:outputText styleClass="headerText" value="Segnalazioni" />
+						                    </rich:column>
+						                   	<rich:column colspan="6">
+								            	<h:outputText styleClass="headerText" value="Docfa" />
+							            	</rich:column>
+						                	<rich:column colspan="17">
+						                        <h:outputText styleClass="headerText" value="Esiti" />
+						                    </rich:column>
+						                	<rich:column colspan="7">
+						                        <h:outputText styleClass="headerText" value="Catasto" />
+						                    </rich:column>
+						                    
+											<rich:column breakBefore="true" >
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>
+						                	<rich:column colspan="4">
+						                        <h:outputText styleClass="headerText" value="Incoerenze" />
+						                    </rich:column>
+						                    <rich:column colspan="2">
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>
+						                    <rich:column colspan="6">
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>
+						                    <rich:column colspan="5">
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>
+						                    <rich:column colspan="4">
+						                        <h:outputText styleClass="headerText" value="Incoerenze" />
+						                    </rich:column>
+						                    <rich:column>
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>
+						                    <rich:column colspan="7">
+						                        <h:outputText styleClass="headerText" value="Dati Classamento" />
+						                    </rich:column>
+						                    <rich:column colspan="7">
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>
+							            	
+											<rich:column breakBefore="true" >
+						                        <h:outputText styleClass="headerText" value="Prot." />
+						                    </rich:column>
+						                    <rich:column >
+						                        <h:outputText styleClass="headerText" value="Cons." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Dest." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Clas." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Plan." />
+						                    </rich:column>
+						                    <rich:column>
+					                        	<h:outputText styleClass="headerText" value="Esito" />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Sopr." />
+						                    </rich:column>
+						                    
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Zona" />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Cat." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Cla." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Con." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Sup." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Ren." />
+						                    </rich:column>
+						                    <rich:column >
+						                        <h:outputText styleClass="headerText" value="Prot." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Sez." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Fog." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Par." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Sub." />
+						                    </rich:column>
+						                    <rich:column >
+						                        <h:outputText styleClass="headerText" value="Cons." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Dest." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Clas." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Plan." />
+						                    </rich:column>
+											<rich:column>
+						                        <h:outputText id="lblEsiti" styleClass="headerText" value="Esito" />
+						                        <rich:toolTip for="lblEsiti"
+						                        	value="&lt;span style='color:black'&gt;1- Classamento rettificato con accoglimento integrale della segnalazione;&lt;BR/&gt;2- Classamento rettificato in accoglimento parziale della segnalazione;&lt;BR/&gt;3- incoerenze segnalate non influenti sul classamento;&lt;BR/&gt;4- elementi segnalati insufficienti;&lt;BR/&gt;5- unita immobiliare segnalata movimentata da altro DOCFA;&lt;BR/&gt;7- unita immobiliare o fabbricato non presente nel documento DOCFA segnalato;&lt;BR/&gt;8- terna Protocollo-Anno-Comune non corrispondente ad un DOCFA Tecnico;&lt;BR/&gt;9- terna Protocollo-Anno-Comune non esistente in banca dati;&lt;/span&gt;" />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Zona" />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Cat." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Cla." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Flag Clas." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Con." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Sup." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Ren." />
+						                    </rich:column>						                    
+						                    <rich:column>
+						                        <rich:spacer width="5px"/>
+						                    </rich:column>		
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Zona" />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Cat." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Cla." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Con." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Sup." />
+						                    </rich:column>
+						                    <rich:column>
+						                        <h:outputText styleClass="headerText" value="Ren." />
+						                    </rich:column>						                    
+						                    						                    
+										 </rich:columnGroup>		               
+						            </f:facet>
+
+									<rich:column styleClass="colClass">
+										<rich:panel rendered="#{not empty confronto.segnalazioniObjs[11]}">
+											<a href="javascript:apriPdf('#{confronto.segnalazioniObjs[11]}', '4')" >
+												<h:outputText value="#{confronto.segnalazioniObjs[0]}"/>
+											</a>
+										</rich:panel>
+										<rich:panel rendered="#{empty confronto.segnalazioniObjs[11]}">
+											<h:outputText value="#{confronto.segnalazioniObjs[0]}"/>
+										</rich:panel>
+						            </rich:column>									
+						            <rich:column  styleClass="colClass">
+						                <h:outputText value="#{confronto.segnalazioniObjs[7]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.segnalazioniObjs[8]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.segnalazioniObjs[10]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.segnalazioniObjs[9]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.segnalazioniObjs[1]}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.segnalazioniObjs[2]}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.datiCensuariObjs[3]}"/>
+						            </rich:column>									
+						            <rich:column  styleClass="colClass">
+						                <h:outputText value="#{confronto.datiCensuariObjs[5]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.datiCensuariObjs[4]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.datiCensuariObjs[6]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.datiCensuariObjs[7]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.datiCensuariObjs[8]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.uiuProtocolloReg}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.uiuSezioneUrbana}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.uiuFoglio}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.uiuNumero}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.uiuSubalterno}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.incConsistenza}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.incDestinazione}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.incClassamento}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.incPlanimetria}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText id="lblEsito" value="#{confronto.esito.esito}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;1- Classamento rettificato con accoglimento integrale della segnalazione;&lt;BR/&gt;&lt;/span&gt;" rendered="#{confronto.esito.esito == '1'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;2- Classamento rettificato in accoglimento parziale della segnalazione;&lt;BR/&gt;&lt;/span&gt;" rendered="#{confronto.esito.esito == '2'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;3- incoerenze segnalate non influenti sul classamento;&lt;BR/&gt;&lt;/span&gt;"  rendered="#{confronto.esito.esito == '3'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;4- elementi segnalati insufficienti;&lt;BR/&gt;&lt;/span&gt;"  rendered="#{confronto.esito.esito == '4'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;5- unita immobiliare segnalata movimentata da altro DOCFA;&lt;BR/&gt;&lt;/span&gt;"  rendered="#{confronto.esito.esito == '5'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;7- unita immobiliare o fabbricato non presente nel documento DOCFA segnalato;&lt;BR/&gt;&lt;/span&gt;"  rendered="#{confronto.esito.esito == '7'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;8- terna Protocollo-Anno-Comune non corrispondente ad un DOCFA Tecnico;&lt;BR/&gt;&lt;/span&gt;"  rendered="#{confronto.esito.esito == '8'}"/>
+						                <rich:toolTip for="lblEsito"
+						                        	value="&lt;span style='color:black'&gt;9- terna Protocollo-Anno-Comune non esistente in banca dati;&lt;/span&gt;"  rendered="#{confronto.esito.esito == '9'}"/>
+						                
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.datZona}"/>
+						            </rich:column>									
+						            <rich:column  styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.datCategoria}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.datClasse}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.datFlagClassamento}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.datConsistenza}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.esito.datSuperficie}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass" style="color: #{ (confronto.esito.datRenditaInEuro &gt; 0.0 and confronto.catastoObjs[8] &gt; 0.0 and confronto.esito.datRenditaInEuro != confronto.catastoObjs[8])?'red':'black'};">
+						                <h:outputText value="#{confronto.esito.datRenditaInEuro}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+
+						                	<a4j:commandLink 
+								            	ajaxSingle="true" 
+								            	reRender="catastoModal" 
+								            	action="#{esportaFiltroBck.infoUiuCatastoShow}"
+								            	oncomplete="#{rich:component('catastoModal')}.show()"
+								            	rendered="#{confronto.confronto}">
+								            		<f:setPropertyActionListener target="#{esportaFiltroBck.confrontoCur}" value="#{confronto}" />
+								            		<h:graphicImage value="/images/icons/ok.gif" style="border: none" rendered="#{confronto.confronto}"/>
+								            </a4j:commandLink>
+
+						                	<a4j:commandLink 
+								            	ajaxSingle="true" 
+								            	reRender="catastoModal" 
+								            	action="#{esportaFiltroBck.infoUiuCatastoShow}"
+								            	oncomplete="#{rich:component('catastoModal')}.show()"
+								            	rendered="#{!confronto.confronto}">
+													<f:setPropertyActionListener target="#{esportaFiltroBck.confrontoCur}" value="#{confronto}" />
+													<h:graphicImage value="/images/icons/no.gif" style="border: none" rendered="#{!confronto.confronto}"/>								            		
+								            </a4j:commandLink>
+								            
+						            </rich:column>
+						            <rich:column  styleClass="colClass">
+						                <h:outputText value="#{confronto.catastoObjs[6]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.catastoObjs[3]}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.catastoObjs[7]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.catastoObjs[4]}"/>
+						            </rich:column>
+						            <rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.catastoObjs[5]}"/>
+						            </rich:column>
+									<rich:column styleClass="colClass">
+						                <h:outputText value="#{confronto.catastoObjs[8]}"/>
+						            </rich:column>
+						            
+						        </rich:dataTable>
+						        
+							</h:panelGrid>
+							
+		       </rich:panel>
+		       </div>
+			</ui:define>
+			
+			<ui:define name="modalPanel">
+			
+				<ui:include src="./catastoModal.xhtml" />
+			
+			</ui:define>
+			
+			<ui:define name="footer">
+				
+				<table style="width: 100%">
+					<tr>
+					<td width="20%" align="left">
+				        
+					</td>
+					<td width="20%">
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%">
+					</td>
+					</tr>
+				</table>
+				
+			</ui:define>
+			
+			
+</ui:composition>
+
+</html>      

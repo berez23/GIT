@@ -1,0 +1,381 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+<h:form id="frmNuovo">
+
+	<rich:panel styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:panelGrid columns="2">
+				<h:outputText
+					value="#{dichiarazioneBean.idSelezionato == null?'Nuova':'Modifica'} dichiarazione" />
+				<h:outputText
+					rendered="#{dichiarazioneBean.dichiarazione.integrativaInt == 1}"
+					value="integrativa" style="font-weight: bold;" />
+			</h:panelGrid>
+		</f:facet>
+
+		<h:panelGrid columns="2">
+			<h:outputText value="RIFERITA AL PERIODO DI" />
+			<h:outputText value="#{dichiarazioneBean.periodoDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<div align="right" style="float: right;">
+			<h:commandLink styleClass="clsButtonExp"
+				action="#{dichiarazioneBean.doStampaDichiarazione}">
+				<h:graphicImage value="/images/print.png" id="imgPrint"
+					style="border: 0; cursor: pointer;">
+				</h:graphicImage>
+				<a4j:actionparam value="true" name="antStmp"
+					assignTo="#{dichiarazioneBean.anteprimaStampa}" />
+				<a4j:actionparam value="true" name="antStmpItr"
+					assignTo="#{dichiarazioneBean.anteprimaStampaIter}" />
+							Anteprima stampa
+			</h:commandLink>
+		</div>
+
+		<h:panelGrid columns="4">
+
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="#{dichiarazioneBean.strutturaDescr}"
+				style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="#{dichiarazioneBean.classeDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+		<br/>
+		<div align="center">
+			<h:panelGrid columns="2">
+				<h:outputText value="Passo #{dichiarazioneBean.currentStep} di #{fn:length(dichiarazioneBean.stepArray)}:" />
+				<h:outputText value="Riepilogo" style="font-weight: bold;" />
+			</h:panelGrid>
+			<h:panelGrid columns="#{fn:length(dichiarazioneBean.stepArray)}" cellpadding="0" cellspacing="0">
+				<a4j:repeat value="#{dichiarazioneBean.stepArray}" var="step">
+					<h:graphicImage rendered="#{!step}" value="/images/stepOff.png" id="imgOff"></h:graphicImage>
+					<h:graphicImage rendered="#{step}" value="/images/stepOn.png" id="imgOn"></h:graphicImage>
+				</a4j:repeat>
+			</h:panelGrid>
+		</div>
+		<br />
+	
+	<a4j:outputPanel id="areaCalcolo">
+		
+		<h:panelGrid columns="2">
+			<h:outputText style="font-weight:bold;" value="TARIFFA BASE APPLICATA: " />
+			<h:outputText value="#{dichiarazioneBean.valTariffa}" />
+		</h:panelGrid>
+	
+		<h:panelGrid columns="1">
+			<h:outputText value="RIEPILOGO" style="font-weight:bold;" />
+		</h:panelGrid>
+		
+		<table class="clsTable" border="1" bordercolor="silver" cellpadding="3">
+			<tr>
+				<th width="300"></th>
+				<th width="100">Numero</th>
+				<th width="100">Importo</th>
+				<th width="100">Note</th>
+				
+			</tr>
+			<tr>
+				<td width="300">Imposta totale lorda del <b>periodo di competenza</b></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.dichiarazione.presenze}" title="Giorni di soggiorno"/></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impLordaComp}">
+							<f:convertNumber pattern="#0.00" />
+				</h:outputText></td>
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			
+			<tr>
+				<td width="300" ><i>Esenzioni</i></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.dichiarazione.esenti}" title="Giorni di soggiorno"/></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impEsenzioni}"/></td>
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			<tr>
+				<td width="300"><i>Rifiuti</i></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.totRifiuti}" /></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impRifiuti}"/></td>	
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			
+			<tr  style="display:#{dichiarazioneBean.visRiduzioniE eq 'true' ? 'table-row' : 'none'};" >
+				<td width="300"><i>Riduzione E</i></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.totRiduzioniE}" title="Giorni di soggiorno"/></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impRiduzioniE}"/></td>
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			
+			<tr  style="display:#{dichiarazioneBean.visRiduzioniF1 eq 'true' ? 'table-row' : 'none'};" >
+				<td width="300"><i>Riduzione F1</i></td>
+				<td width="100"><h:outputText value=""/></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impRiduzioniF1}"/></td>
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			
+			<tr  style="display:#{dichiarazioneBean.visRiduzioniF2 eq 'true' ? 'table-row' : 'none'};" >
+				<td width="300"><i>Riduzione F2</i></td>
+				<td width="100"><h:outputText value=""/></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impRiduzioniF2}"/></td>
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			
+			<tr>
+				<td width="300"><i>Pagamenti Anticipati</i></td>
+				<td width="100"><h:outputText value=""/></td>
+				<td width="100"><h:outputText value="* #{dichiarazioneBean.impPagAnticipati}"/></td>
+				<td width="100"><h:outputText value=""/></td>
+			</tr>
+			<tr>
+			    <td width="400" colspan="2"><b>Imposta dovuta nel periodo di competenza (1)</b></td>
+			    <td width="100"><h:outputText value="* #{dichiarazioneBean.impDovuta.importo}"/></td>
+			    <td width="100"><h:outputText value=""/></td>
+			</tr>
+		</table>
+		<br />
+	
+	
+		<h:panelGrid columns="1">
+			<h:outputText value="C) DEFINIZIONE DEL VERSATO"
+				style="font-weight: bold;" />
+			<br />
+			<h:outputText value="Periodo di competenza" />
+		</h:panelGrid>
+
+		<table class="clsTable" border="1" bordercolor="silver"
+			cellpadding="5">
+			<tr>
+				<td width="200">Imposta <b>dovuta</b> del periodo di <b>competenza
+						(1)</b></td>
+				<td width="200">Imposta <b>incassata</b> relativa al periodo di
+					<b>competenza (2)</b></td>
+				<td width="200">Imposta <b>in sospeso</b> relativa al periodo
+					di <b>competenza (3)</b></td>
+			</tr>
+			<tr>
+				<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:outputText id="inp_dovuta"
+							value="* #{dichiarazioneBean.impDovuta.importo}" />
+						<rich:message for="inp_dovuta" showDetail="false"
+							showSummary="false">
+							<f:facet name="errorMarker">
+								<h:graphicImage value="/images/error.gif" />
+							</f:facet>
+						</rich:message>
+					</h:panelGrid></td>
+				<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:inputText id="inp_incassata"
+							value="#{dichiarazioneBean.impIncassata.importo}" >
+						<a4j:support event="onchange" actionListener="#{dichiarazioneBean.calcolaValoriActionListener}"  reRender="areaCalcolo" />
+						
+						</h:inputText>
+						<rich:message for="inp_incassata" showDetail="false"
+							showSummary="false">
+							<f:facet name="errorMarker">
+								<h:graphicImage value="/images/error.gif" />
+							</f:facet>
+						</rich:message>
+					</h:panelGrid></td>
+				<td><h:outputText
+						value="* #{dichiarazioneBean.impostaInSospeso}" /></td>
+			</tr>
+		</table>
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText value="Periodi precedenti" />
+		</h:panelGrid>
+		<table class="clsTable" border="1" bordercolor="silver"
+			cellpadding="5">
+			<tr>
+				<td width="200"><b>Residuo</b> da periodi <b>precedenti (4)</b></td>
+				<td width="200">Imposta <b>incassata</b> relativa ai periodi <b>precedenti
+						(5)</b></td>
+				<td width="200"><b>Residuo da riportare</b> relativo ai periodi
+					<b>precedenti (6)</b></td>
+			</tr>
+			<tr>
+				<td><h:outputText
+						value="#{dichiarazioneBean.impDovuta.importoMesiPrec}" /></td>
+				<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:inputText id="inp_incassata_prec"
+							value="#{dichiarazioneBean.impIncassata.importoMesiPrec}" >
+							<a4j:support event="onchange" actionListener="#{dichiarazioneBean.calcolaValoriActionListener}"  reRender="areaCalcolo" />
+						</h:inputText>
+						<rich:message for="inp_incassata_prec" showDetail="false"
+							showSummary="false">
+							<f:facet name="errorMarker">
+								<h:graphicImage value="/images/error.gif" />
+							</f:facet>
+						</rich:message>
+					</h:panelGrid></td>
+				<td><h:outputText
+						value="* #{dichiarazioneBean.impostaInSospesoPrec}" /></td>
+			</tr>
+		</table>
+		<br />
+		
+		<h:panelGrid columns="1">
+		<h:outputText value="Compensazioni/Sanzioni" />
+		<h:outputText rendered="#{dichiarazioneBean.dichiarazione.integrativaInt!=0}" 
+			value="La dichiarazione è INTEGRATIVA: eventuali sanzioni/rimborsi non vengono conteggiati" 
+		style="font-style:italic; color:red;"/>
+		</h:panelGrid>
+		<table class="clsTable" border="1" bordercolor="silver" cellpadding="5">
+			<tr>
+				<td width="300"><b>Compensazione</b> da applicare <b>(7)</b></td>
+				<td width="300"><b>Sanzioni (8)</b></td>
+			</tr>
+			<tr>
+				<td>
+				<h:panelGrid columns="1" width="100%">
+				<h:panelGroup>
+				<h:outputText value="Totale: * " style="font-weight:bold;"/>
+				<h:outputText value="#{dichiarazioneBean.dichiarazione.valRimborso}" >
+					<f:convertNumber groupingUsed="true" pattern="#0.00" />
+				</h:outputText>
+				</h:panelGroup>
+				
+				<rich:spacer height="5px" rendered="#{!empty dichiarazioneBean.listaRimborsi}" ></rich:spacer>
+
+				<rich:dataTable value="#{dichiarazioneBean.listaRimborsi}" 
+				var="rim" rendered="#{!empty dichiarazioneBean.listaRimborsi}" width="100%">
+				<f:facet name="header"><h:outputText value="Dettaglio Rimborsi"/></f:facet>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Importo"/></f:facet>
+					<h:outputText value="#{rim.valore}" >
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Descrizione"/></f:facet>
+					<h:outputText value="#{rim.descrizione}" />
+				</rich:column>
+				</rich:dataTable>
+					
+				</h:panelGrid>
+				</td>
+			
+				
+				<td>
+				<h:panelGrid columns="1" width="100%">
+				<h:panelGroup>
+				<h:outputText value="Totale: * " style="font-weight:bold;"/>
+				<h:outputText value="#{dichiarazioneBean.dichiarazione.valSanzione}" >
+					<f:convertNumber pattern="#0.00" />
+				</h:outputText>
+				</h:panelGroup>
+				<rich:spacer height="5px" rendered="#{!empty dichiarazioneBean.listaSanzioni}"></rich:spacer>
+				<rich:dataTable value="#{dichiarazioneBean.listaSanzioni}"
+				 var="san" rendered="#{!empty dichiarazioneBean.listaSanzioni}" width="100%">
+				<f:facet name="header"><h:outputText value="Dettaglio Sanzioni"/></f:facet>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Importo"/></f:facet>
+					<h:outputText value="#{san.valore}" >
+						<f:convertNumber pattern="#0.00" />
+					</h:outputText>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Descrizione"/></f:facet>
+					<h:outputText value="#{san.descrizione}" />
+				</rich:column>
+				</rich:dataTable>
+			
+				</h:panelGrid>
+				</td>
+			</tr>
+		</table>
+		
+		<br/>
+
+	
+		<h:panelGrid columns="1">
+			<h:outputText value="Totali" style="font-weight: bold;" />
+		</h:panelGrid>
+		<table class="clsTable" border="1" bordercolor="silver"
+			cellpadding="5">
+			<tr>
+				<td width="300">TOTALE <b>INCASSATO (9)=(2+5)</b></td>
+				<td width="300">TOTALE <b>RESIDUO DA RIPORTARE (3+6)</b></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="* #{dichiarazioneBean.totIncassato}" /></td>
+				<td><h:outputText value="* #{dichiarazioneBean.totSospeso}" /></td>
+			</tr>
+		</table>
+
+		<table class="clsTable" border="1" bordercolor="silver"
+			cellpadding="5">
+			<tr>
+				<td width="610">TOTALE<b> EFFETTIVO DA VERSARE (9-7+8)</b> </td>
+			</tr>
+			<tr>
+				<td><h:outputText value="* #{dichiarazioneBean.totVersare}" /></td>
+			</tr>
+		</table>
+		
+		<br/>
+		
+	</a4j:outputPanel>
+		
+		<h:panelGrid columns="1">
+			<h:outputText value="* valori calcolati automaticamente" />
+		</h:panelGrid>
+
+		<div align="center">
+			<rich:messages passedLabel="Operazione completata" layout="list"
+				errorClass="clsError" warnClass="clsWarn" infoClass="clsInfo">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="warnMarker">
+					<h:graphicImage value="/images/warning.png"
+						style="padding-right: 5px;" />
+				</f:facet>
+			</rich:messages>
+			<br />
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					rendered="#{dichiarazioneBean.idSelezionato == null}">
+				<a4j:actionparam value="/jsp/protected/content/dich5.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenter}" />
+				<a4j:actionparam value="5" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					rendered="#{dichiarazioneBean.idSelezionato != null}">
+					<a4j:actionparam value="/jsp/protected/content/dich5.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenterDati}" />
+					<a4j:actionparam value="5" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doCheckDati}"
+					rendered="#{dichiarazioneBean.idSelezionato == null}">
+					<a4j:actionparam value="/jsp/protected/content/dich7.xhtml"
+						name="visDt2" assignTo="#{pageBean.pageCenter}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doCheckDati}"
+					rendered="#{dichiarazioneBean.idSelezionato != null}">
+					<a4j:actionparam value="/jsp/protected/content/dich7.xhtml"
+						name="visDt2" assignTo="#{pageBean.pageCenterDati}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

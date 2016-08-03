@@ -1,0 +1,222 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmNuovo">
+
+	<rich:panel styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:panelGrid columns="2">
+				<h:outputText
+					value="#{dichiarazioneBean.idSelezionato == null?'Nuova':'Modifica'} dichiarazione" />
+				<h:outputText
+					rendered="#{dichiarazioneBean.dichiarazione.integrativaInt == 1}"
+					value="integrativa" style="font-weight: bold;" />
+			</h:panelGrid>
+		</f:facet>
+
+		<h:panelGrid columns="2">
+			<h:outputText value="RIFERITA AL PERIODO DI" />
+			<h:outputText value="#{dichiarazioneBean.periodoDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<div align="right" style="float: right;">
+			<h:commandLink styleClass="clsButtonExp"
+				action="#{dichiarazioneBean.doStampaDichiarazione}">
+				<h:graphicImage value="/images/print.png" id="imgPrint"
+					style="border: 0; cursor: pointer;">
+				</h:graphicImage>
+				<a4j:actionparam value="true" name="antStmp"
+					assignTo="#{dichiarazioneBean.anteprimaStampa}" />
+				<a4j:actionparam value="true" name="antStmpItr"
+					assignTo="#{dichiarazioneBean.anteprimaStampaIter}" />
+							Anteprima stampa
+			</h:commandLink>
+		</div>
+
+		<h:panelGrid columns="4">
+
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="#{dichiarazioneBean.strutturaDescr}"
+				style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="#{dichiarazioneBean.classeDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+		<br />
+		<div align="center">
+			<h:panelGrid columns="2">
+				<h:outputText value="Passo #{dichiarazioneBean.currentStep} di #{fn:length(dichiarazioneBean.stepArray)}:" />
+				<h:outputText value="Pagamento" style="font-weight: bold;" />
+			</h:panelGrid>
+			<h:panelGrid columns="#{fn:length(dichiarazioneBean.stepArray)}" cellpadding="0" cellspacing="0">
+				<a4j:repeat value="#{dichiarazioneBean.stepArray}" var="step">
+					<h:graphicImage rendered="#{!step}" value="/images/stepOff.png" id="imgOff"></h:graphicImage>
+					<h:graphicImage rendered="#{step}" value="/images/stepOn.png" id="imgOn"></h:graphicImage>
+				</a4j:repeat>
+			</h:panelGrid>
+		</div>
+		<br />
+
+		<div align="center">
+			<h:panelGrid columns="1">
+				<h:outputText style="font-weight: bold;"
+					value="MODALITA' DI VERSAMENTO AL COMUNE DELL'IMPOSTA" />
+			</h:panelGrid>
+		</div>
+		<br />
+		
+		<h:panelGrid >
+	    <h:selectOneRadio id="radioPagamento" value="#{dichiarazioneBean.tipoPagamento}" layout="pageDirection" disabled="#{dichiarazioneBean.dichiarazione.integrativa eq 1}">
+	    	<a4j:support event="onclick" reRender="radioEstremiPagamento" action="#{dichiarazioneBean.clearEstremiPagamento}"/>
+		        <f:selectItem id="item1" itemValue="MAV"   itemLabel="#{dichiarazioneBean.lb_pagMAV}" itemEscaped="false" />
+		        <f:selectItem id="item2" itemValue="CONTANTI" itemLabel="#{dichiarazioneBean.lb_pagCONTANTI}" itemEscaped="false" />
+		        <f:selectItem id="item3" itemValue="BONIFICO" itemLabel="#{dichiarazioneBean.lb_pagBONIFICO}" itemEscaped="false" />
+    	</h:selectOneRadio>
+		
+		<br /><br />
+		<a4j:outputPanel id="radioEstremiPagamento">
+			<h:panelGrid>
+			
+			<h:outputText value="Indicarne gli estremi del pagamento" style="font-weight: bold;" rendered="#{(dichiarazioneBean.tipoPagamento eq 'MAV') or (dichiarazioneBean.tipoPagamento eq 'CONTANTI')}"/>
+			<h:outputText value="Indicarne gli estremi del pagamento e allegarne copia" style="font-weight: bold;" rendered="#{dichiarazioneBean.tipoPagamento eq 'BONIFICO'}"/>
+			
+			<h:inputText title="MAV" value="#{dichiarazioneBean.dichiarazione.pagMav}" rendered="#{dichiarazioneBean.tipoPagamento  eq 'MAV'}" required="#{dichiarazioneBean.tipoPagamento eq 'MAV'}" requiredMessage="Indicare gli estremi del pagamento" style="width: 600px" />
+			<h:inputText title="CONT" value="#{dichiarazioneBean.dichiarazione.pagVersamento}" rendered="#{dichiarazioneBean.tipoPagamento  eq 'CONTANTI'}" required="#{dichiarazioneBean.tipoPagamento eq 'CONTANTI'}" requiredMessage="Indicare gli estremi del pagamento" style="width: 600px" />
+			<h:inputText title="BONIFICO" value="#{dichiarazioneBean.dichiarazione.pagBonifico}" rendered="#{dichiarazioneBean.tipoPagamento  eq 'BONIFICO'}" required="#{dichiarazioneBean.tipoPagamento eq 'BONIFICO'}"  requiredMessage="Indicare gli estremi del pagamento" style="width: 600px" />
+			
+			</h:panelGrid>
+		</a4j:outputPanel>
+	</h:panelGrid>
+	
+	<!--
+		<h:panelGrid columns="1">
+			<h:outputText style="font-weight: bold;"
+				value="a) Di avere effettuato il pagamento dell'imposta mediante procedura informatica M.A.V. ONLINE" />
+			<h:panelGrid columns="1" style="padding-left: 12px">
+				<h:inputText value="#{dichiarazioneBean.dichiarazione.pagMav}"
+					style="width: 600px" />
+				<h:outputText value="(indicarne gli estremi del pagamento)" />
+			</h:panelGrid>
+			<br />
+
+			<h:outputText>
+				<b>b) Di avere effettuato il pagamento dell'imposta mediante
+					versamento in contanti presso lo sportello di Tesoreria di Via
+					Silvio Pellico, 16</b> riportando nella causale la dicitura 
+					'imposta di soggiorno mese di ... indicare la denominazione della 
+					struttura ricettiva e il codice fiscale'
+			</h:outputText>
+			<h:panelGrid columns="1" style="padding-left: 12px">
+				<h:inputText
+					value="#{dichiarazioneBean.dichiarazione.pagVersamento}"
+					style="width: 600px" />
+				<h:outputText value="(indicarne gli estremi del pagamento)" />
+			</h:panelGrid>
+			<br />
+
+			<h:outputText style="font-weight: bold;"
+				value="c) Di avere effettuato il pagamento dell'imposta mediante bonifico bancario con accredito sul cc di Tesoreria intestato a:" />
+			<h:panelGrid columns="1" style="padding-left: 30px">
+				<h:outputText style="font-weight: bold;"
+					value="COMUNE DI MILANO - IMPOSTA DI SOGGIORNO" />
+				<h:outputText style="font-weight: bold;"
+					value="ABI 3069 CAB 01783 NUMERO 1000/00000196" />
+				<h:outputText style="font-weight: bold;"
+					value="IBAN: IT76 P030 6901 7831 0000 0000 196" />
+			</h:panelGrid>
+			<h:outputText
+				value="riportando nella causale la dicitura 'imposta di soggiorno mese di ... indicare la denominazione della struttura ricettiva e il codice fiscale" />
+			<h:panelGrid columns="1" style="padding-left: 12px">
+				<h:inputText value="#{dichiarazioneBean.dichiarazione.pagBonifico}"
+					style="width: 600px" />
+				<h:outputText
+					value="(indicarne gli estremi del pagamento e allegarne copia)" />
+			</h:panelGrid>
+			<br />
+
+
+			<h:panelGrid columns="4" cellspacing="0">
+				<h:outputText style="font-weight: bold;"
+					value="d) Di avere effettuato la compensazione di €" />
+				<h:inputText
+					value="#{dichiarazioneBean.dichiarazione.compensazione}" />
+				<h:outputText style="font-weight: bold;"
+					value="per imposta versata eccedenza nel mese di" />
+				<h:inputText
+					value="#{dichiarazioneBean.dichiarazione.compensazioneMese}" />
+			</h:panelGrid>
+
+		</h:panelGrid>
+		-->
+
+		<div align="center">
+			<rich:messages passedLabel="Operazione completata" layout="list"
+				errorClass="clsError" warnClass="clsWarn" infoClass="clsInfo">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="warnMarker">
+					<h:graphicImage value="/images/warning.png"
+						style="padding-right: 5px;" />
+				</f:facet>
+			</rich:messages>
+			<br />
+			<h:panelGrid columns="4">
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					action="#{dichiarazioneBean.doValoriCalcolati}"
+					rendered="#{dichiarazioneBean.idSelezionato == null}">
+					<a4j:actionparam value="/jsp/protected/content/dich6.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenter}" />
+					<a4j:actionparam value="6" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					action="#{dichiarazioneBean.doValoriCalcolati}"
+					rendered="#{dichiarazioneBean.idSelezionato != null}">
+					<a4j:actionparam value="/jsp/protected/content/dich6.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenterDati}" />
+					<a4j:actionparam value="6" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				
+				<a4j:commandButton value="Salva come bozza" reRender="centerContent"
+					action="#{dichiarazioneBean.doSaveDichiarazione}"
+					onclick="if (!confirm('Sarà possibile modificare la dichiarazione in seguito, procedere con il salvataggio?')) return false">
+					<a4j:actionparam value="/jsp/protected/content/dichLista.xhtml"
+						name="visLst" assignTo="#{pageBean.pageCenter}" />
+					<a4j:actionparam value="false" name="visDt"
+						assignTo="#{pageBean.visDati}" />
+					<a4j:actionparam value="#{dichiarazioneBean.statobozza}" name="stt"
+						assignTo="#{dichiarazioneBean.dichiarazione.stato}" />
+				</a4j:commandButton>
+				<h:outputText value="oppure" />
+
+				<a4j:commandButton value="Salva e chiudi pratica"
+					reRender="centerContent"
+					action="#{dichiarazioneBean.doSaveDichiarazione}"
+					onclick="if (!confirm('Non sarà più possibile modificare la dichiarazione, soltanto stamparla, procedere con il salvataggio?')) return false">
+					<a4j:actionparam value="/jsp/protected/content/dichLista.xhtml"
+						name="visLst" assignTo="#{pageBean.pageCenter}" />
+					<a4j:actionparam value="false" name="visDt"
+						assignTo="#{pageBean.visDati}" />
+					<a4j:actionparam value="#{dichiarazioneBean.statochiusa}"
+						name="stt" assignTo="#{dichiarazioneBean.dichiarazione.stato}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodModello662Bean" table="BOD_MODELLO662" lazy="false"  >
+  
+  <id column="ID_MOD" name="idMod" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_MODELLO662</param>	   
+	   </generator>
+  </id>
+  
+  
+  <property column="FLGASCENSORE" name="flgAscensore" type="java.lang.Boolean"/>
+  <property column="CATRESMIN8" name="catResMin8" type="java.lang.String"/>
+  <property column="CATRESMAG8" name="catResMag8" type="java.lang.String"/>
+  <property column="CLASSERESMIN8" name="classeResMin8" type="java.lang.String"/>
+  <property column="CLASSERESMAG8" name="classeResMag8" type="java.lang.String"/>
+  <property column="CLASSEUFF" name="classeUff" type="java.lang.String"/>
+  <property column="CLASSENEG" name="classeNeg" type="java.lang.String"/>
+  <property column="CLASSELAB" name="classeLab" type="java.lang.String"/>
+  <property column="CLASSEDEP" name="classeDep" type="java.lang.String"/>
+  <property column="CLASSEBOX" name="classeBox" type="java.lang.String"/>
+  <property column="CLASSEPAUTO" name="classePAuto" type="java.lang.String"/>
+  <property column="FLGALLINEAMENTO" name="flgAllineamento" type="java.lang.Boolean"/>
+  
+  
+  
+  <many-to-one name="istruttoria"
+                            class="it.bod.application.beans.BodIstruttoriaBean"
+                            column="IDIST"
+                            not-null="true"
+                            lazy="false"
+                            unique="true"
+                           
+                            
+                            
+        />
+
+  
+     
+ </class>
+
+</hibernate-mapping>

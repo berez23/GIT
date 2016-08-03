@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT ID="tares.overview::#jsp#protected#home.xhtml"
+    NAME="output" PATH="/jsp/protected/home.xhtml"
+    TARGET="rules:#jsp#protected#home.xhtml" TITLE="tares.overview" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sezioniBean.doInfoUpdate::#jsp#protected#home.xhtml"
+    NAME="output1" PATH="/jsp/protected/home.xhtml"
+    TARGET="rules:#jsp#protected#home.xhtml"
+    TITLE="sezioniBean.doInfoUpdate" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="valutazioni.datiMetriciUiu::#jsp#protected#datiMetriciUiu#datiMetriciUiu.xhtml"
+    NAME="output2"
+    PATH="/jsp/protected/datiMetriciUiu/datiMetriciUiu.xhtml"
+    TARGET="rules:#jsp#protected#datiMetriciUiu#datiMetriciUiu.xhtml"
+    TITLE="valutazioni.datiMetriciUiu" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="valutazioni.xls::#jsp#protected#export#xls.xhtml" NAME="output3"
+    PATH="/jsp/protected/export/xls.xhtml"
+    TARGET="rules:#jsp#protected#export#xls.xhtml"
+    TITLE="valutazioni.xls" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnala.goSegnalaShow::#jsp#protected#segnalazioni#segnalazioniLst.xhtml"
+    NAME="output4"
+    PATH="/jsp/protected/segnalazioni/segnalazioniLst.xhtml"
+    TARGET="rules:#jsp#protected#segnalazioni#segnalazioniLst.xhtml"
+    TITLE="segnala.goSegnalaShow" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnala.goEsportateLst::#jsp#protected#segnalazioni#segnalazioniExpLst.xhtml"
+    NAME="output5"
+    PATH="/jsp/protected/segnalazioni/segnalazioniExpLst.xhtml"
+    TARGET="rules:#jsp#protected#segnalazioni#segnalazioniExpLst.xhtml"
+    TITLE="segnala.goEsportateLst" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statistiche.xls::#jsp#protected#export#xls.xhtml" NAME="output6"
+    PATH="/jsp/protected/export/xls.xhtml"
+    TARGET="rules:#jsp#protected#export#xls.xhtml"
+    TITLE="statistiche.xls" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statistiche.diagnosticheElab::#jsp#protected#diagnostiche#diagnostiche.xhtml"
+    NAME="output7" PATH="/jsp/protected/diagnostiche/diagnostiche.xhtml"
+    TARGET="rules:#jsp#protected#diagnostiche#diagnostiche.xhtml"
+    TITLE="statistiche.diagnosticheElab" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="statistiche.statistichePerCategoria::#jsp#protected#statistichePerCategoria#statistichePerCategoria.xhtml"
+    NAME="output8"
+    PATH="/jsp/protected/statistichePerCategoria/statistichePerCategoria.xhtml"
+    TARGET="rules:#jsp#protected#statistichePerCategoria#statistichePerCategoria.xhtml"
+    TITLE="statistiche.statistichePerCategoria" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.gestioneCoeffUND::#jsp#protected#tariffe#gestioneCoeffUND.xhtml"
+    NAME="output9" PATH="/jsp/protected/tariffe/gestioneCoeffUND.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#gestioneCoeffUND.xhtml"
+    TITLE="tariffe.gestioneCoeffUND" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.gestioneCoeffUD::#jsp#protected#tariffe#gestioneCoeffUD.xhtml"
+    NAME="output10" PATH="/jsp/protected/tariffe/gestioneCoeffUD.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#gestioneCoeffUD.xhtml"
+    TITLE="tariffe.gestioneCoeffUD" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.elaborazioneUD::#jsp#protected#tariffe#elaborazioneUD.xhtml"
+    NAME="output11" PATH="/jsp/protected/tariffe/elaborazioneUD.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#elaborazioneUD.xhtml"
+    TITLE="tariffe.elaborazioneUD" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.elaborazioneUD::#jsp#protected#tariffe#elaborazioneUD.xhtml"
+    NAME="output12" PATH="/jsp/protected/tariffe/elaborazioneUD.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#elaborazioneUD.xhtml"
+    TITLE="tariffe.elaborazioneUD" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.calcolaUD::#jsp#protected#tariffe#prospettoUD.xhtml"
+    NAME="output13" PATH="/jsp/protected/tariffe/prospettoUD.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#prospettoUD.xhtml"
+    TITLE="tariffe.calcolaUD" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.calcolaUND::#jsp#protected#tariffe#prospettoUND.xhtml"
+    NAME="output14" PATH="/jsp/protected/tariffe/prospettoUND.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#prospettoUND.xhtml"
+    TITLE="tariffe.calcolaUND" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.xlsUD::#jsp#protected#export#xls.xhtml" NAME="output15"
+    PATH="/jsp/protected/export/xls.xhtml"
+    TARGET="rules:#jsp#protected#export#xls.xhtml" TITLE="tariffe.xlsUD" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="tariffe.bilancioAC::#jsp#protected#tariffe#bilancioAC.xhtml"
+    NAME="output16" PATH="/jsp/protected/tariffe/bilancioAC.xhtml"
+    TARGET="rules:#jsp#protected#tariffe#bilancioAC.xhtml"
+    TITLE="tariffe.bilancioAC" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="sezioniBean.doEseguiElaborazioni::#jsp#protected#home.xhtml"
+    NAME="output18" PATH="/jsp/protected/home.xhtml"
+    TARGET="rules:#jsp#protected#home.xhtml"
+    TITLE="sezioniBean.doEseguiElaborazioni" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#home.xhtml"
+  PATH="/jsp/protected/home.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#datiMetriciUiu#datiMetriciUiu.xhtml"
+  PATH="/jsp/protected/datiMetriciUiu/datiMetriciUiu.xhtml"
+  SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#export#xls.xhtml"
+  PATH="/jsp/protected/export/xls.xhtml" SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#statistichePerCategoria#statistichePerCategoria.xhtml"
+  PATH="/jsp/protected/statistichePerCategoria/statistichePerCategoria.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#tariffe#gestioneCoeffUND.xhtml"
+  PATH="/jsp/protected/tariffe/gestioneCoeffUND.xhtml"
+  SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#gestioneCoeffUD.xhtml"
+  PATH="/jsp/protected/tariffe/gestioneCoeffUD.xhtml"
+  SHAPE="304,561,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#elaborazioneUD.xhtml"
+  PATH="/jsp/protected/tariffe/elaborazioneUD.xhtml" SHAPE="304,961,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#prospettoUD.xhtml"
+  PATH="/jsp/protected/tariffe/prospettoUD.xhtml" SHAPE="304,657,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#prospettoUND.xhtml"
+  PATH="/jsp/protected/tariffe/prospettoUND.xhtml" SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#elaborazioneUND.xhtml"
+  PATH="/jsp/protected/tariffe/elaborazioneUND.xhtml"
+  SHAPE="304,689,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#bilancioAC.xhtml"
+  PATH="/jsp/protected/tariffe/bilancioAC.xhtml" SHAPE="304,785,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#tariffe#consuntivoAP.xhtml"
+  PATH="/jsp/protected/tariffe/consuntivoAP.xhtml" SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#diagnostiche#diagnostiche.xhtml"
+  PATH="/jsp/protected/diagnostiche/diagnostiche.xhtml"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#segnalazioni#segnalazioniLst.xhtml"
+  PATH="/jsp/protected/segnalazioni/segnalazioniLst.xhtml"
+  SHAPE="304,817,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#segnalazioni#segnalazioniExpLst.xhtml"
+  PATH="/jsp/protected/segnalazioni/segnalazioniExpLst.xhtml"
+  SHAPE="304,881,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_INCONTRO_DIARIOV1" id="E635F221-A9BE-3A23-56BB-D0673E43E050" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>48F34133-90D2-E2B3-86AB-C2F7B7E8D410</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>F66C89CB-F4BF-8B17-25F9-F5CA097CA9C5</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>Diagnostiche</title>
+<link rel="icon" href="#{request.contextPath}/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="#{request.contextPath}/favicon.ico" type="image/x-icon" />
+<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+</head>
+<body style="scrollbar-base-color: #369; scrollbar-highlight-color: #FFFFFF; scrollbar-arrow-color: #FFFFFF;">
+
+<script type="text/javascript">
+	function selTutte(nomeForm, valore) {
+		var elems = document.forms[nomeForm].elements;
+		for (i = 0; i &lt; elems.length; i++) {
+			if (elems[i].id.indexOf(nomeForm + ":idFonti:") &gt; -1 &amp;&amp; elems[i].id.indexOf(":chkFonte") &gt; -1) {
+				elems[i].checked = valore;
+			}
+		}		
+		return false;
+	}
+</script>
+
+<div id="divHeader">
+	<h:panelGrid style="text-align: center; border: 1px solid #C0C0C0; border-bottom:0" cellpadding="0" cellspacing="0" bgcolor="white" width="100%"> 
+		<h:graphicImage value="/images/diagnostiche.png"/>
+	</h:panelGrid>
+</div>
+<div id="menu">
+	<h:form id="menuForm">
+		<rich:toolBar itemSeparator="line" styleClass="menuBar">
+			<rich:toolBarGroup >
+				<h:commandLink value="Home" id="cmdHome"
+				   style="color:white;text-decoration : none" action="#{menuBean.doHome}">
+				</h:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup >
+				<h:commandLink value="Visualizza" id="cmdDiaCoerenza"
+				   style="color:white;text-decoration : none" action="#{fonteBean.doInit}">
+				   <a4j:actionparam name="parNavRule" value="menu.visualizzaDia" assignTo="#{fonteBean.navRule}"/>
+				</h:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup rendered="#{userBean.authorized}">
+				<h:commandLink value="Esegui" id="cmdDiaIndagine"
+				   style="color:white;text-decoration : none" action="#{fonteBean.doInit}">
+				   <a4j:actionparam name="parNavRule" value="menu.eseguiDia" assignTo="#{fonteBean.navRule}"/>
+				</h:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup rendered="#{userBean.authorized}">
+				<h:commandLink value="Sottoscrittori" id="cmdSottoscrittori"
+				   style="color:white;text-decoration : none" action="#{menuBean.doSottoscrittori}">
+				</h:commandLink>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup location="right">
+				<a style="color:white;text-decoration : none" href="/AMProfiler">Torna al Men&#249; Applicazioni</a>
+			</rich:toolBarGroup>
+			<rich:toolBarGroup location="right">
+				<h:commandLink value="Logout" id="cmdlogout"
+				   style="color:white;text-decoration : none" action="#{menuBean.doLogout}">
+				</h:commandLink>
+			</rich:toolBarGroup>
+		</rich:toolBar>
+	</h:form>
+</div>
+
+<a4j:include id="userPage" viewId="/jsp/protected/user.xhtml" />
+
+<rich:spacer height="8px"></rich:spacer>
+
+<div><a4j:status 
+	onstart="Richfaces.showModalPanel('ajaxLoadingModalBox',{width:250, top:100})"
+	onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')">
+</a4j:status> <rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
+	minWidth="450" height="100" width="250" zindex="2000">
+	<f:facet name="header">
+		<h:outputText value="Richiesta in corso"></h:outputText>
+	</f:facet>
+	<center><h:panelGrid columns="1">
+		<table style="text-align: center">
+			<tr>
+				<td><h:outputText value="Attendere prego"
+					style="font-size:15px;" /></td>
+			</tr>
+			<tr>
+				<td><h:graphicImage value="/images/wait.gif" /></td>
+			</tr>
+		</table>
+	</h:panelGrid></center>
+</rich:modalPanel></div>
+<div id="content"><ui:insert name="content">Benvenuto</ui:insert>
+</div>
+</body>
+</html>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.5.0_06" class="java.beans.XMLDecoder"> 
+ <object id="AmApplication0" class="it.webred.diogene.db.model.am.AmApplication"> 
+  <void property="amApplicationItems"> 
+   <void method="add"> 
+    <object id="AmApplicationItem0" class="it.webred.diogene.db.model.am.AmApplicationItem"> 
+     <void property="amApplication"> 
+      <object idref="AmApplication0"/> 
+     </void> 
+     <void property="amItem"> 
+      <object id="AmItem0" class="it.webred.diogene.db.model.am.AmItem"> 
+       <void property="amPermissions"> 
+        <void method="add"> 
+         <object id="AmPermission0" class="it.webred.diogene.db.model.am.AmPermission"> 
+          <void property="amItem"> 
+           <object idref="AmItem0"/> 
+          </void> 
+          <void property="permission"> 
+           <string>Eliminazione {0} ({1})</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object id="AmPermission1" class="it.webred.diogene.db.model.am.AmPermission"> 
+          <void property="amItem"> 
+           <object idref="AmItem0"/> 
+          </void> 
+          <void property="permission"> 
+           <string>Lettura {0} ({1})</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void method="add"> 
+         <object id="AmPermission2" class="it.webred.diogene.db.model.am.AmPermission"> 
+          <void property="amItem"> 
+           <object idref="AmItem0"/> 
+          </void> 
+          <void property="permission"> 
+           <string>Scrittura {0} ({1})</string> 
+          </void> 
+         </object> 
+        </void> 
+       </void> 
+       <void property="name"> 
+        <string>{0} ({1})</string> 
+       </void> 
+      </object> 
+     </void> 
+     <void property="amItemRoles"> 
+      <void method="add"> 
+       <object id="AmItemRole0" class="it.webred.diogene.db.model.am.AmItemRole"> 
+        <void property="amApplicationItem"> 
+         <object idref="AmApplicationItem0"/> 
+        </void> 
+        <void property="amRole"> 
+         <object class="it.webred.diogene.db.model.am.AmRole"> 
+          <void property="amItemRoles"> 
+           <void method="add"> 
+            <object idref="AmItemRole0"/> 
+           </void> 
+          </void> 
+          <void property="name"> 
+           <string>Avanzato</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="amRolePermissions"> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole0"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission0"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Eliminazione {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole0"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission2"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Scrittura {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole0"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission1"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Lettura {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+        </void> 
+        <void property="id"> 
+         <long>-1</long> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="add"> 
+       <object id="AmItemRole1" class="it.webred.diogene.db.model.am.AmItemRole"> 
+        <void property="amApplicationItem"> 
+         <object idref="AmApplicationItem0"/> 
+        </void> 
+        <void property="amRole"> 
+         <object class="it.webred.diogene.db.model.am.AmRole"> 
+          <void property="amItemRoles"> 
+           <void method="add"> 
+            <object idref="AmItemRole1"/> 
+           </void> 
+          </void> 
+          <void property="name"> 
+           <string>Base</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="amRolePermissions"> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole1"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission1"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Lettura {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+        </void> 
+        <void property="id"> 
+         <long>-1</long> 
+        </void> 
+       </object> 
+      </void> 
+      <void method="add"> 
+       <object id="AmItemRole2" class="it.webred.diogene.db.model.am.AmItemRole"> 
+        <void property="amApplicationItem"> 
+         <object idref="AmApplicationItem0"/> 
+        </void> 
+        <void property="amRole"> 
+         <object class="it.webred.diogene.db.model.am.AmRole"> 
+          <void property="amItemRoles"> 
+           <void method="add"> 
+            <object idref="AmItemRole2"/> 
+           </void> 
+          </void> 
+          <void property="name"> 
+           <string>Owner</string> 
+          </void> 
+         </object> 
+        </void> 
+        <void property="amRolePermissions"> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole2"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission2"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Scrittura {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole2"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission1"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Lettura {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmRolePermission"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole2"/> 
+           </void> 
+           <void property="amPermission"> 
+            <object idref="AmPermission0"/> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmRolePermissionId"> 
+             <void property="fkAmItemRole"> 
+              <long>-1</long> 
+             </void> 
+             <void property="fkAmPermission"> 
+              <string>Eliminazione {0} ({1})</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+        </void> 
+        <void property="amUserIrs"> 
+         <void method="add"> 
+          <object class="it.webred.diogene.db.model.am.AmUserIr"> 
+           <void property="amItemRole"> 
+            <object idref="AmItemRole2"/> 
+           </void> 
+           <void property="amUser"> 
+            <object class="it.webred.diogene.db.model.am.AmUser"> 
+             <void property="name"> 
+              <string>{2}</string> 
+             </void> 
+            </object> 
+           </void> 
+           <void property="id"> 
+            <object class="it.webred.diogene.db.model.am.AmUserIrId"> 
+             <void property="fkAmItemRole"> 
+              <long>1</long> 
+             </void> 
+             <void property="fkAmUser"> 
+              <string>{2}</string> 
+             </void> 
+            </object> 
+           </void> 
+          </object> 
+         </void> 
+        </void> 
+        <void property="id"> 
+         <long>-1</long> 
+        </void> 
+       </object> 
+      </void> 
+     </void> 
+     <void property="id"> 
+      <long>-1</long> 
+     </void> 
+    </object> 
+   </void> 
+  </void> 
+  <void property="ente"> 
+   <string>{1}</string> 
+  </void> 
+  <void property="name"> 
+   <string>Diritti sui Dati ({1})</string> 
+  </void> 
+  <void property="tipoApp"> 
+   <string>Diritti sui Dati</string> 
+  </void> 
+  <void property="catApp"> 
+      <long>99</long> 
+  </void> 
+ </object> 
+</java> 

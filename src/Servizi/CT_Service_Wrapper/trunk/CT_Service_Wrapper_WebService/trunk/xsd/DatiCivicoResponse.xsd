@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+		   jaxb:version="2.0">
+         
+    <xs:include schemaLocation="UserAuth.xsd"/>
+         
+	<xs:element name="datiCivico"> 
+        <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="infoUtente" type="userInfo" minOccurs="0" />
+                <xs:element name="risposta" type="risposta" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+		
+	
+	
+	<xs:complexType name="risposta">
+        <xs:sequence>
+            <!-- xs:element name="civico" type="ricercaCivico" minOccurs="0"/-->
+            <xs:element name="vie" type="infoVia" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="infoParticelleCivico" type="particellaInfo" minOccurs="0" maxOccurs="unbounded"/>
+            <xs:element name="countUnder18" type="xs:int" minOccurs="0"/>
+            <xs:element name="count1865" type="xs:int" minOccurs="0"/>
+            <xs:element name="countOver65" type="xs:int" minOccurs="0"/>
+            <xs:element name="countFamResidenti" type="xs:int" minOccurs="0"/>
+            <xs:element name="countFamResidentiProprietarie" type="xs:int" minOccurs="0"/>
+            <xs:element name="countLocazioni" type="xs:int" minOccurs="0"/>
+            <xs:element name="countLicenzeCommercio" type="xs:int" minOccurs="0"/>
+            <xs:element name="listaLicenzeCommercio" type="sitLicenzeCommercio" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="avgOMImq" type="xs:double" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    
+    <!-- RicercaCivicoDTO -->
+    <!-- 
+    <xs:complexType name="ricercaCivico" >
+        <xs:sequence>
+            <xs:element name="civico" type="xs:string" minOccurs="0"/>
+            <xs:element name="descrizioneVia" type="xs:string" minOccurs="0"/>
+            <xs:element name="toponimoVia" type="xs:string" minOccurs="0"/>
+            <xs:element name="idVia" type="xs:string" minOccurs="0"/>
+            <xs:element name="idCivico" type="xs:string" minOccurs="0"/>
+            <xs:element name="dataRif" type="xs:long" minOccurs="0"/>
+            <xs:element name="listaId" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+            
+        </xs:sequence>
+    </xs:complexType>
+    -->
+    
+    <xs:complexType name="infoVia" >
+        <xs:sequence>
+            <xs:element name="idVia" type="xs:string" minOccurs="0"/>
+            <xs:element name="descrizione" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- ParticellaInfoDTO -->
+    <xs:complexType name="particellaInfo" >
+        <xs:sequence>
+            <xs:element name="particella" type="particellaKey" minOccurs="0"/>
+            <xs:element name="subalterni" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="indirizzi" type="indirizzo" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="infoPerCategoria" type="infoPerCategoria" minOccurs="0" maxOccurs="unbounded" />
+            
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- ParticellaKeyDTO -->
+    <xs:complexType name="particellaKey" >
+        <xs:sequence>
+            <xs:element name="idSezc" type="xs:string" minOccurs="0" />
+            <xs:element name="foglio" type="xs:string" minOccurs="0" />
+            <xs:element name="particella" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <!-- IndirizzoDTO -->
+    <xs:complexType name="indirizzo" >
+        <xs:sequence>
+            <xs:element name="numCivico" type="xs:string" minOccurs="0" />
+            <xs:element name="strada" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    <!-- InfoPerCategoriaDTO -->
+    <xs:complexType name="infoPerCategoria" >
+        <xs:sequence>
+            <xs:element name="categoria" type="xs:string" minOccurs="0" />
+            <xs:element name="consistenzaTot" type="xs:decimal" minOccurs="0" />
+            <xs:element name="countUiu" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+	
+	<!-- SitLicenzeCommercio -->
+    <xs:complexType name="sitLicenzeCommercio" >
+        <xs:sequence>
+            <xs:element name="id" type="xs:string" minOccurs="0"/>
+            <xs:element name="annoProtocollo" type="xs:string" minOccurs="0"/>
+            <xs:element name="carattere" type="xs:string" minOccurs="0"/>
+            <xs:element name="civico" type="xs:string" minOccurs="0"/>
+            <xs:element name="civico2" type="xs:string" minOccurs="0"/>
+            <xs:element name="civico3" type="xs:string" minOccurs="0"/>
+            <xs:element name="codiceFabbricato" type="xs:string" minOccurs="0"/>
+            <xs:element name="ctrHash" type="xs:string" minOccurs="0"/>
+            <xs:element name="dataFineSospensione" type="xs:long" minOccurs="0"/>
+            <xs:element name="dataInizioSospensione" type="xs:long" minOccurs="0"/>
+            <xs:element name="dataRilascio" type="xs:long" minOccurs="0"/>
+            <xs:element name="dataValidita" type="xs:long" minOccurs="0"/>
+            <xs:element name="dtExpDato" type="xs:long" minOccurs="0"/>
+            <xs:element name="dtFineDato" type="xs:long" minOccurs="0"/>
+            <xs:element name="dtFineVal" type="xs:long" minOccurs="0"/>
+            <xs:element name="dtInizioDato" type="xs:long" minOccurs="0"/>
+            <xs:element name="dtInizioVal" type="xs:long" minOccurs="0"/>
+            <xs:element name="flagDtValDato" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="foglio" type="xs:string" minOccurs="0"/>
+            <xs:element name="note" type="xs:string" minOccurs="0"/>
+            <xs:element name="numero" type="xs:string" minOccurs="0"/>
+            <xs:element name="numeroProtocollo" type="xs:string" minOccurs="0"/>
+            <xs:element name="particella" type="xs:string" minOccurs="0"/>
+            <xs:element name="provenienza" type="xs:string" minOccurs="0"/>
+            <xs:element name="ragSoc" type="xs:string" minOccurs="0"/>
+            <xs:element name="riferimAtto" type="xs:string" minOccurs="0"/>
+            <xs:element name="sezioneCatastale" type="xs:string" minOccurs="0"/>
+            <xs:element name="stato" type="xs:string" minOccurs="0"/>
+            <xs:element name="subalterno" type="xs:string" minOccurs="0"/>
+            <xs:element name="superficieMinuto" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="superficieTotale" type="xs:decimal" minOccurs="0"/>
+            <xs:element name="tipologia" type="xs:string" minOccurs="0"/>
+            <xs:element name="zona" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

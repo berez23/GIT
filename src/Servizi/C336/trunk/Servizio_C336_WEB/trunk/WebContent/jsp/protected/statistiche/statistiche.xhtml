@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	
+	<rich:panel rendered="#{statisticheBean.visStats}">
+		<f:facet name="header">
+			<h:outputText value="Statistiche sulle pratiche per Operatore" />
+		</f:facet>
+	
+		<rich:dataTable style="width:1005px; margin-left: auto; margin-right: auto;"
+		var="row" value="#{statisticheBean.statistiche}" 
+		id="listStatistiche" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+		rows="30">
+		
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Operatore" />
+			</f:facet>
+			<h:outputText value="#{row.operatore}" style="font-weight: bold;"/>
+		</rich:column>
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Totale Pratiche Aperte" />
+			</f:facet>
+			<center>
+			    <h:outputText value="#{row.numPraAperte}" />
+			</center>
+		</rich:column>
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Totale Pratiche Chiuse" />
+			</f:facet>
+			<center>
+			    <h:outputText value="#{row.numPraChiuse}" />
+			</center>
+		</rich:column>
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Conteggio sulle Pratiche Chiuse" />
+			</f:facet>
+			
+			<h:panelGrid columns="2" width="100%">
+				<h:outputText value="Senza irregolarit&#x00E0; riscontrate" style="font-weight: bold;"/>
+				<h:panelGrid columns="1" width="100%" columnClasses="alignRight">
+					<h:outputText value="#{row.numPraChiuseRegolari}" />
+				</h:panelGrid>
+				<h:outputText value="Fabbricato/u.i. mai dichiarato in catasto" style="font-weight: bold;" />
+				<h:panelGrid columns="1" width="100%" columnClasses="alignRight">
+					<h:outputText value="#{row.numPraChiuseFabbMaiDich}"/>
+				</h:panelGrid>
+				<h:outputText value="Classificazione catastale incongruente" style="font-weight: bold;" />
+				<h:panelGrid columns="1" width="100%" columnClasses="alignRight">
+					<h:outputText value="#{row.numPraChiuseClassCat}" />
+				</h:panelGrid>
+				<h:outputText value="Fabbricato che  ha perso i requisiti di ruralit&#x00E0;" style="font-weight: bold;" />
+				<h:panelGrid columns="1" width="100%" columnClasses="alignRight">
+					<h:outputText value="#{row.numPraChiuseExRurale}" />
+				</h:panelGrid>
+				<h:outputText value="U.I. prima esenti da imposte ed ora soggette a tassazione" style="font-weight: bold;" />
+				<h:panelGrid columns="1" width="100%" columnClasses="alignRight">
+					<h:outputText value="#{row.numPraChiuseNonEsenti}" />
+				</h:panelGrid>
+				<h:outputText value="Senza indicazione dell'esito" style="font-weight: bold;" />
+				<h:panelGrid columns="1" width="100%" columnClasses="alignRight">
+					<h:outputText value="#{row.numPraChiuseNonCodificato}" />
+				</h:panelGrid>
+				
+			
+			</h:panelGrid>
+				
+			</rich:column>
+	</rich:dataTable>
+	</rich:panel>
+	<rich:panel rendered="#{!statisticheBean.visStats}">
+	<h:outputText value="Non ci sono i permessi per la visualizzazione delle Statistiche" style="font-weight: bold;" />
+	</rich:panel>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

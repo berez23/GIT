@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  	<ui:composition>
+  	
+  
+  		<div style="height:350px; overflow:auto">
+  			
+	    		<table align="center" style="width:100%">
+	    			<tr>
+	    				<td>
+	    					<h:outputText value="#{datiTecniciBean.titoloPanelDocs} - LISTA DOCUMENTI" styleClass="myLabel" />
+	    				</td>
+	    			</tr>
+	    			<tr>
+	    				<td>
+	    					<h:outputText value="DATA PROTOCOLLO #{datiTecniciBean.dataProtocollo} - NUM. PROTOCOLLO #{datiTecniciBean.numeroProtocollo}" styleClass="myLabel" />
+	    					<c:if test="#{not empty datiTecniciBean.dataScadProtocollo}" >
+		    					<h:outputText value="- SCADENZA VALIDITA #{datiTecniciBean.dataScadProtocollo}" styleClass="myLabel" />
+	    					</c:if>
+	    				</td>
+	    			</tr>
+	    		</table>
+				<rich:panel >
+
+				
+				 
+		
+				    <table class="rich-table" >
+				      <thead class="rich-table-thead" >
+				       <tr class="rich-table-header">
+				       	  <th class="rich-table-headercell">Tipo documento</th>
+				       	  <th class="rich-table-headercell">Nome documento</th>
+				       	  <th class="rich-table-headercell">Scarica il file...</th>
+				       </tr>
+				       </thead>
+				       <tbody>
+				       <c:forEach items="#{datiTecniciBean.listaDocsTecnici}" var="elem">
+				       	  <tr class="rich-table-row">
+				       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'"><h:outputText value="#{elem.tipoDoc}"/></td>
+				       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'"><h:outputText value="#{elem.nomeDoc}"/></td>
+				       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+				       	      
+				       	     	<h:commandLink target="_blank" action="#{datiTecniciBean.updateDocs}" value="Scarica">
+				       	     		<a4j:actionparam id="nomeFile" name="nomeFile" value="#{elem.nomeFileDoc}" assignTo="#{datiTecniciBean.nomeFileDoc}"/>
+					   				<a4j:actionparam id="tipoDati" name="tipoDati" value="#{elem.tipoDati}" assignTo="#{datiTecniciBean.tipoDati}"/>
+				       	     		
+				       	     	</h:commandLink>
+				       	     
+				       	     </td>
+				       	  </tr>
+				       	  
+				       	  
+				       </c:forEach>
+				       </tbody>
+				    </table>
+
+
+				</rich:panel>					
+			
+		</div>
+			
+  	</ui:composition>
+</html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+	<named-query name="FF.searchPFByDatiAna">
+		<query>
+			<![CDATA[
+				SELECT s
+				  FROM FFSoggetti s
+				 WHERE UPPER(s.cognome)= :cognome
+				   AND UPPER(s.nome)=:nome
+				   AND s.dtNas = :dtNas
+
+			]]>
+		</query>
+	</named-query>
+	<named-query name="FF.searchPFByDatiAnaCompleti">
+		<query>
+			<![CDATA[
+				SELECT s
+				  FROM FFSoggetti s
+				 WHERE UPPER(s.cognome)= :cognome
+				   AND UPPER(s.nome)=:nome
+				   AND s.dtNas = :dtNas
+				   AND UPPER(S.codFis) = :codFis
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="FF.getTipoDoc">
+		<query>
+			<![CDATA[
+				SELECT t
+				  FROM FFTipoDoc t
+				  ORDER BY t.desTipDoc
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="FF.getDistinctUserNameGestRic">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT r.id.userName 
+				FROM FFGestioneRichieste r
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="FF.getRispostaByIdRichiesta">
+		<query>
+			<![CDATA[
+				SELECT r 
+				FROM FFRisposte r
+				WHERE r.idRic= :idRichiesta
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="FF.evadiRichiesta">
+		<query>
+			<![CDATA[
+				UPDATE FFGestioneRichieste g SET g.dtFinGes=:dtFine WHERE g.id.idRic=:idRic AND g.dtFinGes IS NULL
+			]]>
+		</query>
+	</named-query>	
+	
+	<named-query name="FF.changePDFFile">
+		<query>
+			<![CDATA[
+			   UPDATE FFRichieste r SET r.nomePdf=:nomePdf WHERE r.idRic=:idRic 
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query CodiciTipoMezzoRisposta -->
+	<named-query name="CodiciTipoMezzoRisposta.getListaCodiciRisp">
+		<query>
+			<![CDATA[
+				SELECT c 
+				FROM CodiciTipoMezzoRisposta c
+				]]>
+		</query>
+	</named-query>					
+
+</entity-mappings>

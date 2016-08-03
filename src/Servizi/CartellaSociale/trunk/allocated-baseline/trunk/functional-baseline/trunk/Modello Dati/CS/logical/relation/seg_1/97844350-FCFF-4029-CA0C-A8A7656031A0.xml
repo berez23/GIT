@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_SEGNALAZIONE_ITER" id="97844350-FCFF-4029-CA0C-A8A7656031A0" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>B8B0F533-9785-0E33-7C2D-08372C18ED42</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>FD2960D8-C95C-6134-3A0C-0024E4FD1770</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FD2960D8-C95C-6134-3A0C-0024E4FD1770</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>1B96DE17-C629-C199-0097-2862D4D84A63</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

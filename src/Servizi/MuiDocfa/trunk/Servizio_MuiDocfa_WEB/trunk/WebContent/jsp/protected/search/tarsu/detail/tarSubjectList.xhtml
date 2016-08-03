@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA SOGGETTI Tarsu MODAL BOX -->
+<rich:modalPanel id="tarSubjectModalBox" minHeight="400" minWidth="1000"
+	height="400" width="1000" zindex="200" style="overflow:auto;">
+	<f:facet name="header">
+		<h:outputText value="Soggetti associati all'oggetto Tarsu"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="tarSubjectPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('tarSubjectModalBox');">
+						<a4j:actionparam name="pageS" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageTarSubjectList}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="tarSubjectForm">
+		<rich:dataTable width="100%"  var="row"
+			value="#{tarDetailBean.listaSoggettiTar}" id="listSubTarTable"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+			<rich:column width="70px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Titolo"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.titolo}" />
+			</rich:column>
+			<rich:column width="85px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Tipo soggetto" />
+				</f:facet>
+				<h:outputText rendered="#{row.soggetto.tipSogg eq 'F'}" value="Fisico" />
+				<h:outputText rendered="#{row.soggetto.tipSogg eq 'G'}"
+					value="Giuridico" />
+			</rich:column>
+			<rich:column width="110px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Cod.fisc./P.iva"
+						title="Codice fiscale/Partita iva"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.soggetto.codFisc}" />
+			</rich:column>
+			<rich:column width="202px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Denominazione"></h:outputText>
+				</f:facet>
+				<h:outputText
+					value="#{row.soggetto.cogDenom} #{row.soggetto.nome}" />
+			</rich:column>
+			<rich:column width="90px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Data di nascita"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.soggetto.dtNsc}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+2"/>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="94px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Residenza"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.soggetto.desComRes}" />
+			</rich:column>
+			<rich:column width="200px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Indirizzo"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.descViaResidenza}" />
+			</rich:column>
+			
+			<rich:column width="40px" sortable="false">
+				<f:facet name="header">
+					<h:graphicImage url="/images/titolare.png" id="imgtitolare"/>
+				</f:facet>
+				<center>
+					<h:graphicImage value="/images/passed.gif" id="imgpass1"
+								rendered="#{row.titoloCatastoUiu ne null}">
+					<rich:toolTip direction="bottom-right" mode="client" layout="inline"
+						value="Soggetto titolare a catasto per la uiu, alla data della dichiarazione Tarsu: #{row.titoloCatastoUiu}" />
+					</h:graphicImage>
+				
+					<h:graphicImage value="/images/error.gif" id="imgerr1"
+								rendered="#{row.titoloCatastoUiu eq null}">
+					<rich:toolTip direction="bottom-right" mode="client" layout="inline"
+						value="Soggetto non presente in catasto per la uiu, alla data della dichiarazione Tarsu" />
+					</h:graphicImage>
+				</center>
+			</rich:column>
+			
+			<rich:column width="40px" sortable="false">
+				<f:facet name="header">
+						<h:graphicImage url="/images/familiare.png" id="imgfamiliare"/>
+				</f:facet>
+				<center>
+					<h:graphicImage value="/images/passed.gif" id="imgpass2"
+								rendered="#{row.familiareSoggCat}">
+					<rich:toolTip direction="bottom-right" mode="client" layout="inline"
+						value="Familiare di un soggetto titolare a catasto per la uiu, alla data della dichiarazione Tarsu" />
+					</h:graphicImage>
+				
+					<h:graphicImage value="/images/error.gif" id="imgerr2"
+								rendered="#{!row.familiareSoggCat}">
+					<rich:toolTip direction="bottom-right" mode="client" layout="inline"
+						value="Dichiarante non appartenente al nucleo familiare di un soggetto titolare in catasto per la uiu, alla data della dichiarazione Tarsu" />
+				</h:graphicImage>
+				</center>
+			</rich:column>
+			
+			<rich:column width="40px" sortable="false">
+				<f:facet name="header">
+						<h:graphicImage url="/images/locatario.png" id="imglocatario"/>
+				</f:facet>
+				<center>
+					<h:graphicImage value="/images/passed.gif" id="img1"
+									rendered="#{row.locatarioIndTarsu}">
+						<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+						value="Soggetto locatario presso indirizzo Tarsu, alla data della dichiarazione" />
+					</h:graphicImage>
+						<h:graphicImage value="/images/error.gif" id="img2"
+									rendered="#{!row.locatarioIndTarsu}">
+						<rich:toolTip direction="bottom-right" mode="client" layout="inline"
+						value="Soggetto non locatario presso indirizzo Tarsu, alla data della dichiarazione" />
+					</h:graphicImage>
+				</center>
+			</rich:column>
+		</rich:dataTable>
+		
+		<rich:spacer height="40px" />
+		<h:outputText value="Legenda" style="font-weight: bold; margin-top: 10px;"/>
+		<rich:spacer height="30px" />
+		<h:panelGrid columns="2">
+			<h:graphicImage url="/images/titolare.png" id="imgLegtitolare"/>
+			<h:outputText value="Soggetto titolare a catasto per la uiu, alla data della dichiarazione Tarsu"/>
+			<h:graphicImage url="/images/familiare.png" id="imgLegfamiliare"/>
+			<h:outputText value="Familiare di un soggetto titolare a catasto per la uiu, alla data della dichiarazione Tarsu"/>
+			<h:graphicImage url="/images/locatario.png" id="imgLeglocatario"/>
+			<h:outputText value="Soggetto locatario presso indirizzo Tarsu, alla data della dichiarazione"/>
+		</h:panelGrid>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Chiudi" id="btnEsci"
+					reRender="tarSubjectPage"
+					oncomplete="Richfaces.hideModalPanel('tarSubjectModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml"
+						name="tarSubPage" assignTo="#{pageUiBean.pageTarSubjectList}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+			
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA SOGGETTI TARSU MODAL BOX -->
+
+</html>

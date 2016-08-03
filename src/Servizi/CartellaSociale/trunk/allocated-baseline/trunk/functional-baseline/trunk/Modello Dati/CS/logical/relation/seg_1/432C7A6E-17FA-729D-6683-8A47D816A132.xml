@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_DATISOC_TUTELANTE" id="432C7A6E-17FA-729D-6683-8A47D816A132" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>2B5DB1C3-F36A-724C-9F40-D573FD207782</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>true</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>2677A440-EF48-21F9-FFEC-547CF4C01F66</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F6CDE417-746D-A5A8-0CF5-AA270A3C6D38</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

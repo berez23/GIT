@@ -1,0 +1,100 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgInsediamentoNew" modal="true" width="1200px" height="500px" header="NUOVO INSEDIAMENTO" widgetVar="dlgInsediamentoNew" showEffect="fade" hideEffect="explode">
+		<h:form id="frmDlgInsediamentoNew">
+		<p:panelGrid styleClass="panelGrid" columns="6" style="width:auto;" cellpadding="10">
+			
+			<p:outputLabel value="Ragione Sociale" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendeBean.ragioneSocialeSearch}" rendered="false" />
+			<p:autoComplete id="azi" value="#{ricercheBean.aziendeBean.ragioneSocialeSearch}"  
+   				completeMethod="#{aziendeBean.completeAziende}" maxResults="10"  minQueryLength="2" queryDelay="2000" queryDeletionDelay="2000" >
+   			</p:autoComplete>  
+			
+			<p:outputLabel value="Partita IVA" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendeBean.partitaIvaSearch}" />
+			
+			<p:commandButton id="btnCercaAziende" 
+				value="Cerca Aziende" 
+				action="#{ricercheBean.aziendeBean.searchAziende()}" 
+				process="@form" 
+				update="pnlListaAziende" />
+
+		</p:panelGrid>
+		
+
+		<p:spacer height="15"/>
+
+		<p:outputPanel id="pnlListaAziende">				
+			 <p:dataTable id="dtListaAzienda" 
+			 	var="azi"  
+			 	value="#{ricercheBean.aziendeBean.listaAziende}" 
+			 	rowIndexVar="rowIndex"
+                      paginator="true" 
+                      rowKey="#{azi}" 
+                      selection="#{azi}" 
+                      selectionMode="single"                        
+				emptyMessage="Nessun elemento trovato" 
+				style="width:100%; table-layout:auto !important;" 
+				paginatorPosition="bottom"
+				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+         				rows="10">
+         				
+			 	<f:facet name="header">Lista Aziende</f:facet>
+			 	
+			 	<p:column>
+			 		<p:commandButton id="btnSalvaChiudi" 
+						value="Insedia in Lotto #{ricercheBean.lottoCur.codiceAsi}" 
+						action="#{ricercheBean.insediamentoSaveNew}" 
+						oncomplete="PF('dlgInsediamentoNew').hide()" 
+						update=":#{p:component('pnlAziendaInfo')}, :#{p:component('dtListaInsediamenti')}, :#{p:component('pnlLottoInfo')}"
+						process="@form">
+						<f:setPropertyActionListener target="#{ricercheBean.aziendaMod}" value="#{azi}"/>
+					</p:commandButton>
+
+			 	</p:column>
+			 	<p:column headerText="Cod. ASI" sortBy="#{azi.codiceAsi}" >
+			 		<h:outputText value="#{azi.codiceAsi}"/>
+			 	</p:column>
+			 	<p:column headerText="Ragione Sociale" sortBy="#{azi.ragioneSociale}">
+			 		<h:outputText value="#{azi.ragioneSociale}"/>
+			 	</p:column>
+			 	<p:column headerText="Rappr. Legale" sortBy="#{azi.rapprLegale}">
+			 		<h:outputText value="#{azi.rapprLegale}"/>
+			 	</p:column>
+			 	<p:column headerText="Attivita" sortBy="#{azi.attivita}">
+			 		<h:outputText value="#{azi.attivita}"/>
+			 	</p:column>
+			 	<p:column headerText="Indirizzo" sortBy="#{azi.viaCivico}">
+			 		<h:outputText value="#{azi.viaCivico}"/>
+			 	</p:column>
+			 	<p:column headerText="Comune" sortBy="#{azi.nomeComune}">
+			 		<h:outputText value="#{azi.nomeComune}"/>
+			 	</p:column>
+			 	<p:column headerText="P.IVA" sortBy="#{azi.piva}">
+				 	<h:outputText value="#{azi.piva}"/>
+			 	</p:column>
+			 	<p:column headerText="C.FISCALE" sortBy="#{azi.codFiscale}">
+				 	<h:outputText value="#{azi.codFiscale}"/>
+			 	</p:column>
+			 	<p:column headerText="TELEFONO" sortBy="#{azi.telefono}">
+				 	<h:outputText value="#{azi.telefono}"/>
+			 	</p:column>
+			 	<p:column headerText="EMAIL" sortBy="#{azi.email}">
+				 	<h:outputText value="#{azi.email}"/>
+			 	</p:column>
+
+			 </p:dataTable>
+												
+		</p:outputPanel>
+
+		</h:form>
+	</p:dialog>
+	
+
+</ui:composition>

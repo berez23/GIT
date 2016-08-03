@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+	   		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+ 
+ 
+ <!-- Remote JNDI -->
+ <!-- 
+ <bean id="jbossJNDI" class="org.springframework.jndi.JndiTemplate">
+ 	<property name="environment">
+ 		<props>
+ 			<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+      		<prop key="java.naming.provider.url">jnp://localhost:1099</prop>
+      		<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces</prop>       		 		
+ 		</props>
+ 	</property>
+ </bean>
+  -->
+  
+ 	<bean id="FFCommonService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_FasFab/Servizio_FasFab_EJB/FFCommonServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.ff.data.access.common.FFCommonService"/>
+	</bean>
+
+ 	<bean id="FFGestRichiestaService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_FasFab/Servizio_FasFab_EJB/GestRichiestaServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.ff.data.access.richieste.GestRichiestaService"/>
+	</bean>
+	<bean id="FFGestRispostaService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_FasFab/Servizio_FasFab_EJB/GestRispostaServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.ff.data.access.risposte.GestRispostaService"/>
+	</bean>	
+
+ 	<bean id="CatastoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CatastoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.catasto.CatastoService"/>
+	</bean>	
+
+	<bean id="ParameterService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ParameterBaseService"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.ParameterService"/>
+	</bean>	
+	
+	<bean id="CompravenditeFasFabService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_FasFab/Servizio_FasFab_EJB/CompravenditeFasFabServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.ff.data.access.dettaglio.compravendite.CompravenditeFasFabService"/>
+	</bean>	
+	
+	<bean id="DocfaService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/DocfaServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.docfa.DocfaService"/>
+	</bean>	
+	
+	<bean id="PregeoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/PregeoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.pregeo.PregeoService"/>
+	</bean>
+	
+	<bean id="ConcessioniEdilizieService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/ConcessioniEdilizieServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.concedilizie.ConcessioniEdilizieService"/>
+	</bean>
+ 
+	<bean id="IciFabbricatoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Aggregator_EJB/IciFabbricatoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.aggregator.ejb.tributiFabbricato.IciFabbricatoService"/>
+	</bean>
+	
+	<bean id="TarsuFabbricatoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Aggregator_EJB/TarsuFabbricatoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.aggregator.ejb.tributiFabbricato.TarsuFabbricatoService"/>
+	</bean>	
+	 
+	<bean id="IndiceCorrelazioneService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/IndiceCorrelazioneServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.indice.ricerca.IndiceCorrelazioneService"/>
+	</bean>
+	
+	
+	<bean id="AnagrafeService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/AnagrafeServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.anagrafe.AnagrafeService"/>
+	</bean>
+	
+	<bean id="LocazioniService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/LocazioniServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.locazioni.LocazioniService"/>
+	</bean>		
+	
+
+	
+	<bean id="IndiceAnagCatService"
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_FasFab/Servizio_FasFab_EJB/IndiceAnagCatServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.ff.data.access.common.IndiceAnagCatService"/>	
+	</bean> 
+
+	<bean id="PGTService" 
+
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/PGTServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.pgt.PGTService"/>
+	</bean>		
+
+	<bean id="DatiTecniciFabbricatoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/DatiTecniciFabbricatoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.datitecnicifabbricato.DatiTecniciFabbricatoService"/>
+	</bean> 
+		<bean id="LicenzeCommercioService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/LicenzeCommercioServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.licenzecommercio.LicenzeCommercioService"/>
+	</bean>		
+	<bean id="CondonoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CondonoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.condono.CondonoService"/>
+	</bean>	
+	
+	<bean id="ComuneService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ComuneServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.comune.ComuneService"/>
+	</bean> 	
+	<bean id="CosapService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CosapServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.cosap.CosapService"/>
+	</bean> 
+	<bean id="CommonService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CommonServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.common.CommonService"/>
+	</bean> 
+		
+	
+</beans>

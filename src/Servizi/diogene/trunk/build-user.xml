@@ -1,0 +1,26 @@
+<target name="init.marcoric" if="user.marcoric">
+				<property name="tomcat.location" value="C:\user\applicationServers\apache-tomcat-5.5.15" />
+</target>
+<target name="init.Monica" if="user.Monica">
+				<property name="tomcat.location" value="C:\sviluppo\jakarta-tomcat-5.5.15" />
+</target>
+<target name="init.tux" if="user.tux">
+	<property name="tomcat.location" value="G:/sviluppo/server/apache-tomcat-5.5.15" />
+</target>
+<target name="init.start">
+    <condition property="user.tux">
+      <equals arg1="${user.name}" arg2="tux" />
+    </condition>
+    <condition property="user.marcoric">
+      <equals arg1="${user.name}" arg2="marcoric" />
+    </condition>
+    <condition property="user.Monica">
+      <equals arg1="${user.name}" arg2="Monica" />
+    </condition>
+</target>
+
+<target name="initUser" depends="init.start, init.tux,init.marcoric, init.Monica">
+    
+</target>
+
+

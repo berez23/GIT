@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <jboss-web>
+ 	
+	<resource-ref>
+	 <res-ref-name>jdbc/mui</res-ref-name>
+	 <jndi-name>java:/jdbc/mui</jndi-name>
+	</resource-ref>	
+
+	<security-domain>java:/jaas/CeTSecurityDomain</security-domain>
+
+	<context-root>virgilio</context-root>
+
+</jboss-web>

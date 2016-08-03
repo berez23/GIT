@@ -1,0 +1,116 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+
+
+
+			<rich:modalPanel id="editPanel" autosized="true" width="600">
+		        <f:facet name="header">
+		            <h:outputText value="Dettaglio" />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="hideLink" />
+			     <rich:componentControl for="editPanel" attachTo="hideLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		        <h:form>
+		            <h:panelGrid columns="1">
+		            <a4j:outputPanel ajaxRendered="true">
+					<rich:dataTable width="300" id="spvList" rows="5" columnClasses="col" value="#{ricercaDettaglioBck.lstSuperficiPerVano}" var="spv">
+		            <f:facet name="header">
+		                <rich:columnGroup>
+				          <rich:column colspan="3">
+		                        <h:outputText value="Dettaglio superfici per vano (DOCFA) Foglio:#{ricercaDettaglioBck.selDatCen[0]} Particella:#{ricercaDettaglioBck.selDatCen[1]} Subalterno:#{ricercaDettaglioBck.selDatCen[2]} " />
+		                    </rich:column>
+		                    <rich:column breakBefore="true">
+		                        <h:outputText value="Superficie Metr." />
+		                    </rich:column>
+			                 <rich:column>
+		                        <h:outputText value="Ambiente" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText value="Altezza" />
+		                    </rich:column>
+		                </rich:columnGroup>
+		            </f:facet>
+		            
+		            <rich:column>
+		                <h:outputText value="#{spv[0]}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{spv[1]}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{spv[2]}" />
+		            </rich:column>
+		        	</rich:dataTable>
+		        	
+		        	
+		        	<rich:dataTable width="300" id="plaList" columnClasses="col" value="#{ricercaDettaglioBck.lstImagesFiles}" var="pla" rowKeyVar="rowKey">
+		            <f:facet name="header">
+		                <rich:columnGroup>
+				          <rich:column>
+		                        <h:outputText value="Scarica Planimetrie" />
+		                    </rich:column>
+		                </rich:columnGroup>
+		            </f:facet>
+
+		            <rich:column>
+		            <table>
+		            <tr>
+		            	<td align="left">
+		            		<h:outputText value="#{pla.descrizione}" />
+		            	</td>
+		            	<td align="center" style="width: 40px;">		           
+							<a href="javascript:apriPdf('#{pla.file.absolutePath}', '#{pla.formato}')" >
+									<h:outputText value="#{pla.esiste ? 'PDF' : ''}" />
+							</a>								
+		            	</td>
+		            	<td align="center" style="width: 40px;">
+							<a href="javascript:apriJpg('#{pla.file.absolutePath}', '#{pla.formato}', '#{pla.descrizione}')" >
+									<h:outputText value="#{pla.esiste ? 'JPG' : ''}" />
+							</a>								
+		            	</td>
+		            </tr>
+		            </table>
+		            </rich:column>
+		            
+		            <!-- 
+  		             <rich:column>
+  		              <rich:simpleTogglePanel id="stb_#{rowKey}" switchType="client" opened="false" label="Planimetria n. #{rowKey}">
+		            	<a4j:mediaOutput
+			           		id="pdfOut"
+			           		name="pdfOut" 
+			           		width="600px"
+	                        height="600px"
+			           		standBy="loading..."
+			           		element="embed" uriAttribute="src" type="application/pdf"
+			            	cacheable="false" 
+			            	session="true"
+	        				createContent="#{ricercaDettaglioBck.loadPDF}" 
+	        				mimeType="application/pdf"/>
+				    </rich:simpleTogglePanel>   
+
+		            </rich:column> 
+		             -->
+		        	</rich:dataTable>
+		        
+		            </a4j:outputPanel>
+		            </h:panelGrid>  
+		             <table border="0">
+		             <tr>
+		             	<td align="center" width="49%">
+							<a4j:commandButton styleClass="my-button" value="Chiudi" ajaxSingle="false" id="hideBtn" oncomplete="#{rich:component('editPanel')}.hide();"/>		             	
+		             	</td>
+					</tr>
+			        </table>  
+		        </h:form>
+		    </rich:modalPanel>
+		    
+</ui:composition>
+		    

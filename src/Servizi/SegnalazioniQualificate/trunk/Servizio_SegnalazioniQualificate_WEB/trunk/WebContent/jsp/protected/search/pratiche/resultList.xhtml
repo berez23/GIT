@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<rich:dataTable width="100%" var="row" value="#{praticaDataModel}"
+	id="listTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+	rows="30">
+	<f:facet name="header">
+		<rich:columnGroup>
+			<rich:column colspan="20">
+				<h:outputText value="Lista Pratiche" />
+			</rich:column>
+		</rich:columnGroup>
+	</f:facet>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Num." title="Numero" />
+		</f:facet>
+		<h:outputText value="#{row.pratica.id}" />
+	</rich:column>
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Data Inizio" />
+		</f:facet>
+		<h:outputText value="#{row.pratica.accDataInizio}">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Data Chiusura" title="Data Chiusura" />
+		</f:facet>
+		<h:outputText value="#{row.pratica.accDataFine}">
+			<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+		</h:outputText>
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Finalita'" title="Finalita'" />
+		</f:facet>
+		<h:outputText value="#{row.accFinalitaDecoded}" />
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Stato Pratica" title="Stato Pratica" />
+		</f:facet>
+		<h:outputText value="#{row.accStatoDecoded}" />
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Operatore" title="Operatore" />
+		</f:facet>
+		<h:outputText value="#{row.pratica.operatoreId}" />
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+		<h:outputText value="CF/P.IVA Responsabile" title="CF/P.IVA Responsabile" />
+		</f:facet>
+		<h:outputText value="#{row.pratica.resCodiFisc}" />
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Responsabile" title="Responsabile" />
+		</f:facet>
+		<h:outputText value="#{row.pratica.resCognome} #{row.pratica.resNome}" />
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="CF/P.IVA Soggetto Accertato" title="CF/P.IVA Soggetto Accertato" />
+		</f:facet>
+		<h:outputText rendered ="#{row.pratica.accTipoSogg eq 'G'}" value="#{row.pratica.accCodiPiva}" />
+		<h:outputText rendered ="#{row.pratica.accTipoSogg eq 'P'}" value="#{row.pratica.accCodiFisc}" />
+	</rich:column>
+	
+	<rich:column>
+		<f:facet name="header">
+			<h:outputText value="Denominazione Soggetto Accertato" title="Denominazione Soggetto Accertato" />
+		</f:facet>
+		<h:outputText rendered ="#{row.pratica.accTipoSogg eq 'G'}" value="#{row.pratica.accDenominazione}" />
+		<h:outputText rendered ="#{row.pratica.accTipoSogg eq 'P'}" value="#{row.pratica.accCognome} #{row.pratica.accNome}" />
+	</rich:column>
+	
+	
+	<f:facet name="footer">
+		<rich:datascroller id="tableScroller" style="padding-bottom: 13px;" />
+	</f:facet>
+
+	<rich:componentControl event="onRowClick" for="menu" operation="show">
+		<f:param name="idPraticaSelected" value="#{row.pratica.id}" />
+	</rich:componentControl>
+</rich:dataTable>
+
+<rich:spacer height="10px" />
+
+<center><h:outputText value="Esporta i primi 1000 risultati in " />
+<h:commandLink rendered="false" action="#{exportXLSBean.searchResultExportToXls}">
+	<h:graphicImage value="/images/xls.png"
+		style="padding-left:10px; border: 0; cursor: pointer;" />
+</h:commandLink>
+<h:commandLink action="#{exportPDFBean.searchResultExportToPdf}">
+	<h:graphicImage value="/images/pdf.png"
+		style="padding-left:10px; border: 0; cursor: pointer;" />
+</h:commandLink>
+</center>
+
+</html>

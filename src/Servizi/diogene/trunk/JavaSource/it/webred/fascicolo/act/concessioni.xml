@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL concessioni</comment>
+	<entry key="sqlConcessioni">
+	<![CDATA[
+		SELECT DISTINCT FOGLIO, PARTICELLA, SUBALTERNO, c.ID , C.PROTOCOLLO_NUMERO, C.PROTOCOLLO_DATA,
+		C.PROGRESSIVO_NUMERO, C.PROGRESSIVO_ANNo, P.DENOMINAZIONE, P.CODICE_FISCALE,  CP.TITOLO
+		FROM SIT_C_CONCESSIONI C , SIT_C_CONCESSIONI_CATASTO CC, SIT_C_CONC_PERSONA CP, SIT_C_PERSONA P 
+		WHERE CC.ID_EXT_C_CONCESSIONI = C.ID_EXT 
+		AND C.ID_EXT = CP.ID_EXT_C_CONCESSIONI (+)
+		AND CP.ID_EXT_C_PERSONA = P.ID_EXT (+)
+		 AND LPAD (TRIM (FOGLIO), 4, '0')  = LPAD (TRIM (?), 4, '0')
+		 AND  LPAD (TRIM (PARTICELLA), 5, '0') =  LPAD (TRIM (?), 5, '0')
+	]]>
+	</entry>
+	<entry key="sqlConcessioniSub">
+	<![CDATA[
+			 AND LPAD (TRIM (SUBALTERNO), 4, '0') = LPAD (TRIM (?), 4, '0')
+	]]>
+	</entry>
+	<entry key="sqlConcessioniOrder">			
+	<![CDATA[
+		 order by foglio, particella, SUBALTERNO, PROTOCOLLO_DATA
+	]]>
+	</entry>		
+</properties>
+
+

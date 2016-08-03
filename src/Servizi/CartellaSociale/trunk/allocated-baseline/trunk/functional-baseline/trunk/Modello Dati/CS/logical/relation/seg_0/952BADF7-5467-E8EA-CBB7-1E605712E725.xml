@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_CASOOP_OTO" id="952BADF7-5467-E8EA-CBB7-1E605712E725" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>5919747E-34D8-343A-0970-02F615AFDF65</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>970C308D-64F2-3271-8571-F9A7936F9DC9</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>0F83F77F-B28A-FC40-E8DE-BA5B60CD5DE7</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

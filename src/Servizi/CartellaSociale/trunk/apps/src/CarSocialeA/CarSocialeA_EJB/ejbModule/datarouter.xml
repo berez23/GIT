@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/webflow-config
+        http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/faces 
+		http://www.springframework.org/schema/faces/spring-faces-2.0.xsd
+		http://www.springframework.org/schema/webflow-config 
+		http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd">
+
+
+	<bean id="source_0" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_0" />
+	</bean>
+	<bean id="source_1" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_1" />
+	</bean>
+	<bean id="source_2" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_2" />
+	</bean>
+	<bean id="source_3" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_3" />
+	</bean>
+	<bean id="source_4" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_4" />
+	</bean>
+	<bean id="source_5" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_5" />
+	</bean>
+	<bean id="source_6" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_6" />
+	</bean>
+	<bean id="source_7" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_7" />
+	</bean>
+	<bean id="source_8" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_8" />
+	</bean>
+	<bean id="source_9" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_9" />
+	</bean>
+	<bean id="source_10" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_10" />
+	</bean>
+	<bean id="source_11" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_11" />
+	</bean>
+	<bean id="source_12" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_12" />
+	</bean>
+	<bean id="source_13" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_13" />
+	</bean>
+	<bean id="source_14" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_14" />
+	</bean>
+	<bean id="source_15" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:/jdbc/Cs_DS_15" />
+	</bean>
+
+
+	<bean id="dataSourceRouter" class="it.webred.ct.support.datarouter.DatasourceRouterBean">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="0" value-ref="source_0" />
+				<entry key="1" value-ref="source_1" />
+				<entry key="2" value-ref="source_2" />
+				<entry key="3" value-ref="source_3" />
+				<entry key="4" value-ref="source_4" />
+				<entry key="5" value-ref="source_5" />
+				<entry key="6" value-ref="source_6" />
+				<entry key="7" value-ref="source_7" />
+				<entry key="8" value-ref="source_8" />
+				<entry key="9" value-ref="source_9" />
+				<entry key="10" value-ref="source_10" />
+				<entry key="11" value-ref="source_11" />
+				<entry key="12" value-ref="source_12" />
+				<entry key="13" value-ref="source_13" />
+				<entry key="14" value-ref="source_14" />
+				<entry key="15" value-ref="source_15" />
+			</map>
+		</property>
+		<property name="defaultTargetDataSource" ref="source_0" />
+	</bean>
+
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="META-INF/carsoc_persistence.xml" />
+		<property name="dataSource" ref="dataSourceRouter" />
+		<property name="persistenceUnitName" value="CarSocialeA_DataModel" />
+		<property name="jpaProperties">
+			<props>
+				<!-- prop key="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</prop-->
+				<prop key="hibernate.dialect">it.webred.ct.data.spatial.OracleSpatialDialect</prop>
+				<prop key="hibernate.show_sql">false</prop>
+			</props>
+		</property>
+		<property name="jpaDialect">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect" />
+		</property>
+	</bean>
+</beans>	

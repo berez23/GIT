@@ -1,0 +1,21 @@
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"	pageEncoding="ISO-8859-1"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Accesso Negato</title>
+		<meta http-equiv="Content-Style-Type" content="text/css" />
+		<BASE href="<%=request.getRequestURL()%>">
+		
+		<link href="css/style.css" type="text/css" rel="stylesheet" />	
+		<link href="css/menuH.css" type="text/css" rel="stylesheet" />	
+		<link href="css/styleNavigatore.css" type="text/css" rel="stylesheet" />	
+		<!--[if IE]> <style type="text/css">IMG,INPUT,A {behavior:url("iepngfix.htc")};</style> <![endif]-->
+	</head>
+	<body>
+		<div id="contentwrap">
+			  <div style="text-align: center;">Non ci sono i permessi necessari per accedere alla risorsa</div>
+			  <div style="text-align: center;">Per entrare con un altro utente fai click <a href='<%= response.encodeURL("./logout-redirect.secure") %>'>qui</a></div>
+		</div>
+	</body>
+</html>

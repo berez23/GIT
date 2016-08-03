@@ -1,0 +1,150 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+  
+  
+			<rich:modalPanel id="classamentoPanel" autosized="true" width="600">
+		        <f:facet name="header">
+		            <h:outputText value="Classamento Compatibile per Foglio:#{ricercaDettaglioBck.selClaCom.foglio} Particella:#{ricercaDettaglioBck.selClaCom.particella} Subalterno:#{ricercaDettaglioBck.selClaCom.subalterno} " />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="classamentoZcLink" />
+			     <rich:componentControl for="classamentoPanel" attachTo="classamentoZcLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		        <h:form>
+		            <h:panelGrid columns="1">
+		            <a4j:outputPanel ajaxRendered="true">
+		            <table>
+		            <tr>
+		            	<td>Rendita Proposta</td>
+		            	<td>
+		            		<h:outputText value="#{ricercaDettaglioBck.selClaCom.rendita}" >
+		            		<f:convertNumber type="number" minFractionDigits="2" />
+		            		</h:outputText>
+		            	</td>
+		            </tr>
+		            <tr>
+		            	
+		            	<td>Rendita Media Attesa</td>
+		            	<td>
+		            		<h:outputText value="#{ricercaDettaglioBck.selClaCom.mediaAttesa}" >
+		            		<f:convertNumber type="number" minFractionDigits="2" />
+		            		</h:outputText>
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td>Consistenza</td>
+		            	<td>
+		            		<h:outputText value="#{ricercaDettaglioBck.selClaCom.consistenza}" >
+		            		<f:convertNumber type="number" minFractionDigits="2" />
+		            		</h:outputText>
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td>Rendita media attesa per vano</td>
+		            	<td>
+		            		<h:outputText value="#{ricercaDettaglioBck.selClaCom.mediaAttesaPerVano}" >
+		            		<f:convertNumber type="number" minFractionDigits="2" />
+		            		</h:outputText> 
+		            	</td>
+		            </tr>
+		            <tr>
+		            	
+		            	<td>Rapporto Val. Comm.le / Rendita x 105 </td>
+		            	<td>
+		            		<h:outputText value="#{ricercaDettaglioBck.selClaCom.valComSuRen105}" >
+		            		<f:convertNumber type="number" minFractionDigits="2" />
+		            		</h:outputText> 
+		            	</td>
+		            </tr>
+		            <tr>
+		            	<td>Valore di rapporto</td>
+		            			            	
+		            	<td>
+		            		<h:inputText id="txtRapporto" binding="#{ricercaDettaglioBck.txtRapporto}" value="#{ricercaDettaglioBck.selClaCom.rapporto}" style="width: 70px" styleClass="MyInput">
+		            		<f:convertNumber type="number" minFractionDigits="2" />
+		            		</h:inputText>
+		            	</td>
+		            	
+		            </tr>
+		            <tr>	
+		            	<td>
+		            		<a4j:commandButton styleClass="my-button" value="Ricalcola" action="#{ricercaDettaglioBck.showClassamento}" ajaxSingle="false" ></a4j:commandButton>
+		            	</td>
+		            </tr>
+		            </table>
+		            
+					<rich:dataTable width="200" id="claComList" rows="5" columnClasses="col" value="#{ricercaDettaglioBck.lstClaCom}" var="claCom">
+		            <f:facet name="header">
+		                <rich:columnGroup>
+				          <rich:column colspan="5">
+		                        <h:outputText value="Dati Categoria / Classe Compatibile" />
+		                    </rich:column>
+		                    <rich:column breakBefore="true">
+		                        <h:outputText value="Zona" />
+		                    </rich:column>
+			                 <rich:column>
+		                        <h:outputText value="Categoria" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText value="Classe" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText value="Tariffa per vano" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText value="Rendita" />
+		                    </rich:column>
+		                </rich:columnGroup>
+		            </f:facet>
+		            
+		            <rich:column>
+		                <h:outputText value="#{claCom.zona}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{claCom.categoria}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{claCom.classe}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{claCom.tariffa}" >
+      		            		<f:convertNumber type="number" minFractionDigits="2" />
+		                </h:outputText>
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{claCom.rendita}" >
+      		            		<f:convertNumber type="number" minFractionDigits="2" />
+		                </h:outputText>
+		            </rich:column>
+		            
+		        	</rich:dataTable>
+		        	
+		        	<table border="0">
+		             <tr>
+		             	<td align="center" width="49%">
+							<a4j:commandButton 
+								styleClass="my-button" 
+								value="Chiudi" 
+								ajaxSingle="false" 
+								id="hideBtn" 
+								oncomplete="#{rich:component('classamentoPanel')}.hide();"/>		             	
+		             	</td>
+					</tr>
+			        </table> 
+		            </a4j:outputPanel>
+		            </h:panelGrid>  
+		             
+		        </h:form>
+		    </rich:modalPanel>
+	
+  
+  
+  
+</ui:composition>

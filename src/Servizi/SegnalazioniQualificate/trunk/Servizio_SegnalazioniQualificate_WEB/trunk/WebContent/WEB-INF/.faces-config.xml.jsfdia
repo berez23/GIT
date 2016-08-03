@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="segnalazioni.search::#jsp#protected#search#pratiche#search.xhtml"
+    NAME="output1" PATH="/jsp/protected/search/pratiche/search.xhtml"
+    TARGET="rules:#jsp#protected#search#pratiche#search.xhtml"
+    TITLE="segnalazioni.search" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnalazioni.detail::#jsp#protected#search#pratiche#detail#detail.xhtml"
+    NAME="output2"
+    PATH="/jsp/protected/search/pratiche/detail/detail.xhtml"
+    TARGET="rules:#jsp#protected#search#pratiche#detail#detail.xhtml"
+    TITLE="segnalazioni.detail" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnalazioni.modifica::#jsp#protected#gestione#pratiche#gestionePratica.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/gestione/pratiche/gestionePratica.xhtml"
+    TARGET="rules:#jsp#protected#gestione#pratiche#gestionePratica.xhtml"
+    TITLE="segnalazioni.modifica" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnalazioni.chiusura::#jsp#protected#gestione#pratiche#chiusuraPratica.xhtml"
+    NAME="output4"
+    PATH="/jsp/protected/gestione/pratiche/chiusuraPratica.xhtml"
+    TARGET="rules:#jsp#protected#gestione#pratiche#chiusuraPratica.xhtml"
+    TITLE="segnalazioni.chiusura" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnalazioni.ade.modifica::#jsp#protected#gestione#pratiche#gestionePraticaAdE.xhtml"
+    NAME="output3"
+    PATH="/jsp/protected/gestione/pratiche/gestionePraticaAdE.xhtml"
+    TARGET="rules:#jsp#protected#gestione#pratiche#gestionePraticaAdE.xhtml"
+    TITLE="segnalazioni.ade.modifica" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="segnalazioni.apertura::#jsp#protected#gestione#pratiche#nuovaPratica.xhtml"
+    NAME="output5"
+    PATH="/jsp/protected/gestione/pratiche/nuovaPratica.xhtml"
+    TARGET="rules:#jsp#protected#gestione#pratiche#nuovaPratica.xhtml"
+    TITLE="segnalazioni.apertura" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#search#pratiche#search.xhtml"
+  PATH="/jsp/protected/search/pratiche/search.xhtml"
+  SHAPE="432,312,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#search#pratiche#detail#detail.xhtml"
+  PATH="/jsp/protected/search/pratiche/detail/detail.xhtml"
+  SHAPE="512,384,50,25" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#gestione#pratiche#chiusuraPratica.xhtml"
+  PATH="/jsp/protected/gestione/pratiche/chiusuraPratica.xhtml"
+  SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#gestione#pratiche#nuovaPratica.xhtml"
+  PATH="/jsp/protected/gestione/pratiche/nuovaPratica.xhtml"
+  SHAPE="304,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#gestione#pratiche#gestionePratica.xhtml"
+  PATH="/jsp/protected/gestione/pratiche/gestionePratica.xhtml"
+  SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#gestione#pratiche#gestionePraticaAdE.xhtml"
+  PATH="/jsp/protected/gestione/pratiche/gestionePraticaAdE.xhtml"
+  SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

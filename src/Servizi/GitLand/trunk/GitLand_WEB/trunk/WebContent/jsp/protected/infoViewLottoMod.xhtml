@@ -1,0 +1,90 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgLottoMod" modal="true" header="MODIFICA LOTTO" widgetVar="dlgLottoMod" showEffect="fade" hideEffect="explode">
+		<h:form id="frmDlgLotto">
+		<p:panelGrid styleClass="panelGrid" columns="4" style="width:auto;" cellpadding="10">
+
+			<p:outputLabel for="txtCodiceAsi" value="Codice ASI" style="font-weight:bold;"/>
+			<p:inputText id="txtCodiceAsi" value="#{ricercheBean.lottoCur.codiceAsi}" readonly="true" />
+
+			<p:outputLabel for="txtArea" value="Area" style="font-weight:bold;"/>
+			<p:inputText id="txtArea" value="#{ricercheBean.lottoCur.area}" style="text-align: right">
+				<f:convertNumber pattern="#0.00"/>
+			</p:inputText>
+
+			<p:outputLabel for="txtPerimetro" value="Perimetro" style="font-weight:bold;"/>
+			<p:inputText id="txtPerimetro" value="#{ricercheBean.lottoCur.perimetro}" style="text-align: right">
+				<f:convertNumber pattern="#0.00"/>
+			</p:inputText>
+
+			<p:outputLabel for="txtPRTC" value="PRTC" style="font-weight:bold;"/>
+			<p:inputText id="txtPRTC" value="#{ricercheBean.lottoCur.prtc}" />
+
+			<p:outputLabel for="txtSupFondiaria" value="Sup Fondiaria" style="font-weight:bold;"/>
+			<p:inputText id="txtSupFondiaria" value="#{ricercheBean.lottoCur.supFondiaria}" style="text-align: right">
+				<f:convertNumber pattern="#0.00"/>
+			</p:inputText>
+
+			<p:outputLabel for="txtSupEdificabile" value="Sup Edificabile" style="font-weight:bold;"/>
+			<p:inputText id="txtSupEdificabile" value="#{ricercheBean.lottoCur.supEdificabile}" style="text-align: right">
+				<f:convertNumber pattern="#0.00"/>
+			</p:inputText>
+
+			<p:outputLabel for="txtIndirizzo" value="Indirizzo" style="font-weight:bold;"/>
+			<p:inputText id="txtIndirizzo" value="#{ricercheBean.lottoCur.indirizzo}" />
+
+			<p:outputLabel for="txtNome" value="Comune" style="font-weight:bold;"/>
+			<p:inputText id="txtNome" value="#{ricercheBean.comuneLotCur.nome}" />
+
+			<p:outputLabel for="txtNote" value="Note" style="font-weight:bold;"/>
+			<p:inputText id="txtNote" value="#{ricercheBean.lottoCur.note}" />
+
+			<p:outputLabel for="txtNumAddetti" value="Num. Addetti" style="font-weight:bold;"/>
+			<p:inputText id="txtNumAddetti" value="#{ricercheBean.lottoCur.numAddetti}" />
+
+			<p:outputLabel for="somStatusUltimo" value="Libero/Occupato" style="font-weight:bold;"/>
+			<p:selectOneMenu id="somStatusUltimo" value="#{ricercheBean.lottoCur.statusUltimo}" >
+				<f:selectItem itemLabel="" itemValue="" />
+				<f:selectItem itemLabel="Libero" itemValue="false" />
+				<f:selectItem itemLabel="Occupato" itemValue="true" />
+			</p:selectOneMenu>
+
+			<p:outputLabel for="txtCessasto" value="Cessato" style="font-weight:bold;"/>
+			<p:inputText id="txtCessasto" value="#{ricercheBean.lottoCur.cessato}" />
+
+			<p:outputLabel for="calCessato" value="Data Cessazione" style="font-weight:bold;"/>
+			<p:calendar id="calCessato" value="#{ricercheBean.lottoCur.dataCessazione}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:outputLabel for="txtLottiAvi" value="Lotti Avi" style="font-weight:bold;"/>
+			<p:inputText id="txtLottiAvi" value="#{ricercheBean.lottoCur.lottiAvi}" readonly="true"/>
+
+			<p:outputLabel for="txtLottiEredi" value="Lotti Eredi" style="font-weight:bold;"/>
+			<p:inputText id="txtLottiEredi" value="#{ricercheBean.lottoCur.lottiEredi}" />
+
+			<p:outputLabel for="txtMotivo" value="Motivo" style="font-weight:bold;"/>
+			<p:inputText id="txtMotivo" value="#{ricercheBean.lottoCur.motivo}" readonly="true" />
+
+			<p:commandButton id="btnSalvaChiudi" 
+					value="Salva e Chiudi" 
+					action="#{ricercheBean.lottoSaveMod}" 
+					oncomplete="PF('dlgLottoMod').hide()" 
+					update=":#{p:component('pnlLottoInfo')}"
+					process="@form"
+					disabled="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+		</p:panelGrid>
+		</h:form>
+	</p:dialog>
+
+
+</ui:composition>

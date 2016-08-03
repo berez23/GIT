@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<service name="WSVerificaCoordinate">
+
+	<description>Web Service Wrapper</description>
+
+	<parameter name="ServiceClass">it.webred.ct.service.wrapper.verificaCoordinate.ws.WSVerificaCoordinate</parameter>
+	<parameter name="ServiceTCCL">composite</parameter>
+	
+	<operation name="verificaCoordinate">
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+	</operation>
+	
+	<!-- -->
+	<module ref="rampart" />
+
+	<parameter name="InflowSecurity">
+		<action>
+			<items>UsernameToken</items>
+			<passwordCallbackClass>it.webred.ct.service.wrapper.verificaCoordinate.handler.PWCBServiceHandler</passwordCallbackClass>
+		</action>
+	</parameter>
+	<!-- -->
+	 
+</service>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+	<persistence-unit name="Servizio_TsSoggiorno_Data_Model" transaction-type="JTA">		
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>  
+		<mapping-file>META-INF/orm_tssoggiorno.xml</mapping-file>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsClasse</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsClassiStruttura</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsClassiStrutturaPK</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsDichiarazione</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsEsenzione</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsImpostaIncassata</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsImpostaDovuta</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsModuloDati</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsModuloEventi</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsModuloOspiti</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPagAnticipato</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPeriodo</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPeriodoModuloDati</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPeriodoModuloDatiPK</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsRiduzione</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsRifiuto</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsRifiutoGruppo</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsRimborso</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsSanzione</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsSocieta</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsSocietaSogg</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsSoggetto</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsStruttura</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsStrutturaSnap</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsTabModulo</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsTabModuloField</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsVersato</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsTariffa</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsTariffaPK</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsConfig</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPagMavDisposizione</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPagMavPagamento</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.IsPagMavSoggetto</class>
+		<class>it.webred.ct.service.tsSoggiorno.data.model.Sitidstr</class>
+
+		<properties>
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle9iDialect"/>
+			<!-- property name="hibernate.hbm2ddl.auto" value="update"/-->
+			<property name="hibernate.show_sql" value="false"/>
+			<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+		</properties>
+	</persistence-unit>
+</persistence>

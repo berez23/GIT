@@ -1,0 +1,262 @@
+body {
+	font-family: Arial, Verdana, sans-serif;
+	margin-left: 2.5%;
+	padding: 0;
+	width: 95%;
+}
+
+.messageLabel {
+	font-family: Arial, Verdana, sans-serif;
+	font-weight: bold;
+}
+
+.rich-panel {
+	border: 0;
+	padding: 0;
+}
+
+.rich-panel-header {
+	padding: 3px;
+	border-color: #4F94CD;
+	font-size: 15px;
+	font-weight: normal;
+	font-family: sans-serif;
+}
+
+.rich-tree-node {
+	padding-top: 3px;
+}
+
+.rich-tree-node-highlighted {
+	color: gray;
+}
+
+.rich-tree-node-text {
+	font-size: 13px;
+}
+
+.rich-tree-node-selected {
+	border: 0px;
+}
+
+.rich-tree-h-ic-img,.rich-tree-node-handleicon-collapsed,.rich-tree-node-handleicon-expanded {
+	width: auto;
+	height: auto;
+}
+
+.rich-tree-h-ic-line {
+	background-image: none;
+}
+
+.rich-tree-h-ic-line-last {
+	background-image: none;
+}
+
+.rich-tree-h-ic-line-node,.rich-tree-h-ic-line-last,.rich-tree-h-ic-line-exp,.rich-tree-h-ic-line-clp
+	{
+	background-position: 0;
+}
+
+.rich-tree-node-icon,.rich-tree-node-icon-leaf,.rich-tree-node-handleicon
+	{
+	padding: 0;
+}
+
+textarea[type="textarea"],input[type="text"],input[type="password"],select
+	{
+	background-image: none;
+	border-style: solid;
+	width: 120px;
+}
+
+button[type="button"],button[type="reset"],button[type="submit"],input[type="reset"],input[type="submit"],input[type="button"]
+	{
+	border: 0;
+	font-size: 15px;
+	font-weight: normal;
+	margin-top: 2px;
+}
+
+.invalidField {
+	font-weight: bold;
+	border: 3px red solid;
+}
+
+.clsTip {
+	color: gray;
+}
+
+.colMenu {
+	width: 18%;
+}
+
+.clsMenuPanel {
+	background-image: url(../images/tab_active.png);
+}
+
+a.clsMenu {
+	font-size: 15px;
+	color: black;
+	background-image: url(../images/tab_active.png);
+	text-decoration: none;
+}
+
+a:hover.clsMenu {
+	font-size: 15px;
+	color: gray;
+	background-image: url(../images/tab_active.png);
+	text-decoration: none;
+}
+
+a.clsMenuAttivo {
+	font-size: 15px;
+	font-weight: bold;
+	color: gray;
+	/*background-image: url(../images/tab_inactive.png);*/
+	text-decoration: none;
+}
+
+.clsMenu {
+	font-size: 15px;
+	color: black;
+	background-image: url(../images/tab_active.png);
+	text-decoration: none;
+}
+
+.clsMenuPanel {
+	border-right: 5px #4F94CD solid;
+	border-bottom: 5px #4F94CD solid;
+	padding: 0;
+}
+
+.clsCenterPanel {
+	border-left: 5px #4F94CD solid;
+	border-bottom: 5px #4F94CD solid;
+}
+
+.clsTitoletto {
+	font-size: 15px;
+	color: grey;
+}
+
+.clsDisabled {
+	color: grey;
+}
+
+.clsButton {
+	background-color: grey;
+	cursor: pointer;
+	color: white;
+	font-weight:bold;
+}
+
+.clsButtonH {
+	padding: 2px;
+	padding-left: 6px;
+	padding-right: 6px;
+	background-color: #4F94CD;
+	color: black;
+	cursor: default;
+	font-size: 15px;
+	text-decoration: none;
+	
+}
+
+a:hover.clsButtonH {
+	color: black;
+}
+
+.clsButtonExp {
+	padding: 2px;
+	padding-top: 3px;
+	background-color: grey;
+	cursor: pointer;
+	color: white;
+	text-decoration: none;
+	font-weight:bold;
+	
+}
+
+a:hover.clsButtonExp {
+	color: white;
+}
+
+.clsTable {
+	border: 1px silver solid;
+	border-spacing: 0px;
+	border-collapse: collapse;
+	margin: 10px;
+}
+
+.clsEvenRow {
+   background-color: white;
+}
+.clsOddRow {
+   background-color: #EBEBEB;
+}
+
+.clsError {
+	background-color: #FF9999;
+}
+
+.clsWarn {
+	background-color: #FFCC80;
+}
+
+.clsInfo {
+	background-color: #99E699;
+}
+
+tbody>tr>td {
+	vertical-align: top;
+}
+
+a.homeClassHover {
+	padding-left: 1px;
+	color: black;
+	text-decoration: none;
+}
+
+a.homeClassOut {
+	padding-left: 1px;
+	color: white;
+	text-decoration: none;
+}
+
+.myTogglePanelSelfalse {
+	background-image: url(../images/tab_active.png);
+	color: red;
+}
+
+.rich-tab-inactive {
+	cursor: pointer;
+	background-image: url(../images/tab_inactive.png);
+	color: black;
+}
+
+.rich-tab-active {
+	font-weight: bold;
+	background-image: url(../images/tab_active.png);
+}
+
+.rich-std-header-row {
+	background-color: #EAF0F8;
+}
+
+.rich-sdt-header-cell {
+	color: black;
+	font-weight: bold;
+}
+
+.rich-sdt-header-cell-body {
+	padding-left: 2px;
+}
+
+.rich-sdt-column-cell-body {
+	padding-left: 2px;
+}
+
+.extdt-innerdiv {
+	overflow-x: auto !important;
+	overflow-y: hidden;
+}

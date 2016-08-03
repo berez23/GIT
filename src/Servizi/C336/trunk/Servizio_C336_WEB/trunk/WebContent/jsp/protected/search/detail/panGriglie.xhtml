@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<ui:composition>
+	<h:form>
+		
+		<rich:panel id="detGrigliaA4A3" 
+					rendered="#{detailBean.catUltimaUiu eq 'A04' or detailBean.catUltimaUiu eq 'A03'}">
+			<f:facet name="header">
+				<h:outputLabel value="TABELLA VALUTATIVA INCREMENTO CLASSI CATEG. A4/A3" />
+			</f:facet>
+			<h:panelGrid columns="3" cellspacing="5" width="100%" >
+				<h:outputLabel value="INNOVAZIONI" style="font-weight: bold;" />
+				<h:outputLabel value="" />
+				<h:outputLabel value="NOTE" style="font-weight: bold;" />
+			
+				<h:outputLabel value="Ascensore" style="font-weight: bold;" />
+				<h:selectOneMenu id="asca3a4" required="true"  value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAscensore}">
+					<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="ascNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAscensoreNote}" style="height:30px; width : 300px;" />
+				
+				<h:outputLabel value="Riscaldamento" style="font-weight: bold;" />
+				<h:selectOneMenu id="risca3a4" required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRiscaldamento}">
+					<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea  id="riscNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRiscaldamentoNote}" style="height:30px; width : 300px;" />
+				
+				<h:outputLabel value="Ristrutturazione" style="font-weight: bold;" />
+				<h:selectOneMenu id="ristra3a4" required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRistrutturazione}">
+					<f:selectItems value="#{suggestionBean.listaTotaleIParziale}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="ristrNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valRistrutturazioneNote}" style="height:30px; width : 300px;" />
+		
+				<h:outputLabel value="Miglioramento Distribuzione Vani" style="font-weight: bold;" />
+				<h:selectOneMenu id="mdva3a4" required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valMiglioramentoDistrVani}" >
+					<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="mdvNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valMiglDistrVaniNote}" style="height:30px; width : 300px;" />
+		
+				<h:outputLabel value="Aumento Servizi" style="font-weight: bold;" />
+				<h:selectOneMenu id="serva3a4" required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAumentoServizi}">
+					<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="servNotea3a4" value="#{detailBean.dtoGesPratica.tabellaValutIncrA4A3.valAumentoServiziNote}" style="height:30px; width : 300px;" />
+						
+				<h:outputLabel value=""/>
+				<a4j:commandButton id="saveGrigliaA4A3" value="Salva" 
+								action="#{detailBean.doSalvaGrigliaA4A3}" 
+								reRender="detGrigliaA4A3,detGesGriglie" >
+				</a4j:commandButton>
+				<a4j:commandButton id="chiudiGrigliaA4A3" value="Chiudi"
+				            oncomplete="Richfaces.hideModalPanel('panelGesGriglie')"/>
+			 	<h:outputLabel value=""/>		 
+			</h:panelGrid>	
+		</rich:panel>
+	
+		<rich:spacer height="10px" />
+	
+			<rich:panel id="detGrigliaA5A6"
+						rendered="#{detailBean.catUltimaUiu eq 'A05' or detailBean.catUltimaUiu eq 'A06'}" width="100%">
+				<f:facet name="header">
+					<h:outputLabel value="TABELLA VALUTATIVA INCREMENTO CLASSI CATEG. A5/A6" />
+				</f:facet>
+				<h:panelGrid columns="3" cellspacing="5" width="100%">
+			
+				<h:outputLabel value="INNOVAZIONI" style="font-weight: bold;" />
+				<h:outputLabel value="" />
+				<h:outputLabel value="NOTE" style="font-weight: bold;" />
+			
+				<h:outputLabel value="Riscaldamento" style="font-weight: bold;" />
+				<h:selectOneMenu id="risca5a6" required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRiscaldamento}">
+					<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="ricNotea5a6"  value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRiscaldamentoNote}" style="height:30px; width : 300px;" />
+				
+				<h:outputLabel value="Ristrutturazione" style="font-weight: bold;" />
+				<h:selectOneMenu id="ristra5a6" required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRistrutturazione}">
+					<f:selectItems value="#{suggestionBean.listaTotaleParziale}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="ristrNotea5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valRistrutturazioneNote}" style="height:30px; width : 300px;" />
+				
+				<h:outputLabel id="serva5a6" value="Inserimento Servizi" style="font-weight: bold;" />
+				<h:selectOneMenu required="true" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valAggiuntaServizi}">
+					<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				<h:inputTextarea id="servNotea5a6" value="#{detailBean.dtoGesPratica.tabellaValutIncrA5A6.valAggiuntaServiziNote}" style="height:30px; width : 300px;" />
+				</h:panelGrid>
+				<center>
+				<h:outputLabel value=""/>
+				<a4j:commandButton id="saveGrigliaA5A6" value="Salva" 
+								action="#{detailBean.doSalvaGrigliaA5A6}" 
+								reRender="detGrigliaA5A6,detGesGriglie" >
+				</a4j:commandButton>
+				<rich:spacer width="20px"/>
+				<a4j:commandButton id="chiudiGrigliaA5A6" value="Chiudi"
+				            oncomplete="Richfaces.hideModalPanel('panelGesGriglie')"/>
+			 	<h:outputLabel value=""/>		 
+				</center>
+		</rich:panel>
+		
+			
+		<rich:spacer height="10px" />
+	
+		<rich:panel id="detGrigliaIncrementoCat" 
+					rendered="#{detailBean.catUltimaUiu eq 'A04'}">
+				<f:facet name="header">
+					<h:outputLabel value="Griglia Valutativa Incremento Categoria" />
+				</f:facet>
+				<h:panelGrid columns="1" width="100%">
+				
+				<h:outputLabel value="GRIGLIA fattori discriminanti per il salto di categoria da A/4 ad A/2 per fabbricati con ascensore o senza, fino a 3 piani (T, 1, 2)" />
+				<rich:spacer height="5px"></rich:spacer>
+				<rich:panel id="pnlGrigliaCat1">
+					<f:facet name="header">
+					<h:outputLabel value="Parte 1" />
+				</f:facet>
+					<table width="100%">
+					<tr>
+						<td><h:outputLabel value="CARATTERISTICHE" style="font-weight: bold;" /></td>
+						<td colspan="2" ><h:outputLabel value="PARAMETRI" style="font-weight: bold;"/></td>
+					</tr>
+					<tr>
+						<td rowspan="5" valign="middle"><h:outputLabel value="Caratteristiche Generali"/></td>
+						<td><h:outputLabel value="u.i.u. con accesso da ballatoio" /></td>
+						<td>
+						<h:selectOneMenu id="cg1" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valUiuAccessoBallatoio}"
+									>
+							<f:selectItems value="#{suggestionBean.listaSiNo}" ></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true"
+									action = "#{detailBean.valueChangedGrigliaCat2P1}" 
+									reRender="pnlGrigliaCat2,asp,numuiu,svgsup">
+							</a4j:support>
+						</h:selectOneMenu>
+						</td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="u.i.u. seminterrate" /></td>
+						<td><h:selectOneMenu id="cg2" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valUiuSeminterrate}"
+						>
+							<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true"
+									action = "#{detailBean.valueChangedGrigliaCat2P1}" 
+									reRender="pnlGrigliaCat2,asp,numuiu,svgsup">
+							</a4j:support>
+						</h:selectOneMenu></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="unit&#224; abitative ricavate da ex locali lavatoi, soffitte, con altezze particolarmente ridotte" /></td>
+						<td><h:selectOneMenu id="cg3" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valAltRidotta}" 
+						>
+							<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true"
+									action = "#{detailBean.valueChangedGrigliaCat2P1}" 
+									reRender="pnlGrigliaCat2,asp,numuiu,svgsup">
+							</a4j:support>
+						</h:selectOneMenu></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="u.i.u. con servizio igienico unico collocato sul balcone" /></td>
+						<td><h:selectOneMenu id="cg4" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valSerIgienicoEsterno}" 
+						>
+							<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true"
+									action = "#{detailBean.valueChangedGrigliaCat2P1}" 
+									reRender="pnlGrigliaCat2,asp,numuiu,svgsup">
+							</a4j:support>
+						</h:selectOneMenu></td>
+					</tr>
+					<tr>
+						<td><h:outputLabel value="modesti o precari corpi accessori a fabbricati principali " /></td>
+						<td><h:selectOneMenu id="cg5" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valCorpiAccessori}" >
+							<f:selectItems value="#{suggestionBean.listaSiNo}"></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true" 
+									action = "#{detailBean.valueChangedGrigliaCat2P1}" 
+									reRender="pnlGrigliaCat2,asp,numuiu,svgsup">
+							</a4j:support>
+						</h:selectOneMenu></td>
+					</tr>
+					</table>
+					
+				</rich:panel>
+				
+				<rich:spacer height="10px"/>
+				
+					La presenza di una delle caratteristiche indicate in parte 1 
+					esclude il salto di categorie, quindi esclude la compilazione 
+					delle seconda parte della griglia.
+			
+				<rich:spacer height="10px"/>
+				
+				<rich:panel id="pnlGrigliaCat2">
+					<f:facet name="header">
+					<h:outputLabel value="Parte 2" />
+				</f:facet>
+				<h:panelGrid columns="3">
+					<h:panelGrid columns="1">
+					<h:panelGrid columns="2" width="100%">
+						<h:outputLabel value="CARATTERISTICHE" style="font-weight: bold;" />
+						<h:outputLabel value="PARAMETRO (Peso)" style="font-weight: bold;"/>
+					
+					<h:outputLabel value="Androne, Scale e Pianerottolo"/>
+					<h:selectOneMenu id="asp" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valCarAndrone}"
+					 						  disabled="#{!detailBean.visPnlGrigliaCat2}">
+							<f:selectItems value="#{suggestionBean.listaAndrone}"></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true" 
+									reRender="lblCatSugg,lblPunteggio">
+							</a4j:support>
+						</h:selectOneMenu>
+						
+					<h:outputLabel value="Numero di abitazioni per piano"/>
+					<h:selectOneMenu id="numuiu" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valNumUiuPiano}"
+									 disabled="#{!detailBean.visPnlGrigliaCat2}">
+							<f:selectItems value="#{suggestionBean.listaNumAbitazioniPiano}"></f:selectItems>
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true" 
+									reRender="lblCatSugg,lblPunteggio">
+							</a4j:support>
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Superficie catastale media delle u.i.u. del fabbricato (Dpr 138/98)"/>
+					<h:selectOneMenu id="avgsup" value="#{detailBean.dtoGesPratica.grigliaAttribA2.valSupMediaUiu}"
+									 disabled="#{!detailBean.visPnlGrigliaCat2}">
+						<f:selectItems value="#{suggestionBean.listaAvgSup}"></f:selectItems>
+						<a4j:support 
+									event="onchange" 
+									ajaxSingle="true" 
+									reRender="lblCatSugg,lblPunteggio">
+						</a4j:support>
+					</h:selectOneMenu>
+					</h:panelGrid>
+					
+					<rich:spacer height="10px"></rich:spacer>
+					
+					Nella casella corrispondente a PUNTEGGIO viene riportato il totale  calcolato sulla base dei valori immessi nella griglia. 
+					nella casella sottostante viene riportata la categoria suggerita in relazione al punteggio, sulla base della tabella a destra
+					
+					<rich:spacer height="10px"></rich:spacer>
+					
+					<h:panelGrid columns="2" width="100%">
+						<h:outputLabel value="PUNTEGGIO" style="font-weight: bold;" />
+						<h:outputLabel id="lblPunteggio" value="#{detailBean.dtoGesPratica.punteggio}" style="font-weight: bold;" />
+						
+						<h:outputLabel value="CAT. SUGGERITA" style="font-weight: bold;" />
+						<h:outputLabel id="lblCatSugg" value="#{detailBean.dtoGesPratica.suggestedCat}" style="font-weight: bold;" />
+					</h:panelGrid>
+					
+					
+				</h:panelGrid>
+				
+				<rich:spacer width="10px"></rich:spacer>
+				<a4j:include id="punteggioPage" viewId="/jsp/protected/search/detail/tabellaPunteggio.xhtml" />
+				</h:panelGrid>
+				</rich:panel>
+				</h:panelGrid>
+				<center>
+				<h:outputLabel value=""/>
+				<a4j:commandButton id="saveGrigliaCat" value="Salva" 
+								action="#{detailBean.doSalvaGrigliaAttribA2}" 
+								reRender="detGrigliaIncrementoCat,detGesGriglie" >
+				</a4j:commandButton>
+				<rich:spacer width="20px"/>
+				<a4j:commandButton id="chiudiGrigliaCat" value="Chiudi"
+				            oncomplete="Richfaces.hideModalPanel('panelGesGriglie')"/>
+			 	<h:outputLabel value=""/>		 
+				</center>
+		</rich:panel>
+				
+	</h:form>
+	</ui:composition>
+</html>

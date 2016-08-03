@@ -1,0 +1,272 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgPraticaModOri" modal="true" header="MODIFICA PRATICA" widgetVar="dlgPraticaMod" showEffect="fade" hideEffect="explode">
+		<h:form id="frmDlgPraticaOri">
+		<p:panelGrid styleClass="panelGrid" columns="4" style="width: auto; height: 800px; overflow-y: auto;" cellpadding="10">
+			
+			<p:outputLabel value="Codice Pratica*" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.codicePratica}" readonly="true" required="true"/>
+			<p:outputLabel value="Codice Asi Azienda" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.codiceAsiAzienda}" readonly="true"/>
+
+			<p:outputLabel value="Ragione Sociale" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.azienda.ragioneSociale}" readonly="true" />
+
+			<p:outputLabel value="Tipologia" style="font-weight:bold;" />
+			<p:selectOneMenu value="#{ricercheBean.praticaCur.codTipo}" style="width: 120px">
+				<f:selectItems value="#{ricercheBean.listaTipologieItems}" />
+			</p:selectOneMenu>
+			<p:outputLabel value="Protocollo Num" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.protocolloNum}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Protocollo Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.protocolloData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+			<p:outputLabel value="Rappr. Legale" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.azienda.rapprLegale}" />
+
+			<p:outputLabel value="Faldone" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.faldone}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="PRCT" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.prct}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Nulla Osta Num" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.nullaOstaNum}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}" />
+			<p:outputLabel value="Nulla Osta Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.nullaOstaData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Delibera Num" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.deliberaNum}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Delibera Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.deliberaData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Data Ritiro Progetto" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.dataRitiroProgetto}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+				
+			<p:outputLabel value="Scadenza Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.scadenzaData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+				
+				<p:spacer width="5px"/>
+				<p:spacer width="5px"/>
+
+				<p:spacer width="5px"/>
+				<p:spacer width="5px"/>
+			
+					
+			<p:outputLabel value="Conc. Edilizia Num" style="font-weight:bold; color: orange;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.concedilNum}" />
+
+			<p:outputLabel value="Conc. Edilizia C Data" style="font-weight:bold; color: orange;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.concedilCData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:outputLabel value="Conc. Edilizia R Data" style="font-weight:bold; color: orange;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.concedilRData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+			
+			<p:outputLabel value="Comunicazione Inizio lavori Data" style="font-weight:bold; color: orange;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.comunicaInizioLavoriData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:outputLabel value="Comunicazione Fine lavori Data" style="font-weight:bold; color: orange;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.comunicaFineLavoriData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:outputLabel value="Attivita Inizio Data" style="font-weight:bold; color: orange;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.attivitaInizioData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:spacer width="5px"/>
+			<p:spacer width="5px"/>
+
+			<p:spacer width="5px"/>
+			<p:spacer width="5px"/>
+
+
+			<p:outputLabel value="Convenzione Num" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.convenzioneNum}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Convenzione Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.convenzioneData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+
+			<p:outputLabel value="Vincolo" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.vincolo}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Mod Acquisizione Area" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.modificaAcqArea}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+
+			<p:outputLabel value="Note" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.note}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Inizio Lav Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.inizioLavData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Fine Lav Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.fineLavData}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" 
+				readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+			
+			<p:outputLabel value="Attivita Fine Data" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.attivitaFine}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:outputLabel value="Chiudi Pratica" style="font-weight:bold;"/>
+			<p:selectOneMenu value="#{ricercheBean.praticaCur.chiudip}" style="width: 120px">
+				<f:selectItem itemValue="" itemLabel="" itemDescription="" />
+				<f:selectItem itemValue="0" itemLabel="Aperta" itemDescription="Aperta" />
+				<f:selectItem itemValue="1" itemLabel="Chiusa" itemDescription="Chiusa" />
+			</p:selectOneMenu>
+			
+			<p:outputLabel value="Tecnico Istruttore Cognome" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.tecnicoIstruttoreCognome}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Tecnico Istruttore Nome" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.tecnicoIstruttoreNome}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+			
+			<p:outputLabel value="Acquisizione Lotto" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.acquisizioneLotto}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>							
+
+			<p:outputLabel value="Integrazioni" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.integrazioni}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+			
+			<p:outputLabel value="Data Istanza" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.dataIstanza}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+
+			<p:outputLabel value="Data Immissione In Possesso" style="font-weight:bold;"/>
+			<p:calendar value="#{ricercheBean.praticaCur.dataImmissioneInPossesso}" 
+		 		mode="popup" 
+				showOn="button" 
+				pattern="dd/MM/yyyy"
+				popupIconOnly="true" />
+				
+			<p:outputLabel value="Posizionamento Archivio" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.posizionamentoArchivio}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Sup Coperta" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duSupCoperta}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+			
+			<p:outputLabel value="Sup Utile" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duSupUtile}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Volume" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duVolume}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Volume Alloggio Custode" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duVolumeAlloggioCustode}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Sup Parcheggi" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duSupParcheggi}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+				
+			<p:outputLabel value="Num Posti Auto" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duNumPostiAuto}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+
+			<p:outputLabel value="Altezza Max" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duAltezzaMax}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Distanza Min Confini" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duDistanzaMinConfini}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+
+			<p:outputLabel value="Distanza Min Fabbricati" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duDistanzaMinFabbricati}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Indice Fabbricabilita" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duIndiceFabbricabilita}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Indice Copertura" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duIndiceCopertura}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:outputLabel value="Indice Utilizzazione Fondiaria" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.praticaCur.duIndiceUtilFondiaria}" readonly="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+			<p:spacer width="5px"/>
+			<p:spacer width="5px"/>
+
+			<p:spacer width="5px"/>
+			<p:spacer width="5px"/>
+
+			<p:spacer width="5px"/>
+		</p:panelGrid>
+			
+			<p:commandButton id="btnSalvaChiudi" 
+					value="Salva e Chiudi" 
+					action="#{ricercheBean.praticaSaveMod}" 
+					oncomplete="PF('dlgPraticaMod').hide()" 
+					update=":#{p:component('pnlPraticaInfo')}, :#{p:component('dtListaPratiche')}"
+					process="@form"/>
+
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

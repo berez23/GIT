@@ -1,0 +1,166 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="C34FDEF8-C64F-4395-8BDE-11313EA56F44" directorySegmentName="seg_1" name="CS_TB_SCUOLA">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_TB_SCUOLA</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>758B275C-8D00-C084-4189-40A68A17B0F1</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<pkName>CS_TB_SCUOLA_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ID" id="AB84D2B6-567D-94AB-DA05-CB7E8EEB07E9">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_SCUOLA</sourceObjSchema>
+<sourceObjName>ID</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>0F6625CC-A658-1AD8-DA60-FC64BEB168BA</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DESCRIZIONE" id="C6096F95-B17D-DBC3-6B2F-6DE94C6093A6">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_SCUOLA</sourceObjSchema>
+<sourceObjName>DESCRIZIONE</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>25615860-F0D1-33D8-5F94-E1B4044312B5</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>100 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TOOLTIP" id="96051382-1ABF-FA87-72C5-D8546B6CFB30">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_SCUOLA</sourceObjSchema>
+<sourceObjName>TOOLTIP</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>B718261F-414C-24B4-37B0-0467BD94BC33</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>4000 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ABILITATO" id="B6B34FA1-C759-6214-1FEB-DE9A54A8C330">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_SCUOLA</sourceObjSchema>
+<sourceObjName>ABILITATO</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>4B0C64EC-8520-A85A-DC3D-704A632B10A3</importedID>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>1 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="ANNO_SCOLASTICO" id="259571D9-FAC2-8636-993D-DD976C895CFF">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_SCUOLA</sourceObjSchema>
+<sourceObjName>ANNO_SCOLASTICO</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>2331395F-FBC5-52BF-E136-DB46A2AEFC6A</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>9 BYTE</dataTypeSize>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="TIPO_SCUOLA_ID" id="B5B300B6-E2E6-C0D6-093C-BC33F8E2A146">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_TB_SCUOLA</sourceObjSchema>
+<sourceObjName>TIPO_SCUOLA_ID</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>1EB8CA90-37F4-2C85-A385-A1D2B3A2F76B</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="B0B59AB6-5B3A-CEA8-8F9F-7C37BF631ABB" name="CS_TB_SCUOLA_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_TB_SCUOLA_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>42F99ECE-477F-D71B-2242-6984B33AD671</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="AB84D2B6-567D-94AB-DA05-CB7E8EEB07E9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="7FAF9744-D80A-EE1F-A267-CD41128324BB" name="CS_TB_SCUOLA_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_TB_SCUOLA_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-10-06 09:23:01 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>F6E76278-1820-DAB4-0797-9242D4DBC264</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="AB84D2B6-567D-94AB-DA05-CB7E8EEB07E9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

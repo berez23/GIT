@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+	<persistence-unit name="GitLand_DataModel" transaction-type="JTA">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm_gitland.xml</mapping-file>
+	
+		<class>it.webred.gitland.data.model.GlAsi</class>
+		<class>it.webred.gitland.data.model.GlAziende</class>
+		<class>it.webred.gitland.data.model.GlAziendeLotto</class>
+		<class>it.webred.gitland.data.model.Lotto</class>
+		<class>it.webred.gitland.data.model.Azienda</class>
+		<class>it.webred.gitland.data.model.AziendaLotto</class>
+		<class>it.webred.gitland.data.model.Comune</class>
+		<class>it.webred.gitland.data.model.Pratica</class>
+		<class>it.webred.gitland.data.model.Tipologia</class>
+		<class>it.webred.gitland.data.model.IntCategoria</class>
+		<class>it.webred.gitland.data.model.IntQuery</class>
+		<class>it.webred.gitland.data.model.IntParametro</class>
+		<class>it.webred.gitland.data.model.LottoCoordinate</class>
+		<class>it.webred.gitland.data.model.AuditEntitaEliminate</class>
+		<class>it.webred.gitland.data.model.PraticaAllegato</class>
+		<class>it.webred.gitland.data.model.Parametro</class>
+		
+		 
+		<properties>
+			<!-- property name="hibernate.dialect" value="org.hibernate.dialect.Oracle9iDialect" /-->
+			<property name="hibernate.dialect" value="it.webred.ct.data.spatial.OracleSpatialDialect" />
+			
+			<!-- <property name="hibernate.hbm2ddl.auto" value="update"/>  -->
+			<property name="hibernate.show_sql" value="false" />
+		    <property name="hibernate.transaction.manager_lookup_class"
+				value="org.hibernate.transaction.JBossTransactionManagerLookup" /> 
+			
+		</properties>
+
+	</persistence-unit>
+</persistence>

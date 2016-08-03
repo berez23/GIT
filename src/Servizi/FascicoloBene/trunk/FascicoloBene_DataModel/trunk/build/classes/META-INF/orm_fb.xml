@@ -1,0 +1,391 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+  
+  <named-query name="DmDDoc.updateElabInCorso">
+		<query>
+			<![CDATA[
+				update DmDDoc d SET d.flgRimosso=2 
+				WHERE d.dmConfDocDir.codice=:idConfig
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmDDoc.updateRimossi">
+		<query>
+			<![CDATA[
+				update DmDDoc d SET d.flgRimosso=1 
+				WHERE d.dmConfDocDir.codice=:idConfig and d.flgRimosso=2
+			]]>
+		</query>
+	</named-query>
+  
+  <named-query name="DmBBene.deleteByProvenienza">
+		<query>
+			<![CDATA[
+				delete FROM DmBBene WHERE provenienza=:provenienza
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmDDoc.deleteByProvenienzaBene">
+		<query>
+			<![CDATA[
+				delete FROM DmDDoc d WHERE exists (select b FROM DmBBene b WHERE b.id=d.dmBBene.id AND b.provenienza=:provenienza)
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmDDoc.deleteByID">
+		<query>
+			<![CDATA[
+				delete FROM DmDDoc d WHERE d.id=:idDoc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBBene.deleteFISByProvenienza">
+		<query>
+			<![CDATA[
+				DELETE FROM DmBBene WHERE provenienza=:provenienza and chiave LIKE '%@FIS'
+			]]>
+		</query>
+	</named-query>
+
+    <named-query name="DmDCartella.getByIdx">
+		<query>
+			<![CDATA[
+				select d from DmDCartella d where d.dmConfDocDir.codice=:codPercorso and d.numCartella= :nome
+			]]>
+		</query>
+	</named-query>
+ 
+  	<named-query name="DmDDoc.updateDocPresenti">
+		<query>
+			<![CDATA[
+				update DmDDoc d SET d.flgRimosso=0 WHERE d.dmConfDocDir=:conf and d.nomeFile=:nomeFile and d.dmDCartella is null
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmDDoc.updateDocPresentiCartella">
+		<query>
+			<![CDATA[
+				update DmDDoc d SET d.flgRimosso=0 WHERE d.dmConfDocDir=:conf and d.nomeFile=:nomeFile and d.dmDCartella=:cartella
+			]]>
+		</query>
+	</named-query>
+   
+  	<named-query name="DmBBene.getByChiave">
+		<query>
+			<![CDATA[
+				select b from DmBBene b where b.chiave=:chiave
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBTitolo.getTitoliBeneAttuali">
+		<query>
+			<![CDATA[
+				select b from DmBTitolo b where b.dmBBene.id=:idBene and b.dtFineVal is null order by b.idTitolo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBTitolo.getBeniTitoloAttuali">
+		<query>
+			<![CDATA[
+				select b.dmBBene from DmBTitolo b where b.idTitolo=:idTitolo and b.dtFineVal is null 
+				order by to_number(b.dmBBene.codChiave1)
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBInfo.getInfoBeneAttuale">
+		<query>
+			<![CDATA[
+				select b from DmBInfo b where b.dmBBene.id=:idBene and b.dtFineVal is null
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBFascicolo.getFascicoloBeneAttuale">
+		<query>
+			<![CDATA[
+				select b from DmBFascicolo b where b.dmBBene.id=:idBene and b.dtFineVal is null 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBTipoUso.getUsoBeneAttuale">
+		<query>
+			<![CDATA[
+				select b from DmBTipoUso b where b.dmBBene.id=:idBene and b.dtFineVal is null 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmEEvento.getEventiBeneAttuali">
+		<query>
+			<![CDATA[
+				select distinct b.codEvento, b.descrizioneEvento, b.dataEvento from DmEEvento b 
+				where b.dmBBene.id=:idBene and b.dtFineVal is null order by b.dataEvento
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.getIndirizziBene">
+		<query>
+			<![CDATA[
+				select b from DmBIndirizzo b where b.dmBBene.id=:idBene 
+			]]>
+		</query>
+	</named-query>
+		
+	<named-query name="DmDDoc.getDocumentiBeneByClasse">
+		<query>
+			<![CDATA[
+				select b from DmDDoc b where b.dmBBene.id=:idBene 
+				and b.dmConfClassificazione= :classificazione 
+				and b.flgRimosso=0 
+				order by to_number(b.progDocumento) desc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmDDoc.getDocumentiBene">
+		<query>
+			<![CDATA[
+				select b from DmDDoc b where b.dmBBene.id=:idBene 
+				and b.flgRimosso=0 
+				order by to_number(b.progDocumento) desc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmConfCaricamento.listaIds">
+		<query>
+			<![CDATA[
+				select it.id from DmConfCaricamento it order by it.id.provenienza, it.id.dato
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmConfCaricamento.resetDateProvenienza">
+		<query>
+			<![CDATA[
+				update DmConfCaricamento set dtElab=null where provenienza=:provenienza
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBBeneInv.listaCatInventariale">
+		<query>
+			<![CDATA[
+				select distinct it.codCatInventariale, it.desCatInventariale 
+				from DmBBeneInv it where it.codCatInventariale is not null order by it.desCatInventariale
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBBeneInv.listaTipo">
+		<query>
+			<![CDATA[
+				select distinct it.codTipo, it.desTipo
+				from DmBBeneInv it where it.codTipo is not null order by it.desTipo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBTitolo.listaTipoDirittoReale">
+		<query>
+			<![CDATA[
+				select distinct t.tipoDirittoReale
+				from DmBTitolo t where t.tipoDirittoReale is not null order by t.tipoDirittoReale
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.listaCiviciVia">
+		<query>
+			<![CDATA[
+				select distinct it.civico from DmBIndirizzo it where it.codVia=:codVia and it.dtFineVal is null 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.listaCiviciViaCiv">
+		<query>
+			<![CDATA[
+				select distinct it.civico from DmBIndirizzo it where it.codVia=:codVia and it.civico like :civico and it.dtFineVal is null 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.listaComuni">
+		<query>
+			<![CDATA[
+				select distinct it.codComune, it.desComune, it.prov 
+				from DmBIndirizzo it 
+				where it.dtFineVal is null and it.desComune like :desc  
+				order by it.desComune, it.prov 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBMappale.listaComuni">
+		<query>
+			<![CDATA[
+				select distinct it.codComune, c.nome, c.siglaProv
+				from DmBMappale it, Siticomu c 
+				where it.dtFineVal is null AND c.nome like :desc  
+				and (it.codComune=c.codNazionale OR it.codComune=c.codiFiscLuna)
+				order by c.nome, c.siglaProv
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.listaByDescrizione">
+		<query>
+			<![CDATA[
+				select distinct it.codVia, trim(concat(it.tipoVia,' ',it.descrVia)) as descrizione
+				from DmBIndirizzo it where it.dtFineVal is null and it.descrVia like :desc  
+				order by descrizione
+			]]>
+		</query>
+	</named-query>
+	<named-query name="DmBIndirizzo.getByCodVia">
+		<query>
+			<![CDATA[
+				select distinct it.codVia, trim(concat(it.tipoVia,' ',it.descrVia)) as descrizione
+				from DmBIndirizzo it where it.dtFineVal is null and it.codVia = :codVia
+			]]>
+		</query>
+	</named-query>
+	<named-query name="DmBIndirizzo.getByCodComune">
+		<query>
+			<![CDATA[
+				select distinct it.codComune, it.desComune as descrizione
+				from DmBIndirizzo it where it.dtFineVal is null and it.codComune = :codComune
+			]]>
+		</query>
+	</named-query>
+	<named-query name="DmBIndirizzo.listaByEnteDescrizione">
+		<query>
+			<![CDATA[
+				select distinct it.codVia, trim(concat(it.tipoVia,' ',it.descrVia)) as descrizione
+				from DmBIndirizzo it where it.dtFineVal is null and it.codComune= :codEnte and it.descrVia like :desc  
+				order by descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBTerreno.listaByBene">
+		<query>
+			<![CDATA[
+				select it 
+				from DmBTerreno it
+				where it.dtFineVal is null and it.dmBBene.id = :id 
+				order by LPAD(it.foglio,4,'0'), LPAD(it.mappale,5,'0')
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBMappale.listaByBene">
+		<query>
+			<![CDATA[
+				select it 
+				from DmBMappale it
+				where it.dtFineVal is null and it.dmBBene.id = :id 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBMappale.listaByInventario">
+		<query>
+			<![CDATA[
+				select distinct it 
+				from DmBBene b, DmBMappale it 
+				where b.id=it.dmBBene.id and it.dtFineVal is null and b.codChiave1= :inventario
+				order by it.codComune, it.sezione, lpad(it.foglio,4,'0'), lpad(it.mappale,5,'0')
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Siticomu.getDescComuneByBelfiore">
+		<query>
+			<![CDATA[
+				select distinct c.siglaProv, c.nome
+				from Siticomu c 
+				where c.codNazionale=:belfiore OR c.codiFiscLuna=:belfiore
+				order by c.siglaProv, c.nome
+			]]>
+		</query>
+	</named-query>
+	
+	
+	<named-query name="DmBTerreno.listaByInventario">
+		<query>
+			<![CDATA[
+				select it 
+				from DmBTerreno it, DmBBene b
+				where b.id=it.dmBBene.id and it.dtFineVal is null and b.codChiave1= :inventario
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.listaByInventario">
+		<query>
+			<![CDATA[
+				select distinct it 
+				from DmBIndirizzo it, DmBBene b
+				where b.id=it.dmBBene.id and it.dtFineVal is null and b.codChiave1= :inventario
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBIndirizzo.listaDescByInventario">
+		<query>
+			<![CDATA[
+				select distinct it.codVia, it.tipoVia, it.descrVia, it.civico, it.codComune, it.desComune, it.prov
+				from DmBIndirizzo it, DmBBene b
+				where b.id=it.dmBBene.id and it.dtFineVal is null and b.codChiave1= :inventario
+				order by it.prov, it.desComune, it.tipoVia, it.descrVia, it.civico
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmBBene.beneByChiave">
+		<query>
+			<![CDATA[
+				select it 
+				from DmBBene it
+				where it.dtFineVal is null and it.chiave like :chiave
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="DmConfClassificazione.listaMacro">
+		<query>
+			<![CDATA[
+				select distinct it.id.macro, it.desMacro
+				from DmConfClassificazione it
+				order by it.desMacro
+			]]>
+		</query>
+	</named-query>
+	<named-query name="DmConfClassificazione.listaCategorie">
+		<query>
+			<![CDATA[
+				select distinct it.id.progCategoria, it.desCategoria
+				from DmConfClassificazione it
+				where it.id.macro=:codMacro
+				order by it.desCategoria
+			]]>
+		</query>
+	</named-query>
+
+</entity-mappings>

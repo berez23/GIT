@@ -1,0 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="detailForm">
+
+			<h:outputLink rendered="false"
+				value="${facesContext.externalContext.requestContextPath}/jsp/protected/search/pratiche/search.faces">
+				<h:outputText value="Indietro" />
+			</h:outputLink>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel style="font-weight: bold;"
+						value="Dettaglio Pratica di Accertamento" />
+				</f:facet>
+
+				<table>
+					<tr>
+						<td width="33%"><rich:panel>
+							<f:facet name="header">
+								<h:outputLabel value="Dati Pratica" />
+							</f:facet>
+							<h:panelGrid columns="2" width="100%">
+								<h:outputLabel value="Pratica Numero:"
+									style="font-weight: bold;" />
+								<h:outputText value="#{praticaDetailBean.dto.pratica.id}" />
+
+								<h:outputLabel value="Del:" style="font-weight: bold;" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.accDataInizio}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+								</h:outputText>
+
+								<h:outputLabel value="Inserita dall'Operatore:"
+									style="font-weight: bold;" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.operatoreId}" />
+
+								<h:outputLabel value="Stato:" style="font-weight: bold;" />
+								<h:outputText value="#{praticaDetailBean.dto.accStatoDecoded}" />
+
+								<h:outputLabel value="Finalita':" style="font-weight: bold;" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.accFinalitaDecoded}" />
+
+								<h:outputLabel value="Anno Fiscale di Riferimento:"
+									style="font-weight: bold;" />
+								<h:outputText value="#{praticaDetailBean.dto.pratica.annoRef}" />
+
+							</h:panelGrid>
+						</rich:panel></td>
+						<td width="33%"><rich:panel>
+							<f:facet name="header">
+								<h:outputLabel value="Responsabile del Procedimento" />
+							</f:facet>
+							<h:panelGrid columns="2" width="100%">
+								<h:outputLabel value="" style="font-weight: bold;" />
+								<h:outputText value="" />
+
+								<h:outputLabel value="Codice Fiscale:"
+									style="font-weight: bold;" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.resCodiFisc}" />
+
+								<h:outputLabel value="Cognome e Nome:"
+									style="font-weight: bold;" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.resCognome} #{praticaDetailBean.dto.pratica.resNome}" />
+
+								<h:outputLabel value="Num.Telefono:" style="font-weight: bold;" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.resTelefono}" />
+
+								<h:outputLabel value="E-mail:" style="font-weight: bold;" />
+								<h:outputText value="#{praticaDetailBean.dto.pratica.resEmail}" />
+							</h:panelGrid>
+						</rich:panel></td>
+						<td width="33%"><rich:panel>
+							<f:facet name="header">
+								<h:outputLabel value="Soggetto Accertato" />
+							</f:facet>
+							<h:panelGrid columns="2" width="100%">
+								<h:outputLabel value="Tipo Soggetto:" style="font-weight: bold;" />
+								<h:outputText value="Persona Fisica"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+								<h:outputText value="Persona Giuridica"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'G'}" />
+
+								<h:outputLabel value="Codice Fiscale:"
+									style="font-weight: bold;"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.accCodiFisc}"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+
+								<h:outputLabel value="Cognome e Nome:"
+									style="font-weight: bold;"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.accCognome} #{praticaDetailBean.dto.pratica.accNome}"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+
+								<h:outputLabel value="Data di Nascita:"
+									style="font-weight: bold;"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.accDataNasc}"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}">
+									<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+								</h:outputText>
+
+								<h:outputLabel value="Comune di Nascita:"
+									style="font-weight: bold;"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+								<h:outputText value="#{praticaDetailBean.dto.descAccComuNasc}"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'P'}" />
+
+								<h:outputLabel value="Partita IVA:" style="font-weight: bold;"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'G'}" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.accCodiPiva}"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'G'}" />
+
+								<h:outputLabel value="Denominazione:" style="font-weight: bold;"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'G'}" />
+								<h:outputText
+									value="#{praticaDetailBean.dto.pratica.accDenominazione}"
+									rendered="#{praticaDetailBean.dto.pratica.accTipoSogg eq 'G'}" />
+							</h:panelGrid>
+						</rich:panel></td>
+					</tr>
+					<tr>
+						<td width="33%"><rich:panel id="pnlFonti">
+							<f:facet name="header">
+								<h:outputLabel value="Fonti Dati Esaminate" />
+							</f:facet>
+							<h:selectManyCheckbox id="smcFonti"
+								value="#{praticaDetailBean.dto.fonti}" border="0"
+								disabled="true" title="Fonti Comune" layout="pageDirection">
+								<f:selectItems id="sif"
+									value="#{commonDataBean.listaFontiComune}" />
+							</h:selectManyCheckbox>
+						</rich:panel></td>
+						<td colspan="2" width="66%"><rich:panel id="pnlAmbiti">
+							<f:facet name="header">
+								<h:outputLabel value="Ambiti di Interesse dell'Accertamento" />
+							</f:facet>
+							<rich:dataTable var="row"
+								value="#{commonDataBean.ambitiAccertamento}">
+								<rich:column>
+									<h:outputLabel value="#{row.specie}" style="font-weight: bold;" />
+									<h:selectManyCheckbox id="smcAmbiti01"
+										value="#{praticaDetailBean.dto.ambitiAccertamento}" border="0"
+										disabled="true" title="Ambiti Accertamento"
+										layout="pageDirection">
+										<f:selectItems id="sia" value="#{row.ambiti}" />
+									</h:selectManyCheckbox>
+								</rich:column>
+							</rich:dataTable>
+						</rich:panel></td>
+					</tr>
+
+				</table>
+				<h:panelGrid columns="2" width="100%">
+					<rich:panel >
+						<f:facet name="header">
+							<h:outputLabel value="Evidenze Riscontrate" />
+						</f:facet>
+						<rich:panel width="100%" autoscroll="true">
+							<h:inputTextarea style="width:100%" rows="4" maxlength="3000"
+								readonly="true" autoscroll="true"
+								value="#{praticaDetailBean.dto.pratica.accEvidenze}" />
+						</rich:panel>
+					</rich:panel>
+
+					<rich:panel >
+						<f:facet name="header">
+							<h:outputLabel value="Annotazioni d'Ufficio" />
+						</f:facet>
+						<rich:panel width="100%" autoscroll="true">
+							<h:inputTextarea style="width:100%" rows="4" maxlength="3000"
+								readonly="true" autoscroll="true"
+								value="#{praticaDetailBean.dto.pratica.accAnnotazioni}" />
+						</rich:panel>
+					</rich:panel>
+				</h:panelGrid>
+
+				<rich:spacer height="10px;" />
+				
+				<rich:panel id="panelListaAllegati">
+					<f:facet name="header">
+						<h:outputLabel value="Documenti Allegati" />
+					</f:facet>
+
+					<rich:dataTable width="100%" var="row"
+						value="#{praticaDetailBean.dto.allegati}" id="listAllegati"
+						onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+						<rich:column >
+							<f:facet name="header">
+								<h:outputText value="Tipo" />
+							</f:facet>
+							<h:outputLabel style="font-weight: normal;" value="#{row.tipo}" />
+						</rich:column>
+						<rich:column >
+							<f:facet name="header">
+								<h:outputText value="Nome File" />
+							</f:facet>
+							<h:commandLink title="Visualizza Allegato"
+								value="#{row.nomeFile}"
+								action="#{gestioneAllegatiBean.doDownload}">
+								<a4j:actionparam value="#{row.id}" name="idAll"
+									assignTo="#{gestioneAllegatiBean.idAllegato}" />
+								<a4j:actionparam value="#{praticaDetailBean.dto.pratica.id}"
+									name="idPratica" assignTo="#{gestioneAllegatiBean.idPratica}" />
+							</h:commandLink>
+						</rich:column>
+						<rich:column >
+							<f:facet name="header">
+								<h:outputText value="Data Inserimento" />
+							</f:facet>
+							<h:outputLabel style="font-weight: normal;"
+								value="#{row.dataInserimento}">
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+							</h:outputLabel>
+						</rich:column>
+						<rich:column>
+							<f:facet name="header">
+								<h:outputText value="Note" />
+							</f:facet>
+							<div style="overflow:auto; width:760px">
+							<h:outputLabel style="font-weight: normal;" value="#{row.note}" />
+							</div>
+						</rich:column>
+					</rich:dataTable>
+				</rich:panel>
+
+				<rich:spacer height="10px;" />
+
+				<rich:panel id="pnlChiusura"
+					rendered="#{praticaDetailBean.dto.pratica.accStato eq '2'}">
+					<f:facet name="header">
+						<h:outputLabel value="Chiusura Istruttoria Pratica" />
+					</f:facet>
+
+					<h:panelGrid columns="2" width="30%">
+						<h:outputLabel value="Data:" style="font-weight: bold;" />
+						<h:outputText value="#{praticaDetailBean.dto.pratica.accDataFine}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:outputText>
+						<h:outputLabel value="Azione Intrapresa:"
+							style="font-weight: bold;" />
+						<h:outputText value="#{praticaDetailBean.dto.accAzioneDecoded}" />
+					</h:panelGrid>
+					<h:panelGroup width="70%">
+						<h:outputLabel value="Esito Istruttoria Comunale:"
+							style="font-weight: bold;" />
+						<h:inputTextarea style="width:100%" rows="2" maxlength="3000"
+							readonly="true" autoscroll="true"
+							value="#{praticaDetailBean.dto.pratica.accEsito}" />
+					</h:panelGroup>
+
+				</rich:panel>
+
+				<rich:spacer height="10px;" />
+
+				<rich:panel id="pnlAdE"
+					rendered="#{praticaDetailBean.dto.pratica.accStato eq '1'}">
+					<h:panelGrid columns="3">
+						<h:outputLabel
+							value="Stato Segnalazione Presso l'Agenzia delle Entrate:"
+							style="font-weight: bold;" />
+						<h:outputText value="#{praticaDetailBean.dto.adeStatoDecoded} - " />
+						<h:outputLink
+							rendered="#{praticaDetailBean.dto.pratica.adeStato eq 'ATTESA DI IMMISSIONE'}"
+							target="_blank" value="#{commonDataBean.siatelWebSite}"
+							style="font-weight: bold; color:red;">
+							<f:verbatim> Inserisci Segnalazione presso Agenzia delle Entrate</f:verbatim>
+						</h:outputLink>
+
+						<h:outputLink rendered="#{praticaDetailBean.dto.pratica.adeStato ne 'ATTESA DI IMMISSIONE'}"
+							target="_blank" value="#{commonDataBean.siatelWebSite}" >
+							<f:verbatim> Accedi al portale: Agenzia delle Entrate</f:verbatim>
+						</h:outputLink>
+					</h:panelGrid>
+				</rich:panel>
+
+				<rich:spacer height="10px;" />
+
+				<rich:panel id="pnlAdEChiusura"
+					rendered="#{praticaDetailBean.dto.pratica.adeStato eq 'CONCLUSA'}">
+					<f:facet name="header">
+						<h:outputLabel value="Esito Accertamento Agenzia delle Entrate" />
+					</f:facet>
+
+					<h:panelGrid columns="2" width="30%">
+						<h:outputLabel value="Data Fine Accertamento:"
+							style="font-weight: bold;" />
+						<h:outputText value="#{praticaDetailBean.dto.pratica.adeDataFine}">
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+						</h:outputText>
+						<h:outputLabel value="Liquidazione Quote Spettanti:"
+							style="font-weight: bold;" />
+						<h:selectOneRadio
+							value="#{praticaDetailBean.dto.pratica.flgLiqQuote}"
+							disabled="true" layout="lineDirection">
+							<f:selectItems id="lqs" value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneRadio>
+					</h:panelGrid>
+					<h:panelGroup width="70%">
+						<h:outputLabel value="Descrizione Esito:"
+							style="font-weight: bold;" />
+						<h:inputTextarea style="width:100%" rows="2" maxlength="3000"
+							readonly="true" autoscroll="true"
+							value="#{praticaDetailBean.dto.pratica.adeEsito}" />
+					</h:panelGroup>
+
+				</rich:panel>
+				<rich:spacer height="30px" />
+				<h:panelGroup>
+					<a4j:commandButton value="Gestisci Dati Istruttoria"
+						id="btnGestisciIstruttoria"
+						rendered="#{praticaDetailBean.utenteGestore and (praticaDetailBean.dto.pratica.accStato eq '0')}"
+						action="#{gestionePraticaBean.goGestionePratica}">
+						<a4j:actionparam value="#{praticaDetailBean.idPratica}"
+							assignTo="#{gestionePraticaBean.idPratica}" />
+						<a4j:actionparam value="#{praticaDetailBean.idPratica}"
+							assignTo="#{gestioneAllegatiBean.idPratica}" />
+					</a4j:commandButton>
+					<rich:spacer width="10px" />
+					<a4j:commandButton value="Chiudi Istruttoria"
+						id="btnChiudiIstruttoria"
+						rendered="#{praticaDetailBean.utenteGestore and (praticaDetailBean.dto.pratica.accStato eq '0')}"
+						action="#{gestionePraticaBean.goChiusuraPratica}">
+						<a4j:actionparam value="#{praticaDetailBean.idPratica}"
+							assignTo="#{gestionePraticaBean.idPratica}" />
+					</a4j:commandButton>
+					<rich:spacer width="10px" />
+					<a4j:commandButton value="Gestisci Info Segnalazione AE"
+						id="btnGestisciInfoAde"
+						rendered="#{praticaDetailBean.utenteGestore and (praticaDetailBean.dto.pratica.accStato eq '1')}"
+						action="#{gestionePraticaBean.goGestioneInfoAdE}">
+						<a4j:actionparam value="#{praticaDetailBean.idPratica}"
+							assignTo="#{gestionePraticaBean.idPratica}" />
+					</a4j:commandButton>
+				</h:panelGroup>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

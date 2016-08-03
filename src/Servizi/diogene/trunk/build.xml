@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [<!ENTITY buildfile SYSTEM "file:./build-user.xml">]>
+
+<project basedir="." default="init" name="escwebgisdiogene">
+    &buildfile;
+
+
+    <target depends="initUser"  name="init">
+    	<property name="diogene.location" value="${basedir}" />
+    	<property name="libdir" value="${diogene.location}/WebContent/WEB-INF/lib" />
+    	<property name="cvs.root" value=":pserver:makerelease:makerelease@cvs.webred-private.it:/cvs_repos" />
+    	<property name="build.compiler" value="modern" />
+    	<property name="comp.debug" value="true" />
+    	<property name="comp.deprecation" value="false" />
+    	<property name="tmp.location" value="${diogene.location}/tmp" />	
+    	<property name="tmp.webxml.location" value="${diogene.location}/tmpWebXml" />	
+    	<tstamp>
+    	      <format property="oggi" pattern="dd/MM/yyyy hh:mm aa"/>
+    	</tstamp>    	
+    	<echo message="PROPERTIES :" />
+    	<echo message="JavaVersion........${java.version}" />
+    	<echo message="javahome...........${java.home}" />
+    	<echo message="user...............${user.name}" />
+    	<echo message="userhome...........${user.home}" />
+    	<echo message="buildcompiler......${build.compiler}" />
+    	<echo message="comp.debug.........${comp.debug}" />
+    	<echo message="comp.deprecation...${comp.deprecation}" />
+    	<echo message="diogene.location.${diogene.location}" />
+    	<echo message="tomcat.location....${tomcat.location}" />
+    	<echo message="tmp.location.......${tmp.location}" />
+    	<echo message="tmp.webxml.location.......${tmp.webxml.location}" />
+        <path id="libs">
+            <!--<pathelement location="build/classes"/>-->
+            <fileset dir="${tomcat.location}/common/lib/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${diogene.location}/WebContent/WEB-INF/lib">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+    </target>
+    <target name="clean">
+        <delete failonerror="false" dir="${tmp.location}"/>
+	    <delete failonerror="false" file="${diogene.location}/diogene.war" />
+    </target>
+	
+	
+	
+    <target depends="init,clean,read.env.properties" name="build.war">
+
+    	<antcall target="set.version"/>
+
+        <mkdir dir="${tmp.location}"/>
+        <mkdir dir="${tmp.webxml.location}"/>
+    	<mkdir dir="${tmp.location}/tmpJar"/>
+
+    	<copy file="${diogene.location}/WebContent/WEB-INF/web.xml" todir="${tmp.webxml.location}"/>
+        
+    	<copy todir="${tmp.location}">
+            <fileset dir="${diogene.location}/WebContent">
+            	<exclude name="WEB-INF/web.xml"/>
+                <include name="**/*"/>
+            </fileset>        	
+        </copy>
+    	
+		
+    	
+    	<mkdir dir="${tmp.location}/WEB-INF/classes"/>
+        <copy todir="${tmp.location}/WEB-INF/classes">
+            <fileset dir="${diogene.location}/JavaSource">
+            	<exclude name="CVS/*"/>
+                <include name="**/*.xml"/>
+            	<include name="**/*.properties"/>
+            	<include name="**/*.dtd"/>
+            	<include name="**/*.tld"/>
+            	<include name="**/*.txt"/>
+            </fileset>        	
+        </copy>	
+
+    	<javac classpathref="libs"  destdir="${tmp.location}/tmpJar" debug="${comp.debug}" deprecation="${comp.deprecation}">
+            <src path="JavaSource"/>
+        </javac>
+
+		<java classname="it.webred.utils.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${tmp.webxml.location}/web.xml" />
+			<arg value="${tmp.webxml.location}/web.xml" />
+			<arg value="tag" />
+			<arg value="web-app/context-param[param-name/text()='rootPathDatiDiogene']/param-value" />
+			<arg value="${path.rootDatiDiogene}" />
+			<arg value="tag" />
+			<arg value="web-app/security-constraint/auth-constraint/role-name" />
+			<arg value="${webapp.name}" />
+			<arg value="tag" />
+			<arg value="web-app/security-role/role-name" />
+			<arg value="${webapp.name}" />
+			<arg value="tag" />
+			<arg value="web-app/display-name" />
+			<arg value="${webapp.name}" />
+			<arg value="tag" />
+			<arg value="web-app/servlet[@id='ConcessioniINFORMServlet']/init-param[param-name/text()='pathImmagini']/param-value" />
+			<arg value="${path.concessioni}" />			
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='driverClass']/param-value" />
+			<arg value="${filtro.driverClass}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='urlConn']/param-value" />
+			<arg value="${filtro.urlConn}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='userConn']/param-value" />
+			<arg value="${filtro.userConn}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='pwdConn']/param-value" />
+			<arg value="${filtro.pwdConn}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='numGiorniVal']/param-value" />
+			<arg value="${filtro.numGiorniVal}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='paginaCambioPwd']/param-value" />
+			<arg value="${filtro.paginaCambioPwd}" />
+		</java>
+
+  	
+    	
+    	<jar basedir="${tmp.location}/tmpJar" compress="true" includes="*/**" jarfile="${tmp.location}/WEB-INF/lib/diogene.jar" >
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Build-Date" value="${oggi}"/>
+            </manifest>            
+        </jar>
+    	<delete dir="${tmp.location}/tmpJar"/>
+    	<java classname="it.webred.utils.ReboundProperties" classpathref="libs" fork="true">
+    		<arg value="${tmp.location}/WEB-INF/classes/log4j.properties"/>
+    		<arg value="${tmp.location}/WEB-INF/classes/log4j.properties"/>
+        	<arg value="log4j.appender.nelfile.File=${catalina.home}/logs/${webapp.name}Log.txt"/>  
+    		<arg value="log4j.rootLogger=ERROR, nelfile"/>
+        </java>
+    	<java classname="it.webred.utils.ReboundProperties" classpathref="libs" fork="true">
+    		<arg value="${tmp.location}/WEB-INF/classes/it.escsolution.escwebgis.common.EscLogic.properties"/>
+    		<arg value="${tmp.location}/WEB-INF/classes/it.escsolution.escwebgis.common.EscLogic.properties"/>
+        	<arg value="URL_3D_PROSPECTIVE=${URL_3D_PROSPECTIVE}"/>
+        </java>
+    	<java classname="it.webred.utils.ReboundProperties" classpathref="libs" fork="true">
+    		<arg value="${tmp.location}/WEB-INF/classes/it.escsolution.escwebgis.mappe.logic.MappeLogic.properties"/>
+    		<arg value="${tmp.location}/WEB-INF/classes/it.escsolution.escwebgis.mappe.logic.MappeLogic.properties"/>
+        	<arg value="path.pathCartografiaStorica=${path.pathCartografiaStorica}"/>
+        </java>
+    	<war destfile="${diogene.location}/${webapp.name}.war"  webxml="${tmp.webxml.location}\web.xml">
+            <fileset dir="${tmp.location}">
+            </fileset>
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+            </manifest>     
+        </war>
+    	<delete dir="${tmp.location}"/>
+    	<delete dir="${tmp.webxml.location}"/>
+
+    </target>
+
+    <target depends="init" name="take.webredutils.from.cvs">
+    	<mkdir dir="${libdir}/.webredutils"/>
+    	<cvs command="export -d ${libdir}/.webredutils -r HEAD webredutils/releases/last/webredutils.jar" cvsRoot="${cvs.root}" />
+        <delete file="${libdir}/webredutils.jar"/>
+        <copy file="${libdir}/.webredutils/webredutils.jar" todir="${libdir}"/>
+        <delete dir="${libdir}/.webredutils"/>
+    </target>
+	
+	
+	
+	<!-- Lettura delle informazioni di deploy dal file env.properties oppure dal file properties specifico del cliente -->
+	<target name="set.cliente.default" unless="cliente.settato">
+		<property name="cliente" value="" />
+		<echo message="Non si e' specificato il cliente per il deploy. Si utilizza il file properties di default!!!"/>
+	</target>
+	<target name="check.env.properties" if="cliente.settato">
+		<echo message="Cerco:${basedir}/env${cliente}diogene.properties"/>
+		<available file="${basedir}/env${cliente}diogene.properties" property="isFileAvailable" type="file"/>
+	    <fail unless="isFileAvailable" message="Il file env${cliente}diogene.properties non esiste!!!"/>
+	</target>
+	<target name="check.cliente">
+	    <condition property="cliente.settato">
+	    	<isset property="cliente"/>
+	    </condition>
+	</target>
+	<target name="read.env.properties" depends="check.cliente, set.cliente.default, check.env.properties">    
+	    <echo message="Lettura del file : env${cliente}diogene.properties"/>
+		<property file="env${cliente}diogene.properties" prefix="env"/>
+		<property name="webapp.name" value="${env.webapp.name}"/>
+		<property name="URL_3D_PROSPECTIVE" value="${env.URL_3D_PROSPECTIVE}"/>
+		<property name="path.pathCartografiaStorica" value="${env.path.pathCartografiaStorica}"/>		
+		<property name="path.planimetrie" value="${env.path.planimetrie}"/>
+		<property name="path.concessioni" value="${env.path.concessioni}"/>
+		<property name="path.pathModelloXls" value="${env.path.pathModelloXls}"/>
+		<property name="path.storicoConcessioni" value="${env.path.storicoConcessioni}"/>
+		<property name="path.planimetrie.comma340" value="${env.path.planimetrie.comma340}"/>
+		<property name="filtro.driverClass" value="${env.filtro.driverClass}"/>
+		<property name="filtro.urlConn" value="${env.filtro.urlConn}"/>
+		<property name="filtro.userConn" value="${env.filtro.userConn}"/>
+		<property name="filtro.pwdConn" value="${env.filtro.pwdConn}"/>
+		<property name="filtro.numGiorniVal" value="${env.filtro.numGiorniVal}"/>
+		<property name="filtro.paginaCambioPwd" value="${env.filtro.paginaCambioPwd}"/>
+		<property name="path.rootDatiDiogene" value="${env.path.rootDatiDiogene}"/>
+		<echo message="webapp.name=${webapp.name}"/>
+		<echo message="path.planimetrie=${path.planimetrie}"/>
+		<echo message="path.concessioni=${path.concessioni}"/>
+		<echo message="path.pathModelloXls=${path.pathModelloXls}"/>
+		<echo message="URL_3D_PROSPECTIVE=${URL_3D_PROSPECTIVE}"/>
+		<echo message="path.pathCartografiaStorica=${path.pathCartografiaStorica}"/>		
+		<echo message="path.storicoConcessioni=${path.storicoConcessioni}"/>
+		<echo message="path.planimetrie.comma340=${path.planimetrie.comma340}"/>
+		<echo message="filtro.driverClass=${filtro.driverClass}"/>
+		<echo message="filtro.urlConn=${filtro.urlConn}"/>
+		<echo message="filtro.userConn=${filtro.userConn}"/>
+		<echo message="filtro.pwdConn=${filtro.pwdConn}"/>
+		<echo message="filtro.numGiorniVal=${filtro.numGiorniVal}"/>
+		<echo message="filtro.paginaCambioPwd=${filtro.paginaCambioPwd}"/>
+		<echo message="path.rootDatiDiogene=${path.rootDatiDiogene}"/>
+	</target>   
+	
+	
+	<target name="set.version">
+		<replace 
+		    file="WebContent/ewg/Home.jsp"
+		    propertyFile="JavaSource/version.properties">
+		  <replacefilter 
+		    token="@@version.label@@" 
+		    property="version.label"/>
+		</replace>
+		<echo message="Inserito numero di versione"/>
+	</target>
+	
+</project>

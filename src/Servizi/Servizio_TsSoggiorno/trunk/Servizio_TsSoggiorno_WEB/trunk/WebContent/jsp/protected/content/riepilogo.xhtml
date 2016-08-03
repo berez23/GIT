@@ -1,0 +1,250 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmAna">
+
+	<rich:panel id="dati" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Anagrafica" />
+		</f:facet>
+
+		<table border="0" width="100%">
+			<tr>
+				<td>Codice fiscale</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.codfisc}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Cognome</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.cognome}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Nome</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.nome}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="DATI NASCITA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Comune</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.comuneNasc}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Provincia</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.siglaProvNasc}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Stato estero</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.statoEsteroNasc}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td>Data</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.dtNasc}"
+						styleClass="clsDisabled">
+						<f:convertDateTime pattern="MM/yyyy" timeZone="CET" />
+					</h:outputLabel></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="DATI RESIDENZA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Comune</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.comuneRes}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Provincia</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.siglaProvRes}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Stato estero</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.statoEsteroRes}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td>Via</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.indirizzoRes}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Civico</td>
+				<td><h:outputLabel
+						value="#{anagraficaBean.soggetto.numeroCivRes}"
+						styleClass="clsDisabled" /></td>
+
+				<td>CAP</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.capRes}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="ALTRI DATI"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Telefono</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.tel}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Cellulare</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.cell}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Fax</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.fax}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td>Email</td>
+				<td><h:outputLabel value="#{anagraficaBean.soggetto.email}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+		</table>
+
+	</rich:panel>
+	<rich:panel id="panelSoc" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Società" />
+		</f:facet>
+
+		<h:panelGrid columns="2"
+			rendered="#{fn:length(societaBean.listaSocieta) == 0}">
+			<h:outputLabel value="ATTENZIONE:"
+				style="color: orange; font-weight: bold;" />
+			<h:outputLabel
+				value="per poter creare una nuova dichiarazione è necessaria almeno una società" />
+			<br />
+		</h:panelGrid>
+
+		<rich:dataTable var="row" value="#{societaBean.listaSocieta}"
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Titolo" />
+				</f:facet>
+				<h:outputText value="#{row.societaSogg.descTitolo}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Ragione sociale" />
+				</f:facet>
+				<h:outputText value="#{row.societa.ragSoc}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Codice Fiscale" />
+				</f:facet>
+				<h:outputText value="#{row.societa.cf}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Partita iva" />
+				</f:facet>
+				<h:outputText value="#{row.societa.pi}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Sede legale" />
+				</f:facet>
+				<h:outputText
+					value="#{row.societa.indirizzoSede} #{row.societa.numeroCivSede} - #{row.societa.siglaProvSede}" />
+			</rich:column>
+		</rich:dataTable>
+
+	</rich:panel>
+	<rich:panel id="panelStr" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Strutture" />
+		</f:facet>
+
+		<h:panelGrid columns="2"
+			rendered="#{fn:length(strutturaBean.listaStrutture) == 0}">
+			<h:outputLabel value="ATTENZIONE:"
+				style="color: orange; font-weight: bold;" />
+			<h:outputLabel
+				value="per poter creare una nuova dichiarazione è necessaria almeno una struttura" />
+			<br />
+		</h:panelGrid>
+
+		<rich:dataTable var="row" value="#{strutturaBean.listaStrutture}"
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Denominazione" />
+				</f:facet>
+				<h:outputText value="#{row.struttura.descrizione}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Indirizzo" />
+				</f:facet>
+				<h:outputText
+					value="#{row.struttura.indirizzo} #{row.struttura.numCiv}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Società" />
+				</f:facet>
+				<h:outputText value="#{row.societa.ragSoc}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Categoria" />
+				</f:facet>
+				<a4j:repeat value="#{row.classi}" var="row2">
+					<h:outputText value="#{row2.descrizione}; " />
+				</a4j:repeat>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="2" styleClass="clsButton">
+					<h:graphicImage value="/images/add.png" id="img22">
+					</h:graphicImage>
+					<a4j:support event="onclick" reRender="centerContent"
+						action="#{dichiarazioneBean.doLoadNewDichiarazione}">
+						<a4j:actionparam value="#{row.societa.id}" name="idSociet"
+							assignTo="#{dichiarazioneBean.idSocieta}" />
+						<a4j:actionparam value="#{row.struttura.id}" name="idStruttur"
+							assignTo="#{dichiarazioneBean.idStruttura}" />
+						<a4j:actionparam value="/jsp/protected/content/dich.xhtml"
+							name="pageC" assignTo="#{pageBean.pageCenter}" />
+						<a4j:actionparam value="false" name="visDt"
+							assignTo="#{pageBean.visDati}" />
+					</a4j:support>
+					<h:outputLabel value="Nuova dichiarazione" style="cursor:pointer" />
+				</h:panelGrid>
+			</rich:column>
+		</rich:dataTable>
+
+	</rich:panel>
+
+</h:form>
+
+</html>

@@ -1,0 +1,349 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="4">
+				<h:outputText value="Foglio"/><h:inputText id="txtFoglio" value="#{valutazioniBean.criteriaElab.foglio}" />
+				<h:outputText value="Particella"/><h:inputText id="txtParticella" value="#{valutazioniBean.criteriaElab.particella}" />
+				<h:outputText value="Subalterno"/><h:inputText id="txtUnimm" value="#{valutazioniBean.criteriaElab.unimm}" />
+				<h:outputText value="Sezione"/><h:inputText id="txtIdSezc" value="#{valutazioniBean.criteriaElab.idSezc}" />
+				<h:outputText value="Esito Misurazione Planimetria"/>
+				<h:selectOneMenu id="txtStatoCatasto" 
+       				value="#{valutazioniBean.criteriaElab.statoCatasto}" style="width: 130px">
+					<f:selectItem itemValue="" itemLabel=""/>
+				    <f:selectItem itemValue="1" itemLabel="ES1 UIU con superficie calcolata" />
+				    <f:selectItem itemValue="2" itemLabel="ES2 UIU con superficie non calcolbile" />
+				    <f:selectItem itemValue="3" itemLabel="ES3 UIU con superficie in corso di definizione" />
+				    <f:selectItem itemValue="4" itemLabel="ES4 UIU con planimetria non presente in atti" />
+				</h:selectOneMenu>
+				<h:outputText value="Classe"/><h:inputText id="txtClasse" value="#{valutazioniBean.criteriaElab.classe}" />
+				<h:outputText value="Categoria uguale a (A01,A02, ... )"/><h:inputText id="txtCategoria" value="#{valutazioniBean.criteriaElab.categoria}" />
+				<h:outputText value="Categoria diversa da (A01,A02, ... )"/><h:inputText id="txtCategoriaNo" value="#{valutazioniBean.criteriaElab.categoriaNo}" />
+				<h:outputText value="Rendita maggiore uguale a"/><h:inputText id="txtRenditaDal" value="#{valutazioniBean.criteriaElab.renditaDal}" />
+				<h:outputText value="Rendita minore uguale a"/><h:inputText id="txtRenditaAl" value="#{valutazioniBean.criteriaElab.renditaAl}" />
+				<h:outputText value="Vano medio maggiore uguale a"/><h:inputText id="txtVanoDal" value="#{valutazioniBean.criteriaElab.vanoDal}" />
+				<h:outputText value="Vano medio minore uguale a"/><h:inputText id="txtVanoAl" value="#{valutazioniBean.criteriaElab.vanoAl}" />
+				<h:outputText value="Sup. Cat. Tarsu (A) maggiore uguale a"/><h:inputText id="txtSupCatTarsuDal" value="#{valutazioniBean.criteriaElab.supCatTarsuDal}" />
+				<h:outputText value="Sup. Cat. Tarsu (A) minore uguale a"/><h:inputText id="txtSupCatTarsuAl" value="#{valutazioniBean.criteriaElab.supCatTarsuAl}" />
+				<h:outputText value="Difformita su Superficie Totale"/>
+				<h:selectOneMenu id="cbDifformita" 
+       				value="#{valutazioniBean.criteriaElab.difformita}" style="width: 130px">
+					<f:selectItem itemValue="" itemLabel=""/>
+				    <f:selectItem itemValue="DIFFORME" itemLabel="DIFFORME" />
+				    <f:selectItem itemValue="CONFORME" itemLabel="CONFORME" />
+				</h:selectOneMenu>
+			</h:panelGrid>
+			<h:panelGrid columns="1">
+				<a4j:commandButton id="btnCerca" value="Cerca" reRender="tblList"/>
+
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<h:commandLink action="#{valutazioniBean.goXls}" target="_blank">
+				        <h:graphicImage value="/images/xls.png"/>
+				</h:commandLink>
+			</td></tr>
+			<tr><td align="left">
+			<h:outputText value="Num. UIU da Segnalare Selezionate: " />
+			<rich:spacer width="5px"/>
+			<h:outputLabel id="lblNumSegnala" value="#{numSegnala}" />
+			</td></tr>
+			<tr><td align="left">
+			<a4j:commandButton id="btnAdd" 
+					value="Aggiungi UIU da Segnalare" 
+					reRender="lblNumSegnala" 
+					action="#{valutazioniBean.doAddSegnala}"/>
+			<rich:spacer width="5px"/>
+			<a4j:commandButton id="btnReset" 
+					value="Reset UIU da Segnalare" 
+					reRender="lblNumSegnala" 
+					action="#{valutazioniBean.doResetSegnala}"/>
+			</td></tr></table>
+			
+	<rich:spacer width="5px" height="30px"/>
+	
+	<h:graphicImage value="/images/info.gif" rendered="true"/>
+	<h:outputText value="Sfiorare il Titolo della colonna per avere maggiori informazioni" />
+    <rich:spacer width="5px"/>
+				
+	<rich:dataTable id="tblList" value="#{valutazioniDataModel}" var="elab" rows="30" style="width: 100%" rendered="true">
+	        
+	        <f:facet name="header">
+				<h:outputText value="Esito Elaborazione " />
+	        </f:facet>
+	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">                        
+                        		<f:facet name="header"><rich:spacer width="5px"/></f:facet>
+                        	</rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Seg" id="lblSeg" />
+                                <rich:toolTip for="lblSeg" value="S = Unita Immobiliare con segnalazione in corso non ancora inviata" styleClass="tooltip"/>
+                                <br/>
+                                <h:outputText value="Esp" id="lblEsp" />
+                                <rich:toolTip for="lblEsp" value="E = Unita Immobiliare con segnalazione inviata" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Sez" id="lblSez" />
+                                <rich:toolTip for="lblSez" value="sezione" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Fog" id="lblFog" />
+                                <rich:toolTip for="lblFog" value="foglio" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Part" id="lblPart" />
+                                <rich:toolTip for="lblPart" value="particella" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Den" id="lblDen" />
+                                <rich:toolTip for="lblDen" value="denominatore" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Sub" id="lblSub" />
+                                <rich:toolTip for="lblSub" value="subalterno" styleClass="tooltip"/>
+                            </rich:column>                            
+                            <rich:column rowspan="2">
+                                <h:outputText value="Cat" id="lblCat" />
+                                <rich:toolTip for="lblCat" value="categoria" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Cls" id="lblCls" />
+                                <rich:toolTip for="lblCls" value="classe" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Cons" id="lblCons" />
+                                <rich:toolTip for="lblCons" value="consistenza" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Rend" id="lblRend" />
+                                <rich:toolTip for="lblRend" value="rendita" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(F) Sup Cat" id="lblF" /><br/><h:outputText value="Dpr 138 98" id="lblSupCat" />
+                                <rich:toolTip for="lblF" value="superficie Catastale (dai dati metrici TARES)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblSupCat" value="superficie Catastale (dai dati metrici TARES)" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Sup Vani" id="lblSupVani" />
+                                <rich:toolTip for="lblSupVani" value="superficie per tipologia di vano (dai dati per TARSU del Portale dei Comuni)" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Stato" id="lblStato" /><br/><h:outputText value="Catasto" id="lblCatasto" />
+                                <rich:toolTip for="lblStato" value="esito della misurazione della planimetria (1: misurata, 2: non calcolabile, 3: in corso di definizione, 4: planimetria non presente)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblCatasto" value="esito della misurazione della planimetria (1: misurata, 2: non calcolabile, 3: in corso di definizione, 4: planimetria non presente)" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(A) Sup Cat" id="lblA" /><br/><h:outputText value="Tarsu" id="lblTarsu01" />
+                                <rich:toolTip for="lblA" value="superficie catastale calcolata ai sensi del DPR 138/98 decurtata delle superfici non tassabili ai fini TARSU;&lt;BR/&gt; (da dati metrici TARES)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblTarsu01" value="superficie catastale calcolata ai sensi del DPR 138/98 decurtata delle superfici non tassabili ai fini TARSU;&lt;BR/&gt; (da dati metrici TARES)" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(B)" id="lblB" /><br/><h:outputText value="Sup Cat" id="lblSupCat02" /><br/><h:outputText value="Tarsu 80" id="lblTarsu80" />
+                                <rich:toolTip for="lblB" value="80 % di A" styleClass="tooltip"/>
+                                <rich:toolTip for="lblSupCat02" value="80 % di A" styleClass="tooltip"/>
+                                <rich:toolTip for="lblTarsu80" value="80 % di A" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(C)" id="lblC" /><br/><h:outputText value="Sup Tarsu" id="lblSupTarsu" /><br/><h:outputText value="Dichiarata" id="lblSupTarsuDic" />
+                                <rich:toolTip for="lblC" value="superficie dichiarata ai fini TARSU. L’aggancio avviene per coordinate catastali (foglio, particella e subalterno), se a più oggetti sono associate le stesse coordinate catastali viene riportata la somma delle superfici dichiarate" styleClass="tooltip"/>
+                                <rich:toolTip for="lblSupTarsu" value="superficie dichiarata ai fini TARSU. L’aggancio avviene per coordinate catastali (foglio, particella e subalterno), se a più oggetti sono associate le stesse coordinate catastali viene riportata la somma delle superfici dichiarate" styleClass="tooltip"/>
+                                <rich:toolTip for="lblSupTarsuDic" value="superficie dichiarata ai fini TARSU. L’aggancio avviene per coordinate catastali (foglio, particella e subalterno), se a più oggetti sono associate le stesse coordinate catastali viene riportata la somma delle superfici dichiarate" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(D)" id="lblD" /><br/><h:outputText value="Delta" id="lblDelta01" /><br/><h:outputText value="Dich 80 (C-B)" id="lblDich80" />
+                                <rich:toolTip for="lblD" value="Differenza tra C e B (C-B)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblDelta01" value="Differenza tra C e B (C-B)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblDich80" value="Differenza tra C e B (C-B)" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="(E)" id="lblE" /><br/><h:outputText value="Stima Sup Cat" id="lblSupCat03" /><br/><h:outputText value="Dpr 138 98" id="lblDpr13898" />
+                                <rich:toolTip for="lblE" value="stima della superficie catastale ai sensi del DPR 138/98 eseguita utilizzando la formula: 
+									sup_A + 0.5*sup_B + 0.25*sup_C + [0.3*sup_D (fino a 25mq.) + 0.1*sup_D (quota eccedente i 25mq.)]+ 
+									[0.15*sup_E (fino a 25mq.) + 0.05*sup_E (quota eccedente i 25mq.)] + 
+									[0.10*sup_F (fino a superf A) + 0.02*sup_F (quota eccedente superf A)] +  0.5*sup_H (se cat c/1 o c/6)
+									Si tratta di una stima perché nella norma sono previsti dei controlli che non possiamo eseguire sui dati;" styleClass="tooltip"/>
+                                <rich:toolTip for="lblSupCat03" value="stima della superficie catastale ai sensi del DPR 138/98 eseguita utilizzando la formula: 
+									sup_A + 0.5*sup_B + 0.25*sup_C + [0.3*sup_D (fino a 25mq.) + 0.1*sup_D (quota eccedente i 25mq.)]+ 
+									[0.15*sup_E (fino a 25mq.) + 0.05*sup_E (quota eccedente i 25mq.)] + 
+									[0.10*sup_F (fino a superf A) + 0.02*sup_F (quota eccedente superf A)] +  0.5*sup_H (se cat c/1 o c/6)
+									Si tratta di una stima perché nella norma sono previsti dei controlli che non possiamo eseguire sui dati;" styleClass="tooltip"/>
+                                <rich:toolTip for="lblDpr13898" value="stima della superficie catastale ai sensi del DPR 138/98 eseguita utilizzando la formula: 
+									sup_A + 0.5*sup_B + 0.25*sup_C + [0.3*sup_D (fino a 25mq.) + 0.1*sup_D (quota eccedente i 25mq.)]+ 
+									[0.15*sup_E (fino a 25mq.) + 0.05*sup_E (quota eccedente i 25mq.)] + 
+									[0.10*sup_F (fino a superf A) + 0.02*sup_F (quota eccedente superf A)] +  0.5*sup_H (se cat c/1 o c/6)
+									Si tratta di una stima perché nella norma sono previsti dei controlli che non possiamo eseguire sui dati;" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Delta Sup" id="lblDeltaSup"/><br/><h:outputText value="Cat Calc (F-E)" id="lblCatCalc" />
+                                <rich:toolTip for="lblDeltaSup" value="Differenza tra F e E (F-E)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblCatCalc" value="Differenza tra F e E (F-E)" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="(G)" id="lblG" /><br/><h:outputText value="Sup Cat" id="lblSupCat04" /><br/><h:outputText value="Tarsu Calc" id="lblTarsuCalc01" />
+                                <rich:toolTip for="lblG" value="superficie catastale ai fini TARSU calcolata come sup_A+sup_B*0.5+sup_C*0.25+sup_H*0.5" styleClass="tooltip"/>
+                                <rich:toolTip for="lblSupCat04" value="superficie catastale ai fini TARSU calcolata come sup_A+sup_B*0.5+sup_C*0.25+sup_H*0.5" styleClass="tooltip"/>
+                                <rich:toolTip for="lblTarsuCalc01" value="superficie catastale ai fini TARSU calcolata come sup_A+sup_B*0.5+sup_C*0.25+sup_H*0.5" styleClass="tooltip"/>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Delta Sup Cat" id="lblDeltaSupCat" /><br/><h:outputText value="Tarsu Calc (A-G)" id="lblTarsuCalc02" />
+                                <rich:toolTip for="lblDeltaSupCat" value="differenza tra A (la superficie catastale a fini TARSU che viene passata nel file dei dati metrici) e G (A-G)" styleClass="tooltip"/>
+                                <rich:toolTip for="lblTarsuCalc02" value="differenza tra A (la superficie catastale a fini TARSU che viene passata nel file dei dati metrici) e G (A-G)" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Vano" id="lblVano"/>
+                                <rich:toolTip for="lblVano" value="rapporto tra A e CONSISTENZA (A/CONSISTENZA) serve per identificare le situazioni di anomalie nella misurazione della planimetria (es. errori nell’interpretazione della scala)" styleClass="tooltip"/>
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+
+
+	        <rich:column>
+				<h:selectBooleanCheckbox value="#{elab.sel}" />
+	        </rich:column>
+			<rich:column >
+				<rich:toolTip value="S = Unita Immobiliare con segnalazione in corso non ancora inviata" styleClass="tooltip" rendered="#{elab.segnalata}"/>
+				<h:outputText value="S" rendered="#{elab.segnalata}" />
+				<rich:spacer width="5px"/> 
+				<rich:toolTip value="E = Unita Immobiliare con segnalazione inviata&lt;BR/&gt;Il pulsante di colore rosso indica presenza della difformita nella superficie totale tra dati catastali e dati segnalati" styleClass="tooltip" rendered="#{elab.esportata}" />
+					<a4j:commandButton value="E" 
+							rendered="#{elab.esportata}"
+							action="#{valutazioniBean.goRecordDetail}"
+							reRender="datiMetriciUiuVsCatastoModalBox"
+							oncomplete="Richfaces.showModalPanel('datiMetriciUiuVsCatastoModalBox')"
+							style="#{elab.difforme?'background-image: none; background-color: red; width:30px;':'width:30px;'}">
+									<a4j:actionparam
+ 	 									value="#{elab.id.foglio}_#{elab.id.particella}_#{elab.id.unimm}_#{elab.segnalazioniIds}"
+                 						name="indice" 
+                 						assignTo="#{valutazioniBean.fpsElab}" />
+					</a4j:commandButton>
+	        </rich:column>
+	        <rich:column>
+				<h:outputText value="#{elab.idSezc}" />
+	        </rich:column>
+	        <rich:column>
+				<h:outputText value="#{elab.id.foglio}" />
+
+	        </rich:column>
+	        <rich:column>
+				<h:outputText value="#{elab.id.particella}" />
+
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.sub}" />
+
+	        </rich:column>
+	        <rich:column>
+				<h:outputText value="#{elab.id.unimm}" />
+
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{elab.categoria}" />
+
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{elab.classe}" />
+
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{elab.consistenza}" />
+
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{elab.rendita}" />
+
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{elab.supCat}" />
+
+	        </rich:column>
+
+	        <rich:column>
+	        
+	        	<h:panelGrid columns="4">
+	        		<h:outputText value="A:" style="font-weight: bold;" rendered="#{not empty elab.supA}"/><h:outputText value="#{elab.supA}" rendered="#{not empty elab.supA}" />
+	        		<h:outputText value="B:" style="font-weight: bold;" rendered="#{not empty elab.supB}"/><h:outputText value="#{elab.supB}" rendered="#{not empty elab.supB}" />
+	        		<h:outputText value="C:" style="font-weight: bold;" rendered="#{not empty elab.supC}"/><h:outputText value="#{elab.supC}" rendered="#{not empty elab.supC}" />
+	        		<h:outputText value="D:" style="font-weight: bold;" rendered="#{not empty elab.supD}"/><h:outputText value="#{elab.supD}" rendered="#{not empty elab.supD}" />
+	        		<h:outputText value="E:" style="font-weight: bold;" rendered="#{not empty elab.supE}"/><h:outputText value="#{elab.supE}" rendered="#{not empty elab.supE}" />
+	        		<h:outputText value="F:" style="font-weight: bold;" rendered="#{not empty elab.supF}"/><h:outputText value="#{elab.supF}" rendered="#{not empty elab.supF}" />
+	        		<h:outputText value="G:" style="font-weight: bold;" rendered="#{not empty elab.supG}"/><h:outputText value="#{elab.supG}" rendered="#{not empty elab.supG}" />
+	        		<h:outputText value="H:" style="font-weight: bold;" rendered="#{not empty elab.supH}"/><h:outputText value="#{elab.supH}" rendered="#{not empty elab.supH}" />
+	        	</h:panelGrid>
+
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.statoCatasto}" />
+
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.supCatTarsu}" />
+
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.supCatTarsu80}" />
+
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{elab.supTarsu}" />
+
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.deltaDich80}" />
+
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.supCatDpr13898}" />
+	        </rich:column>
+			<rich:column>
+				<h:outputText value="#{elab.deltaSupCatCalc}" />
+	        </rich:column>
+	        <rich:column>
+				<h:outputText value="#{elab.supCatTarsuCalc}" />
+	        </rich:column>
+	        <rich:column>
+				<h:outputText value="#{elab.deltaSupCatTarsuCalc}" />
+	        </rich:column>
+	        <rich:column >
+				<h:outputText value="#{elab.vano}" />
+	        </rich:column>
+
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+                	<rich:column colspan="23">
+							
+						<rich:datascroller id="scroller" for="tblList" maxPages="10" pagesVar="pages" pageIndexVar="pageIndex" >
+								<f:facet name="pages">
+						             <h:outputText value="#{pageIndex} / #{pages} (#{valutazioniBean.elabNum})" />
+						         </f:facet>
+							</rich:datascroller>
+
+					</rich:column>
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	</rich:dataTable>
+	
+		</rich:panel>			
+	</h:form>
+	
+	<ui:include id="datiMetriciUiuVsCatastoModal" src="/jsp/protected/datiMetriciUiu/datiMetriciUiuVsCatastoModal.xhtml" />
+				
+	</div>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

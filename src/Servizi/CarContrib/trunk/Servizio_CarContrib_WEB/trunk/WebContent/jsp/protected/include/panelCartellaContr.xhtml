@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition>
+		<ui:include src="/jsp/protected/include/panelRTarsu.xhtml" />
+		<ui:include src="/jsp/protected/include/panelRTares.xhtml" />
+	 	<ui:include src="/jsp/protected/include/panelImmobiliIci.xhtml" />
+		<ui:include src="/jsp/protected/include/panelImmobiliTarsu.xhtml" />
+		<ui:include src="/jsp/protected/include/panelSelectSoggettoIci.xhtml" />
+		<ui:include src="/jsp/protected/include/panelSelectSoggettoTarsu.xhtml" />
+		<ui:include src="/jsp/protected/include/panelSelectSoggettoCosap.xhtml" />
+		<ui:include src="/jsp/protected/include/panelSelectSoggettoCNC.xhtml" />
+		<ui:include src="/jsp/protected/include/panelSelectSoggettoRedditi.xhtml" />
+		<ui:include src="/jsp/protected/include/panelSelectSezioniPdf.xhtml" />
+		<rich:modalPanel id="panelCartellaContribuentePanel"
+			height="610" width="1120"
+			moveable="true" resizeable="true" style="overflow: auto;" >
+
+			<f:facet name="header">
+				<h:outputText value="Riepilogo richiesta"></h:outputText>
+			</f:facet>
+			<f:facet name="controls">
+				<h:form>
+					<h:panelGroup>
+						<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelink">
+							<a4j:support event="onclick"
+								oncomplete="javascript:Richfaces.hideModalPanel('panelCartellaContribuentePanel');" />
+						</h:graphicImage>
+					</h:panelGroup>
+				</h:form>
+			</f:facet>
+			<h:form>
+
+				<rich:panel rendered="#{not empty filtroBean.msgErrore}">
+   					<h:outputText value="#{filtroBean.msgErrore}" styleClass="errorStyleRicerca" />
+   					<rich:spacer height="10px" />
+   				</rich:panel>
+
+				<div style="overflow: auto; position: relative;height: 500px;">
+			  		<h:panelGrid cellpadding="0" cellspacing="0" width="100%" rendered="#{empty filtroBean.msgErrore}">
+			  			<table>
+			  				<tr>
+			  					<td style="height: 40px;">
+			  						<h:outputText value="#{contribuenteBean.intestazione}" styleClass="titolo" />
+			  					</td>
+			  				</tr>
+			  			</table>
+						<rich:tabPanel id="ajaxTabPanel" switchType="ajax" height="100%" tabClass="tabClass">
+							<rich:tab id="ajaxZeroPanel" rendered="#{contribuenteBean.catastoFonte.abilitata or contribuenteBean.locazioniFonte.abilitata}">
+						  		<ui:include src="/jsp/protected/include/cartellaContribPatrimoniale.xhtml" />
+						  	</rich:tab>
+							<rich:tab id="ajaxIciPanel" rendered="#{contribuenteBean.tribIciFonte.abilitata}">
+								<ui:include src="/jsp/protected/include/cartellaContribIci.xhtml" />
+				  			</rich:tab>
+						  	<rich:tab id="ajaxTarsuPanel" rendered="#{contribuenteBean.tribTarsuFonte.abilitata}">
+						  		<ui:include src="/jsp/protected/include/cartellaContribTarsu.xhtml" />
+						  	</rich:tab>
+						  	<rich:tab id="ajaxRuoliPanel" rendered="#{contribuenteBean.ruoliVersCarContrib.fontiAbilitate}">	
+								<ui:include src="/jsp/protected/include/cartellaContribRuoliVers.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxCosapPanel" rendered="#{contribuenteBean.cosapFonte.abilitata}">
+								<ui:include src="/jsp/protected/include/cartellaContribCosap.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxCncPanel" rendered="#{contribuenteBean.cncFonte.abilitata}">
+								<ui:include src="/jsp/protected/include/cartellaContribCNC.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxReddPanel" rendered="#{contribuenteBean.redditiFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribRedditi.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxAcquaPanel" rendered="#{contribuenteBean.acquaFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribAcqua.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxMultePanel" rendered="#{contribuenteBean.multeFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribMulte.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxRettePanel" rendered="#{contribuenteBean.retteFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribRette.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxPratichePanel" rendered="#{contribuenteBean.praticheFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribPratiche.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxNucleoPanel" rendered="#{filtroBean.richiestaSelezionata.richiesta.codTipoSogg=='F' and contribuenteBean.nucleoFonte.abilitata}">
+								<ui:include src="/jsp/protected/include/cartellaContribNucleo.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxCarSocPanel" rendered="#{contribuenteBean.carsocialeFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribCarSociale.xhtml" />
+							</rich:tab>
+							<rich:tab id="ajaxImuPanel" rendered="#{contribuenteBean.imuFonte.abilitata}">	
+								<ui:include src="/jsp/protected/include/cartellaContribImu.xhtml" />
+							</rich:tab>
+							
+						</rich:tabPanel>
+			  		</h:panelGrid>
+				</div>
+	  			<c:if test="#{contribuenteBean.showButtonProduciPdf and empty filtroBean.msgErrore}" >
+				  	<div class="divBottoniFooter">
+						<table style="width:100%">
+							<tr>
+								<td>
+									<a4j:commandButton 
+									value="PRODUCI PDF"  style="width:150px;"
+									reRender="SelectSezioniPdfPanel" 
+									oncomplete="#{rich:component('SelectSezioniPdfPanel')}.show()" />
+								</td>
+							</tr>
+						</table>		  		
+				  	</div>
+			  	</c:if>
+				<rich:spacer height="10px"/>			  					
+			 	<table border="0" style="width:100%">
+	             	<tr>
+	             		<td align="center" >
+							<a4j:commandLink 
+								value="Chiudi finestra" 
+								action="#{filtroBean.ReturnRichiesta}"
+								oncomplete="#{rich:component('panelCartellaContribuentePanel')}.hide();"  />		             	
+	             		</td>
+					</tr>	
+		        </table>  
+        </h:form>
+		</rich:modalPanel>
+	</ui:composition>
+</html>

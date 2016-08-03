@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+	<named-query name="PregeoInfo.getInfoByFP">
+		<query>
+			<![CDATA[
+				SELECT i 
+				FROM PregeoInfo i
+				WHERE i.foglio = :foglio
+				  AND LPAD(i.particella, 5, '0')  = LPAD(:particella, 5, '0')  
+			]]>
+		</query>
+	</named-query>
+</entity-mappings>	

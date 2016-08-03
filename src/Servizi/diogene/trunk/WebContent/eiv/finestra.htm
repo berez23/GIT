@@ -1,0 +1,53 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE>Double click on item to add text.
+</TITLE>
+
+<LINK href="Scripts/tempStyles.css" type="text/css" rel="stylesheet">
+<SCRIPT language="javascript" src="Scripts/dynamic.js"></SCRIPT>
+
+</HEAD>
+<BODY bgcolor=>
+<table>
+<tr>
+<TD align="center" bgcolor="#EAEAEA" style="BORDER-LEFT-COLOR: #00000; BORDER-LEFT-STYLE: solid">
+<TABLE id="Menu" cellspacing="0" cellpadding="0" width="200" border="0">
+<TR>
+<TD width="15" background="images/mnutitle-l.jpg" height="20">&nbsp;</TD>
+<TD class="mnuTitle" width="70" background="images/mnutitle.jpg" height="20">Location&nbsp;Tools
+</TD>
+<TD width="15" background="images/mnutitle-r.jpg" height="20"><IMG alt="" src="images/arrow-d.gif"></TD>
+</TR>
+<TR>
+<TD align="middle" colSpan="3">
+<TABLE class="subMnu" id="Table3" cellSpacing="2" cellPadding="2" bgColor="#0066ff" border="0">
+<TR>
+<TD colSpan="2">
+<div id="InsBk" style="DISPLAY:none"><Input type="Text" id="txtBookmark" style="WIDTH: 110px" NAME="txtBookmark">
+<span onclick="modInsert(1)" style="cursor: pointer">[Ok]</span>&nbsp; &nbsp;<span style="cursor: pointer" onclick="modInsert(0)">[X]</span>
+</div>
+<div id="SelBk"><SELECT id="lstBookmarks" style="WIDTH: 120px" NAME="lstBookmarks"></SELECT>
+<span onclick="modAdd(1)" style="cursor: pointer">[+]</span>&nbsp; &nbsp;<span style="cursor: pointer" onclick="modAdd(0)">[-]</span>
+</div></TD>
+</TR>
+<TR>
+<TD colSpan="2">
+<INPUT class="button" type="button" value="go to" ID="Button9" NAME="Button9" onclick="GoToSelection(lstBookmarks)"></TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+ </TABLE>
+</TD>
+</TR>
+</TABLE>
+
+<SCRIPT language="javascript">
+SetMenu('Menu');
+</SCRIPT>
+
+</BODY>
+</HTML>
+
+

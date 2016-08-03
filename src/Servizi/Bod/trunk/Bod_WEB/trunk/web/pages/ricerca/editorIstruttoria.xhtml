@@ -1,0 +1,362 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:c="http://java.sun.com/jstl/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+  			<rich:modalPanel id="xmlManagerPanel" autosized="true">
+		        <f:facet name="header">
+		            <h:outputText value="Compila Istruttoria" />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="hideXmlLink" />
+			     <rich:componentControl for="xmlManagerPanel" attachTo="hideXmlLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		         <h:form id="frmMod">  
+		            <h:panelGrid columns="1">
+		            <a4j:outputPanel ajaxRendered="true" layout="block" style="overflow: auto; height: 600px">
+
+
+		        	<table width="900px" style="width: 900px; height: 500px">
+		        	<tr>
+		            	<td >
+<!-- ********************** INFORMAZIONI TESTATA *************************** -->
+		        	<table width="900px" style="width: 900px">
+		        	<tr bgcolor="#E6E6FA" style="height: 20px"> 
+			        	<td colspan="2" align="right">
+							<h:outputText value="Codice Ente" style="font-weight: bold"/>
+						</td>
+			        	<td align="center">
+							<h:outputText value="#{ricercaDettaglioBck.bodSegnalazione.codiceEnte}" />
+						</td>
+			        	<td colspan="2" align="right">
+			        		<h:outputText value="Protocollo" style="font-weight: bold"/>
+			        	</td>
+			        	<td align="center" >
+							<h:outputText value="#{ricercaDettaglioBck.bodSegnalazione.protocollo}" />
+						</td>
+		        	</tr>
+		        	</table>
+		        	
+		        	
+		        		</td>
+		        	</tr>
+		        	<tr>
+		        		<td>
+		        	
+<!-- ******************* RADIOBUTTON COERENTE ****************************** -->
+					<table width="900px" style="width: 900px">
+						<tr bgcolor="#E6E6FA" style="height: 20px">
+				        	<td colspan="2" width="25%" align="left">
+				        		<h:selectOneRadio
+				        			id="rdoCoerente"
+				        			style="font-weight: bold"
+				        			value="#{ricercaDettaglioBck.esitoControlloCoerente}"
+				        			binding="#{ricercaDettaglioBck.rdoCoerente}"
+				        			disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">			        			
+				        			<f:selectItem id="COERENTE" itemValue="COERENTE" itemLabel="COERENTE"/>
+				        			<a4j:support 
+				        				id="COERENTE_SUP" 
+				        				actionListener="#{ricercaDettaglioBck.radioControl}" 
+				        				event="onclick"/>
+				        		</h:selectOneRadio>
+							</td>
+							<td colspan="4" align="left" valign="middle">
+								<rich:comboBox
+									id="cbxCoerenteComDoc"
+									width="150px"
+									enableManualInput="false"
+									immediate="false"									
+									defaultLabel="#{ricercaDettaglioBck.emptyComboItem}"
+									value="#{ricercaDettaglioBck.esitoControlloComDoc}"
+									disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">									
+									<f:selectItem itemValue="COMPLETA" itemLabel="COMPLETA"/>
+									<f:selectItem itemValue="DOCUMENTALE" itemLabel="DOCUMENTALE"/>
+								</rich:comboBox>
+							</td>
+			        	</tr>		        	
+					</table>
+						</td>
+		        	</tr>
+		        	<tr>
+		        		<td>
+
+<!-- ******************* RADIOBUTTON INCOERENZA **************************** -->
+					<table width="900px" style="width: 900px">
+						<tr bgcolor="#E6E6FA" style="height: 20px">
+				        	<td colspan="6" align="left">
+				        		<h:selectOneRadio
+				        			id="rdoIncoerente"
+				        			style="font-weight: bold"
+				        			value="#{ricercaDettaglioBck.esitoControlloIncoerente}"
+				        			binding="#{ricercaDettaglioBck.rdoIncoerente}"
+				        			disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">			        			
+				        			<f:selectItem id="INCOERENTE" itemValue="INCOERENTE" itemLabel="INCOERENTE"/>
+				        			<a4j:support 
+				        				id="INCOERENTE_SUP" 
+				        				actionListener="#{ricercaDettaglioBck.radioControl}" 
+				        				event="onclick"/>
+				        		</h:selectOneRadio>
+							</td>
+			        	</tr>
+					<tr bgcolor="#ebf3fd">
+					 	<td align="right" colspan="2" width="25%">
+							<h:outputText id="idDataFineLavori" value="Data Fine Lavori" style="font-weight: bold"/>
+						</td>
+						<td align="left" width="25%">				        			
+		        			<rich:calendar 
+		        					id="txtDataFineLavori" 
+		        					value="#{ricercaDettaglioBck.calDataFineLavori.selectedDate}"
+			                        popup="true"
+			                        datePattern="dd/MM/yyyy"
+			                        showApplyButton="false" 
+			                        cellWidth="24px" 
+			                        cellHeight="22px" 
+			                        style="width:220px"
+			                        enableManualInput="true"
+			                        inputStyle="width:120px"
+			                        disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/> 
+						</td>
+			        	<td align="right" colspan="2" width="25%">
+		        			<h:outputText id="idSopralluogo" value="Sopralluogo" style="font-weight: bold"/>
+				        </td>
+				        <td align="left" width="25%">
+				          		<h:selectBooleanCheckbox 
+				        			id="rdoSopralluogo"
+				        			value="#{ricercaDettaglioBck.bodSegnalazione.sopralluogo}"
+				        			disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+				        </td>
+			        	</tr>
+			        	<tr bgcolor="#ebf3fd">
+					 	<td align="center" colspan="6">
+
+							 	<rich:dataTable 
+							        			style="width: 500px"
+												       width="500px" 
+											        	id="istFabTbl" 
+											        	columnClasses="col" 
+											        	value="#{ricercaDettaglioBck.lstIstruttoriaFab}" 
+											        	var="fab"
+											        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									    
+							            <f:facet name="header">
+							                <h:outputText value="Dati dei Fabbricati"/>
+							            </f:facet>
+							            <rich:column>
+							                <f:facet name="header">
+								                        <h:outputText value="Sez. Urbana" />
+							                </f:facet>
+									                <h:inputText value="#{fab.sezione}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+							            </rich:column>
+							            <rich:column>
+							                <f:facet name="header">
+								                        <h:outputText value="Foglio" />
+							                </f:facet>
+									                <h:outputText value="#{fab.foglio}"/>
+							            </rich:column>
+							            <rich:column>
+							                <f:facet name="header">
+								                        <h:outputText value="Particella" />
+							                </f:facet>
+									                <h:outputText value="#{fab.particella}"/>
+							            </rich:column>
+							            <rich:column>
+							                <f:facet name="header">
+								                        <h:outputText value="Sez. Amm.va" />
+							                </f:facet>
+									                <h:inputText value="#{fab.amministrativa}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+							            </rich:column>
+							            <rich:column>
+							                <f:facet name="header">
+								                        <h:outputText value="Denominatore" />
+							                </f:facet>
+									                <h:inputText value="#{fab.denominatore}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+							            </rich:column>
+							            <rich:column>
+							                <f:facet name="header">
+								                        <h:outputText value="Edificialita" />
+							                </f:facet>
+									                <h:inputText value="#{fab.edificialita}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+							            </rich:column>
+							           </rich:dataTable>
+
+						        	</td>
+					        	</tr>
+					        	<tr bgcolor="#ebf3fd">
+								 	<td align="center" colspan="6">
+										<div style="overflow: auto;">
+											<rich:dataTable 
+														style="width: 500px"
+													       width="500px" 
+												        	id="istUiuTbl" 
+												        	columnClasses="col" 
+												        	value="#{ricercaDettaglioBck.lstIstruttoriaUiu}" 
+												        	var="uiu"
+												        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+										    										    
+										    <f:facet name="header">
+								                <rich:columnGroup>
+								                    <rich:column colspan="11">
+								                        <h:outputText styleClass="headerText" value="Dati Uiu" />
+								                    	<h:outputText styleClass="headerText" 
+								                    					rendered="#{ricercaDettaglioBck.bodSegnalazioneSwitch.mostraLinkNuova and !(!ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato or ricercaDettaglioBck.bodIstruttoria.chiusa)}"
+								                    					value=" (sono considerate solo le Uiu aventi tipo operazione Costituita o Variata)" />
+								                    </rich:column>
+								                    <rich:column colspan="7" breakBefore="true">
+									            		<rich:spacer width="15px"/>
+									            	</rich:column>
+								                    <rich:column colspan="4">
+									            		<h:outputText styleClass="headerText" value="Incoerenza" />
+									            	</rich:column>
+								                    <rich:column breakBefore="true">
+							                        	<h:outputText  value="Sez. Urbana" />
+								                    </rich:column>
+								                    <rich:column>
+								                        <h:outputText  value="Foglio" />
+								                    </rich:column>
+									                 <rich:column>
+								                        <h:outputText value="Particella" />
+								                    </rich:column>
+								                    <rich:column>
+								                        <h:outputText value="Subalterno" />
+								                    </rich:column>
+								                    <rich:column>
+								                        <h:outputText  value="Sez. Amm.va" />
+								                    </rich:column>
+								                    <rich:column>
+								                        <h:outputText  value="Denominatore" />
+								                    </rich:column>
+								                    <rich:column>
+								                        <h:outputText  value="Edificialita" />
+								                    </rich:column>
+								                    <rich:column >
+								                        <h:outputText  value="Consistenza" />
+								                    </rich:column>
+													<rich:column>
+								                        <h:outputText  value="Destinazione" />
+								                    </rich:column>
+								                    <rich:column>
+								                        <h:outputText  value="Planimetria" />
+								                    </rich:column>
+													<rich:column>
+								                        <h:outputText  value="Classamento" />
+								                    </rich:column>
+												 </rich:columnGroup>		               
+								            </f:facet>
+										    
+										     <rich:column styleClass="colClass">
+								                <h:inputText value="#{uiu.sezione}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+										     <rich:column styleClass="colClass">
+								                <h:outputText value="#{uiu.foglio}"/>
+								            </rich:column>
+											<rich:column styleClass="colClass">
+								                <h:outputText value="#{uiu.particella}"/>
+								            </rich:column>
+										     <rich:column styleClass="colClass">
+								                <h:outputText value="#{uiu.subalterno}"/>
+								            </rich:column>
+										    <rich:column styleClass="colClass">
+								                <h:inputText value="#{uiu.amministrativa}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+										     <rich:column styleClass="colClass">
+								                <h:inputText value="#{uiu.denominatore}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+										    <rich:column styleClass="colClass">
+								                <h:inputText value="#{uiu.edificialita}" style="width: 50px" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+										    <rich:column styleClass="colClass">
+								                <h:selectBooleanCheckbox value="#{uiu.incConsistenza}" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+										    <rich:column styleClass="colClass">
+								                <h:selectBooleanCheckbox value="#{uiu.incDestinazione}" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+								            <rich:column styleClass="colClass">
+								                <h:selectBooleanCheckbox value="#{uiu.incPlanimetria}" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+								            <rich:column styleClass="colClass">
+								                <h:selectBooleanCheckbox value="#{uiu.incClassamento}" disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"/>
+								            </rich:column>
+	
+								           </rich:dataTable>
+								        </div>
+											
+								 	
+									</td>
+								</tr>					        	
+				        	</table>
+				        </td>
+		        	</tr>
+		        	<tr>
+		        		<td>
+
+<!-- ***************** RADIOBUTTON ASSENZA INFO ***************************** -->	
+							        	
+		        			<table width="900px" style="width: 900px">
+		        				<tr bgcolor="#E6E6FA" style="height: 20px">
+						        	<td colspan="6" align="left">					        	
+						        		<h:selectOneRadio
+						        			id="rdoAssenza"
+						        			style="font-weight: bold"
+						        			value="#{ricercaDettaglioBck.esitoControlloAssenza}"
+						        			binding="#{ricercaDettaglioBck.rdoAssenza}"
+						        			disabled="#{ricercaDettaglioBck.bodIstruttoria.chiusa or !ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">			        					
+						        			<f:selectItem id="ASSENZA" itemValue="ASSENZA" itemLabel="ASSENZA INFORMAZIONI"/>
+						        			<a4j:support 
+						        				id="ASSENZA_SUP" 
+						        				actionListener="#{ricercaDettaglioBck.radioControl}" 
+						        				event="onclick"/>
+						        		</h:selectOneRadio>
+									</td>
+					        	</tr>
+				        	</table>
+				        </td>
+		        	</tr>
+		        	<tr>
+		        		<td>
+		        	
+<!-- ********************** PULSANTE SALVA ********************************* -->
+		             <table border="0">
+		             <tr>
+		             	<td align="center" >
+		             	<a4j:commandButton 
+								styleClass="my-button" 
+								value="Chiudi" 
+								ajaxSingle="false" 
+								id="hideButton" 
+								oncomplete="#{rich:component('xmlManagerPanel')}.hide();">
+							<a4j:support action="#{ricercaDettaglioBck.loadTab3}" event="onclick"/>
+						</a4j:commandButton>
+		             	<rich:spacer width="15px"/>
+						<a4j:commandButton
+						
+								styleClass="my-button" 
+								value="Salva" 
+								disabled="#{ricercaDettaglioBck.bodSegnalazioneSwitch.disabledButtonSave}"
+								id="hideBtn" 
+								rendered="#{not ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}"
+								oncomplete="#{rich:component('xmlManagerPanel')}.hide();">
+								<a4j:support action="#{ricercaDettaglioBck.saveSegnalazione}" event="onclick"/>
+						</a4j:commandButton>		             	
+		             	</td>
+					</tr>
+			        </table>  
+			        
+			        </td>
+		        	</tr>
+				</table>
+					
+			        </a4j:outputPanel>
+		            </h:panelGrid>  
+		         </h:form>
+		    </rich:modalPanel>			
+  
+  
+  
+</ui:composition>

@@ -1,0 +1,8 @@
+custom=true
+#manager.url=http://10.11.10.200:8080/manager
+manager.url=http://127.0.0.1:8090/manager
+catalina.home=C:/Documents and Settings/ciacca/tomcat
+muidb.dba.password=SYSTEM
+muidb.url=jdbc:oracle:thin:@172.16.2.71:1521:praga
+
+

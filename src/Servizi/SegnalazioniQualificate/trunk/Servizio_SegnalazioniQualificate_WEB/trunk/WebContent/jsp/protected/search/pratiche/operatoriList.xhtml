@@ -1,0 +1,67 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA CAUSALI MODAL BOX -->
+<rich:modalPanel id="operModalBox" minHeight="430" minWidth="750"
+	height="430" width="750">
+	<f:facet name="header">
+		<h:outputText value="Seleziona gli Operatori da aggiungere al filtro"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="operPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('operModalBox');">
+						<a4j:actionparam name="pageS" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageOperatoriList}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="cauForm">
+		<rich:spacer height="20px" />
+
+		<rich:pickList
+			value="#{praticaDataProviderImpl.criteria.operatori}"
+			style="cursor: pointer;" listsHeight="310px" sourceListWidth="300px"
+			targetListWidth="300px" copyControlLabel="Copia"
+			copyAllControlLabel="Copia tutto"
+			removeAllControlLabel="Rimuovi tutto" removeControlLabel="Rimuovi">
+			<f:selectItems value="#{commonDataBean.listaOperatori}" />
+		</rich:pickList>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="3" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Conferma" id="btnOk" reRender="operPage, oper"
+					action="#{praticaDataProviderImpl.doConfermaOperatori}"
+					oncomplete="Richfaces.hideModalPanel('operModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="cPage"
+						assignTo="#{pageUiBean.pageOperatoriList}" />
+				</a4j:commandButton>
+				<rich:spacer height="8px" width="8px"/>
+				<a4j:commandButton value="Annulla" id="btnEsci" reRender="operPage"
+					oncomplete="Richfaces.hideModalPanel('operModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="cPage"
+						assignTo="#{pageUiBean.pageOperatoriList}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA CAUSALI MODAL BOX -->
+
+</html>

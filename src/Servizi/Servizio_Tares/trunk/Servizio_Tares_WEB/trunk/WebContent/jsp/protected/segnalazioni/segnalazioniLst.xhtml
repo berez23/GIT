@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+	<h:form id="frm">
+	<rich:panel style="align: center;">
+			
+	<rich:spacer width="5px" height="30px"/>
+	
+	<h:graphicImage value="/images/info.gif" rendered="true"/>
+	<h:outputText value="Sfiorare il Titolo della colonna per avere maggiori informazioni" />
+    <rich:spacer width="5px"/>
+
+		
+	<rich:dataTable id="tblSegnalazioni" 
+			value="#{segnalaBean.lstSegnalazioni}" 
+			var="segnalazione" 
+			style="width: 100%; text-align:center" 
+			rendered="true">
+
+                  	<rich:column >
+					<rich:panel style="height: 120px">
+	                   <h:selectBooleanCheckbox value="#{segnalazione.sel}" />
+		            </rich:panel>
+                   	</rich:column>
+                   	
+                    <rich:column > 
+                    <rich:panel style="height: 120px">
+			            <f:facet name="header">
+			                <h:panelGrid columns="1">
+					            <h:outputText value="COD. ENTE" id="lblBelfiore" />
+               					<rich:toolTip for="lblBelfiore" value="Codice Belfiore del Comune" styleClass="tooltip"/>
+				        	</h:panelGrid>
+			            </f:facet>    
+		                   <h:outputText value="#{segnalazione.segnala1.codiceAmministrativo}" />
+		                
+		            </rich:panel>
+                   	</rich:column>
+                   	
+                    <rich:column >
+                    <rich:panel style="height: 120px">
+		                <f:facet name="header">
+		                <h:panelGrid columns="1">
+				            <h:outputText value="SEZ. CENSUARIA" id="lblSezCen" />
+				            <rich:toolTip for="lblSezCen" value="Sezione Censuaria" styleClass="tooltip"/>
+				        </h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.sezioneCensuaria}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		                <f:facet name="header">
+		                <h:panelGrid columns="1">
+							<h:outputText value="ID. IMMOBILE" id="lblIdImm" />
+		               		<rich:toolTip for="lblIdImm" value="Identificativo Immobile" styleClass="tooltip"/>
+		               	</h:panelGrid>
+		            	</f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.identificativoImmobile}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		                <f:facet name="header">
+						<h:panelGrid columns="1">
+							<h:outputText value="PROG." id="lblProg" />
+	               			<rich:toolTip for="lblProg" value="Progressivo" styleClass="tooltip"/>
+               			</h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.progressivo}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		                <f:facet name="header">
+	                    <h:panelGrid columns="1">
+		                    <h:outputText value="SEZ. URBANA" id="lblSezUrb" />
+		                    <rich:toolTip for="lblSezUrb" value="Sezione Urbana" styleClass="tooltip"/>
+		                </h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.sezioneUrbana}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		               <f:facet name="header">
+	                   <h:panelGrid columns="1">
+		                   <h:outputText value="FOGLIO" id="lblFoglio" />
+	                   		<rich:toolTip for="lblFoglio" value="Foglio" styleClass="tooltip"/>
+	                   </h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.foglio}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+                   	<rich:column >
+                   	<rich:panel style="height: 120px">
+		               <f:facet name="header">
+		               <h:panelGrid columns="1">
+		                   <h:outputText value="NUMERO" id="lblNumero" />
+		                   <rich:toolTip for="lblNumero" value="Numero" styleClass="tooltip"/>
+	                   </h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.numero}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		               <f:facet name="header">
+		               <h:panelGrid columns="1">
+		                   <h:outputText value="DEN." id="lblDenominatore" />
+		                   <rich:toolTip for="lblDenominatore" value="Denominatore" styleClass="tooltip"/>
+		                </h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.denominatore}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		               <f:facet name="header">
+		               <h:panelGrid columns="1">
+		                   <h:outputText value="SUB." id="lblSubalterno" />
+	                   		<rich:toolTip for="lblSubalterno" value="Subalterno" styleClass="tooltip"/>
+	                   </h:panelGrid>
+		                </f:facet>
+		                <h:panelGrid columns="1">
+							<h:outputText value="#{segnalazione.segnala1.subalterno}" />
+		                </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		               <f:facet name="header">
+		               <h:panelGrid columns="1">
+		                   <h:outputText value="SUP. TOTALE" id="lblSupTot" />
+	                   	   <rich:toolTip for="lblSupTot" value="Superficie Totale calcolata ai sensi del DPR 138/98. Se presente C rossa significa che la superficie totale è stata calcolata." styleClass="tooltip"/>
+	                   	 </h:panelGrid>
+		               </f:facet>
+		               <h:panelGrid columns="1">
+						<h:inputText style="width: 80px" value="#{segnalazione.segnala1.superficieTotale}" />
+						<br/>
+						<h:outputText value="C" rendered="#{segnalazione.segnala1.superficieTotaleCalcolata}" style="color: red"/>
+		               </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		               <f:facet name="header">
+		               <h:panelGrid columns="1">
+		                   <h:outputText value="SUP." id="lblSup" />
+		                   <rich:toolTip for="lblSup" value="Per gli immobili censiti in una delle categorie da A1 ad A9 o in A11 puo contenere il valore della superficie calcolata ai sensi del DPR 138/98 escludendo dal conteggio gli ambienti di tipo D (Balconi terrazzi comunicanti), E (Balconi terrazzi non comunicanti) ed F (Aree scoperte)." styleClass="tooltip"/>
+		                </h:panelGrid>
+		               </f:facet>
+		               <h:panelGrid columns="1">
+						<h:inputText style="width: 80px" value="#{segnalazione.segnala1.superficie}" />
+		               </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+                   	
+					<rich:column >
+					<rich:panel style="height: 120px">
+		               <f:facet name="header">
+		               <h:panelGrid columns="1">
+		                   <h:outputText value="NOTE" id="lblNote" />
+			                <rich:toolTip for="lblNote" value="Testo libero per indicazioni aggiuntive" styleClass="tooltip"/>
+			            </h:panelGrid>
+		               </f:facet>
+		               <h:panelGrid columns="1">
+						<h:inputTextarea cols="20" rows="3" value="#{segnalazione.segnala1.note}" />
+		               </h:panelGrid>
+		            </rich:panel>
+                   	</rich:column>
+
+	        <!-- Inizio Tipo Record 2 -->
+	        <rich:column  colspan="13" breakBefore="true" style="text-align:center">
+	        
+				<rich:subTable 
+							value="#{segnalazione.lstSegnala2}" 
+							var="segnala2" 
+							style="width: 100%; margin-top: 0; margin-right: auto;" 
+							rendered="true"
+							rows="10">
+			
+						<rich:column colspan="4">
+ 							<f:facet name="header">
+								<rich:spacer width="5px"/>
+							</f:facet>
+							<rich:spacer width="5px"/>
+							<f:facet name="footer">
+								<rich:spacer width="5px" height="50px"/>
+						    </f:facet>
+				        </rich:column>
+
+						 <rich:column >
+ 							<f:facet name="header">
+								<rich:spacer width="5px"/>
+							</f:facet>
+							<h:selectBooleanCheckbox value="#{segnala2.sel}" />
+							<f:facet name="footer" >
+								<rich:panel style="height: 50px; text-align: center; border: 0;">
+								<a4j:commandButton  
+							       			value="Elimina Vano" 
+							       			action="#{segnalaBean.doDelVano}" 
+							       			reRender="tblSegnalazioni" />
+							     </rich:panel>
+						    </f:facet>
+				        </rich:column>				        
+						 <rich:column >
+ 							<f:facet name="header">
+								<h:outputText value="Ambiente" id="lblAmbiente" />
+							</f:facet>
+							<h:outputText value="#{segnala2.ambiente}" />
+							<f:facet name="footer">
+								<rich:panel style="height: 50px; text-align: center; border: 0;">
+									<a4j:commandButton value="Aggiungi Vano"
+										oncomplete="Richfaces.showModalPanel('segnalazioneVanoAddModalBox'); return false;"
+										reRender="segnalazioneVanoAddModalBox"
+										action="#{segnalaBean.doVanoAddShow}">
+										<f:setPropertyActionListener value="#{segnalazione}" target="#{segnalaBean.segnalazioneCur}"/>
+									</a4j:commandButton>
+							      </rich:panel>
+						    </f:facet>
+				        </rich:column>
+						 <rich:column>
+ 							<f:facet name="header">
+								<h:outputText value="Sup. Ambiente" id="lblSupAmbiente" />
+							</f:facet>
+							<h:inputText style="width: 80px" value="#{segnala2.superficieAmbiente}" />
+							<f:facet name="footer">
+								<rich:spacer width="5px" height="50px"/>
+						    </f:facet>
+				        </rich:column>
+						 <rich:column>
+ 							<f:facet name="header">
+								 <h:outputText value="Altezza Min" id="lblAltezzaMin" />
+							</f:facet>
+							<h:inputText style="width: 80px" value="#{segnala2.altezza}" />
+							<f:facet name="footer">
+								<rich:spacer width="5px" height="50px"/>
+						    </f:facet>
+				        </rich:column>
+						 <rich:column>
+ 							<f:facet name="header">
+								<h:outputText value="Altezza Max" id="lblAltezzaMax" />
+							</f:facet>
+							<h:inputText style="width: 80px" value="#{segnala2.altezzaMax}" />
+							<f:facet name="footer">
+								<rich:spacer width="5px" height="50px"/>
+						    </f:facet>
+				        </rich:column>
+			
+						<rich:column colspan="4">
+ 							<f:facet name="header">
+								<rich:spacer width="5px"/>
+							</f:facet>
+							<rich:spacer width="5px"/>
+							<f:facet name="footer" >
+								<rich:spacer width="5px" height="50px"/>
+						    </f:facet>
+				        </rich:column>
+				    
+					</rich:subTable>
+			</rich:column>
+	        <!-- Fine Tipo Record 2 -->
+					
+	        	<f:facet name="footer">
+	 				<rich:columnGroup>
+	                	<rich:column colspan="13" style="text-align: center; ">
+								<a4j:commandButton id="btnElimina" 
+							       			value="Elimina Immobile" 
+							       			action="#{segnalaBean.doDelUiu}" 
+							       			reRender="tblSegnalazioni" />
+
+							    <a4j:commandButton id="btnSalva" 
+							       			value="Salva" 
+							       			action="#{segnalaBean.doSegnalaSave}"
+							       			disabled="false"/>
+							       			
+							     <a4j:commandButton id="btnSalvaGenera" 
+							       			value="Salva e Genera fornitura" 
+							       			action="#{segnalaBean.goGeneraFile}"
+							       			disabled="false"
+							       			reRender="tblSegnalazioni"/>
+						</rich:column>
+					</rich:columnGroup>
+			    </f:facet>	  
+					    
+	    </rich:dataTable>
+
+		</rich:panel>			
+	</h:form>
+	
+	<ui:include src="/jsp/protected/segnalazioni/segnalazioneVanoAddModal.xhtml" />
+	
+	</div>
+	</ui:define>
+
+</ui:composition>
+
+</html>

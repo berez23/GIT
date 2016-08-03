@@ -1,0 +1,299 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<rich:modalPanel id="modello80Panel" autosized="true" width="800"
+		height="650">
+
+
+		<f:facet name="header">
+			<h:outputText value="#{msg.titoloModello80}" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/images/modal/close.png"
+					styleClass="hidelink" id="hideModello80Link" />
+				<rich:componentControl for="modello80Panel"
+					attachTo="hideModello80Link" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+
+			<table border="0" style="width: 600px;" cellspacing="5">
+
+				<tbody>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80OggettoDomanda}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.oggettoDomanda}" maxlength="250" />
+						</td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80TipoIntervento}" /></td>
+						<td align="left"><h:inputText id="txtTipoIntervento"
+							value="#{ricercaDettaglioBck.tipoIntervento}" maxlength="250" />
+						</td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Oggetto}" /></td>
+						<td align="left"><h:inputText id="txtOggetto"
+							value="#{ricercaDettaglioBck.oggetto}" maxlength="250" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80NumProgressivo}" /></td>
+						<td align="left"><h:inputText id="txtProgressivo"
+							value="#{ricercaDettaglioBck.numProgressivo}" maxlength="50" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80NumProtocollo}" /></td>
+						<td align="left"><h:inputText id="txtProtocollo"
+							value="#{ricercaDettaglioBck.numProtocollo}" maxlength="50" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Note}" /></td>
+						<td align="left"><h:inputTextarea
+							value="#{ricercaDettaglioBck.note}" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Settore}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.settore}" maxlength="25" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80DestinazioneZona}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.destinazioneZona}" maxlength="50" />
+						</td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Presenza}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.significativaPresenza}"
+							maxlength="100" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80DestinazioneUiu}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.destinazioneUiu}" maxlength="100" />
+						</td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Categoria}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.categoriaProposta}" maxlength="25" />
+						</td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Classe}" /></td>
+						<td align="left"><h:inputText
+							value="#{ricercaDettaglioBck.classeProposta}" maxlength="25" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Ascensore}" /></td>
+						<td align="left"><h:selectBooleanCheckbox
+							value="#{ricercaDettaglioBck.flgAscensoreC}" /></td>
+					</tr>
+
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Richiesta662}" /></td>
+						<td align="left"><h:selectBooleanCheckbox
+							value="#{ricercaDettaglioBck.flgRichiesta662}" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80Allineamento}" /></td>
+						<td align="left"><h:selectBooleanCheckbox
+							value="#{ricercaDettaglioBck.flgAllineamentoUiu}" /></td>
+					</tr>
+
+					<tr>
+						<td align="left"><h:outputText
+							value="#{msg.labelModello80NonApplicabile336}" /></td>
+						<td align="left"><h:selectBooleanCheckbox
+							value="#{ricercaDettaglioBck.flgNonApplicabile336}" /></td>
+
+					</tr>
+
+				</tbody>
+
+			</table>
+
+			<div style="height: 140px; overflow: auto; overflow-x: hidden;">
+
+			<rich:dataTable width="80px" columnClasses="col"
+				value="#{ricercaDettaglioBck.concessioniLst}" var="conces"
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="CONC" />
+					</f:facet>
+					<h:outputText value="#{conces.concessione}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="PROT" />
+					</f:facet>
+					<h:outputText value="#{conces.protocollo}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="PROG" />
+					</f:facet>
+					<h:outputText value="#{conces.progressivo}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="OGGETTO" />
+					</f:facet>
+					<h:outputText value="#{conces.oggetto}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="SOGGETTI" />
+					</f:facet>
+					<h:outputText value="#{conces.denominazione}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="TIPO INTERV" />
+					</f:facet>
+					<h:outputText value="#{conces.tipoIntervento}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="DAT RILASCIO" />
+					</f:facet>
+					<h:outputText value="#{conces.dataRilascio}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="DAT FINE LAV" />
+					</f:facet>
+					<h:outputText value="#{conces.dataFineLavori}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">
+						<h:outputText value="POS" />
+					</f:facet>
+					<h:outputText value="#{conces.posizione}" />
+					<a4j:support ajaxSingle="false" event="onclick"
+						action="#{ricercaDettaglioBck.selectionConcessione}"
+						reRender="txtProgressivo, txtTipoIntervento, txtOggetto, txtProtocollo">
+						<f:setPropertyActionListener value="#{conces}"
+							target="#{ricercaDettaglioBck.selConcessione}" />
+					</a4j:support>
+				</rich:column>
+			</rich:dataTable></div>
+
+			<table border="0">
+				<tr>
+					<td align="center" width="49%" colspan='10'><a4j:commandButton
+						id="salvaAllegato80" styleClass="my-button"
+						action="#{ricercaDettaglioBck.saveAllegato80}" value="Salva"
+						reRender="panelVisualizzaAllegatoC"
+						rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">
+					</a4j:commandButton></td>
+				</tr>
+				<tr>
+					<td align="center" width="49%" colspan='10'>
+					<a4j:outputPanel layout="block" id="panelVisualizzaAllegatoC">
+						<c:if test="#{ricercaDettaglioBck.flgVisualizzaAllegatoC == true}">
+							<h:commandLink
+								onclick="window.open('openPdfSrv?nomePdf=#{ricercaDettaglioBck.tempPathDocC}&amp;formato=4', '_blank', 'scrollbars=auto, resizable=yes, width=0, height=0, toolbar=no, menubar=no, status=no')"
+								onmouseup="rich:component('modello80Panel')}.hide();"
+								rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">
+								<h:outputText value="Visualizza Allegato" />
+							</h:commandLink>
+						</c:if>
+					</a4j:outputPanel>
+					</td>
+				</tr>
+			</table>
+		</h:form>
+
+	</rich:modalPanel>
+
+</ui:composition>

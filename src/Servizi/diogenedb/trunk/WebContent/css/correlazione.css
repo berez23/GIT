@@ -1,0 +1,171 @@
+.thgrigliacorrel {
+	padding:8px;
+	font-size:10pt;
+	border-left:solid 1px #666666;
+	color:#FFFFFF;
+	text-align:left;
+	border-bottom:solid 1px #333333;
+	font-size:10pt;
+	vertical-align:bottom;
+	background-image:url(../img/pageBg_dark.jpg);background-repeat:repeat;
+	padding-bottom:1px;
+	padding-right:2px;
+	font-style:normal;
+	font-weight:normal;
+}
+.colonnatemi1 {
+	width:75%;
+}
+.colonnatemi2 {
+	width:25%;
+}
+.colonnatipoe1 {
+	width:45%;
+}
+.colonnatipoe2 {
+	width:30%;
+}
+.colonnatipoe3 {
+	width:25%;
+}
+.colonnalistatemi1 {
+	width:90%;
+}
+.colonnalistatemi2 {
+	width:10%;
+}
+.colonnalistatipie1 {
+	width:90%;
+}
+.colonnalistatipie2 {
+	width:10%;
+}
+.colonnalistaarchivi1 {
+	width:90%;
+}
+.colonnalistaarchivi2 {
+	width:10%;
+}
+.colonnalistaarchivinav1 {
+	width:60%;
+}
+.colonnalistaarchivinav2 {
+	width:40%;
+}
+.colonnachiave1 {
+	width:30%;
+}
+.colonnachiave2 {
+	width:25%;
+}
+.colonnachiave3 {
+	width:45%;
+}
+.colonnachiavealtraquery1 {
+	width:7%;
+}
+.colonnachiavealtraquery2 {
+	width:30%;
+}
+.colonnachiavealtraquery3 {
+	width:25%;
+}
+.colonnachiavealtraquery4 {
+	width:38%;
+}
+.colonnaetichetteentita1 {
+	width:40%;
+}
+.colonnaetichetteentita2 {
+	width:60%;
+}
+.colonnaetichetteentitasql1 {
+	width:60%;
+	vertical-align:top;
+}
+.colonnaetichetteentitasql2 {
+	width:40%;
+	vertical-align:top;
+}
+TABLE.griglianavtema TD,TABLE.griglianavtema Tbody TD,TABLE.griglianavtema Thead TH
+{
+	padding:3px;
+	font-size:9pt;
+	border:solid 1px #666666;
+}
+TABLE.griglianavtema TR.temaRow
+{
+	height:50px;
+}
+TABLE.griglianavtema TR.header TD, TABLE.griglianavtema Thead TH
+{
+	color:#FFFFFF;
+	text-align:left;
+	border-bottom:solid 1px #333333;
+	font-size:9pt;
+	vertical-align:bottom;
+	background-image:url(../img/pageBg_dark.jpg);background-repeat:repeat;
+	padding-bottom:1px;
+	padding-right:2px;
+	font-style:normal;
+}
+TABLE.griglianav TD,TABLE.griglianav Tbody TD,TABLE.griglianav Thead TH
+{
+	padding:3px;
+	font-size:8pt;
+	border:solid 1px #666666;
+}
+TABLE.griglianav TR.smallRow
+{
+	height:12px;
+}
+TABLE.griglianav TR.alternateSmallRow
+{
+	height:12px;
+	background-color:#CCCCCC;
+}
+TABLE.griglianav TR.header TD, TABLE.griglianav Thead TH
+{
+	color:#FFFFFF;
+	text-align:left;
+	border-bottom:solid 1px #333333;
+	font-size:9pt;
+	vertical-align:bottom;
+	background-image:url(../img/pageBg_dark.jpg);background-repeat:repeat;
+	padding-bottom:1px;
+	padding-right:2px;
+	font-style:normal;
+}
+TABLE.grigliaaltraquery TD,TABLE.grigliaaltraquery Tbody TD,TABLE.grigliaaltraquery Thead TH
+{
+	padding:3px;
+	font-size:8pt;
+	border:solid 1px #666666;
+}
+TABLE.grigliaaltraquery TR.smallRow
+{
+	height:12px;
+}
+TABLE.grigliaaltraquery TR.alternateSmallRow
+{
+	height:12px;
+	background-color:#CCCCCC;
+}
+TABLE.grigliaaltraquery TR.header TD, TABLE.grigliaaltraquery Thead TH
+{
+	color:#FFFFFF;
+	text-align:left;
+	border-bottom:solid 1px #333333;
+	font-size:9pt;
+	vertical-align:bottom;
+	background-image:url(../img/pageBg_dark.jpg);background-repeat:repeat;
+	padding-bottom:1px;
+	padding-right:2px;
+	font-style:normal;
+}
+
+A.linknav:LINK, A.linknav:VISITED, A.linknav:HOVER, A.linknav:ACTIVE
+{
+	text-decoration:none;
+	cursor:hand;
+}

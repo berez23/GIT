@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO DOCFA MODAL BOX -->
+<rich:modalPanel id="docfaModalBox" minHeight="700" minWidth="550"
+	height="700" width="550">
+	<f:facet name="header">
+		<h:outputText value="dettaglio Docfa"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="docfaPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('docfaModalBox');">
+						<a4j:actionparam name="pageD" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageDocfa}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="docfaForm">
+		<rich:spacer height="20px" />
+
+		<h:panelGrid columns="2" cellpadding="5px">
+
+			<h:panelGrid columns="1" cellpadding="0px" cellspacing="0" width="250px">
+				<h:outputText value="Stato elaborazione:" style="font-weight: bold;" />
+			</h:panelGrid>
+			<h:graphicImage value="/images/passed.gif" id="img1"
+				rendered="#{iciDetailBean.docfa.flgElaborato eq '1' and iciDetailBean.docfa.flgAnomalie eq '0'}">
+				<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+					value="Elaborato" />
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img2"
+				rendered="#{iciDetailBean.docfa.flgElaborato eq '0'}">
+				<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img3"
+				rendered="#{iciDetailBean.docfa.flgElaborato eq '1' and iciDetailBean.docfa.flgAnomalie eq '1'}">
+				<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+					value="Elaborato con anomalie" />
+			</h:graphicImage>
+
+			<h:outputText value="Anomalie:" style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.annotazioni}" />
+
+			<h:outputText value="Data fornitura:" style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.fornitura}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+2"/>
+			</h:outputText>
+
+			<h:outputText value="Protocollo:" title="Protocollo Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.protocolloDocfa}" />
+
+			<h:outputText value="Data registrazione:"
+				title="Data registrazione Docfa" style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.dataDocfaToDate}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+2"/>
+			</h:outputText>
+
+			<h:outputText value="Foglio" style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.foglio}" />
+
+			<h:outputText value="Particella" style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.particella}" />
+
+			<h:outputText value="Subalterno" style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.subalterno}" />
+
+			<h:outputText value="Tipo operazione:" title="Tipo operazione Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="Soppressione"
+				rendered="#{iciDetailBean.docfa.tipoOperDocfa eq 'S'}" />
+			<h:outputText value="Costituzione"
+				rendered="#{iciDetailBean.docfa.tipoOperDocfa eq 'C'}" />
+			<h:outputText value="Variazione"
+				rendered="#{iciDetailBean.docfa.tipoOperDocfa eq 'V'}" />
+
+			<h:outputText value="Causale:" title="Causale Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.causaleDocfa}" />
+
+			<h:outputText value="Categoria:" title="Categoria Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.categoriaDocfa}" />
+
+			<h:outputText value="Classe:" title="Classe Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{iciDetailBean.docfa.classeDocfa}"
+				rendered="#{iciDetailBean.docfa.flgAnomaliaClasse ne '1'}" />
+			<h:outputText id="text1"
+				value="#{iciDetailBean.docfa.classeDocfa} (#{iciDetailBean.docfa.classeMin})"
+				rendered="#{iciDetailBean.docfa.flgAnomaliaClasse eq '1'}"
+				style="color: red;">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Anomalia. Classe minima prevista riportata tra parentesi" />
+			</h:outputText>
+
+			<h:outputText value="Rendita:" title="Rendita Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="&#8364; #{iciDetailBean.docfa.renditaDocfa}"
+				rendered="#{iciDetailBean.docfa.renditaDocfa != null}" />
+			<h:outputText value=""
+				rendered="#{iciDetailBean.docfa.renditaDocfa == null}" />
+
+			<h:outputText value="Indirizzo:" title="Indirizzo Docfa"
+				style="font-weight: bold;" />
+			<h:outputText
+				value="#{iciDetailBean.docfa.prefissoViaDocfa} #{iciDetailBean.docfa.viaDocfa} #{iciDetailBean.docfa.civiciDocfa}" />
+
+			<h:outputText value="Presenza in Ici anteriore al Docfa:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img4"
+				rendered="#{iciDetailBean.docfa.flgIciAnteDocfa eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img5"
+				rendered="#{iciDetailBean.docfa.flgIciAnteDocfa eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img6"
+				rendered="#{iciDetailBean.docfa.flgIciAnteDocfa == null}">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+
+			<h:outputText value="Presenza in Ici successiva al Docfa:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img7"
+				rendered="#{iciDetailBean.docfa.flgIciPostDocfa eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img8"
+				rendered="#{iciDetailBean.docfa.flgIciPostDocfa eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img9"
+				rendered="#{iciDetailBean.docfa.flgIciPostDocfa == null}">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+
+			<h:outputText value="Presenza a catasto alla data del Docfa:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img10"
+				rendered="#{iciDetailBean.docfa.flgUiuCatasto eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img11"
+				rendered="#{iciDetailBean.docfa.flgUiuCatasto eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img12"
+				rendered="#{iciDetailBean.docfa.flgElaborato == null}">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+
+			<h:outputText value="Docfa di cessazione senza costituzione:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img13"
+				rendered="#{iciDetailBean.docfa.flgDocfaSNoC eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img14"
+				rendered="#{iciDetailBean.docfa.flgDocfaSNoC == null or iciDetailBean.docfa.flgDocfaSNoC eq '0'}">
+			</h:graphicImage>
+
+			<h:outputText value="Docfa di variazione categoria:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img15"
+				rendered="#{iciDetailBean.docfa.flgVarAnteCategoria eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img16"
+				rendered="#{iciDetailBean.docfa.flgVarAnteCategoria eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img16a"
+				rendered="#{iciDetailBean.docfa.flgVarAnteCategoria == null }">
+			</h:graphicImage>
+
+			<h:outputText value="Docfa di variazione classe:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img17"
+				rendered="#{iciDetailBean.docfa.flgVarAnteClasse eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img18"
+				rendered="#{iciDetailBean.docfa.flgVarAnteClasse eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img18a"
+				rendered="#{iciDetailBean.docfa.flgVarAnteClasse == null}">
+			</h:graphicImage>
+
+			<h:outputText value="Docfa di variazione rendita:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img19"
+				rendered="#{iciDetailBean.docfa.flgVarAnteRendita eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img20"
+				rendered="#{iciDetailBean.docfa.flgVarAnteRendita eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img20a"
+				rendered="#{iciDetailBean.docfa.flgVarAnteRendita == null}">
+			</h:graphicImage>
+
+		</h:panelGrid>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Chiudi" id="btnEsci" reRender="docfaPage"
+					oncomplete="Richfaces.hideModalPanel('docfaModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="dPage"
+						assignTo="#{pageUiBean.pageDocfa}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE DOCFA MODAL BOX -->
+
+</html>

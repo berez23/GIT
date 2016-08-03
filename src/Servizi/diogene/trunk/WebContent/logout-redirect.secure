@@ -1,0 +1,22 @@
+<%@page contentType="text/html; charset=iso-8859-1" language="java"
+        session="true"%>
+<%@ page import="it.webred.cet.permission.GestionePermessi" %>
+<%
+
+		session.invalidate();
+		response.sendRedirect(request.getContextPath() + "/");
+/*
+		
+		if(!GestionePermessi.isCastableUser(((HttpServletRequest) pageContext.getRequest()).getUserPrincipal()))	   
+		{
+			System.out.println("ciso");
+			response.sendRedirect(request.getContextPath() + "/");
+	    }
+	    else
+	    {
+			response.sendRedirect(request.getContextPath() + "/josso_logout/");
+	    }
+  */  
+
+  		
+%>    

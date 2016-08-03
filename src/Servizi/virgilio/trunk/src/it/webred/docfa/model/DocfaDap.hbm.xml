@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2-apr-2006 14.46.01 by Hibernate Tools 3.1.0.beta4 -->
+<hibernate-mapping>
+    <class name="it.webred.docfa.model.DocfaDap" table="DOCFA_DAP">
+ 	    <meta attribute="generated-class">
+	        it.webred.docfa.model.DocfaDapBase
+	    </meta>
+        <id name="iid" type="long">
+            <column name="IID" precision="15" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="iidFornitura" type="string">
+            <column name="IID_FORNITURA" length="8" />
+        </property>
+        <property name="iidProtocolloReg" type="string">
+            <column name="IID_PROTOCOLLO_REG" length="9" />
+        </property>
+         <property name="idSoggetto" type="string">
+            <column name="ID_SOGGETTO" length="16" />
+        </property>
+        <property name="tipoSoggetto" type="string">
+            <column name="TIPO_SOGGETTO" length="1" />
+        </property>
+        <property name="foglio" type="string">
+            <column name="FOGLIO" length="6" />
+        </property>
+        <property name="particella" type="string">
+            <column name="PARTICELLA" length="6" />
+        </property>
+        <property name="subalterno" type="string">
+            <column name="SUBALTERNO" length="6" />
+        </property>
+        <property name="tipoImmobile" type="string">
+            <column name="TIPO_IMMOBILE" length="1" />
+        </property>
+        <property name="dapImporto" type="big_decimal">
+            <column name="DAP_IMPORTO" precision="15" scale="2"/>
+        </property>
+        <property name="dapMesi" type="integer">
+            <column name="DAP_MESI" precision="4"/>
+        </property>
+        <property name="flagDapDiritto" type="yes_no">
+            <column name="FLAG_DAP_DIRITTO" />
+        </property>
+        <property name="dapNumeroSoggetti" type="integer">
+            <column name="DAP_NUMERO_SOGGETTI" precision="4"/>
+        </property>
+        <property name="dapData" type="string">
+            <column name="DAP_DATA" length="8" />
+        </property>
+        <property name="esitoDap" type="string">
+            <column name="ESITO_DAP" length="3" />
+        </property>
+        <property name="flagSkipped" type="yes_no">
+            <column name="FLAG_SKIPPED" />
+        </property>
+     </class>
+</hibernate-mapping>

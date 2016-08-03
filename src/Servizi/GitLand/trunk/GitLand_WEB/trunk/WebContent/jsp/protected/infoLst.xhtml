@@ -1,0 +1,228 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmRicercaRicerche">
+			<p:panel header="Ricerche ">				
+				
+				
+				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+				
+				<p:row>
+						<p:column colspan="4">
+						
+						<p:tabView effect="fade" effectDuration="fast" activeIndex="#{ricercheBean.tabAttivo}">
+							<p:ajax event="tabChange" listener="#{ricercheBean.onChangeTab}" update="lot" />
+							
+							<p:tab title="Ricerca per LOTTI" >
+			
+							<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Codice Asi Lotto"/>
+								</p:column>
+								<p:column>
+									<p:inputText id="txtCodiceAsiLotto" value="#{ ricercheBean.ricercaCur.lotto.codiceAsi }" rendered="false"/>
+									<p:autoComplete id="lot" value="#{ricercheBean.ricercaCur.lotto.codiceAsi}"  
+						    				completeMethod="#{lottiBean.completeLotti}" maxResults="10"  minQueryLength="2" queryDelay="2000" queryDeletionDelay="2000" >
+					    			</p:autoComplete>  
+									
+								</p:column>
+								<p:column>
+									<p:outputLabel value="Indirizzo Lotto"/>
+								</p:column>
+								<p:column>
+									<p:inputText id="txtIndirizzo" value="#{ricercheBean.ricercaCur.azienda.viaCivico}"/>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Libero/Occupato"/>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu value="#{ricercheBean.statusUltimo}" >
+										<f:selectItem itemLabel="Tutti" itemValue="" />
+										<f:selectItem itemLabel="Libero" itemValue="false" />
+										<f:selectItem itemLabel="Occupato" itemValue="true" />
+									</p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:outputLabel value="Attivo/Cessato"/>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu value="#{ricercheBean.cessato}" >
+										<f:selectItem itemLabel="Tutti" itemValue="" />
+										<f:selectItem itemLabel="Cessato" itemValue="true" />
+										<f:selectItem itemLabel="Attivo" itemValue="false" />
+									</p:selectOneMenu>
+								</p:column>
+							</p:row>
+							</p:panelGrid>
+			
+							</p:tab>
+							<p:tab title="Ricerca per AZIENDE" rendered="true">
+							
+							<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Ragione Sociale"/>
+								</p:column>
+								<p:column>
+									<p:inputText id="txtRagioneSociale" value="#{ricercheBean.ricercaCur.azienda.ragioneSociale}" rendered="false"/>
+									<p:autoComplete id="azi" value="#{ricercheBean.ricercaCur.azienda.ragioneSociale}"  
+					    				completeMethod="#{aziendeBean.completeAziende}" maxResults="10"  minQueryLength="2" >
+					    			</p:autoComplete>  
+									
+								</p:column>
+								<p:column>
+									<p:outputLabel value="Indirizzo Azienda"/>
+								</p:column>
+								<p:column>
+									<p:inputText id="txtIndirizzoAzienda" value="#{ricercheBean.ricercaCur.azienda.viaCivico}"/>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel value="Codice Asi Azienda"/>
+								</p:column>
+								<p:column>
+									<p:inputText id="txtCodiceAsiAzienda" value="#{ricercheBean.ricercaCur.azienda.codiceAsi}"/>
+								</p:column>
+								<p:column>
+									<p:spacer width="5px"/>
+								</p:column>
+								<p:column>
+									<p:spacer width="5px"/>
+								</p:column>
+							</p:row>
+
+							</p:panelGrid>
+							
+							</p:tab>
+							<p:tab title="Mappa" titletip="Mappa" >
+								<h:form id="frmMappa">
+								<p:outputPanel id="mappaPanel" >
+									<ui:include src="/jsp/protected/geolotto/cartografia.xhtml"/>
+								</p:outputPanel>
+								</h:form>
+							</p:tab>
+						</p:tabView>
+						
+						</p:column>
+				</p:row>
+					
+					<p:row>
+						<p:column>
+							<p:commandButton value="Cerca" action="#{ricercheBean.searchRicercheTree}" process="@form" update="pnlListaRicerche" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Reset" action="#{ricercheBean.resetForm}" process="@this" update="frmRicercaRicerche, pnlListaRicerche"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				
+				
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaRicerche">				
+					 <p:dataTable id="dtListaRicerche" 
+					 	rendered="#{not empty ricercheBean.listaRicercheLotti}" 
+					 	var="rice" 
+					 	value="#{ricercheBean.listaRicercheLotti}" 
+					 	rowIndexVar="rowIndex"
+                        paginator="true" 
+                        rowKey="#{rice}" 
+                        selection="#{rice}" 
+                        selectionMode="single"                        
+						emptyMessage="Nessun elemento trovato" 
+						style="width:100%; table-layout:auto !important;" 
+						paginatorPosition="bottom"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+           				rows="20">
+           				
+					 	<p:ajax event="rowSelect" listener="#{ricercheBean.onRowSelect}" />
+					 	
+					 	<f:facet name="header">Lista Risultati</f:facet>
+						<p:column style="width:16px">
+				            <p:rowToggler />
+				        </p:column>					 	
+					 	<p:column headerText="Cod. ASI Lotto" sortBy="#{rice.lotto.codiceAsi}" >
+					 		<h:outputText value="#{rice.lotto.codiceAsi}"/>
+					 	</p:column>
+					 	<p:column headerText="Area" sortBy="#{rice.lotto.area}" >
+					 		<h:outputText value="#{rice.lotto.area}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Perimetro" sortBy="#{rice.lotto.perimetro}" >
+					 		<h:outputText value="#{rice.lotto.perimetro}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Libero/Occupato" sortBy="#{rice.lotto.statusUltimo}" >
+					 		<h:outputText value="Occupato" rendered="#{rice.lotto.statusUltimo}"/>
+					 		<h:outputText value="Libero" rendered="#{empty rice.lotto.statusUltimo or !rice.lotto.statusUltimo}"/>
+					 	</p:column>
+					 	<p:column headerText="Cessato/Attivo" sortBy="#{rice.lotto.cessato}" >
+					 		<h:outputText value="Cessato" rendered="#{not empty rice.lotto.cessato and rice.lotto.cessato}"/>
+					 		<h:outputText value="Attivo" rendered="#{empty rice.lotto.cessato or !rice.lotto.cessato }"/>
+					 	</p:column>
+					 	<p:column headerText="Data Cessazione" sortBy="#{rice.lotto.dataCessazione}" >
+						 	<h:outputText value="#{rice.lotto.dataCessazione}">
+						 		<f:convertDateTime pattern="dd/MM/yyyy"/>
+						 	</h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Comune Lotto" sortBy="#{rice.lotto.comune.nome}" >
+						 	<h:outputText value="#{rice.lotto.comune.nome}"/>
+					 	</p:column>
+					 	<p:rowExpansion>
+					 		<p:dataTable value="#{rice.insediamenti}" var="inse">					 	 
+							 	<p:column headerText="Cod. ASI Azienda" sortBy="#{inse.azienda.codiceAsi}" >
+							 		<h:outputText value="#{inse.azienda.codiceAsi}"/>
+							 	</p:column>
+							 	<p:column headerText="Data Fine Status" sortBy="#{inse.aziendaLotto.dataFineStatus}" >
+								 	<h:outputText value="#{inse.aziendaLotto.dataFineStatus}">
+								 		<f:convertDateTime pattern="dd/MM/yyyy"/>
+								 	</h:outputText>
+							 	</p:column>
+							 	<p:column headerText="Libero/Occupato" sortBy="#{inse.aziendaLotto.status}" >
+							 		<h:outputText value="Occupato" rendered="#{not empty inse.aziendaLotto.status and inse.aziendaLotto.status}"/>
+							 		<h:outputText value="Libero" rendered="#{not empty inse.aziendaLotto.status and !inse.aziendaLotto.status}"/>
+							 	</p:column>
+							 	<p:column headerText="Ragione Sociale" sortBy="#{inse.azienda.ragioneSociale}" >
+								 	<h:outputText value="#{inse.azienda.ragioneSociale}"/>
+							 	</p:column>
+							 	<p:column headerText="Indirizzo" sortBy="#{inse.azienda.viaCivico}" >
+							 		<h:outputText value="#{inse.azienda.viaCivico}"/>
+							 	</p:column>
+							 	<p:column headerText="Attivita" sortBy="#{inse.azienda.attivita}" >
+								 	<h:outputText value="#{inse.azienda.attivita}"/>
+							 	</p:column>
+							 	
+							 	<p:column headerText="Comune Azienda" sortBy="#{inse.azienda.comune.nome}" rendered="false" >
+								 	<h:outputText value="#{inse.azienda.comune.nome}"/>
+							 	</p:column>
+						 	</p:dataTable>
+					 	</p:rowExpansion>
+					 </p:dataTable>
+				</p:outputPanel>
+				
+				<p:spacer height="15"/>
+				
+				<h:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:spacer width="5px" />
+				</h:panelGrid>
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

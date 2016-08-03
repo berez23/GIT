@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+	   		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+ 
+ 
+ <!-- Remote JNDI -->
+ <!-- 
+ <bean id="jbossJNDI" class="org.springframework.jndi.JndiTemplate">
+ 	<property name="environment">
+ 		<props>
+ 			<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+      		<prop key="java.naming.provider.url">jnp://localhost:1099</prop>
+      		<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces</prop>       		 		
+ 		</props>
+ 	</property>
+ </bean>
+  -->
+  
+ <!-- CeT EJB remote Reference -->
+
+	<bean id="CarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/CarContribServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.cc.CarContribService"/>
+	</bean>
+	
+	<bean id="FiltroRichiesteService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/FiltroRichiesteServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.cc.FiltroRichiesteService"/>
+	</bean>	
+	
+	<bean id="CatastoCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/CatastoCarContribServiceBean!it.webred.ct.service.carContrib.data.access.catasto.CatastoCarContribService"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.catasto.CatastoCarContribService"/>
+	</bean>
+	
+	<bean id="RedditiCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/RedditiCarContribServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.redditi.RedditiCarContribService"/>
+	</bean>	
+	
+	<bean id="LocazioniCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/LocazioniCarContribServiceBean!it.webred.ct.service.carContrib.data.access.locazioni.LocazioniCarContribService"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.locazioni.LocazioniCarContribService"/>
+	</bean>			
+	
+	<bean id="GeneralService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/GeneralServiceBean!it.webred.ct.service.carContrib.data.access.common.GeneralService"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.common.GeneralService"/>
+	</bean>
+
+	<bean id="IciServiceCarContrib" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/IciServiceCarContribBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.ici.IciServiceCarContrib"/>
+	</bean>
+	
+	<bean id="TarsuCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/TarsuCarContribServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.tarsu.TarsuCarContribService"/>
+	</bean>
+	
+	<bean id="CosapCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/CosapCarContribServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.cosap.CosapCarContribService"/>
+	</bean>	
+	
+	<bean id="CncCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/CncCarContribServiceBean!it.webred.ct.service.carContrib.data.access.cnc.CncCarContribService"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.cnc.CncCarContribService"/>
+	</bean>
+	
+	<bean id="CarSocialeCarContribService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_CarContrib/Servizio_CarContrib_EJB/CarSocialeCarContribServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.carContrib.data.access.carsociale.CarSocialeCarContribService"/>
+	</bean>
+	 
+<!-- End EJB 3 -->
+
+	<bean id="AnagrafeService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/AnagrafeServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.anagrafe.AnagrafeService"/>
+	</bean>
+
+	<bean id="CommonService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CommonServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.common.CommonService"/>
+	</bean>
+	
+	<bean id="ParameterService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ParameterBaseService"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.ParameterService"/>
+	</bean>
+	<bean id="ComuneService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ComuneServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.comune.ComuneService"/>
+	</bean>	
+	<bean id="FontiService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/FontiServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.fonti.FontiService"/>
+	</bean>	
+	<bean id="SaldoImuService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/SaldoImuServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.imu.SaldoImuService"/>
+	</bean>	
+	<bean id="BolliVeicoliService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/BolliVeicoliServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.bolliVeicoli.BolliVeicoliService"/>
+	</bean>	
+	<bean id="F24Service" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/F24ServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.f24.F24Service"/>
+	</bean>	
+</beans>

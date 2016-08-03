@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+
+	
+	<!-- Query SIT_C_CONCESSIONI_CATASTO -->
+	<named-query name="SitCConcessioni.getConcessioneById">
+		<query>
+			<![CDATA[
+				SELECT c FROM SitCConcessioni c 
+				WHERE c.id=:id
+			]]>
+		</query>
+	</named-query>
+	<!-- Join SIT_C_CONCESSIONI_CATASTO/SIT_C_CONCESSIONI_CATASTO -->
+	<named-query name="Join_SitCConcessioni_SitCConcessioniCatasto.getConcessioneByFP">
+		<query>
+			<![CDATA[
+				SELECT distinct c FROM SitCConcessioni c, SitCConcessioniCatasto cc
+				WHERE cc.idExtCConcessioni = c.idExt
+				 AND  LPAD (TRIM (cc.foglio), 4, '0') = LPAD (TRIM (:foglio), 4, '0')
+    			 AND  LPAD (TRIM (cc.particella), 5, '0') =  LPAD (TRIM (:particella), 5, '0')
+    			ORDER BY c.dataRilascio DESC 
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Join_SitCConcessioni_SitCConcessioniCatasto.getConcessioneBySezFP">
+		<query>
+			<![CDATA[
+				SELECT distinct c FROM SitCConcessioni c, SitCConcessioniCatasto cc
+				WHERE cc.idExtCConcessioni = c.idExt
+				 AND  LPAD (TRIM (cc.foglio), 4, '0') = LPAD (TRIM (:foglio), 4, '0')
+    			 AND  LPAD (TRIM (cc.particella), 5, '0') =  LPAD (TRIM (:particella), 5, '0')
+    			 AND  cc.sezione=:sezione
+				ORDER BY c.dataRilascio DESC 
+			]]>
+		</query>
+	</named-query>
+	<!-- Query SIT_C_CONCESSIONI_CATASTO -->
+	<named-query name="SitCConcessioniCatasto.getDatiByFP">
+		<query>
+			<![CDATA[
+				SELECT cc FROM SitCConcessioniCatasto cc
+				WHERE LPAD (TRIM (cc.foglio), 4, '0') = LPAD (TRIM (:foglio), 4, '0')
+    			 AND  LPAD (TRIM (cc.particella), 5, '0') =  LPAD (TRIM (:particella), 5, '0')
+			]]>
+		</query>
+	</named-query>
+	<named-query name="SitCConcessioniCatasto.getDatiBySezFP">
+		<query>
+			<![CDATA[
+				SELECT cc FROM SitCConcessioniCatasto cc
+				WHERE LPAD (TRIM (cc.foglio), 4, '0') = LPAD (TRIM (:foglio), 4, '0')
+    			 AND  LPAD (TRIM (cc.particella), 5, '0') =  LPAD (TRIM (:particella), 5, '0')
+    			 AND  cc.sezione=:sezione
+			]]>
+		</query>
+	</named-query>
+	</entity-mappings>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.59 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.am.AmUserIr" table="AM_USER_IR" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <composite-id name="id" class="it.webred.diogene.db.model.am.AmUserIrId" mapped="false" unsaved-value="undefined">
+            <key-property name="fkAmUser" type="string">
+                <column name="FK_AM_USER" length="16"/>
+            </key-property>
+            <key-property name="fkAmItemRole" type="java.lang.Long">
+                <column name="FK_AM_ITEM_ROLE" precision="10" scale="0"/>
+            </key-property>
+        </composite-id>
+        <many-to-one name="amItemRole" class="it.webred.diogene.db.model.am.AmItemRole" update="false" insert="false" fetch="select" unique="false" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_AM_ITEM_ROLE" precision="10" scale="0"/>
+        </many-to-one>
+        <many-to-one name="amUser" class="it.webred.diogene.db.model.am.AmUser" update="false" insert="false" fetch="select" unique="false" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_AM_USER" length="16"/>
+        </many-to-one>
+    </class>
+</hibernate-mapping>

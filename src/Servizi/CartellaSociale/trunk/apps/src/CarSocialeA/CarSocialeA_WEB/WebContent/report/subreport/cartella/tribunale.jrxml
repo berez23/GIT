@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="495d5367-9db4-404f-824c-e2e382f912ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="tmCivile" class="java.lang.String"/>
+	<field name="tmAmm" class="java.lang.String"/>
+	<field name="penaleMin" class="java.lang.String"/>
+	<field name="to" class="java.lang.String"/>
+	<field name="nis" class="java.lang.String"/>
+	<field name="macroSegnal" class="java.lang.String"/>
+	<field name="microSegnal" class="java.lang.String"/>
+	<field name="motivoSegnal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="131" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="60" width="120" height="20" uuid="299a2e8d-09d9-4df0-b695-11fb3192e3ff"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Macro segnalazione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="85" width="120" height="20" uuid="e7afdb75-ea12-4ab3-a711-d549eff238cd"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Micro segnalazione]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="60" width="418" height="20" uuid="53600009-bce4-4584-b942-ac240c76f1f8"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{macroSegnal}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="85" width="418" height="20" uuid="41469ad1-2399-4bb4-8a93-4203538e31d8"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{microSegnal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#CCCCCC" uuid="dd33df58-c17d-4a0f-ad5f-3175d59256e3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tribunale]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="130" y="110" width="418" height="20" uuid="2e932cad-1041-485c-9509-b9f1a0fd99c7"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{motivoSegnal}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="110" width="120" height="20" uuid="61c57280-ab5c-4471-8174-0694e6dedff4"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Motivo segnalazione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="35" width="55" height="20" uuid="bb3433e5-8037-4fc4-a72e-7491bd0f559f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TM Civile]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="55" y="35" width="41" height="20" uuid="06042217-6641-4664-9b7d-cf0ac84a65c5"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tmCivile}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="114" y="35" width="94" height="20" uuid="0dc79df0-f83f-442b-8f3d-b57a4b543a3f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TM Amministrativo]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="208" y="35" width="41" height="20" uuid="d8aefa97-f7de-4ba7-b875-e84aff1dfba6"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tmAmm}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="267" y="35" width="77" height="20" uuid="7ea4bdf4-fe1c-44d4-8dd7-e6f52875c69e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Penale minorile]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="344" y="35" width="41" height="20" uuid="45c56336-8572-4b32-9aaf-7dc5d1db8277"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{penaleMin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="35" width="27" height="20" uuid="f482e135-a098-4a95-8e8b-6c1782e9b17d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[TO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="430" y="35" width="41" height="20" uuid="485902ab-cbd2-49b7-a6e1-69ad6008204f"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{to}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="519" y="35" width="31" height="20" uuid="46e9dcaa-4f4d-4ea0-99b5-2411dc460cbf"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nis}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="491" y="35" width="28" height="20" uuid="fd4a64c7-0697-49b5-8e6b-d0fa89b112f3"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[NIS]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

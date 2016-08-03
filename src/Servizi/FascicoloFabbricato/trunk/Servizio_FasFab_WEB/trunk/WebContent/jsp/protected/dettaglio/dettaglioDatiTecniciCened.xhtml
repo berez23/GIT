@@ -1,0 +1,113 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  	<ui:composition>
+  	
+  
+  		<div style="height:350px; overflow:auto">
+  			
+	    		<table align="center" style="width:100%">
+	    			<tr>
+	    				<td>
+	    					<h:outputText value="DETTAGLIO CERTIFICAZIONI ENERGETICHE" styleClass="myLabel" />
+	    				</td>
+	    			</tr>
+
+	    		</table>
+
+				<h:panelGrid columns="10" style="width: 100%">
+				<h:outputLabel value="Edificio Pubblico"/>
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.edificioPubblico}" style="font-weight: bold;"/>				
+				<h:outputLabel value="Sup. Lorda"/>
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.superficieLorda}" style="font-weight: bold;"/>
+				<h:outputLabel value="Sup. Netta"/>
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.superficieNetta}" style="font-weight: bold;"/>
+				<h:outputLabel value="Vol. Lordo"/>
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.volumeLordo}" style="font-weight: bold;"/>
+				<h:outputLabel value="Vol. Netto"/>
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.volumeNetto}" style="font-weight: bold;"/>
+				</h:panelGrid>
+				<hr size="5px"/>
+				<h:panelGrid columns="10" style="width: 100%">
+				<h:outputLabel value="Sup. Disperdente" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.superficieDisperdente}" style="font-weight: bold"/>
+				<h:outputLabel value="Sup. Vetrata Opaca" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.superficieVetrataOpaca}" style="font-weight: bold"/>
+				<h:outputLabel value="Trasmittanza Media Involucro" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.trasmittanzaMediaInvolucro}" style="font-weight: bold"/>
+				<h:outputLabel value="Trasmittanza Media Serramento" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.trasmittanzaMediaSerramento}" style="font-weight: bold"/>
+				<h:outputLabel value="Trasmittanza Media Copertura" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.trasmittanzaMediaCopertura}" style="font-weight: bold"/>
+				</h:panelGrid>
+				<hr size="5px"/>
+				<h:panelGrid columns="10" style="width: 100%">
+				<h:outputLabel value="Trasmittanza Media Basamento" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.trasmittanzaMediaBasamento}" style="font-weight: bold"/>
+				<h:outputLabel value="Eph" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.eph}" style="font-weight: bold"/>
+				<h:outputLabel value="Eth" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.eth}" style="font-weight: bold"/>
+				<h:outputLabel value="Etc" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.etc}" style="font-weight: bold"/>
+				<h:outputLabel value="Efer" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.efer}" style="font-weight: bold"/>
+				</h:panelGrid>
+				<hr size="5px"/>
+				<h:panelGrid columns="10" style="width: 100%">
+				<h:outputLabel value="Epw" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.epw}" style="font-weight: bold"/>
+				<h:outputLabel value="Ept" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.ept}" style="font-weight: bold"/>
+				<h:outputLabel value="Eghw" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.eghw}" style="font-weight: bold"/>
+				<h:outputLabel value="Ef Glob Media Riscaldamento" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.efGlobMediaRiscaldamento}" style="font-weight: bold"/>
+				<h:outputLabel value="Ef Glob Media Acqua Calda San" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.efGlobMediaAcquaCaldaSan}" style="font-weight: bold"/>
+				</h:panelGrid>
+				<hr size="5px"/>
+				<h:panelGrid columns="10" style="width: 100%">
+				<h:outputLabel value="Tipo Ventilazione" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.tipologiaVentilazione}" style="font-weight: bold"/>
+				<h:outputLabel value="Num. Ricambi Orari" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.numeroRicambiOrari}" style="font-weight: bold"/>
+				<h:outputLabel value="Tipo Pannello St" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.tipologiaPannelloSt}" style="font-weight: bold"/>
+				<h:outputLabel value="Tipo Pannello Fv" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.tipologiaPannelloFv}" style="font-weight: bold"/>
+				<h:outputLabel value="Sup. Captante Fv" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.superficieCaptanteFv}" style="font-weight: bold"/>
+				</h:panelGrid>
+				<hr size="5px"/>
+				<h:panelGrid columns="10" style="width: 100%">
+				<h:outputLabel value="Sup. Apertura St" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.superficieAperturaSt}" style="font-weight: bold"/>
+				<h:outputLabel value="Sup. Pan Fv Sup utile" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.supPanFvSupUtile}" style="font-weight: bold"/>
+				<h:outputLabel value="Sup. Pan St Sup Utile" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.supPanStSupUtile}" style="font-weight: bold"/>
+				<h:outputLabel value="Tipo Combustibile" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.tipologiaCombustibile}" style="font-weight: bold"/>
+				<h:outputLabel value="Tipologia Generatore" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.tipologiaGeneratore}" style="font-weight: bold"/>
+				</h:panelGrid>
+				<hr size="5px"/>
+				<h:panelGrid columns="10" style="width: 40%">
+				<h:outputLabel value="Potenza Generatore" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.potenzaGeneratore}" style="font-weight: bold"/>
+				<h:outputLabel value="Destinazione Uso" />
+				<h:outputLabel value="#{datiTecniciBean.cenedCur.destinazioneDiUso}" style="font-weight: bold"/>
+				</h:panelGrid> 
+
+			
+		</div>
+			
+  	</ui:composition>
+</html>

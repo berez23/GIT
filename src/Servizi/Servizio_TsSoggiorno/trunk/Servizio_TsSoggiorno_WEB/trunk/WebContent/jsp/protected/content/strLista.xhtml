@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<rich:panel styleClass="clsCenterPanel">
+	<f:facet name="header">
+		<h:outputText value="Lista strutture" />
+	</f:facet>
+
+	<h:form id="frmStrlista">
+
+		<h:panelGrid columns="2"
+			rendered="#{fn:length(strutturaBean.listaStrutture) == 0}">
+			<h:outputLabel value="ATTENZIONE:"
+				style="color: orange; font-weight: bold;" />
+			<h:outputLabel
+				value="per poter creare una nuova dichiarazione è necessaria almeno una struttura" />
+			<br />
+		</h:panelGrid>
+
+		<h:panelGrid columns="1">
+			<h:outputText value="SELEZIONA STRUTTURE PER:"
+				styleClass="clsTitoletto" />
+		</h:panelGrid>
+		<h:panelGrid columns="6">
+
+			<h:outputText value="Società" />
+			<h:selectOneMenu value="#{strutturaBean.criteria.idSocieta}"
+				style="width: 200px;">
+				<f:selectItem itemLabel="-" itemValue="" />
+				<f:selectItems value="#{strutturaBean.listaSocieta}" />
+			</h:selectOneMenu>
+
+			<h:outputText value="Categoria" />
+			<h:selectOneMenu value="#{strutturaBean.criteria.idClasse}">
+				<f:selectItem itemLabel="-" itemValue="" />
+				<f:selectItems value="#{strutturaBean.listaClassi}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<div align="center">
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Seleziona"
+					action="#{strutturaBean.doLoadListaStruttureFiltrate}"
+					reRender="centerContent" />
+			</h:panelGrid>
+		</div>
+		<br />
+
+		<rich:dataTable var="row" value="#{strutturaBean.listaStrutture}"
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Denominazione" />
+				</f:facet>
+				<h:outputText value="#{row.struttura.descrizione}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Indirizzo" />
+				</f:facet>
+				<h:outputText
+					value="#{row.struttura.indirizzo} #{row.struttura.numCiv}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Società" />
+				</f:facet>
+				<h:outputText value="#{row.societa.ragSoc}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Categoria" />
+				</f:facet>
+				<a4j:repeat value="#{row.classi}" var="row2">
+					<h:outputText value="#{row2.descrizione}; " />
+				</a4j:repeat>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="3">
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/edit.png" id="img1">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent"
+							action="#{strutturaBean.doLoadStruttura}">
+							<a4j:actionparam value="true" name="visDt"
+								assignTo="#{pageBean.visDati}" />
+							<a4j:actionparam value="false" name="visPag"
+								assignTo="#{pageBean.visListaPagam}" />
+							<a4j:actionparam value="#{row.struttura.id}" name="idSel"
+								assignTo="#{strutturaBean.idSelezionato}" />
+						</a4j:support>
+						<h:outputLabel value="Modifica" style="cursor:pointer" />
+					</h:panelGrid>
+
+					<h:panelGrid columns="2" styleClass="clsButton">
+						<h:graphicImage value="/images/delete.png" id="img3">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent"
+							action="#{strutturaBean.doDeleteStruttura}"
+							onsubmit="if (!confirm('Procedere con il salvataggio?')) return false">
+							<a4j:actionparam value="false" name="visDt"
+								assignTo="#{pageBean.visDati}" />
+							<a4j:actionparam value="false" name="visPag"
+								assignTo="#{pageBean.visListaPagam}" />
+							<a4j:actionparam value="#{row.struttura.id}" name="idSel"
+								assignTo="#{strutturaBean.idSelezionato}" />
+						</a4j:support>
+						<h:outputLabel value="Elimina" style="cursor:pointer" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</rich:column>
+		</rich:dataTable>
+
+	</h:form>
+</rich:panel>
+
+<a4j:include id="dichContent" rendered="#{pageBean.visDati}"
+	viewId="/jsp/protected/content/str.xhtml" />
+
+</html>

@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_NOTE_DIARIOV1" id="FCD2A270-3C8D-0852-4978-852B55D9A6DF" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>6EA6BCA4-1F0F-A904-9BD4-EE8F52882979</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>76C61994-8631-4CA0-85B4-D114C0A405E1</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

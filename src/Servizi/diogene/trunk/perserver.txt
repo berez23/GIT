@@ -1,0 +1,117 @@
+                <Resource name="jdbc/dbIntegrato" scope="Shareable" type="javax.sql.DataSource"/>
+	           <Resource name="jdbc/CP" scope="Shareable" type="javax.sql.DataSource"/>
+	           <Resource name="jdbc/diogene" scope="Shareable" type="javax.sql.DataSource"/>
+	           <ResourceParams name="jdbc/dbIntegrato">
+	             <parameter>
+	               <name>url</name>
+	               <value>jdbc:oracle:thin:@172.16.2.68:1521:RAPANUI</value>
+	             </parameter>
+	             <parameter>  
+	               <name>password</name>
+	               <value>diogene</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxActive</name>
+	               <value>50</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxWait</name>
+	               <value>5000</value>
+	             </parameter>
+	             <parameter>     
+	               <name>driverClassName</name>
+	               <value>oracle.jdbc.driver.OracleDriver</value>
+	             </parameter>
+	             <parameter>
+	               <name>username</name>
+	               <value>diogene</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxIdle</name>
+	               <value>25</value>
+	             </parameter>
+	           </ResourceParams>
+	           <ResourceParams name="jdbc/dbIntegrato">
+	             <parameter>
+	               <name>url</name>
+	               <value>jdbc:oracle:thin:@172.16.2.68:1521:RAPANUI</value>
+	             </parameter>
+	             <parameter>  
+	               <name>password</name>
+	               <value>dbtotalemi</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxActive</name>
+	               <value>50</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxWait</name>
+	               <value>5000</value>
+	             </parameter>
+	             <parameter>     
+	               <name>driverClassName</name>
+	               <value>oracle.jdbc.driver.OracleDriver</value>
+	             </parameter>
+	             <parameter>
+	               <name>username</name>
+	               <value>dbtotalemi</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxIdle</name>
+	               <value>25</value>
+	             </parameter>
+	           </ResourceParams>
+	           <ResourceParams name="jdbc/CP">
+	             <parameter>
+	               <name>url</name>
+	               <value>jdbc:oracle:thin:@172.16.2.68:1521:RAPANUI</value>
+	             </parameter>
+	             <parameter>
+	               <name>password</name>
+	               <value>dbtotalemi</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxActive</name>
+	               <value>50</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxWait</name>
+	               <value>5000</value>
+	             </parameter>
+	             <parameter>
+	               <name>driverClassName</name>
+	               <value>oracle.jdbc.driver.OracleDriver</value>
+	             </parameter>
+	             <parameter>
+	               <name>username</name>
+	               <value>dbtotalemi</value>
+	             </parameter>
+	             <parameter>
+	               <name>maxIdle</name>
+	               <value>25</value>
+	             </parameter>
+          </ResourceParams>
+
+aggiungere context per DbMAP_ASJ_servlet.war
+
+
+
+----------- SE TOMCAT 5 -------------------------
+
+      <Context docBase="escwebgisdiogene" path="/diogene" reloadable="false" >
+                <Resource driverClassName="oracle.jdbc.driver.OracleDriver" logAbandoned="true" maxActive="8" maxIdle="4" maxWait="5000" name="jdbc/CP" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:oracle:thin:@praga:1521:praga" username="dbtotale" password="dbtotale"/>
+               	<Resource driverClassName="oracle.jdbc.driver.OracleDriver" logAbandoned="true" maxActive="8" maxIdle="4" maxWait="5000" name="jdbc/dbIntegrato" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:oracle:thin:@praga:1521:praga" username="dbtotale" password="dbtotale"/>               
+               	<Resource driverClassName="oracle.jdbc.driver.OracleDriver" logAbandoned="true" maxActive="8" maxIdle="4" maxWait="5000" name="jdbc/diogene" removeAbandonedTimeout="60" type="javax.sql.DataSource" url="jdbc:oracle:thin:@praga:1521:praga" username="diogene" password="diogene"/>               
+      </Context>
+
+     <Context 	docBase="C:\user\progetti\catasto\escwebgisdiogene\DbMAP_ASJ_servlet"
+					path="/DbMAP_ASJ_servlet" reloadable="true" />
+
+      
+      -- terni url="jdbc:oracle:thin:@80.17.46.80:1521:dbcatasp" username="dbtotale_l117" password="dbtotale_l117"
+      -- praga url="jdbc:oracle:thin:@praga:1521:praga" username="dbtotale" password="dbtotale"
+       -- rapanui url="jdbc:oracle:thin:@rapanui:1521:rapanui" username="dbtotale" password="dbtotale"
+      -- collazone url="jdbc:oracle:thin:@80.17.46.80:1521:dbcatasp" username="dbtotale_c845" password="dbtotale_c845"
+      -- gualdo url="jdbc:oracle:thin:@80.17.46.80:1521:dbcatasp" username="catco_e229" password="catco_e229"
+      -- vitorchiano url="jdbc:oracle:thin:@80.17.46.80:1521:dbcatasp" username="dbtotale_m086" password="dbtotale_m086"
+      -- spoleto url="jdbc:oracle:thin:@80.17.46.162:1521:dbcat" username="dbtotale_i921" password="dbtotale_i921"

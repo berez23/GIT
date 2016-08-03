@@ -1,0 +1,13 @@
+[PropertyInfo]
+catalog,ServletDef,false,false, , ,true,<default>
+changed,boolean,false,false, , ,true,<default>
+deleted,boolean,false,false, , ,true,<default>
+info,ServletDef,false,false, , ,true,<default>
+infoExt,ServletDef,false,false, , ,true,<default>
+name,String,false,false, , ,true,<default>
+server,ServletDef,false,false, , ,true,<default>
+[IconNames]
+
+
+
+

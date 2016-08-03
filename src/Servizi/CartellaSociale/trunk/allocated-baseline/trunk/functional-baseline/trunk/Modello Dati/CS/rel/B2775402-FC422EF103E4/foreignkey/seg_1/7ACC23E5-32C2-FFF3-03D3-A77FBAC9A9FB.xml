@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="7ACC23E5-32C2-FFF3-03D3-A77FBAC9A9FB" directorySegmentName="seg_1" name="CS_I_SEMIRESIMIN_COM_FK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_I_SEMIRESIMIN_COM_FK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-06-13 08:46:48 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>80D28681-AC72-0A6D-6BAB-6F9A3DF72D79</importedID>
+<containerWithKeyObject>A2AE29F5-121B-A102-2A6F-E558073C7227</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>94D6DD0F-6D23-799D-78FB-611F6C9A38DB</localFKIndex>
+<keyObject>B0B69A45-4F5E-EF3B-5565-291A3B90EAB1</keyObject>
+<mandatory>false</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

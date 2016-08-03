@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO UPLOAD MODAL BOX -->
+<rich:modalPanel id="uplModalBox" minHeight="200" minWidth="400"
+	height="200" width="400">
+	<f:facet name="header">
+		<h:outputText value="Upload file Dxf"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick"
+						oncomplete="javascript:Richfaces.hideModalPanel('uplModalBox');" />
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="uplForm">
+
+		<a4j:keepAlive beanName="uploadBean" />
+
+		<rich:fileUpload fileUploadListener="#{uploadBean.listener}"
+			listHeight="75px" listWidth="100%" maxFilesQuantity="1" id="upload"
+			progressLabel="Caricamento in corso..." immediateUpload="false"
+			allowFlash="false" stopControlLabel="Arresta"
+			stopEntryControlLabel="Arresta" uploadControlLabel="Carica File"
+			addControlLabel="Aggiungi File" cancelEntryControlLabel="Cancella"
+			doneLabel="Caricamento completato"
+			clearAllControlLabel="Cancella Tutto" clearControlLabel="Cancella"
+			transferErrorLabel="Errore nel caricamento del file"
+			sizeErrorLabel="Errore nelle dimensioni del file">
+			<a4j:support event="oncancel" action="#{uploadBean.doInitPanel}"
+				reRender="uplForm" />
+			<a4j:support event="onclear" action="#{uploadBean.doInitPanel}"
+				reRender="uplForm" />
+		</rich:fileUpload>
+
+		<rich:spacer height="15px" />
+
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Conferma" id="btnConfermaUpl"
+					styleClass="button" action="#{uploadBean.doUpload}"
+					oncomplete="Richfaces.hideModalPanel('uplModalBox'); return false;"
+					reRender="leftPage">
+				</a4j:commandButton>
+
+				<rich:spacer width="15px" />
+
+				<a4j:commandButton value="Annulla" id="btnEsciUpl"
+					styleClass="button"
+					onclick="Richfaces.hideModalPanel('uplModalBox'); return false;">
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE UPLOAD MODAL BOX -->
+
+</html>

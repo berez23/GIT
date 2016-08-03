@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<service name="WSInterrogazioniTerritorio">
+
+	<description>Web Service Wrapper</description>
+
+	<parameter name="ServiceClass">it.webred.ct.service.wrapper.intTerritorio.ws.WSInterrogazioniTerritorio</parameter>
+	<parameter name="ServiceTCCL">composite</parameter>
+
+	<operation name="interrogazioneTerritorio">
+		<messageReceiver class="org.apache.axis2.rpc.receivers.RPCMessageReceiver" />
+	</operation>
+
+	<module ref="rampart" />
+
+	<parameter name="InflowSecurity">
+		<action>
+			<items>UsernameToken</items>
+			<passwordCallbackClass>it.webred.ct.service.wrapper.intTerritorio.handler.PWCBServiceHandler
+			</passwordCallbackClass>
+		</action>
+	</parameter>
+
+
+</service>

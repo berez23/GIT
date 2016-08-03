@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">	
+						
+															
+			<h:form id="frmRunCmdDia">
+				<a4j:keepAlive beanName="eseguiDiaBean"/>	
+				<a4j:keepAlive beanName="executeDataProviderImpl"/>			
+				<rich:panel id="panelSelFontiDati">
+					<f:facet name="header">
+						<h:outputText value="Seleziona le Fonti e la tipologia dei comandi" />	
+					</f:facet>
+					
+					<a4j:repeat id="idFonti" value="#{fonteBean.fontiForEnte}" var="item"  >
+						<h:selectBooleanCheckbox id="chkFonte" value="#{item.checked}" />
+						<h:outputText value="[#{item.fonte.id}] #{item.fonte.descrizione}" style="color:#4a75b5;" />
+						<rich:spacer width="10px" />
+					</a4j:repeat>
+					
+					<br /><br />
+				
+					<h:commandButton value="Seleziona tutte" onclick="return selTutte('frmRunCmdDia', true);"/>
+					<rich:spacer width="5px"/>
+					<h:commandButton value="Deseleziona tutte" onclick="return selTutte('frmRunCmdDia', false);" />
+	
+					<br /><br />
+																					
+					<rich:tabPanel switchType="ajax">
+				        <rich:tab id="tab1" label="Diagnostiche Coerenza" 
+				        	action="#{eseguiDiaBean.doResetPage}" >
+				            <h:panelGrid columns="1" width="100%">
+								<h:selectOneRadio value="#{fonteBean.typeDiagnostiche}" layout="lineDirection">
+									<f:selectItem itemLabel="Controllo" itemValue="31"  />
+									<f:selectItem itemLabel="Confronto" itemValue="32" />								
+									<a4j:support event="onclick" 
+												 action="#{eseguiDiaBean.doToro}"
+												 reRender="frmRunCmdDia" />
+								</h:selectOneRadio>
+							</h:panelGrid>
+							<a4j:include id="diaCommandList1" viewId="#{eseguiDiaBean.paginaDettaglio}" />							
+				        </rich:tab>
+				        <rich:tab id="tab2" label="Diagnostiche Indagine" 
+				        	action="#{eseguiDiaBean.doResetPage}" >
+				            <h:panelGrid columns="1" width="100%">
+								<h:selectOneRadio value="#{fonteBean.typeDiagnostiche}" layout="lineDirection">								
+									<f:selectItem itemLabel="Elaborazione" itemValue="34" />
+									<f:selectItem itemLabel="Accertamento" itemValue="35" />
+									<f:selectItem itemLabel="Statistica" itemValue="36" />
+									<f:selectItem itemLabel="Ricerca" itemValue="37" />
+									<a4j:support event="onclick" 
+									             action="#{eseguiDiaBean.doToro}" 
+									             reRender="frmRunCmdDia" />
+								</h:selectOneRadio>
+							</h:panelGrid>
+							<a4j:include id="diaCommandList2" viewId="#{eseguiDiaBean.paginaDettaglio}" />
+				        </rich:tab>				        		       
+				    </rich:tabPanel>				   				  
+				</rich:panel>
+				
+				<!-- Menu 1 -->
+				<rich:contextMenu attached="false" id="menu1" submitMode="ajax">
+	
+					<rich:menuItem submitMode="none" icon="/images/run_small.jpg">
+						<a4j:commandLink action="#{eseguiDiaBean.doEsegui}">
+							<h:outputText value="Esegui comando gruppo diagnostiche"
+								style="font-weight: bold;" />
+							<a4j:actionparam value="{parCmdDiaEsegui}"
+								assignTo="#{eseguiDiaBean.codCommand}" />
+							<a4j:actionparam value="{parDiagType}"
+								assignTo="#{eseguiDiaBean.diagType}" />							
+						</a4j:commandLink>
+					</rich:menuItem>
+					
+					<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{dettaglioGroupBean.doInit}"
+						reRender="newDiaPage"
+						oncomplete="Richfaces.showModalPanel('newDiaModalBox'); return false;">
+						<h:outputText value="Visualizza diagnostiche collegate al gruppo" style="font-weight: bold;" />
+						<a4j:actionparam value="/jsp/protected/diagnostics/listaDiaByCodCmdGrp.xhtml"
+							assignTo="#{dettaglioGroupBean.newDiaPage}" />
+						<a4j:actionparam value="{parCmdDiaEsegui}"
+							assignTo="#{dettaglioGroupBean.codCommand}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+				</rich:contextMenu>
+				<!-- Fine menu 1 -->
+				
+				<!-- Menu 2 -->
+				<rich:contextMenu attached="false" id="menu2" submitMode="ajax">
+	
+					<rich:menuItem submitMode="none" icon="/images/run_small.jpg">
+						<a4j:commandLink action="#{eseguiDiaBean.doEsegui}">
+							<h:outputText value="Esegui comando diagnostica"
+								style="font-weight: bold;" />
+							<a4j:actionparam value="{parCmdDiaEsegui}"
+								assignTo="#{eseguiDiaBean.codCommand}" />
+							<a4j:actionparam value="{parDiagType}"
+								assignTo="#{eseguiDiaBean.diagType}" />							
+						</a4j:commandLink>
+					</rich:menuItem>
+				</rich:contextMenu>
+				<!-- Fine menu 2 -->
+				
+			</h:form>	
+			
+			<!-- NEW EVENT PAGE -->
+			<a4j:include id="newDiaPage" viewId="#{dettaglioGroupBean.newDiaPage}" />
+						
+		</ui:define>
+	</ui:composition>
+</html>

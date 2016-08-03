@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="navInfo">
+				Dettaglio Ruolo - Flusso Ruoli Vistati
+    </ui:define>
+
+	<ui:define name="content">
+      <h:form>
+	 	  <rich:panel>
+			<f:facet name="header">Iscrizione ruolo - Ambito #{sogg.descrAmbito}</f:facet>
+			<h:panelGrid columns="6">
+				<h:outputText value="Num/Anno ruolo" />
+				<h:outputText value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.chiaveRuolo.progressivoRuolo}/#{flusso750Bean.dettaglio.anagrafica.infoRuolo.chiaveRuolo.annoRuolo}" 
+						      styleClass="dettAnag"/>
+			
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				<h:panelGroup></h:panelGroup>
+				
+				<h:outputText value="Tipo Ufficio (esec. ruolo)" />
+				<h:outputText value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codTipoUfficio}" styleClass="dettAnag"/>
+				
+				<h:outputText value="Cod. Ufficio (ent. creditore)" />
+				<h:outputText value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codUfficio}" styleClass="dettAnag"/>
+
+				<h:outputText value="Cod. Ente (ent. creditore)" />	
+				<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+
+					 	  <a4j:actionparam name="code" value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.chiaveRuolo.codEnteCreditore}"
+                        		         assignTo="#{CNCToolTipBean.codEnte}" />
+
+					 	  <a4j:actionparam name="code1" value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codTipoUfficio}"
+                        		         assignTo="#{CNCToolTipBean.codTipoUfficio}" />
+
+					 	  <a4j:actionparam name="code2" value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codUfficio}"
+                        		         assignTo="#{CNCToolTipBean.codiceUfficioFull}" />
+                    
+					    <h:outputText value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.chiaveRuolo.codEnteCreditore}" styleClass="dettAnag"/>
+				</a4j:commandLink>                        			 			
+							
+				
+				
+				<h:outputText value="Specie ruolo" />
+				<h:outputText value="Ruolo ordinario" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '1'}"/>
+				<h:outputText value="Ruolo straordinario" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '3'}"/>
+				<h:outputText value="Ruolo ordinario coatt. conv. ex Art. 69" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '4'}"/>
+				<h:outputText value="Ruolo straordinario coatt. conv. ex Art. 69" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '5'}"/>
+				<h:outputText value="Ruolo ordinario scarti conv. ex Art. 69" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '6'}"/>
+				<h:outputText value="Ruolo straordinario scarti conv. ex Art. 69" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '7'}"/>
+				<h:outputText value="Ruolo ordinario scarti" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '8'}"/>
+				<h:outputText value="Ruolo straordinario scarti" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codSpecieRuolo eq '99'}"/>
+
+				<h:outputText value="Tipo iscrizione" />
+				<h:outputText value="Ruolo coattivo" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codTipoIscrizione eq '1'}" />
+				<h:outputText value="Ruolo non coattivo" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codTipoIscrizione eq '2'}" />
+				<h:outputText value="INPS/INAIL da cartolarizzazione" styleClass="dettAnag" rendered="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.codTipoIscrizione eq '3'}" />
+				
+				<h:outputText value="Codice ambito" />
+				<h:outputText value="#{flusso750Bean.dettaglio.anagrafica.descrAmbito}" styleClass="dettAnag"/>
+    			
+				<h:outputText value="Numero/Anno ruolo avvisi" />
+				<h:outputText value="#{flusso750Bean.dettaglio.anagrafica.infoRuolo.progressivoRuoloAvvisi}/#{sogg.infoRuolo.annoRuoloAvvisi}" 
+							  styleClass="dettAnag"/>
+				
+			</h:panelGrid>
+		</rich:panel>
+		
+		<rich:spacer height="5px" />
+		
+	   <rich:panel>
+			<f:facet name="header">Anagrafica intestatari</f:facet>
+			<rich:dataTable width="750" var="anag" value="#{flusso750Bean.dettaglio.anagrafica.anagraficaIntestatarioList}"
+				id="anagTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				>
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Cognome/Denominazione" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Nome" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Fiscale/P. Iva" />
+						</rich:column>										
+						<rich:column>
+							<h:outputText value="Cod. Partita" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Data Nascita" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Indirizzo AT" />
+						</rich:column>						
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{anag.cognome}#{anag.denominazione}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.nome}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.codFiscale}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.chiavePartita.codicePartita}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.dtNascita}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.indirizzoAt}, #{anag.capAt} (#{anag.codProvinciaAt})"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+								
+			</rich:dataTable>			
+    	  </rich:panel>
+
+		<rich:spacer height="5px" />
+
+	 	  <rich:panel>
+			<f:facet name="header">Anagrafica Cointestatari</f:facet>
+			<rich:dataTable width="750" var="anag" value="#{flusso750Bean.dettaglio.anagrafica.anagraficaCointestatarioList}"
+				id="coAnagTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				>
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Cognome/Denominazione" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Nome" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Fiscale" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="P. Iva" />
+						</rich:column>						
+						<rich:column>
+							<h:outputText value="Cod. Partita" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Data Nascita" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{anag.cognome}#{anag.denominazione}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.nome}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.codFiscale}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.partitaIva}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.chiavePartita.codicePartita}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{anag.dtNascita}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+			</rich:dataTable>			
+    	  </rich:panel>
+
+		<rich:spacer height="5px" />
+
+	 	  <rich:panel>
+			<f:facet name="header">Articoli</f:facet>
+			<rich:dataTable width="750" var="articolo" value="#{flusso750Bean.dettaglio.articoliList}"
+				id="articoliTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				>
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Progr." />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Entrata" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Tipo Entrata" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Tipo Entrata" />
+						</rich:column>						
+						<rich:column>
+							<h:outputText value="Comp. Res." />
+						</rich:column>						
+						<rich:column>
+							<h:outputText value="Importo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Importo car. benef." />
+						</rich:column>						
+						<rich:column>
+							<h:outputText value="Capo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Capitolo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Art." />
+						</rich:column>
+					    <rich:column>
+							<h:outputText value="Anno rif." />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{articolo.progressivoArticoloRuolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>					
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{articolo.codEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceEntrataCode}" />
+                    
+					    <h:outputLabel value="#{articolo.codEntrata}"/>
+					</a4j:commandLink>                        			 			
+				</rich:column>
+				<rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{articolo.codTipoEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceTipoEntrataCode}" />
+                    
+					    <h:outputLabel value="#{articolo.codTipoEntrata}" styleClass="ruoloIntest" />
+					</a4j:commandLink>                        			 			
+				</rich:column>
+				<rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{articolo.tipoEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceTipoEntrataCode}" />
+                    
+
+					   <h:outputLabel value="#{articolo.tipoEntrata}" styleClass="ruoloIntest" />
+					</a4j:commandLink>                        			 			
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{articolo.competenzaResidui}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{articolo.importoArticoliRuolo / 100} "
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{articolo.importoArticoloRuoloBenef / 100} "
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{articolo.capo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{articolo.capitolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{articolo.articolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{articolo.chiavePartita.annoRiferimento}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+			</rich:dataTable>			
+    	  </rich:panel>
+    	  
+		<rich:spacer height="5px" />
+
+	 	  <rich:panel>
+			<f:facet name="header">Ulteriori beneficiari</f:facet>
+		  
+			<rich:dataTable width="750" var="benef" value="#{flusso750Bean.dettaglio.ulterioriBeneficiari}"
+				id="beneficiariTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				>
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Progr." />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Entrata" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Tipo Entrata" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Codice ente ult. benef." />
+						</rich:column>						
+						<rich:column>
+							<h:outputText value="Importo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Capo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Capitolo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Art." />
+						</rich:column>
+					    <rich:column>
+							<h:outputText value="Anno rif." />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{benef.progressivoArticoloRuolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="descrCodice, panelPopup">
+					 	  <a4j:actionparam name="code" value="#{benef.codEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceEntrataCode}" />
+                    
+					    <h:outputLabel value="#{benef.codEntrata}" styleClass="ruoloIntest" />
+					</a4j:commandLink>        	
+				</rich:column>
+				<rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{benef.codTipoEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceTipoEntrataCode}" />
+                    
+							<h:outputLabel value="#{benef.codTipoEntrata}" styleClass="ruoloIntest" />
+					</a4j:commandLink>                        			 			
+				</rich:column>						
+				<rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+                   				     
+					 	  <a4j:actionparam name="code1" value="#{benef.codUltEnteBenef}"
+                        		         assignTo="#{CNCToolTipBean.codEnte}" />
+
+					 	  <a4j:actionparam name="code2" value="#{benef.codTipoUfficioUltBenef}"
+                        		         assignTo="#{CNCToolTipBean.codTipoUfficio}" />
+                   				     
+					 	  <a4j:actionparam name="code3" value="#{benef.codUfficioUltBenef}"
+                        		         assignTo="#{CNCToolTipBean.codiceUfficio}" />
+
+                    
+						<h:outputLabel value="#{benef.codUltEnteBenef}"	styleClass="ruoloIntest" />					
+					</a4j:commandLink>                        			 			
+				
+					
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{benef.importoArtRuoloUltBenef / 100} "
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{benef.capo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{articolo.capitolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{benef.articolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					<h:outputLabel value="#{benef.chiavePartita.annoRiferimento}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+			</rich:dataTable>			
+    	 </rich:panel>
+    	  
+    	  <a4j:commandLink action="#{flusso750Bean.doGotoList}">
+    	  		Indietro    	  
+    	  </a4j:commandLink>
+    	  
+      </h:form>
+      
+      
+        <ui:include src="../include/descrizioneCodici.xhtml" />
+     </ui:define>
+  </ui:composition>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+			<rich:modalPanel id="rTaresPanel" 
+				width="800" height="500" 
+				moveable="true" resizeable="false" style="overflow:scroll;">
+				<f:facet name="header"><h:outputText value="DETTAGLIO RUOLO TARES" /></f:facet>
+				<h:form>
+					<h:panelGrid columns="1" width="100%">
+				    	<a4j:outputPanel ajaxRendered="true" >
+				    		
+			    			<rich:simpleTogglePanel switchType="client" opened="false">
+								<f:facet name="header">IMMOBILI</f:facet>
+								<rich:dataTable width="100%"
+							        	var="imm"
+							        	value="#{contribuenteBean.ruoliVersCarContrib.selRTares.immobili}"
+							        	columnClasses="col" 
+							        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+										rowClasses="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.coloreJsp}">
+									
+									<rich:column style="width:20px;">
+										<f:facet name="header"><h:outputText value="Anno" /></f:facet>
+										<h:outputLabel value="#{imm.anno}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+										<h:outputLabel value="#{imm.indirizzo}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+										<h:outputLabel value="#{imm.desTipo}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Categoria" /></f:facet>
+										<h:outputLabel value="#{imm.desCat}" />
+									</rich:column>
+									<rich:column  >
+										<f:facet name="header"><h:outputText value="Sez." /></f:facet>
+										<h:outputLabel value="#{imm.sez}" />
+									</rich:column>
+										<rich:column  >
+										<f:facet name="header"><h:outputText value="F" /></f:facet>
+										<h:outputLabel value="#{imm.foglio}" />
+									</rich:column>
+										<rich:column  >
+										<f:facet name="header"><h:outputText value="P" /></f:facet>
+										<h:outputLabel value="#{imm.particella}" />
+									</rich:column>
+										<rich:column  >
+										<f:facet name="header"><h:outputText value="S" /></f:facet>
+										<h:outputLabel value="#{imm.sub}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Causale" /></f:facet>
+										<h:outputLabel value="#{imm.causale}" />
+									</rich:column>
+									<rich:column width="20px;" >
+										<f:facet name="header"><h:outputText value="Tributo" /></f:facet>
+										<h:outputLabel value="#{imm.codTributo}" />
+									</rich:column>
+									<rich:column  >
+										<f:facet name="header"><h:outputText value="Mq" /></f:facet>
+										<h:outputLabel value="#{imm.mq}" ><f:convertNumber type="number"/></h:outputLabel>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Tariffa" /></f:facet>
+										<h:panelGrid rendered="#{imm.tariffaQf!=null or imm.tariffaQv!=null or imm.tariffaQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.tariffaQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.tariffaQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.tariffaQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Riduz." /></f:facet>
+										<h:panelGrid rendered="#{imm.riduzioneQf!=null or imm.riduzioneQv!=null or imm.riduzioneQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.riduzioneQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.riduzioneQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.riduzioneQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Importo" /></f:facet>
+										<h:panelGrid rendered="#{imm.importoQf!=null or imm.importoQv!=null or imm.importoQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.importoQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.importoQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.importoQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Totale" /></f:facet>
+										<h:outputLabel value="#{imm.importo}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+									</rich:column>
+									  <f:facet name="footer">
+							             <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+							         </f:facet>	
+								</rich:dataTable>
+							</rich:simpleTogglePanel>
+							<rich:spacer height="5px" />
+							<rich:simpleTogglePanel switchType="client" opened="false" rendered="#{contribuenteBean.ruoliVersCarContrib.selRTares.ruolo.tipo eq 'S'}">
+								<f:facet name="header">RIEPILOGO RUOLO PRINCIPALE</f:facet>
+								<rich:panel>
+								<f:facet name="header">Dati Immobili</f:facet>
+								<rich:dataTable width="100%"
+							        	var="imm"
+							        	value="#{contribuenteBean.ruoliVersCarContrib.selRTares.listaSt}"
+							        	columnClasses="col" 
+							        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+										rowClasses="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.coloreJsp}">
+									
+									<rich:column style="width:20px;">
+										<f:facet name="header"><h:outputText value="Anno" /></f:facet>
+										<h:outputLabel value="#{imm.anno}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+										<h:outputLabel value="#{imm.indirizzo}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+										<h:outputLabel value="#{imm.desTipo}" />
+									</rich:column>
+									<rich:column width="20px;">
+										<f:facet name="header"><h:outputText value="Tributo" /></f:facet>
+										<h:outputLabel value="#{imm.codTributo}" />
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Riduz." /></f:facet>
+										<h:panelGrid rendered="#{imm.riduzioneQf!=null or imm.riduzioneQv!=null or imm.riduzioneQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.riduzioneQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.riduzioneQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.riduzioneQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Importo" /></f:facet>
+										<h:panelGrid rendered="#{imm.importoQf!=null or imm.importoQv!=null or imm.importoQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.importoQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.importoQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.importoQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Totale" /></f:facet>
+										<h:outputLabel value="#{imm.importo}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+									</rich:column>
+									<rich:column width="90px;">
+										<f:facet name="header"><h:outputText value="Fattura" /></f:facet>
+										<h:outputLabel value="n. #{imm.numFattura} del " />
+										<h:outputLabel value="#{imm.dataFattura}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+									</rich:column>
+							</rich:dataTable>
+							</rich:panel>
+							<rich:panel rendered="#{!empty contribuenteBean.ruoliVersCarContrib.selRTares.listaStSg}">
+								<f:facet name="header">Sgravi</f:facet>
+								<rich:dataTable width="100%"
+							        	var="imm"
+							        	value="#{contribuenteBean.ruoliVersCarContrib.selRTares.listaStSg}"
+							        	columnClasses="col" 
+							        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+										rowClasses="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.coloreJsp}">
+									
+									<rich:column style="width:20px;">
+										<f:facet name="header"><h:outputText value="Anno" /></f:facet>
+										<h:outputLabel value="#{imm.anno}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+										<h:outputLabel value="#{imm.indirizzo}" />
+									</rich:column>
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+										<h:outputLabel value="#{imm.desTipo}" />
+									</rich:column>
+									<rich:column width="20px;">
+										<f:facet name="header"><h:outputText value="Tributo" /></f:facet>
+										<h:outputLabel value="#{imm.codTributo}" />
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Riduz." /></f:facet>
+										<h:panelGrid rendered="#{imm.riduzioneQf!=null or imm.riduzioneQv!=null or imm.riduzioneQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.riduzioneQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.riduzioneQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.riduzioneQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Importo" /></f:facet>
+										<h:panelGrid rendered="#{imm.importoQf!=null or imm.importoQv!=null or imm.importoQs!=null}" style="width:100%">
+											<h:outputLabel title="Quota Fissa" value="#{imm.importoQf}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Variabile" value="#{imm.importoQv}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+											<h:outputLabel title="Quota Stato" value="#{imm.importoQs}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+										</h:panelGrid>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Totale" /></f:facet>
+										<h:outputLabel value="#{imm.importo}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+									</rich:column>
+									<rich:column width="90px;">
+										<f:facet name="header"><h:outputText value="Fattura" /></f:facet>
+										<h:outputLabel value="n. #{imm.numFattura} del " />
+										<h:outputLabel value="#{imm.dataFattura}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+									</rich:column>
+							</rich:dataTable>
+							</rich:panel>
+						</rich:simpleTogglePanel>
+							<rich:spacer height="5px" />
+							<rich:simpleTogglePanel switchType="client" opened="false">
+								<f:facet name="header">RATE</f:facet>
+								
+								<rich:dataTable width="100%"
+							        	var="elem"
+							        	value="#{contribuenteBean.ruoliVersCarContrib.selRTares.rate}"
+							        	columnClasses="col" 
+							        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+										onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+										rowClasses="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.coloreJsp}">
+									
+									<rich:column style="width:20px;">
+										<f:facet name="header"><h:outputText value="Num." /></f:facet>
+										<h:outputLabel rendered="#{elem.prog ne '0'}" value="#{elem.prog}" />
+										<h:outputLabel rendered="#{elem.prog eq '0'}" value="Unica Soluzione" />
+									</rich:column>
+									<rich:column style="width:20px;">
+										<f:facet name="header"><h:outputText value="Data Scadenza" /></f:facet>
+										<h:outputLabel value="#{elem.dataScadenza}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Importo" /></f:facet>
+										<h:outputLabel value="#{elem.impBollettino}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText value="Desc.Importo" /></f:facet>
+										<h:outputLabel value="#{elem.totLettere}" ></h:outputLabel>
+									</rich:column>
+									<rich:column  >
+										<f:facet name="header"><h:outputText value="V campo" /></f:facet>
+										<h:outputLabel value="#{elem.VCampo}" ></h:outputLabel>
+									</rich:column>
+									<rich:column  >
+										<f:facet name="header"><h:outputText value="Cod.Rend.Autom." /></f:facet>
+										<h:outputLabel value="#{elem.codRendAuto}" ></h:outputLabel>
+									</rich:column>
+							</rich:dataTable>
+						</rich:simpleTogglePanel>
+			        </a4j:outputPanel>
+					</h:panelGrid>
+					<rich:spacer height="20px"/>  
+		            <table border="0" width="100%">
+		             	<tr>
+		             		<td align="center" >
+								<a4j:commandButton styleClass="my-button" value="Chiudi" ajaxSingle="false" oncomplete="#{rich:component('rTaresPanel')}.hide();"/>
+		             		</td>
+						</tr>	
+			        </table>  
+		        </h:form>
+			</rich:modalPanel>
+  		</ui:composition>
+</html>

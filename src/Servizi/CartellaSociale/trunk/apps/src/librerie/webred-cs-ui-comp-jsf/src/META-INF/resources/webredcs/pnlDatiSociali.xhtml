@@ -1,0 +1,220 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+	  	xmlns:composite="http://java.sun.com/jsf/composite"
+	  	xmlns:webredcs="http://java.sun.com/jsf/composite/webredcs"
+	  	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+      
+	<h:head>
+		<title>Dati Sociali</title>
+	</h:head>
+	<h:body>
+		<composite:interface componentType="pnlDatiSociali">
+			<composite:attribute name="iDatiSociali" type="it.webred.cs.jsf.interfaces.IDatiSociali"/>
+		</composite:interface>
+		<composite:implementation>			
+			
+			<style type="text/css">
+				.datalist-noborder .ui-widget-content {
+					border: none;
+				}
+			</style>
+			
+		<table border="0" width="100%">
+			<tr>
+				<td width="20%">
+					<h:outputText value="Tipologia familiare *" />
+				</td>
+				<td width="30%">
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idTipologiaFam}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstTipologiaFam}"/>
+            		</p:selectOneMenu>
+            		
+            		<p:spacer width="12px" />
+            		<webredcs:tooltipInfo title="Tipo famiglia: che cosa si intende" 
+				            			valueList="#{cc.attrs.iDatiSociali.lstCsTbTipologiaFam}"/>
+            		
+				</td>
+				<td width="20%">
+					<h:outputText value="N. minori presenti nel nucleo" />
+				</td>
+				<td width="30%">
+					<p:spinner value="#{cc.attrs.iDatiSociali.nMinori}" min="0"/>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputText value="Inviante" />
+				</td>
+				<td>
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idInviante}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstInviante}"/>
+            		</p:selectOneMenu>
+				</td>
+				<td>
+					<h:outputText value="Inviato a" />
+				</td>
+				<td>
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idInviatoA}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstInviante}"/>
+            		</p:selectOneMenu>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputText value="Problematica *" />
+				</td>
+				<td>
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idProblematica}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstProblematiche}"/>
+            		</p:selectOneMenu>
+				</td>
+				<td>
+					<h:outputText value="Stesura relazioni per *" />
+				</td>
+				<td>
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idStesuraRelPer}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstStesuraRelPer}"/>
+            		</p:selectOneMenu>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputText value="interventi sul nucleo" />
+				</td>
+				<td>
+					<p:selectBooleanCheckbox value="#{cc.attrs.iDatiSociali.interventiNucleo}" /> 
+					<p:spacer width="12px" />					
+					<h:outputText value="Che tipo?" />
+					<p:spacer width="12px" />
+					<p:inputText value="#{cc.attrs.iDatiSociali.interventiTipo}" style="width: 300px;"/>
+				</td>
+				
+				<td>
+					<h:outputText value="In carico a" />
+				</td>
+				<td>
+					<h:panelGrid columns="3" width="100%">
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiSociali.inCaricoCPS}" itemLabel="CPS" />
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiSociali.inCaricoSERT}" itemLabel="SERT" /> 
+						<p:selectBooleanCheckbox value="#{cc.attrs.iDatiSociali.inCaricoNOA}" itemLabel="NOA" />  
+					</h:panelGrid> 
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h:outputText value="Autosufficienza" />
+				</td>
+				<td>
+				 	<p:selectOneRadio value="#{cc.attrs.iDatiSociali.autosufficienza}"  layout="pageDirection">
+			            <f:selectItem itemLabel="Totalmente non autosufficiente" itemValue="NAT" />
+			            <f:selectItem itemLabel="Parzialmente non autosufficiente" itemValue="NAP" />
+			            <f:selectItem itemLabel="Autosufficiente" itemValue="AUTO" />
+			        </p:selectOneRadio>
+				</td>
+				
+				<td>
+					<h:outputText value="Patologia" />
+				</td>
+				<td>
+				 <p:outputPanel id="customPanel" style="margin-bottom:10px">
+					<p:selectOneRadio id="customRadio" value="#{cc.attrs.iDatiSociali.patologia}" layout="custom" >
+			            <f:selectItem itemLabel="Nessuna" itemValue="Nessuna" />
+			            <f:selectItem itemLabel="Alzheimer/psich" itemValue="Alzheimer/psich" />
+			            <f:selectItem itemLabel="Parkinson" itemValue="Parkinson" />
+			            <f:selectItem itemLabel="Altro" itemValue="Altro" />
+			            <p:ajax update="txtPatologiaAltro" event="change"/>
+			        </p:selectOneRadio>
+			       <h:panelGrid columns="3" cellpadding="5">
+			       		<p:radioButton id="opt1" for="customRadio" itemIndex="0" />
+			       		<h:outputLabel for="opt1" value="Nessuna" />
+			       		<p:spacer/>
+			       		<p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+			            <h:outputLabel for="opt2" value="Alzheimer/psich" />
+			            <p:spacer/>
+			            <p:radioButton id="opt3" for="customRadio" itemIndex="2" />
+			            <h:outputLabel for="opt3" value="Altro" />
+			            <p:inputText id="txtPatologiaAltro" value="#{cc.attrs.iDatiSociali.patologiaAltro}" immediate="true"/>
+			        </h:panelGrid>
+			       </p:outputPanel>
+				</td>
+		 </tr>
+	
+			<tr>
+				<td>
+					<h:outputText value="Titolo di studio *" />
+				</td>
+				<td>
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idTitoloStudio}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstTitoliStudio}"/>
+            		</p:selectOneMenu>
+				</td>
+				<td>
+					<h:outputText value="Professione *" />
+				</td>
+				<td>
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idProfessione}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstProfessioni}"/>
+            			 <p:ajax update="somTipoContratto,somSettImpiego" event="change"/>
+            		</p:selectOneMenu>  
+				</td>
+			</tr>
+					<tr>
+				<td>
+					<h:outputText value="Tipo Contratto" />
+				</td>
+				<td>
+					<p:selectOneMenu id="somTipoContratto" value="#{cc.attrs.iDatiSociali.idTipoContratto}" disabled="#{!cc.attrs.iDatiSociali.occupatoSelected}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstTipoContratto}"/>
+            		</p:selectOneMenu>
+				</td>
+				<td>
+					<h:outputText value="Settore Impiego" />
+				</td>
+				<td>
+					<p:selectOneMenu id="somSettImpiego" value="#{cc.attrs.iDatiSociali.idSettoreImpiego}" disabled="#{!cc.attrs.iDatiSociali.occupatoSelected}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstSettoreImpiego}"/>
+            		</p:selectOneMenu>  
+				</td>
+			</tr>
+		</table>
+		
+		<h:panelGrid columns="1">
+			<p:spacer height="20"/>
+			<h:outputText value="Dati tutela" style="font-weight: bold;"/>	
+			<p:spacer height="10"/>
+		</h:panelGrid>
+		
+		<table border="0" width="100%">
+			<tr>
+				<td width="20%">
+					<h:outputText value="Tutele" />
+				</td>
+				<td width="30%">
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idTutela}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstTutele}"/>
+            		</p:selectOneMenu>  
+				</td>
+				<td width="20%">
+					<h:outputText value="Chi la esercita" />
+				</td>
+				<td width="30%">
+					<p:selectOneMenu value="#{cc.attrs.iDatiSociali.idTutelante}">
+            			<f:selectItems value="#{cc.attrs.iDatiSociali.lstTutelanti}"/>
+            		</p:selectOneMenu>  
+				</td>
+			</tr>
+		</table>
+		
+		<h:panelGrid columns="1">
+			<p:spacer height="20" />
+			<h:outputText value="* campo obbligatorio" styleClass="bold" />
+		</h:panelGrid>
+
+		</composite:implementation>
+	</h:body>
+	
+</html>

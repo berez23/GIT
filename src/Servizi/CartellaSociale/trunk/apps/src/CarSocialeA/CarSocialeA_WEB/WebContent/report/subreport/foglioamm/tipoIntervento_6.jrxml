@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d001166a-d35e-4b51-a5dd-cd33e9c819cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="conRetta" class="java.lang.String"/>
+	<field name="valoreRetta" class="java.lang.String"/>
+	<field name="contributo" class="java.lang.String"/>
+	<field name="compartecipazione" class="java.lang.String"/>
+	<field name="comunita" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="78" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="152" height="20" uuid="60c1d990-e430-492a-b33a-b9152cf5f324"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Con retta]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="0" width="126" height="20" uuid="383791a2-4f0a-402e-a302-665afe198a2a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conRetta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="439" y="0" width="116" height="20" uuid="f4af8ff9-86fe-4959-8cf0-f76102511478"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valoreRetta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="278" y="0" width="149" height="20" uuid="3ac0f005-4314-486b-819c-92783da1cb1d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Valore retta (IVA inclusa)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="278" y="25" width="149" height="28" uuid="bf0d55aa-879b-47c5-8e1e-7eb60e17a03a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Compartecipazione alla spesa dell'ospite]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="25" width="126" height="20" uuid="4b99bf99-fdb4-49af-8bc5-f57bfd588541"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contributo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="439" y="25" width="116" height="20" uuid="875321ca-9d48-4521-8c0d-64ca00a42ec4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{compartecipazione}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="25" width="152" height="20" uuid="35d422b6-d285-40ca-bbf2-029fdc398402"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Contributo a favore dell'ospite]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="58" width="403" height="20" uuid="8b10f9b3-ba3c-41f7-924e-5d9730ba4d90"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comunita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="58" width="152" height="20" uuid="0b04532a-6772-4a1e-a9e0-e6f45b441c7e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Comunità]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

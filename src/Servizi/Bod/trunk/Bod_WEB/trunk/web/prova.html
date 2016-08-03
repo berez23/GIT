@@ -1,0 +1,66 @@
+<!-- IE in quirks mode -->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN">
+<title>Fixed header</title>
+<style type="text/css">
+ body{
+  margin:0;
+  padding:5 0 0 0;
+ }
+ div#header{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:50px;
+  background-color: red;
+ }
+ @media screen{
+  body>div#header{
+   position: fixed;
+  }
+ }
+ * html body{
+  <!-- top:120px; -->
+  left:0;
+  overflow:hidden;
+  background-color: green;
+ } 
+ * html div#content{
+  position: absolute;
+  top: 150px;  
+  height:80%;
+  overflow: auto;
+   background-color: orange;
+ }
+ 
+ * html .SirenForm{ /*IE6 hack*/                                                                                                   
+	padding: 150px 0 0 0; /*Set value to (HeightOfFrameDiv 0 0 0)*/                                                             
+	height: 100%;                                                                                                               
+	width: 100%;                                                                                                                
+	} 
+	* html #content{ /*IE6 hack*/                                                                                           
+	height: 98%;                                                                                                               
+	width: 100%;
+	}  
+</style>
+<div id="header"> header </div>
+<div id="content" align="center"> 
+<form id="SirenForm">
+prima riga <br>
+content <br>
+content <br>
+
+content <br>
+content <br>
+content <br>
+content <br>
+content <br> 
+
+
+content <br>
+content <br>
+content <br>
+content <br>
+content <br>
+</form>
+</div>

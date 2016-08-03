@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+
+			<ui:define name="pageTitle">Back Office Docfa</ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+			
+			<ui:define name="body">
+			
+			<script type="text/javascript" src="#{ctxName}/js/ricercaDettaglio.js"></script>
+			<script type="text/javascript">
+			function apriXls(nomeFile){
+				var finestra = window.open('openPdfSrv?openXls=true&amp;nomePdf=' + nomeFile, '_self', 'scrollbars=auto, resizable=yes, width=800, height=600, toolbar=no, menubar=no, status=no');
+				
+				}
+			</script>
+			
+			
+			<style>
+            .colClass {
+				cursor: hand;
+	 		}
+        </style>
+	
+
+
+		<rich:spacer height="15px" />
+        		<a4j:outputPanel ajaxRendered="true" layout="block" >
+		        <rich:dataTable 
+		        	width="483" 
+		        	id="diagnosiList" 
+		        	rows="15" 
+		        	columnClasses="col" 
+		        	value="#{statisticaFiltroBck.lstDiagnostiche}" 
+		        	var="diag"
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+		            <f:facet name="header">
+		                <rich:columnGroup>
+		                   	<rich:column colspan="8">
+			            	<h:outputText styleClass="headerText" value="Statistiche Correttezza Formale (#{statisticaFiltroBck.currentDiagno})" />
+			            	</rich:column>
+		                    <rich:column breakBefore="true">
+		                        <h:outputText styleClass="headerText" value="Fornitura" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Num. Record nei dati Censuari" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Num. Record Data non coerente" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Num. Record Tipo Op. non Unico" />
+		                    </rich:column>
+			                 <rich:column>
+		                        <h:outputText styleClass="headerText" value="Num. Record Tipo Op. Nullo" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Num. Record Tipo Op. C" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Num. Record Corretti" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Uiu Coinvolte" />
+		                    </rich:column>
+						 </rich:columnGroup>		               
+		            </f:facet>
+					
+					<rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[0]}">
+			                <f:convertDateTime pattern="MM/yyyy" type="date" timeZone="Europe/Rome"/>
+		                </h:outputText>
+		            </rich:column>
+		            <rich:column  styleClass="colClass">
+		                <h:outputText value="#{diag[1]}" />
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[2]}" />
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[3]}" />
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[4]}" />
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[5]}" />
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[6]}" />
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{diag[7]}" />
+		            </rich:column>
+		        </rich:dataTable>
+		        <table>
+		        <tr>
+		        	<td align="center">
+       			        <rich:datascroller align="left" for="diagnosiList" maxPages="20" pagesVar="pagesNum" id="sc2" />
+		        	</td>
+		        </tr>
+		        <tr>
+		        	<td align="center">
+			        	<h:outputLabel value="Num. Righe: #{statisticaFiltroBck.numberOfRows}" /><rich:spacer width="5px"/>
+						<h:outputLabel value="Num. Pagine: #{pagesNum}" />		        		
+		        	</td>
+		        </tr>
+		        </table>
+		        <rich:spacer height="15px" />
+		         <rich:panel>
+			        <f:facet name="header">
+			        Statistica sui Classamenti
+			        </f:facet>
+
+		        <table>
+        			<tr>
+        				<td width="20%" align="right">Seleziona una Categoria</td>
+        				<td width="30%" align="center">
+							<rich:comboBox 
+									width="100px"
+									enableManualInput="true"
+									value="#{statisticaListaBck.cbxCategorie.state}"
+									defaultLabel="Tutte"
+									inputStyle="position:relative">
+
+								<f:selectItems value="#{statisticaFiltroBck.cbxCategorie.selectItems}"/>	
+								</rich:comboBox>        				
+						</td>
+        				<td width="30%" align="center">
+							<a4j:commandButton id="btnGenera" styleClass="my-button" value="Genera XLS" style="width: 120px">
+								<a4j:support 
+										event="onclick" 
+										action="#{statisticaListaBck.esporta}" 
+										reRender="lnkEsporta"/>
+							</a4j:commandButton>
+        				</td>
+        				<td width="20%" align="center">
+        				
+						
+						<h:commandLink id="lnkEsporta"  
+							rendered="#{statisticaListaBck.xlsLinkato}"
+							onclick="javascript:apriXls('#{statisticaListaBck.xlsPath}')">
+							<h:graphicImage value="/images/xls.png"
+									style="padding-left:10px; border: 0; cursor: pointer;" />
+							<h:outputText value="Esporta XLS" />
+							
+						</h:commandLink>
+						
+						
+						</td>
+        			</tr>
+
+        		</table>
+			        
+			      </rich:panel>
+
+				</a4j:outputPanel>
+			</ui:define>
+			
+			<ui:define name="modalPanel">
+
+			</ui:define>
+			
+			<ui:define name="footer">
+
+			</ui:define>
+		</ui:composition>
+</html>      

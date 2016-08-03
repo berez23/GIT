@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="AB3D0BB5-ADC4-A62E-F76B-6357F378A426" directorySegmentName="seg_0" name="FK_DIARIO_TIPODIARIO">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>FK_DIARIO_TIPODIARIO</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:23 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<containerWithKeyObject>F16B15F6-25CE-12B5-4730-C37436BEF152</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>B274947F-7D9F-DB08-A49E-E4CCECA23001</localFKIndex>
+<keyObject>B3391631-AE8C-EF16-3B1B-56245772DC2B</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

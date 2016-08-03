@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae8b32f8-437d-4bbb-aadc-b6ae547cd3ed">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["subreport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="anagrafica" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="parenti" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="datisociali" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="invalidita" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="disabilita" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="tribunale" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="operatori" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="note" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<parameter name="header" class="net.sf.jasperreports.engine.JRDataSource"/>
+	<field name="pieDiPagina" class="java.lang.String"/>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="81" splitType="Immediate">
+			<staticText>
+				<reportElement positionType="Float" mode="Opaque" x="0" y="47" width="555" height="28" backcolor="#CCCCCC" uuid="92fdaaee-af99-479d-9de9-42bf43d6c46a"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="html">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CARTELLA SOCIALE]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="-20" y="0" width="412" height="40" isPrintWhenDetailOverflows="true" uuid="99844f02-9af3-4c1b-b55d-0e2c8c215ad0">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{header}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "header.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<detail>
+		<band height="51" splitType="Immediate">
+			<subreport>
+				<reportElement positionType="Float" stretchType="RelativeToTallestObject" isPrintRepeatedValues="false" x="-20" y="6" width="412" height="40" isPrintWhenDetailOverflows="true" uuid="58709678-1b4c-438e-b1e3-aafcbe0fa77c">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{anagrafica}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "anagrafica.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="4" width="412" height="40" isRemoveLineWhenBlank="true" uuid="4ee49d45-d575-499b-b408-45089907a2b7">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{parenti} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{parenti}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "parenti.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="6" width="412" height="40" isRemoveLineWhenBlank="true" uuid="a6ab2c48-c7d6-47c6-992f-42b3895f005e">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{datisociali} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{datisociali}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "datisociali.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="6" width="412" height="40" isRemoveLineWhenBlank="true" uuid="723d8e4c-bc9c-4ef4-94cb-60a89b74033c">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{invalidita} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{invalidita}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "invalidita.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="5" width="412" height="40" isRemoveLineWhenBlank="true" uuid="15bd6343-9ce7-4aa6-a984-661f6312a060">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{disabilita} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{disabilita}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "disabilita.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="5" width="412" height="40" isRemoveLineWhenBlank="true" uuid="8e9ba6b9-2d72-4348-9ce8-5f104d479995">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{tribunale} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{tribunale}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "tribunale.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="5" width="412" height="40" isRemoveLineWhenBlank="true" uuid="144af631-639f-4adc-b2bb-bae0b0e627f9">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{operatori} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{operatori}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "operatori.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement positionType="Float" isPrintRepeatedValues="false" x="-20" y="5" width="412" height="40" isRemoveLineWhenBlank="true" uuid="5a56a137-7cee-44a6-8789-4a0f4c3a0abd">
+					<property name="net.sf.jasperreports.export.pdf.tag.table" value="null"/>
+					<printWhenExpression><![CDATA[$P{note} != null]]></printWhenExpression>
+				</reportElement>
+				<dataSourceExpression><![CDATA[$P{note}]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "note.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31">
+			<textField>
+				<reportElement x="412" y="0" width="103" height="30" uuid="2c0d60b4-56cb-469e-99d8-710afb31d588"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["Pagina "+$V{PAGE_NUMBER}+" /"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="0" width="40" height="30" uuid="6141dc59-2dd2-42a5-8941-8371f1be7434"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="392" height="31" uuid="82330035-782b-45c3-bcf6-6e0f17280511"/>
+				<textElement verticalAlignment="Middle" markup="html">
+					<font size="8" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{pieDiPagina}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

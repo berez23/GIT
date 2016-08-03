@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmRicercaAziende">
+			<p:panel header="Gestione Aziende">				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+				
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Ragione Sociale" for="azi"/>
+						</p:column>
+						<p:column>
+							<p:autoComplete id="azi" value="#{aziendeBean.ragioneSocialeSearch}"  
+			    				completeMethod="#{aziendeBean.completeAziende}" maxResults="10"  minQueryLength="2" queryDelay="2000" queryDeletionDelay="2000" >
+			    			</p:autoComplete>  
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Partita IVA" for="txtPartitaIva"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtPartitaIva" value="#{aziendeBean.partitaIvaSearch}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Codice Asi" for="txtCodiceAsi"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodiceAsi" value="#{aziendeBean.codiceAsiSearch}" >
+								<f:convertNumber integerOnly="true" />
+							</p:inputText>
+							
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Cerca" action="#{aziendeBean.searchAziende()}" process="@form" update="pnlListaAziende" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Reset" action="#{aziendeBean.resetForm}" process="@this" update="frmRicercaAziende"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaAziende">				
+					 <p:dataTable id="dtListaAzienda" 
+					 	rendered="#{not empty aziendeBean.listaAziende}" 
+					 	var="azi" 
+					 	value="#{aziendeBean.listaAziende}" 
+					 	rowIndexVar="rowIndex"
+                        paginator="true" 
+                        rowKey="#{azi}" 
+                        selection="#{azi}" 
+                        selectionMode="single"                        
+						emptyMessage="Nessun elemento trovato" 
+						style="width:100%; table-layout:auto !important;" 
+						paginatorPosition="bottom"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+           				rows="20">
+					 	<p:ajax event="rowSelect" listener="#{aziendeBean.onRowSelect}" />
+					 	<f:facet name="header">Lista Aziende</f:facet>
+					 	<p:column headerText="Cod. ASI" sortBy="#{azi.codiceAsi}" >
+					 		<h:outputText value="#{azi.codiceAsi}"/>
+					 	</p:column>
+					 	<p:column headerText="Ragione Sociale" sortBy="#{azi.ragioneSociale}" >
+					 		<h:outputText value="#{azi.ragioneSociale}"/>
+					 	</p:column>
+					 	<p:column headerText="Rappr. Legale" sortBy="#{azi.rapprLegale}"  >
+					 		<h:outputText value="#{azi.rapprLegale}"/>
+					 	</p:column>
+					 	<p:column headerText="Attivita" sortBy="#{azi.attivita}" >
+					 		<h:outputText value="#{azi.attivita}"/>
+					 	</p:column>
+					 	<p:column headerText="Indirizzo" sortBy="#{azi.viaCivico}">
+					 		<h:outputText value="#{azi.viaCivico}"/>
+					 	</p:column>
+					 	<p:column headerText="Comune" sortBy="#{azi.nomeComune}">
+					 		<h:outputText value="#{azi.nomeComune}"/>
+					 	</p:column>
+					 	<p:column headerText="P.IVA" sortBy="#{azi.piva}">
+						 	<h:outputText value="#{azi.piva}"/>
+					 	</p:column>
+					 	<p:column headerText="C.FISCALE" sortBy="#{azi.codFiscale}">
+						 	<h:outputText value="#{azi.codFiscale}"/>
+					 	</p:column>
+					 	<p:column headerText="TELEFONO" sortBy="#{azi.telefono}">
+						 	<h:outputText value="#{azi.telefono}"/>
+					 	</p:column>
+					 	<p:column headerText="FAX" sortBy="#{azi.fax}">
+						 	<h:outputText value="#{azi.fax}"/>
+					 	</p:column>
+					 	<p:column headerText="EMAIL" sortBy="#{azi.email}">
+						 	<h:outputText value="#{azi.email}"/>
+					 	</p:column>
+					 	<p:column headerText="WEB" sortBy="#{azi.web}">
+						 	<h:outputText value="#{azi.web}"/>
+					 	</p:column>
+					 </p:dataTable>
+				</p:outputPanel>
+				
+				<p:spacer height="15"/>
+				
+				<h:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:commandButton value="Nuova" action="#{aziendeBean.aziendaShowNew}" process="@form" />
+				</h:panelGrid>
+				
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

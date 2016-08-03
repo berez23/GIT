@@ -1,0 +1,176 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmMain">
+			<rich:spacer height="10px" />
+			
+			<!--rich:messages passedLabel=""    layout="list" id="messages">
+				<f:facet name="errorMarker">
+		             <h:graphicImage value="/images/error.gif" />   
+		        </f:facet>
+		    </rich:messages-->
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Ricerca Fabbricati Ex-Rurali" />
+				</f:facet>
+				
+				<!-- CRITERIO PRINCIPALE DI RICERCA -->
+				<h:panelGrid columns="3" cellpadding="5" width="100%" border ="0" cellspacing="0">
+					<h:panelGroup >
+						<h:outputLabel value="Foglio" />
+						<rich:spacer width="5px" />
+						<h:inputText id="foglio" value="#{dataProviderImpl.criteria.uiu.foglio}" />
+					</h:panelGroup>
+					<h:panelGroup>
+						<h:outputLabel value="Particella" />
+						<rich:spacer width="5px" />
+						<h:inputText id="particella" value="#{dataProviderImpl.criteria.uiu.particella}" />
+					</h:panelGroup>
+					<h:panelGroup>
+						
+					</h:panelGroup>	
+					<rich:spacer height="10px" />
+					<rich:spacer height="10px" />
+					<rich:spacer height="10px" />
+					
+					<h:outputLabel value="Ambiti Principale di Ricerca" style="font-weight: bold;" />
+					<h:outputLabel value="Estendi la ricerca in Docfa" style="font-weight: bold;" />
+					<h:outputLabel value="Istruttoria Pratica" style="font-weight: bold;" />
+					
+					<h:panelGrid columns="1">
+						<h:panelGrid columns="2" cellspacing="5" width="100%">
+							<h:outputLabel value="Cerca in Archivio Fabbricati Ex-Rurali" />
+							<h:selectBooleanCheckbox
+								 title="fabbrExRurali"  value="#{dataProviderImpl.criteria.faiRicercaInFabbrExRurali}" >
+							</h:selectBooleanCheckbox>
+							<h:outputLabel value="Cerca in Catasto Terreni" />
+							<h:selectBooleanCheckbox
+								 title="catastoTerreni"  value="#{dataProviderImpl.criteria.catOggetto.faiRicercaInCatastoTerreni}" >
+							</h:selectBooleanCheckbox>
+							<h:outputLabel value="Estendi al Catasto Urbano" />
+							<h:selectBooleanCheckbox
+								 title="catastoUrbano"  value="#{dataProviderImpl.criteria.catOggetto.faiRicercaInCatastoUrbano}" >
+							</h:selectBooleanCheckbox>
+						</h:panelGrid>	
+					</h:panelGrid>
+
+				<h:panelGrid columns="2" cellspacing="5" width="100%">
+					<h:outputLabel value="Fornitura" />
+						<h:panelGrid columns="5" cellpadding="0" cellspacing="0">
+									<h:outputLabel value="Da: " />
+									<h:selectOneMenu id="fornituraDa" 
+										value="#{dataProviderImpl.criteria.dcfOggetto.fornituraDa}">
+										<f:selectItems value="#{docfaSuggestionBean.listaForniture}" />
+									</h:selectOneMenu>
+									<rich:spacer width="5px" />
+									<h:outputLabel value="A:" />
+									<h:selectOneMenu id="fornituraA" 
+										value="#{dataProviderImpl.criteria.dcfOggetto.fornituraA}">
+										<f:selectItems value="#{docfaSuggestionBean.listaForniture}" />
+									</h:selectOneMenu>
+						</h:panelGrid>
+						<rich:spacer width="5px" /><rich:spacer width="5px" />
+						
+						<h:outputLabel value="Data protocollo" />
+						<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+							<h:outputLabel value="Da: " />
+							<rich:calendar
+									value="#{dataProviderImpl.criteria.dcfOggetto.dataRegistrazioneDa}"
+									popup="true" enableManualInput="true" datePattern="dd/MM/yyyy"
+									cellWidth="24px" cellHeight="22px" style="width:200px" />
+							
+							<h:outputLabel value="A: " />
+							<rich:calendar
+									value="#{dataProviderImpl.criteria.dcfOggetto.dataRegistrazioneA}"
+									popup="true" enableManualInput="true" datePattern="dd/MM/yyyy"
+									cellWidth="24px" cellHeight="22px" style="width:200px" />
+						</h:panelGrid>
+						
+						<h:outputLabel value="Numero Protocollo" />
+						<h:inputText id="prot" value="#{dataProviderImpl.criteria.dcfOggetto.protocollo}" />
+						<h:outputLabel value="Dichiarazione L.Fin.2005" />
+						<h:selectOneMenu id="tipoDicgDcf" 
+							value="#{dataProviderImpl.criteria.dcfOggetto.flgCommiFin2005}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{docfaSuggestionBean.listaTipoDichiarazione}" />
+							<rich:toolTip direction="top-left" mode="client" layout="inline" 
+										value="Dichiarazione presentata ai sensi dell'art. 2, D.L. 3.10.2006, Legge Finanz. 2005" />		
+						</h:selectOneMenu>
+				</h:panelGrid>
+					
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Solo particelle per cui esistono pratiche in stato: " />
+					<h:selectOneMenu id="staPra" 
+						value="#{dataProviderImpl.criteria.c336Pratica.codStato}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{statoPraticaSuggestionBean.listaStati}" />
+						<rich:toolTip direction="top-left" mode="client" layout="inline" 
+									value="Stato Pratica " />		
+					</h:selectOneMenu>
+				</h:panelGrid>
+			</h:panelGrid>
+					
+				<h:panelGrid columns="2">
+
+					<a4j:commandButton value="Ricerca" id="btnRicerca" 
+						reRender="resultListPage">
+						<a4j:actionparam
+							value="exRurali" name="tipoRic"
+							assignTo="#{dataProviderImpl.criteria.tipoRicerca}" />	
+						<a4j:actionparam
+							value="/jsp/protected/search/resultList.xhtml" name="result"
+							assignTo="#{pageUiBean.pageResultList}" />
+						
+					</a4j:commandButton>
+					<h:graphicImage style="cursor:pointer;" value="/images/reset.png"
+						title="Reset criteri">
+						<a4j:support event="onclick" reRender="frmMain, resultListPage"
+							action="#{dataProviderImpl.resetDataFabbrMaiDic}">
+							<a4j:actionparam value="/jsp/protected/empty.xhtml" name="empty"
+								assignTo="#{pageUiBean.pageResultList}" />
+						</a4j:support>
+					</h:graphicImage>
+
+				</h:panelGrid>
+
+			</rich:panel>
+
+		</h:form>
+
+		<rich:spacer height="15px" />
+
+		<h:form id="frmRisRicerca">
+
+			<!-- Menu tabella -->
+			<rich:contextMenu attached="false" id="menu" submitMode="ajax">
+				<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{detailBean.goDetail}">
+						<h:outputText value="Apri dettaglio" style="font-weight: bold;" />
+						<a4j:actionparam value="{idUiuSelected}"
+							assignTo="#{detailBean.idUiu}" />
+						<a4j:actionparam value="true"
+							assignTo="#{detailBean.loadFabbricato}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu -->
+
+			<a4j:include id="resultListPage"
+				viewId="#{pageUiBean.pageResultList}" />
+
+		</h:form>
+		
+		<rich:spacer height="15px" />
+
+	</ui:define>
+</ui:composition>
+</html>

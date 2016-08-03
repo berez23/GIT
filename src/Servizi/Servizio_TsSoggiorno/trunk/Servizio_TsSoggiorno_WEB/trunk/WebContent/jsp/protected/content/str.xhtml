@@ -1,0 +1,116 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmStr">
+
+	<rich:panel id="dati" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Struttura" />
+		</f:facet>
+
+		<h:panelGrid columns="4" width="100%">
+			<h:outputText value="Denominazione" />
+			<h:inputText value="#{strutturaBean.struttura.descrizione}"
+				style="width: 200px;" />
+			
+			
+			<h:outputText value="Indirizzo" />
+			<h:panelGrid columns="3">
+			<a4j:region renderRegionOnly="true">
+				<h:selectOneMenu value="#{strutturaBean.prefissoVia}"
+					style="width: 50px;">
+					<f:selectItems value="#{strutturaBean.prefissiVia}" />
+				</h:selectOneMenu>
+				<h:inputText id="txtIndirizzo"
+					value="#{strutturaBean.via}" style="width: 200px;" required="true" requiredMessage="Il campo 'Indirizzo' è obbligatorio ">
+					<rich:suggestionbox minChars="3" width="200" height="180"
+						for="txtIndirizzo"
+						suggestionAction="#{strutturaBean.getSuggestionIndirizzi}"
+						var="result" ajaxSingle="true" nothingLabel="..." 
+						fetchValue="#{result.nome}" 
+						usingSuggestObjects="true">
+
+						<h:column>
+							<h:outputText value="#{result.nome}"></h:outputText>
+						</h:column>
+
+					</rich:suggestionbox>
+				</h:inputText>
+			</a4j:region>
+			
+			<h:outputText value="Civico" />
+			<h:inputText  required="true" requiredMessage="Il campo 'Civico' è obbligatorio" value="#{strutturaBean.struttura.numCiv}" style="width: 40px;"/>
+			</h:panelGrid>
+			<h:outputText value="E-mail" />
+			<h:inputText  value="#{strutturaBean.struttura.email}" style="width: 200px;" />
+			
+			<h:outputText value="Società" />
+			<h:selectOneMenu value="#{strutturaBean.struttura.fkIsSocieta}"
+				style="width: 340px;">
+				<f:selectItems value="#{strutturaBean.listaSocieta}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1" width="100%" id="idCat">
+			<h:outputText value="CATEGORIA" styleClass="clsTitoletto" />
+			<a4j:repeat value="#{strutturaBean.listaClassiStruttura}" var="row">
+				<h:panelGrid columns="4">
+					<h:selectOneMenu value="#{row.id.fkIsClasse}" style="width: 200px;">
+						<f:selectItems value="#{strutturaBean.listaClassi}" />
+						<a4j:support event="onchange" reRender="idCat">
+						</a4j:support>
+					</h:selectOneMenu>
+					<h:outputText value="descrizione" style="margin-left: 10px;"
+						rendered="#{row.id.fkIsClasse eq '999'}" />
+					<h:inputText value="#{row.descrizione}" style="margin-left: 10px;"
+						rendered="#{row.id.fkIsClasse eq '999'}" />
+					<h:panelGrid columns="2" styleClass="clsButton"
+						rendered="#{fn:length(strutturaBean.listaClassiStruttura) > 1}">
+						<h:graphicImage value="/images/delete.png" id="img98">
+						</h:graphicImage>
+						<a4j:support event="onclick" reRender="centerContent"
+							action="#{strutturaBean.doDeleteClasseStruttura}"
+							onsubmit="if (!confirm('Procedere con il salvataggio?')) return false">
+							<a4j:actionparam value="#{row.id.fkIsStruttura}" name="idSel2"
+								assignTo="#{strutturaBean.idSelezionato}" />
+							<a4j:actionparam value="#{row.id.fkIsClasse}" name="idSel3"
+								assignTo="#{strutturaBean.idClasse}" />
+						</a4j:support>
+						<h:outputLabel value="Elimina" style="cursor:pointer" />
+					</h:panelGrid>
+				</h:panelGrid>
+			</a4j:repeat>
+			<h:panelGrid columns="2" styleClass="clsButton">
+				<h:graphicImage value="/images/add.png" id="img99">
+				</h:graphicImage>
+				<a4j:support event="onclick" reRender="centerContent"
+					action="#{strutturaBean.doNewClasseStruttura}">
+				</a4j:support>
+				<h:outputLabel value="Aggiungi categoria" style="cursor:pointer" />
+			</h:panelGrid>
+		</h:panelGrid>
+		<br />
+
+		<div align="center">
+
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Salva" reRender="centerContent"
+					action="#{strutturaBean.doSaveStruttura}"
+					onclick="if (!confirm('Procedere con il salvataggio?')) return false" />
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

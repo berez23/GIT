@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+		   jaxb:version="2.0">
+         
+    <xs:element name="hetGit"> 
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="getImmobiliAccatastatiOutput" type="getImmobiliAccatastatiOutput" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:complexType name="baseOutput">
+        <xs:sequence>
+            <xs:element name="errorCode" type="xs:string" minOccurs="0" />
+            <xs:element name="errorDescription" type="xs:string" minOccurs="0" />
+            <xs:element name="errorSource" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+		
+	<xs:complexType name="getImmobiliAccatastatiOutput">
+        <xs:sequence>
+        	<xs:element name="baseOutput" type="baseOutput" minOccurs="0" />
+        	<xs:element name="elencoImmobili" type="elencoImmobili" minOccurs="0" />            
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="elencoImmobili">
+        <xs:sequence>
+            <xs:element name="immobile" type="immobile" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="immobile">
+        <xs:sequence>
+            <xs:element name="sezione" type="xs:string" minOccurs="0" />
+            <xs:element name="foglio" type="xs:string" minOccurs="0" />
+            <xs:element name="numero" type="xs:string" minOccurs="0" />
+            <xs:element name="subalterno" type="xs:string" minOccurs="0" />
+            <xs:element name="partitaCatastale" type="xs:string" minOccurs="0" />
+            <xs:element name="codiceVia" type="xs:string" minOccurs="0" />
+            <xs:element name="descrizioneVia" type="xs:string" minOccurs="0" />
+            <xs:element name="civico" type="xs:string" minOccurs="0" />
+            <xs:element name="percentualePossesso" type="xs:decimal" minOccurs="0" />
+            <xs:element name="categoria" type="xs:string" minOccurs="0" />
+            <xs:element name="classe" type="xs:string" minOccurs="0" />
+            <xs:element name="consistenza" type="xs:decimal" minOccurs="0" />
+            <xs:element name="rendita" type="xs:decimal" minOccurs="0" />
+            <xs:element name="tipoEvento" type="xs:string" minOccurs="0" />
+            <xs:element name="dataInizio" type="xs:dateTime" minOccurs="0" />
+            <xs:element name="dataFine" type="xs:dateTime" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>
+
+
+

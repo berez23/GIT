@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Servizio Imposta di Soggiorno</title>
+<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+<script type="text/javascript"
+	src="${facesContext.externalContext.requestContextPath}/js/extendedDataTableFixScrollable.js">
+	</script>
+</head>
+
+<body>
+
+	<h:form id="frmMenu">
+
+		<rich:panel styleClass="clsMenuPanel">
+			<f:facet name="header">
+				<h:outputLabel value="Funzioni disponibili" />
+			</f:facet>
+
+			<rich:togglePanel switchType="ajax" stateOrder="closed,opened"
+				id="dichToggle" initialState="closed">
+
+				<f:facet name="closed">
+					<h:panelGrid columns="2" styleClass="clsMenu">
+						<h:graphicImage value="/images/plus.png" id="img100" width="16" />
+						<rich:toggleControl styleClass="clsMenu">
+							<h:outputText value="Dichiarazioni" />
+						</rich:toggleControl>
+					</h:panelGrid>
+				</f:facet>
+
+				<f:facet name="opened">
+					<f:subview>
+						<h:panelGrid columns="2" styleClass="clsMenuAttivo">
+							<h:graphicImage value="/images/minus.png" id="img101" width="16" />
+							<rich:toggleControl requestDelay="300" styleClass="clsMenuAttivo">
+								<h:outputText id="toggleClose" value="DICHIARAZIONI">
+									<rich:effect event="onclick" for="toggleClose"
+										targetId="togglePanelContent" type="BlindUp"
+										params="duration:0.3" />
+								</h:outputText>
+							</rich:toggleControl>
+						</h:panelGrid>
+						<rich:panel id="togglePanelContent">
+							<rich:effect name="showDiv" targetId="togglePanelContent"
+								type="BlindDown" params="duration:0.3" />
+							<script>
+		                	showDiv();
+		                </script>
+
+							<rich:tree ajaxSubmitSelection="false" switchType="ajax"
+								value="#{pageBean.dichMenuTree}" var="item"
+								iconCollapsed="/images/plus.png"
+								iconExpanded="/images/minus.png" icon="#{item.imgurl}"
+								iconLeaf="#{item.imgurl}">
+								<rich:treeNode>
+									<h:outputLabel value="#{item.value}" title="#{item.tooltip}">
+										<a4j:support event="onclick" action="#{pageBean.doMenuAction}"
+											reRender="centerContent">
+											<a4j:actionparam value="#{item.id}" name="val"
+												assignTo="#{pageBean.menuValue}" />
+											<a4j:actionparam value="dichiarazioni" name="type"
+												assignTo="#{pageBean.menuType}" />
+											<a4j:actionparam value="false" name="visDat"
+												assignTo="#{pageBean.visDati}" />
+										</a4j:support>
+									</h:outputLabel>
+								</rich:treeNode>
+							</rich:tree>
+
+						</rich:panel>
+					</f:subview>
+				</f:facet>
+			</rich:togglePanel>
+
+			<rich:togglePanel switchType="ajax" stateOrder="closed,opened"
+				id="strToggle" initialState="closed">
+
+				<f:facet name="closed">
+					<h:panelGrid columns="2" styleClass="clsMenu">
+						<h:graphicImage value="/images/plus.png" id="img104" width="16" />
+						<rich:toggleControl styleClass="clsMenu">
+							<h:outputText value="Versamenti" />
+						</rich:toggleControl>
+					</h:panelGrid>
+				</f:facet>
+
+				<f:facet name="opened">
+					<f:subview>
+						<h:panelGrid columns="2" styleClass="clsMenuAttivo">
+							<h:graphicImage value="/images/minus.png" id="img105" width="16" />
+							<rich:toggleControl requestDelay="300" styleClass="clsMenuAttivo">
+								<h:outputText id="toggleClose" value="VERSAMENTI">
+									<rich:effect event="onclick" for="toggleClose"
+										targetId="togglePanelContent" type="BlindUp"
+										params="duration:0.3" />
+								</h:outputText>
+							</rich:toggleControl>
+						</h:panelGrid>
+						<rich:panel id="togglePanelContent">
+							<rich:effect name="showDiv" targetId="togglePanelContent"
+								type="BlindDown" params="duration:0.3" />
+							<script>
+		                	showDiv();
+		                </script>
+
+							<rich:tree ajaxSubmitSelection="false" switchType="client"
+								value="#{pageBean.pagMenuTree}" var="item"
+								iconCollapsed="/images/plus.png"
+								iconExpanded="/images/minus.png" icon="#{item.imgurl}"
+								iconLeaf="#{item.imgurl}">
+								<rich:treeNode>
+									<h:outputLabel value="#{item.value}" title="#{item.tooltip}">
+										<a4j:support event="onclick" action="#{pageBean.doMenuAction}"
+											reRender="centerContent">
+											<a4j:actionparam value="#{item.id}" name="val"
+												assignTo="#{pageBean.menuValue}" />
+											<a4j:actionparam value="pagamenti" name="type"
+												assignTo="#{pageBean.menuType}" />
+											<a4j:actionparam value="false" name="visDat"
+												assignTo="#{pageBean.visDati}" />
+										</a4j:support>
+									</h:outputLabel>
+								</rich:treeNode>
+							</rich:tree>
+
+						</rich:panel>
+					</f:subview>
+				</f:facet>
+			</rich:togglePanel>
+
+			<rich:togglePanel switchType="ajax" stateOrder="closed,opened"
+				id="anaToggle" initialState="closed">
+
+				<f:facet name="closed">
+					<h:panelGrid columns="2" styleClass="clsMenu">
+						<h:graphicImage value="/images/plus.png" id="img107" width="16" />
+						<rich:toggleControl styleClass="clsMenu">
+							<h:outputText value="Anagrafica" />
+						</rich:toggleControl>
+					</h:panelGrid>
+				</f:facet>
+
+				<f:facet name="opened">
+					<f:subview>
+						<h:panelGrid columns="2" styleClass="clsMenuAttivo">
+							<h:graphicImage value="/images/minus.png" id="img108" width="16" />
+							<rich:toggleControl requestDelay="300" styleClass="clsMenuAttivo">
+								<h:outputText id="toggleClose" value="ANAGRAFICA">
+									<rich:effect event="onclick" for="toggleClose"
+										targetId="togglePanelContent" type="BlindUp"
+										params="duration:0.3" />
+								</h:outputText>
+							</rich:toggleControl>
+						</h:panelGrid>
+						<rich:panel id="togglePanelContent">
+							<rich:effect name="showDiv" targetId="togglePanelContent"
+								type="BlindDown" params="duration:0.3" />
+							<script>
+		                	showDiv();
+		                </script>
+
+							<rich:tree ajaxSubmitSelection="false" switchType="client"
+								value="#{pageBean.anaMenuTree}" var="item"
+								iconCollapsed="/images/plus.png"
+								iconExpanded="/images/minus.png" icon="#{item.imgurl}"
+								iconLeaf="#{item.imgurl}">
+								<rich:treeNode>
+									<h:outputLabel value="#{item.value}" title="#{item.tooltip}">
+										<a4j:support event="onclick" action="#{pageBean.doMenuAction}"
+											reRender="centerContent">
+											<a4j:actionparam value="#{item.id}" name="val"
+												assignTo="#{pageBean.menuValue}" />
+											<a4j:actionparam value="anagrafica" name="type"
+												assignTo="#{pageBean.menuType}" />
+											<a4j:actionparam value="false" name="visDat"
+												assignTo="#{pageBean.visDati}" />
+										</a4j:support>
+									</h:outputLabel>
+								</rich:treeNode>
+							</rich:tree>
+
+						</rich:panel>
+					</f:subview>
+				</f:facet>
+			</rich:togglePanel>
+			
+			<rich:togglePanel switchType="ajax" stateOrder="closed,opened"
+				id="tarifToggle" initialState="closed">
+
+				<f:facet name="closed">
+					<h:panelGrid columns="2" styleClass="clsMenu">
+						<h:graphicImage value="/images/plus.png" id="img109" width="16" />
+						<rich:toggleControl styleClass="clsMenu">
+							<h:outputText value="Tariffe" />
+						</rich:toggleControl>
+					</h:panelGrid>
+				</f:facet>
+
+				<f:facet name="opened">
+					<f:subview>
+						<h:panelGrid columns="2" styleClass="clsMenuAttivo">
+							<h:graphicImage value="/images/minus.png" id="img110" width="16" />
+							<rich:toggleControl requestDelay="300" styleClass="clsMenuAttivo">
+								<h:outputText id="toggleClose" value="TARIFFE">
+									<rich:effect event="onclick" for="toggleClose"
+										targetId="togglePanelContent" type="BlindUp"
+										params="duration:0.3" />
+								</h:outputText>
+							</rich:toggleControl>
+						</h:panelGrid>
+						<rich:panel id="togglePanelContent">
+							<rich:effect name="showDiv" targetId="togglePanelContent"
+								type="BlindDown" params="duration:0.3" />
+							<script>
+		                	showDiv();
+		                </script>
+
+							<rich:tree ajaxSubmitSelection="false" switchType="client"
+								value="#{pageBean.tarifMenuTree}" var="item"
+								iconCollapsed="/images/plus.png"
+								iconExpanded="/images/minus.png" icon="#{item.imgurl}"
+								iconLeaf="#{item.imgurl}">
+								<rich:treeNode>
+									<h:outputLabel value="#{item.value}" title="#{item.tooltip}">
+										<a4j:support event="onclick" action="#{pageBean.doMenuAction}"
+											reRender="centerContent">
+											<a4j:actionparam value="#{item.id}" name="val"
+												assignTo="#{pageBean.menuValue}" />
+											<a4j:actionparam value="tariffe" name="type"
+												assignTo="#{pageBean.menuType}" />
+											<a4j:actionparam value="false" name="visDat"
+												assignTo="#{pageBean.visDati}" />
+										</a4j:support>
+									</h:outputLabel>
+								</rich:treeNode>
+							</rich:tree>
+
+						</rich:panel>
+					</f:subview>
+				</f:facet>
+			</rich:togglePanel>
+
+			<rich:togglePanel switchType="ajax" stateOrder="closed,opened"
+				id="rimsanToggle" initialState="closed">
+
+				<f:facet name="closed">
+					<h:panelGrid columns="2" styleClass="clsMenu">
+						<h:graphicImage value="/images/plus.png" id="img111" width="16" />
+						<rich:toggleControl styleClass="clsMenu">
+							<h:outputText value="Rimborsi/Sanzioni" />
+						</rich:toggleControl>
+					</h:panelGrid>
+				</f:facet>
+
+				<f:facet name="opened">
+					<f:subview>
+						<h:panelGrid columns="2" styleClass="clsMenuAttivo">
+							<h:graphicImage value="/images/minus.png" id="img112" width="16" />
+							<rich:toggleControl requestDelay="300" styleClass="clsMenuAttivo">
+								<h:outputText id="toggleClose" value="RIMBORSI/SANZIONI">
+									<rich:effect event="onclick" for="toggleClose"
+										targetId="togglePanelContent" type="BlindUp"
+										params="duration:0.3" />
+								</h:outputText>
+							</rich:toggleControl>
+						</h:panelGrid>
+						<rich:panel id="togglePanelContent">
+							<rich:effect name="showDiv" targetId="togglePanelContent"
+								type="BlindDown" params="duration:0.3" />
+							<script>
+		                	showDiv();
+		                </script>
+
+							<rich:tree ajaxSubmitSelection="false" switchType="client"
+								value="#{pageBean.rimsanMenuTree}" var="item"
+								iconCollapsed="/images/plus.png"
+								iconExpanded="/images/minus.png" icon="#{item.imgurl}"
+								iconLeaf="#{item.imgurl}">
+								<rich:treeNode>
+									<h:outputLabel value="#{item.value}" title="#{item.tooltip}">
+										<a4j:support event="onclick" action="#{pageBean.doMenuAction}"
+											reRender="centerContent">
+											<a4j:actionparam value="#{item.id}" name="val"
+												assignTo="#{pageBean.menuValue}" />
+											<a4j:actionparam value="rimborsisanzioni" name="type"
+												assignTo="#{pageBean.menuType}" />
+											<a4j:actionparam value="false" name="visDat"
+												assignTo="#{pageBean.visDati}" />
+										</a4j:support>
+									</h:outputLabel>
+								</rich:treeNode>
+							</rich:tree>
+
+						</rich:panel>
+					</f:subview>
+				</f:facet>
+			</rich:togglePanel>
+
+			<rich:togglePanel switchType="ajax" stateOrder="closed,opened"
+				id="reportToggle" initialState="closed">
+
+				<f:facet name="closed">
+					<h:panelGrid columns="2" styleClass="clsMenu">
+						<h:graphicImage value="/images/plus.png" id="img113" width="16" />
+						<rich:toggleControl styleClass="clsMenu">
+							<h:outputText value="Report" />
+						</rich:toggleControl>
+					</h:panelGrid>
+				</f:facet>
+
+				<f:facet name="opened">
+					<f:subview>
+						<h:panelGrid columns="2" styleClass="clsMenuAttivo">
+							<h:graphicImage value="/images/minus.png" id="img114" width="16" />
+							<rich:toggleControl requestDelay="300" styleClass="clsMenuAttivo">
+								<h:outputText id="toggleClose" value="REPORT">
+									<rich:effect event="onclick" for="toggleClose"
+										targetId="togglePanelContent" type="BlindUp"
+										params="duration:0.3" />
+								</h:outputText>
+							</rich:toggleControl>
+						</h:panelGrid>
+						<rich:panel id="togglePanelContent">
+							<rich:effect name="showDiv" targetId="togglePanelContent"
+								type="BlindDown" params="duration:0.3" />
+							<script>
+		                	showDiv();
+		                </script>
+
+							<rich:tree ajaxSubmitSelection="false" switchType="client"
+								value="#{pageBean.reportMenuTree}" var="item"
+								iconCollapsed="/images/plus.png"
+								iconExpanded="/images/minus.png" icon="#{item.imgurl}"
+								iconLeaf="#{item.imgurl}">
+								<rich:treeNode>
+									<h:outputLabel value="#{item.value}" title="#{item.tooltip}">
+										<a4j:support event="onclick" action="#{pageBean.doMenuAction}"
+											reRender="centerContent">
+											<a4j:actionparam value="#{item.id}" name="val"
+												assignTo="#{pageBean.menuValue}" />
+											<a4j:actionparam value="report" name="type"
+												assignTo="#{pageBean.menuType}" />
+											<a4j:actionparam value="false" name="visDat"
+												assignTo="#{pageBean.visDati}" />
+										</a4j:support>
+									</h:outputLabel>
+								</rich:treeNode>
+							</rich:tree>
+
+						</rich:panel>
+					</f:subview>
+				</f:facet>
+			</rich:togglePanel>
+
+		</rich:panel>
+
+	</h:form>
+
+</body>
+</html>

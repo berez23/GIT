@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+	
+
+<h:form id="frmRimbSanz">
+
+	<rich:panel id="dati" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Nuovo Rimborso/Sanzione" />
+		</f:facet>
+		
+	
+			
+		<h:panelGrid columns="1">
+			<h:outputText value="E' possibile inserire un rimborso o una sanzione per una struttura ricettiva: 
+			deve essere indicato il periodo nel quale il valore verrà imputato."  style="font-style:italic;font-size:14px;color:#003399;"/>
+			<h:outputText value="Il dichiarante troverà automaticamente precompilati
+			i relativi campi durante l'inserimento della dichiarazione."  style="font-style:italic;font-size:14px;color:#003399;"/>
+			<rich:spacer height="10px"></rich:spacer>
+			<h:selectOneRadio value="#{rimbsanzBean.rimbsanz}">
+				<f:selectItem itemValue="R" itemLabel="Rimborso" />
+				<f:selectItem itemValue="S" itemLabel="Sanzione" />
+			</h:selectOneRadio>
+		</h:panelGrid>
+	
+		<br />
+
+		<h:panelGrid columns="6" width="100%">
+			<h:outputText value="Periodo" />
+			<h:selectOneMenu value="#{rimbsanzBean.idPeriodo}"
+				style="width: 200px;">
+				<f:selectItems value="#{rimbsanzBean.listaPeriodi}" />
+			</h:selectOneMenu>
+
+			<h:outputText value="Società" />
+				<a4j:region>
+				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+					<h:inputText id="txtSocieta" value="#{rimbsanzBean.descSocieta}" style="width:200px" />
+					 <h:graphicImage value="/images/arrow.png" onclick="#{rich:component('suggestionSocieta')}.callSuggestion(true)"
+                 								 alt="" />
+                 		</h:panelGrid>
+					<rich:suggestionbox
+						id="suggestionSocieta" 
+						minChars="3" 
+						width="500" 
+						height="180"
+						for="txtSocieta"
+						suggestionAction="#{suggestionBean.getListaSocieta}"
+						var="result" 
+						ajaxSingle="true"
+						nothingLabel="..."
+						fetchValue="#{result.societa.ragSoc}" 
+						usingSuggestObjects="true"
+						frequency="100" >
+						
+						<h:column>
+							<h:outputText value="#{result.societa.ragSoc}"></h:outputText>
+						</h:column>
+						
+						<a4j:support event="onselect" ajaxSingle="true" 
+							action="#{rimbsanzBean.doLoadStrutture}" reRender="idStruttura,idClasse" >
+           					<f:setPropertyActionListener value="#{result.societa.id}"
+                                    target="#{rimbsanzBean.idSocieta}" />
+       				 	</a4j:support>
+
+					</rich:suggestionbox>
+				</a4j:region>
+			
+			<h:outputText value="Struttura" />
+						
+			<h:selectOneMenu value="#{rimbsanzBean.idStruttura}" id="idStruttura"
+				style="width: 200px;">
+				<f:selectItems value="#{rimbsanzBean.listaStrutture}" />
+				<a4j:support event="onchange"
+					action="#{rimbsanzBean.doLoadClassiStruttura}"
+					reRender="idClasse">
+				</a4j:support>
+			</h:selectOneMenu>
+			
+
+			<h:outputText value="Classe" />
+			<h:selectOneMenu value="#{rimbsanzBean.idClasse}" id="idClasse"
+				style="width: 200px;">
+				<f:selectItems value="#{rimbsanzBean.listaClassi}" />
+			</h:selectOneMenu>
+
+			<h:outputText value="Valore" />
+			<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+				<h:inputText id="inp_valore" value="#{rimbsanzBean.valore}"
+					style="width: 200px;" />
+				<rich:message for="inp_valore" showDetail="false"
+					showSummary="false">
+					<f:facet name="errorMarker">
+						<h:graphicImage value="/images/error.gif" />
+					</f:facet>
+				</rich:message>
+			</h:panelGrid>
+
+			<h:outputText value="Descrizione" />
+			<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+				<h:inputText id="inp_descr" value="#{rimbsanzBean.descrizione}"
+					style="width: 200px;" />
+			</h:panelGrid>
+		</h:panelGrid>
+
+		<br />
+
+		<div align="center">
+
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Salva"
+					reRender="centerContent"
+					action="#{rimbsanzBean.doSaveRimbSanz}"
+					onclick="if (!confirm('Procedere con il salvataggio?')) return false" />
+			</h:panelGrid>
+		</div>
+
+	</rich:panel>
+
+</h:form>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE HTML public "-//W3C//DTD HTML 3.2//EN">
+<!-- Created using Agile HTML Editor -->
+<HTML>
+<HEAD>
+<style>
+	.sele
+		{
+			font: 10px, "Tahoma", "Verdana","Arial";
+			font-weight : bold;
+		}
+	.nonsele
+		{
+			font : 10px, "Tahoma", "Verdana","Arial";
+			font-weight : normal;
+		}
+</style>
+ <script>
+	function checkBrowser1(){
+	this.ver=navigator.appVersion
+	this.dom=document.getElementById?1:0
+	// Commented by Venkat to check i.e6.0
+	//this.ie5=(this.ver.indexOf("MSIE 5")>-1 && this.dom)?1:0;
+	this.ie5=((this.ver.indexOf("MSIE 5")>-1 && this.dom) || (this.ver.indexOf("MSIE 6") > -1))?1:0;
+	this.ie4=(document.all && !this.dom)?1:0;
+	this.ns5=(this.dom && parseInt(this.ver) >= 5) ?1:0;
+	this.ns4=(document.layers && !this.dom)?1:0;
+	this.bw=(this.ie5 || this.ie4 || this.ns4 || this.ns5);
+	return this
+}
+	var bw=new checkBrowser1()
+	
+	</script>
+<script language="JavaScript">
+
+
+
+	
+/*----------------------------------------------*/
+
+	function viewTerritorio()
+	{
+		open("territorio.htm","Titolo");
+		document.all("sele").className="nonsele"
+ 		document.all("stampa").className="nonsele"
+		document.all("digi").className="nonsele"
+		document.all("terr").className="sele"
+		document.all("digitd").background="images/digitalizza_te.gif"
+		document.all("stampatd").background="images/stampanor.gif"
+		document.all("seletd").background="images/selezionanor.gif"
+		document.all("terrtd").background="images/territoriosu.gif" 
+	}
+
+/*----------------------------------------------*/
+
+	function viewOutput()
+	{
+		open("Titolo.htm","Titolo");
+		document.all("sele").className="nonsele"
+		document.all("digi").className="nonsele"
+		document.all("terr").className="nonsele"
+		document.all("stampa").className="sele"
+		document.all("stampatd").background="images/stampasu.gif"
+	}
+
+/*----------------------------------------------*/
+
+	function viewSelect()
+	{
+		open("Seleziona.htm","Titolo");
+		document.all("digi").className="nonsele"
+		document.all("terr").className="nonsele"
+		document.all("stampa").className="nonsele"
+		document.all("sele").className="sele"
+		document.all("stampatd").background="images/stampanor.gif"
+	}
+
+/*----------------------------------------------*/
+
+	function viewDigitalizza()
+	{
+		open("Digitalizza.htm","Titolo");
+		document.all("terr").className="nonsele"
+		document.all("stampa").className="nonsele"
+		document.all("sele").className="nonsele"
+		document.all("digi").className="sele"
+		document.all("digitd").background="images/digitalizzasu.gif"
+		document.all("stampatd").background="images/stampanor.gif"
+		document.all("seletd").background="images/selezione_st.gif"
+		document.all("terrtd").background="images/territorionor.gif" 
+	}
+
+/*----------------------------------------------*/
+//-->
+
+</script>
+
+
+<TITLE>Menu</TITLE>
+
+<META HTTP-EQUIV="Generator" CONTENT="Agile HTML Editor, http://www.compware.demon.co.uk">
+</HEAD>
+<BODY alink="#000000" vlink="#000000" link="#000000" leftmargin="0" topmargin="0" bgcolor="#808080">
+
+<table cellpadding="0" cellspacing="0">
+<tr>
+<td class="menu" id="digitd" width="95" title="Comandi per digitalizzare" background="images/digitalizzanor.gif" onclick="viewDigitalizza()" >
+<span class="nonsele" id="digi">&nbsp;&nbsp;&nbsp;<a href="#" >DIGITALIZZA</a></span>
+</td>
+<td class="menu" id="terrtd" width="90" title="Gestione altimetria" background="images/territorionor.gif" onclick="viewTerritorio()" >
+<span class="nonsele" id="terr">&nbsp;&nbsp;&nbsp;<a href="#">TERRITORIO</a></span>
+</td>
+<td class="menu" id="seletd" width="90" title="Comandi di selezione" background="images/selezionanor.gif" onclick="viewSelect()" >
+<span class="nonsele" id="sele">&nbsp;&nbsp;&nbsp;<a href="#" >SELEZIONE</a></span>
+</td>
+<td class="menu" id="stampatd" width="90" title="Comandi di stampa e output" background="images/stampasu.gif" onclick="viewOutput()" >
+<span class="sele" id="stampa">&nbsp;&nbsp;&nbsp;<a href="#" >STAMPA</a></span>
+</td>
+</tr>
+</table>
+
+
+</BODY>
+</HTML>

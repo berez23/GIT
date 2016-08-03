@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA CATEGORIE MODAL BOX -->
+<rich:modalPanel id="catModalBox" minHeight="620" minWidth="750"
+	height="620" width="750">
+	<f:facet name="header">
+		<h:outputText value="Seleziona le Categorie catastali da aggiungere al filtro"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="catPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('catModalBox');">
+						<a4j:actionparam name="pageS" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageCategorieList}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="catForm">
+		<rich:spacer height="20px" />
+		
+		<a4j:keepAlive beanName="catastoSuggestionBean"></a4j:keepAlive>
+
+		<rich:pickList
+			value="#{dataProviderImpl.listaCategorieSel}"
+			style="cursor: pointer;" 
+			listsHeight="500px" sourceListWidth="300px"
+			targetListWidth="300px" 
+			copyControlLabel="Copia"
+			copyAllControlLabel="Copia tutto"
+			removeAllControlLabel="Rimuovi tutto" 
+			removeControlLabel="Rimuovi">
+			<f:selectItems value="#{catastoSuggestionBean.listaCategorie}" />
+		</rich:pickList>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="3" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Conferma" id="btnOk" reRender="catPage, categoria"
+					action="#{dataProviderImpl.doConfermaCategorie}"
+					oncomplete="Richfaces.hideModalPanel('catModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="cPage"
+						assignTo="#{pageUiBean.pageCategorieList}" />
+				</a4j:commandButton>
+				<rich:spacer height="8px" width="8px"/>
+				<a4j:commandButton value="Annulla" id="btnEsci" reRender="catPage"
+					oncomplete="Richfaces.hideModalPanel('catModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="cPage"
+						assignTo="#{pageUiBean.pageCategorieList}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA CATEGORIE MODAL BOX -->
+
+</html>

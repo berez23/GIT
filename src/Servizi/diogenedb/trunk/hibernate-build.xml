@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project basedir="." default="init" name="diogenedb">
+	<property name="inherit" value="true" />
+
+
+	<target name="init">
+		<tstamp prefix="timestamp" />
+
+
+    	<property name="diogenedb.location" value="${basedir}" />
+    	<property name="libdir" value="${diogenedb.location}/WebContent/WEB-INF/lib" />
+    	<property name="htoolsdir" value="${diogenedb.location}/hibernate-tools" />	
+		<property name="srcdir" value="${diogenedb.location}/JavaSource" />
+		<property name="classdir" value="${diogenedb.location}/build/classes" />
+
+		<path id="libs">
+			<pathelement location="${java.class.path}" />
+			<pathelement location="${classdir}" />
+			<fileset dir="${htoolsdir}">
+				<include name="**/*.jar" />
+			</fileset>
+			<fileset dir="${libdir}">
+				<include name="**/*.jar" />
+			</fileset>
+			<pathelement location="${srcdir}" />
+		</path>
+		<echo message="srcdir..........${srcdir}" />
+		<echo message="htoolsdir..........${htoolsdir}" />
+		<echo message="classdir..........${classdir}" />
+
+	</target>
+
+
+	<target depends="init" name="hibernatetools" description="ReGenerate Hibernate">
+		<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="libs" />
+
+		<delete>
+			<fileset dir="${srcdir}/it/webred/diogene/db/model">
+				<include name="**/*.hbm.xml" />
+			</fileset>
+			<fileset dir="${srcdir}/it/webred/diogene/db/model/am">
+				<include name="**/*.hbm.xml" />
+			</fileset>
+		</delete>
+		
+		<mkdir dir="${srcdir}/tmp.Hibernate"/>
+				
+		<hibernatetool destdir="${srcdir}">
+			<jdbcconfiguration configurationfile="${srcdir}/hibernate.cfg.xml" revengfile="${srcdir}/hibernate.reveng.xml" packagename="it.webred.diogene.db.model" />
+
+			<!-- 
+		<hbm2cfgxml/>	Modifica hibernate.cfg.xml aggiungendo mapping a xml hbm (legge da DB)   
+						opzioni:	ejb3="true|false"
+		<hbm2hbmxml/>	Genera hbm in base al config (legge da DB)
+		<hbm2java/>		Genera POJO. Genera i file java (legge da DB (non dai xml prima creati anche se la doc dice il contrario)) 
+						opzioni:	jdk5="true|false"
+ 									ejb3="true|false"		
+	    <hbm2doc/> 		Genera DOC HTML delle tabelle. 
+	    
+	    
+		Da Capire. Per adesso NON usare:
+		<hbm2ddl
+				drop="true|false"
+				create="true|false"
+				export="true|false"
+				update="true|false"
+				outputfilename="filename.ddl"
+				delimiter=";" 
+				format="true|false"
+				>  a.k.a. schemaexport, exports and/or executes the SQL DDL for the configuration to the database 
+	    
+	    -->
+
+			<hbm2cfgxml destdir="${srcdir}/tmp.Hibernate"/>
+			<hbm2hbmxml />
+		</hibernatetool>
+
+		<move file="${srcdir}/tmp.Hibernate/hibernate.cfg.xml" tofile="${srcdir}/hibernate.cfg.xml"/>
+		
+		<hibernatetool destdir="${srcdir}" >
+			<jdbcconfiguration configurationfile="${srcdir}/hibernate.cfg2.xml" revengfile="${srcdir}/hibernate.reveng.xml" packagename="it.webred.diogene.db.model.am" />
+
+			<hbm2cfgxml destdir="${srcdir}/tmp.Hibernate"/>
+			<hbm2hbmxml />
+		</hibernatetool>
+
+		<move file="${srcdir}/tmp.Hibernate/hibernate.cfg.xml" tofile="${srcdir}/hibernate.cfg2.xml"/>
+
+		<!-- modifico gli hbm prima di generari i java -->
+			<antcall target="xbm.xml.rebuild"/> 
+
+		<delete dir="${srcdir}/tmp.Hibernate"/>
+		<delete>
+			<fileset dir="${srcdir}/it/webred/diogene/db/model">
+				<include name="**/*.java" />
+			</fileset>
+			<fileset dir="${srcdir}/it/webred/diogene/db/model/am">
+				<include name="**/*.java" />
+			</fileset>
+		</delete>
+		
+		<hibernatetool destdir="${srcdir}">
+				<jdbcconfiguration configurationfile="${srcdir}/hibernate.cfg.xml" revengfile="${srcdir}/hibernate.reveng.xml" packagename="it.webred.diogene.db.model" />
+
+				<hbm2java />
+		</hibernatetool>
+
+		<hibernatetool destdir="${srcdir}">
+				<jdbcconfiguration configurationfile="${srcdir}/hibernate.cfg2.xml" revengfile="${srcdir}/hibernate.reveng.xml" packagename="it.webred.diogene.db.model.am" />
+
+				<hbm2java />
+		</hibernatetool>
+		<!--		<java classname="it.webred.util.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${srcdir}/it/webred/diogene/db/model/DcRel.hbm.xml" />
+			<arg value="${srcdir}/it/webred/diogene/db/model/DcRel.hbm.xml" />
+			<arg value="att" />
+			<arg value="hibernate-mapping/class/property[@name='condition']/@type" />
+			<arg value="it.webred.diogene.db.HibernateXMLType" />
+		</java>
+		-->
+	</target>
+
+	<!-- il tag apporta modifiche ai file xbm generati dal task hbm2hbmxml -->
+	<target depends="init" name="xbm.xml.rebuild">
+		<xslt basedir="${srcdir}/it/webred/diogene/db/model" destdir="${srcdir}/it/webred/diogene/db/model" includes="**/*.hbm.xml" extension=".bak" style="${htoolsdir}/hibernate.hbm.xsl">
+		</xslt>
+		<xslt basedir="${srcdir}/it/webred/diogene/db/model/am" destdir="${srcdir}/it/webred/diogene/db/model/am" includes="**/*.hbm.xml" extension=".bak" style="${htoolsdir}/hibernate.hbm2.xsl">
+		</xslt>
+		<delete>
+			<fileset dir="${srcdir}/it/webred/diogene/db/model">
+				<include name="**/*.hbm.xml" />
+			</fileset>
+		</delete>
+		<delete>
+			<fileset dir="${srcdir}/it/webred/diogene/db/model/am">
+				<include name="**/*.hbm.xml" />
+			</fileset>
+		</delete>
+		<move todir="${srcdir}/it/webred/diogene/db/model/am">
+			<fileset dir="${srcdir}/it/webred/diogene/db/model/am">
+				<include name="**/*.bak" />
+			</fileset>
+			<mapper type="glob" from="*.bak" to="*.xml" />
+		</move>
+		<move todir="${srcdir}/it/webred/diogene/db/model">
+			<fileset dir="${srcdir}/it/webred/diogene/db/model">
+				<include name="**/*.bak" />
+			</fileset>
+			<mapper type="glob" from="*.bak" to="*.xml" />
+		</move>
+	</target>
+<!-- non usato ma disponibile 
+	<target depends="init" name="modifyXPath">
+				<java classname="it.webred.util.JDomModifyXPath" classpathref="libs" fork="true">
+					<arg value="${srcdir}/it/webred/diogene/db/model/1.xml" />
+					<arg value="${srcdir}/it/webred/diogene/db/model/1.xml" />
+					<arg value="att" />
+					<arg value="hibernate-mapping/class[@name='it.webred.diogene.db.model.DvUserEntity']/@mutable" />
+					<arg value="xxxx" />
+				</java>
+	</target>
+-->	
+</project>

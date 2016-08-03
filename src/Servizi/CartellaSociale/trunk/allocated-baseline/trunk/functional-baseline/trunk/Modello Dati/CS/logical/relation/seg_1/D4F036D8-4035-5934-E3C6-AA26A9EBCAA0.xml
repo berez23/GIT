@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_DISAB_SOGGV1" id="D4F036D8-4035-5934-E3C6-AA26A9EBCAA0" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>CCB5C9F9-BEB5-70E2-76D9-52670A1F0201</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>2C0EE361-C082-49EE-CF6F-65FCE65FA4F0</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>5617627B-90E6-EDF5-A955-CC50B2E9127A</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.PartPertBean" table="PART_PERT"  >
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-property column="FOGLIO" name="foglio" type="java.lang.Integer"/>
+   <key-property column="PARTICELLA" name="particella" type="java.lang.String"/>
+  </composite-id>
+	<property column="AREA_PART" generated="never" lazy="false" name="area_part" type="java.lang.Double"/>
+	<property column="AREA_PERT" generated="never" lazy="false" name="area_pert" type="java.lang.Double"/>
+	<property column="AREA_INT" generated="never" lazy="false" name="area_int" type="java.lang.Double"/>
+ </class>
+
+</hibernate-mapping>

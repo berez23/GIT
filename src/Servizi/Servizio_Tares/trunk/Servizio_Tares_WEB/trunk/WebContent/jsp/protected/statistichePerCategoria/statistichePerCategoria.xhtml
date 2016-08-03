@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="4">
+				<h:outputText value="Categoria uguale a (A01,A02, ...)"/><h:inputText id="txtCategoria" value="#{statisticheBean.criteriaStat.categoria}" />
+				<h:outputText value="Categoria diversa da (A01,A02, ...)"/><h:inputText id="txtCategoriaNo" value="#{statisticheBean.criteriaStat.categoriaNo}" />
+			</h:panelGrid>
+			<h:panelGrid columns="2">
+				<a4j:commandButton id="btnCerca" 
+					value="Cerca" 
+					action="#{statisticheBean.doCercaStatistiche}"
+					reRender="tblList" />
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<h:commandLink action="#{statisticheBean.goXls}" target="_blank">
+				        <h:graphicImage value="/images/xls.png"/>
+				</h:commandLink>
+			</td></tr></table>
+			
+	<rich:spacer width="5px" height="30px"/>
+	
+	<h:graphicImage value="/images/info.gif" rendered="true"/>
+	<h:outputText value="Sfiorare il Titolo della colonna per avere maggiori informazioni" />
+    <rich:spacer width="5px"/>
+				
+	<rich:dataTable id="tblList" value="#{statisticheBean.lstStatistiche}" var="statis" style="width: 100%" rendered="true">
+	        
+	        <f:facet name="header">
+				<h:outputText value="Statistiche di Elaborazione " />
+	        </f:facet>
+	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Cat" id="lblCat" />
+                                <rich:toolTip for="lblCat" value="categoria" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Num" id="lblNum" />
+                                <rich:toolTip for="lblNum" value="numero delle unità immobiliari" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Cons" id="lblCons" />
+                                <rich:toolTip for="lblCons" value="somma della consistenza" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Sup Cat Tarsu" id="lblSupCatTarsu" />
+                                <rich:toolTip for="lblSupCatTarsu" value="somma delle superfici catastali riportate nel flusso dei dati metrici (SUP_CAT_TARSU)" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="80% Sup Cat Tarsu" id="lblSupCatTarsu80" />
+                                <rich:toolTip for="lblSupCatTarsu80" value="80% della precedente voce" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Sup 0" id="lblSup0" />
+                                <rich:toolTip for="lblSup0" value="numero di unità immobiliari con SUP_CAT_TARSU nulla" styleClass="tooltip"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Cons Sup 0" id="lblConsSup0" />
+                                <rich:toolTip for="lblConsSup0" value="somma delle consistenze delle unità immobiliari con SUP_CAT_TARSU nulla (può essere usata per stimare la superficie catastale moltiplicando per un opportuno valore di superficie del vano medio)" styleClass="tooltip"/>
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column>
+				<h:outputText value="#{statis.categoria}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{statis.numero}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{statis.sumConsistenza}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{statis.sumSupCatTarsu}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{statis.sumSupCatTarsu80}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{statis.sup0}" />
+	        </rich:column>
+	       	<rich:column>
+				<h:outputText value="#{statis.sumConsSup0}" />
+	        </rich:column>
+	        
+
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+                	<rich:column colspan="7">
+						<rich:spacer width="5px"/>
+					</rich:column>
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+	
+			</rich:panel>			
+		</h:form>
+	</div>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

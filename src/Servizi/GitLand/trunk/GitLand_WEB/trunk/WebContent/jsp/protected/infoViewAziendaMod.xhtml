@@ -1,0 +1,77 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgAziendaMod" modal="true" header="MODIFICA AZIENDA" widgetVar="dlgAziendaMod" showEffect="fade" hideEffect="explode">
+		<h:form id="frmDlgAzienda">
+		<p:panelGrid styleClass="panelGrid" columns="4" style="width:auto;" cellpadding="10">
+
+			<p:outputLabel value="Codice ASI" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.codiceAsi}" readonly="true" />
+
+			<p:outputLabel value="Ragione Sociale" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.ragioneSociale}" />
+
+			<p:outputLabel value="Rappr. Legale" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.rapprLegale}" />
+
+			<p:outputLabel value="Cod. Attivita" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.codAttivita}" />
+
+			<p:outputLabel value="Attivita" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.attivita}" />
+
+			<p:outputLabel value="Indirizzo" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.viaCivico}" />
+
+			<p:outputLabel value="Comune" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.aziendaCur.comune.nome}" />
+
+			<p:outputLabel value="Num. Addetti" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.numAddetti}" />
+
+			<p:outputLabel value="P. IVA" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.piva}" />
+
+			<p:outputLabel value="Cod. Fiscale" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.codFiscale}" />
+
+			<p:outputLabel value="Telefono" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.telefono}" />
+
+			<p:outputLabel value="Fax" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.fax}" />
+
+			<p:outputLabel value="Email" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.email}" />
+
+			<p:outputLabel value="Web" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.web}" />
+
+			<p:outputLabel value="N. Isc. C. Commercio" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.numIscCamCom}" />
+
+			<p:outputLabel value="Pec" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.pec}" />
+
+			<p:outputLabel value="Note" style="font-weight:bold;"/>
+			<p:inputText value="#{ricercheBean.aziendaCur.note}" />
+
+			<p:spacer width="5px"/>
+			<p:commandButton id="btnSalvaChiudi" 
+					value="Salva e Chiudi" 
+					action="#{ricercheBean.aziendaSaveMod}" 
+					oncomplete="PF('dlgAziendaMod').hide()" 
+					update=":#{p:component('pnlAziendaInfo')}, :#{p:component('dtListaInsediamenti')}"
+					process="@form"
+					disabled="#{GITLAND_PERMISSION == 'GITLAND_OPERATORE'}"/>
+
+		</p:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

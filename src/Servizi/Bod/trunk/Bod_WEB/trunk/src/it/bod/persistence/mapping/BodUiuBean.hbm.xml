@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodUiuBean" table="BOD_UIU" >
+  
+  <id column="ID_UIU" name="idUiu" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_UIU</param>	   
+	   </generator>
+  </id>
+  
+  <property column="SEZIONE" name="sezione" type="java.lang.String"/>
+  <property column="FOGLIO" name="foglio" type="java.lang.String"/>
+  <property column="PARTICELLA" name="particella" type="java.lang.String"/>
+  <property column="SUBALTERNO" name="subalterno" type="java.lang.String"/>
+  <property column="AMMINISTRATIVA" name="amministrativa" type="java.lang.String"/>
+  <property column="DENOMINATORE" name="denominatore" type="java.lang.String"/>
+  <property column="EDIFICIALITA" name="edificialita" type="java.lang.String"/>
+  <property column="NOME_ALLEGATO" name="nomeAllegato" type="java.lang.String"/>
+  <property column="INC_CONSISTENZA" name="incConsistenza" type="java.lang.Boolean"/>
+  <property column="INC_DESTINAZIONE" name="incDestinazione" type="java.lang.Boolean"/>
+  <property column="INC_PLANIMETRIA" name="incPlanimetria" type="java.lang.Boolean"/>
+  <property column="INC_CLASSAMENTO" name="incClassamento" type="java.lang.Boolean"/>
+
+  <!--<many-to-one 
+  		name="segFk" 
+  		class="it.bod.application.beans.BodSegnalazioneBean" 
+  		column="SEG_FK" 
+  		lazy="false"
+  		insert="false"
+  		update="false"/>
+
+  --></class>
+</hibernate-mapping>

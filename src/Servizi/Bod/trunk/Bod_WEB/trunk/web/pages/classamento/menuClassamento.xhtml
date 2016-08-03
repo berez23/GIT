@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+
+			<ui:define name="pageTitle">Front Office Docfa</ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			  
+
+			<ui:define name="body2">
+			
+			<!-- Pannello Esterno -->
+								<rich:spacer height="30px"/>
+			<div style="overflow: auto;">
+			   <rich:panel style="padding:5; width : 810px; position: relative" headerClass="outpanelHeader">
+			        <f:facet name="header">
+ 		            	<h:outputText value="#{msg.titoloCalcoloClassamento}" /> 	
+			        </f:facet>
+			
+			
+			<table border="0" style=" width : 800px;" cellspacing="5">
+
+		<tbody>
+		<tr style="" >
+              <td style="width: 100%;" >
+				<table border="0" align="left" style=" width : 300px; " cellspacing="5">
+			 		<tr style="" >
+	              		<td style="width: 100%;" >
+							<h:graphicImage id="imgCitta" value="../../images/duomo.jpg"/>
+						</td>
+					</tr>
+				</table>
+			 </td>
+			
+			<td style="width: 100%;" colspan="5">
+				<table border="0" align="right" style=" width : 450px;  " cellspacing="5">
+				 <tr style="" >
+		              <td style="width: 100%;" align="left">
+						<a4j:htmlCommandLink   value="#{msg.bottoneMenuClassamentoUno}" action="#{classamentoUnoBck.init}" />
+					</td>
+				</tr>
+				
+				<tr style="" >
+		              <td style="width: 100%;" align="left">
+						<a4j:htmlCommandLink  value="#{msg.bottoneMenuClassamentoDue}" action="#{classamentoDueBck.initDue}" />
+					</td>
+				</tr>
+				<tr style="" >
+		              <td style="width: 100%;" align="left">
+						<a4j:htmlCommandLink   value="#{msg.bottoneMenuClassamentoTre}" action="#{classamentoDueBck.initTre}" />
+					</td>
+				</tr>
+				<tr style="" >
+		              <td style="width: 100%;" align="left">
+						<a4j:htmlCommandLink   value="#{msg.bottoneMenuClassamentoQuattro}" action="#{classamentoTreBck.init}" />
+					</td>
+				</tr>
+				</table>		
+			</td>
+			</tr>
+			
+			</tbody>
+			</table>
+			</rich:panel>
+			</div>
+			
+			</ui:define>
+			
+			</ui:composition>
+			
+	</html>
+			
+			

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<project default="init">
+    <property file="build-matteo-aar.properties"/>
+    
+    <target name="init">
+       <tstamp/>
+    </target>
+    
+    <path id="classpath">
+      <fileset dir="${librariesPath}">
+          <include name="**/*.jar"/>
+      </fileset>
+      <fileset dir="${tomcatLibrariesPath}">
+          <include name="**/*.jar"/>
+      </fileset>
+    </path>
+
+    <target name="build" 
+             description="Creazione AAR servizio web" depends="init">
+        <antcall target="clean" />
+        <antcall target="prepare" />
+        <antcall target="compile" /> 
+        <antcall target="createAAR" />
+        <antcall target="finalize" />
+     </target>
+
+
+     <target name="clean"
+            description="Cancellazione delle directory di lavoro">
+        <echo message="Cancellazione delle directory di lavoro"></echo>
+        <delete dir="${buildPath}\aar"/>
+        <delete file="${buildPath}\aar\${aar.name.ref}.aar"/>
+    </target>
+    
+     <target name="prepare" description="Creazione delle directory necessarie"
+            depends="init">
+        <echo message="Creazione delle directory necessarie alla build"></echo>
+        <mkdir dir="${buildPath}/aar"/>
+        <mkdir dir="${buildPath}/aar/META-INF"/>
+     	<mkdir dir="${buildPath}/aar/classes"/>
+    </target>
+    
+    
+    <target name="compile" description="Compilazione sorgenti java" depends="init">
+        <echo message="Compilo e copio i file compilati ...${buildPath}"/>
+        
+    	<!--
+    	<javac srcdir="../src/it/webred/ct/service/wrapper/matteo" 
+               destdir="${buildPath}/aar/classes" >            
+            <classpath refid="classpath"/>
+        </javac>
+    	-->
+    	
+    	<javac srcdir="../src" 
+               destdir="${buildPath}/aar/classes" >            
+            <classpath refid="classpath"/>
+        </javac>
+    </target>
+    
+    
+    <target name="createAAR" description="Creazione AAR" depends="init">
+    	
+    	<copy file="../META-INF/services-matteo.xml" 
+    	      tofile="${buildPath}/aar/META-INF/services.xml" 
+    	    		  overwrite="true"/>
+    	
+    	
+        <jar destfile="${buildPath}/aar/${aar.name.ref}.aar">
+        
+        	<fileset dir="${buildPath}/aar/">
+				<include name="META-INF/**"  />
+			</fileset>
+			
+        
+        	<!--
+            <fileset dir="${buildPath}/aar/classes" 
+            		 includes="**\*" />
+        	-->
+        	
+        	<fileset dir="${buildPath}/aar/classes">
+        		<include name="it/webred/ct/service/wrapper/matteo/**/*"  />
+			</fileset>
+		</jar>
+    	
+    	<!--
+    	<copy file="${buildPath}/aar/${aar.name.ref}.aar" 
+    		  tofile="/tomcat6033/webapps/axis2/WEB-INF/services/${aar.name.ref}.aar" 
+    		  overwrite="true"/>
+    	-->
+    </target>
+     
+    
+    <target name="finalize"
+            description="Cancellazione delle directory di lavoro">
+        <echo message="Cancellazione delle directory di lavoro"></echo>
+        <delete dir="${buildPath}/aar/classes"/>
+    	<delete dir="${buildPath}/aar/META-INF"/>
+    </target>
+	
+	
+	
+   
+</project>

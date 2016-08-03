@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_CHIUSURA_MOTIVO" id="0BD1A1B8-1241-CC70-F0E2-922D5900EFD2" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>0FFD9059-1929-4DFE-5031-1713550361C2</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>E57EFEF0-367E-1F72-6024-014131781E14</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>66F32432-5DBB-0BC7-38CB-D4DE18AC8A42</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

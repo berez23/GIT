@@ -1,0 +1,115 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA SOGGETTI ICI MODAL BOX -->
+<rich:modalPanel id="iciSubjectModalBox" minHeight="400" minWidth="1000"
+	height="400" width="1000" style="overflow:auto;">
+	<f:facet name="header">
+		<h:outputText value="Soggetti associati all'oggetto ICI"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="iciSubjectPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('iciSubjectModalBox');">
+						<a4j:actionparam name="pageS" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageIciSubjectList}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="iciSubjectForm">
+		<rich:spacer height="20px" />
+
+		<rich:dataTable width="100%"  var="row"
+			value="#{iciDetailBean.listaSoggettiIci}" id="listSubIciTable"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+
+			<rich:column width="90px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Titolo"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.titolo}" />
+			</rich:column>
+			<rich:column width="85px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Tipo soggetto" />
+				</f:facet>
+				<h:outputText rendered="#{row.sitTIciSogg.tipSogg eq 'F'}" value="Fisico" />
+				<h:outputText rendered="#{row.sitTIciSogg.tipSogg eq 'G'}"
+					value="Giuridico" />
+			</rich:column>
+			<rich:column width="110px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Cod.fisc./P.iva"
+						title="Codice fiscale/Partita iva"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.sitTIciSogg.codFisc}" />
+			</rich:column>
+			<rich:column width="202px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Denominazione"></h:outputText>
+				</f:facet>
+				<h:outputText
+					value="#{row.sitTIciSogg.cogDenom} #{row.sitTIciSogg.nome}" />
+			</rich:column>
+			<rich:column width="90px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Data di nascita"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.sitTIciSogg.dtNsc}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+2"/>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="94px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Residenza"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.sitTIciSogg.desComRes}" />
+			</rich:column>
+			<rich:column width="200px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Indirizzo"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.descViaResidenza}" />
+			</rich:column>
+			<rich:column width="80px" sortable="false">
+				<f:facet name="header">
+					<h:outputText value="Inizio validit&#224;"></h:outputText>
+				</f:facet>
+				<h:outputText value="#{row.sitTIciSogg.dtInizioVal}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+2"/>
+				</h:outputText>
+			</rich:column>
+		</rich:dataTable>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Chiudi" id="btnEsci"
+					reRender="iciSubjectPage"
+					oncomplete="Richfaces.hideModalPanel('iciSubjectModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml"
+						name="iciSubPage" assignTo="#{pageUiBean.pageIciSubjectList}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA SOGGETTI ICI MODAL BOX -->
+
+</html>

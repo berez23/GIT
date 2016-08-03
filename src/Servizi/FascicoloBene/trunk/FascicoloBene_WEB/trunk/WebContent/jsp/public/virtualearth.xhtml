@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<title>Mappa Prospettica -  VirtualEarth</title>
+<link rel="stylesheet" type="text/css" 
+	  href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+<script type="text/javascript"
+		src="${facesContext.externalContext.requestContextPath}/js/mappa.js" />
+<script type="text/javascript" src="http://dev.virtualearth.net/mapcontrol/mapcontrol.ashx?v=6.1&amp;mkt=it-IT"/>
+<script type="text/javascript">
+function getMap(lat,lon)
+{
+         var map = null;
+
+         var LA = new VELatLong(lat,lon);
+	
+         var pinPoint = null;
+         var pinPixel = null;
+                  
+            map = new VEMap('myMap');
+       
+            map.LoadMap(LA, 14, VEMapStyle.BirdseyeHybrid, false, VEMapMode.Mode2D, true, 1);
+			var mode = map.GetMapStyle();
+            if (mode == VEMapStyle.Road)
+            {
+               map.SetMapStyle(VEMapStyle.Hybrid);
+			   map.SetCenterAndZoom(LA, 17);
+            }
+}
+</script>
+
+</head>
+
+<body onload="javascript:getMap(#{gMapsBean.latitudine},#{gMapsBean.longitudine})">
+
+      <div id='myMap'></div>
+
+</body>
+
+</html>

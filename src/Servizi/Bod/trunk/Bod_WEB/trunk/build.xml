@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE project [<!ENTITY buildfile SYSTEM "file:./build-user.xml">]>
+
+<project basedir="." default="init" name="escwebgisdiogene">
+<taskdef resource="net/sf/antcontrib/antcontrib.properties"/>
+<taskdef resource="net/sf/antcontrib/antlib.xml"/>
+
+&buildfile; 
+
+
+
+    <target depends="initUser"  name="init">
+    
+    	<property name="Bod.location" value="${basedir}" />
+    	<property name="libdir" value="${Bod.location}/web/WEB-INF/lib" />
+    	<property name="cvs.root" value=":pserver:makerelease:makerelease@cvs.webred-private.it:/cvs_repos" />
+    	<property name="build.compiler" value="modern" />
+    	<property name="comp.debug" value="true" />
+    	<property name="comp.deprecation" value="false" />
+    	<property name="tmp.location" value="${Bod.location}/tmp" />	
+    	<property name="tmp.webxml.location" value="${Bod.location}/tmpWebXml" />	
+    	<tstamp>
+    	      <format property="oggi" pattern="dd/MM/yyyy hh:mm aa"/>
+    	</tstamp>    	
+    	<echo message="PROPERTIES :" />
+    	<echo message="JavaVersion........${java.version}" />
+    	<echo message="javahome...........${java.home}" />
+    	<echo message="user...............${user.name}" />
+    	<echo message="userhome...........${user.home}" />
+    	<echo message="buildcompiler......${build.compiler}" />
+    	<echo message="comp.debug.........${comp.debug}" />
+    	<echo message="comp.deprecation...${comp.deprecation}" />
+    	<echo message="Bod.location.${Bod.location}" />
+    	<echo message="tomcat.location....${tomcat.location}" />
+    	<echo message="tmp.location.......${tmp.location}" />
+    	<echo message="tmp.webxml.location.......${tmp.webxml.location}" />
+        <path id="libs">
+            <!--<pathelement location="build/classes"/>-->
+            <fileset dir="${tomcat.location}/common/lib/">
+                <include name="*.jar"/>
+            </fileset>
+            <fileset dir="${Bod.location}/web/WEB-INF/lib">
+                <include name="*.jar"/>
+            </fileset>
+        </path>
+    </target>
+    <target name="clean">
+        <delete failonerror="false" dir="${tmp.location}"/>
+	    <delete failonerror="false" file="${Bod.location}/Bod.war" />
+    </target>
+	
+	
+	
+	 <target name="set.schemadiogene.to.hbm" >
+		<java classname="it.webred.utils.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${hbmfile}" />
+			<arg value="${hbmfile}" />
+			<arg value="att" />
+			<arg value="hibernate-mapping/class/@schema" />
+			<arg value="${db.user}" />
+		</java>
+	</target>
+
+	 <target name="set.schemasiti.to.hbm" >
+		<java classname="it.webred.utils.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${hbmfile}" />
+			<arg value="${hbmfile}" />
+			<arg value="att" />
+			<arg value="hibernate-mapping/class/@schema" />
+			<arg value="${db.user.siti}" />
+		</java>
+	</target>
+	
+	
+	
+    <target depends="init,clean,read.env.properties" name="build.war">
+
+    	<antcall target="set.version"/>
+
+        <mkdir dir="${tmp.location}"/>
+        <mkdir dir="${tmp.webxml.location}"/>
+    	<mkdir dir="${tmp.location}/tmpJar"/>
+
+    	<copy file="${Bod.location}/web/WEB-INF/web.xml" todir="${tmp.webxml.location}"/>
+    	
+    	
+
+        
+    	<copy todir="${tmp.location}">
+            <fileset dir="${Bod.location}/web">
+            	<exclude name="WEB-INF/web.xml"/>
+                <include name="**/*"/>
+            	
+            </fileset>        	
+        </copy>
+    	
+    	
+    	
+    	<mkdir dir="${tmp.location}/WEB-INF/classes"/>
+        <copy todir="${tmp.location}/WEB-INF/classes">
+            <fileset dir="${Bod.location}/src">
+            	<exclude name="CVS/*"/>
+                <include name="**/*.xml"/>
+            	<include name="**/*.properties"/>
+            	<include name="**/*.dtd"/>
+            	<include name="**/*.tld"/>
+            	<include name="**/*.txt"/>
+            </fileset>        	
+        </copy>	
+    	
+    	<copy file="../images/${name.image.header}" tofile="${tmp.location}/images/header-bod_generico.gif" overwrite="true"/>
+    	
+    	
+
+    	<javac classpathref="libs"  destdir="${tmp.location}/tmpJar" debug="${comp.debug}" deprecation="${comp.deprecation}">
+            <src path="src"/>
+        </javac>
+
+		<java classname="it.webred.utils.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${tmp.webxml.location}/web.xml" />
+			<arg value="${tmp.webxml.location}/web.xml" />
+			<arg value="tag" />
+			<arg value="web-app/security-constraint/auth-constraint/role-name" />
+			<arg value="${webapp.name}" />
+			<arg value="tag" />
+			<arg value="web-app/security-role/role-name" />
+			<arg value="${webapp.name}" />
+			<arg value="tag" />
+			<arg value="web-app/display-name" />
+			<arg value="${webapp.name}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='driverClass']/param-value" />
+			<arg value="${filtro.driverClass}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='urlConn']/param-value" />
+			<arg value="${filtro.urlConn}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='userConn']/param-value" />
+			<arg value="${filtro.userConn}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='pwdConn']/param-value" />
+			<arg value="${filtro.pwdConn}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='numGiorniVal']/param-value" />
+			<arg value="${filtro.numGiorniVal}" />
+			<arg value="tag" />
+			<arg value="web-app/filter[@id='Filtro']/init-param[param-name/text()='paginaCambioPwd']/param-value" />
+			<arg value="${filtro.paginaCambioPwd}" />
+		</java>
+
+    	
+		<java classname="it.webred.utils.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${tmp.location}/WEB-INF/applicationContext.xml" />
+			<arg value="${tmp.location}/WEB-INF/applicationContext.xml" />
+			<arg value="att" />
+			<arg value="beans/bean[@id='myDataSource']/property[@name='url']/@value" />
+			<arg value="${db.url}" />
+			<arg value="att" />
+			<arg value="beans/bean[@id='myDataSource']/property[@name='username']/@value" />
+			<arg value="${db.user}" />
+			<arg value="att" />
+			<arg value="beans/bean[@id='myDataSource']/property[@name='password']/@value" />
+			<arg value="${db.pwd}" />
+			<arg value="tag" />
+			<arg value="beans/bean[@id='mySessionFactory']/property[@name='hibernateProperties']/props/prop[@key='hibernate.default_schema']" />
+			<arg value="${db.user}" />
+			<arg value="att" />
+			<arg value="beans/bean[@id='caronteDataSource']/property[@name='url']/@value" />
+			<arg value="${db.caronte.url}" />
+			<arg value="att" />
+			<arg value="beans/bean[@id='caronteDataSource']/property[@name='username']/@value" />
+			<arg value="${db.caronte.user}" />
+			<arg value="att" />
+			<arg value="beans/bean[@id='caronteDataSource']/property[@name='password']/@value" />
+			<arg value="${db.caronte.pwd}" />
+			<arg value="tag" />
+			<arg value="beans/bean[@id='caronteSessionFactory']/property[@name='hibernateProperties']/props/prop[@key='hibernate.default_schema']" />
+			<arg value="${db.caronte.user}" />
+		</java>   
+				
+    	
+		<java classname="it.webred.utils.JDomModifyXPath" classpathref="libs" fork="true">
+			<arg value="${tmp.location}/WEB-INF/faces-config.xml" />
+			<arg value="${tmp.location}/WEB-INF/faces-config.xml" />
+			<arg value="tag" />
+			<arg value="faces-config/managed-bean[managed-bean-name/text()='ricercaDettaglioBck']/managed-property[property-name/text()='pathPlanimetrie']/value" />
+			<arg value="${path.planimetrie}" />
+			<arg value="tag" />
+			<arg value="faces-config/managed-bean[@id='ricercaDettaglioBck']/managed-property[property-name/text()='pathBod']/value" />
+			<arg value="${path.Bod}" />	
+		</java>  	
+    	
+
+		<!-- set del nome schema sugli Hbm -->
+		<!-- faccio il set di tutti gli hbm tranne DestinazioneFunzionaleBean.hbm.xml-->
+		<for param="file">
+		  <path>
+		    <fileset dir="${tmp.location}/WEB-INF/classes/it/bod/persistence/mapping/" includes="*.hbm.xml" excludesfile="${tmp.location}/WEB-INF/classes/it/bod/persistence/mapping/DestinazioneFunzionaleBean.hbm.xml" />
+		  </path>
+		  <sequential>
+			<antcall target="set.schemadiogene.to.hbm">
+				<param name="hbmfile" value="@{file}"/>
+			</antcall>
+		  </sequential>
+		</for>
+
+		<antcall target="set.schemasiti.to.hbm">
+			<param name="hbmfile" value="${tmp.location}/WEB-INF/classes/it/bod/persistence/mapping/DestinazioneFunzionaleBean.hbm.xml"/>
+		</antcall>
+
+  
+				
+    	
+    	<java classname="it.webred.utils.ReboundProperties" classpathref="libs" fork="true">
+    		<arg value="${tmp.location}/WEB-INF/classes/log4j_bod.properties"/>
+    		<arg value="${tmp.location}/WEB-INF/classes/log4j_bod.properties"/>
+        	<arg value="log4j.appender.APPENDER_FILE.File=${catalina.home}/logs/${webapp.name}.log"/>  
+    	</java>
+    	
+    	<java classname="it.webred.utils.ReboundProperties" classpathref="libs" fork="true">
+    		<arg value="${tmp.location}/WEB-INF/classes/resources.properties"/>
+    		<arg value="${tmp.location}/WEB-INF/classes/resources.properties"/>
+        	<arg value="urlCartografia=${url.cartografia}"/>  
+        	<arg value="msgBodFiles=${bodFiles}"/>  
+    	</java>
+
+    		
+    	<jar basedir="${tmp.location}/tmpJar" compress="true" includes="*/**" jarfile="${tmp.location}/WEB-INF/lib/Bod.jar" >
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+                <attribute name="Build-Date" value="${oggi}"/>
+            </manifest>            
+        </jar>
+    	<delete dir="${tmp.location}/tmpJar"/>
+    	<war destfile="${Bod.location}/${webapp.name}.war"  webxml="${tmp.webxml.location}\web.xml">
+            <fileset dir="${tmp.location}">
+            </fileset>
+            <manifest>
+                <attribute name="Built-By" value="${user.name}"/>
+            </manifest>     
+        </war>
+    	<delete dir="${tmp.location}"/>
+    	<delete dir="${tmp.webxml.location}"/>
+
+    </target>
+
+    <target depends="init" name="take.webredutils.from.cvs">
+    	<mkdir dir="${libdir}/.webredutils"/>
+    	<cvs command="export -d ${libdir}/.webredutils -r HEAD webredutils/releases/last/webredutils.jar" cvsRoot="${cvs.root}" />
+        <delete file="${libdir}/webredutils.jar"/>
+        <copy file="${libdir}/.webredutils/webredutils.jar" todir="${libdir}"/>
+        <delete dir="${libdir}/.webredutils"/>
+    </target>
+	
+	
+	
+	<!-- Lettura delle informazioni di deploy dal file env.properties oppure dal file properties specifico del cliente -->
+	<target name="set.cliente.default" unless="cliente.settato">
+		<property name="cliente" value="" />
+		<echo message="Non si e' specificato il cliente per il deploy. Si utilizza il file properties di default!!!"/>
+	</target>
+	<target name="check.env.properties" if="cliente.settato">
+		<echo message="Cerco:${basedir}/env${cliente}Bod.properties"/>
+		<available file="${basedir}/env${cliente}Bod.properties" property="isFileAvailable" type="file"/>
+	    <fail unless="isFileAvailable" message="Il file env${cliente}Bod.properties non esiste!!!"/>
+	</target>
+	<target name="check.cliente">
+	    <condition property="cliente.settato">
+	    	<isset property="cliente"/>
+	    </condition>
+	</target>
+	<target name="read.env.properties" depends="check.cliente, set.cliente.default, check.env.properties">    
+	    <echo message="Lettura del file : env${cliente}Bod.properties"/>
+		<property file="env${cliente}Bod.properties" prefix="env"/>
+		<property name="webapp.name" value="${env.webapp.name}"/>
+		<property name="path.planimetrie" value="${env.path.planimetrie}"/>
+		<property name="path.Bod" value="${env.path.Bod}"/>
+		<property name="db.user.siti" value="${env.db.user.siti}"/>
+		<property name="db.url" value="${env.db.url}"/>
+		<property name="db.user" value="${env.db.user}"/>
+		<property name="db.pwd" value="${env.db.pwd}"/>
+		<property name="db.caronte.url" value="${env.db.caronte.url}"/>
+		<property name="db.caronte.user" value="${env.db.caronte.user}"/>
+		<property name="db.caronte.pwd" value="${env.db.caronte.pwd}"/>
+		<property name="url.cartografia" value="${env.url.cartografia}"/>
+		<property name="bodFiles" value="${env.bodFiles}"/>
+		<property name="url.bodFiles" value="${env.url.bodFiles}"/>
+		<property name="filtro.driverClass" value="${env.filtro.driverClass}"/>
+		<property name="filtro.urlConn" value="${env.filtro.urlConn}"/>
+		<property name="filtro.userConn" value="${env.filtro.userConn}"/>
+		<property name="filtro.pwdConn" value="${env.filtro.pwdConn}"/>
+		<property name="filtro.numGiorniVal" value="${env.filtro.numGiorniVal}"/>
+		<property name="filtro.paginaCambioPwd" value="${env.filtro.paginaCambioPwd}"/>	
+		<property name="name.image.header" value="${env.name.image.header}"/>	
+		<echo message="webapp.name=${webapp.name}"/>
+		<echo message="path.planimetrie=${path.planimetrie}"/>
+		<echo message="path.Bod=${path.Bod}"/>
+		<echo message="db.url=${env.db.url}"/>
+		<echo message="db.user=${env.db.user}"/>
+		<echo message="db.pwd=${env.db.pwd}"/>
+		<echo message="db.caronte.url=${env.db.caronte.url}"/>
+		<echo message="db.caronte.user=${env.db.caronte.user}"/>
+		<echo message="db.caronte.pwd=${env.db.caronte.pwd}"/>
+		<echo message="url.cartografia=${env.url.cartografia}"/>
+		<echo message="db.user.siti=${env.db.user.siti}"/>
+		<echo message="filtro.driverClass=${filtro.driverClass}"/>
+		<echo message="filtro.urlConn=${filtro.urlConn}"/>
+		<echo message="filtro.userConn=${filtro.userConn}"/>
+		<echo message="filtro.pwdConn=${filtro.pwdConn}"/>
+		<echo message="filtro.numGiorniVal=${filtro.numGiorniVal}"/>
+		<echo message="filtro.paginaCambioPwd=${filtro.paginaCambioPwd}"/>
+		<echo message="name.image.header=${name.image.header}"/>
+
+	</target>   
+	
+	
+	<target name="set.version">
+		<replace 
+		    file="web/index.xhtml"
+		    propertyFile="src/version.properties">
+		  <replacefilter 
+		    token="@@version.label@@" 
+		    property="version.label"/>
+		</replace>
+		<echo message="Inserito numero di versione"/>
+	</target>
+	
+</project>

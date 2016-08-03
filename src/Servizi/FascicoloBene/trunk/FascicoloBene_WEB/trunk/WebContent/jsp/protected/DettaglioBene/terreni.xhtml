@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+		<ui:param name="beneSelected" value="#{beneSelected}" />
+
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12 ui-grid-col space">	
+					<p:carousel numVisible="1"  rendered="#{dettaglioBeneMan.terreniMan.getGroupTerreni(beneSelected).size() > 0}" 
+						        value="#{dettaglioBeneMan.terreniMan.getGroupTerreni(beneSelected)}" var="map"  
+						        styleClass="carousel" itemStyleClass="itemCarouselTerr" headerText="Dati Terreni">
+				       
+							        <p:dataTable var="cat" value="#{map.datiCats}" paginator="true" rows="4"
+      											paginatorPosition="bottom"
+      											paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+							         	<f:facet name="header">
+							         		<h:outputText value="Provenienza: #{map.provenienza}" />
+							         	</f:facet>
+							         	   <p:column headerText="">
+												<p:panelGrid columns="#{cat.datoArricchito.alerts.size()+1}" styleClass="panelGrid" >
+													<ui:repeat var="catAlert" value="#{cat.datoArricchito.alerts}">
+														<p:graphicImage value="/images/#{catAlert.type}.png" height="#{catAlert.height}px" title="#{catAlert.description}"/>
+													</ui:repeat>
+												
+													<p:outputPanel rendered="#{cat.datoArricchito.tabelleDatiCollegatiIsEmpty}">
+					                					<p:graphicImage id="mapTabAgg" style="cursor:pointer" value="/images/openTab.png" height="13px" title="Tabella dati aggiuntivi"/>
+														<p:overlayPanel for="mapTabAgg" styleClass="overlayPanel" appendToBody="false" showEffect="blind" hideEffect="fade"
+															showEvent="click" hideEvent="mousedown"	at="right bottom" dismissable="true" showCloseIcon="false">
+															<c:set target="#{component}" property="id" value="#{dettaglioBeneMan.terreniMan.overlayId}"/>
+															<ui:repeat var="tabColl" value="#{cat.datoArricchito.tabelleDatiCollegati}">
+															<p:panel header="#{tabColl.nomeTabella} - Sez. #{alertArr.sezione.dato} Foglio #{alertArr.foglio.dato} Mappale #{alertArr.mappale.dato}" toggleable="true" 
+																	         style="width:100%;padding:0em;max-height:400px;overflow:auto;">
+																 <p:outputPanel style="max-width:600px;overflow:auto;">
+																	<table style="width:100%;font-size:0.9em" class="table">
+																		<tbody>
+																			<tr class="titleTable">
+																				<ui:repeat var="nomeCol"
+																					value="#{tabColl.nomiColonne}">
+																					<th><h:outputText value="#{nomeCol}" /></th>
+																				</ui:repeat>
+																			</tr>
+																			<ui:repeat value="#{dettaglioBeneMan.terreniMan.mapToList(tabColl.righe)}" var="righe">
+																				<tr>
+																					<ui:repeat var="tCell" value="#{righe.value}">
+																						<td><h:outputText value="#{tCell.dato}" escape="false"/></td>
+																					</ui:repeat>
+																				</tr>
+																			</ui:repeat>
+																		</tbody>
+																	</table>
+																	</p:outputPanel>
+																</p:panel>
+															</ui:repeat>
+														</p:overlayPanel>
+													</p:outputPanel>
+											</p:panelGrid>
+									    </p:column>
+							         	<p:column headerText="Comune">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.comune.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.comune.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="#{alert.height}px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									     <p:column headerText="Sez.">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.sezione.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.sezione.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="#{alert.height}px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+								        <p:column headerText="Foglio">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.foglio.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.foglio.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="#{alert.height}px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									    <p:column headerText="Mappale">
+      											<table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.mappale.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.mappale.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="#{alert.height}px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									    <p:column headerText="Sup." style="text-align:right;">
+									    	<h:outputText value="#{cat.dettaglio.superficie}" />
+									    </p:column>
+									     <p:column headerText="Classe" style="text-align:center;">
+									    	<h:outputText value="#{cat.dettaglio.classe}" />
+									    </p:column>
+									     <p:column headerText="Unità" style="text-align:center;">
+									    	<h:outputText value="#{cat.dettaglio.unita}" />
+									    </p:column>
+									    <p:column headerText="Qualità">
+									    	<h:outputText value="#{cat.dettaglio.qualita}" />
+									    </p:column>
+									   <p:column headerText="Annotazioni">
+									    	<h:outputText value="#{cat.dettaglio.annotazione}" />
+									    </p:column>
+									    <p:column headerText="Fonte">
+									    	<h:outputText value="#{cat.dettaglio.fonte}" />
+									    </p:column>
+									    <p:column headerText="Sub">
+									    	<h:outputText value="#{cat.dettaglio.sub}" />
+									    </p:column>
+									    <p:column headerText="Partita" style="text-align:center;">
+									    	<h:outputText value="#{cat.dettaglio.partita}" />
+									    </p:column>
+									    <p:column headerText="Cod. Uso">
+									    	<h:outputText value="#{cat.dettaglio.codUtilizzo}" />
+									    </p:column>
+									    <p:column headerText="Uso Attuale">
+									    	<h:outputText value="#{cat.dettaglio.usoAttuale}" />
+									    </p:column>
+									    <p:column headerText="%" >
+									    	<h:outputText value="#{cat.dettaglio.quotaPoss/100}" />
+									    </p:column>
+										 <p:column headerText="Note e Contratti" style="text-align:center;" width="10">
+									      	<ui:param name="listaContratti" value="#{terreniMan.getListaContratti(cat.dettaglio.contratti)}" />
+									      	<p:panelGrid columns="1" styleClass="panelGrid">
+									      	<p:graphicImage id="noteImg" style="cursor:pointer" value="/images/note.gif" height="13px" title="#{cat.dettaglio.note}" 
+									      					 rendered="#{cat.dettaglio.note!=null}"/>
+									      	
+									      	<p:graphicImage id="contrattImg" style="cursor:pointer" value="/images/contratto.gif" height="13px" title="Contratti" 
+									      					 rendered="#{!empty listaContratti}"/>
+									        <p:overlayPanel for="contrattImg" styleClass="overlayPanel" appendToBody="true" showEffect="blind" hideEffect="fade"
+															showEvent="click" hideEvent="mousedown"	at="right top" dismissable="true" showCloseIcon="true">
+													<p:dataTable var="contr" value="#{listaContratti}" rendered="#{not empty listaContratti}">
+															<f:facet name="header">Contratti</f:facet>
+															<p:column headerText="Intestatario">
+																<h:outputText value="#{contr[0]}" rendered="#{contr[0]!=null}"></h:outputText>
+															</p:column>
+															<p:column headerText="Tipologia">
+																<h:outputText value="#{contr[1]}" rendered="#{contr[1]!=null}"></h:outputText>
+															</p:column>
+															<p:column headerText="Parte">
+																<h:outputText value="#{contr[2]}" rendered="#{contr[2]!=null}"></h:outputText>
+															</p:column>
+														</p:dataTable>
+											</p:overlayPanel>
+										
+											</p:panelGrid>
+									    </p:column>   
+									     <p:column headerText="Tipologia">
+									    	<h:outputText value="#{cat.dettaglio.tipologia}" />
+									    </p:column>
+									     <p:column headerText="Finalità">
+									    	<h:outputText value="#{cat.dettaglio.finalita}" />
+									    </p:column>
+									    <p:column headerText="Dismesso" style="text-align:center;">
+									    	<h:outputText value="#{cat.dettaglio.dismesso==1 ? 'il ' :'No'}" />
+									    	<h:outputText value="#{cat.dettaglio.dataVendita}"  rendered="#{cat.dettaglio.dismesso==1}">
+									    		<f:convertDateTime pattern="dd/MM/yyyy"/>
+									    	</h:outputText>
+									    </p:column>
+										<p:column headerText="Dati Catastali" style="padding:2px;">
+									    	
+									   		<p:panelGrid columns="2" style="text-align:right;" styleClass="panelGrid">
+									   			<h:outputText value="Redd.Agr." rendered="#{cat.dettaglio.reddAgr>0}"/>
+									   			<h:outputText value="#{cat.dettaglio.reddAgr}" rendered="#{cat.dettaglio.reddAgr>0}"/>
+									   			<h:outputText value="Redd.Dom." rendered="#{cat.dettaglio.reddDomin>0}"/>
+									   			<h:outputText value="#{cat.dettaglio.reddDomin}" rendered="#{cat.dettaglio.reddDomin>0}"/>
+									   			<h:outputText value="Val.Acq." rendered="#{cat.dettaglio.valAcquisto>0}"/>
+									   			<h:outputText value="#{cat.dettaglio.valAcquisto}" rendered="#{cat.dettaglio.valAcquisto>0}"/>
+									   			<h:outputText value="Val.Catasto" rendered="#{cat.dettaglio.valCatastale>0}"/>
+									   			<h:outputText value="#{cat.dettaglio.valCatastale}" rendered="#{cat.dettaglio.valCatastale>0}"/>
+									   			<h:outputText value="Val.Invent." rendered="#{cat.dettaglio.valInventario>0}"/>
+									   			<h:outputText value="#{cat.dettaglio.valInventario}" rendered="#{cat.dettaglio.valInventario>0}"/>
+									   			<h:outputText value="Rend.Presunta" rendered="#{cat.dettaglio.renditaPresunta>0}"/>
+									   			<h:outputText value="#{cat.dettaglio.renditaPresunta}" rendered="#{cat.dettaglio.renditaPresunta>0}"/>
+									   		</p:panelGrid>
+									    </p:column> 
+							</p:dataTable>
+				    </p:carousel>
+				</div>
+			</div>
+		</div>
+</ui:composition>

@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmAziende">
+			<p:panel header="Modifica Azienda">				
+
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Codice ASI"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodiceASI" value="#{aziendeBean.aziendaNew.codiceAsi}"  required="true" readonly="true" disabled="true"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Ragione Sociale"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtRagioneSociale" value="#{aziendeBean.aziendaNew.ragioneSociale}" required="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Rappresentante Legale"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtRapprLegale" value="#{aziendeBean.aziendaNew.rapprLegale}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Cod. Attivita"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodAttivita" value="#{aziendeBean.aziendaNew.codAttivita}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Attivita"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtAttivita" value="#{aziendeBean.aziendaNew.attivita}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Indirizzo"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtViaCivico" value="#{aziendeBean.aziendaNew.viaCivico}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Comune Ricerca"/>
+						</p:column>
+						<p:column>
+							<p:autoComplete id="txtComune" value="#{aziendeBean.comuneCur.idComune}" 
+								var="comu" 
+								itemValue="#{comu.idComune}"
+								itemLabel="#{comu}" 
+								completeMethod="#{aziendeBean.completeComuni}"  
+								forceSelection="true" >
+								
+								<p:ajax event="itemSelect" listener="#{aziendeBean.setComuneValues}"  update="txtNome, txtIstatc, txtIstatp, txtIdComune" />
+								
+								<p:column>
+									#{comu.istatc}
+								</p:column>
+								<p:column>
+									#{comu.istatp}
+								</p:column>
+								<p:column>
+									#{comu.nome}
+								</p:column>
+								<p:column>
+									#{comu.siglaProv}
+								</p:column>
+																								
+							</p:autoComplete>
+							
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Comune"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtNome" value="#{aziendeBean.comuneCur.nome}" readonly="true" disabled="true"/>
+							<h:inputHidden id="txtIstatc" value="#{aziendeBean.comuneCur.istatc}"/>
+							<h:inputHidden id="txtIstatp" value="#{aziendeBean.comuneCur.istatp}"/>
+							<h:inputHidden id="txtIdComune" value="#{aziendeBean.comuneCur.idComune}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Num. Addetti"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtNumAddetti" value="#{aziendeBean.aziendaNew.numAddetti}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="P.IVA"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtPiva" value="#{aziendeBean.aziendaNew.piva}" required="true"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Cod. Fiscale"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodFiscale" value="#{aziendeBean.aziendaNew.codFiscale}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Telefono"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtTelefono" value="#{aziendeBean.aziendaNew.telefono}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Fax"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtFax" value="#{aziendeBean.aziendaNew.fax}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Email"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtEmail" value="#{aziendeBean.aziendaNew.email}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Web"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtWeb" value="#{aziendeBean.aziendaNew.web}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Num Isc Camera Commercio"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtNumIscCamCom" value="#{aziendeBean.aziendaNew.numIscCamCom}"/>
+						</p:column>
+					</p:row>	
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Pec"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtPec" value="#{aziendeBean.aziendaNew.pec}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Note"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtNote" value="#{aziendeBean.aziendaNew.note}"/>
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column colspan="4">
+
+							<p:dataTable id="dtListaInsediamenti" 
+							 	rendered="#{not empty aziendeBean.listaInsediamenti}" 
+							 	var="insed" 
+							 	value="#{aziendeBean.listaInsediamenti}" 
+							 	rowIndexVar="rowIndex"
+		                        paginator="true" 
+		                        rowKey="#{insed}" 
+		                        selection="#{insed}" 
+		                        selectionMode="single"                        
+								emptyMessage="Nessun elemento trovato" 
+								style="width:100%; table-layout:auto !important;" 
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		           				rows="50">
+
+							 	<f:facet name="header">Storico Insediamenti Azienda</f:facet>
+							 	<p:column headerText="Codice Asi Lotto" >
+							 		<h:outputText value="#{insed[0]}"/>
+							 	</p:column>
+							 	<p:column headerText="Data Fine Status" >
+							 		<h:outputText value="#{insed[2]}"/>
+							 	</p:column>
+							 	<p:column headerText="Status" >
+							 		<h:outputText value="#{insed[3]}"/>
+							 	</p:column>
+							 	<p:column headerText="Area" >
+							 		<h:outputText value="#{insed[4]}"/>
+							 	</p:column>
+							 	<p:column headerText="Perimetro" >
+							 		<h:outputText value="#{insed[5]}"/>
+							 	</p:column>
+							 	<p:column headerText="Indirizzo" >
+							 		<h:outputText value="#{insed[6]}"/>
+							 	</p:column>
+							 </p:dataTable>
+						
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:panelGrid id="pnlFooter" styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:commandButton value="Salva" action="#{aziendeBean.aziendaSaveMod}" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Elimina" action="#{aziendeBean.aziendaSaveDel}" disabled="#{not aziendeBean.eliminabile}"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<tr>
+<td width="33%">
+	<rich:panel>
+		<f:facet name="header">
+			<h:outputLabel value="Dati Pratica" />
+		</f:facet>
+		<h:panelGrid columns="2" width="100%">
+			<h:outputLabel value="Pratica Numero:" style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.id}" />
+
+			<h:outputLabel value="Del:" style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.accDataInizio}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+			</h:outputText>
+
+			<h:outputLabel value="Inserita dall'Operatore:"
+				style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.operatoreId}" />
+
+			<h:outputLabel value="Stato:" style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.accStatoDecoded}" />
+
+		</h:panelGrid>
+	</rich:panel>
+	</td>
+	<td width="33%">
+	<rich:panel>
+		<f:facet name="header">
+			<h:outputLabel value="Responsabile del Procedimento" />
+		</f:facet>
+		<h:panelGrid columns="2" width="100%">
+			<h:outputLabel value="" style="font-weight: bold;" />
+			<h:outputText value="" />
+
+			<h:outputLabel value="Codice Fiscale:" style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.resCodiFisc}" />
+
+			<h:outputLabel value="Cognome e Nome:" style="font-weight: bold;" />
+			<h:outputText
+				value="#{gestionePraticaBean.dto.pratica.resCognome} #{gestionePraticaBean.dto.pratica.resNome}" />
+
+			<h:outputLabel value="Num.Telefono:" style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.resTelefono}" />
+
+			<h:outputLabel value="E-mail:" style="font-weight: bold;" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.resEmail}" />
+		</h:panelGrid>
+	</rich:panel></td>
+	<td width="33%">
+
+	<rich:panel>
+		<f:facet name="header">
+			<h:outputLabel value="Soggetto Accertato" />
+		</f:facet>
+		<h:panelGrid columns="2" width="100%">
+			<h:outputLabel value="Tipo Soggetto:" style="font-weight: bold;" />
+			<h:outputText value="Persona Fisica"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+			<h:outputText value="Persona Giuridica"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" />
+
+			<h:outputLabel value="Codice Fiscale:" style="font-weight: bold;"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.accCodiFisc}"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+
+			<h:outputLabel value="Cognome e Nome:" style="font-weight: bold;"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+			<h:outputText
+				value="#{pgestionePraticaBean.dto.pratica.accCognome} #{gestionePraticaBean.dto.pratica.accNome}"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+
+			<h:outputLabel value="Data di Nascita:" style="font-weight: bold;"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.accDataNasc}"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+			</h:outputText>
+
+			<h:outputLabel value="Comune di Nascita:" style="font-weight: bold;"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+			<h:outputText value="#{gestionePraticaBean.dto.descAccComuNasc}"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'P'}" />
+
+			<h:outputLabel value="Partita IVA:" style="font-weight: bold;"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" />
+			<h:outputText value="#{gestionePraticaBean.dto.pratica.accCodiPiva}"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" />
+
+			<h:outputLabel value="Denominazione:" style="font-weight: bold;"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" />
+			<h:outputText
+				value="#{gestionePraticaBean.dto.pratica.accDenominazione}"
+				rendered="#{gestionePraticaBean.dto.pratica.accTipoSogg eq 'G'}" />
+		</h:panelGrid>
+	</rich:panel>
+	</td>
+</tr>
+</html>

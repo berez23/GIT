@@ -1,0 +1,719 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+	<!-- Query IsSoggetto -->
+	<named-query name="IsSoggetto.getSoggettoByCodFis">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSoggetto s
+				where UPPER(s.codfisc) = UPPER(:codfis)
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsSocieta -->
+	<named-query name="IsSocieta.getSocieta">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSocieta s
+				order by s.ragSoc 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsSocieta.getSocietaLike">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSocieta s
+				where UPPER(s.ragSoc) like '%'||:descrizione||'%'
+				order by s.ragSoc 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsSocieta.getSocietaBySogg">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSocieta s, IsSocietaSogg ss, IsSoggetto so
+				where UPPER(so.codfisc) = UPPER(:codfis)
+				and so.id = ss.fkIsSoggetto
+				and ss.fkIsSocieta = s.id
+				order by s.ragSoc 
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsSocieta.getSocietaById">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSocieta s
+				where s.id = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsSocieta.getSocietaByCfPi">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSocieta s
+				where s.cf = :cf
+				or s.pi = :cf
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsSocieta.deleteSocietaById">
+		<query>
+			<![CDATA[
+				delete from IsSocieta s
+				where s.id = :id
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsSocietaSogg -->
+	<named-query name="IsSocietaSogg.getSocietaSoggById">
+		<query>
+			<![CDATA[
+				select s 
+				from IsSocietaSogg s
+				where s.fkIsSocieta = :id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsSocietaSogg.deleteSocietaSoggBySoc">
+		<query>
+			<![CDATA[
+				delete from IsSocietaSogg s
+				where s.fkIsSocieta = :id
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsStruttura -->
+	<named-query name="IsStruttura.getStrutture">
+		<query>
+			<![CDATA[
+				select st 
+				from IsStruttura st
+				order by st.descrizione 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsStruttura.getStrutturaBySogg">
+		<query>
+			<![CDATA[
+				select st 
+				from IsStruttura st, IsSocieta s, IsSocietaSogg ss, IsSoggetto so
+				where UPPER(so.codfisc) = UPPER(:codfis)
+				and so.id = ss.fkIsSoggetto
+				and ss.fkIsSocieta = s.id
+				and s.id = st.fkIsSocieta
+				order by st.descrizione 
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsStruttura.getStrutturaBySoc">
+		<query>
+			<![CDATA[
+				select st 
+				from IsStruttura st
+				where st.fkIsSocieta = :soc
+				order by st.descrizione ASC
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsStruttura.getStrutturaById">
+		<query>
+			<![CDATA[
+				select st 
+				from IsStruttura st
+				where st.id = :id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsStruttura.deleteStrutturaById">
+		<query>
+			<![CDATA[
+				delete from IsStruttura st
+				where st.id = :id
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsClassiStruttura -->
+	<named-query name="IsClassiStruttura.getClasseByStr">
+		<query>
+			<![CDATA[
+				select cs 
+				from IsClassiStruttura cs
+				where cs.id.fkIsStruttura = :id
+				order by cs.descrizione 
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsClassiStruttura.deleteClasseByStr">
+		<query>
+			<![CDATA[
+				delete from IsClassiStruttura cs
+				where cs.id.fkIsStruttura = :str
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsClassiStruttura.deleteClasseByStrCls">
+		<query>
+			<![CDATA[
+				delete from IsClassiStruttura cs
+				where cs.id.fkIsStruttura = :str
+				and cs.id.fkIsClasse =  :cls
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsClasse -->
+	<named-query name="IsClasse.getClassi">
+		<query>
+			<![CDATA[
+				select c 
+				from IsClasse c
+				order by c.codice ASC
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsPeriodo -->
+	<named-query name="IsPeriodo.getPeriodi">
+		<query>
+			<![CDATA[
+				select p 
+				from IsPeriodo p
+				order by p.dataAl DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsPeriodo.getPeriodiNuovaDich">
+		<query>
+			<![CDATA[
+				select p 
+				from IsPeriodo p
+				where sysdate < (p.dataAl + p.ggScadenza)
+				and sysdate > p.dataDal
+				order by p.dataAl DESC
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsDichiarazione -->
+	<named-query name="IsDichiarazione.getDichiarazioneSnapshotBySogg">
+		<query>
+			<![CDATA[
+				select d, ss, p 
+				from IsDichiarazione d, IsStrutturaSnap ss, IsPeriodo p
+				where d.fkIsStrutturaSnap = ss.id
+				and UPPER(ss.codfisc) = UPPER(:codfis)
+				and d.fkIsPeriodo = p.id
+				order by d.fkIsPeriodo desc, ss.descrizioneStrut, ss.descrizioneClasseStrut
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsDichiarazione.getDichiarazioneSnapshotById">
+		<query>
+			<![CDATA[
+				select d, ss, p 
+				from IsDichiarazione d, IsStrutturaSnap ss, IsPeriodo p
+				where d.fkIsStrutturaSnap = ss.id
+				and d.id = :id
+				and d.fkIsPeriodo = p.id
+				order by d.fkIsPeriodo desc, ss.descrizioneStrut, ss.descrizioneClasseStrut
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsDichiarazione.deleteDichiarazioneById">
+		<query>
+			<![CDATA[
+				delete from IsDichiarazione d
+				where d.id = :id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsDichiarazione.getDichiarazionePrecByPeriodoStrClasse">
+		<query>
+			<![CDATA[
+				select d from IsDichiarazione d, IsStrutturaSnap ss
+				where d.fkIsStrutturaSnap = ss.id
+				and ss.fkIsStruttura = :struttura
+				and ss.fkIsClasse = :classe 
+				and d.fkIsPeriodo = 
+					(select p.id from IsPeriodo p where dataDal = 
+						(select max(p2.dataDal) from IsPeriodo p2 where dataAl < 
+							(select p3.dataAl from IsPeriodo p3 where p3.id = :periodo)))
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsDichiarazione.getDichiarazioneByPeriodoStrClasse">
+		<query>
+			<![CDATA[
+				select d from IsDichiarazione d, IsStrutturaSnap ss
+				where d.fkIsStrutturaSnap = ss.id
+				and ss.fkIsStruttura = :struttura
+				and ss.fkIsClasse = :classe 
+				and d.fkIsPeriodo = :periodo
+				order by d.integrativa asc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsDichiarazione.getDichiarazioniByPeriodoDalAl">
+		<query>
+			<![CDATA[
+				select d, ss, p, inc, dov 
+				from IsDichiarazione d, IsStrutturaSnap ss, IsPeriodo p, IsImpostaIncassata inc, IsImpostaDovuta dov
+				where inc.fkIsDichiarazione = d.id
+				and dov.fkIsDichiarazione = d.id
+				and d.fkIsPeriodo = p.id
+				and d.fkIsStrutturaSnap = ss.id
+				and d.fkIsPeriodo in (
+					select p.id from IsPeriodo p where p.dataDal >= (select p2.dataDal from IsPeriodo p2 where p2.id = :dal)
+					and p.dataAl <= (select p3.dataAl from IsPeriodo p3 where p3.id = :al)
+				)
+				order by d.fkIsPeriodo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsDichiarazione.getDichiarazioniByPeriodoDalClasse">
+		<query>
+			<![CDATA[
+				select d 
+				from IsDichiarazione d, IsStrutturaSnap ss
+				where ss.fkIsClasse = :classe 
+				and d.fkIsStrutturaSnap = ss.id
+				and d.fkIsPeriodo in (
+					select p.id from IsPeriodo p where p.dataDal >= (select p2.dataDal from IsPeriodo p2 where p2.id = :periodo)
+				)
+				order by d.fkIsPeriodo
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsStrutturaSnap -->
+	<named-query name="IsStrutturaSnap.deleteStrutturaSnapById">
+		<query>
+			<![CDATA[
+				delete from IsStrutturaSnap ss
+				where ss.id = :id
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsModuloDati -->
+	<named-query name="IsModuloDati.getModuliByPeriodo">
+		<query>
+			<![CDATA[
+				select md 
+				from IsModuloDati md, IsPeriodoModuloDati p
+				where p.id.fkIsPeriodo = :periodo
+				and p.id.fkIsModuloDati = md.id
+				order by md.id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsModuloDati.getVersatoByPeriodo">
+		<query>
+			<![CDATA[
+				select md 
+				from IsModuloDati md, IsPeriodoModuloDati p, IsVersato e
+				where p.id.fkIsPeriodo = :periodo
+				and p.id.fkIsModuloDati = md.id
+				and e.fkIsModuloDati = md.id
+				order by md.id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsModuloDati.getEsenzioniByPeriodo">
+		<query>
+			<![CDATA[
+				select md 
+				from IsModuloDati md, IsPeriodoModuloDati p, IsEsenzione e
+				where p.id.fkIsPeriodo = :periodo
+				and p.id.fkIsModuloDati = md.id
+				and e.fkIsModuloDati = md.id
+				order by md.id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsModuloDati.getRiduzioniByPeriodo">
+		<query>
+			<![CDATA[
+				select md 
+				from IsModuloDati md, IsPeriodoModuloDati p, IsRiduzione e
+				where p.id.fkIsPeriodo = :periodo
+				and p.id.fkIsModuloDati = md.id
+				and e.fkIsModuloDati = md.id
+				order by md.id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsModuloDati.getPagAnticipatiByPeriodo">
+		<query>
+			<![CDATA[
+				select md 
+				from IsModuloDati md, IsPeriodoModuloDati p, IsPagAnticipato e
+				where p.id.fkIsPeriodo = :periodo
+				and p.id.fkIsModuloDati = md.id
+				and e.fkIsModuloDati = md.id
+				order by md.id
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsTabModuloField -->
+	<named-query name="IsTabModuloField.getFieldByModulo">
+		<query>
+			<![CDATA[
+				select mf 
+				from IsModuloDati md, IsTabModuloField mf
+				where md.fkIsTabModulo = mf.fkIsTabModulo
+				and md.id = :modulo
+				order by mf.codice
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsModuloOspiti -->
+	<named-query name="IsModuloOspiti.getOspitiByDichiarazioneModulo">
+		<query>
+			<![CDATA[
+				select mo 
+				from IsModuloOspiti mo
+				where mo.fkIsModuloDati = :modulo
+				and mo.fkIsDichiarazione = :dichiarazione
+				order by mo.id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsModuloOspiti.deleteOspitiByDich">
+		<query>
+			<![CDATA[
+				delete from IsModuloOspiti m
+				where m.fkIsDichiarazione = :dich
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsModuloEventi -->
+	<named-query name="IsModuloEventi.getEventiByDichiarazioneModulo">
+		<query>
+			<![CDATA[
+				select me 
+				from IsModuloEventi me
+				where me.fkIsModuloDati = :modulo
+				and me.fkIsDichiarazione = :dichiarazione
+				order by me.id
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsModuloEventi.deleteEventiByDich">
+		<query>
+			<![CDATA[
+				delete from IsModuloEventi m
+				where m.fkIsDichiarazione = :dich
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsImpostaDovuta -->
+	<named-query name="IsImpostaDovuta.getImpDovutaByDichiarazione">
+		<query>
+			<![CDATA[
+				select imp
+				from IsImpostaDovuta imp
+				where imp.fkIsDichiarazione = :dichiarazione
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsImpostaDovuta.deleteImpDovutaByDichiarazione">
+		<query>
+			<![CDATA[
+				delete from IsImpostaDovuta imp
+				where imp.fkIsDichiarazione = :dichiarazione
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query IsImpostaIncassata -->
+	<named-query name="IsImpostaIncassata.getImpIncassataByDichiarazione">
+		<query>
+			<![CDATA[
+				select imp
+				from IsImpostaIncassata imp
+				where imp.fkIsDichiarazione = :dichiarazione
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsImpostaIncassata.deleteImpIncassataByDichiarazione">
+		<query>
+			<![CDATA[
+				delete from IsImpostaIncassata imp
+				where imp.fkIsDichiarazione = :dichiarazione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsRiduzione.getRiduzioneByFkIsTabModulo">
+		<query>
+			<![CDATA[
+				select r from IsRiduzione r, IsModuloDati md
+				where r.fkIsModuloDati = md.id 
+				and   md.fkIsTabModulo = :fkIsTabModulo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsRifiuto.getListaRifiutiByIdDich">
+		<query>
+			<![CDATA[
+				select r from IsRifiuto r 
+				where r.fkIsDichiarazione = :idDichiarazione
+				order by r.cognome, r.nome, r.dataNasc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsRifiutoGruppo.getListaGruppoByIdRifiuto">
+		<query>
+			<![CDATA[
+				select r from IsRifiutoGruppo r 
+				where r.isRifiuto.id = :idRifiuto
+				order by r.cognome, r.nome
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="IsRifiutoGruppo.deleteGruppoByRifiuto">
+		<query>
+			<![CDATA[
+				delete from IsRifiutoGruppo rg
+				where rg.isRifiuto.id = :idRifiuto
+			]]>
+		</query>
+	</named-query>
+	
+	
+	
+	<named-query name="IsRifiutoGruppo.deleteById">
+		<query>
+			<![CDATA[
+				delete from IsRifiutoGruppo rg
+				where rg.id = :idRifiutoGruppo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsRifiuto.deleteById">
+		<query>
+			<![CDATA[
+				delete from IsRifiuto rg
+				where rg.id = :idRifiuto
+			]]>
+		</query>
+	</named-query>
+	
+	
+	<!-- Query IsConfig -->
+	<named-query name="IsConfig.getConfig">
+		<query>
+			<![CDATA[
+				select c from IsConfig c
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsConfig.getConfigByChiave">
+		<query>
+			<![CDATA[
+				select c from IsConfig c where c.chiave = :chiave
+			]]>
+		</query>
+	</named-query>
+	
+	
+	<named-query name="IsSanzione.getListaByPeriodoStrClasse">
+		<query>
+			<![CDATA[
+				select s from IsSanzione s
+				where s.fkIsStruttura = :struttura
+				and s.fkIsClasse = :classe 
+				and s.fkIsPeriodo = :periodo
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsRimborso.getListaByPeriodoStrClasse">
+		<query>
+			<![CDATA[
+				select s from IsRimborso s
+				where s.fkIsStruttura = :struttura
+				and s.fkIsClasse = :classe 
+				and s.fkIsPeriodo = :periodo
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query IsTariffa -->
+	<named-query name="IsTariffa.getLastTariffaByPeriodoClasse">
+		<query>
+			<![CDATA[
+				select tar
+				from IsPeriodo pTar, IsPeriodo pDich, IsTariffa tar
+				where pTar.id = tar.id.fkIsPeriodoDa 
+				AND pDich.dataAl > pTar.dataDal
+				AND pDich.id = :periodo
+				AND tar.id.fkIsClasse = :classe 
+				order by pTar.dataDal desc
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsTariffa.getTariffaByPeriodoClasse">
+		<query>
+			<![CDATA[
+				select tar
+				from IsTariffa tar
+				where tar.id.fkIsPeriodoDa = :periodo
+				AND tar.id.fkIsClasse = :classe 
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsTariffa.getListaTariffe">
+		<query>
+			<![CDATA[
+				select p, c, tar
+				from IsPeriodo p, IsClasse c, IsTariffa tar
+				where p.id = tar.id.fkIsPeriodoDa 
+				AND c.codice = tar.id.fkIsClasse
+				order by c.descrizione, p.dataDal DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsTariffa.deleteTariffaByPeriodoClasse">
+		<query>
+			<![CDATA[
+				delete from IsTariffa tar
+				where tar.id.fkIsPeriodoDa = :periodo
+				AND tar.id.fkIsClasse = :classe 
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query IsRimborso / IsSanzione -->
+	<named-query name="IsRimborso.deleteRimborsoById">
+		<query>
+			<![CDATA[
+				delete from IsRimborso r
+				where r.id = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="IsSanzione.deleteSanzioneById">
+		<query>
+			<![CDATA[
+				delete from IsSanzione s
+				where s.id = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query Sitidstr -->
+	<named-query name="Sitidstr.getSitidstrByIndirizzo">
+		<query>
+			<![CDATA[
+				select s from Sitidstr s where UPPER(s.nome) = UPPER(:indirizzo)
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Sitidstr.getSitidstrByLikeIndirizzo">
+		<query>
+			<![CDATA[
+				select s from Sitidstr s where UPPER(s.nome) like UPPER(:indirizzo)
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Mav.getVersamentiByCf">
+		<query>
+			<![CDATA[
+				select DISTINCT d.importo, d.importoSpeseComm, d.dataContabile, d.idFlusso, d.progressivo ,
+				s.codiceFiscale, s.segmento2, s.segmento1, 
+				TRIM(s.segmento1||' - '||s.segmento2||' '||s.segmento3||' '||s.segmento4) 
+				from IsPagMavSoggetto s, IsPagMavDisposizione d
+				where s.codiceFiscale = d.codiceDebitore 
+				and s.codiceFiscale = :codFiscale
+				order by s.segmento2, s.segmento1, d.dataContabile DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Mav.getVersamentiByCfPeriodo">
+		<query>
+			<![CDATA[
+				select DISTINCT d.importo, d.importoSpeseComm, d.dataContabile, d.idFlusso, d.progressivo ,
+				s.codiceFiscale, s.segmento2, s.segmento1, 
+				TRIM(s.segmento1||' - '||s.segmento2||' '||s.segmento3||' '||s.segmento4) 
+				from IsPagMavSoggetto s, IsPagMavDisposizione d
+				where s.codiceFiscale = d.codiceDebitore 
+				and s.codiceFiscale = :codFiscale
+				and d.dataContabile >= (SELECT p.dataDal FROM IsPeriodo p WHERE id = :idDa)
+				and d.dataContabile <= (SELECT p.dataAl FROM IsPeriodo p WHERE id = :idA)
+				order by s.segmento2, s.segmento1, d.dataContabile DESC
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Mav.getMotivoVersamento">
+		<query>
+			<![CDATA[
+				select NVL(p.motivo,'') 
+				from IsPagMavPagamento p
+				where p.idFlusso = :idFlusso
+				and p.progressivo = :progressivo
+			]]>
+		</query>
+	</named-query>
+
+</entity-mappings>
+	

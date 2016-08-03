@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+	<h:body>
+      	<p:dataTable id="dtTitoli" var="tit" value="#{dettaglioBeneMan.titoloMan.listaTitoli}" emptyMessage="Titoli non presenti"
+      				rowKey="#{tit}" selection="#{dettaglioBeneMan.titoloMan.selTitolo}" selectionMode="single" paginator="true" rows="5"
+      				paginatorPosition="bottom"
+      				paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+      			<p:ajax event="rowSelect" listener="#{dettaglioBeneMan.titoloMan.onRowTitoloSelect}" update="@parent:pnlTitoloDettaglio"/>
+      			 
+      			 <p:column headerText="Inventario" width="50">
+			        
+			        <h:outputText value="#{tit.titolo.dmBBene.chiave}" />
+			        <p:spacer width="10px;"/>
+	            	<p:graphicImage id="altriBeni" style="cursor:pointer" title="Altri inventari collegati al titolo" 
+	            		                value="/images/invValidated.png" height="18px"  rendered="#{!empty tit.lstBeni}"/>
+						
+						<p:overlayPanel for="altriBeni" styleClass="overlayPanel" appendToBody="false" showEffect="blind" hideEffect="fade" 
+							showEvent="click" hideEvent="mousedown"	at="right bottom" dismissable="true" showCloseIcon="false">
+							<p:dataTable id="dtListaBene"  var="bene" value="#{tit.lstBeni}" rowIndexVar="rowIndex"
+							   style="max-height:300px;font-size:0.9em;overflow: auto; width: 700px;"
+						 		
+								widgetVar="dataTableCasi">
+								<f:facet name="header">Altri Inventari collegati al titolo</f:facet>
+								<p:column headerText="Cod. Inv." width="40"><h:outputText value="#{bene.bene.dmBBeneInv.codInventario}"></h:outputText></p:column>
+							 	<p:column headerText="Cat. Inv." width="100"><h:outputText value="#{bene.bene.dmBBeneInv.desCatInventariale}"></h:outputText></p:column>
+							 	<p:column headerText="Tipo Bene" width="50"><h:outputText value="#{bene.bene.desTipoBene}"></h:outputText></p:column>
+							 	<p:column headerText="Tipo" rendered="false">
+							 		<h:outputText value="#{bene.bene.dmBBeneInv.desTipo}"></h:outputText>
+							 	</p:column>
+							 	<p:column headerText="Diritto Reale" width="80">
+							 		<ui:repeat value="#{bene.dirittiReali}" var="diritto">
+							 			<h:outputText value="#{diritto}"></h:outputText><br/><br/>
+							 		</ui:repeat>
+							 	</p:column>
+							 	<p:column headerText="Descrizione" style="text-align:left;" width="120">
+							 		<h:outputText escape="false" value="#{beneSearchBean.format(bene.bene.descrizione)}"></h:outputText>
+							 	</p:column>
+							 	<p:column headerText="Note" style="text-align:left;" width="120">
+								 	<h:outputText escape="false" value="#{beneSearchBean.format(bene.bene.note)}"></h:outputText>
+							 	</p:column>
+							</p:dataTable>
+					</p:overlayPanel>
+					
+			     </p:column >
+      			 <p:column headerText="Mod. Acquisizione Bene" width="150">
+			        <h:outputText value="#{tit.titolo.tipoAcquisizione}" />
+			     </p:column >
+			     <p:column headerText="Anno Acq." width="40" style="text-align:center;">
+			        <h:outputText value="#{tit.titolo.annoAcquisizione}" />
+			     </p:column>
+			     <p:column headerText="Tipo Diritto Reale" width="150">
+			        <h:outputText value="#{tit.titolo.tipoDirittoReale}" />
+			     </p:column>
+			      <p:column headerText="Strumento Costitutivo" width="150">
+			        <h:outputText value="#{tit.titolo.strumentoCostruttivo}" />
+			     </p:column>
+			      <p:column headerText="Normativa" width="80">
+			        <h:outputText value="#{tit.titolo.normativaUtilizzata}" />
+			     </p:column>
+			     <p:column headerText="n° doc. prop." width="80">
+			        <h:outputText value="#{tit.titolo.docpropNumero}" />
+			     </p:column>
+        </p:dataTable>
+        
+        <p:spacer height="5px;"></p:spacer>
+        <p:panel id="pnlTitoloDettaglio" header="Titolo di Proprietà" rendered="#{not empty dettaglioBeneMan.titoloMan.listaTitoli}">
+        	<p:outputPanel style="border:none" rendered="#{dettaglioBeneMan.titoloMan.selTitolo!=null}">
+				 <h:panelGrid columns="2" cellspacing="5">
+				 	<h:outputLabel value="Modalità di acquisizione del bene" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.tipoAcquisizione}" />
+				 	
+				 	<h:outputLabel value="Tipologia del Diritto reale Acquisto" styleClass="boldStyle" />
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.tipoDirittoReale}" />
+				 	
+				 	<h:outputLabel value="Oggetto" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.titolo.oggetto)}" escape="false" />
+				 	
+				     <h:outputLabel value="Strumento costitutivo del Diritto Reale" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.strumentoCostruttivo}" />
+				 	
+				 	<h:outputLabel value="Annotazioni" styleClass="boldStyle"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.annotazioni}" />
+				 </h:panelGrid>	
+				 
+				 
+				 <p:panel id="pnlDocProp" header="Individuazione Documento Attestante la Proprietà" 
+				 	toggleable="true"  toggleSpeed="500" closeSpeed="500"  >
+ 
+					 <h:panelGrid columns="2" rendered="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.strumentoCostruttivo eq 'ROGITO (Atto Notarile)'}" style="width:100%">
+					
+					    <h:outputLabel value="Notaio" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropOrigine}" />
+					 	
+					 	<h:outputLabel value="N°Rep/Racc." styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropNumero}" />
+					 	
+					 	<h:outputLabel value="Contraenti" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropContraenti)}" escape="false" />
+					 
+					 	<h:outputLabel value="Patti e condizioni" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropPatticond)}" escape="false" />
+					 	
+					 	<h:outputLabel value="Servitù attive" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropServatt)}" escape="false" />
+					 	
+					 	<h:outputLabel value="Servitù passive" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropServpass)}" escape="false" />
+					 
+					 	<h:outputLabel value="Pagamento" styleClass="boldStyle"/>
+					 	<h:outputText value="#{dettaglioBeneMan.format(dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropPagamento)}" escape="false" />
+					 </h:panelGrid>
+					 
+					 <h:panelGrid columns="2" cellspacing="5" rendered="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.strumentoCostruttivo eq 'DECRETO DI ESPROPRIO'}" >
+					   <h:panelGroup>
+					    <h:outputLabel value="Autorità" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropOrigine}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Numero" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropNumero}" />
+					 </h:panelGroup>
+					 </h:panelGrid>
+					 
+					 <h:panelGrid columns="2" cellspacing="5" rendered="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.strumentoCostruttivo eq 'DELIBERA'}" >
+					  <h:panelGroup>
+					    <h:outputLabel value="Organo" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropOrigine}" />
+					  </h:panelGroup>
+					  <h:panelGroup> 	
+					 	<h:outputLabel value="n° delibera/Anno" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropNumero}" />
+					 </h:panelGroup>
+					 </h:panelGrid>
+					 
+					  <h:panelGroup rendered="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.strumentoCostruttivo eq 'ALTRO'}">
+					    <h:outputLabel value="Tipo Documento" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.docpropOrigine}" />
+					 </h:panelGroup>
+					 </p:panel>
+					 
+					 <p:spacer height="10px;"></p:spacer>
+					 <p:panel id="pnlDesTitolo" header="Descrizione Titolo" 
+					 	toggleable="true"  toggleSpeed="500" closeSpeed="500"  collapsed="false">
+					 <h:panelGrid columns="7" style="width:100%">
+					 	<h:panelGroup>
+					   <h:outputLabel value="Data" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titData}" >
+					 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+					 	</h:outputText>
+					   </h:panelGroup>
+					    <h:panelGroup>
+					 	<h:outputLabel value="Reg. agli Atti" styleClass="boldStyle" /><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titRegAtti}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="dell'uff.Reg. di" styleClass="boldStyle" /><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titRegUfficio}" />
+					   </h:panelGroup>
+					   <h:panelGroup>	 	
+					 	<h:outputLabel value="al num." styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titRegNumero}" />
+					 						   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Volume" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titRegVolume}" />
+					  </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Serie" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titRegSerie}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="il" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.titRegData}" >
+					 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+					 	</h:outputText>
+					 </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="Trascritto alla C.R.I. di" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.trascrLocalita}" />
+					 	</h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="in data" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.trascrData}" ><p:spacer width="10px"/>
+					 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+					 	</h:outputText>
+					 	</h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="al n° gen. d'ordine" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.trascrNumordine}" />
+					   </h:panelGroup>
+					   <h:panelGroup>
+					 	<h:outputLabel value="al n° part. di trascrizione" styleClass="boldStyle"/><p:spacer width="10px"/>
+					 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.trascrNum}" />
+					 	</h:panelGroup>
+					 </h:panelGrid>
+				 </p:panel>
+				 
+				 <h:panelGrid columns="2" cellspacing="5" >
+				 	<h:panelGroup>
+				 	<h:outputLabel value="Anno acquisizione" styleClass="boldStyle"/><p:spacer width="10px"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.annoAcquisizione}" />
+				 	</h:panelGroup>
+				    <h:panelGroup>
+				 	<h:outputLabel value="Normativa utilizzata" styleClass="boldStyle" /><p:spacer width="10px"/>
+				 	<h:outputText value="#{dettaglioBeneMan.titoloMan.selTitolo.titolo.normativaUtilizzata}" />
+				 	</h:panelGroup>
+				 </h:panelGrid>	
+				
+			</p:outputPanel>
+			<h:outputText rendered="#{dettaglioBeneMan.titoloMan.selTitolo==null}" value="Selezionare un titolo dalla lista" />
+			
+		</p:panel>
+		
+		       <p:spacer height="10px"/>
+      
+        <p:dataTable id="dtDocs"  var="doc"  value="#{dettaglioBeneMan.titoloMan.listaDocumenti}" 
+                rendered="#{not empty dettaglioBeneMan.titoloMan.listaDocumenti}"
+        		emptyMessage="Nessun documento TITOLO disponibile"
+        	    paginator="true" rows="10" paginatorPosition="bottom">
+      			
+        		 <f:facet name="header">Documenti</f:facet>
+        		 <p:column headerText="Inventario" width="60" style="text-align:center;" >
+			        <h:outputText value="#{doc.dmBBene.chiave}" />
+			     </p:column>
+        		 <p:column headerText="Macro">
+			        <h:outputText value="#{doc.dmConfClassificazione.desMacro}" />
+			     </p:column>
+			      <p:column headerText="Categoria">
+			        <h:outputText value="#{doc.dmConfClassificazione.desCategoria}" />
+			     </p:column>
+			      <p:column headerText="Prog."  style="text-align:center;" width="20">
+			        <h:outputText value="#{doc.progDocumento}" />
+			     </p:column>
+        		 <p:column headerText="Descrizione">
+			        <h:outputText value="#{doc.descrizione!=null ? doc.descrizione : doc.nomeFile}" />
+			     </p:column>
+			      <p:column headerText="Ext" style="text-align:center;" width="20">
+			      	<h:outputText value="#{doc.ext}" />
+			      </p:column>
+			      <p:column headerText="Inizio Val." style="text-align:center;" width="80">
+			        <h:outputText value="#{doc.dataDa}" >
+			        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+			        </h:outputText>
+			     </p:column>
+			      <p:column headerText="Fine Val." style="text-align:center;" width="80">
+			        <h:outputText value="#{doc.dataA}" >
+			        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+			        </h:outputText>
+			     </p:column>
+			      <p:column headerText="Modifica"  style="text-align:center;" width="80">
+			        <h:outputText value="#{doc.dataMod}" rendered="#{doc.dataMod!=doc.dataDa}">
+			        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+			        </h:outputText>
+			     </p:column>
+			     <p:column style="text-align:center;vertical-align:middle;"  width="20">
+			     	<p:commandButton ajax="false" icon="ui-icon-arrowthick-1-s" immediate="true"
+			     					 title="Download" style="height:12px;" actionListener="#{documentiMan.prepareFileStream(doc)}">
+				        <p:fileDownload value="#{documentiMan.selFile}" contentDisposition="attachment" />
+				    </p:commandButton>
+			     </p:column>
+        </p:dataTable>
+      
+        
+		
+	</h:body>
+</html>

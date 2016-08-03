@@ -1,0 +1,272 @@
+ <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	
+	<h:outputText value="Controllo classamento - consistenza, su ultimo DOCFA presentato, non disponibile per la uiu: DOCFA non presenti." rendered="#{!detailBean.loadFabbricato and detailBean.dtoInfoGenerali.listaDocfa==null}"/>
+	<h:outputText value="Controllo classamento - consistenza, su ultimo DOCFA presentato, non disponibile per la uiu: Dati Censuari non presenti nel DOCFA." rendered="#{!detailBean.loadFabbricato and detailBean.dtoVerificheUiu==null}"/>
+	
+	<rich:dataTable width="100%" var="row" value="#{detailBean.dtoVerificheUiu}"
+			id="listVerificheUiu" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			rendered="#{!detailBean.loadFabbricato and detailBean.dtoVerificheUiu!=null}"
+			rows="30">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="20">
+						<h:outputText value="Controllo Classamento - Consistenza, su ultimo DOCFA presentato" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Protocollo" />
+				</f:facet>
+				<h:outputText value="#{row.protocolloDocfa}"/>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Fornitura" />
+				</f:facet>
+				<h:outputText value="#{row.fornitura}">
+					<f:convertDateTime pattern="MMM yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Data Variazione" />
+				</f:facet>
+				<center>
+				<h:outputText value="#{row.dataVariazione}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+				</center>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Data Registraz." />
+				</f:facet>
+				<center>
+				<h:outputText value="#{row.dataRegistrazione}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+				</center>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Zona" />
+				</f:facet>
+				<h:outputText value="#{row.zona}"/>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Superf." />
+				</f:facet>
+				<h:outputText value="#{row.superficie}">
+				<f:convertNumber groupingUsed="true" minFractionDigits="2" type="number"></f:convertNumber>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Cat." />
+				</f:facet>
+				<h:outputText value="#{row.categoria}"/>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Classe" />
+				</f:facet>
+				<h:outputText value="#{row.classe}"  style="color:#{row.classeRif};">
+					<!-- <f:convertNumber pattern="#0"/>  -->
+				</h:outputText>
+				<h:outputText value=" (" rendered="#{row.mostraClasseMaggiormenteFrequente}"/>
+               	<h:outputText value="#{row.classeMin}" rendered="#{row.mostraClasseMaggiormenteFrequente}">
+					<f:convertNumber pattern="#0"/>
+				</h:outputText>
+				<h:outputText value=") " rendered="#{row.mostraClasseMaggiormenteFrequente}"/>
+			</rich:column>
+			<rich:column width="100px">
+				<f:facet name="header">
+					<h:outputText value="Consistenza" />
+				</f:facet>
+			    <h:outputText value="#{row.consistenza}" style="color:#{row.colore}" >
+       	        		<f:convertNumber groupingUsed="true" minFractionDigits="2" type="number"></f:convertNumber>
+				</h:outputText>
+					
+               	<h:outputText value=" (" rendered="#{ (row.superfMediaMax > 0) }"/>
+               	<h:outputText value="#{row.superfMediaMin}" rendered="#{ (row.superfMediaMax > 0) and (row.superfMediaMax != 0.85) }">
+					<f:convertNumber groupingUsed="true" minFractionDigits="2" type="number"></f:convertNumber>
+				</h:outputText>
+				                
+               	<h:outputText value=" - " rendered="#{ (row.superfMediaMax > 0) and (row.superfMediaMax != 0.85)}"/>
+               	<h:outputText value="#{row.consisAnomalia}" rendered="#{ (row.superfMediaMax == 0.85) and (row.consisAnomalia > 0) }">
+               		<f:convertNumber pattern="#0,00"/>
+               	</h:outputText>
+				                
+               	<h:outputText value="#{row.superfMediaMax}" rendered="#{ (row.superfMediaMax > 0) and (row.superfMediaMax != 0.85) }">
+					<f:convertNumber groupingUsed="true" minFractionDigits="2" type="number"></f:convertNumber>
+				</h:outputText>
+               	<h:outputText value=") " rendered="#{ (row.superfMediaMax > 0) }"/>
+			                
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Rendita" />
+				</f:facet>
+				<h:outputText value="#{row.rendita}">
+				<f:convertNumber currencySymbol="&euro;" groupingUsed="true" minFractionDigits="2" type="currency"></f:convertNumber>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="60px">
+				<f:facet name="header">
+					<h:outputText value="Rendita x 100 (A)" /> 
+				</f:facet>
+				<h:outputText value="#{row.renditaX100}">
+				<f:convertNumber currencySymbol="&euro;" groupingUsed="true" minFractionDigits="2" type="currency"></f:convertNumber>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="60px">
+				<f:facet name="header">
+					<h:outputText value="Rendita x 105 (B)" />
+				</f:facet>
+				<h:outputText value="#{row.renditaX105}">
+				<f:convertNumber currencySymbol="&euro;" groupingUsed="true" minFractionDigits="2" type="currency"></f:convertNumber>
+				</h:outputText>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Val.Commerciale (C)" />
+				</f:facet>
+				<h:outputText value="#{row.valoreCommerciale}">
+				<f:convertNumber currencySymbol="&euro;" groupingUsed="true" minFractionDigits="2" type="currency"></f:convertNumber>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="C\A" />
+				</f:facet>
+				<h:outputText value="#{row.valComSuRen100}" style="color:#{(row.valComSuRen100 > row.rapporto)?'red':'black'};" rendered="#{row.classamentoCompatibile}">
+					<f:convertNumber type="number" pattern="#0.00"/>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="C\B" />
+				</f:facet>
+				<h:outputText value="#{row.valComSuRen105}" style="color:#{(row.valComSuRen105 > row.rapporto)?'red':'black'};" rendered="#{row.classamentoCompatibile}">
+					<f:convertNumber type="number" pattern="#0.00"/>
+				</h:outputText>
+			</rich:column>
+			<rich:column width="40px">
+				<f:facet name="header">
+					<h:outputText value="Class.Compatibile" />
+				</f:facet>
+		
+				<center><h:graphicImage title="Classamento Compatibile" 
+					value="/images/calculator.gif" id="imgRun" 
+					rendered="#{row.classamentoCompatibile and !row.erroreZoneOmi}"
+					style="cursor: pointer;">
+					<a4j:support event="onclick" reRender="classamentoPage"
+						oncomplete="Richfaces.showModalPanel('classamentoModalBox'); return false;"
+						action="#{detailBean.showClassamentoDefault}" >
+						<a4j:actionparam name="pgClassCom" value="/jsp/protected/search/detail/verificheControlli/classamento.xhtml"
+							 assignTo="#{pageUiBean.pageClassamento}" />
+						 <f:setPropertyActionListener value="#{row}" target="#{detailBean.selClaCom}" />
+				     </a4j:support>
+			</h:graphicImage></center>
+			
+			<center><h:graphicImage title="Visualizza il classamento compatibile per le altre zone associate al foglio #{row.foglio}" 
+					value="/images/calculator.gif" id="showZcClassamento" 
+					rendered="#{row.classamentoCompatibile and row.erroreZoneOmi}"
+					style="cursor: pointer;">
+					<a4j:support event="onclick" reRender="classamentoZcPage"
+						oncomplete="Richfaces.showModalPanel('classamentoZcModalBox'); return false;"
+						>
+						<a4j:actionparam name="pgClassComZc" value="/jsp/protected/search/detail/verificheControlli/classamentoZc.xhtml"
+							 assignTo="#{pageUiBean.pageClassamentoZc}" />
+					    <f:setPropertyActionListener value="#{row.lstPerZcDiverse}" target="#{detailBean.selLstClaZcDiverse}" />
+				     </a4j:support>
+				    
+			</h:graphicImage></center>
+			<h:outputText value="#{row.msgZoneOmi}" style="color:red;" rendered="#{row.classamentoCompatibile and row.erroreZoneOmi}"/>
+			
+			<h:outputText rendered="#{!row.classamentoCompatibile}"  value="Nessun Classamento Compatibile" />
+			
+			</rich:column>
+	</rich:dataTable>
+	<rich:spacer height="5px" />
+	<rich:panel rendered="#{!detailBean.loadFabbricato and detailBean.dtoVerificheUiu!=null}">
+		<h:outputLabel value="LEGENDA SEGNALAZIONE SITUAZIONE ANOMALE" />
+		<h:panelGrid columns="1" cellspacing="5" width="100%" >
+			<h:outputText value="La classe viene segnalata anomala (evidenziandola in rosso) quando &#xe8; inferiore alla classe minima prevista, in relazione alla zona e alla categoria catastale (per la C06 l'anomalia viene segnalata considerando la classe minima diminuita di 3)" />
+			<h:outputText value="La consistenza viene segnalata anomala (evidenziandola in rosso) quando il numero di vani dichiarati non &#xe8; compreso fra il 95% ed il 105% del valore ottenuto dal rapporto fra la superficie catastale e il valore medio della superficie per vano (I valori medi della superficie per vano dipendono dalla categoria catatale: A1, A8 -->> mq.24; A2, A4, A5, A7 -->>  mq.19; A3 -->> 18)" />
+			<h:outputText value="C/A: rapporto fra il valore commerciale e la rendita. Per le categoria Ann, ad esclusione della A10, vengono considerate anomale le situazioni in cui tale rapporto supera il coefficiente indicato dall'Agenzia del Territorio come il rapporto tra il valore medio commerciale e il valore medio catastale, nel Comune (qui: 2,38)" />
+		</h:panelGrid>
+	</rich:panel>
+	
+	
+	<rich:dataTable width="100%" var="row" value="#{detailBean.lstDtoVerifichePart}"
+		id="listVerifichePart" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+		rendered="#{detailBean.loadFabbricato}"
+		rows="30">
+		<f:facet name="header">
+			<rich:columnGroup>
+				<rich:column colspan="20">
+					<h:outputText value="Presenza della Particella nelle Banche Dati" />
+				</rich:column>
+			</rich:columnGroup>
+		</f:facet>
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Archivio" />
+			</f:facet>
+			<h:outputText value="#{row.archivio}" />
+		</rich:column>
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Presenza alla Particella" />
+			</f:facet>
+			<center>
+			    <h:outputText rendered="#{row.flgPresParticella==null}" value="Dato non elaborato" />
+				<h:graphicImage value="/images/passed.gif" id="img4part"
+					rendered="#{row.flgPresParticella!=null and row.flgPresParticella}">
+					<rich:toolTip direction="top-left" mode="client" layout="inline"
+						value="Presente" />
+				</h:graphicImage>
+				<h:graphicImage value="/images/error.gif" id="img5part"
+					rendered="#{row.flgPresParticella!=null and !row.flgPresParticella}">
+					<rich:toolTip direction="top-left" mode="client" layout="inline"
+						value="Assente" />
+				</h:graphicImage>
+			</center>
+		</rich:column>
+		<rich:column >
+			<f:facet name="header">
+				<h:outputText value="Presenza al Civico" />
+			</f:facet>
+			<center>
+				<h:outputText rendered="#{row.flgPresCivico==null}" value="Dato non elaborato" />
+				<h:graphicImage value="/images/passed.gif" id="img4civ"
+					rendered="#{row.flgPresCivico!=null and row.flgPresCivico}">
+					<rich:toolTip direction="top-left" mode="client" layout="inline"
+						value="Presente" />
+				</h:graphicImage>
+				<h:graphicImage value="/images/error.gif" id="img5civ"
+					rendered="#{row.flgPresCivico!=null and !row.flgPresCivico}">
+					<rich:toolTip direction="top-left" mode="client" layout="inline"
+						value="Assente" />
+				</h:graphicImage>
+			</center>
+		</rich:column>
+	</rich:dataTable>
+	
+</html>
+
+
+		

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.DestinazioneFunzionaleBean" table="SITIDECO_CATALOG"  >
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-property column="CODUT" name="codut" type="java.lang.String"/>
+  </composite-id>
+  <property column="DESCRIZIONE" generated="never" lazy="false"
+   name="descrizione" type="java.lang.String"/>
+  <property column="ID_CAT" generated="never" lazy="false" name="id_cat" type="java.lang.Long"/>
+ </class>
+ <query name="getListaDestinazioniFunzionali">from DestinazioneFunzionaleBean as DF where DF.id_cat = '1'</query>
+</hibernate-mapping>

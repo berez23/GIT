@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jboss-web>
+  <security-domain>java:/jaas/CeTSecurityDomain</security-domain>
+  <context-root>GitLand</context-root>
+  <!-- <context-root>diogene</context-root>  -->
+</jboss-web>

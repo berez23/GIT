@@ -1,0 +1,1620 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app>
+	<servlet>
+		<servlet-name>DbMAPgetPrj</servlet-name>
+		<description>DbMAPgetPrj</description>
+		<jsp-file>/DbMAPgetPrj.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>DbMAPsetPrj</servlet-name>
+		<description>DbMAPsetPrj</description>
+		<jsp-file>/DbMAPsetPrj.jsp</jsp-file>
+	</servlet>
+	<servlet>
+		<servlet-name>[pg]DbMAP</servlet-name>
+		<description>DbMAP Runtime servlet</description>
+		<servlet-class>DbMAP.sitservlet</servlet-class>
+		<init-param>
+			<param-name>spatialDatabaseType</param-name>
+			<param-value>POSTGIS</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowShapefiles</param-name>
+			<param-value>Y</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionUsername</param-name>
+			<param-value>postgres</param-value>
+		</init-param>
+		<init-param>
+			<param-name>tiffPath</param-name>
+			<param-value>c:\DbMAP_data\tiff\</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowUpdates</param-name>
+			<param-value>Y</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowExecute</param-name>
+			<param-value>N</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionDriver</param-name>
+			<param-value>org.postgresql.Driver</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dwgPath</param-name>
+			<param-value>c:\DbMAP_data\dwg\</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jpgQuality</param-name>
+			<param-value>0.5</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionPassword</param-name>
+			<param-value>postgres</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ecwPath</param-name>
+			<param-value>c:\DbMAP_data\ecw\</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionURL</param-name>
+			<param-value>jdbc:postgresql://localhost:5432/dbmap</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+		<servlet-name>[pg]DbMAP_CAT</servlet-name>
+		<description>DbMAP Database Catalog</description>
+		<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+		<init-param>
+			<param-name>ConnectionUsername</param-name>
+			<param-value>postgres</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionPassword</param-name>
+			<param-value>postgres</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionURL</param-name>
+			<param-value>jdbc:postgresql://localhost:5432/dbmap</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionDriver</param-name>
+			<param-value>org.postgresql.Driver</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+		<servlet-name>[pg]DbMAPinfo</servlet-name>
+		<description>DbMAP Info page</description>
+		<jsp-file>/DbMAPinfo.jsp</jsp-file>
+		<init-param>
+			<param-name>ConnectionUsername</param-name>
+			<param-value>postgres</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionPassword</param-name>
+			<param-value>postgres</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionURL</param-name>
+			<param-value>jdbc:postgresql://localhost:5432/dbmap</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionDriver</param-name>
+			<param-value>org.postgresql.Driver</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+		<servlet-name>[po]DbMAP</servlet-name>
+		<description>DbMAP Runtime servlet</description>
+		<servlet-class>DbMAP.sitservlet</servlet-class>
+		<init-param>
+			<param-name>spatialDatabaseType</param-name>
+			<param-value>ORACLE_SPATIAL</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowShapefiles</param-name>
+			<param-value>Y</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionUsername</param-name>
+			<param-value>DBMAP</param-value>
+		</init-param>
+		<init-param>
+			<param-name>tiffPath</param-name>
+			<param-value>c:\DbMAP_data\tiff\</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowUpdates</param-name>
+			<param-value>Y</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowExecute</param-name>
+			<param-value>N</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionDriver</param-name>
+			<param-value>oracle.jdbc.OracleDriver</param-value>
+		</init-param>
+		<init-param>
+			<param-name>dwgPath</param-name>
+			<param-value>c:\DbMAP_data\dwg\</param-value>
+		</init-param>
+		<init-param>
+			<param-name>jpgQuality</param-name>
+			<param-value>0.9</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionPassword</param-name>
+			<param-value>dbmap</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ecwPath</param-name>
+			<param-value>c:\DbMAP_data\ecw\</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionURL</param-name>
+			<param-value>jdbc:oracle:thin:@127.0.0.1:1521:ORCL</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+		<servlet-name>[po]DbMAP_CAT</servlet-name>
+		<description>DbMAP Database Catalog</description>
+		<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+		<init-param>
+			<param-name>ConnectionUsername</param-name>
+			<param-value>DBMAP</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionPassword</param-name>
+			<param-value>dbmap</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionURL</param-name>
+			<param-value>jdbc:oracle:thin:@127.0.0.1:1521:ORCL</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionDriver</param-name>
+			<param-value>oracle.jdbc.OracleDriver</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+		<servlet-name>[po]DbMAPinfo</servlet-name>
+		<description>DbMAP Info page</description>
+		<jsp-file>/DbMAPinfo.jsp</jsp-file>
+		<init-param>
+			<param-name>ConnectionUsername</param-name>
+			<param-value>DBMAP</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionPassword</param-name>
+			<param-value>dbmap</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionURL</param-name>
+			<param-value>jdbc:oracle:thin:@127.0.0.1:1521:ORCL</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ConnectionDriver</param-name>
+			<param-value>oracle.jdbc.OracleDriver</param-value>
+		</init-param>
+	</servlet>
+	<servlet>
+<servlet-name>[dev]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>sitidev</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.9</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>sitidev</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:rapanui</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[dev]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>sitidev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>sitidev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:rapanui</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[dev]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>sitidev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>sitidev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:rapanui</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[diogenedev]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogenedev</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>c:\SITI_APP\raster\mappe</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>c:\SITI_APP\raster\mappe</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogenedev</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>c:\SITI_APP\raster\ecw\042001</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:rapanui</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[diogenedev]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogenedev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogenedev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:rapanui</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[diogenedev]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogenedev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogenedev</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:rapanui</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[diogene]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[diogene]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[diogene]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[viewpro-spoleto]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>catco_mw</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://80.17.46.49/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>catco_mw</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>c:\foto\061997\</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@catdb01:1521:dbcatasp</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[viewpro-spoleto]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>catco_mw</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>catco_mw</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@catdb01:1521:dbcatasp</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[viewpro-spoleto]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>catco_mw</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>catco_mw</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@catdb01:1521:dbcatasp</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[viewpro-milano]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DBTOTALEMI</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DBTOTALEMI</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:RAPANUI</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[viewpro-milano]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DBTOTALEMI</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DBTOTALEMI</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:RAPANUI</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[viewpro-milano]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DBTOTALEMI</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DBTOTALEMI</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.16.2.68:1521:RAPANUI</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[oristano]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene_g113</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene_g113</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value/>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[oristano]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene_g113</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene_g113</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[oristano]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene_g113</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene_g113</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[F205]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>allowedUrl0</param-name>
+<param-value>http://geo.umbriaterritorio.it/arcgis/</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[F205]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[F205]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@praga:1521:praga</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>diogene</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[F704]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>allowedUrl0</param-name>
+<param-value>http://geo.umbriaterritorio.it/arcgis/</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_F704</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@londra:1521:orcl</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_F704</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[F704]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_F704</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@londra:1521:orcl</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_F704</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[F704]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_F704</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@londra:1521:orcl</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_F704</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[A439]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>allowedUrl0</param-name>
+<param-value>http://geo.umbriaterritorio.it/arcgis/</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>allowCustomSelects</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseDescription</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_A439</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_A439</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefilesImport</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>uploadTempPath</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>allowPocket</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[A439]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_A439</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_A439</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[A439]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>allowCustomSelects</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_A439</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_A439</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[G148]DbMAP</servlet-name>
+<description>DbMAP Runtime servlet</description>
+<servlet-class>DbMAP.sitservlet</servlet-class>
+<init-param>
+<param-name>allowedUrl0</param-name>
+<param-value>http://geo.umbriaterritorio.it/arcgis/</param-value>
+</init-param>
+<init-param>
+<param-name>RmiEcwUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ecwPath</param-name>
+<param-value>C:\SITI_APP\raster\ecw\042001\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefiles</param-name>
+<param-value>Y</param-value>
+</init-param>
+<init-param>
+<param-name>allowCustomSelects</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>allowUpdates</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseDescription</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jjdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>jpgQuality</param-name>
+<param-value>0.5</param-value>
+</init-param>
+<init-param>
+<param-name>RmiTifUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>spatialDatabaseType</param-name>
+<param-value>ORACLE_SPATIAL</param-value>
+</init-param>
+<init-param>
+<param-name>dwgPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+<init-param>
+<param-name>allowShapefilesImport</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ecwBackColor</param-name>
+<param-value>0 0 0</param-value>
+</init-param>
+<init-param>
+<param-name>RmiDwgUrl</param-name>
+<param-value>rmi://172.16.2.69/sitEcwDwgRmi</param-value>
+</init-param>
+<init-param>
+<param-name>allowExecute</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>uploadTempPath</param-name>
+<param-value/>
+</init-param>
+<init-param>
+<param-name>allowPocket</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>tiffPath</param-name>
+<param-value>C:\SITI_APP\raster\mappe\</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[G148]DbMAP_CAT</servlet-name>
+<description>DbMAP Database Catalog</description>
+<servlet-class>database_reporter.database_reporter_servlet</servlet-class>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jjdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[G148]DbMAPinfo</servlet-name>
+<description>DbMAP Info page</description>
+<jsp-file>/DbMAPinfo.jsp</jsp-file>
+<init-param>
+<param-name>allowCustomSelects</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jjdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+<servlet-name>[G148]DbMAPinfoExt</servlet-name>
+<description>DbMAP InfoExt page</description>
+<jsp-file>/DbMAPinfoExt.jsp</jsp-file>
+<init-param>
+<param-name>allowCustomSelects</param-name>
+<param-value>N</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionPassword</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionURL</param-name>
+<param-value>jjdbc:oracle:thin:@172.24.0.36:1521:git</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionUsername</param-name>
+<param-value>DIOGENE_G148</param-value>
+</init-param>
+<init-param>
+<param-name>ConnectionDriver</param-name>
+<param-value>oracle.jdbc.OracleDriver</param-value>
+</init-param>
+</servlet>
+<servlet>
+		<servlet-name>managementservlet</servlet-name>
+		<servlet-class>DbMAP.management.ManagementServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+<servlet-name>[dev]DbMAP</servlet-name>
+<url-pattern>/dev/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/dev/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/dev/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[dev]DbMAP_CAT</servlet-name>
+<url-pattern>/dev/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[dev]DbMAPinfo</servlet-name>
+<url-pattern>/dev/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[diogenedev]DbMAP</servlet-name>
+<url-pattern>/diogenedev/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/diogenedev/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/diogenedev/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[diogenedev]DbMAP_CAT</servlet-name>
+<url-pattern>/diogenedev/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[diogenedev]DbMAPinfo</servlet-name>
+<url-pattern>/diogenedev/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[diogene]DbMAP</servlet-name>
+<url-pattern>/diogene/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/viewpro/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/viewpro/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[diogene]DbMAP_CAT</servlet-name>
+<url-pattern>/diogene/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[diogene]DbMAPinfo</servlet-name>
+<url-pattern>/diogene/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[viewpro-spoleto]DbMAP</servlet-name>
+<url-pattern>/viewpro/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/viewpro-spoleto/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/viewpro-spoleto/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[viewpro-spoleto]DbMAP_CAT</servlet-name>
+<url-pattern>/viewpro/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[viewpro-spoleto]DbMAPinfo</servlet-name>
+<url-pattern>/viewpro/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[viewpro-milano]DbMAP</servlet-name>
+<url-pattern>/viewpro-milano/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/viewpro-milano/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/viewpro-milano/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[viewpro-milano]DbMAP_CAT</servlet-name>
+<url-pattern>/viewpro-milano/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[viewpro-milano]DbMAPinfo</servlet-name>
+<url-pattern>/viewpro-milano/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/diogene/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/diogene/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[oristano]DbMAP</servlet-name>
+<url-pattern>/oristano/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/oristano/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/oristano/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[oristano]DbMAP_CAT</servlet-name>
+<url-pattern>/oristano/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[oristano]DbMAPinfo</servlet-name>
+<url-pattern>/oristano/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[F205]DbMAP</servlet-name>
+<url-pattern>/F205/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/F205/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/F205/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[F205]DbMAP_CAT</servlet-name>
+<url-pattern>/F205/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[F205]DbMAPinfo</servlet-name>
+<url-pattern>/F205/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[F704]DbMAP</servlet-name>
+<url-pattern>/F704/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/F704/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/F704/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[F704]DbMAP_CAT</servlet-name>
+<url-pattern>/F704/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[F704]DbMAPinfo</servlet-name>
+<url-pattern>/F704/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[A439]DbMAP</servlet-name>
+<url-pattern>/A439/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/A439/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/A439/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[A439]DbMAP_CAT</servlet-name>
+<url-pattern>/A439/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[A439]DbMAPinfo</servlet-name>
+<url-pattern>/A439/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[G148]DbMAP</servlet-name>
+<url-pattern>/G148/DbMAPservlet</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPgetPrj</servlet-name>
+<url-pattern>/G148/DbMAPgetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>DbMAPsetPrj</servlet-name>
+<url-pattern>/G148/DbMAPsetPrj.jsp</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[G148]DbMAP_CAT</servlet-name>
+<url-pattern>/G148/DbMAPservletCAT</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[G148]DbMAPinfo</servlet-name>
+<url-pattern>/G148/DbMAPinfo</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+<servlet-name>[G148]DbMAPinfoExt</servlet-name>
+<url-pattern>/G148/DbMAPinfoExt</url-pattern>
+</servlet-mapping>
+<servlet-mapping>
+		<servlet-name>managementservlet</servlet-name>
+		<url-pattern>/admin/DbMAPManagement</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DbMAPgetPrj</servlet-name>
+		<url-pattern>/pg/DbMAPgetPrj.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>[pg]DbMAPinfo</servlet-name>
+		<url-pattern>/pg/DbMAPinfo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>[pg]DbMAP</servlet-name>
+		<url-pattern>/pg/DbMAPservlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>[pg]DbMAP_CAT</servlet-name>
+		<url-pattern>/pg/DbMAPservletCAT</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DbMAPsetPrj</servlet-name>
+		<url-pattern>/pg/DbMAPsetPrj.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DbMAPgetPrj</servlet-name>
+		<url-pattern>/po/DbMAPgetPrj.jsp</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>[po]DbMAPinfo</servlet-name>
+		<url-pattern>/po/DbMAPinfo</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>[po]DbMAP</servlet-name>
+		<url-pattern>/po/DbMAPservlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>[po]DbMAP_CAT</servlet-name>
+		<url-pattern>/po/DbMAPservletCAT</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>DbMAPsetPrj</servlet-name>
+		<url-pattern>/po/DbMAPsetPrj.jsp</url-pattern>
+	</servlet-mapping>
+</web-app>

@@ -1,0 +1,17 @@
+[PropertyInfo]
+geometryField,String,false,false,geometryField,geometryField,true,<default>
+identField,String,false,false,identField,identField,true,<default>
+layerName,String,false,false,layerName,layerName,true,<default>
+layerServletUrl,String,false,false,layerServletUrl,layerServletUrl,true,<default>
+rgb,String,false,false,rgb,rgb,true,<default>
+scaleMax,String,false,false,scaleMax,scaleMax,true,<default>
+scaleMin,String,false,false,scaleMin,scaleMin,true,<default>
+shapeType,String,false,false,shapeType,shapeType,true,<default>
+tableName,String,false,false,tableName,tableName,true,<default>
+whereCondition,String,false,false,whereCondition,whereCondition,true,<default>
+customType,String,false,false,customType,customType,true,<default>
+[IconNames]
+
+
+
+

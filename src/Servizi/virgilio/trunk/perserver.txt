@@ -1,0 +1,27 @@
+
+TOMCAT 5
+
+	<Context docBase="virgilio" path="/virgilio" reloadable="true" source="org.eclipse.jst.j2ee.server:virgilio">
+	<Logger debug="0" checkInterval="1000" verbosity="0" className="org.apache.catalina.logger.FileLogger" prefix="mui." suffix=".log" timestamp="true"/>
+		<Resource name="jdbc/mui" type="javax.sql.DataSource"
+			driverClassName="oracle.jdbc.driver.OracleDriver" password="VIRGILIO"
+			maxIdle="2" maxWait="5000" validationQuery="select 1 from dual"
+			username="VIRGILIO" url="jdbc:oracle:thin:@praga:1521:praga"
+			maxActive="25" />
+	</Context>
+
+TOMCAT 6
+il Context va su web.xml, mentre Resource va sul file context.xml
+ 
+su server.xml:
+	<Context docBase="virgilio" path="/virgilio" reloadable="true" source="org.eclipse.jst.j2ee.server:virgilio">
+		<Logger debug="0" checkInterval="1000" verbosity="0" className="org.apache.catalina.logger.FileLogger" prefix="mui." suffix=".log" timestamp="true"/>
+	</Context>
+
+su context.xml :
+		<Resource name="jdbc/mui" type="javax.sql.DataSource"
+			driverClassName="oracle.jdbc.driver.OracleDriver" password="VIRGILIO"
+			maxIdle="2" maxWait="5000" validationQuery="select 1 from dual"
+			username="VIRGILIO" url="jdbc:oracle:thin:@praga:1521:praga"
+			maxActive="25" />
+	

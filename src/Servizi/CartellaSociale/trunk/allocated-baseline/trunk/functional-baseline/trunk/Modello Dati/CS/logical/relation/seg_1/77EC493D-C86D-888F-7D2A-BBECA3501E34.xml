@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_DATISOC_PROBLEMATICA" id="77EC493D-C86D-888F-7D2A-BBECA3501E34" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>587C2B26-C95D-25B4-87C1-017AEFBF2EA6</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>CE50839D-D020-F122-055A-3DBF25A353C8</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>F6CDE417-746D-A5A8-0CF5-AA270A3C6D38</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

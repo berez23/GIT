@@ -1,0 +1,117 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred"
+	xmlns:webredcs="http://java.sun.com/jsf/composite/webredcs">
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+		  <h:form id="frmCaricaDati">
+			 <p:panel id="caricatorePanel" styleClass="panel" header="Caricatore" >
+				<p:layout id="layCarica" styleClass="layout">
+				    <p:layoutUnit position="center" styleClass="layoutUnit" resizable="true" minSize="50" >
+				        <p:tabView id="tvCaricamento">
+ 				        
+				        <p:tab title="Dati"> 
+				        
+				        <p:accordionPanel id="accDati" styleClass="flussoAccordion" value="#{gestoreFlussoBean.listaInfo}" var="infoProv" 
+				        				  activeIndex="#{gestoreFlussoBean.activeIndex}" dynamic="true" cache="true">
+						<p:tab title="Provenienza: #{infoProv.provenienza}" >
+				        
+				        	<p:dataTable id="dtDati" var="info" value="#{infoProv.lstInfo}" style="width:80%">
+				        		 <p:column headerText="Informazione">
+							        <h:outputText value="#{info.descrizione}" />
+							     </p:column>
+							      <p:column headerText="Tipo Bene">
+							        <h:outputText value="#{info.tipoBene eq 'I' ? 'Immobile' : 'Fabbricato'}" />
+							     </p:column>
+							      <p:column headerText="Tabella">
+							        <h:outputText value="#{info.tabella}" />
+							     </p:column>
+							      <p:column headerText="Mod.Caricamento">
+							        <h:outputText value="#{info.tipoCaricamento}" />
+							     </p:column>
+							      <p:column headerText="Ultimo Aggiornamento" style="width:150px">
+							        <h:outputText value="#{info.dtElab}" >
+							        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss " timeZone="CET" timeStyle="full"/>
+							        </h:outputText>
+							     </p:column>
+							      <p:column headerText="Record attuali">
+							        <h:outputText value="#{info.numAttivi}" />
+							     </p:column>
+  								 <p:column headerText="Record da elaborare: nuovi">
+							        <h:outputText value="#{info.numNuovi}" />
+							     </p:column>
+							     <p:column headerText="Record da elaborare: rimossi">
+							        <h:outputText value="#{info.numRimossi}" />
+							     </p:column>
+							     <p:column headerText="Record da elaborare: modificati">
+							        <h:outputText value="#{info.numModificati}" />
+							     </p:column>
+							     <f:facet name="footer">
+							      	<p:commandButton id="btnDati" value="Aggiorna"  action="#{gestoreFlussoBean.caricaAggiornamento(infoProv.provenienza)}" update=":frmCaricaDati:tvCaricamento:accDati"
+				            	  		disabled="#{!infoProv.aggiornamentiDisponibili}">
+				             		</p:commandButton>
+				             		<p:commandButton id="btnSvuota" value="Svuota Fonte"  action="#{gestoreFlussoBean.svuotaFonte(infoProv.provenienza)}" update=":frmCaricaDati:tvCaricamento:accDati"/>
+							     </f:facet>
+				        	</p:dataTable>
+					        
+						</p:tab></p:accordionPanel>
+						</p:tab>
+						
+						<p:tab title="Documenti"> 
+							<p:spacer height="5px;"/>
+				        	<p:dataTable id="dtDocumenti" var="info" value="#{gestoreFlussoBean.listaInfoDocs}" emptyMessage="Caricamento documenti non configurato">
+				        		 <p:column headerText="Informazione">
+							        <h:outputText value="#{info.configurazione.descrizione}" />
+							     </p:column>
+							     <p:column headerText="Cartella">
+							        <h:outputText value="#{info.configurazione.percorso}" />
+							     </p:column>
+							      <p:column headerText="Data Elaborazione" style="width:200px">
+							       
+							        <p:graphicImage id="alertCar" style="cursor:pointer" value="/images/warning.png" height="13px"  rendered="#{info.log.txtLog!=null}"
+							     					title="Elaborazione conclusa con avvertimenti! Cliccare per visualizzare il log di elaborazione."/>
+									
+									<p:overlayPanel for="alertCar" styleClass="overlayPanel" appendToBody="true" showEffect="blind" hideEffect="fade"
+																showEvent="click" hideEvent="mousedown"	at="left bottom" dismissable="true" showCloseIcon="false">
+										<p:outputLabel escape="false" value="#{gestoreFlussoBean.format(info.log.txtLog)}"></p:outputLabel>
+									</p:overlayPanel>
+									<p:spacer width="10px"/>
+									<h:outputText value="#{info.log.id.dtElab}" >
+							        <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss " timeZone="CET" timeStyle="full"/>
+							        </h:outputText>
+							     </p:column>
+							     <p:column headerText="Nuovi" style="width:80px;text-align:center;">
+							        <h:outputText value="#{info.log.nNuovi}" />
+							     </p:column>
+							     <p:column headerText="Rimossi" style="width:80px;text-align:center;">
+							        <h:outputText value="#{info.log.nRimossi}" />
+							     </p:column>
+							     <p:column headerText="Tot. Elaborati" style="width:100px;text-align:center;">
+							        <h:outputText value="#{info.log.nElaborati}" />
+							     </p:column>
+							     <p:column style="width:80px" id="colCaricaDoc">
+							      	<p:commandButton id="btnCmdCaricaDoc" value="Carica"   
+							      	action="#{gestoreFlussoBean.caricaDocumenti(info.configurazione)}" update="dtDocumenti">
+				             		</p:commandButton>
+							     </p:column>
+							     
+							     <f:facet name="footer">
+							      	<p:commandButton value="Carica tutti"  action="#{gestoreFlussoBean.caricaDocumenti(null)}" update="dtDocumenti" />
+							     </f:facet>
+				        	</p:dataTable>
+				        	
+				        </p:tab>
+						
+						</p:tabView>
+				    </p:layoutUnit>
+				</p:layout>
+   			</p:panel>
+   			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

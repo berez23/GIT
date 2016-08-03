@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmInfo">
+			<p:panel header="Visualizza Dettaglio">
+	
+			<p:tabView effect="fade" effectDuration="fast">
+				<p:ajax event="tabChange" listener="#{ricercheBean.onChangeTab}" />
+				
+				<p:tab title="Informazioni del Lotto" >
+				<p:panel id="pnlLottoInfo" header="Informazioni del Lotto">
+				<p:panelGrid styleClass="panelGrid" columns="6" style="width:auto;" cellpadding="10">
+				
+							<p:outputLabel value="Codice ASI" style="font-weight:bold;"/>
+							<p:outputLabel id="lblCodiceASI" value="#{ricercheBean.lottoCur.codiceAsi}"  />
+
+							<p:outputLabel value="Area" style="font-weight:bold;"/>
+							<p:outputLabel id="lblArea" value="#{ricercheBean.lottoCur.area}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:outputLabel>
+
+							<p:outputLabel value="Perimetro" style="font-weight:bold;"/>
+							<p:outputLabel id="lblPerimetro" value="#{ricercheBean.lottoCur.perimetro}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:outputLabel>
+							
+							<p:outputLabel value="PRTC" style="font-weight:bold;"/>
+							<p:outputLabel id="lblPrtc" value="#{ricercheBean.lottoCur.prtc}"/>
+							
+							<p:outputLabel value="Sup Fondiaria" style="font-weight:bold;"/>
+							<p:outputLabel id="lblSupFondiaria" value="#{ricercheBean.lottoCur.supFondiaria}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:outputLabel>
+
+							<p:outputLabel value="Sup Edificabile" style="font-weight:bold;"/>
+							<p:outputLabel id="lblSupEdificabile" value="#{ricercheBean.lottoCur.supEdificabile}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:outputLabel>
+
+							<p:outputLabel value="Indirizzo" style="font-weight:bold;"/>
+							<p:outputLabel id="lblIndirizzo" value="#{ricercheBean.lottoCur.indirizzo}"/>
+
+							<p:outputLabel value="Comune" style="font-weight:bold;"/>
+							<p:outputLabel id="lblNome" value="#{ricercheBean.comuneLotCur.nome}"/>
+							<h:inputHidden id="txtIstatc" value="#{ricercheBean.comuneLotCur.istatc}"/>
+							<h:inputHidden id="txtIstatp" value="#{ricercheBean.comuneLotCur.istatp}"/>
+
+							<p:outputLabel value="Note" style="font-weight:bold;"/>
+							<p:outputLabel id="lblNote" value="#{ricercheBean.lottoCur.note}"/>
+
+							<p:outputLabel value="Num. Addetti" style="font-weight:bold;"/>
+							<p:outputLabel id="txtNumAddettiLotto" value="#{ricercheBean.lottoCur.numAddetti}"/>
+
+							<p:outputLabel value="Libero/Occupato" style="font-weight:bold;"/>
+							<p:outputLabel value="Libero" rendered="#{!ricercheBean.lottoCur.statusUltimo}"/>
+							<p:outputLabel value="Occupato" rendered="#{ricercheBean.lottoCur.statusUltimo}"/>
+
+							<p:outputLabel value="Cessato/Attivo" style="font-weight:bold;"/>
+							<p:outputLabel id="lblCessato" value="#{ricercheBean.lottoCur.cessato}"/>
+
+							<p:outputLabel value="Data Cessazione" style="font-weight:bold;"/>
+							<p:outputLabel id="lblDataCessazione" value="#{ricercheBean.lottoCur.dataCessazione}" >
+								<f:convertDateTime pattern="dd/MM/yyyy"/>
+						 	</p:outputLabel>
+
+							<p:outputLabel value="Lotti Avi" style="font-weight:bold;"/>
+							<p:outputLabel id="lblLotti" value="#{ricercheBean.lottoCur.lottiAvi}"/>
+
+							<p:outputLabel value="Lotti Eredi" style="font-weight:bold;"/>
+							<p:outputLabel id="lblLottiEredi" value="#{ricercheBean.lottoCur.lottiEredi}"/>
+
+							<p:outputLabel value="Motivo" style="font-weight:bold;"/>
+							<p:outputLabel id="lblMotivo" value="#{ricercheBean.lottoCur.motivo}"/>
+
+							<p:commandButton value="Modifica Lotto" 
+								oncomplete="PF('dlgLottoMod').show()"
+								action="#{ricercheBean.lottoShowMod}"
+								update=":#{p:component('dlgLottoMod')}"
+								process="@this">
+								<f:setPropertyActionListener
+						         target="#{ricercheBean.lottoCur}"
+						         value="#{ricercheBean.lottoCur}" />    
+							</p:commandButton>
+							<p:commandButton value="Dati Catastali" 
+								oncomplete="PF('dlgDatiCatastali').show()"
+								update=":#{p:component('dlgDatiCatastali')}"
+								process="@this">
+							</p:commandButton>
+							
+				</p:panelGrid>
+				
+				</p:panel>
+				</p:tab>
+				<p:tab title="Mappa Lotto" titletip="Mappa Lotto" >
+					<h:form id="frmMappa">
+					<p:outputPanel id="mappaPanel" >
+						<ui:include src="/jsp/protected/geolotto/cartografia.xhtml"/>
+					</p:outputPanel>
+					</h:form>
+				</p:tab>
+			</p:tabView>
+				
+
+				
+				<p:panel id="pnlAziendaInfo" header="Aziende insediate nel Lotto">
+				
+				<p:dataTable id="dtListaInsediamenti" 
+							 	var="insed" 
+							 	value="#{ricercheBean.listaInsediamenti}" 
+							 	rowIndexVar="rowIndex"
+		                        paginator="true" 
+		                        rowKey="#{insed}" 
+		                        selection="#{insed}" 
+		                        selectionMode="single"                        
+								emptyMessage="Nessun elemento trovato" 
+								style="width:100%; table-layout:auto !important;" 
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		           				rows="50">
+					 			<p:ajax event="rowSelect" listener="#{ricercheBean.onInsediamentoRowSelect}" oncomplete="PF('dlgAziendaMod').show()" update=":#{p:component('dlgPraticaMod')}" />
+					 			<p:column headerText="" rendered="#{ricercheBean.manager}">
+									<p:commandButton value="Nuova Pratica" 
+										oncomplete="PF('dlgPraticaNew').show()"
+										action="#{ricercheBean.praticaShowNew}"
+										update=":#{p:component('dlgPraticaNew')}"
+										process="@this"
+										disabled="#{not ricercheBean.manager}">
+										<f:setPropertyActionListener
+								         target="#{ricercheBean.aziendaObjs}"
+								         value="#{insed}" />    
+									</p:commandButton> 
+									<p:commandButton value="Canc Insediam" 
+										oncomplete="PF('dlgInsediamentoDel').show()"
+										action="#{ricercheBean.insediamentoShowDel}"
+										update=":#{p:component('dlgInsediamentoDel')}"
+										process="@this"
+										disabled="#{not ricercheBean.manager}">
+										<f:setPropertyActionListener
+								         target="#{ricercheBean.aziendaObjs}"
+								         value="#{insed}" />
+									</p:commandButton> 
+							 	</p:column>
+							 	<p:column headerText="Codice Asi Azienda" >
+							 		<h:outputText value="#{insed[1]}"/>
+								 	<p:commandLink value="#{insed[1]}" 
+										oncomplete="PF('dlgAziendaMod').show()"
+										action="#{ricercheBean.aziendaShowMod}"
+										update=":#{p:component('dlgAziendaMod')}"
+										process="@this"
+										rendered="false">
+										<f:setPropertyActionListener
+									         target="#{ricercheBean.aziendaObjs}"
+									         value="#{insed}" />    
+									</p:commandLink>
+							 	</p:column>
+							 	<p:column headerText="Data Fine Status" >
+							 		<h:outputText value="#{insed[2]}">
+								 		<f:convertDateTime pattern="dd/MM/yyyy"/>
+							 	</h:outputText>
+							 	</p:column>
+							 	<p:column headerText="Libero / Occupato" >
+							 		<h:outputText value="Occupato" rendered="#{ insed[3] == 1 and insed[0] gt 0}"/>
+					 				<h:outputText value="Libero" rendered="#{ insed[3] != 1 and insed[0] gt 0}"/>
+							 	</p:column>
+							 	<p:column headerText="Ragione Sociale" >
+							 		<h:outputText value="#{insed[5]}"/>
+								 	<p:commandLink value="#{insed[5]}" 
+										oncomplete="PF('dlgAziendaMod').show()"
+										action="#{ricercheBean.aziendaShowMod}"
+										update=":#{p:component('dlgAziendaMod')}"
+										process="@this"
+										rendered="false">
+										<f:setPropertyActionListener
+									         target="#{ricercheBean.aziendaObjs}"
+									         value="#{insed}" />    
+									</p:commandLink>
+							 	</p:column>
+							 	<p:column headerText="Rappr. Legale" >
+							 		<h:outputText value="#{insed[6]}"/>
+							 	</p:column>
+							 	<p:column headerText="Indirizzo" >
+							 		<h:outputText value="#{insed[7]}"/>
+							 	</p:column>
+							 	<p:column headerText="Comune" >
+							 		<h:outputText value="#{insed[8]}"/>
+							 	</p:column>
+							 	<p:column headerText="Num Addetti" >
+							 		<h:outputText value="#{insed[9]}"/>
+							 	</p:column>
+							 	<p:column headerText="P. IVA" >
+							 		<h:outputText value="#{insed[10]}"/>
+							 	</p:column>
+							 	<p:column headerText="C. FISCALE" >
+							 		<h:outputText value="#{insed[11]}"/>
+							 	</p:column>
+							 	<p:column headerText="Tel" >
+							 		<h:outputText value="#{insed[12]}"/>
+							 	</p:column>
+							 	<p:column headerText="Email" >
+							 		<h:outputText value="#{insed[13]}"/>
+							 	</p:column>
+							 </p:dataTable>
+							 
+							 <p:commandButton value="Nuovo Insediamento" 
+									oncomplete="PF('dlgInsediamentoNew').show()"
+									action="#{ricercheBean.insediamentoShowNew}"
+									update=":#{p:component('dlgInsediamentoNew')}"
+									process="@this"
+									disabled="#{not ricercheBean.manager}"/> 
+				
+				</p:panel>
+				
+				<p:panel id="pnlPraticaInfo" header="Pratiche relative al Lotto">
+					<p:dataTable id="dtListaPratiche" 
+							 	var="prati" 
+							 	value="#{ricercheBean.listaPratiche}" 
+							 	rowIndexVar="rowIndex"
+		                        paginator="true" 
+		                        rowKey="#{prati}" 
+		                        selection="#{prati}" 
+		                        selectionMode="single" 
+		                        rowStyleClass="#{ricercheBean.getStilePratica(prati)}"                       
+								emptyMessage="Nessun elemento trovato" 
+								style="width:100%; table-layout:auto !important;" 
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		           				rows="50">
+					 			<p:ajax event="rowSelect" listener="#{ricercheBean.onPraticaRowSelect}" oncomplete="PF('dlgPraticaMod').show()" update=":#{p:component('dlgPraticaMod')}" />
+		           				<p:columnGroup type="header">
+									<p:row>
+										<p:column rowspan="2" headerText="" rendered="#{ricercheBean.dirigente}" />
+										<p:column rowspan="2" headerText="Codice" />
+										<p:column rowspan="2" headerText="Asi" />
+										<p:column rowspan="2" headerText="Ragione Sociale" />
+										<p:column rowspan="2" headerText="Fal." />
+										<p:column rowspan="2" headerText="Tipologia" />
+										<p:column colspan="2" headerText="Previsione Lav" />
+										<p:column rowspan="2" headerText="Pratica Chiusa" />
+										<p:column colspan="3" headerText="Conc. Edil." />
+										<p:column colspan="2" headerText="Protocollo" />
+										<p:column colspan="2" headerText="Nulla Osta" />
+
+										
+									</p:row>
+									<p:row>
+										<p:column headerText="Inizio Lav." />
+										<p:column headerText="Chiusura Lav." />
+
+										<p:column headerText="N" />
+										<p:column headerText="C" />
+										<p:column headerText="R" />
+										
+										<p:column headerText="Num" />
+										<p:column headerText="Data" />
+										<p:column headerText="Num" />
+										<p:column headerText="Data" />
+									</p:row>
+									
+								</p:columnGroup>
+
+								<p:column rendered="#{ricercheBean.dirigente}">
+									<p:commandButton value="Canc Pratica" 
+										oncomplete="PF('dlgPraticaDel').show()"
+										action="#{ricercheBean.praticaShowDel}"
+										update=":#{p:component('dlgPraticaDel')}"
+										process="@this"
+										rendered="#{ricercheBean.dirigente}"
+										disabled="#{not ricercheBean.dirigente}">
+										<f:setPropertyActionListener
+									         target="#{ricercheBean.praticaCur}"
+									         value="#{prati}" />    
+									</p:commandButton> 
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.codicePratica}"/>
+							 		<p:commandLink value="#{prati.codicePratica}" 
+										oncomplete="PF('dlgPraticaMod').show()"
+										action="#{ricercheBean.praticaShowMod}"
+										update=":#{p:component('dlgPraticaMod')}"
+										process="@this"
+										rendered="false">
+										<f:setPropertyActionListener
+								         target="#{ricercheBean.praticaCur}"
+								         value="#{prati}" />    
+									</p:commandLink>	
+									
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.codiceAsiAzienda}"/>
+							 		<p:commandLink value="#{prati.codiceAsiAzienda}" 
+										oncomplete="PF('dlgPraticaMod').show()"
+										action="#{ricercheBean.praticaShowMod}"
+										update=":#{p:component('dlgPraticaMod')}"
+										process="@this"
+										rendered="false">
+										<f:setPropertyActionListener
+								         target="#{ricercheBean.praticaCur}"
+								         value="#{prati}" />    
+									</p:commandLink>	
+							 	</p:column>
+							 	<p:column  >
+								 	<h:outputText value="#{prati.azienda.ragioneSociale}"/>
+							 		<p:commandLink value="#{prati.azienda.ragioneSociale}" 
+										oncomplete="PF('dlgPraticaMod').show()"
+										action="#{ricercheBean.praticaShowMod}"
+										update=":#{p:component('dlgPraticaMod')}"
+										process="@this"
+										rendered="false">
+										<f:setPropertyActionListener
+								         target="#{ricercheBean.praticaCur}"
+								         value="#{prati}" />    
+									</p:commandLink>	
+
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.faldone}"/>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.tipologia}"/>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.inizioLavData}">
+							 			<f:convertDateTime pattern="dd/MM/yyyy" />
+							 		</h:outputText>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.fineLavData}">
+							 			<f:convertDateTime pattern="dd/MM/yyyy" />
+							 		</h:outputText>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="Aperta" rendered="#{prati.chiudip == '0'}"/>
+							 		<h:outputText value="Chiusa" rendered="#{prati.chiudip == '1'}"/>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.concedilNum}"/>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.concedilCData}">
+							 		<f:convertDateTime pattern="dd/MM/yyyy" />
+							 		</h:outputText>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.concedilRData}">
+							 		<f:convertDateTime pattern="dd/MM/yyyy" />
+							 		</h:outputText>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.protocolloNum}"/>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.protocolloData}">
+							 		<f:convertDateTime pattern="dd/MM/yyyy" />
+							 		</h:outputText>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.nullaOstaNum}"/>
+							 	</p:column>
+							 	<p:column  >
+							 		<h:outputText value="#{prati.nullaOstaData}">
+							 		<f:convertDateTime pattern="dd/MM/yyyy" />
+							 		</h:outputText>
+							 	</p:column>
+							 	
+							 	
+
+							 </p:dataTable>
+				
+								 
+				</p:panel>
+
+				
+				<p:panelGrid id="pnlFooter" styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+
+								<p:spacer width="5px"/>
+
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+	
+	<ui:define name="dialogs">
+
+		<ui:include src="infoViewLottoMod.xhtml" />
+
+		<ui:include src="infoViewAziendaMod.xhtml" />
+
+		<ui:include src="infoViewPraticaMod.xhtml" />
+
+		<ui:include src="infoViewPraticaNew.xhtml" />
+
+		<ui:include src="infoViewPraticaDel.xhtml" />
+					
+		<ui:include src="infoViewInsediamentoNew.xhtml" />
+					
+		<ui:include src="infoViewInsediamentoDel.xhtml" />
+
+		<ui:include src="infoViewCoordinateLotto.xhtml" />
+
+	</ui:define>
+				
+</ui:composition>
+</html>

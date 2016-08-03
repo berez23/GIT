@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+<f:view contentType="text/html">
+<head>
+<title>Street View</title>
+	<script src="http://maps.googleapis.com/maps/api/js?sensor=false" type="text/javascript"></script>
+	<script src="../ewg/Scripts/dynamic.js" language="JavaScript"></script>
+
+<script>
+				function apriPopupStreetview(latitudine,longitudine)
+				{
+							if (latitudine==0)
+								alert('Streetview non disponibile per la particella selezionata');
+							else {
+								
+								var url = '../streetview/streetview.jsf';
+								var finestra=window.open(url,"_streetview","height=650,width=840,status=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no");			
+								finestra.focus();
+							}
+				}
+				
+				function apriStreetview(latitudine,longitudine)
+				{       
+							if (latitudine==0)
+								alert('Streetview non disponibile per la particella selezionata');
+							else {
+								
+								var url = '../streetview/streetview.jsf';
+								var finestra=window.open(url,"_self","height=650,width=840,status=yes,resizable=yes,scrollbars=yes,toolbar=no,menubar=no,location=no");			
+								finestra.focus();
+							}
+				}
+
+</script>
+			
+</head>
+
+<body onload="javascript:apriPopupStreetview(#{ricercaDettaglioBck.currentStreetView.latitudine},#{ricercaDettaglioBck.currentStreetView.longitudine})">
+
+      <div id='myMap' style="position:relative; width:800px; height:600px;"></div>
+
+</body>
+</f:view>
+</html>

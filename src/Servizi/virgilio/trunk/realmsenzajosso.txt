@@ -1,0 +1,15 @@
+<Realm className="org.apache.catalina.realm.DataSourceRealm"  debug="0"
+   dataSourceName="jdbc/mui"
+   userTable="MI_DUP_USER" userNameCol="LOGIN" userCredCol="PASSWORD"
+   userRoleTable="MI_DUP_USER_ROLE" roleNameCol="ROLENAME"/>
+   
+   
+   <Loader  debug="0" checkInterval="1000"/>
+<Logger verbosity="0" className="org.apache.catalina.logger.FileLogger" prefix="mui." suffix=".log" timestamp="true"/>
+   
+   <Resource name="jdbc/mui"
+         type="javax.sql.DataSource"
+         driverClassName="oracle.jdbc.driver.OracleDriver" password="virgilio"
+         maxIdle="2" maxWait="5000" validationQuery="select 1 from dual"
+         username="virgilio" url="jdbc:oracle:thin:@praga:1521:praga"
+         maxActive="25" />

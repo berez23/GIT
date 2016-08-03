@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmNuovo">
+
+	<rich:panel styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText
+				value="#{dichiarazioneBean.idSelezionato == null?'Nuova':'Modifica'} dichiarazione" />
+		</f:facet>
+
+		<table border="0" width="90%">
+			<tr>
+				<td colspan="1"><h:outputLabel value="ATTENZIONE:"
+						style="color: orange; font-weight: bold;" /></td>
+				<td colspan="5"><h:outputLabel
+						value="una volta salvata la dichiarazione i dati di questa pagina non saranno modificabili" /></td>
+			</tr>
+			<tr>
+				<td colspan="1"><h:outputLabel value="ATTENZIONE:"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) == 0 or fn:length(dichiarazioneBean.listaStrutture) == 0}"
+						style="color: orange; font-weight: bold;" /></td>
+				<td colspan="5"><h:outputLabel
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) == 0 or fn:length(dichiarazioneBean.listaStrutture) == 0}"
+						value="per poter creare una nuova dichiarazione è necessaria almeno una società ed una struttura" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Periodo" /></td>
+				<td><h:selectOneMenu
+						value="#{dichiarazioneBean.dichiarazione.fkIsPeriodo}">
+						<f:selectItems value="#{dichiarazioneBean.listaPeriodiNuovaDich}" />
+					</h:selectOneMenu></td>
+			</tr>
+			<tr>
+				<td colspan="6"><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="SOCIETA'"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Ragione sociale"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}" /></td>
+				<td><h:selectOneMenu
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}"
+						value="#{dichiarazioneBean.snap.fkIsSocieta}" style="width: 300px">
+						<f:selectItems value="#{dichiarazioneBean.listaSocieta}" />
+						<a4j:support event="onchange"
+							action="#{dichiarazioneBean.doLoadSocieta}"
+							reRender="centerContent">
+						</a4j:support>
+					</h:selectOneMenu></td>
+				<td><h:outputText value="Codice Fiscale"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}" /></td>
+				<td><h:outputText value="#{dichiarazioneBean.societa.cf}"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}"
+						styleClass="clsDisabled" /></td>
+				<td><h:outputText value="Partita iva"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}" /></td>
+				<td><h:outputText value="#{dichiarazioneBean.societa.pi}"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Comune"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}" /></td>
+				<td><h:outputText
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}"
+						value="#{dichiarazioneBean.societa.comuneSede} - #{dichiarazioneBean.societa.siglaProvSede}"
+						styleClass="clsDisabled" /></td>
+				<td><h:outputText value="Via"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}" /></td>
+				<td><h:outputText
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}"
+						value="#{dichiarazioneBean.societa.indirizzoSede}"
+						styleClass="clsDisabled" /></td>
+				<td><h:outputText value="Civico"
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}" /></td>
+				<td><h:outputText
+						rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0}"
+						value="#{dichiarazioneBean.societa.numeroCivSede}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="STRUTTURA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Denominazione"
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}" /></td>
+				<td><h:selectOneMenu
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}"
+						value="#{dichiarazioneBean.snap.fkIsStruttura}"
+						style="width: 300px">
+						<f:selectItems value="#{dichiarazioneBean.listaStrutture}" />
+						<a4j:support event="onchange"
+							action="#{dichiarazioneBean.doLoadStruttura}"
+							reRender="centerContent">
+						</a4j:support>
+					</h:selectOneMenu></td>
+				<td><h:outputText value="Via"
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}" /></td>
+				<td><h:outputText
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}"
+						value="#{dichiarazioneBean.struttura.struttura.indirizzo}"
+						styleClass="clsDisabled" /></td>
+				<td><h:outputText value="Civico"
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}" /></td>
+				<td><h:outputText
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}"
+						value="#{dichiarazioneBean.struttura.struttura.numCiv}"
+						styleClass="clsDisabled" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="CATEGORIA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td><h:outputText value="Descrizione"
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}" /></td>
+				<td><h:selectOneMenu
+						rendered="#{fn:length(dichiarazioneBean.listaStrutture) > 0}"
+						value="#{dichiarazioneBean.snap.fkIsClasse}" style="width: 300px">
+						<f:selectItems value="#{dichiarazioneBean.listaClassiStruttura}" />
+					</h:selectOneMenu></td>
+			</tr>
+		</table>
+
+		<div align="center">
+			<br />
+			<h:panelGrid columns="1">
+				<a4j:commandButton
+					rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0 and fn:length(dichiarazioneBean.listaStrutture) > 0 and dichiarazioneBean.idSelezionato == null}"
+					value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doLoadNewSteps}">
+					<a4j:actionparam value="/jsp/protected/content/dich1.xhtml" name="visDt" assignTo="#{pageBean.pageCenter}" />
+					<a4j:actionparam value="1" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton
+					rendered="#{fn:length(dichiarazioneBean.listaSocieta) > 0 and fn:length(dichiarazioneBean.listaStrutture) > 0 and dichiarazioneBean.idSelezionato != null}"
+					value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doLoadNewSteps}">
+					<a4j:actionparam value="/jsp/protected/content/dich1.xhtml" name="visDt" assignTo="#{pageBean.pageCenterDati}" />
+					<a4j:actionparam value="1" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+<a4j:include id="centerContent" rendered="#{pageBean.visDati}"
+	viewId="/jsp/protected/content/dichCompleta.xhtml" />
+
+</html>

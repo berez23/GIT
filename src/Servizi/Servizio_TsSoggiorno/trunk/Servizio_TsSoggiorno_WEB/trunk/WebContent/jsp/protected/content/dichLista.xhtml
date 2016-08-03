@@ -1,0 +1,282 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<rich:panel styleClass="clsCenterPanel">
+	<f:facet name="header">
+		<h:outputText value="Lista dichiarazioni" />
+	</f:facet>
+
+	<h:form id="frmDichLista">
+
+		<h:panelGrid columns="1">
+			<h:outputText value="Seleziona dichiarazioni per:" />
+		</h:panelGrid>
+		<h:panelGrid columns="6">
+
+			<h:outputText value="Periodo" />
+			<h:selectOneMenu value="#{dichiarazioneBean.criteria.idPeriodo}"
+				style="width:200px">
+				<f:selectItem itemLabel="-" />
+				<f:selectItems value="#{dichiarazioneBean.listaPeriodi}" />
+			</h:selectOneMenu>
+
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+
+			<h:outputText value="Società" />
+			<h:selectOneMenu value="#{dichiarazioneBean.criteria.idSocieta}"
+				style="width:200px">
+				<f:selectItem itemLabel="-" />
+				<f:selectItems value="#{dichiarazioneBean.listaSocieta}" />
+			</h:selectOneMenu>
+
+			<h:outputText value="Struttura" />
+			<h:selectOneMenu value="#{dichiarazioneBean.criteria.idStruttura}"
+				style="width:200px">
+				<f:selectItem itemLabel="-" />
+				<f:selectItems value="#{dichiarazioneBean.listaStrutture}" />
+			</h:selectOneMenu>
+
+			<h:outputText value="Categoria" />
+			<h:selectOneMenu value="#{dichiarazioneBean.criteria.idClasse}"
+				style="width:200px">
+				<f:selectItem itemLabel="-" />
+				<f:selectItems value="#{dichiarazioneBean.listaClassi}" />
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<div align="center">
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Seleziona" reRender="centerContent" />
+			</h:panelGrid>
+		</div>
+		<br />
+
+		<rich:dataTable var="row" value="#{dichiarazioneDataModel}" 
+			noDataLabel="Nessun elemento trovato" width="100%"
+			rowClasses="clsEvenRow, clsOddRow" id="dichTableList" rows="5">
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Periodo" />
+				</f:facet>
+				<h:outputText value="#{row.periodo.descrizione}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Struttura" />
+				</f:facet>
+				<h:outputText value="#{row.strutturaSnap.descrizioneStrut}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Classificazione" />
+				</f:facet>
+				<h:outputText value="#{row.strutturaSnap.descrizioneClasseStrut}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Ospiti" />
+				</f:facet>
+				<h:outputText value="#{row.dichiarazione.presenze}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Ospiti con imposta" />
+				</f:facet>
+				<h:outputText value="#{row.dichiarazione.assoggImposta}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Stato" />
+				</f:facet>
+				<h:panelGrid columns="1">
+					<h:outputText rendered="#{row.dichiarazione.integrativaInt == 1}"
+						value="Integrativa " />
+					<h:outputText
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statobozza}"
+						value="Bozza" />
+					<h:outputText
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statochiusa}"
+						value="Chiusa" />
+				</h:panelGrid>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Inserimento" />
+				</f:facet>
+					<h:outputText value="#{row.dichiarazione.dtIns}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"></f:convertDateTime>
+				</h:outputText>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="4">
+					<h:commandLink styleClass="clsButtonExp"
+						rendered="#{row.dichiarazione.stato != dichiarazioneBean.statobozza and empty row.dichiarazione.fkDocumento}"
+						action="#{dichiarazioneBean.doStampaDichiarazione}">
+						<h:graphicImage value="/images/print.png" id="img4"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<a4j:actionparam value="#{row.dichiarazione.id}" name="dichId"
+							assignTo="#{dichiarazioneBean.idSelezionato}" />
+							Stampa
+					</h:commandLink>
+					
+					<h:commandLink styleClass="clsButtonExp"
+						rendered="#{row.dichiarazione.stato != dichiarazioneBean.statobozza}">
+						<h:graphicImage value="/images/pay_small.png" id="img6"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<a4j:actionparam value="true" name="visPag"
+							assignTo="#{pageBean.visListaPagam}" />
+						<a4j:actionparam value="false" name="visPg"
+							assignTo="#{pageBean.visPagam}" />
+						<a4j:actionparam value="false" name="visDt"
+							assignTo="#{pageBean.visDati}" />
+						<a4j:actionparam value="#{row.dichiarazione.id}" name="dichId"
+							assignTo="#{dichiarazioneBean.idSelezionato}" />
+							Versamenti
+					</h:commandLink>
+
+					<h:commandLink styleClass="clsButtonExp"
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statobozza}"
+						action="#{dichiarazioneBean.doStampaDichiarazione}">
+						<h:graphicImage value="/images/print.png" id="img11"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<a4j:actionparam value="#{row.dichiarazione.id}" name="dichId"
+							assignTo="#{dichiarazioneBean.idSelezionato}" />
+						<a4j:actionparam value="true" name="antStmp"
+							assignTo="#{dichiarazioneBean.anteprimaStampa}" />
+						<a4j:actionparam value="false" name="antStmpItr"
+							assignTo="#{dichiarazioneBean.anteprimaStampaIter}" />
+							Anteprima
+						</h:commandLink>
+
+					<h:commandLink styleClass="clsButtonExp" id="btnChiudi" 
+						action="#{dichiarazioneBean.doChiudiDichiarazione}"
+						onclick="if (!confirm('Non sarà più possibile modificare la dichiarazione, soltanto stamparla, procedere con la chiusura?')) return false"
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statobozza}">
+						<h:graphicImage value="/images/check.png" id="img5"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<f:setPropertyActionListener value="#{row.dichiarazione.id}" target="#{dichiarazioneBean.idSelezionato}"></f:setPropertyActionListener>
+							Chiudi 
+					</h:commandLink>
+			
+						
+					<h:commandLink styleClass="clsButtonExp"
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statobozza}"
+						action="#{dichiarazioneBean.doLoadDichiarazione}">
+						<h:graphicImage value="/images/edit.png" id="img1"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<a4j:actionparam value="true" name="visDt"
+							assignTo="#{pageBean.visDati}" />
+						<a4j:actionparam value="false" name="visPag"
+							assignTo="#{pageBean.visListaPagam}" />
+						<a4j:actionparam value="/jsp/protected/content/dich1.xhtml"
+							name="visDt2" assignTo="#{pageBean.pageCenterDati}" />
+						<a4j:actionparam value="#{row.dichiarazione.id}" name="dichId"
+							assignTo="#{dichiarazioneBean.idSelezionato}" />
+						<a4j:actionparam value="1" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+							Modifica
+						</h:commandLink>
+						
+				
+					<h:commandLink styleClass="clsButtonExp"
+						onclick="if (!confirm('Procedere con il l eliminazione?')) return false"
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statobozza}"
+						action="#{dichiarazioneBean.doDeleteDichiarazione}">
+						<h:graphicImage value="/images/delete.png" id="img3"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<a4j:actionparam value="false" name="visDt"
+							assignTo="#{pageBean.visDati}" />
+						<a4j:actionparam value="false" name="visPag"
+							assignTo="#{pageBean.visListaPagam}" />
+						<a4j:actionparam value="#{row.dichiarazione.id}" name="dichId"
+							assignTo="#{dichiarazioneBean.idSelezionato}" />
+						<a4j:support event="onclick" reRender="centerContent" />
+							Elimina
+						</h:commandLink>
+				
+					<a4j:commandLink
+						rendered="#{row.dichiarazione.stato == dichiarazioneBean.statochiusa and empty row.dichiarazione.fkDocumento}"
+						styleClass="clsButtonExp"
+						style="width: 75px;"
+						id="btnAllegati"
+						action="#{gestioneFileBean.initPanel}"
+						reRender="frmPanel"
+						oncomplete="Richfaces.showModalPanel('gestioneAllegatiPanel', {height:'300px', width:'600px'})">
+		     			<a4j:actionparam value="#{row.dichiarazione.id}" name="dichId"
+							assignTo="#{gestioneFileBean.idDichiarazione}" />
+						<h:graphicImage value="/images/lamp7.gif" id="imgUpload"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						Carica Dichiarazione
+		              </a4j:commandLink>
+					
+				
+					
+					<h:commandLink styleClass="clsButtonExp" 
+						rendered="#{row.dichiarazione.stato != dichiarazioneBean.statobozza and !empty row.dichiarazione.fkDocumento}"
+						action="#{gestioneFileBean.doDownload}">
+						<h:graphicImage value="/images/icon-download.png" id="imgDownload"
+							style="border: 0; cursor: pointer;">
+						</h:graphicImage>
+						<a4j:actionparam value="#{row.dichiarazione.fkDocumento}" name="dichId"
+							assignTo="#{gestioneFileBean.idAllegato}" />
+							Visualizza Dichiarazione Caricata
+					</h:commandLink>
+
+				</h:panelGrid>
+			</rich:column>
+
+			<f:facet name="footer">
+				<rich:datascroller id="tableScroller" />
+			</f:facet>
+		</rich:dataTable>
+
+	
+
+	</h:form>
+
+</rich:panel>
+
+<rich:modalPanel id="gestioneAllegatiPanel" style="background-color: #ebf3fd; overflow: auto;">
+		<f:facet name="header">
+	  		<h:outputLabel value="Caricamento Dichiarazione Firmata Digitalmente (.p7m)" />
+	  	</f:facet>
+	  	
+	  	<f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink" />
+				<rich:componentControl for="gestioneAllegatiPanel" attachTo="hidelink"
+					operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		
+		<ui:include src="../content/gestioneFileModal.xhtml" />
+				
+</rich:modalPanel>
+
+<a4j:include id="dichContent" rendered="#{pageBean.visDati}"
+	viewId="#{pageBean.pageCenterDati}" />
+<a4j:include id="pagamContent" rendered="#{pageBean.visListaPagam}"
+	viewId="/jsp/protected/content/pagam.xhtml" />
+
+	
+
+</html>

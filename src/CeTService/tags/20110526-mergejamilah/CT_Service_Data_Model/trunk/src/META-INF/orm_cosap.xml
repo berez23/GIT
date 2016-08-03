@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+<!-- Query SitTCosapContrib -->
+	<named-query name="SitTCosapContrib.getSoggettoById">
+		<query>
+			<![CDATA[
+				select s 
+				from SitTCosapContrib s
+				where s.id = :id
+			]]>
+		</query>
+	</named-query>
+	<!-- Query SitTCosapTassa -->
+	<named-query name="SitTCosapTassa.getOggettiByIdSogg">
+		<query>
+			<![CDATA[
+				SELECT o 
+				FROM  SitTCosapTassa o, SitTCosapContrib s
+				WHERE o.idExtContrib = s.idExt
+				AND   s.id= :id
+				ORDER BY o.zona, o.foglio, o.particella, o.subalterno, o.dtRichiesta, o.dtIniValidita, o.dtIniValiditaTariffa
+			]]>
+		</query>
+	</named-query>
+</entity-mappings>

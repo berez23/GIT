@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   jaxb:version="2.0" 
+		   jaxb:extensionBindingPrefixes="xjc">
+         
+    <xs:include schemaLocation="UserAuth.xsd"/>
+         
+		
+	<xs:element name="datiCivico">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="infoUtente" type="userInfo" minOccurs="0" />
+                <xs:element name="richiesta" type="richiesta" minOccurs="0" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+		
+	
+	
+	<xs:complexType name="richiesta">
+        <xs:sequence>
+            <xs:element name="toponimo" type="xs:string" minOccurs="0"/>
+            <xs:element name="via" type="xs:string" minOccurs="0" />
+            <xs:element name="civico" type="xs:string" minOccurs="0"/>
+            <xs:element name="idVia" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	
+</xs:schema>

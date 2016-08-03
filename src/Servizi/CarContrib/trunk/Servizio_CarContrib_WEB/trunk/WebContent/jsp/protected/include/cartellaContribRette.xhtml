@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition>
+	<c:if test="#{empty contribuenteBean.retteCarContrib.listaBollettePag and empty contribuenteBean.retteCarContrib.listaBolletteNonPag}">
+		<f:facet name="label">
+			<h:outputText value="Rette Scolastiche" />
+		</f:facet>
+		<rich:spacer height="20px" />
+		<div style="height: 60px;">
+			<h:outputText value="DATI NON TROVATI" styleClass="titoloNero"
+				style="font-weight: bold" />
+		</div>
+	</c:if>
+	<c:if
+		test="#{not empty contribuenteBean.retteCarContrib.listaBollettePag or not empty contribuenteBean.retteCarContrib.listaBolletteNonPag}">
+		<f:facet name="label">
+			<h:outputText value="Rette Scolastiche" />
+		</f:facet>
+		<div>
+			<h:panelGrid columns="1" width="100%">
+				<h:outputText value="#{contribuenteBean.retteFonte.strDataAgg}"/>
+				<h:outputText value="#{contribuenteBean.retteFonte.nota}"/>
+			</h:panelGrid>
+		</div>	
+
+	<c:if test="#{not empty contribuenteBean.retteCarContrib.listaBolletteNonPag}">
+		<rich:dataTable width="100%" var="row"
+			value="#{contribuenteBean.retteCarContrib.listaBolletteNonPag}"
+			columnClasses="col"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+			rowClasses="#{contribuenteBean.retteFonte.coloreJsp}" >
+			<f:facet name="header">
+				<h:outputText value="DATI BOLLETTE NON PAGATE" style="float: left;"/>
+			</f:facet>
+			<rich:column>
+				<div style="float: left;">
+					<h:outputText value="Cod.:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.codBolletta}" style="margin-right:8px"/>
+					<h:outputText value="Data:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.dataBolletta}" style="margin-right:8px">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+					</h:outputLabel>
+					<h:outputText value="Recapito:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.recapito}" style="margin-right:8px"/>
+					<h:outputText value="Oggetto:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.oggetto}" style="margin-right:8px"/>
+				</div>
+				<br />
+				<br />
+				<rich:togglePanel switchType="client" stateOrder="closed,cat">
+
+					<f:facet name="closed">
+						<h:panelGrid columns="1">
+							<rich:toggleControl>
+								<h:outputText value="Rate bolletta" />
+							</rich:toggleControl>
+						</h:panelGrid>
+					</f:facet>
+
+					<f:facet name="cat">
+						<h:panelGrid columns="2">
+							<rich:toggleControl value="Chiudi" switchToState="closed" />
+
+							<rich:dataTable width="100%" var="rt"
+								value="#{row.listaSitRttRateBollette}"
+								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+								rowClasses="#{contribuenteBean.retteFonte.coloreJsp}" >
+
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Importo" />
+									</f:facet>
+									<h:outputText value="#{rt.importoRata}">
+										<f:convertNumber currencyCode="EUR" type="currency" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Importo pagato" />
+									</f:facet>
+									<h:outputText value="#{rt.importoPagato}" >
+										<f:convertNumber currencyCode="EUR" type="currency" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Data scadenza" />
+									</f:facet>
+									<h:outputText value="#{rt.dtScadenzaRata}" >
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Note" />
+									</f:facet>
+									<h:outputText value="#{rt.note}" />
+								</rich:column>
+							</rich:dataTable>
+						</h:panelGrid>
+					</f:facet>
+				</rich:togglePanel>
+				
+				<br />
+				<rich:togglePanel switchType="client" stateOrder="closed,cat">
+
+					<f:facet name="closed">
+						<h:panelGrid columns="1">
+							<rich:toggleControl>
+								<h:outputText value="Dettaglio bolletta" />
+							</rich:toggleControl>
+						</h:panelGrid>
+					</f:facet>
+
+					<f:facet name="cat">
+						<h:panelGrid columns="2">
+							<rich:toggleControl value="Chiudi" switchToState="closed" />
+
+							<rich:dataTable width="100%" var="dt"
+								value="#{row.listaSitRttDettBollette}"
+								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								rowClasses="#{contribuenteBean.retteFonte.coloreJsp}" >
+
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Descrizione" />
+									</f:facet>
+									<h:outputText value="#{dt.desVoce}"/>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Valore" />
+									</f:facet>
+									<h:outputText value="#{dt.valore}" />
+								</rich:column>
+							</rich:dataTable>
+						</h:panelGrid>
+					</f:facet>
+				</rich:togglePanel>
+			</rich:column>
+		</rich:dataTable>
+		
+		<br />
+	</c:if>
+		
+	<c:if test="#{not empty contribuenteBean.retteCarContrib.listaBollettePag}">
+		<rich:dataTable width="100%" var="row"
+			value="#{contribuenteBean.retteCarContrib.listaBollettePag}"
+			columnClasses="col"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+			rowClasses="#{contribuenteBean.retteFonte.coloreJsp}" >
+			<f:facet name="header">
+				<h:outputText value="DATI BOLLETTE PAGATE" style="float: left;"/>
+			</f:facet>
+			<rich:column>
+				<div style="float: left;">
+					<h:outputText value="Cod.:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.codBolletta}" style="margin-right:8px"/>
+					<h:outputText value="Data:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.dataBolletta}" style="margin-right:8px">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+					</h:outputLabel>
+					<h:outputText value="Recapito:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.recapito}" style="margin-right:8px"/>
+					<h:outputText value="Oggetto:" style="font-weight: bold;" />
+					<h:outputLabel value="#{row.sitRttBollette.oggetto}" style="margin-right:8px"/>
+				</div>
+				<br />
+				<br />
+				<rich:togglePanel switchType="client" stateOrder="closed,cat">
+
+					<f:facet name="closed">
+						<h:panelGrid columns="1">
+							<rich:toggleControl>
+								<h:outputText value="Rate bolletta" />
+							</rich:toggleControl>
+						</h:panelGrid>
+					</f:facet>
+
+					<f:facet name="cat">
+						<h:panelGrid columns="2">
+							<rich:toggleControl value="Chiudi" switchToState="closed" />
+
+							<rich:dataTable width="100%" var="rt"
+								value="#{row.listaSitRttRateBollette}"
+								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								rowClasses="#{contribuenteBean.retteFonte.coloreJsp}"  >
+
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Importo" />
+									</f:facet>
+									<h:outputText value="#{rt.importoRata}">
+										<f:convertNumber currencyCode="EUR" type="currency" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Importo pagato" />
+									</f:facet>
+									<h:outputText value="#{rt.importoPagato}" >
+										<f:convertNumber currencyCode="EUR" type="currency" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Data scadenza" />
+									</f:facet>
+									<h:outputText value="#{rt.dtScadenzaRata}" >
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+									</h:outputText>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Note" />
+									</f:facet>
+									<h:outputText value="#{rt.note}" />
+								</rich:column>
+							</rich:dataTable>
+						</h:panelGrid>
+					</f:facet>
+				</rich:togglePanel>
+				
+				<br />
+				<rich:togglePanel switchType="client" stateOrder="closed,cat">
+
+					<f:facet name="closed">
+						<h:panelGrid columns="1">
+							<rich:toggleControl>
+								<h:outputText value="Dettaglio bolletta" />
+							</rich:toggleControl>
+						</h:panelGrid>
+					</f:facet>
+
+					<f:facet name="cat">
+						<h:panelGrid columns="2">
+							<rich:toggleControl value="Chiudi" switchToState="closed" />
+
+							<rich:dataTable width="100%" var="dt"
+								value="#{row.listaSitRttDettBollette}"
+								onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+								onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+								rowClasses="#{contribuenteBean.retteFonte.coloreJsp}" >
+
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Descrizione" />
+									</f:facet>
+									<h:outputText value="#{dt.desVoce}"/>
+								</rich:column>
+								<rich:column>
+									<f:facet name="header">
+										<h:outputText value="Valore" />
+									</f:facet>
+									<h:outputText value="#{dt.valore}" />
+								</rich:column>
+							</rich:dataTable>
+						</h:panelGrid>
+					</f:facet>
+				</rich:togglePanel>
+			</rich:column>
+		</rich:dataTable>
+	</c:if>
+	</c:if>
+</ui:composition>
+</html>

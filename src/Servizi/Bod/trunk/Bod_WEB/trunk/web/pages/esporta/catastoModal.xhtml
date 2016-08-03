@@ -1,0 +1,114 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+
+			<rich:modalPanel 
+				id="catastoModal" 
+				autosized="true" 
+				width="300">
+       
+            <a4j:loadBundle basename="resources" var="msg" />
+            
+	        <f:facet name="header">
+		            <h:outputText value="Dati Presenti a Catasto" />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="hideCatastoLink" />
+			     <rich:componentControl for="catastoModal" attachTo="hideCatastoLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+
+		            <h:panelGrid columns="1">
+							        	
+		        	 <h:form id="frmModal">
+		            <a4j:outputPanel ajaxRendered="true">
+							        	
+		        		<h:panelGrid columns="3">
+		        			<h:outputLabel value="Zona" />
+		        			<h:outputText value="#{esportaFiltroBck.confrontoCur.catastoObjs[6]}" />
+		        			<rich:spacer width="5px"/>
+
+		        			
+		        			<h:outputLabel value="Categoria" />
+		        			<h:outputText value="#{esportaFiltroBck.confrontoCur.catastoObjs[3]}" />
+		        			<h:graphicImage value="/images/icons/ok.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[3] == esportaFiltroBck.confrontoCur.esito.datCategoria}"/>
+		        			<h:graphicImage value="/images/icons/no.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[3] != esportaFiltroBck.confrontoCur.esito.datCategoria}"/>
+		        			
+		        			<h:outputLabel value="Classamento" />
+		        			<h:outputText value="#{esportaFiltroBck.confrontoCur.catastoObjs[7]}" />
+		        			<h:graphicImage value="/images/icons/ok.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[7] == esportaFiltroBck.confrontoCur.esito.datClasse}"/>
+		        			<h:graphicImage value="/images/icons/no.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[7] != esportaFiltroBck.confrontoCur.esito.datClasse}"/>
+
+		        			
+		        			<h:outputLabel value="Consistenza" />
+		        			<h:outputText value="#{esportaFiltroBck.confrontoCur.catastoObjs[4]}" />
+		        			<h:graphicImage value="/images/icons/ok.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[4] == esportaFiltroBck.confrontoCur.esito.datConsistenza}"/>
+		        			<h:graphicImage value="/images/icons/no.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[4] != esportaFiltroBck.confrontoCur.esito.datConsistenza}"/>
+
+		        			
+		        			<h:outputLabel value="Superficie" />
+		        			<h:outputText value="#{esportaFiltroBck.confrontoCur.catastoObjs[5]}" />
+		        			<h:graphicImage value="/images/icons/ok.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[5] == esportaFiltroBck.confrontoCur.esito.datSuperficie}"/>
+		        			<h:graphicImage value="/images/icons/no.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[5] != esportaFiltroBck.confrontoCur.esito.datSuperficie}"/>
+
+		        			
+		        			<h:outputLabel value="Rendita" />
+		        			<h:outputText value="#{esportaFiltroBck.confrontoCur.catastoObjs[8]}" />
+							<h:graphicImage value="/images/icons/ok.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[8] == esportaFiltroBck.confrontoCur.esito.datRenditaInEuro}"/>
+		        			<h:graphicImage value="/images/icons/no.gif" 
+		        				style="border: none" rendered="#{esportaFiltroBck.confrontoCur.catastoObjs[8] != esportaFiltroBck.confrontoCur.esito.datRenditaInEuro}"/>
+
+		        			
+		        			</h:panelGrid>
+
+						<rich:spacer height="20px"/>  	
+						<a4j:region  ajaxRendered="true">
+			             <table border="0">
+			             <tr>
+			             	<td align="center">
+			             	<h:outputText 
+									id="msgSuccess" 
+									style="color: green; font-weight: bold"
+									value="#{msg.msgSuccess}" 
+									rendered="#{esportaFiltroBck.success}"/>
+							<h:outputText 
+										id="msgError" 
+										style="color: red; font-weight: bold"
+										value="#{msg.msgError}" 
+										rendered="#{esportaFiltroBck.error}"/>
+			             	</td>
+			             </tr>
+			             <tr>
+			             	<td align="center">
+			             	<rich:spacer width="20px"/>
+								<a4j:commandButton 
+									value="Chiudi" 
+									ajaxSingle="false" 
+									id="hideBtn" 
+									oncomplete="#{rich:component('catastoModal')}.hide();"/>
+			             	</td>
+						</tr>
+				        </table>
+				        </a4j:region>
+		           </a4j:outputPanel>			          
+		        </h:form>
+
+		            </h:panelGrid>  
+		    </rich:modalPanel>
+		    
+</ui:composition>
+		    

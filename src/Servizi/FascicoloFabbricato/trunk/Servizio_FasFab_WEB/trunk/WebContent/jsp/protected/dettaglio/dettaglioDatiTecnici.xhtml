@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions" >
+
+	<ui:composition>
+	<h:form>
+	<a4j:keepAlive beanName="datiTecniciBean"></a4j:keepAlive>
+	
+	<!-- 24-10-2013 - La visualizzazione delle informazioni dei cataloghi è stata spostata nel pannello DATI CARTOGRAFICI -->
+	<!--  <rich:simpleTogglePanel switchType="client" opened="false" id="datiTecniciPanelPRG" rendered="#{permessiFonteBean.fontePRG}">
+			<f:facet name="header">PGT</f:facet>
+				<a4j:repeat value="#{datiTecniciBean.listaPRG}" var="tabellaTip"  rowKeyVar="idx">
+						<ui:include src="./fragPrg.xhtml"></ui:include>
+				</a4j:repeat>			
+		</rich:simpleTogglePanel>	
+	-->	
+			
+		<rich:simpleTogglePanel switchType="client" opened="false" id="datiTecniciPanelConc" rendered="#{permessiFonteBean.fonteConcedi}">		
+			<f:facet name="header">Concessioni edilizie (situazione alla data di riferimento)</f:facet>
+			
+			<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{datiTecniciBean.listaConcessioni}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" >
+				<rich:column style="text-align:center">
+					<f:facet name="header">Anno</f:facet>
+					<h:outputLabel value="#{elem.progAnno}" />
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Prog.</f:facet>
+					<h:outputLabel value="#{elem.progNumero}" />
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Num.</f:facet>
+					<h:outputLabel value="#{elem.concNumero}" />
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">Data Prot.</f:facet>
+					<h:outputLabel value="#{elem.dataProt}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Data Rilascio</f:facet>
+					<h:outputLabel value="#{elem.dataRilascio}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+				<rich:column style="text-align:center">	
+					<f:facet name="header">Inizio Lavori</f:facet>
+					<h:outputLabel value="#{elem.dataInizioLavori}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Fine Lavori</f:facet>
+					<h:outputLabel value="#{elem.dataFineLavori}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+				<rich:column style="text-align:left">
+					<f:facet name="header">Oggetto</f:facet>
+					<h:outputLabel value="#{elem.oggetto}" />
+				</rich:column>
+				<rich:column  style="text-align:left">
+					<f:facet name="header">Soggetti</f:facet>
+					<a4j:repeat value="#{elem.listaSoggetti}" var="sogg">
+						<h:outputLabel value="#{sogg.titolo}: #{sogg.datiAnag}" /><br></br>
+					</a4j:repeat>
+				</rich:column>		
+				<rich:column style="text-align:left">
+					<f:facet name="header">F-P-S</f:facet>
+					<h:outputLabel value="#{elem.stringaImmobili}" />
+				</rich:column>		
+				
+			</rich:dataTable>		
+			
+			<table style="width:100%">
+					<tr style="background-color: #ebf3fd;height:40px;width:100%">
+						<td>
+							<a4j:commandLink  
+								action="#{datiTecniciBean.showOggettiConcessioniCivici}" 
+								value="Visualizza la lista delle concessioni sui civici della particella, non individuate tramite coordinate catastali"  
+								style="font-weight: bold;color:black;"
+								reRender="panelDettaglio" ajaxSingle="true"
+								oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'600px', width:'900px'})">
+					   			<a4j:actionparam id="sez2" name="sez2" value="#{datiTecniciBean.sezione}" assignTo="#{datiTecniciBean.sezione}"/>
+					   			<a4j:actionparam id="foglio2" name="foglio2" value="#{datiTecniciBean.foglio}" assignTo="#{datiTecniciBean.foglio}"/>
+					   			<a4j:actionparam id="part2" name="part2" value="#{datiTecniciBean.particella}" assignTo="#{datiTecniciBean.particella}"/>
+					   			<a4j:actionparam id="dataRif2" name="dataRif2" value="#{datiTecniciBean.dataRifStr}" assignTo="#{datiTecniciBean.dataRifStr}"/>
+					   			<a4j:actionparam id="uiPageConc" name="uiPageConc" value="dettaglioConcessioni.xhtml" assignTo="#{uiPageBean.page}"/>
+					  	   </a4j:commandLink>
+						</td>	
+					</tr>
+				</table>
+						
+		</rich:simpleTogglePanel>
+		
+		<rich:simpleTogglePanel switchType="client" opened="false" id="datiTecniciPanelVisure" rendered="#{permessiFonteBean.fonteConcediVisure}">		
+			<f:facet name="header">Concessioni edilizie - Archivio storico Visure (situazione alla data di riferimento)</f:facet>
+			
+			<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{datiTecniciBean.listaConcVisure}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" >
+				<rich:column style="text-align:left">
+					<f:facet name="header">Tipo Atto</f:facet>
+					<h:outputLabel value="#{elem.descTipoAtto!=null ? elem.descTipoAtto  : elem.tipoAtto}" />
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">Num.Atto</f:facet>
+					<h:outputLabel value="#{elem.numeroAtto}" />
+				</rich:column>	
+				<rich:column style="text-align:left">
+					<f:facet name="header">Intestatario</f:facet>
+					<h:outputLabel value="#{elem.nomeIntestatario}" />
+				</rich:column>				
+				<rich:column style="text-align:left">
+					<f:facet name="header">Indirizzo</f:facet>
+					<h:outputLabel value="#{elem.prefisso} #{elem.nomeVia}, #{elem.civico}" />
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">Anno Prot.Gen</f:facet>
+					<h:outputLabel value="#{elem.annoProtGen}" />
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">Num. Prot.Gen</f:facet>
+					<h:outputLabel value="#{elem.numProtGen}" />
+				</rich:column>
+				<rich:column style="text-align:center">
+					<f:facet name="header">Num.Prot.Sett</f:facet>
+					<h:outputLabel value="#{elem.numProtSett}" />
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Data Doc.</f:facet>
+					<h:outputLabel value="#{elem.dataDoc}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+				<rich:column style="text-align:left">
+					<f:facet name="header">Dettaglio</f:facet>
+					  <a4j:commandLink action="#{datiTecniciBean.showDettaglioVisura}" 
+			            	value="Dettaglio" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'300px', width:'700px'})">
+				   			<a4j:actionparam id="visura" name="codicevisura" value="#{elem.id}" assignTo="#{datiTecniciBean.selIdConcVisura}"/>
+				   			<a4j:actionparam id="uiPageDC" name="uiPageVIS" value="dettaglioDatiTecniciVisura.xhtml" assignTo="#{uiPageBean.page}"/>
+	     				</a4j:commandLink>
+	            </rich:column>		
+			</rich:dataTable>					
+		</rich:simpleTogglePanel>
+		
+		<rich:simpleTogglePanel switchType="client" opened="false" id="datiTecniciPanelCondono" rendered="#{permessiFonteBean.fontePratCondono}">		
+			<f:facet name="header">Pratiche di Condono (situazione alla data di riferimento)</f:facet>
+		
+			<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{datiTecniciBean.listaCondono}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				
+				<rich:column style="text-align:center">
+					<f:facet name="header">Protocollo</f:facet>
+					<h:outputLabel value="#{elem.pgnumero}" />
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Data Protocollo</f:facet>
+					<h:outputLabel value="#{elem.pgdata}" >
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>	
+				<rich:column style="text-align:center">
+					<f:facet name="header">Esibente</f:facet>
+					<h:outputLabel value="#{elem.esibente}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header">Descrizione dati catastali</f:facet>
+					<h:outputLabel value="#{elem.ute}" />
+				</rich:column>		
+				<rich:column>
+					<f:facet name="header">Provvedimento</f:facet>
+					<h:outputLabel value="#{elem.progprovvedimento}" />
+					<c:if test="#{not empty elem.dataprovvedimento}" >
+						<h:outputLabel value=" del " />
+						<h:outputLabel value="#{elem.dataprovvedimento}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+						</h:outputLabel>
+					</c:if>					
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"></f:facet>
+			        <a4j:commandLink action="#{datiTecniciBean.showPraticaCondono}" 
+		            	value="Dettaglio" reRender="panelDettaglio" ajaxSingle="true"
+		            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'300px', width:'700px'})">
+			   			<a4j:actionparam id="codiceCondono" name="codiceCondono" value="#{elem.codicecondono}" assignTo="#{datiTecniciBean.codiceCondonoPratica}"/>
+			   			<a4j:actionparam id="uiPageDC" name="uiPageDC" value="dettaglioDatiTecniciCondonoPratica.xhtml" assignTo="#{uiPageBean.page}"/>
+     				</a4j:commandLink>
+	            </rich:column>						
+			</rich:dataTable>					
+		</rich:simpleTogglePanel>
+		
+		<rich:simpleTogglePanel switchType="client" opened="false" id="datiTecniciUlteriori">		
+			<f:facet name="header">Ulteriori dati tecnici (situazione alla data di riferimento)</f:facet>
+			<rich:panel rendered="#{permessiFonteBean.fontCertEnergetiche}">
+				<f:facet name="header">Certificazioni energetiche</f:facet>
+					
+				<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{datiTecniciBean.listaCertEnergetiche}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" >
+			
+					<rich:column style="text-align:center">
+						<f:facet name="header">Cod. Identificativo</f:facet>
+						<h:outputLabel value="#{elem.codiceIdentificativoPratica}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">Data protocollo</f:facet>
+						<h:outputLabel value="#{elem.dataProt}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+						</h:outputLabel>
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Num. protocollo</f:facet>
+						<h:outputLabel value="#{elem.numProt}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Destinazione Uso</f:facet>
+						<h:outputLabel value="#{elem.destinazioneDiUso}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">Classe</f:facet>
+						<h:outputLabel value="#{elem.classeEnergetica}" />
+					</rich:column>		
+					<rich:column style="text-align:right">
+						<f:facet name="header">Emissioni</f:facet>
+						<h:outputLabel value="#{elem.emissioni}" />
+					</rich:column>
+
+					<rich:column style="text-align:center">
+						<f:facet name="header">Certificatore/CF</f:facet>
+						<h:outputLabel value="#{elem.denomCertificatore}" />
+						<h:outputLabel value="/" rendered="#{not empty elem.cfPivaCertificatore}"/>
+						<h:outputLabel value="#{elem.cfPivaCertificatore}" />
+					</rich:column>
+					<rich:column style="text-align:left">
+						<f:facet name="header">Sub</f:facet>
+						<h:outputLabel value="#{elem.subTutti}" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<f:facet name="header">Anno Costr.</f:facet>
+						<h:outputLabel value="#{elem.annoCostruzione}" />
+					</rich:column>
+					<rich:column style="text-align:right">
+						<f:facet name="header">Motivazione</f:facet>
+						<h:outputLabel value="#{elem.motivazioneAce}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header"></f:facet>
+				        <a4j:commandLink action="#{datiTecniciBean.showDocsDownload}" 
+			            	value="Docs" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'400px', width:'700px'})">
+				   			<a4j:actionparam id="idDatiCE" name="idDatiCE" value="#{elem.id}" assignTo="#{datiTecniciBean.idDati}"/>
+				   			<a4j:actionparam id="tipoDatiCE" name="tipoDatiCe" value="CE" assignTo="#{datiTecniciBean.tipoDati}"  />
+				   			<a4j:actionparam id="dataProtocolloCE" name="dataProtocolloCE" value="#{elem.dataProtStr}" assignTo="#{datiTecniciBean.dataProtocollo}"/>
+				   			<a4j:actionparam id="numeroProtocolloCE" name="numeroProtocolloCE" value="#{elem.numProt}" assignTo="#{datiTecniciBean.numeroProtocollo}"/>
+				   			<a4j:actionparam id="dataScadProtocolloCE" name="dataScadProtocolloCE" value="#{elem.dtScaValiditaStr}" assignTo="#{datiTecniciBean.dataScadProtocollo}"/>
+				   			<a4j:actionparam id="uiPageCE" name="uiPageCE" value="./dettaglioDatiTecniciDocs.xhtml" assignTo="#{uiPageBean.page}"/> 
+	     				</a4j:commandLink>
+	     				<rich:spacer width="5px"/>
+	     				<a4j:commandLink action="#{datiTecniciBean.showCenedDetail}" 
+			            	value="Dettaglio" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'400px', width:'700px'})">
+				   			<a4j:actionparam id="uidDatiCE" name="uidDatiCE" value="#{elem.id}" assignTo="#{datiTecniciBean.idDati}"/>
+				   			<a4j:actionparam id="uidPageCE" name="uidPageCE" value="./dettaglioDatiTecniciCened.xhtml" assignTo="#{uiPageBean.page}"/>
+	     				</a4j:commandLink>
+		            </rich:column>
+				</rich:dataTable>
+			</rich:panel>
+			<rich:panel rendered="#{permessiFonteBean.fonteCollaudo}">
+				<f:facet name="header">Collaudo statico opere in cemento armato</f:facet>
+							
+				<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{datiTecniciBean.listaCollaudoStatico}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Data protocollo</f:facet>
+						<h:outputLabel value="#{elem.dtProtPraColl}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Num. protocollo</f:facet>
+						<h:outputLabel value="#{elem.numProtDocColl}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Pratica Ed.</f:facet>
+						<h:outputLabel value="#{elem.numRifPraEdi}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header">Data prot. pratica ed.</f:facet>
+						<h:outputLabel value="#{elem.dtProtPraEdi}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+						</h:outputLabel>
+					</rich:column>		
+					<rich:column style="text-align:center">
+						<f:facet name="header">Num. prot. pratica ed.</f:facet>
+						<h:outputLabel value="#{elem.numProtPraEdi}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">Collaudatore</f:facet>
+						<h:outputLabel value="#{elem.denomCollaudatore}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header"></f:facet>
+				        <a4j:commandLink action="#{datiTecniciBean.showDocsDownload}" 
+			            	value="Docs" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'400px', width:'700px'})">
+				   			<a4j:actionparam id="idDatiCS" name="idDatiCS" value="#{elem.id}" assignTo="#{datiTecniciBean.idDati}"/>
+				   			<a4j:actionparam id="tipoDatiCS" name="tipoDatiCS" value="CS" assignTo="#{datiTecniciBean.tipoDati}"/>
+				   			<a4j:actionparam id="dataProtocolloCS" name="dataProtocolloCS" value="#{elem.dtProtPraColl}" assignTo="#{datiTecniciBean.dataProtocollo}"/>
+				   			<a4j:actionparam id="numeroProtocolloCS" name="numeroProtocolloCS" value="#{elem.numProtDocColl}" assignTo="#{datiTecniciBean.numeroProtocollo}"/>				   			
+				   			<a4j:actionparam id="uiPageCS" name="uiPageCS" value="dettaglioDatiTecniciDocs.xhtml" assignTo="#{uiPageBean.page}"/> 
+	     				</a4j:commandLink>
+		            </rich:column>					
+				</rich:dataTable>
+			</rich:panel>
+			<rich:panel rendered="#{permessiFonteBean.fonteDichConformita}">
+				<f:facet name="header">Dichiarazioni di conformita</f:facet>
+							
+				<rich:dataTable width="100%"
+		        	var="elem"
+		        	value="#{datiTecniciBean.listaDichConform}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" >
+
+					<rich:column style="text-align:center">
+						<f:facet name="header">Data protocollo</f:facet>
+						<h:outputLabel value="#{elem.dtProt}" >
+							<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+						</h:outputLabel>
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Num. protocollo</f:facet>
+						<h:outputLabel value="#{elem.numProt}" />
+					</rich:column>	
+					<rich:column style="text-align:center">
+						<f:facet name="header">Tipo impianto</f:facet>
+						<h:outputLabel value="#{elem.tipoImpianto}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">Destinazione d'uso</f:facet>
+						<h:outputLabel value="#{elem.destinazioneUso}" />
+					</rich:column>		
+					<rich:column style="text-align:center">
+						<f:facet name="header">Prop./Committ.</f:facet>
+						<h:outputLabel value="#{elem.denomCommittente}" />
+					</rich:column>
+					<rich:column style="text-align:center">
+						<f:facet name="header">Impresa esec.</f:facet>
+						<h:outputLabel value="#{elem.denomEsecutore}" title="DESCRIZIONE IMPIANTO : #{elem.desImpianto}" />
+					</rich:column>
+					<rich:column>
+						<f:facet name="header"></f:facet>
+				        <a4j:commandLink action="#{datiTecniciBean.showDocsDownload}" 
+			            	value="Docs2" reRender="panelDettaglio" ajaxSingle="true"
+			            	oncomplete="Richfaces.showModalPanel('panelDettaglio', {height:'400px', width:'700px'})">
+				   			<a4j:actionparam id="idDatiDC" name="idDatiDC" value="#{elem.id}" assignTo="#{datiTecniciBean.idDati}"/>
+				   			<a4j:actionparam id="tipoDatiDC" name="tipoDatiDC" value="DC" assignTo="#{datiTecniciBean.tipoDati}"/>
+				   			<a4j:actionparam id="dataProtocolloDC" name="dataProtocolloDC" value="#{elem.dtProtStr}" assignTo="#{datiTecniciBean.dataProtocollo}"/>
+				   			<a4j:actionparam id="numeroProtocolloDC" name="numeroProtocolloDC" value="#{elem.numProt}" assignTo="#{datiTecniciBean.numeroProtocollo}"/>				   			 
+				   			<a4j:actionparam name="uiPage" value="dettaglioDatiTecniciDocs.xhtml" assignTo="#{uiPageBean.page}"/>
+	     				</a4j:commandLink>
+		            </rich:column>					
+				</rich:dataTable>
+			</rich:panel>
+		</rich:simpleTogglePanel>
+	</h:form>		
+	</ui:composition>
+</html>		

@@ -1,0 +1,963 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+     	xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:p="http://primefaces.org/ui"
+	  	xmlns:composite="http://java.sun.com/jsf/composite">
+      
+	<h:head>
+		<title>Gestione Schede valutazione multidimensionali</title>
+	</h:head>
+	<h:body>
+		<composite:interface componentType="pnlSchedaMultidimAnz">
+			<composite:attribute name="iSchedaMultidimAnz" type="it.webred.cs.jsf.interfaces.ISchedaMultidimAnz" required="true"/>
+			<composite:attribute name="listaIsee" required="false"/>
+		</composite:interface>
+		<composite:implementation xmlns:webredcs="http://java.sun.com/jsf/composite/webredcs">
+			
+			<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+				<p:commandButton action="#{cc.attrs.iSchedaMultidimAnz.setNewSchedaMultidimAnz}" 
+					rendered="#{cc.attrs.iSchedaMultidimAnz.newSchedaMultidimAnzRendered}"
+					disabled="#{cc.attrs.iSchedaMultidimAnz.readOnly}" 
+					oncomplete="PF('schedaMultidimAnzDialog').show()" icon="ui-icon-document-b"
+					title="Dettaglio Schede Valutazione Multidimensionali" value="Nuovo" 
+					update=":#{p:component('schedaMultidimAnzDialog')}" process="@this">
+				</p:commandButton>
+				<p:spacer height="2"/>
+			</h:panelGrid>
+			
+			<p:dataTable id="schedaMultidimAnz" var="scheda"
+				value="#{cc.attrs.iSchedaMultidimAnz.listaSchedeMultidims}"
+				rows="10" paginator="true"
+				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				rowsPerPageTemplate="5,10,15">
+		
+				<p:column headerText="Descrizione">
+					<h:outputText value="#{scheda.descrizioneScheda}" />
+				</p:column>
+				<p:column headerText="Data Valutazione">
+					<h:outputLabel value="#{scheda.dataValutazione}">
+						<f:convertDateTime type="date" pattern="dd/MM/yyyy"
+							timeZone="Europe/Berlin" />
+					</h:outputLabel>
+				</p:column>
+				<p:column headerText="Operatore">
+					<h:outputText
+						value="#{scheda.csDDiario.csOOperatoreSettore.csOOperatore.denominazione}" />
+				</p:column>
+		
+				<p:column headerText="" style="text-align: center" width="300px;">
+					<table border="0" width="100%">
+						<tr><td style="border: 0; padding: 0;">
+							<p:commandButton update="@form" process="@this" value="Scheda Barthel"
+								oncomplete="PF('schedaBarthelDialog').show()"
+								icon="ui-icon-search">
+								<f:setPropertyActionListener value="#{scheda}"
+									target="#{cc.attrs.iSchedaMultidimAnz.onViewBarthel}" />
+							</p:commandButton>
+						</td>
+						<td style="border: 0; padding: 0;"><p:spacer width="5"/></td>
+						<td style="border: 0; padding: 0;">
+							<p:commandButton update="@form" process="@this"
+								oncomplete="PF('schedaMultidimAnzDialog').show()"
+								icon="ui-icon-search" value="Scheda Multidim.">
+								<f:setPropertyActionListener value="#{scheda}"
+									target="#{cc.attrs.iSchedaMultidimAnz.selectedSchedaMultidimAnz}" />
+							</p:commandButton>
+						</td></tr>
+					</table>
+				</p:column>
+			</p:dataTable>
+				
+			<!-- INIZIO SCHEDA VALUTAZIONE DIALOG -->
+			<p:dialog id="schedaMultidimAnzDialog" widgetVar="schedaMultidimAnzDialog" styleClass="fascCartellaUtenteDialog"
+				header="Dettaglio Schede Valutazione Multidimensionali" modal="true" 
+				width="90%" dynamic="true">
+				<p:tabView id="tabView" style="padding:0;" orientation="top" scrollable="true" effect="fade">
+					<p:tab id="datiGenerali" title="Dati Generali">
+						<p:scrollPanel mode="native" style="height: 550px;">
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="descrizioneScheda" value="Descrizione:" />
+									<p:inputTextarea cols="55" id="descrizioneScheda" widgetVar="descrizioneScheda" value="#{cc.attrs.iSchedaMultidimAnz.descrizioneScheda}" required="true" requiredMessage="Immettere una descrizione" style="width:100%" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="dataValutazione" value="Data Valutazione:" />
+									<p:calendar id="dataValutazione" value="#{cc.attrs.iSchedaMultidimAnz.dataValutazione}" pattern="dd-MM-yyyy" mask="true" required="true" requiredMessage="Immettere una data" style="width:100%" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+												
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Dove si trova la persona al momento della valutazione" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="momValTipo" value="Tipo" styleClass="outputSpace"/>
+									<p:selectOneMenu id="momValTipo" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.momValTipo}" style="width:200px">
+										<f:selectItem itemLabel="Scegli" itemValue="" />
+										<f:selectItem itemLabel="Ospedale" itemValue="osp" />
+										<f:selectItem itemLabel="Riabilitazione" itemValue="riab" />
+										<f:selectItem itemLabel="Ricovero in RSA" itemValue="ricRSA" />
+										<f:selectItem itemLabel="Struttura Psichiatrica" itemValue="psic" />
+										<f:selectItem itemLabel="Altra struttura" itemValue="altra" />
+									 </p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:outputLabel for="momValLuogo" value="Luogo:" styleClass="outputSpace"/>
+									<p:inputText id="momValLuogo" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.momValLuogo}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="momValReferente" value="Referente:" styleClass="outputSpace"/>
+									<p:inputText id="momValReferente" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.momValRef}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="momValTelefono" value="Telefono:" styleClass="outputSpace"/>
+									<p:inputText id="momValTelefono" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.momValTel}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						</p:scrollPanel>
+					</p:tab>
+					<p:tab id="reteFam" title="Rete Familiare">
+						<p:scrollPanel mode="native" style="height: 550px;">
+							<h:panelGrid columns="1">
+								<h:outputText value="Rete Familiare *" style="font-weight: bold;"/>	
+								<p:spacer height="10"/>
+							</h:panelGrid>
+							<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+								<p:row>
+									<p:column colspan="2">
+										<p:selectBooleanCheckbox id="viveConiuge" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.viveConiuge}" label="Vive con il coniuge" />
+										<p:outputLabel for="viveConiuge" value="Vive con il coniuge" styleClass="outputSpace" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectBooleanCheckbox id="viveFigli" label="Vive con i figli" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.viveFigli}" widgetVar="viveFigli" />
+										<p:outputLabel value="Vive con i figli" for="viveFigli" styleClass="outputSpace" />
+										
+										<p:graphicImage id="infoViveFigli" onclick="infoViveFigli.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info vive con i figli"/>
+										<p:overlayPanel for="infoViveFigli" widgetVar="infoViveFigli" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+	                						<h:outputText value="Vive con i figli nella propria abitazione o presso l'abitazione dei figli." />
+	                					</p:overlayPanel>
+									</p:column>
+									<p:column>
+										<p:outputLabel for="daQuandoViveFigli" widgetVar="viveFigliQuando" value="Da quando?" styleClass="outputSpace" />
+										
+										<p:calendar id="daQuandoViveFigli" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.daQuandoViveFigli}" pattern="dd/MM/yyyy"  mask="true" />
+										<p:outputLabel for="daQuandoViveFigli" value="(gg/mm/aaaa)" styleClass="outputSpace" />
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectBooleanCheckbox value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.viveFamiliari}" label="Vive con i familiari" />
+										<p:outputLabel  value="Vive con i familiari" styleClass="outputSpace"/>
+										
+										<p:graphicImage id="infoViveFamiliari" onclick="infoViveFamiliari.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info vive con i familiari"/>
+										<p:overlayPanel for="infoViveFamiliari" widgetVar="infoViveFamiliari" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+	                						<h:outputText value="Vive con familiari o conoscenti, nella propria abitazione o presso l'abitazione di loro." />
+	                					</p:overlayPanel>
+									</p:column>
+									<p:column>
+										<p:outputLabel for="daQuandoViveFamiliari" value="Da quando?" styleClass="outputSpace" />
+										
+										<p:calendar id="daQuandoViveFamiliari" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.daQuandoViveFamiliari}" pattern="dd/MM/yyyy" mask="true" />
+										<p:outputLabel for="daQuandoViveFamiliari" value="(gg/mm/aaaa)" styleClass="outputSpace"/>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectBooleanCheckbox value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.viveSolo}" label="Vive solo" />
+										<p:outputLabel  value="Vive solo" styleClass="outputSpace"/>
+										
+										<p:graphicImage id="infoViveSolo" onclick="infoViveSolo.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info vive da solo"/>
+										<p:overlayPanel for="infoViveSolo" widgetVar="infoViveSolo" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+	                						<h:outputText value="Vive con familiari nella propria abitazione." />
+	                					</p:overlayPanel>
+									</p:column>
+									<p:column>
+										<p:outputLabel  for="daQuandoViveSolo" value="Da quando?"  styleClass="outputSpace"/>
+										
+										<p:calendar id="daQuandoViveSolo" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.daQuandoViveSolo}" pattern="dd/MM/yyyy" mask="true" />
+										<p:outputLabel for="daQuandoViveSolo" value="(gg/mm/aaaa)" styleClass="outputSpace"/>
+									</p:column>
+								</p:row>
+								<p:row>
+									<p:column>
+										<p:selectBooleanCheckbox id="viveAltri" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.viveAltri}" label="Vive con gli altri" />
+										<p:outputLabel for="viveAltri" value="Vive con gli altri" styleClass="outputSpace"/>
+									</p:column>
+									<p:column>
+										<p:outputLabel for="specificare" value="Specificare" styleClass="outputSpace"/>
+										<p:inputText id="specificare" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.specificare}" />
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+						
+							<h:panelGrid columns="1">
+								<p:spacer height="20"/>
+								<h:outputText value="Famiglia anagrafica" style="font-weight: bold;"/>	
+								<p:spacer height="10"/>
+							</h:panelGrid>
+							<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+								<p:commandButton value="Apri Anagrafica Corrente" disabled="#{!cc.attrs.iSchedaMultidimAnz.apriAnaConvButton}" action="#{cc.attrs.iSchedaMultidimAnz.loadAnagConv}"  
+									oncomplete="PF('famAnaCorrDialog').show()" onstart="famAnaConv.unselectAllRows();" update=":#{p:component('famAnaCorrDialog')}" />
+								<p:spacer height="5"/>									
+							</h:panelGrid>	
+													
+							<p:dataTable id="famAnaConv" widgetVar="famAnaConv" styleClass="tableNoBg" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.famAnaConvs}" selection="#{cc.attrs.iSchedaMultidimAnz.selectedfamAnaConvs}" rowKey="#{famAnaConv.id}" var="famAnaConv">
+						        <p:ajax event="rowSelectCheckbox" listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaConv}" update=":#{p:component('famAnaConv')}" />
+								<p:ajax event="rowUnselectCheckbox" listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaConv}" update=":#{p:component('famAnaConv')}" />
+						        <p:ajax event="rowSelect" listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaConv}" update=":#{p:component('famAnaConv')}" />
+								<p:ajax event="rowUnselect" listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaConv}" update=":#{p:component('famAnaConv')}" />
+						        
+						        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+	        
+						        <p:column headerText="Cognome">
+						            <h:outputText value="#{famAnaConv.cognome}" />
+						        </p:column>
+						 
+						        <p:column headerText="Nome">
+						            <h:outputText value="#{famAnaConv.nome}" />
+						        </p:column>
+						 
+						        <p:column headerText="Indirizzo">
+						            <h:outputText value="#{famAnaConv.indirizzo}" />
+						        </p:column>
+						 
+						        <p:column headerText="Città">
+						            <h:outputText value="#{famAnaConv.citta}" />
+						        </p:column>
+						        
+						        <p:column headerText="Parentela">
+						            <h:outputText value="#{famAnaConv.parentela}" />
+						        </p:column>
+						        
+						        <p:column headerText="Telefono">
+						            <h:outputText value="#{famAnaConv.telefono}" />
+						        </p:column>
+						        
+						        <p:column headerText="Disponibilità">
+						            <h:outputText value="#{famAnaConv.disponibilita}" />
+						        </p:column>
+						        
+						        <f:facet name="footer">
+									<p:commandButton action="#{cc.attrs.iSchedaMultidimAnz.removeAnaConv}" disabled="#{cc.attrs.iSchedaMultidimAnz.removeAnaConvButton}" update=":#{p:component('famAnaConv')}" value="Rimuovi" />
+								</f:facet>
+						    </p:dataTable>
+						
+							<h:panelGrid columns="1">
+								<p:spacer height="20"/>
+								<h:outputText value="Relazioni con altri familiari/parenti non conviventi" style="font-weight: bold;"/>	
+								<p:spacer height="10"/>
+							</h:panelGrid>
+						
+							<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+								<p:row>
+									<p:column>									
+										<p:outputLabel for="nFigli" value="N° figli" styleClass="outputSpace" />
+										<p:spinner id="nFigli" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.nFigli}" min="0" max="31"/>
+									</p:column>
+									<p:column>									
+										<p:outputLabel for="nFiglie" value="N° figlie" styleClass="outputSpace" />
+										<p:spinner id="nFiglie" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.nFiglie}" min="0" max="32"/>
+									</p:column>
+									<p:column>									
+										<p:outputLabel for="nSorelle" value="N° sorelle" styleClass="outputSpace" />
+										<p:spinner id="nSorelle" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.nSorelle}" min="0" max="33"/>
+									</p:column>
+									<p:column>									
+										<p:outputLabel for="nFratelli" value="N° fratelli" styleClass="outputSpace" />
+										<p:spinner id="nFratelli" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.nFratelli}" min="0" max="34"/>
+									</p:column>
+								</p:row>
+							</p:panelGrid>
+							
+							<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+								<p:commandButton value="Apri Anagrafica Corrente" action="#{cc.attrs.iSchedaMultidimAnz.loadAnagNonConv}" oncomplete="PF('famAnaCorrDialog').show()"
+									disabled="#{!cc.attrs.iSchedaMultidimAnz.apriAnaNonConvButton}" onstart="famAnaNonConv.unselectAllRows();" update=":#{p:component('famAnaCorrDialog')}" />
+								<p:spacer height="5"/>
+							</h:panelGrid>
+	
+							<p:dataTable id="famAnaNonConv" widgetVar="famAnaNonConv" styleClass="tableNoBg" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.famAnaNonConvs}"
+								selection="#{cc.attrs.iSchedaMultidimAnz.selectedfamAnaNonConvs}" rowKey="#{famAnaNonConv.id}" var="famAnaNonConv">
+								<p:ajax event="rowSelectCheckbox"
+									listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaNonConv}"
+									update=":#{p:component('famAnaNonConv')}" />
+								<p:ajax event="rowUnselectCheckbox"
+									listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaNonConv}"
+									update=":#{p:component('famAnaNonConv')}" />
+								<p:ajax event="rowSelect"
+									listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaNonConv}"
+									update=":#{p:component('famAnaNonConv')}" />
+								<p:ajax event="rowUnselect"
+									listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaNonConv}"
+									update=":#{p:component('famAnaNonConv')}" />
+		
+								<p:column selectionMode="multiple"
+									style="width:2%;text-align:center" />
+		
+								<p:column headerText="Cognome">
+									<h:outputText value="#{famAnaNonConv.cognome}" />
+								</p:column>
+		
+								<p:column headerText="Nome">
+									<h:outputText value="#{famAnaNonConv.nome}" />
+								</p:column>
+		
+								<p:column headerText="Indirizzo">
+									<h:outputText value="#{famAnaNonConv.indirizzo}" />
+								</p:column>
+		
+								<p:column headerText="Città">
+									<h:outputText value="#{famAnaNonConv.citta}" />
+								</p:column>
+		
+								<p:column headerText="Parentela">
+									<h:outputText value="#{famAnaNonConv.parentela}" />
+								</p:column>
+		
+								<p:column headerText="Telefono">
+									<h:outputText value="#{famAnaNonConv.telefono}" />
+								</p:column>
+		
+								<p:column headerText="Disponibilità">
+									<h:outputText value="#{famAnaNonConv.disponibilita}" />
+								</p:column>
+		
+								<f:facet name="footer">
+									<p:commandButton
+										action="#{cc.attrs.iSchedaMultidimAnz.removeAnaNonConv}"
+										disabled="#{cc.attrs.iSchedaMultidimAnz.removeAnaNonConvButton}"
+										update=":#{p:component('famAnaNonConv')}" value="Rimuovi" />
+								</f:facet>
+							</p:dataTable>
+						
+							<h:panelGrid columns="1">
+								<p:spacer height="20"/>
+								<h:outputText value="Sintesi valutazione rete familiare *" style="font-weight: bold;"/>	
+								<p:spacer height="10"/>
+							</h:panelGrid>
+						
+							<p:outputLabel for="valFam" value="Grave - Insufficiente - limitata - Buona" styleClass="outputSpace" />
+							
+							<p:graphicImage id="infoValFam" onclick="infoValFam.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info valutazione rete familiare"/>
+							<p:overlayPanel for="infoValFam" widgetVar="infoValFam" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+								<h:outputText escape="false" value="#{cc.attrs.iSchedaMultidimAnz.infoValFam}" />
+							</p:overlayPanel>
+	
+							<p:rating id="valFam" styleClass="valFamRating" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.valFamRating}" stars="4" cancel="false" />
+							<p:spacer height="20"/>
+						</p:scrollPanel>
+					</p:tab>
+					<p:tab id="reteSoc" title="Rete Sociale">
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<h:panelGrid columns="1">
+										<h:outputText value="Relazioni con altri soggetti *" style="font-weight: bold;"/>	
+										<p:spacer height="10"/>
+									</h:panelGrid>
+									<p:outputLabel for="relAltriSogg" value="Esistenza supporto non familiare presente?" styleClass="outputSpace" />
+									
+									<p:selectOneButton id="relAltriSogg" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.relAltriSogg}">
+								        <f:selectItem itemLabel="Si" itemValue="si" />
+								        <f:selectItem itemLabel="No" itemValue="no" />
+								        <f:selectItem itemLabel="Non Rilevato" itemValue="nonValutato" />
+								    </p:selectOneButton>
+								</p:column>
+								<p:column>
+									<h:panelGrid columns="1">
+										<h:outputText value="Relazioni con altri soggetti Retribuiti *" style="font-weight: bold;"/>	
+										<p:spacer height="10"/>
+									</h:panelGrid>
+									<p:outputLabel for="relAltriSoggRetr" value="Esistenza supporto retribuito presente?" styleClass="outputSpace" />
+									
+									<p:selectOneButton id="relAltriSoggRetr" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.relAltriSoggRetr}">
+								        <f:selectItem itemLabel="Si" itemValue="si" />
+								        <f:selectItem itemLabel="No" itemValue="no" />
+								        <f:selectItem itemLabel="Non Rilavato" itemValue="nonValutato" />
+								    </p:selectOneButton>
+								</p:column>
+							</p:row>
+							<p:spacer height="15" />
+							<p:row>
+								<p:column colspan="2">
+									<h:panelGrid columns="1" cellpadding="0" cellspacing="0">
+										<p:commandButton value="Apri Anagrafica Corrente" disabled="#{!cc.attrs.iSchedaMultidimAnz.apriAltrifamButton}" action="#{cc.attrs.iSchedaMultidimAnz.loadAnagAltri}"  
+											oncomplete="PF('famAnaCorrDialog').show()" onstart="famAnaAltri.unselectAllRows();" update=":#{p:component('famAnaCorrDialog')}" />				
+										<p:spacer height="5"/>
+									</h:panelGrid>
+															
+									<p:dataTable id="famAnaAltri" widgetVar="famAnaAltri" styleClass="tableNoBg" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.famAnaAltris}" selection="#{cc.attrs.iSchedaMultidimAnz.selectedfamAnaAltris}" rowKey="#{famAnaAltri.id}" var="famAnaAltri">
+								        <p:ajax event="rowSelectCheckbox" listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaAltri}" update=":#{p:component('famAnaAltri')}" />
+										<p:ajax event="rowUnselectCheckbox" listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaAltri}" update=":#{p:component('famAnaAltri')}" />
+								        <p:ajax event="rowSelect" listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaAltri}" update=":#{p:component('famAnaAltri')}" />
+										<p:ajax event="rowUnselect" listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaAltri}" update=":#{p:component('famAnaAltri')}" />
+								        
+								        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+			        
+								        <p:column headerText="Cognome">
+								            <h:outputText value="#{famAnaAltri.cognome}" />
+								        </p:column>
+								 
+								        <p:column headerText="Nome">
+								            <h:outputText value="#{famAnaAltri.nome}" />
+								        </p:column>
+								 
+								        <p:column headerText="Indirizzo">
+								            <h:outputText value="#{famAnaAltri.indirizzo}" />
+								        </p:column>
+								 
+								        <p:column headerText="Città">
+								            <h:outputText value="#{famAnaAltri.citta}" />
+								        </p:column>
+								        
+								        <p:column headerText="Relazione">
+								            <h:outputText value="#{famAnaAltri.parentela}" />
+								        </p:column>
+								        
+								        <p:column headerText="Telefono">
+								            <h:outputText value="#{famAnaAltri.telefono}" />
+								        </p:column>
+								        
+								        <p:column headerText="Disponibilità">
+								            <h:outputText value="#{famAnaAltri.disponibilita}" />
+								        </p:column>
+								        
+								        <f:facet name="footer">
+											<p:commandButton action="#{cc.attrs.iSchedaMultidimAnz.removeAnaAltri}" disabled="#{cc.attrs.iSchedaMultidimAnz.removeAnaAltriButton}" update=":#{p:component('famAnaAltri')}" value="Rimuovi" />
+										</f:facet>
+								    </p:dataTable>
+							    </p:column>
+							</p:row>
+						</p:panelGrid>
+						
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Sintesi valutazione rete Sociale" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						<p:outputLabel value="Grave - Insufficiente - limitata - Buona" styleClass="outputSpace" />
+							
+						<p:graphicImage id="infoValReteSoc" onclick="infoValReteSoc.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info valutazione rete familiare"/>
+							<p:overlayPanel for="infoValReteSoc" widgetVar="infoValReteSoc" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+	      						<h:outputText escape="false"  value="#{cc.attrs.iSchedaMultidimAnz.infoValReteSoc}" />
+	       					</p:overlayPanel>
+	                				
+						<p:rating id="valReteSocRating" styleClass="valFamRating" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.valReteSocRating}" stars="4" cancel="false" />
+						<p:spacer height="20"/>
+					</p:tab>
+					<p:tab id="statoSal" title="Stato di Salute">
+						<h:panelGrid columns="1">
+							<h:outputText value="Stato di salute e autosufficienza" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						<p:outputLabel for="statoSalAuto" value="Elementi significativi acquisiti dal Medico di Medicina Generale o dallo specialista:" styleClass="outputSpace" />
+						 <p:panelGrid id="statoSalAuto" cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="patCard" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patCard}" label="patologie cardiovascolari" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="patCard" value="patologie cardiovascolari"
+										styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="patCardDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patCardDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="patRen" label="patologie renali" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patRen}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="patRen" value="patologie renali" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="patRenDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patRenDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="patAppResp" label="patologie app. respiratorio" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patAppResp}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="patAppResp"	value="patologie app. respiratorio" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="patAppRespDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patAppRespDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="patAppDig"	label="patologie app. digerente" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patAppDig}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="patAppDig" value="patologie app. digerente"	styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="patAppDigDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patAppDigDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="patAppPsiComp"	label="patologie psichiche e/o comportamentali" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patAppPsiComp}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="patAppPsiComp" value="patologie psichiche e/o comportamentali" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="patAppPsiCompDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patAppPsiCompDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="patSistNer" label="patologie del sistema nervoso" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patSistNer}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="patSistNer"	value="patologie del sistema nervoso" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="patSistNerDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.patSistNerDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="artArtOst"	label="artrite, artrosi, osteoporosi" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.artArtOst}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="artArtOst" value="artrite, artrosi, osteoporosi" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="artArtOstDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.artArtOstDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="distVista" label="gravi disturbi alla vista" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.distVista}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="distVista" value="gravi disturbi alla vista" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="distVistaDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.distVistaDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="distUdito"	label="gravi disturbi dell'udito" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.distUdito}"/>
+								</p:column>
+								<p:column>
+									<p:outputLabel for="distUdito" value="gravi disturbi dell'udito" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="distUditoDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.distUditoDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="distLoco" label="disturbi dell'apparato locomotore" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.distLoco}"/>
+								</p:column>
+								<p:column>
+									<p:outputLabel for="distLoco" value="disturbi dell'apparato locomotore" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="distLocoDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.distLocoDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="incontinenza" label="incontinenza" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.incontinenza}"/>
+								</p:column>
+								<p:column>
+									<p:outputLabel for="incontinenza" value="incontinenza" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="incontinenzaDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.incontinenzaDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="piagheDecub" label="piaghe da decubito" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.piagheDecub}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="piagheDecub" value="piaghe da decubito"	styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="piagheDecubDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.piagheDecubDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:selectBooleanCheckbox id="altrePat" label="altre patologie" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.altrePat}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="altrePat" value="altre patologie" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="altrePatDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.altrePatDesc}" />
+								</p:column>
+								<p:column>
+									<p:selectBooleanCheckbox id="altreInfo"	label="altre informazioni" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.altreInfo}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel for="altreInfo" value="altre informazioni" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:inputText id="altreInfoDesc" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.altreInfoDesc}" />
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column colspan="6">
+									<p:outputLabel for="noteSanit" value="Note sanitarie:" styleClass="outputSpace" />
+									<p:inputTextarea id="noteSanit" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.noteSanit}" cols="80" style="width:100%"/>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Salute fisica" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						<p:selectOneButton id="salFisic" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.salFisic}">
+					        <f:selectItem itemLabel="Buona" itemValue="buona" />
+					        <f:selectItem itemLabel="Precaria" itemValue="precaria" />
+					        <f:selectItem itemLabel="Compromessa" itemValue="compromessa" />
+					        <f:selectItem itemLabel="Gravemente compromessa" itemValue="gravCompr" />
+					    </p:selectOneButton>
+					    
+   						<p:graphicImage id="infoSalFisic" onclick="infoSalFisic.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info Stato di Salute"/>
+						<p:overlayPanel for="infoSalFisic" widgetVar="infoSalFisic" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+     						<h:outputText escape="false" value="#{cc.attrs.iSchedaMultidimAnz.infoSalFisic}" />
+     					</p:overlayPanel>
+					</p:tab>
+					<p:tab id="abit" title="Abitazione">
+						<p:scrollPanel mode="native" style="height: 550px;">
+						<h:panelGrid columns="1">
+							<h:outputText value="Situazione Abitativa" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="tipAbit" value="Tipologia abitazione" styleClass="outputSpace" />
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="tipAbit" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.tipAbit}" style="width:200px">
+										<f:selectItem itemLabel="Condominio" itemValue="condominio" />
+										<f:selectItem itemLabel="Casa monofamiliare" itemValue="casaMonoFam" />
+										<f:selectItem itemLabel="Casa rurale" itemValue="casaRurale" />
+										<f:selectItem itemLabel="Casa popolare" itemValue="casaPopolare" />
+										<f:selectItem itemLabel="Altro" itemValue="altro" />
+									 </p:selectOneMenu>
+								</p:column>
+								<p:column>
+									<p:outputLabel for="ascensore" value="Ascensore" styleClass="outputSpace" />
+										
+									<p:selectOneButton id="ascensore" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.ascensore}">
+								        <f:selectItem itemLabel="Si" itemValue="si" />
+								        <f:selectItem itemLabel="No" itemValue="no" />
+								    </p:selectOneButton>
+								</p:column>
+								<p:column>
+									<p:outputLabel for="portineria" value="Portineria" styleClass="outputSpace" />
+										
+									<p:selectOneButton id="portineria" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.portineria}">
+								        <f:selectItem itemLabel="Si" itemValue="si" />
+								        <f:selectItem itemLabel="No" itemValue="no" />
+								    </p:selectOneButton>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel for="abGod" value="Abitazione: titolo di godimento" styleClass="outputSpace" />
+								</p:column>
+								<p:column colspan="2">
+									<p:selectOneMenu id="abGod" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.abGod}" style="width:200px">
+										<f:selectItem itemLabel="Proprietà con mutuo" itemValue="propMutuo" />
+										<f:selectItem itemLabel="Proprietà" itemValue="propr" />
+										<f:selectItem itemLabel="Affitto" itemValue="affitto" />
+										<f:selectItem itemLabel="Usufrutto" itemValue="usufrutto" />
+										<f:selectItem itemLabel="Occupazione Abusiva" itemValue="occAbusiva" />
+									 </p:selectOneMenu>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel for="comp" value="Composizione" styleClass="outputSpace" />
+								</p:column>
+								<p:column colspan="2">
+									<p:selectOneMenu id="comp" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.comp}" style="width:200px">
+										<f:selectItem itemLabel="Monolocale" itemValue="monoloc" />
+										<f:selectItem itemLabel="Bilocale" itemValue="biloc" />
+										<f:selectItem itemLabel="Trilocale" itemValue="triloc" />
+										<f:selectItem itemLabel="Quattro locali" itemValue="quadriLoc" />
+										<f:selectItem itemLabel="Cinque o più locali" itemValue="cinqueLoc" />
+									 </p:selectOneMenu>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel for="riscaldamento" value="Riscaldamento" styleClass="outputSpace" />
+								</p:column>
+								<p:column colspan="2">	
+									<p:selectOneButton id="riscaldamento" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.riscaldamento}">
+								        <f:selectItem itemLabel="Centralizzato" itemValue="centralizzato" />
+								        <f:selectItem itemLabel="Autonomo" itemValue="autonomo" />
+								    </p:selectOneButton>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+							
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Situazione Abitativa" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="gabinetto" value="Gabinetto" styleClass="outputSpace" />	
+									<p:selectOneButton id="gabinetto" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.gabinetto}">
+								        <f:selectItem itemLabel="in casa" itemValue="inCasa" />
+								        <f:selectItem itemLabel="fuori casa" itemValue="fuoriCasa" />
+								    </p:selectOneButton>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel for="fornito" value="Fornito:" styleClass="outputSpace" />
+								<p:selectManyCheckbox id="fornito" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.fornitos}">
+						            <f:selectItem itemLabel="lavabo" itemValue="lavabo" />
+						            <f:selectItem itemLabel="bidè" itemValue="bidè" />
+						            <f:selectItem itemLabel="doccia" itemValue="doccia" />
+						            <f:selectItem itemLabel="vasca" itemValue="vsca" />
+						            <f:selectItem itemLabel="mezza vasca" itemValue="mezzaVasca" />
+						        </p:selectManyCheckbox>
+								
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel for="elettrodom" value="Elettrodomestici:" styleClass="outputSpace" />
+									<p:selectManyCheckbox id="elettrodom" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.elettrodoms}">
+							            <f:selectItem itemLabel="lavatrice" itemValue="lavatrice" />
+							            <f:selectItem itemLabel="cucina elettrica" itemValue="cucinaEletr" />
+							            <f:selectItem itemLabel="cucina a gas" itemValue="cucinaGas" />
+							        </p:selectManyCheckbox>
+								</p:column>
+							</p:row>
+							<p:row>
+								<p:column>
+									<p:outputLabel for="altriProbEsit" value="Altri problemi esistenti:" styleClass="outputSpace" />
+									<p:selectManyCheckbox id="altriProbEsit" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.altriProbEsits}" >
+							            <f:selectItem itemLabel="barriere architettoniche" itemValue="barrArch" />
+							            <f:selectItem itemLabel="impianto elettrico non a norma" itemValue="impElettrNoNorma" />
+							            <f:selectItem itemLabel="mancanza elettrovalvole alla cucina" itemValue="noelettrValv" />
+							        </p:selectManyCheckbox>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Adeguatezza Abitativa" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+	
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="adAbit" value="Insufficiente - Sufficiente - Buona" styleClass="outputSpace" />
+						
+									<p:graphicImage id="infoAdAbit" onclick="infoAdAbit.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info Adeguatezza Abitativa"/>
+									<p:overlayPanel for="infoAdAbit" dynamic="true" widgetVar="infoAdAbit" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+		      							<h:outputText escape="false" value="#{cc.attrs.iSchedaMultidimAnz.infoAdAbit}" />
+									</p:overlayPanel>
+			                					
+									<p:rating id="adAbit" styleClass="adAbitRating" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.adAbitRating}" stars="3" cancel="false" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Ubicazione Abitazione" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+	
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>									
+									<p:selectOneRadio id="ubAbit" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.ubAbits}" style="display:inline;">
+							            <f:selectItem itemLabel="Vicino a servizi" itemValue="vicinoServ" />
+							            <f:selectItem itemLabel="Servizi non in prossimità" itemValue="servNoPross" />
+							            <f:selectItem itemLabel="Lontananza dai servizi" itemValue="lontServ" />
+							        </p:selectOneRadio>
+							        
+									<p:graphicImage id="infoUbAbit" onclick="infoUbAbit.show()" value="/images/info.png" style="cursor:pointer" width="16" title="Info Ubicazione Abitazione"/>
+									<p:overlayPanel for="infoUbAbit" widgetVar="infoUbAbit" dynamic="true" hideEvent="mousedown" dismissable="false" showCloseIcon="true">
+		      							<h:outputText escape="false" value="#{cc.attrs.iSchedaMultidimAnz.infoUbAbit}" />
+	      							</p:overlayPanel>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						</p:scrollPanel>
+					</p:tab>
+					<p:tab id="econ" title="Economia">
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="iseeRipa" value="ISEE riparametrata:" styleClass="outputSpace" />
+									<p:inputText id="iseeRipa" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.iseeRipa}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+						<br/>
+						
+						<p:dataTable var="rowIsee" rowIndexVar="rowKeyIsee" emptyMessage="Nessun elemento presente"
+							value="#{cc.attrs.listaIsee}">
+							
+							<f:facet name="header">
+				            	Elenco ISEE
+				        	</f:facet>
+							
+							<p:column headerText="Anno">	
+								<h:outputText value="#{rowIsee.annoRif}"/>
+							</p:column>
+							
+							<p:column headerText="ISEE">	
+								<h:outputText value="&euro; #{rowIsee.isee}"/>
+							</p:column>
+							
+							<p:column headerText="Data">	
+								<h:outputText value="#{rowIsee.dataIsee}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText>
+							</p:column>
+							
+						</p:dataTable>
+						
+						<h:panelGrid columns="1">
+							<p:spacer height="20"/>
+							<h:outputText value="Valutazione Economica" style="font-weight: bold;"/>	
+							<p:spacer height="10"/>
+						</h:panelGrid>
+						
+						<p:panelGrid cellpadding="10" width="100%" styleClass="tableNoBg">
+							<p:row>
+								<p:column>
+									<p:outputLabel for="valEconRating" value="Insufficiente - Sufficiente - Buona" styleClass="outputSpace" />
+									                					
+									<p:rating id="valEconRating" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.valEconRating}" styleClass="valEconRating" stars="3" cancel="false" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:tab>
+					<p:tab id="mapRis" title="Mappe Risorse">
+						<table class="ui-selectmanycheckbox ui-widget mapRis" style="width: 100%">
+							<tbody>
+								<tr>
+									<td>
+									</td>
+									<td>
+										<table style="width:100%; text-align:center;" class="ui-selectmanycheckbox ui-widget mapRisTop">
+											<tbody>
+												<tr>
+													<ui:repeat var="dachi" value="#{cc.attrs.iSchedaMultidimAnz.dachis}">
+														<td><div style="width:50px">#{dachi}</div></td>
+														<td><p:spacer width="17" height="18" /></td>
+													</ui:repeat>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<table style="width:100%" class="ui-selectmanycheckbox ui-widget mapRisleft">
+											<tbody>
+												<ui:repeat var="prestazioni" value="#{cc.attrs.iSchedaMultidimAnz.prestazionis}">
+													<tr>
+														<td><div style="height:18px">#{prestazioni}</div></td>
+													</tr>
+												</ui:repeat>
+											</tbody>
+										</table>
+									</td>
+									<td>
+										<p:selectManyCheckbox style="width:100%; text-align:center;" value="#{cc.attrs.iSchedaMultidimAnz.schedaMultidimBean.prestazioniDachis}" styleClass="mapRisCenter" layout="grid" columns="7">
+								            <f:selectItems value="#{cc.attrs.iSchedaMultidimAnz.prestDachis}"/>
+								        </p:selectManyCheckbox>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</p:tab>
+				</p:tabView>
+			
+				<table width="100%">
+					<tbody>
+						<tr>
+							<td align="right">
+								<p:commandButton value="Salva" update=":#{p:component('schedaMultidimAnz')}"
+									action="#{cc.attrs.iSchedaMultidimAnz.saveSchedaMultidimAnzDialog}"
+									oncomplete="if (args &amp;&amp; !args.validationFailed &amp;&amp; args.saved) PF('schedaMultidimAnzDialog').hide()" 
+									disabled="#{cc.attrs.iSchedaMultidimAnz.readOnly}" />
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</p:dialog>
+			<!-- FINE SCHEDA VALUTAZIONE DIALOG -->
+			
+			<!-- INIZIO ANAGRAFICA CORRENTE DIALOG -->
+			<p:dialog id="famAnaCorrDialog" widgetVar="famAnaCorrDialog" styleClass="anagCorrente" header="Anagrafica Corrente"
+	   			modal="false" maximizable="true" draggable="true" resizable="true">
+	   			
+		    	<p:dataTable id="famAnaCorr" styleClass="tableNoBg" value="#{cc.attrs.iSchedaMultidimAnz.famComponentes}" selection="#{cc.attrs.iSchedaMultidimAnz.selectedFamComponentes}" rowKey="#{famComponente.csAAnagrafica.id}" var="famComponente">
+					<p:ajax event="rowSelectCheckbox" listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaCorr}" update=":#{p:component('famAnaCorr')}" />
+					<p:ajax event="rowUnselectCheckbox" listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaCorr}" update=":#{p:component('famAnaCorr')}" />
+					<p:ajax event="rowSelect" listener="#{cc.attrs.iSchedaMultidimAnz.onRowSelectFamAnaCorr}" update=":#{p:component('famAnaCorr')}" />
+					<p:ajax event="rowUnselect" listener="#{cc.attrs.iSchedaMultidimAnz.onRowUnselectFamAnaCorr}" update=":#{p:component('famAnaCorr')}" />
+						        
+			        <p:column selectionMode="multiple" style="width:2%;text-align:center"/>
+			        
+			        <p:column headerText="Cognome">
+			            <h:outputText value="#{famComponente.csAAnagrafica.cognome}" />
+			        </p:column>
+			 
+			        <p:column headerText="Nome">
+			            <h:outputText value="#{famComponente.csAAnagrafica.nome}" />
+			        </p:column>
+			 
+			        <p:column headerText="Indirizzo">
+			            <h:outputText value="#{famComponente.indirizzoRes}" />
+			        </p:column>
+			 
+			        <p:column headerText="Città">
+			            <h:outputText value="#{famComponente.comResDes}" />
+			        </p:column>
+			        
+			        <p:column headerText="Parentela">
+			            <h:outputText value="#{famComponente.csTbTipoRapportoCon.descrizione}" />
+			        </p:column>
+			        
+			        <p:column headerText="Telefono">
+			            <h:outputText value="#{famComponente.csAAnagrafica.tel}" />
+			        </p:column>
+			        
+			        <p:column headerText="Disponibilità">
+			            <h:outputText value="#{famComponente.csTbDisponibilita.descrizione}" />
+			        </p:column>
+			        
+					<f:facet name="footer">
+						<p:commandButton action="#{cc.attrs.iSchedaMultidimAnz.addAnaCorr}" disabled="#{cc.attrs.iSchedaMultidimAnz.addAnaCorrButton}" update=":#{p:component('famAnaConv')}, :#{p:component('famAnaNonConv')}, :#{p:component('famAnaAltri')}" value="Aggiungi" oncomplete="PF('famAnaCorrDialog').hide()" />
+					</f:facet>
+			    </p:dataTable>
+		    </p:dialog>
+		    <!-- FINE ANAGRAFICA CORRENTE DIALOG -->
+
+			
+		</composite:implementation>
+	</h:body>
+		
+</html>

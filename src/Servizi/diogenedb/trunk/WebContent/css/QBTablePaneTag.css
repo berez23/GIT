@@ -1,0 +1,46 @@
+@CHARSET "ISO-8859-1";
+
+.dbTable
+{
+	display: block;
+	position: static;
+	padding: 0;
+	border: 3px solid navy;
+	background-color: #EEF;
+	margin: 12px;
+	overflow: hidden;
+}
+.dbTable .header
+{
+	display: block;
+	position: static;
+	background-color: navy;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+.dbTable .header td
+{
+	font-weight: bold;
+	color: #EEF;
+	margin: 0;
+	padding: 3px 6px 6px 6px;
+	vertical-align: middle;
+}
+.dbTable .content
+{
+	display: block;
+	position: static;
+	font: 12px Verdana, sans-serif;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+.dbTable .content td
+{
+	border: 1px solid teal;
+	font-weight: normal;
+	color: navy;
+	margin: 3px;
+	padding: 3px;
+}

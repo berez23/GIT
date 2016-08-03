@@ -1,0 +1,726 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+
+<style type="text/css">
+	
+	.optionList {
+	  height:22px;
+	}
+	.vertical-menu-cell {
+	    padding:0px 4px 0px 4px;
+	}
+	.cbxStile{
+		background-color:#ecf4fe;
+	}
+
+    .box {
+        background-color: #FFF;
+        height:100px;
+        width: 200px;
+        text-align:center;
+    }
+    .cell {
+        height:120px;
+        width: 220px;
+        vertical-align:top;
+    }
+
+    .rich-calendar-tool-btn{
+        font-family: Arial, Verdana;
+    } 
+
+</style>
+
+			<ui:define name="pageTitle">Back Office Docfa</ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			<script type="text/javascript" src="#{ctxName}/js/ricercaFiltro.js"></script>
+			<rich:hotKey key="return" handler="#{rich:element('btnRicerca')}.click()"/>
+			<!-- <rich:hotKey id="myKey" key="ctrl+g" handler="alert('Ctrl+G is pressed')" />
+			<button onclick="${rich:component('myKey')}.enable(); return false;">Turn Ctrl+G On</button>
+			 -->
+			<!-- Pannello Esterno -->
+			<div style="overflow: auto;">
+			   <rich:panel style="padding:5; width : 810px; position: relative" headerClass="outpanelHeader">
+			        <f:facet name="header">
+			            <h:outputText value="Filtro ricerca" />
+			        </f:facet>
+		
+				<a4j:outputPanel id="table" layout="block" >
+		        <table border="0" style=" width : 800px;" cellspacing="5">
+		        	<tr>
+		                    <th style="width: 100%;" colspan="6">
+   		                    	<h:outputText value="#{ricercaFiltroBck.outLabel.value}" style="color: red; font-size: 14px;"/>
+		                    </th>
+		            </tr>
+		            <thead>
+		                <tr style="" >
+		                    <th style="width: 100%;" colspan="6">
+   		                    	<h:outputText value="Dati Generali" />
+		                    </th>
+		                </tr>
+		            </thead>
+		            <tbody>
+		            	 <tr style="">
+	                        <td align="left"  style="width: 125px">
+	                            <h:outputText value="Numero Protocollo" />
+	                        </td>
+	                        <td align="center" style="width: 50px;">
+								<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeNumProtocollo.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeNumProtocollo.state}"
+									inputStyle="position:relative">
+
+								</rich:comboBox>
+	                        </td>
+							<td align="left"  style="width: 200px;">
+	                            <h:inputText 
+	                            	id="txtNumProtocollo" 
+	                            	binding="#{ricercaFiltroBck.txtNumProtocollo}" 
+	                            	styleClass="MyInput">
+	                            </h:inputText>
+	                        </td>
+	                         <td align="left" colspan="3" >
+								&nbsp;
+	                        </td>
+	                        </tr>
+	                        <tr style="">
+	                        <td align="left"  >
+								<h:outputText value="Anno Fornitura" />
+	                        </td>
+	                        <td align="center"  >
+								<h:outputText value="uguale" />
+							</td>
+	                        <td align="left">
+								<rich:comboBox 
+									disabled="false"
+									id="cbxAnniFornitura" 
+									defaultLabel="Tutti"
+									value="#{ricercaFiltroBck.cbxAnniFornitura.state}"   
+									suggestionValues="#{ricercaFiltroBck.cbxAnniFornitura.suggestions}"
+									directInputSuggestions="#{ricercaFiltroBck.cbxAnniFornitura.directInputSuggestions}"
+									width="120px">
+									<a4j:support event="onselect" action="#{ricercaFiltroBck.getMesiFornituraByAnno}" ajaxSingle="true" reRender="cbxMesiFornitura"/>
+								</rich:comboBox>							
+							</td>
+							<td align="left"  >
+								<h:outputText value="Mese Fornitura" />
+	                        </td>
+	                        <td align="center"  >
+								<h:outputText value="uguale" />
+							</td>
+	                        <td align="left">
+								<rich:comboBox 
+									disabled="#{ricercaFiltroBck.disableMesi}"
+									id="cbxMesiFornitura" 
+									defaultLabel="Tutti"
+									value="#{ricercaFiltroBck.cbxMesiFornitura.state}"   
+									suggestionValues="#{ricercaFiltroBck.cbxMesiFornitura.suggestions}"
+									directInputSuggestions="#{ricercaFiltroBck.cbxMesiFornitura.directInputSuggestions}"
+									width="120px">
+									
+								</rich:comboBox>							
+							</td>
+	                    </tr>
+	                    
+						<tr style="">
+	                        <td align="left"   >
+	                            <h:outputText value="Data Protocollo Dal" />
+	                        </td>
+	                        <td align="center"  >
+						        <rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeDataRegistrazioneDal.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeDataRegistrazioneDal.state}">
+
+								</rich:comboBox>
+	                        </td>
+							<td align="left"   >
+								<rich:calendar id="txtDataRegistrazioneDal" value="#{ricercaFiltroBck.txtDataRegistrazioneDal.selectedDate}"
+					                        popup="true"
+					                        datePattern="dd/MM/yyyy"
+					                        showApplyButton="false" 
+					                        cellWidth="24px" 
+					                        cellHeight="22px" 
+					                        style="width:220px"
+					                        enableManualInput="true"
+					                        inputStyle="width:120px"/>
+	                        </td>
+	                        <td align="left"  >
+								<h:outputText value="Data Protocollo Al" />
+							</td>
+	                        <td align="center"  >
+								<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeDataRegistrazioneAl.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeDataRegistrazioneAl.state}">
+
+								</rich:comboBox>
+							</td>
+	                        <td align="left"  >
+								<rich:calendar id="txtDataRegistrazioneAl" value="#{ricercaFiltroBck.txtDataRegistrazioneAl.selectedDate}"
+					                        popup="true"
+					                        datePattern="dd/MM/yyyy"
+					                        showApplyButton="false" 
+					                        cellWidth="24px" 
+					                        cellHeight="22px" 
+					                        style="width:220px"
+					                        enableManualInput="true"
+					                        inputStyle="width:120px"/>
+							</td>
+	                    </tr>
+	                    
+                   <tr style="">
+  	                        <td align="left">
+								<h:outputText value="Causale" />
+	                        </td>
+	                        <td align="center"  >
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+	                            <rich:comboBox 
+									disabled="false"
+									id="cbxCausali" 
+									defaultLabel="Tutti"
+									value="#{ricercaFiltroBck.cbxCausali.state}"   
+									suggestionValues="#{ricercaFiltroBck.cbxCausali.suggestions}"
+									directInputSuggestions="#{ricercaFiltroBck.cbxCausali.directInputSuggestions}"
+									width="120px">
+									
+								</rich:comboBox>
+								
+							</td>
+	                        <td align="left"  >
+								<h:outputText value="Sede Presentazione" />
+	                        </td>
+	                        <td align="center"  >
+								<h:outputText value="uguale" />
+							</td>
+	                        <td align="left">
+								<rich:comboBox
+									id="cbxOperatore" 
+									disabled="false" 
+									directInputSuggestions="true"
+									width="120px"
+									defaultLabel="Tutti" 
+									value="#{ricercaFiltroBck.cbxOperatore}">
+
+									<f:selectItem itemValue="Tutti" itemLabel="Tutti"/>
+									<f:selectItem itemValue="Polo Catastale" itemLabel="Polo Catastale"/>
+									<f:selectItem itemValue="AdT" itemLabel="AdT"/>
+								</rich:comboBox>							
+							</td>
+	                    </tr>
+	                    
+       	                    <tr style="">
+	                        <td align="left"   >
+	                            <h:outputText value="Data Variazione Dal" />
+	                        </td>
+	                        <td align="center"  >
+						        <rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeDataVariazioneDal.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeDataVariazioneDal.state}">
+
+								</rich:comboBox>
+	                        </td>
+							<td align="left"   >
+								<rich:calendar id="txtDataVariazioneDal" value="#{ricercaFiltroBck.txtDataVariazioneDal.selectedDate}"
+					                        popup="true"
+					                        datePattern="dd/MM/yyyy"
+					                        showApplyButton="false" 
+					                        cellWidth="24px" 
+					                        cellHeight="22px" 
+					                        style="width:220px"
+					                        enableManualInput="true"
+					                        inputStyle="width:120px"/>
+	                        </td>
+	                        <td align="left"  >
+								<h:outputText value="Data Variazione Al" />
+							</td>
+	                        <td align="center"  >
+								<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeDataVariazioneAl.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeDataVariazioneAl.state}">
+
+								</rich:comboBox>
+							</td>
+	                        <td align="left"  >
+								<rich:calendar id="txtDataVariazioneAl" value="#{ricercaFiltroBck.txtDataVariazioneAl.selectedDate}"
+					                        popup="true"
+					                        datePattern="dd/MM/yyyy"
+					                        showApplyButton="false" 
+					                        cellWidth="24px" 
+					                        cellHeight="22px" 
+					                        style="width:220px"
+					                        enableManualInput="true"
+					                        inputStyle="width:120px"/>
+							</td>
+	                    </tr>
+	                    	                    
+	               <thead>
+		                <tr style="" >
+		                    <th style="width: 100%;" colspan="6">
+   		                    	<h:outputText value="Dichiarante" />
+		                    </th>
+		                </tr>
+		            </thead>
+						<tr style="">
+						<a4j:region>
+	                        <td align="left" >
+	                            <h:outputText value="Cognome" />
+	                        </td>
+                           <td align="center" >
+								<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeDicCognome.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeDicCognome.state}">
+
+								</rich:comboBox>
+	                        </td>
+	                        <td align="left" >
+						      		<h:inputText id="txtDicCognome" size="40" styleClass="MyInput" binding="#{ricercaFiltroBck.htmlDicCognome}"/>
+						      		<rich:suggestionbox 
+						      			width="400" 
+						      			height="150" 
+						      			for="txtDicCognome" 
+						      			suggestionAction="#{ricercaFiltroBck.autocompleteDic}" 
+						      			var="result" 
+						      			ajaxSingle="true" 
+						      			nothingLabel="..."
+							      		fetchValue="#{result.dic_cognome}"
+							      		usingSuggestObjects="true" onobjectchange="javascript:setTxtDicNome(suggestion);">
+						      		  
+						      		 <f:param name="index" value="suggestion param"/>
+						      			<h:column> 
+						      				<h:outputText value="#{result.dic_cognome} #{result.dic_nome}"></h:outputText>
+						      			</h:column>
+
+						      			<a4j:support event="onselect" action="#{ricercaFiltroBck.actionDic}" reRender="client"  ajaxSingle="false">
+						      				 <f:setPropertyActionListener value="#{result.dic_cognome}" target="#{ricercaFiltroBck.txtDicCognome.property2}" /> 
+						      			</a4j:support>
+						      			
+						      		</rich:suggestionbox>
+						      		
+	                        </td>
+	                        <td align="left" >
+	                            <h:outputText value="Nome" />
+	                        </td>
+	                        <td align="center">
+								<rich:comboBox 
+										width="70px"
+										enableManualInput="false"
+										suggestionValues="#{ricercaFiltroBck.cbxOpeDicNome.suggestions}"
+										value="#{ricercaFiltroBck.cbxOpeDicNome.state}">
+	
+									</rich:comboBox>
+	                        </td>
+	                       <td align="left">
+								<h:inputText id="txtDicNome" binding="#{ricercaFiltroBck.txtDicNome}" styleClass="MyInput" />
+	                        </td>
+	                        </a4j:region>
+	                    </tr>
+					
+					<thead>
+	                <tr style="" >
+	                    <th style="width: 100%;" colspan="6">
+  		                    	<h:outputText value="Professionista" />
+	                    </th>
+	                </tr>
+		            </thead>
+						<tr style="">
+	                        <td align="left" >
+	                            <h:outputText value="Cognome" />
+	                        </td>
+	                        <td align="center" >
+	                            <rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeProCognome.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeProCognome.state}">
+
+								</rich:comboBox>
+	                        </td>
+	                        <td align="left" >
+			                   <a4j:region>
+						      		<h:inputText id="txtProCognome" size="40" styleClass="MyInput" binding="#{ricercaFiltroBck.htmlProCognome}"/>
+						      		<rich:suggestionbox 
+						      			width="400" 
+						      			height="150" 
+						      			for="txtProCognome" 
+						      			suggestionAction="#{ricercaFiltroBck.autocompletePro}" 
+						      			var="result" 
+						      			ajaxSingle="true" 
+						      			nothingLabel="..."
+							      		fetchValue="#{result.tec_cognome}"
+							      		usingSuggestObjects="true" onobjectchange="javascript:setTxtProNome(suggestion);">
+
+						      		 <f:param name="index" value="suggestion param"/>
+						      			<h:column> 
+						      				<h:outputText value="#{result.tec_cognome} #{result.tec_nome}"></h:outputText>
+						      			</h:column>
+
+						      			<a4j:support event="onselect" action="#{ricercaFiltroBck.actionPro}">
+						      				 <f:setPropertyActionListener value="#{result.tec_cognome}" target="#{ricercaFiltroBck.txtProCognome.property2}" /> 
+						      			</a4j:support>
+						      			
+						      		</rich:suggestionbox>
+						      		
+					      		</a4j:region>
+	                        </td>
+                          <td align="left">
+	                            <h:outputText value="Nome" />
+	                        </td>
+	                        <td align="center" >
+	                           	<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeProNome.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeProNome.state}">
+
+								</rich:comboBox>
+	                        </td>
+	                        <td align="left">
+	                            <h:inputText id="txtProNome" binding="#{ricercaFiltroBck.txtProNome}" styleClass="MyInput"/>
+	                        </td>
+	                    </tr>
+				<thead>
+	                <tr style="" >
+	                    <th style="width: 100%;" colspan="6">
+  		                    	<h:outputText value="Immobili" />
+	                    </th>
+	                </tr>
+		            </thead>
+						<tr style="">
+	                        <td align="left" >
+	                            <h:outputText value="Foglio" />
+	                        </td>
+	                        <td align="center">
+	                            <h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left" >
+	                            <h:inputText id="txtImmFoglio" binding="#{ricercaFiltroBck.txtImmFoglio}" styleClass="MyInput"/>
+	                        </td>
+	                        <td align="left" >
+  	                            <h:outputText value="Indirizzo" />
+	                        </td>
+	                        <td align="center" >
+  	                            <rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									suggestionValues="#{ricercaFiltroBck.cbxOpeIndirizzo.suggestions}"
+									value="#{ricercaFiltroBck.cbxOpeIndirizzo.state}">
+
+								</rich:comboBox>
+	                        </td>
+	                        <td align="left" >
+									<a4j:region>
+						      		<h:inputText id="txtIndirizzo" styleClass="MyInput" />
+						      		<rich:suggestionbox 
+						      			width="400" 
+						      			height="150" 
+						      			for="txtIndirizzo" 
+						      			suggestionAction="#{ricercaFiltroBck.autocompleteInd}" 
+						      			var="result" 
+						      			ajaxSingle="true" 
+						      			nothingLabel="..."
+							      		fetchValue="#{result.indir_toponimo}"
+							      		usingSuggestObjects="true" onobjectchange="javascript:setTxtCivico(suggestion);">
+
+						      		 <f:param name="index" value="suggestion param"/>
+						      			<h:column> 
+						      				<h:outputText value="#{result.indir_toponimo} #{result.indir_nciv_uno}"></h:outputText>
+						      			</h:column>
+					
+						      			<a4j:support event="onselect" action="#{ricercaFiltroBck.actionInd}">
+						      				 <f:setPropertyActionListener value="#{result.indir_toponimo}" target="#{ricercaFiltroBck.txtIndirizzo.property2}" /> 
+						      			</a4j:support>
+						      			
+						      		</rich:suggestionbox>
+						      		
+					      		</a4j:region>
+	                        </td>
+	                    </tr>
+	                    
+	                    <tr style="">
+		                   <td align="left">
+	                            <h:outputText value="Particella" />
+	                        </td>
+	                        <td align="center">
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+								<h:inputText id="txtImmParticella" binding="#{ricercaFiltroBck.txtImmParticella}" styleClass="MyInput"/>
+							</td>
+	                        <td align="left" >
+	                            <h:outputText value="Civico" />
+	                        </td>
+	                        <td align="center">
+	                            <h:outputText value="uguale" />
+	                        </td>
+	                       <td align="left">
+ 	                            <h:inputText id="txtCivico" binding="#{ricercaFiltroBck.txtCivico}" styleClass="MyInput"/>
+	                        </td>
+	                    </tr>
+	                    <tr style="">
+		                   <td align="left">
+	                            <h:outputText value="Subalterno" />
+	                        </td>
+	                        <td align="center">
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+								<h:inputText id="txtImmSubalterno" binding="#{ricercaFiltroBck.txtImmSubalterno}" styleClass="MyInput"/>
+							</td>
+	                        <td align="left" >
+	                            <h:outputText value="Categoria U.I." />
+	                        </td>
+	                        <td align="center">
+	                            <h:outputText value="uguale" />
+	                        </td>
+	                       <td align="left">
+	                            <rich:comboBox 
+									disabled="false"
+									id="cbxCategorie" 
+									defaultLabel="Tutti"
+									value="#{ricercaFiltroBck.cbxCategorie.state}"   
+									suggestionValues="#{ricercaFiltroBck.cbxCategorie.suggestions}"
+									directInputSuggestions="#{ricercaFiltroBck.cbxCategorie.directInputSuggestions}"
+									width="120px">
+									
+								</rich:comboBox>
+	                        </td>
+	                    </tr>
+	                   <tr style="">
+	                        <td align="left">
+								<h:outputText value="Tipo operazione" />
+							</td>
+	                        <td align="center">
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+								<rich:comboBox
+									id="cbxTipoOperazione" 
+									disabled="false" 
+									directInputSuggestions="true"
+									width="120px"
+									defaultLabel="Tutti" 
+									value="#{ricercaFiltroBck.cbxTipoOperazione}">
+
+									<f:selectItem itemValue="Tutti" itemLabel="Tutti"/>
+									<f:selectItem  itemValue="COSTITUITA" itemLabel="COSTITUITA"/>
+									<!-- <f:selectItem itemValue="SOPPRESSA" itemLabel="SOPPRESSA"/>  -->
+									<f:selectItem itemValue="VARIATA" itemLabel="VARIATA"/>
+								</rich:comboBox>
+												
+							</td>
+	                        <td align="left">
+								<h:outputText value="Destinazione Funzionale" />
+	                        </td>
+	                        <td align="center">
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+								<rich:comboBox 
+									disabled="false" 
+									value="#{ricercaFiltroBck.cbxDestinazioniFunzionali.state}"   
+									suggestionValues="#{ricercaFiltroBck.cbxDestinazioniFunzionali.suggestions}"
+									directInputSuggestions="#{ricercaFiltroBck.cbxDestinazioniFunzionali.directInputSuggestions}"
+									width="120px"
+									defaultLabel="Tutti"
+									listWidth="220px">
+									
+								</rich:comboBox>
+	                        </td>
+	                    </tr>
+						<tr style="" >
+	                    <th style="width: 100%;" colspan="6">
+  		                    <h:outputText value="Stato" />
+	                    </th>
+		                </tr>
+	                    
+	                   <tr style="">
+	                        <td align="left">
+								<h:outputText value="Stato Istruttoria" />
+							</td>
+	                        <td align="center">
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+	                        
+	                        <rich:comboBox
+	                        		id="cbxStatoIstruttoria"
+									disabled="false" 
+									defaultLabel="Tutti" 
+									value="#{ricercaFiltroBck.cbxStatoIstruttoria.state}"
+									onselect="if (document.getElementById('frmMain:cbxStatoIstruttoriacomboboxValue').value == 'CHIUSA')
+												  #{rich:component('cbxEsitoIstruttoria')}.enable(event);
+											  else
+												  #{rich:component('cbxEsitoIstruttoria')}.disable(event);"
+									width="120px" >
+
+									<f:selectItems value="#{ricercaFiltroBck.cbxStatoIstruttoria.selectItems}" var="status" label="#{status.label}" itemValue="#{status.value}"/>
+									
+								</rich:comboBox>
+								
+							</td>
+	                        <td align="left">
+								<h:outputText value="Esito Istruttoria" />
+	                        </td>
+	                        <td align="center">
+								<h:outputText value="uguale" />
+	                        </td>
+	                        <td align="left">
+							<rich:comboBox 
+									id="cbxEsitoIstruttoria"
+									disabled="true" 
+									directInputSuggestions="true"
+									width="120px"
+									defaultLabel="Tutti" 
+									value="#{ricercaFiltroBck.cbxEsitoIstruttoria}">
+
+									<f:selectItem itemValue="Tutti" itemLabel="Tutti"/>
+									<f:selectItem itemValue="L.662/1996" itemLabel="L.662/1996"/>
+									<f:selectItem itemValue="L.80/2006" itemLabel="L.80/2006"/>
+									<f:selectItem itemValue="L.311/2004" itemLabel="L.311/2004"/>
+									<f:selectItem itemValue="Nessuna Anomalia" itemLabel="Nessuna Anomalia"/>
+								</rich:comboBox>
+	                        </td>
+	                    </tr>
+						<tr >
+	                        <td align="left">
+								<h:outputText value="Pratica Collaudata" />
+							</td>
+	                        <td align="center">
+								<rich:spacer width="5px"/>
+	                        </td>
+	                        <td align="left">
+	                        
+	                        <rich:comboBox
+	                        		id="cbxCollaudati"
+									disabled="false" 
+									width="120px"
+									value="#{ricercaFiltroBck.collaudato}">
+										<f:selectItems value="#{ricercaFiltroBck.alCollaudati}" var="collaudo" itemLabel="#{collaudo.label}" itemValue="#{collaudo.value}"/>
+								</rich:comboBox>
+								
+							</td>
+	                        <td align="left">
+								<h:outputText value="Esito Collaudo" />
+								<h:graphicImage id="imgInfo3" value="/images/icons/info.gif" >
+			                    	<rich:toolTip for="imgInfo3" value="1: Classamento rettificato con accoglimento integrale della segnalazione; &lt;br/&gt; 2: Classamento rettificato con accoglimento parziale della segnalazione; &lt;br/&gt; 3: Incoerenze segnalate non influenti sul classamento; &lt;br/&gt; 4: Elementi segnalati insufficienti; &lt;br/&gt; 5: Unita immobiliare segnalata movimentata da altro DOCFA; &lt;br/&gt; 7: Unita immobiliare o fabbricato non presente nel documento DOCFA segnalato; &lt;br/&gt; 8: Terna Protocollo-Anno-Comune non corrispondente ad un DOCFA tecnico; &lt;br/&gt; 9: Terna Protocollo-Anno-Comune non esistente in banca dati; "/>
+		 						</h:graphicImage>
+	                        </td>
+	                        <td align="center">
+								<rich:spacer width="5px"/>
+	                        </td>
+	                        <td align="left">
+								<rich:comboBox
+	                        		id="cbxEsitiCollaudati"
+									disabled="false"
+									width="120px" 
+									value="#{ricercaFiltroBck.collaudoEsito}">
+										<f:selectItems value="#{ricercaFiltroBck.alCollaudiEsiti}" var="collaudo" itemLabel="#{collaudo.label}" itemValue="#{collaudo.value}"/>
+								</rich:comboBox>
+	                        </td>
+	                    </tr>
+	                    <tr>
+	                    <td colspan='6'>
+	                    <h:selectManyCheckbox value="#{ricercaFiltroBck.incoerenzaUiu}">
+						   	<f:selectItem itemValue="CONSISTENZA" itemLabel="Istruttoria Incoerente in CONSISTENZA" />
+						   	<f:selectItem itemValue="DESTINAZIONE" itemLabel="Istruttoria Incoerente in DESTINAZIONE" />
+						   	<f:selectItem itemValue="PLANIMETRIA" itemLabel="Istruttoria Incoerente in PLANIMETRIA" />
+						   	<f:selectItem itemValue="CLASSAMENTO" itemLabel="Istruttoria Incoerente in CLASSAMENTO" />
+						</h:selectManyCheckbox>
+	                    </td>
+	                    </tr>
+	                    <tr>
+	                    <td >
+	                    <h:graphicImage id="imgInfo" value="/images/icons/info.gif" >
+	                    	<rich:toolTip for="imgInfo" value="l'anomalia nel classamento viene determinata valutando lo scostamento rispetto al valore medio del rapporto tra valore commerciale (desunto dai dati OMI) e rendita catastale rivalutata"/>
+ 						</h:graphicImage>
+ 						<rich:spacer width="5px"/>
+	                    <h:outputText value="Coerenza Classamento " />
+	                    </td>
+	                    <td>
+	                    <rich:comboBox 
+									id="cbxCoerenza"
+									value="#{ricercaFiltroBck.cbxCoerenza}"
+									width="100px"
+									defaultLabel="Tutti">
+									<f:selectItem itemValue="Tutti" itemLabel="Tutti"/>
+									<f:selectItem itemValue="COERENTI" itemLabel="COERENTI"/>
+									<f:selectItem itemValue="INCOERENTI" itemLabel="INCOERENTI"/>
+							</rich:comboBox>
+	                    </td>
+	                    <td>
+	                    <h:graphicImage id="imgInfo2" value="/images/icons/info.gif" >
+	                    	<rich:toolTip for="imgInfo2" value="percentuale di scostamento applicata al rapporto tra valore comme.le e rendita rivalutata per stabilire il range che determina la coerenza o incoerenza delle uintà immobiliari "/>
+ 						</h:graphicImage>
+ 						<rich:spacer width="5px"/>
+	                    <h:outputText value="Scostamento dal Rapporto tra Valore Comme.le e Rendita Rivalutata %" />
+	                    </td>
+	                    <td>
+	                    <h:inputText value="#{ricercaFiltroBck.txtScostamento}" style="width: 80px"/>
+	                    </td>
+	                    <td>
+	                    <h:outputText value="Rapporto tra Valore Comme.le e Rendita Rivalutata " />
+	                    </td>
+	                    <td>
+	                    <h:inputText value="#{ricercaFiltroBck.txtRapportoVCRV}" style="width: 80px"/>
+	                    </td>
+	                    </tr>
+	                    
+		            </tbody>
+		        </table>
+		        </a4j:outputPanel>
+        
+			    </rich:panel>
+			</div>
+			
+			</ui:define>
+			<ui:define name="footer">
+
+				<table style="width : 810px; position: relative">
+					<tr>
+					<td width="20%" align="left">
+				        <a4j:commandButton id="btnReset" value="Reset Filtro" style="width:100px" type="reset" onclick="reset" action="#{ricercaFiltroBck.pulisci}"/>
+					</td>
+					<td width="20%">
+					</td>
+					<td width="20%" align="center">
+						<a4j:commandButton id="btnRicerca" value="Cerca" style="width:150px" action="#{ricercaFiltroBck.ricerca}" onclick="javascript:sottometti();"/>
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%">
+					</td>
+					</tr>
+				</table>
+			
+			</ui:define>
+		</ui:composition>
+</html>      

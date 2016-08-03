@@ -1,0 +1,311 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition>
+		<c:if test="#{empty contribuenteBean.datiElabImu}" >
+			<div style="height:60px;">
+				<h:outputText value="Dati non disponibili" styleClass="titoloNero" style="font-weight: bold;" />
+			</div>
+		</c:if>
+		<c:if test="#{not empty contribuenteBean.datiElabImu}" >
+		    <rich:simpleTogglePanel switchType="client" label="DATI DI INGRESSO DELLA CONSULENZA" opened="false" >
+			
+				<rich:panel>
+				<f:facet name="header">Dati Anagrafici Dichiarante</f:facet>
+				  <h:panelGrid columns="4" rendered="#{contribuenteBean.datiElabImu.dichiarante!=null}">
+	                    <h:outputText value="Denominazione" styleClass="labelDesc" ></h:outputText>
+	                    <h:panelGroup>
+	                    	 <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.cog}" />
+	                    	 <h:outputText value=" " />
+	                    	 <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.nom}" />
+	                    </h:panelGroup>
+	                   <h:outputText value="Cod.Fiscale" styleClass="labelDesc" ></h:outputText>
+	                    <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.codFisc}" />
+	                    <h:outputText value="Sesso" styleClass="labelDesc" ></h:outputText>
+	                    <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.sesso}" />
+	                    <h:outputText value="Comune e Data di nascita" styleClass="labelDesc" ></h:outputText>
+	                    <h:panelGroup>
+	 	                   <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.comNas} (#{contribuenteBean.datiElabImu.dichiarante.provNas})" />
+	 	                    <h:outputText value=" - " />
+	  	                   <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.datNas}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputText>
+	                    </h:panelGroup>
+	                    <h:outputText value="IBAN" styleClass="labelDesc" ></h:outputText>
+	                    <h:outputText value="#{contribuenteBean.datiElabImu.dichiarante.iban}" />
+	                </h:panelGrid>
+	                  <h:outputText rendered="#{contribuenteBean.datiElabImu.dichiarante==null}" value="Dati non presenti" />
+				</rich:panel>
+				<rich:spacer height="5px" />	
+				<rich:panel>
+				<f:facet name="header">Dati Anagrafici Nucleo Familiare</f:facet>
+				<h:outputText rendered="#{empty contribuenteBean.datiElabImu.tabAnagrafe}" value="Dati non presenti" />
+				<rich:dataTable width="100%"
+			        	var="elem" rendered="#{!empty contribuenteBean.datiElabImu.tabAnagrafe}"
+			        	value="#{contribuenteBean.datiElabImu.tabAnagrafe}"
+			        	columnClasses="col" 
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Cod.Fisc." /></f:facet>
+							<h:outputLabel value="#{elem.codFisc}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Cognome" /></f:facet>
+							<h:outputLabel value="#{elem.cog}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Nome" /></f:facet>
+							<h:outputLabel value="#{elem.nom}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Data Nasc." /></f:facet>
+							<h:outputLabel value="#{elem.datNas}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Comune Nasc." /></f:facet>
+							<h:outputLabel value="#{elem.comNas}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Prov.Nasc." /></f:facet>
+							<h:outputLabel value="#{elem.provNas}" />
+						</rich:column>
+				</rich:dataTable>					
+			</rich:panel>
+			<rich:spacer height="5px" />	
+			<rich:panel rendered="#{!empty contribuenteBean.datiElabImu.tabCatastoImm}">
+				<f:facet name="header">Lista Immobili</f:facet>
+						<rich:dataTable width="100%" 
+			        	var="elem"
+			        	value="#{contribuenteBean.datiElabImu.tabCatastoImm}"
+			        	columnClasses="col" 
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						
+						<rich:column style="text-align:left;" width="140px">
+								<f:facet name="header"><h:outputText value="" /></f:facet>
+								 <h:outputText value="#{elem.txtTipologia}"  />
+								 
+								 <rich:dataTable  
+						        	var="val" 
+						        	value="#{elem.valori}"
+						        	columnClasses="col" 
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									<rich:column style="text-align:left;" rendered="#{!val.vuoto}">
+										<f:facet name="header"><h:outputText value="" /></f:facet>
+										<h:outputText title="#{val.descCat}" value="#{val.cod}" style="font-weight:bold;"></h:outputText>
+									</rich:column>
+									<rich:column style="text-align:right;" rendered="#{!val.vuoto}" >
+										<f:facet name="header"><h:outputText value="Rendita" /></f:facet>
+										  <h:outputText value="#{val.rendita}"  ><f:convertNumber type="currency" /></h:outputText>
+									</rich:column>
+									<rich:column style="text-align:center;" rendered="#{!val.vuoto}">
+										<f:facet name="header"><h:outputText title="Mesi di possesso" value="Mesi" /></f:facet>
+										 <h:outputText value="#{val.mesiPoss}" />
+									</rich:column>
+									<rich:column style="text-align:right;" rendered="#{!val.vuoto}" >
+										<f:facet name="header"><h:outputText title="Quota di possesso" value="%" /></f:facet>
+										 <h:outputText value="#{val.quotaPoss}" ><f:convertNumber type="number"/></h:outputText>
+									</rich:column>
+								</rich:dataTable>
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Sez" /></f:facet>
+								  <h:outputText value="#{elem.sez}"  />
+						</rich:column>
+						<rich:column style="text-align:center;" width="70px">
+								<f:facet name="header"><h:outputText value="F / P / S" /></f:facet>
+								  <h:outputText value="#{elem.foglio} / #{elem.num} / #{elem.sub}"  />
+						</rich:column>
+						
+						<rich:column style="text-align:left;" width="70px">
+								<f:facet name="header"><h:outputText value="Valid.Imm" /></f:facet>
+								  <h:panelGrid>
+								  <h:outputText style="font-weight:bold;" value=" da "  />
+								  <h:outputText value="#{elem.dataInizio} "  />
+								  <h:outputText style="font-weight:bold;" value=" a "  />
+								  <h:outputText value="#{elem.dataFine}"  />
+								  </h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Cat." /></f:facet>
+								<h:outputText  value="#{elem.cat} " />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Cls" /></f:facet>
+								  <h:outputText value="#{elem.classe}"  />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Cons." /></f:facet>
+								  <h:outputText value="#{elem.consistenza}"  />
+						</rich:column>
+						<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+								  <h:outputText value="#{elem.ubi}"  />
+						</rich:column>
+						<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Soggetto" /></f:facet>
+								<h:panelGrid columns="1">
+								  <h:outputText value="#{elem.denom}"  /> 
+								  <h:outputText style="font-weight:bold;" value="c.f."  />
+								  <h:outputText value="#{elem.codFisc}"  />
+								  <h:outputText rendered="#{!empty elem.dtNas}" style="font-weight:bold;" value="nato il "  />
+								  <h:outputText value="#{elem.dtNas}"  />
+								</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Titolo" /></f:facet>
+								 <h:panelGrid>
+								  <h:outputText value="#{elem.tit}"  />
+								  <h:outputText style="font-weight:bold;" value=" da "  />
+								  <h:outputText value="#{elem.dataInizioTit} "  />								  
+								  <h:outputText style="font-weight:bold;" value=" a "  />
+								  <h:outputText value="#{elem.dataFineTit}"  />
+								  </h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Reg." /></f:facet>
+								  <h:outputText value="#{elem.regime}"  />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Tasso" /></f:facet>
+								  <h:outputText value="#{elem.tasso}"  />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Aliquota" /></f:facet>
+								  <h:outputText value="#{elem.aliquota} &#8240;"/>
+						</rich:column>
+						<rich:column style="text-align:right;">
+								<f:facet name="header"><h:outputText value="Detr. &#8364;" /></f:facet>
+								  <h:outputText value="#{elem.detrazione}"  />
+						</rich:column>
+	
+				</rich:dataTable>		
+				</rich:panel>
+							
+				<rich:spacer height="10px"></rich:spacer>
+				
+				<rich:panel rendered="#{!empty contribuenteBean.datiElabImu.tabCatastoTerr}">
+				<f:facet name="header">Lista Terreni</f:facet>
+				
+					<rich:dataTable width="100%"
+			        	var="elem" rendered="#{!empty contribuenteBean.datiElabImu.tabCatastoTerr}"
+			        	value="#{contribuenteBean.datiElabImu.tabCatastoTerr}"
+			        	columnClasses="col" 
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+						
+						<rich:column style="text-align:left;"  width="140px">
+								<f:facet name="header"><h:outputText value="" /></f:facet>
+								  <h:outputText value="#{elem.txtTipologia}"  />
+								 <rich:dataTable  
+						        	var="val" 
+						        	value="#{elem.valori}"
+						        	columnClasses="col" 
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+									onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+									<rich:column style="text-align:left;">
+										<f:facet name="header"><h:outputText value="" /></f:facet>
+										<h:outputText title="#{val.descCat}" value="#{val.cod}" style="font-weight:bold;"></h:outputText>
+									</rich:column>
+									<rich:column style="text-align:right;" width="50px">
+										<f:facet name="header"><h:outputText value="Rendita" /></f:facet>
+										  <h:outputText value="#{val.rendita}"  ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputText>
+									</rich:column>
+									<rich:column style="text-align:center;">
+										<f:facet name="header"><h:outputText title="Mesi di possesso" value="Mesi" /></f:facet>
+										 <h:outputText value="#{val.mesiPoss}" />
+									</rich:column>
+									<rich:column style="text-align:right;">
+										<f:facet name="header"><h:outputText title="Quota di possesso" value="%" /></f:facet>
+										 <h:outputText value="#{val.quotaPoss}"  ><f:convertNumber type="number"/></h:outputText>
+									</rich:column>
+								</rich:dataTable>
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Sez" /></f:facet>
+								  <h:outputText value="#{elem.sez}"  />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="F / P / S" /></f:facet>
+								  <h:outputText value="#{elem.foglio}/#{elem.num}/#{elem.sub}"  />
+						</rich:column>
+						<rich:column style="text-align:left;" width="70px">
+								<f:facet name="header"><h:outputText value="Valid.Imm" /></f:facet>
+								  <h:panelGrid>
+								  <h:outputText style="font-weight:bold;" value=" da "  />
+								  <h:outputText value="#{elem.dataInizio} "  />
+								  <h:outputText style="font-weight:bold;" value=" a "  />
+								  <h:outputText value="#{elem.dataFine}"  />
+								  </h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:right;" >
+								<f:facet name="header"><h:outputText value="Area" /></f:facet>
+								<h:outputText  value="#{elem.area} "   />
+						</rich:column>
+						<rich:column style="text-align:right;" >
+								<f:facet name="header"><h:outputText value="Red.Agr." /></f:facet>
+								  <h:outputText value="#{elem.redditoAgrario}"  />
+						</rich:column>
+						<rich:column style="text-align:right;">
+								<f:facet name="header"><h:outputText value="Red.Domin." /></f:facet>
+								  <h:outputText value="#{elem.redditoDominicale}"  />
+						</rich:column>
+								<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Qualita" /></f:facet>
+								  <h:outputText value="#{elem.qualita}"  />
+						</rich:column>
+						<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+								  <h:outputText value="#{elem.ubi}"  />
+						</rich:column>
+					<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Soggetto" /></f:facet>
+								<h:panelGrid columns="1">
+								  <h:outputText value="#{elem.denom}"  /> 
+								  <h:outputText style="font-weight:bold;" value="c.f."  />
+								  <h:outputText value="#{elem.codFisc}"  />
+								  <h:outputText rendered="#{!empty elem.dtNas}" style="font-weight:bold;" value="nato il "  />
+								  <h:outputText value="#{elem.dtNas}"  />
+								</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:left;">
+								<f:facet name="header"><h:outputText value="Titolo" /></f:facet>
+								 <h:panelGrid>
+								  <h:outputText value="#{elem.tit}"  />
+								  <h:outputText style="font-weight:bold;" value=" da "  />
+								  <h:outputText value="#{elem.dataInizioTit} "  />								  
+								  <h:outputText style="font-weight:bold;" value=" a "  />
+								  <h:outputText value="#{elem.dataFineTit}"  />
+								  </h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Reg." /></f:facet>
+								  <h:outputText value="#{elem.regime}"  />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Tasso" /></f:facet>
+								  <h:outputText value="#{elem.tasso}"  />
+						</rich:column>
+						<rich:column style="text-align:center;">
+								<f:facet name="header"><h:outputText value="Aliquota" /></f:facet>
+								  <h:outputText value="#{elem.aliquota} &#8240;"  />
+						</rich:column>
+						<rich:column style="text-align:right;">
+								<f:facet name="header"><h:outputText value="Detr.&#8364;" /></f:facet>
+								  <h:outputText value="#{elem.detrazione}"  />
+						</rich:column>
+				
+				</rich:dataTable>					
+			</rich:panel>
+			</rich:simpleTogglePanel>
+		</c:if>
+	</ui:composition>
+
+</html>

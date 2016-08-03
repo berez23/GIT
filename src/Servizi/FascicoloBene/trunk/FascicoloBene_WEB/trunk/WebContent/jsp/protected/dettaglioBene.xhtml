@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+				<h:form id="frmDettaglio">
+				<p:remoteCommand actionListener="#{dettaglioBeneMan.init()}" autoRun="true" update=":#{p:component('breadCrumb')}" />
+				
+				<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+					<p:commandButton value="Torna alla lista" action="#{navigationBean.goBackListaRicercaBene}" 
+									 icon="ui-icon ui-icon-arrowreturnthick-1-w"/>
+					
+				</div>
+				</h:form>
+				
+				<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+					
+					<div class="ui-grid-row">
+						<div class="titleBar ui-grid-col-12">Dettaglio del bene</div>
+					</div>
+				</div>
+				<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+	            	<div class="ui-grid-row">
+		            	<div class="ui-grid-col-12">
+		            		<h:form id ="frmDettaglioBc">			            
+			            	<p:panelGrid id="breadCrumb" styleClass="panelGrid" style="width:auto" cellpadding="10" columns="4">
+			            		
+				            		<p:outputLabel value="Inventario " styleClass="boldStyle" />
+				            		
+		            				<ui:repeat value="#{dettaglioBeneMan.breadCrumb}" var="node" >
+		            					
+		            					<ui:param name="nodeValueBC" value="#{dettaglioBeneMan.getElemsBreadfromNode(node).get(0)}" />
+		            					<ui:param name="rendNode"    value="#{dettaglioBeneMan.renderBreadNode(node)}" />
+		            					
+				            			<p:commandLink rendered="#{rendNode and (dettaglioBeneMan.treeBene.nomeSelected ne nodeValueBC.chiave)}" 
+				            				 actionListener="#{dettaglioBeneMan.onBreadcrumbSelected(nodeValueBC)}"  
+				            				 update=":#{p:component('breadCrumb')}" >
+				            				<p:outputLabel  value="#{nodeValueBC.chiave}" style="cursor:pointer" />
+									    </p:commandLink>
+									    <p:spacer width="5px"/> 
+									    <p:graphicImage value="/images/breadcrumb-icon.gif"  rendered="#{rendNode and (dettaglioBeneMan.treeBene.nomeSelected ne nodeValueBC.chiave)}"/>
+									 
+									    <p:outputLabel  value="#{nodeValueBC.chiave}" rendered="#{rendNode and (dettaglioBeneMan.treeBene.nomeSelected eq nodeValueBC.chiave)}" 
+									    				style="font-weight:bold;"/>
+									    
+									  </ui:repeat>
+									
+									    <ui:param name="lastNode" value="#{dettaglioBeneMan.getLastBcNode()}" />
+		            				 	<ui:param name="lastNodeValue" value="#{dettaglioBeneMan.getElemsBreadfromNode(lastNode)}" />
+		            					<ui:param name="lastRendNode"    value="#{dettaglioBeneMan.renderBreadNode(lastNode)}" />
+		            					<p:graphicImage value="/images/app-tree.jpg" width="15px" rendered="#{!lastRendNode and lastNode!=null}"/>
+					            		<p:dataTable rendered="#{!lastRendNode and lastNode!=null}" resizableColumns="true"
+					            			 scrollable="true" style="width:600px" selectionMode="single" rowIndexVar="rowIndex"
+					            			scrollHeight="50" var="elem"  selection="#{dettaglioBeneMan.selectedBene}" rowKey="#{elem}"
+					            			value="#{lastNodeValue}">
+					            			
+										    <p:ajax event="rowSelect" listener="#{dettaglioBeneMan.onRowBeneSelect}" update=":#{p:component('breadCrumb')}" />
+										    
+										    <p:column headerText="Cod.Id." width="120">
+										        <h:outputText value="#{elem.chiave}" style="cursor:pointer"/>
+										    </p:column>
+										     <p:column headerText="Tipo Bene" width="80">
+										        <h:outputText value="#{elem.desTipoBene}" style="cursor:pointer"/>
+										    </p:column>
+										      <p:column headerText="Descrizione" >
+										        <h:outputText value="#{dettaglioBeneMan.getDescrizioneBene(elem.id)}" style="cursor:pointer"/>
+										    </p:column>
+										</p:dataTable>
+										
+			    
+			            	</p:panelGrid>
+			            	</h:form>
+		            	</div>
+	            	</div>
+				</div>
+				<div class="ui-grid ui-grid-responsive">
+					<div class="ui-grid-row">
+						<div style="width: 98%"> 
+							<p:tabView id="dettaglioBene" styleClass="tabView" orientation="top" effect="fade" dynamic="true" cache="true">
+					    		<p:ajax event="tabChange" listener="#{dettaglioBeneMan.onTabChange}" />
+					    		
+								<p:tab id="#{dettaglioBeneMan.datiPrincName}Tab" title="Dati Principali" titletip="Dati Principali">
+									<h:form id="frm#{dettaglioBeneMan.datiPrincName}">
+									<p:outputPanel id="#{dettaglioBeneMan.datiPrincName}Panel">
+										<ui:include src="/jsp/protected/DettaglioBene/parentGeneraliBene.xhtml" >
+											<ui:param name="beneSelected" value="#{dettaglioBeneMan.treeBene.beneSelected}"/>
+										</ui:include>
+									</p:outputPanel>
+									</h:form>
+								</p:tab>
+				    		 	<p:tab id="#{dettaglioBeneMan.localName}Tab" title="Localizzazione" titletip="Localizzazione">
+				    		 		<h:form id="frm#{dettaglioBeneMan.localName}">
+									<p:outputPanel id="#{dettaglioBeneMan.localName}Panel">
+										<ui:include src="/jsp/protected/DettaglioBene/parentDettaglioBene.xhtml">
+										      <ui:param name="beneSelected" value="#{dettaglioBeneMan.treeBene.beneSelected}"/>
+										</ui:include>
+									</p:outputPanel>
+									</h:form>	
+								</p:tab>
+								<p:tab id="#{dettaglioBeneMan.terreniName}Tab" title="Terreni" titletip="Terreni">
+									<h:form id="frm#{dettaglioBeneMan.terreniName}">
+									<p:outputPanel id="#{dettaglioBeneMan.terreniName}Panel">
+										<ui:include src="/jsp/protected/DettaglioBene/parentTerreniBene.xhtml">
+										      <ui:param name="beneSelected" value="#{dettaglioBeneMan.treeBene.beneSelected}"/>
+										</ui:include>
+									</p:outputPanel>
+									</h:form>
+								</p:tab>
+								<p:tab id="#{dettaglioBeneMan.titoliName}Tab" title="Titoli" titletip="Titoli">
+									<h:form id="frm#{dettaglioBeneMan.titoliName}">
+									<p:outputPanel id="#{dettaglioBeneMan.titoliName}Panel">
+										<h:form>
+											<ui:include src="/jsp/protected/DettaglioBene/titoli.xhtml">
+										    	<ui:param name="beneSelected" value="#{dettaglioBeneMan.treeBene.beneSelected}"/>
+											</ui:include>
+										</h:form>
+									</p:outputPanel>
+									</h:form>
+								</p:tab>
+								<p:tab id="#{dettaglioBeneMan.docName}Tab" title="Documentazione" titletip="Documentazione">
+									<p:outputPanel id="#{dettaglioBeneMan.docName}Panel">
+									<h:form id="frm#{dettaglioBeneMan.docName}" enctype="multipart/form-data">
+											<ui:include src="/jsp/protected/DettaglioBene/documenti.xhtml">
+										    	<ui:param name="beneSelected" value="#{dettaglioBeneMan.treeBene.beneSelected}"/>
+											</ui:include>
+									</h:form>
+									</p:outputPanel>
+								</p:tab>
+								<p:tab id="#{dettaglioBeneMan.logistName}Tab" title="Logistica" titletip="Logistica" rendered="false">
+									
+									<p:outputPanel id="#{dettaglioBeneMan.logistName}Panel">
+										<h:form>
+											Logistica
+										</h:form>
+									</p:outputPanel>
+								</p:tab>	
+								<p:tab id="#{dettaglioBeneMan.cartografiaName}Tab" title="Mappe" titletip="Mappe">
+									<h:form id="frm#{dettaglioBeneMan.cartografiaName}">
+									<p:outputPanel id="#{dettaglioBeneMan.cartografiaName}Panel">
+										<ui:include src="/jsp/protected/DettaglioBene/cartografia.xhtml">
+									    	<ui:param name="beneSelected" value="#{dettaglioBeneMan.treeBene.beneSelected}"/>
+										</ui:include>
+									</p:outputPanel>
+									</h:form>
+								</p:tab>
+					    	</p:tabView>
+						</div>
+						
+						<div> 
+					        <p:tree id="treeDettaglioBene" value="#{dettaglioBeneMan.treeBene.root}" rendered="false"
+					        		var="node" styleClass="treeMap" selectionMode="single" orientation="vertical">
+								<p:ajax event="select" listener="#{dettaglioBeneMan.onNodeSelect}" update="@this,:#{p:component('breadCrumb')}"/>
+								
+						        <p:treeNode expandedIcon="ui-icon #{dettaglioBeneMan.treeBene.expandedIcon}"
+									collapsedIcon="ui-icon #{dettaglioBeneMan.treeBene.collapsedIcon}" >
+						            <h:outputText value="#{node}" />
+						        </p:treeNode>
+						    </p:tree>
+						</div>
+					</div>
+				</div>
+			
+		</ui:define>
+	</ui:composition>
+</html>

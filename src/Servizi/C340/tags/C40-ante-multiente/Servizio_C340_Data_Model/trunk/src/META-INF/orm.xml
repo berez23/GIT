@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+	<!-- QUERY CodiceBelfiore -->
+	<named-query name="CodiceBelfiore.getComuneLikeDescr">
+		<query>
+		<![CDATA[
+			SELECT c FROM CodiceBelfiore c 
+			WHERE c.descrComune LIKE :descr||'%'
+			ORDER BY c.descrComune
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="CodiceBelfiore.getDescComune">
+		<query>
+		<![CDATA[
+			SELECT c FROM CodiceBelfiore c 
+			WHERE c.codice = :codNazionale
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratDepositoPlanim.getPlanimetrieByFPS">
+		<query>
+		<![CDATA[
+			SELECT c FROM C340PratDepositoPlanim c 
+			WHERE c.foglio = :foglio 
+			AND c.particella = :particella 
+			AND c.unimm = :unimm
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratRettificaSup.getSuperficiByFPS">
+		<query>
+		<![CDATA[
+			SELECT c FROM C340PratRettificaSup c 
+			WHERE c.foglio = :foglio 
+			AND c.particella = :particella 
+			AND c.unimm = :unimm
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratDepositoPlanim.getPlanimetriaByID">
+		<query>
+		<![CDATA[
+			SELECT c FROM C340PratDepositoPlanim c 
+			WHERE c.idUiu = :idUiu 
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratRettificaSup.getSuperficieByID">
+		<query>
+		<![CDATA[
+			SELECT c FROM C340PratRettificaSup c 
+			WHERE c.idUiu = :idUiu
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratDepositoPlanim.deletePlanimetriaByID">
+		<query>
+		<![CDATA[
+			DELETE FROM C340PratDepositoPlanim c 
+			WHERE c.id = :idPra 
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratRettificaSup.deleteSuperficieByID">
+		<query>
+		<![CDATA[
+			DELETE FROM C340PratRettificaSup c 
+			WHERE c.id = :idPra
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratAllegato.deleteAllegatoByID">
+		<query>
+		<![CDATA[
+			DELETE FROM C340PratAllegato a 
+			WHERE a.id = :idAll
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratAllegato.getAllegatiByIDPRA">
+		<query>
+		<![CDATA[
+			SELECT a FROM C340PratAllegato a 
+			WHERE a.idPratica = :idPra
+	]]>
+	</query>
+	</named-query>
+
+	<named-query name="C340PratAllegato.deleteAllegatiByIDPRA">
+			<query>
+			<![CDATA[
+				DELETE FROM C340PratAllegato a 
+				WHERE a.idPratica = :idPra
+	]]>
+	</query>
+	</named-query>
+
+
+</entity-mappings>

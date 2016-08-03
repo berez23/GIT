@@ -1,0 +1,244 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="navInfo">
+				Ricerca Riscossioni - Flusso stato della riscossione
+      	   </ui:define>
+
+	<ui:define name="content">
+
+		<h:form>
+
+			<!-- Menu tabella  -->
+			<rich:contextMenu attached="false" id="menu" submitMode="ajax">
+				<rich:menuItem submitMode="none">
+					<a4j:commandLink action="#{statoRiscossioneBean.doFindDettaglioRiscossione}"
+									 >
+						Visualizza dettaglio riscossione <B>{progressivoRuolo}/{annoRuolo}</B>
+						
+				   <a4j:actionparam name="annoRuolo" value="{annoRuolo}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.annoRuolo}"/>
+				   <a4j:actionparam name="codAmbito" value="{codAmbito}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.codAmbito}"/>
+				   <a4j:actionparam name="codEnteCreditore" value="{codEnteCreditore}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.codEnteCreditore}"/>
+				   <a4j:actionparam name="codPartita" value="{codPartita}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.codPartita}" />
+				   <a4j:actionparam name="dtRegistrazione" value="{dtRegistrazione}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.dtRegistrInformaz}"/>
+				   <a4j:actionparam name="numeroOperazContab" value="{numeroOperazContab}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.numeroOperazContab}"/>
+				   <a4j:actionparam name="progressivoArticoloRuolo" value="{progressivoArticoloRuolo}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.progressivoArticoloRuolo}"/>
+				   <a4j:actionparam name="progressivoOperazContab" value="{progressivoOperazContab}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.progressivoOperazContab}"/>
+				   <a4j:actionparam name="progressivoRuolo" value="{progressivoRuolo}" 
+				   				    assignTo="#{statoRiscossioneBean.chiave.progressivoRuolo}"/>
+
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu -->			
+
+			<rich:messages passedLabel="Operazione completata" layout="list">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+
+			<rich:panel>
+				<f:facet name="header">Criteri di ricerca</f:facet>
+				<h:panelGrid columns="8">
+					<h:outputLabel value="Numero ruolo" />
+					<h:inputText
+						value="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.progressivoRuolo}" />
+
+					<h:outputLabel value="Anno ruolo" />
+					<h:inputText
+						value="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.annoRuolo}" />
+
+					<h:outputLabel value="Cod. Ambito" />
+					<h:inputText
+						value="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.codAmbito}" />
+
+					<h:outputLabel value="Cod. Ente cred." />
+					<h:inputText
+						value="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.codEnteCreditore}" />
+
+					<h:outputLabel value="Cod. partita" />
+					<h:inputText
+						value="#{statoRiscossioneDataModel.criteria.chiaveRiscossione.codPartita}" />
+
+					<h:outputLabel value="Cod. fiscale" />
+					<h:inputText
+						value="#{statoRiscossioneDataModel.criteria.codiceFiscale}" />
+
+				</h:panelGrid>
+
+				<a4j:commandLink reRender="riscossioniTable, tableScroller">
+					<h:outputLabel value="Ricerca" />
+				</a4j:commandLink>
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+
+			<rich:dataTable width="800" var="risc" value="#{statoRiscossioneDataModel}"
+							id="riscossioniTable" 
+							onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+							rows="30">
+							
+			    <f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Ruolo" />							
+						</rich:column>					
+						<rich:column>
+							<h:outputText value="Cod. Ambito" />							
+						</rich:column>					
+						<rich:column>						
+							<h:outputText value="Partita" />						
+						</rich:column>					
+						<rich:column>
+							<h:outputText value="Cod. Fiscale" />							
+						</rich:column>					
+						<rich:column>
+							<h:outputText value="Cod. Entrata" />							
+						</rich:column>					
+						<rich:column>
+							<h:outputText value="Tipo entrata" />						
+						</rich:column>					
+						<rich:column>
+							<h:outputText value="Imp. riscosso" />						
+						</rich:column>					
+						<rich:column>						
+							<h:outputText value="N. Rivers." />			
+						</rich:column>					
+
+					</rich:columnGroup>
+				</f:facet>	
+				<rich:column>
+					<h:outputLabel
+						value="#{risc.chiaveRiscossione.progressivoRuolo}/#{risc.chiaveRiscossione.annoRuolo}"
+						styleClass="ruoloIntest" />
+				</rich:column>				
+				<rich:column>
+					
+					<h:outputLabel
+						value="#{risc.chiaveRiscossione.codAmbito}"
+						styleClass="ruoloIntest" />
+					
+                   			 <rich:toolTip direction="top-right" mode="ajax" showDelay="300"
+                   						    layout="block"
+                   						    showEvent="onmouseover">
+                     			   <a4j:actionparam name="code" value="#{risc.chiaveRiscossione.codAmbito}"
+                          					         assignTo="#{CNCToolTipBean.ambitoCode}" />
+                            	<f:facet name="defaultContent">
+          							 Attendere....
+         						 </f:facet>
+                            	
+                            	<h:outputText value="#{CNCToolTipBean.descr}" />
+							
+							</rich:toolTip>					
+                        
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{risc.chiaveRiscossione.codPartita}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>					
+					<h:outputLabel value="#{risc.codFiscale}"
+						styleClass="ruoloIntest" />
+				</rich:column>
+				
+				<rich:column>					
+					<h:outputLabel value="#{risc.codEntrata}"
+						styleClass="ruoloIntest" />
+
+              	     <rich:toolTip direction="top-right" mode="ajax" showDelay="300"
+                   						    layout="block"
+                   					        showEvent="onmouseover">
+                     	<a4j:actionparam name="code" value="#{risc.codEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceEntrataCode}" />
+                            	<f:facet name="defaultContent">
+          							 Attendere....
+         						 </f:facet>
+                            	
+                            	<h:outputText value="#{CNCToolTipBean.descr}" />
+							
+					</rich:toolTip>					
+						
+				</rich:column>
+
+				<rich:column>					
+					<h:outputText value="Imposta" styleClass="ruoloIntest" 
+								  rendered="#{risc.codTipoCodEntrata eq 'I'}"/>
+					<h:outputText value="Sanzioni" styleClass="ruoloIntest" 
+								  rendered="#{risc.codTipoCodEntrata eq 'S'}"/>
+					<h:outputText value="Interessi" styleClass="ruoloIntest" 
+								  rendered="#{risc.codTipoCodEntrata eq 'T'}"/>
+					<h:outputText value="Altro" styleClass="ruoloIntest" 
+								  rendered="#{risc.codTipoCodEntrata eq 'A'}"/>
+
+				</rich:column>				
+				<rich:column>					
+					<h:outputLabel value="#{risc.importoCaricoRisc} di #{risc.importoCaricoOrigin}"
+								   styleClass="ruoloIntest" />
+				</rich:column>
+				<rich:column>					
+					<h:outputLabel value="#{risc.numeroRiversamenti}"
+								   styleClass="ruoloIntest" />
+				</rich:column>
+						
+				
+				<rich:componentControl event="onRowClick" for="menu" operation="show">
+				   <f:param name="annoRuolo" value="#{risc.chiaveRiscossione.annoRuolo}" />
+				   <f:param name="codAmbito" value="#{risc.chiaveRiscossione.codAmbito}" />
+				   <f:param name="codEnteCreditore" value="#{risc.chiaveRiscossione.codEnteCreditore}" />
+				   <f:param name="codPartita" value="#{risc.chiaveRiscossione.codPartita}"/>			   				   
+				   <f:param name="dtRegistrazione" value="#{risc.chiaveRiscossione.dtRegistrInformaz}" />
+				   <f:param name="numeroOperazContab" value="#{risc.chiaveRiscossione.numeroOperazContab}" />
+				   <f:param name="progressivoArticoloRuolo" value="#{risc.chiaveRiscossione.progressivoArticoloRuolo}" />
+				   <f:param name="progressivoOperazContab" value="#{risc.chiaveRiscossione.progressivoOperazContab}" />
+				   <f:param name="progressivoRuolo" value="#{risc.chiaveRiscossione.progressivoRuolo}" />
+				</rich:componentControl>
+			</rich:dataTable>
+			
+
+			<rich:datascroller id="tableScroller" align="center" for="riscossioniTable" />
+		</h:form>
+
+
+
+		<rich:modalPanel id="panelPopup">
+
+			<f:facet name="header">
+				<h:outputText value="Dettaglio contabile"></h:outputText>
+			</f:facet>
+
+			<f:facet name="controls">
+				<h:panelGroup>
+					<h:graphicImage value="/images/close.png" style="cursor:pointer"
+						id="hidelink" />
+					<rich:componentControl for="panelPopup" attachTo="hidelink"
+						operation="hide" event="onclick" />
+				</h:panelGroup>
+			</f:facet>
+
+			<a4j:include id="viewPage" viewId="#{uiPageBean.page}" />
+
+		</rich:modalPanel>
+
+
+	</ui:define>
+</ui:composition>
+</html>

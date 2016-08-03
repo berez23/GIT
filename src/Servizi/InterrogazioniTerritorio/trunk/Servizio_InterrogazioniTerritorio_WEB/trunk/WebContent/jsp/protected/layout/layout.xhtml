@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>CeT - Interrogazioni Territorio</title>
+<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+<script type="text/javascript"
+	src="${facesContext.externalContext.requestContextPath}/js/extendedDataTableFixScrollable.js">
+	</script>
+</head>
+
+<body>
+
+<script type="text/javascript">
+	function homeHover(){	
+		document.getElementById("menuForm:homelink").className = 'homeClassHover';	
+	}
+	function homeOut(){	
+		document.getElementById("menuForm:homelink").className = 'homeClassOut';	
+	}
+	</script>
+
+<div id="header">
+		<h:panelGrid style="text-align: center; border: 1px solid #C0C0C0; border-bottom:0" cellpadding="0" cellspacing="0" bgcolor="white" width="100%"> 
+				<h:graphicImage value="/images/intterr.png"/>
+		</h:panelGrid>
+</div>
+<rich:separator lineType="solid"/>
+
+
+<a4j:include id="userPage" viewId="/jsp/protected/user/user.xhtml" />
+
+<!-- LOADING BOX -->
+<a4j:status
+	onstart="Richfaces.showModalPanel('ajaxLoadingModalBox',{width:250, top:100})"
+	onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')">
+</a4j:status>
+
+<rich:modalPanel id="ajaxLoadingModalBox" minHeight="100" minWidth="450"
+	height="100" width="250" zindex="2000">
+	<f:facet name="header">
+		<h:outputText value="Richiesta in corso"></h:outputText>
+	</f:facet>
+	<center><h:outputText value="Attendere prego"
+		style="font-size:15px"></h:outputText> <br />
+	<br />
+	<h:graphicImage value="/images/wait.gif" /></center>
+</rich:modalPanel>
+<!-- FINE LOADING BOX -->
+
+<center><rich:messages passedLabel="Operazione completata"
+	layout="list">
+	<f:facet name="infoMarker">
+		<h:graphicImage value="/images/passed.gif" style="padding-right: 5px;" />
+	</f:facet>
+	<f:facet name="errorMarker">
+		<h:graphicImage value="/images/error.gif" style="padding-right: 5px;" />
+	</f:facet>
+</rich:messages></center>
+
+<rich:spacer height="5px" />
+
+<div id="content"><ui:insert name="content">
+
+</ui:insert></div>
+
+</body>
+
+</html>

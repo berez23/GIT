@@ -1,0 +1,245 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="formCalcolo">
+		<h:panelGrid>
+		<h:outputText value="Caso di categorie residenziali per cui siano note la superficie catastale e la consistenza" 
+		style=" font-weight: bold; text-decoration:underline;"/>
+		
+		<h:panelGrid columns="2" width="100%">
+			<rich:spacer height="10px" />
+			<rich:spacer height="10px" />
+		
+			<h:panelGrid columns="4" width="100%">
+
+				<h:outputText value="Foglio" style="font-style:italic;"/>
+				<h:selectOneMenu width="70px" enableManualInput="false" style="width:80px;"
+					value="#{classamentoUnoBck.zonaDTO.foglio}">
+					<f:selectItems value="#{classamentoUnoBck.listaFogli}"></f:selectItems>
+					<a4j:support event="onchange"
+						action="#{classamentoUnoBck.selectFoglio}" ajaxSingle="true"
+						reRender="cbxZc, outMicrozona, cbxMappale, outPanel,outPanelClassi" />
+				</h:selectOneMenu>
+				
+				<h:outputText value="Zona Censuaria" style="font-style:italic;"/>
+				<h:selectOneMenu id="cbxZc" width="70px" enableManualInput="false" style="width:80px;"
+					value="#{classamentoUnoBck.zonaDTO.zonaCensuaria}">
+					<f:selectItems value="#{classamentoUnoBck.listaZC}" />
+					<a4j:support event="onchange"
+						action="#{classamentoUnoBck.getMicrozona}"
+						reRender="outMicrozona,outPanel,outPanelClassi" ajaxSingle="true" />
+				</h:selectOneMenu>
+				
+				<h:outputText value="Microzona" style="font-style:italic;"/>
+				<h:outputText id="outMicrozona" style=" font-weight: bold;"
+				value="#{classamentoUnoBck.zonaDTO.oldMicrozona} - #{classamentoUnoBck.zonaDTO.newMicrozona}" />
+				
+			
+					<h:outputText value="Mappale" style="font-style:italic;"/>
+				<h:panelGroup>
+					<a4j:outputPanel layout="block" id="outMappale">
+						<h:outputText value="#{classamentoUnoBck.zonaDTO.mappale}"
+							rendered="#{!classamentoUnoBck.abilitaMappale}" />
+					</a4j:outputPanel>
+
+					<a4j:outputPanel layout="block" id="cbxMappale">
+						<h:selectOneMenu rendered="#{classamentoUnoBck.abilitaMappale}" style="width:80px;"
+							width="70px" enableManualInput="false"
+							value="#{classamentoUnoBck.zonaDTO.mappale}">
+							<f:selectItems value="#{classamentoUnoBck.listaMappali}"></f:selectItems>
+							<a4j:support event="onchange"
+								action="#{classamentoUnoBck.hideOutPanel}" ajaxSingle="true"
+								reRender="outPanel,outPanelClassi" />
+						</h:selectOneMenu>
+						
+					</a4j:outputPanel>
+				</h:panelGroup>
+				<h:outputText value="Consistenza" style="font-style:italic;" />
+				<h:panelGroup>
+					<h:inputText id="txtConsistenza" title="Consistenza" style="width:80px;"
+						value="#{classamentoUnoBck.zonaDTO.consistenza}"
+						validator="#{classamentoUnoBck.validateConsistenza}">
+						<a4j:support event="onblur"
+							action="#{classamentoUnoBck.hideOutPanel}" ajaxSingle="true"
+							reRender="outPanel,outPanelClassi" />
+							<f:convertNumber type="number" maxFractionDigits="2" />
+					</h:inputText>
+					<br />
+					<rich:message for="txtConsistenza" style="color: red;" />
+				</h:panelGroup>
+				<h:outputText value="Superficie" style="font-style:italic;"/>
+				<h:panelGroup>
+					<h:inputText id="txtSuperficie" title="Superficie" style="width:80px;"
+						value="#{classamentoUnoBck.zonaDTO.superficie}" immediate="true"
+						validator="#{classamentoUnoBck.validateSuperficie}">
+						<a4j:support event="onblur"
+							action="#{classamentoUnoBck.hideOutPanel}" ajaxSingle="true"
+							reRender="outPanel,outPanelClassi" />
+							<f:convertNumber type="number" maxFractionDigits="2" />
+					</h:inputText>
+					<br />
+					<rich:message for="txtSuperficie" style="color: red;" />
+				</h:panelGroup>
+				
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+				<h:outputText value="Categoria Edilizia" style="font-style:italic;"/>
+				<h:selectOneRadio layout="pageDirection"
+					value="#{classamentoUnoBck.zonaDTO.codiceCategoriaEdilizia}">
+					<f:selectItems value="#{classamentoUnoBck.listaCategorieEdilizie}"></f:selectItems>
+					<a4j:support event="onclick"
+						action="#{classamentoUnoBck.selectCategoriaEdilizia}"
+						reRender="cbxAscensore,outPanel,outPanelClassi" ajaxSingle="true" />
+				</h:selectOneRadio>
+
+				<h:outputText value="Tipologia Intervento" style="font-style:italic;" />
+				<h:selectOneRadio layout="pageDirection"
+					value="#{classamentoUnoBck.zonaDTO.tipoIntervento}">
+					<f:selectItems value="#{commonDataBean.listaTipologiaIntervento}"></f:selectItems>
+					<a4j:support event="onclick"
+						action="#{classamentoUnoBck.selectTipoIntervento}"
+						reRender="cbxMappale, outMappale, cbxAscensore, outPanel,outPanelClassi"
+						ajaxSingle="true" />
+				</h:selectOneRadio>
+				</h:panelGrid>
+				
+				<h:panelGroup>
+				<h:outputText value="Presenza di ascensore o altezza dell'immobile inferiore a 3 piani f.t." 
+					style="font-style:italic;"/>
+				<rich:spacer width="10px"/>
+				<h:selectOneMenu id="cbxAscensore"
+					disabled="#{classamentoUnoBck.disabilitaAscensore}" width="70px"
+					enableManualInput="false" value="#{classamentoUnoBck.flgAscensore}">
+					<f:selectItems value="#{commonDataBean.listaSiNo}"></f:selectItems>
+				</h:selectOneMenu>
+				</h:panelGroup>
+				
+			</h:panelGrid>
+			<rich:spacer heught="20px"/>
+			<a4j:commandButton event="onclick"
+				action="#{classamentoUnoBck.calcola}" value="Calcola" type="submit"
+				id="btnCalcola" reRender="outPanel, outPanelClassi"
+				styleClass="my-button" />
+			<rich:spacer heught="20px"/>
+			
+			<a4j:outputPanel layout="block" id="outPanelClassi">
+				
+					<rich:dataTable id="clsCatList" width="300px"
+					rendered="#{classamentoUnoBck.visualizzaOutput == true and classamentoUnoBck.abilitaMappale == true}"
+					value="#{classamentoUnoBck.datiAttesiDTO.classiMaxCategoria}" var="classiMax"
+					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					<f:facet name="header">
+						<h:outputText value="Classe massima per categoria" />
+					</f:facet>
+					<rich:column width="50px">
+						<f:facet name="header">
+							<h:outputText value = "Categoria"/>
+						</f:facet>
+						<h:outputText value="#{classiMax.categoria}" />
+					</rich:column>
+					<rich:column width="30px">
+						<f:facet name="header">
+							<h:outputText value = "Classe"/>
+						</f:facet>
+						<h:outputText value="#{classiMax.classe}" />
+					</rich:column>
+				</rich:dataTable>
+				
+			</a4j:outputPanel>
+			<rich:spacer width="2px"></rich:spacer>
+			<a4j:outputPanel layout="block" id="outPanel">
+				<h:panelGrid columns="3" width="100%" rendered="#{classamentoUnoBck.visualizzaOutput == true}" >
+				<h:panelGrid columns="2" width="300px" rules="rows" cellpadding="3" border="2" style="background-color:#EAF0F8; border-color:#EBECE4;">
+
+					<h:outputText value="Valore unitario commerciale al mq:" style=" font-weight: bold;"/>
+					<h:outputText 
+						value="&#8364; #{classamentoUnoBck.datiAttesiDTO.valoreCommercialeMq}">
+						<f:convertNumber type="currency" maxFractionDigits="2" />
+					</h:outputText>
+
+					<h:outputText value="Rendita minima: " style=" font-weight: bold;"/>
+					<h:outputText
+						value="&#8364; #{classamentoUnoBck.datiAttesiDTO.renditaMinima}" >
+						<f:convertNumber type="currency" maxFractionDigits="2" />
+					</h:outputText>
+
+					<h:outputText value="Valore commerciale: " style=" font-weight: bold;"/>
+					<h:outputText
+						value="&#8364; #{classamentoUnoBck.datiAttesiDTO.valoreCommerciale}">
+						<f:convertNumber type="currency" maxFractionDigits="2"  />
+					</h:outputText>
+
+					<h:outputText value="Tariffa per vano: " style=" font-weight: bold;"/>
+					<h:outputText
+						value="&#8364; #{classamentoUnoBck.datiAttesiDTO.tariffaPerVano}">
+						<f:convertNumber type="currency" maxFractionDigits="2"  />
+					</h:outputText>
+				</h:panelGrid>
+				<rich:spacer width="5px"></rich:spacer>
+				<rich:dataTable id="classeList" rows="5" 
+					columnClasses="col" rendered="#{classamentoUnoBck.visualizzaOutput == true }"
+					value="#{classamentoUnoBck.datiAttesiDTO.classamenti}" var="classe"
+					onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					<f:facet name="header">
+						<h:outputText
+							value="Categoria e classe compatibile con l'intervento" />
+					</f:facet>
+					<rich:column width="50px">
+						<f:facet name="header">
+							<h:outputText value="Categoria" />
+						</f:facet>
+						<h:outputText value="#{classe.categoria}"/>
+					</rich:column>
+					<rich:column width="50px">
+						<f:facet name="header">
+							<h:outputText value="Classe" />
+						</f:facet>
+						<h:outputText value="#{classe.classe}" />
+					</rich:column>
+					<rich:column width="50px">
+						<f:facet name="header">
+							<h:outputText value="Tariffa per Vano" />
+						</f:facet>
+						<h:outputText value="&#8364; #{classe.tariffa}">
+							<f:convertNumber type="currency"  maxFractionDigits="2" />
+						</h:outputText>
+					</rich:column>
+					<rich:column width="50px">
+						<f:facet name="header">
+							<h:outputText styleClass="headerText" value="Rendita Complessiva" />
+						</f:facet>
+						<h:outputText value="&#8364; #{classe.renditaComplessiva}">
+							<f:convertNumber type="currency"  maxFractionDigits="2"  />
+						</h:outputText>
+					</rich:column>
+					<f:facet name="footer">
+						<rich:datascroller align="center" for="classeList"
+							renderIfSinglePage="false" maxPages="20" pagesVar="pagesNum" />
+						<h:panelGroup>
+							<h:outputLabel
+								value="Num. Righe: #{classamentoUnoBck.numberOfRows}" />
+							<h:outputLabel value=" Num. Pagine: #{pagesNum}" />
+						</h:panelGroup>
+					</f:facet>
+
+				</rich:dataTable>
+				</h:panelGrid>
+			</a4j:outputPanel>
+			
+			</h:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

@@ -1,0 +1,41 @@
+<!-- -->
+<!ENTITY % expression_attributes "ui_key CDATA #IMPLIED">
+
+<!-- ELEMENTS HIERARCHY -->
+<!ELEMENT condition ((embedded_condition | operator)+)>
+  <!ATTLIST condition outer_join_table_id CDATA #IMPLIED>
+  <!ELEMENT embedded_condition (condition)>
+  	<!ATTLIST embedded_condition logical_relation CDATA #REQUIRED>
+  <!ELEMENT operator (name, operand+, description?)>
+   	<!ATTLIST operator 
+   		%expression_attributes;
+   		logical_relation CDATA #REQUIRED>
+    <!ELEMENT operand ((explicit_sql | generic | column | literal | constant | function | operands_list), (chain_operator, (explicit_sql | generic | column | literal | constant | function | operands_list))*)>
+    	<!ATTLIST operand data_type (number | string | date | any) #REQUIRED>
+      <!ELEMENT column (table, field)>
+      	<!ATTLIST column %expression_attributes;>
+        <!ELEMENT table (pk_id, name, description?, alias?)>
+      		<!ATTLIST table %expression_attributes; outer (true | false) #IMPLIED>
+        <!ELEMENT field (name, description?, alias?)>
+      		<!ATTLIST field %expression_attributes;>
+      <!ELEMENT generic (value, description?)>
+      	<!ATTLIST generic %expression_attributes;>
+      <!ELEMENT literal (value, description?)>
+      	<!ATTLIST literal %expression_attributes;>
+      <!ELEMENT constant (name, description?)>
+      	<!ATTLIST constant %expression_attributes;>
+      <!ELEMENT function (name, operands_list, description?)>
+      	<!ATTLIST function %expression_attributes;>
+      <!ELEMENT chain_operator (name, description?)>
+      	<!ATTLIST chain_operator %expression_attributes;>
+      <!ELEMENT operands_list (operand+, description?)>
+      	<!ATTLIST operands_list %expression_attributes;>
+
+<!-- GENERAL ELEMENTS -->
+<!ELEMENT explicit_sql (#PCDATA)>
+<!ELEMENT pk_id (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT value (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT alias (#PCDATA)>
+

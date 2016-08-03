@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: Indice_Data_Model.jar 
+ Servizio_Dia_Data_Model.jar 
+ Servizio_Dia_EJBClient.jar
+

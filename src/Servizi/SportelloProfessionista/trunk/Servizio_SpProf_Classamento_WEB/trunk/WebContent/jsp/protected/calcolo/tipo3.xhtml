@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="formCalcolo">
+			<h:panelGrid width="100%">
+			<h:outputText value="Caso di Categorie C e A10" style=" font-weight: bold; text-decoration:underline;"/>
+			
+			<rich:spacer height="15px"/>
+			
+			<h:panelGrid columns="3" width="100%">
+			<h:panelGrid columns="2" width="100%">
+				<h:outputText value="Foglio" style=" font-style: italic;"/>
+
+				<h:selectOneMenu width="70px" enableManualInput="false" style="width:50px;"
+					value="#{classamentoTreBck.zonaDTO.foglio}">
+					<f:selectItems value="#{classamentoTreBck.listaFogli}"></f:selectItems>
+					<a4j:support event="onchange"
+						action="#{classamentoTreBck.selectFoglio}" ajaxSingle="true"
+						reRender="cbxZc, outMicrozona, outPanel" />
+
+				</h:selectOneMenu>
+
+				<h:outputText value="Zona Censuaria" style=" font-style: italic;"/>
+
+				<h:selectOneMenu id="cbxZc" width="70px" enableManualInput="false" style="width:50px;"
+					value="#{classamentoTreBck.zonaDTO.stato}">
+					<f:selectItems value="#{classamentoTreBck.listaZC}"></f:selectItems>
+					<a4j:support event="onchange"
+						action="#{classamentoTreBck.getMicrozona}"
+						reRender="outMicrozona, outPanel" ajaxSingle="true" />
+				</h:selectOneMenu>
+
+				<h:outputText value="Microzona" style=" font-style: italic;"/>
+				<h:outputText id="outMicrozona" style=" font-weight: bold;"
+					value="#{classamentoTreBck.zonaDTO.oldMicrozona}- #{classamentoTreBck.zonaDTO.newMicrozona}" />
+			
+				<h:outputText value="Posto Auto Scoperto" style=" font-style: italic;"/>
+				<h:selectOneMenu id="cbxPostoAuto" style="width:50px;"
+					disabled="#{!classamentoTreBck.abilitaPostoAuto}" width="70px"
+					enableManualInput="false"
+					value="#{classamentoTreBck.zonaDTO.flgPostoAuto}">
+					<f:selectItems value="#{commonDataBean.listaSiNo}"></f:selectItems>
+					<a4j:support event="onchange"
+						action="#{classamentoTreBck.hideOutPanel}" reRender="outPanel"
+						ajaxSingle="true" />
+				</h:selectOneMenu>
+				</h:panelGrid>
+				<h:outputText value="Categoria Edilizia" style=" font-style: italic;"/>
+
+				<h:selectOneRadio layout="pageDirection"
+					value="#{classamentoTreBck.zonaDTO.codiceCategoriaEdilizia}">
+					<f:selectItems value="#{classamentoTreBck.listaCategorieEdilizie}"></f:selectItems>
+					<a4j:support event="onclick"
+						action="#{classamentoTreBck.selectCategoriaEdilizia}"
+						reRender="cbxPostoAuto, outPanel" ajaxSingle="true" />
+				</h:selectOneRadio>
+			
+			</h:panelGrid>
+
+			<center><a4j:commandButton event="onclick"
+				action="#{classamentoTreBck.calcola}" value="Calcola" type="submit"
+				id="btnCalcola" reRender="outPanel" styleClass="my-button" /></center>
+			
+			<rich:spacer height="10px"/>
+			
+			<a4j:outputPanel layout="block" id="outPanel">
+
+				<rich:spacer height="10px;" />
+				<h:panelGrid columns="2" rendered="#{classamentoTreBck.visualizzaOutput == true}">
+					<h:outputText value="Classe minima di riferimento" style=" font-style: italic;"
+						rendered="#{classamentoTreBck.zonaDTO.codiceCategoriaEdilizia eq 'C01'}" />
+					<h:outputText value="Classe maggiormente frequente" style=" font-style: italic;"
+						rendered="#{classamentoTreBck.zonaDTO.codiceCategoriaEdilizia ne 'C01'}" />
+					<h:outputText
+						value="#{classamentoTreBck.datiAttesiDTO.classeMaxFrequente}"
+						style=" font-weight: bold;" />
+
+				</h:panelGrid>
+
+			</a4j:outputPanel>
+		</h:panelGrid>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+</html>

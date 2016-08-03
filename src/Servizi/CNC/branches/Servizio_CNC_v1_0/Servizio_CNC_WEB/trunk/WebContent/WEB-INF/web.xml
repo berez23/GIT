@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5"
+ xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <display-name>Servizio_CNC_WEB</display-name>
+ <context-param>
+  <param-name>org.ajax4jsf.SKIN</param-name>
+  <param-value>classic</param-value>
+ </context-param>
+ <context-param>
+  <param-name>org.richfaces.CONTROL_SKINNING</param-name>
+  <param-value>enable</param-value>
+ </context-param>
+ <context-param>
+  <param-name>org.richfaces.CONTROL_SKINNING_CLASSES</param-name>
+  <param-value>enable</param-value>
+ </context-param>
+ <context-param>
+  <description>Faces extension</description>
+  <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+  <param-value>.xhtml</param-value>
+ </context-param>
+ <context-param>
+  <description>Development Setting</description>
+  <param-name>facelets.DEVELOPMENT</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <context-param>
+  <description>Development Setting</description>
+  <param-name>facelets.LIBRARIES</param-name>
+  <param-value>/WEB-INF/tags/jsf-ui.taglib.xml;/WEB-INF/tags/jsf-core.taglib.xml;/WEB-INF/tags/jsf-html.taglib.xml;</param-value>
+ </context-param>
+ <!-- Spring config params -->
+ <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>/WEB-INF/spring-*.xml</param-value>
+ </context-param>
+ <!-- 
+ <context-param>
+  <description>Codice ISTAT del comune</description>
+  <param-name>codice_istat</param-name>
+  <param-value>055002</param-value>
+ </context-param>
+  -->
+ <filter>
+  <display-name>Ajax4jsf Filter</display-name>
+  <filter-name>ajax4jsf</filter-name>
+  <filter-class>org.ajax4jsf.Filter</filter-class>
+ </filter>
+ <filter-mapping>
+  <filter-name>ajax4jsf</filter-name>
+  <servlet-name>Faces Servlet</servlet-name>
+  <dispatcher>REQUEST</dispatcher>
+  <dispatcher>FORWARD</dispatcher>
+  <dispatcher>INCLUDE</dispatcher>
+ </filter-mapping>
+ <listener>
+  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+ </listener>
+ <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+ </servlet>
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.faces</url-pattern>
+ </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>/jsp/index.jsp</welcome-file>
+ </welcome-file-list>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+</web-app>

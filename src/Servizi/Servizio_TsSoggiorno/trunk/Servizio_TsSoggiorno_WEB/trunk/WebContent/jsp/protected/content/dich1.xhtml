@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
+
+<h:form id="frmNuovo">
+
+	<rich:panel styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:panelGrid columns="2">
+				<h:outputText
+					value="#{dichiarazioneBean.idSelezionato == null?'Nuova':'Modifica'} dichiarazione" />
+				<h:outputText
+					rendered="#{dichiarazioneBean.dichiarazione.integrativaInt == 1}"
+					value="integrativa" style="font-weight: bold;" />
+			</h:panelGrid>
+		</f:facet>
+
+		<h:panelGrid columns="2">
+			<h:outputText value="RIFERITA AL PERIODO DI" />
+			<h:outputText value="#{dichiarazioneBean.periodoDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<div align="right" style="float: right;">
+			<h:commandLink styleClass="clsButtonExp"
+				action="#{dichiarazioneBean.doStampaDichiarazione}">
+				<h:graphicImage value="/images/print.png" id="imgPrint"
+					style="border: 0; cursor: pointer;">
+				</h:graphicImage>
+				<a4j:actionparam value="true" name="antStmp"
+					assignTo="#{dichiarazioneBean.anteprimaStampa}" />
+				<a4j:actionparam value="true" name="antStmpItr"
+					assignTo="#{dichiarazioneBean.anteprimaStampaIter}" />
+							Anteprima stampa
+			</h:commandLink>
+		</div>
+
+		<h:panelGrid columns="4">
+
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="#{dichiarazioneBean.strutturaDescr}"
+				style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="#{dichiarazioneBean.classeDescr}"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+		
+		<br/>
+		<div align="center">
+			<h:panelGrid columns="2">
+				<h:outputText value="Passo #{dichiarazioneBean.currentStep} di #{fn:length(dichiarazioneBean.stepArray)}:" />
+				<h:outputText value="Dati Personali" style="font-weight: bold;" />
+			</h:panelGrid>
+			<h:panelGrid columns="#{fn:length(dichiarazioneBean.stepArray)}" cellpadding="0" cellspacing="0">
+				<a4j:repeat value="#{dichiarazioneBean.stepArray}" var="step">
+					<h:graphicImage rendered="#{!step}" value="/images/stepOff.png" id="imgOff"></h:graphicImage>
+					<h:graphicImage rendered="#{step}" value="/images/stepOn.png" id="imgOn"></h:graphicImage>
+				</a4j:repeat>
+			</h:panelGrid>
+		</div>
+		<br />
+		<div align="center">
+			<h:panelGrid columns="1">
+				<h:outputText style="font-weight: bold;"
+					value="CONFERMA DATI ANAGRAFICI E TITOLARITA'" />
+				<h:outputText value="I campi contrassegnati da (*) sono obbligatori" />
+			</h:panelGrid>
+		</div>
+		<br />
+		
+		<rich:panel id="datiAnagrafica" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Anagrafica" />
+		</f:facet>
+
+		<table border="0" width="100%">
+			<tr>
+				<td>Codice fiscale</td>
+				<td><h:outputLabel value="#{dichiarazioneBean.snap.codfisc}"
+						styleClass="clsDisabled" /></td>
+
+				<td>Cognome *</td>
+				<td><h:inputText requiredMessage="Il campo 'Cognome' è obbligatorio" value="#{dichiarazioneBean.snap.cognome}"  required="true"/></td>
+
+				<td>Nome *</td>
+				<td><h:inputText requiredMessage="Il campo 'Nome' è obbligatorio" value="#{dichiarazioneBean.snap.nome}" required="true" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="DATI NASCITA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Comune</td>
+				<td><h:inputText value="#{dichiarazioneBean.snap.comuneNasc}" /></td>
+
+				<td>Provincia</td>
+				<td><h:inputText
+						value="#{dichiarazioneBean.snap.siglaProvNasc}" /></td>
+
+				<td>Stato estero</td>
+				<td><h:inputText
+						value="#{dichiarazioneBean.snap.statoEsteroNasc}" /></td>
+			</tr>
+			<tr>
+				<td>Data (gg/MM/aaaa)</td>
+				<td><rich:calendar value="#{dichiarazioneBean.snap.dtNasc}"
+						popup="true" enableManualInput="true" direction="top-right"
+						datePattern="dd/MM/yyyy" showApplyButton="true" cellWidth="24px"
+						cellHeight="22px" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="DATI RESIDENZA"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Comune</td>
+				<td><h:inputText value="#{dichiarazioneBean.snap.comuneRes}" /></td>
+
+				<td>Provincia</td>
+				<td><h:inputText
+						value="#{dichiarazioneBean.snap.siglaProvRes}" /></td>
+
+				<td>Stato estero</td>
+				<td><h:inputText
+						value="#{dichiarazioneBean.snap.statoEsteroRes}" /></td>
+			</tr>
+			<tr>
+				<td>Via</td>
+				<td><h:inputText
+						value="#{dichiarazioneBean.snap.indirizzoRes}" /></td>
+
+				<td>Civico</td>
+				<td><h:inputText
+						value="#{dichiarazioneBean.snap.numeroCivRes}" /></td>
+
+				<td>CAP</td>
+				<td><h:inputText value="#{dichiarazioneBean.snap.capRes}" /></td>
+			</tr>
+			<tr>
+				<td><rich:spacer width="10" height="10" /></td>
+			</tr>
+			<tr>
+				<td colspan="6"><h:outputText value="ALTRI DATI"
+						styleClass="clsTitoletto" /></td>
+			</tr>
+			<tr>
+				<td>Telefono</td>
+				<td><h:inputText value="#{dichiarazioneBean.snap.tel}" /></td>
+
+				<td>Cellulare</td>
+				<td><h:inputText value="#{dichiarazioneBean.snap.cell}" /></td>
+
+				<td>Fax</td>
+				<td><h:inputText value="#{dichiarazioneBean.snap.fax}" /></td>
+			</tr>
+			<tr>
+				<td>E-mail *</td>
+				<td><h:inputText id="email" requiredMessage="Il campo 'E-mail' è obbligatorio" value="#{dichiarazioneBean.snap.email}" required="true"/></td>
+			</tr>
+		</table>
+
+		<br />
+	</rich:panel>
+	
+	<rich:panel id="datiSocieta" styleClass="clsCenterPanel">
+	<f:facet name="header">
+		<h:outputText value="Società" />
+	</f:facet>
+	
+	<h:panelGrid columns="3">
+			<h:outputLabel value="Il sottoscritto, è" />
+			<h:selectOneMenu value="#{dichiarazioneBean.snap.descrizioneTitolo}" style="width: 200px">
+				<f:selectItem itemLabel="Legale rappresentante società" itemValue="legale rappresentante della società"/>
+				<f:selectItem itemLabel="Titolare società" itemValue="titolare della società"/>
+				<f:selectItem itemLabel="Ditta Individuale" itemValue="ditta individuale"/>
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="5" width="100%" >
+			<h:panelGroup>
+			<h:outputText value="Ragione sociale" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.ragSoc}" />
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<h:outputText value="Codice fiscale" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.cf!=null ? dichiarazioneBean.snap.cf : '-'}" />
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<h:outputText value="Partita iva" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.pi!=null ? dichiarazioneBean.snap.pi : '-'}" />
+			</h:panelGroup>
+
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+
+			<h:outputText value="SEDE LEGALE" styleClass="clsTitoletto" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			
+			<h:panelGroup>
+			<h:outputText value="Indirizzo" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.indirizzoSede!=null ? dichiarazioneBean.snap.indirizzoSede : '-'}" />
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<h:outputText value="Civico" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.numeroCivSede!=null ? dichiarazioneBean.snap.numeroCivSede : '-'}" />
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<h:outputText value="Comune" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.comuneSede!=null ? dichiarazioneBean.snap.comuneSede: '-'}" />
+			</h:panelGroup>
+			
+			<h:panelGroup>
+			<h:outputText value="Provincia" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.siglaProvSede!=null ? dichiarazioneBean.snap.siglaProvSede : '-'}" />
+			</h:panelGroup>
+
+			<h:panelGroup>
+			<h:outputText value="Stato estero" style="font-weight:bold;"/>
+			<rich:spacer height="10" width="10" />
+			<h:outputText value="#{dichiarazioneBean.snap.statoEsteroSede!=null ? dichiarazioneBean.snap.statoEsteroSede : '-'}" />
+			</h:panelGroup>
+
+		</h:panelGrid>
+		</rich:panel>
+
+		<div align="center">
+			<rich:messages passedLabel="Operazione completata" layout="list"
+				errorClass="clsError" warnClass="clsWarn" infoClass="clsInfo">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif"
+						style="padding-right: 5px;" />
+				</f:facet>
+				<f:facet name="warnMarker">
+					<h:graphicImage value="/images/warning.png"
+						style="padding-right: 5px;" />
+				</f:facet>
+			</rich:messages>
+			<br />
+			<h:panelGrid columns="2">
+				<a4j:commandButton value="&lt; Indietro" reRender="centerContent"
+					rendered="#{dichiarazioneBean.idSelezionato == null}" >
+					<a4j:actionparam value="/jsp/protected/content/dich.xhtml"
+						name="visDt" assignTo="#{pageBean.pageCenter}" />
+					<a4j:actionparam value="0" name="step" assignTo="#{dichiarazioneBean.currentStep}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doCheckDati}"
+					rendered="#{dichiarazioneBean.idSelezionato == null}" >
+					<a4j:actionparam value="/jsp/protected/content/dich2.xhtml"
+						name="visDt2" assignTo="#{pageBean.pageCenter}" />
+				</a4j:commandButton>
+				<a4j:commandButton value="Avanti &gt;" reRender="centerContent"
+					action="#{dichiarazioneBean.doCheckDati}"
+					rendered="#{dichiarazioneBean.idSelezionato != null}" >
+					<a4j:actionparam value="/jsp/protected/content/dich2.xhtml"
+						name="visDt2" assignTo="#{pageBean.pageCenterDati}" />
+				</a4j:commandButton>
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

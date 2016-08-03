@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">    
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<h:form id="tarForm">
+				<a4j:keepAlive beanName="diaDettaglioBean"/>
+				<a4j:keepAlive beanName="dataProviderImpl"/>
+				<rich:panel>		
+					<f:facet name="header">	
+					    <h:panelGrid columns="1" >
+					    	<h:outputText value="DETTAGLIO DIAGNOSTICA - #{diaDettaglioBean.diaDescr} (ID Testata di riferimento: #{diaDettaglioBean.idDiaTestata})" />
+					    </h:panelGrid>
+					</f:facet>
+					
+					<h:panelGrid columns="2" >
+						
+						<h:commandLink action="#{diaDettaglioBean.doExportXLS}" 
+									   rendered="#{diaDettaglioBean.exportXLS}">
+							<h:graphicImage value="/images/xls.png"
+											style="padding-left:10px; border: 0; cursor: pointer;" 
+											alt="Scarica in formato Microsoft Excel"
+											title="Scarica in formato Microsoft Excel" />
+							<a4j:actionparam name="diaTestata" 
+											 value="#{diaDettaglioBean.idDiaTestata}" 
+											 assignTo="#{diaDettaglioBean.idDiaTestata}"/>
+							<a4j:actionparam name="modelclassname" 
+											 value="#{diaDettaglioBean.modelClassname}" 
+											 assignTo="#{diaDettaglioBean.modelClassname}"/>
+							
+						</h:commandLink>
+						
+						<h:commandLink action="#{diaDettaglioBean.doExportCSV}" 
+									   rendered="#{diaDettaglioBean.exportCSV}">
+							<h:graphicImage value="/images/csv.png"
+											style="padding-left:10px; border: 0; cursor: pointer;" 
+											alt="Scarica in formato csv (file di testo delimitato)"
+											title="Scarica in formato csv (file di testo delimitato)" />
+							<a4j:actionparam name="diaTestata" 
+											 value="#{diaDettaglioBean.idDiaTestata}" 
+											 assignTo="#{diaDettaglioBean.idDiaTestata}"/>
+							<a4j:actionparam name="modelclassname" 
+											 value="#{diaDettaglioBean.modelClassname}" 
+											 assignTo="#{diaDettaglioBean.modelClassname}"/>
+							
+						</h:commandLink>
+						
+						<a4j:commandLink rendered="#{diaDettaglioBean.backToStoricoEsecuzioni eq 'S' ? false : true}" action="#{visualizzaDiaBean.goBackFromDetail}" value="Indietro" />
+						<a4j:commandLink rendered="#{diaDettaglioBean.backToStoricoEsecuzioni eq 'S' ? true : false}" 
+									action="#{storicoEsecuzioniBean.goStorico}" value="Indietro" >
+							<a4j:actionparam value="#{diaDettaglioBean.idDiaTestata}"
+								assignTo="#{storicoEsecuzioniBean.idDiaTestata}" />
+							<a4j:actionparam value="#{diaDettaglioBean.idCatalogoDia}"
+								assignTo="#{storicoEsecuzioniBean.idCatalogoDia}" />	
+							<a4j:actionparam value="#{diaDettaglioBean.diaDescr}"
+								assignTo="#{storicoEsecuzioniBean.descrizione}" />	
+							<a4j:actionparam value="#{diaDettaglioBean.codCommand}"
+								assignTo="#{storicoEsecuzioniBean.codCmdOrCmdGrp}" />
+						</a4j:commandLink>
+					
+					</h:panelGrid>
+					
+						
+													
+				</rich:panel>				
+				<rich:spacer height="2px" />
+				<rich:panel>
+			        
+			         <ui:include src="/jsp/protected/diagnostics/data/viewGenericDiaDettaglio.xhtml" />
+			         
+				</rich:panel>
+			</h:form>		
+		</ui:define>
+	</ui:composition>
+
+</html>

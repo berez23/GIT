@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Class-Path: Servizio_FasFab_EJBClient.jar 
+ Servizio_FasFab_Data_Model.jar
+

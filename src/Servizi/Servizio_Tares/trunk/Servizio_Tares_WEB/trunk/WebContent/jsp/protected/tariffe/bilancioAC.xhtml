@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="2">
+					<h:outputText value="BILANCIO ANNO CORRENTE (iva inclusa)" style="font-weight: bold" />
+			</h:panelGrid>
+			<br/>
+			<br/>
+			<h:panelGrid columns="2">
+					<h:graphicImage value="/images/info.gif" rendered="true"/>
+					<h:outputText value="I valori in blu sono editabili" style="font-weight: bold" />
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<rich:spacer width="5px"/>
+			</td></tr></table>
+    
+    <rich:dataTable id="tblList" value="#{tariffeBean.lstBilancio}" var="bil" style="width: 100%" rendered="true">
+	        	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Costi"  />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Parte Fissa" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Parte Variabile"/>
+                            </rich:column>
+ 							<rich:column rowspan="2">
+                                <h:outputText value="Totale"/>
+                            </rich:column>
+
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column style="background-color: #{(bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'UNDPERAC' or bil.codice == 'UDPERAC' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'ET')?'#F5D0A9':'white'};">
+				<h:outputText value="#{bil.descrizione}" style="font-weight: #{(bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'ET')?'bold':''}; "/>
+	        </rich:column>
+	       	<rich:column style="background-color: #{(bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'UNDPERAC' or bil.codice == 'UDPERAC' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'ET')?'#F5D0A9':'white'};">
+	       		<h:inputText value="#{bil.parteFissa}" 
+	       			style="text-align: right; width: 80px; color: #{( bil.codice == 'CSL' or bil.codice == 'CARC' or bil.codice == 'CGG' or bil.codice == 'CCD' or bil.codice == 'AC' or bil.codice == 'CK' or bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'PE' or bil.codice == 'APR' or bil.codice == 'MEAP' or bil.codice == 'ET' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'UDPERAC' or bil.codice == 'UNDPERAC' or bil.codice == 'UNDPERAP')?'black':'blue'}" 
+	       			readonly="#{( bil.codice == 'CSL' or bil.codice == 'CARC' or bil.codice == 'CGG' or bil.codice == 'CCD' or bil.codice == 'AC' or bil.codice == 'CK' or bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'PE' or bil.codice == 'APR' or bil.codice == 'MEAP' or bil.codice == 'ET' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'UDPERAC' or bil.codice == 'UNDPERAC' or bil.codice == 'UNDPERAP')?'true':'false'}"
+	       			rendered="#{(bil.codice != 'CRT' and bil.codice != 'CTS' and bil.codice != 'CRD' and bil.codice != 'CTR' and bil.codice != 'COPERTURA')?'true':'false'}"
+	       			required="true"
+	       			label="#{bil.descrizione}">
+		       		<f:convertNumber pattern="#0.00"/>
+		       		<a4j:support event="onblur" action="#{tariffeBean.onBlurBilAC}" reRender="tblList" >
+		       			<f:setPropertyActionListener target="#{tariffeBean.codiceVoceBilancio}" value="#{bil.codice}" />
+		       		</a4j:support>
+                </h:inputText>
+	        </rich:column>
+	       	<rich:column style="background-color: #{(bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'UNDPERAC' or bil.codice == 'UDPERAC' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'ET')?'#F5D0A9':'white'};">
+	       		<h:inputText value="#{bil.parteVaria}" 
+	       			style="text-align: right; width: 80px; color: #{( bil.codice == 'CRT' or bil.codice == 'CTS' or bil.codice == 'CRD' or bil.codice == 'CTR' or bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'PE' or bil.codice == 'APR' or bil.codice == 'MEAP' or bil.codice == 'ET' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'UDPERAC' or bil.codice == 'UNDPERAC' or bil.codice == 'UNDPERAP')?'black':'blue'}" 
+	       			readonly="#{( bil.codice == 'CRT' or bil.codice == 'CTS' or bil.codice == 'CRD' or bil.codice == 'CTR' or bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'PE' or bil.codice == 'APR' or bil.codice == 'MEAP' or bil.codice == 'ET' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'UDPERAC' or bil.codice == 'UNDPERAC'or bil.codice == 'UNDPERAP')?'true':'false'}"
+	       			rendered="#{(bil.codice != 'COPERTURA' and bil.codice != 'CSL' and bil.codice != 'CARC' and bil.codice != 'CGG' and bil.codice != 'CCD' and bil.codice != 'AC' and bil.codice != 'CK')?'true':'false'}"
+	       			required="true"
+	       			label="#{bil.descrizione}">
+		       		<f:convertNumber pattern="#0.00"/>
+		       		<a4j:support event="onblur" action="#{tariffeBean.onBlurBilAC}" reRender="tblList" >
+		       			<f:setPropertyActionListener target="#{tariffeBean.codiceVoceBilancio}" value="#{bil.codice}" />
+		       		</a4j:support>
+                </h:inputText>
+	        </rich:column>
+	       	<rich:column style="background-color: #{(bil.codice == 'SOMPER' or bil.codice == 'SOMEUR' or bil.codice == 'UNDPERAC' or bil.codice == 'UDPERAC' or bil.codice == 'UD' or bil.codice == 'UND' or bil.codice == 'ET')?'#F5D0A9':'white'};">
+	       		<h:inputText value="#{bil.totale}" 
+	       			style="text-align: right; background-image: none; background-color: #{ bil.codice == 'ET'?'#00FF00':'white'}; width: 80px; color: #{( bil.codice != 'CSL' and bil.codice != 'CARC' and bil.codice != 'CGG' and bil.codice != 'CCD' and bil.codice != 'AC' and bil.codice != 'CK' and bil.codice != 'CRT' and bil.codice != 'CTS' and bil.codice != 'CRD' and bil.codice != 'CTR' and bil.codice != 'COPERTURA' and bil.codice != 'APR' and bil.codice != 'MEAP')?'black':'blue'}" 
+	       			readonly="#{( bil.codice != 'CSL' and bil.codice != 'CARC' and bil.codice != 'CGG' and bil.codice != 'CCD' and bil.codice != 'AC' and bil.codice != 'COPERTURA' and bil.codice != 'APR' and bil.codice != 'CK' and bil.codice != 'CRT' and bil.codice != 'CTS' and bil.codice != 'CRD' and bil.codice != 'CTR' and bil.codice != 'MEAP')?'true':'false'}"
+	       			required="true"
+	       			label="#{bil.descrizione}">
+		       		<f:convertNumber pattern="#0.00"/>
+		       		<a4j:support event="onblur" action="#{tariffeBean.onBlurBilAC}" reRender="tblList" >
+		       			<f:setPropertyActionListener target="#{tariffeBean.codiceVoceBilancio}" value="#{bil.codice}" />
+		       		</a4j:support>
+                </h:inputText>
+	        </rich:column>
+	        	        
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+ 					
+					<rich:column colspan="4" >
+					<div align="center">
+                       	<a4j:commandButton id="btnSalva" 
+								value="Salva" 
+								action="#{tariffeBean.doSalvaBilAC}"
+								reRender="tblList" />
+					</div>
+                    </rich:column>
+			
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+				
+	
+			</rich:panel>			
+		</h:form>
+	</div>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

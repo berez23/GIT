@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+	   		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+
+
+
+
+	<bean id="ParameterService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ParameterBaseService"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.ParameterService"/>
+	</bean>	
+	
+	<!-- bean id="ControllerService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Controller/CT_Controller_EJB/RecuperaComandoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.rulengine.service.bean.RecuperaComandoService"/>
+	</bean-->
+	
+	<!-- bean id="SottoscrizioniService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Controller/CT_Controller_EJB/SottoscrizioniServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.rulengine.service.bean.SottoscrizioniService"/>
+	</bean-->
+	
+	<!-- bean id="ProcMonitorService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Controller/CT_Controller_EJB/ProcessMonitorServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.rulengine.service.bean.ProcessMonitorService"/>
+	</bean-->
+		
+	<bean id="FonteService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/FonteServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.fonte.FonteService"/>
+	</bean> 
+	
+	<bean id="ApplicationService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ApplicationServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.application.ApplicationService"/>
+	</bean> 
+	
+	<bean id="DiaService" 
+	      class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+	      <property name="jndiName" value="java:global/Servizio_Dia/Servizio_Dia_EJB/DiagnosticheServiceBean"/>
+	      <property name="businessInterface" value="it.webred.ct.diagnostics.service.data.access.DiagnosticheService"/>
+	</bean>
+	
+	<bean id="DiaDettaglioService" 
+	      class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+	      <property name="jndiName" value="java:global/Servizio_Dia/Servizio_Dia_EJB/DiaDettaglioServiceBean"/>
+	      <property name="businessInterface" value="it.webred.ct.diagnostics.service.data.access.DiaDettaglioService"/>
+	</bean>
+	
+	<bean id="UserService" 
+	      class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+	      <property name="jndiName" value="java:global/AmProfiler/AmProfilerEjb/UserServiceBean"/>
+	      <property name="businessInterface" value="it.webred.amprofiler.ejb.user.UserService"/>
+	</bean>
+	
+	<bean id="DiaFindService" 
+	      class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+	      <property name="jndiName" value="java:global/Servizio_Dia/Servizio_Dia_EJB/DiaFindKeysServiceBean"/>
+	      <property name="businessInterface" value="it.webred.ct.diagnostics.service.data.access.DiaFindKeysService"/>
+	</bean>
+	
+	<bean id="DiaDocfaService" 
+	      class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+	      <property name="jndiName" value="java:global/Servizio_Dia/Servizio_Dia_EJB/DiaDocfaServiceBean"/>
+	      <property name="businessInterface" value="it.webred.ct.diagnostics.service.data.access.DiaDocfaService"/>
+	</bean>
+	
+</beans>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.richiesta.inserisci::#jsp#protected#richieste#richieste.xhtml"
+    NAME="output" PATH="/jsp/protected/richieste/richieste.xhtml"
+    TARGET="rules:#jsp#protected#richieste#richieste.xhtml"
+    TITLE="menu.richiesta.inserisci" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.richiesta.filtro::#jsp#protected#filtro#filtroRichieste.xhtml"
+    NAME="output1" PATH="/jsp/protected/filtro/filtroRichieste.xhtml"
+    TARGET="rules:#jsp#protected#filtro#filtroRichieste.xhtml"
+    TITLE="menu.richiesta.filtro" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="filtro.richiesta.filtro::#jsp#protected#filtro#filtroRichieste.xhtml"
+    NAME="output2" PATH="/jsp/protected/filtro/filtroRichieste.xhtml"
+    TARGET="rules:#jsp#protected#filtro#filtroRichieste.xhtml"
+    TITLE="filtro.richiesta.filtro" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="filtro.richiesta.fasEvaso::#jsp#protected#filtro#fascicoloEvaso.xhtml"
+    NAME="output4" PATH="/jsp/protected/filtro/fascicoloEvaso.xhtml"
+    TARGET="rules:#jsp#protected#filtro#fascicoloEvaso.xhtml"
+    TITLE="filtro.richiesta.fasEvaso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="filtro.richiesta.fasNonEvaso::#jsp#protected#filtro#fascicoloNonEvaso.xhtml"
+    NAME="output5" PATH="/jsp/protected/filtro/fascicoloNonEvaso.xhtml"
+    TARGET="rules:#jsp#protected#filtro#fascicoloNonEvaso.xhtml"
+    TITLE="filtro.richiesta.fasNonEvaso" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="fab.dettaglio::#jsp#protected#dettaglio#dettaglioFasFab.xhtml"
+    NAME="output3" PATH="/jsp/protected/dettaglio/dettaglioFasFab.xhtml"
+    TARGET="rules:#jsp#protected#dettaglio#dettaglioFasFab.xhtml"
+    TITLE="fab.dettaglio" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="fab.filtro.dettaglio.back::#jsp#protected#filtro#filtroRichieste.xhtml"
+    NAME="output6" PATH="/jsp/protected/filtro/filtroRichieste.xhtml"
+    TARGET="rules:#jsp#protected#filtro#filtroRichieste.xhtml"
+    TITLE="fab.filtro.dettaglio.back" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT ID="ff.logout::#jsp#logout.xhtml" NAME="output7"
+    PATH="/jsp/logout.xhtml" TARGET="rules:#jsp#logout.xhtml"
+    TITLE="ff.logout" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#logout.xhtml" PATH="/jsp/logout.xhtml"
+  SHAPE="304,481,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#filtro#fascicoloEvaso.xhtml"
+  PATH="/jsp/protected/filtro/fascicoloEvaso.xhtml" SHAPE="304,385,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#richieste#richieste.xhtml"
+  PATH="/jsp/protected/richieste/richieste.xhtml" SHAPE="240,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#filtro#fascicoloNonEvaso.xhtml"
+  PATH="/jsp/protected/filtro/fascicoloNonEvaso.xhtml"
+  SHAPE="32,593,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#dettaglio#dettaglioFasFab.xhtml"
+  PATH="/jsp/protected/dettaglio/dettaglioFasFab.xhtml"
+  SHAPE="304,417,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#filtro#filtroRichieste.xhtml"
+  PATH="/jsp/protected/filtro/filtroRichieste.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

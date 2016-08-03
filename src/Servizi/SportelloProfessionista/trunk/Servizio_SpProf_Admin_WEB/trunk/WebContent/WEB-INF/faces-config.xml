@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xi="http://www.w3.org/2001/XInclude" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+
+	<managed-bean>
+		<managed-bean-name>userBean</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.spprof.web.admin.beans.user.UserBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>menuBean</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.spprof.web.admin.beans.menu.MenuBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+
+	<managed-bean>
+		<managed-bean-name>anagList</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.spprof.web.admin.beans.anag.AnagListDataModel</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>dataProvider</property-name>
+			<property-class>it.webred.ct.service.spprof.web.admin.beans.anag.AnagDataProvider</property-class>
+			<value>#{anagDataProviderImpl}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>anagDataProviderImpl</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.spprof.web.admin.beans.anag.AnagDataProviderImpl</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>anagService</property-name>
+			<property-class>it.webred.ct.service.spprof.data.access.SpProfAnagService</property-class>
+			<value>#{SPAnagService}</value>
+		</managed-property>
+	</managed-bean>
+
+
+	<managed-bean>
+		<managed-bean-name>qualificaBean</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.spprof.web.admin.beans.qualifica.QualificaBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>qualService</property-name>
+			<property-class>it.webred.ct.service.spprof.data.access.SpProfQualificaService</property-class>
+			<value>#{SPQualificaService}</value>
+		</managed-property>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>anagraficaBean</managed-bean-name>
+		<managed-bean-class>it.webred.ct.service.spprof.web.admin.beans.anag.AnagraficaBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+		<managed-property>
+			<property-name>anagService</property-name>
+			<property-class>it.webred.ct.service.spprof.data.access.SpProfAnagService</property-class>
+			<value>#{SPAnagService}</value>
+		</managed-property>
+	</managed-bean>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+
+		<navigation-case>
+			<from-outcome>spprof.anagList</from-outcome>
+			<to-view-id>/jsp/protected/anag/anagList.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-outcome>spprof.anagCreate</from-outcome>
+			<to-view-id>/jsp/protected/anag/anagCreate.xhtml</to-view-id>
+		</navigation-case>
+
+	</navigation-rule>
+
+	<application>
+		<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+		<variable-resolver>org.springframework.web.jsf.SpringBeanVariableResolver</variable-resolver>
+		<message-bundle>it.webred.ct.service.spprof.web.admin.resources.messages</message-bundle>
+	</application>
+</faces-config>

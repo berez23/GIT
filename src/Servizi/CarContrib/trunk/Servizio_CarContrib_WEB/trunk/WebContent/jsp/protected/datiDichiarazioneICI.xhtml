@@ -1,0 +1,33 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+	<rich:modalPanel id="editPanel" autosized="true" width="600">
+		<f:facet name="header">
+			<h:outputText value="Dettaglio" />
+		</f:facet>
+		<f:facet name="controls">
+			<h:panelGroup>
+				<rich:componentControl for="editPanel" attachTo="hideLink" operation="hide" event="onclick" />
+			</h:panelGroup>
+		</f:facet>
+		<h:form>
+			<h:panelGrid columns="1">
+		    	<a4j:outputPanel ajaxRendered="true">
+					AAAAA		        
+		        </a4j:outputPanel>
+			</h:panelGrid>  
+             <table border="0">
+             	<tr>
+             		<td align="center" width="49%">
+						<a4j:commandButton styleClass="my-button" value="Chiudi" ajaxSingle="false" oncomplete="#{rich:component('editPanel')}.hide();"/>		             	
+             		</td>
+				</tr>	
+	        </table>  
+        </h:form>
+    </rich:modalPanel>
+</ui:composition>
+		    

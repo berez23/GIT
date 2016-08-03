@@ -1,0 +1,183 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	font-size: 11px;
+	font-family: Arial, Verdana, sans-serif;
+	margin-left: 2.5%;
+	padding: 0;
+	width: 95%;
+}
+
+.rich-tab-inactive {
+	cursor: pointer;
+	background-image: url(../images/tab_inactive.png);
+	color: white;
+}
+
+.rich-tab-active {
+	font-weight: bold;
+	background-image: url(../images/tab_active.png);
+}
+
+#imgHeader{
+	border: 1;
+	width: 100%;
+	}
+#divMenu{
+	height: 30px;
+	background-color: inherit;
+}
+#divContribuente
+{
+	padding-left: 0px;
+	margin-bottom: 10px;
+}
+#divPersona
+{
+	height: 30px;
+	padding-top: 5px;
+	font-size: 16px;
+	color: blue;
+	font-weight: bold;
+	text-align: center;
+	background-color: #ebf3fd;
+	text-transform: uppercase;
+	border-style: solid;
+	border-color: inherit;
+	border-width: 1px;
+}
+
+#divBottoniFooter
+{
+	width:100%;
+	height: 30px;
+	padding-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+#divTitolo
+{
+	width:100%;
+	text-align:center;
+	font-size: 14px;
+	text-transform: uppercase;
+	font-weight: bold;	
+	height: 30px;
+}
+
+.titolo
+{
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-left: 20px;
+	color:blue;
+	font-weight: bold;	
+}
+
+.titoloNero
+{
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.divDatiICI
+{
+	background-color: #ebf3fd;
+	border-style: solid;
+	border-color: Black;
+	border-width: 1px;
+	padding-top: 5px;	
+	padding-bottom: 20px;	
+}
+.labelDesc
+{
+	margin-left: 20px;
+	font-weight: bold;
+	float: left;
+	width: 200px;
+	font-size: 12px;
+}
+.labelOutPut
+{
+	text-align: left;
+	font-size: 12px;
+}
+.spanBottoni
+{
+	text-align: center;
+	width: 300px;
+}
+
+.tabClass {
+	font-size: 14px;
+	font-family: inherit;
+	color: blue;
+}
+.colAlignLeft
+{
+	text-align: left;
+	color: red;
+}
+.colAlignRight
+{
+	text-align: right;
+	color:blue;
+}
+.colAlignCenter
+{
+	text-align:center;
+}
+
+.labelRicDesc
+{
+	margin-left: 10px;
+	font-weight: bold;
+	float: left;
+	width: 200px;
+	font-size: 11px;
+}
+
+.myLabel
+{
+	margin-left: 10px;
+	font-weight: bold;
+	float: left;
+	font-size: 11px;
+}
+
+.labelRicOutPut
+{
+	text-align: left;
+	font-size: 11px;
+}
+
+.rich-table-cell
+{
+	text-align: center;
+}
+
+.my-button{		
+	width : 70px;
+	border-style: solid; 	
+	border-width: 1; 
+	border-color: silver;
+	background-color: #ebf3fd;
+}
+
+.errorStyle
+{
+	color:red;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.errorStyleRicerca
+{
+	color:red;
+	font-size: 20px;
+	font-weight: bold;
+}

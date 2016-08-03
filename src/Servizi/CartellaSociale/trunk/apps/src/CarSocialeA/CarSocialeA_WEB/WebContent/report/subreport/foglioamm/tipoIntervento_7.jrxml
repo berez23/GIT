@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d001166a-d35e-4b51-a5dd-cd33e9c819cf">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="conRetta" class="java.lang.String"/>
+	<field name="valoreRetta" class="java.lang.String"/>
+	<field name="contributoFamOrigine" class="java.lang.String"/>
+	<field name="speseExtra" class="java.lang.String"/>
+	<field name="provvAG" class="java.lang.String"/>
+	<field name="speseSanitarie" class="java.lang.String"/>
+	<field name="speseVacanze" class="java.lang.String"/>
+	<field name="incontriProtetti" class="java.lang.String"/>
+	<field name="interventoEducativo" class="java.lang.String"/>
+	<field name="rimborsoTesti" class="java.lang.String"/>
+	<field name="altro" class="java.lang.String"/>
+	<field name="rientriFamOrigine" class="java.lang.String"/>
+	<field name="comunita" class="java.lang.String"/>
+	<field name="denominazione" class="java.lang.String"/>
+	<field name="indirizzo" class="java.lang.String"/>
+	<field name="luogo" class="java.lang.String"/>
+	<field name="telefono" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="246" splitType="Immediate">
+			<staticText>
+				<reportElement x="0" y="0" width="142" height="20" uuid="60c1d990-e430-492a-b33a-b9152cf5f324"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[importo spese extra retta]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="0" width="126" height="20" uuid="383791a2-4f0a-402e-a302-665afe198a2a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{speseExtra}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="278" y="113" width="149" height="28" uuid="bf0d55aa-879b-47c5-8e1e-7eb60e17a03a"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Contributo mensile della famiglia d'origine]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="113" width="126" height="20" uuid="4b99bf99-fdb4-49af-8bc5-f57bfd588541"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valoreRetta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="439" y="113" width="116" height="20" uuid="875321ca-9d48-4521-8c0d-64ca00a42ec4"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contributoFamOrigine}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="113" width="152" height="20" uuid="35d422b6-d285-40ca-bbf2-029fdc398402"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Valore retta (IVA inclusa)]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="146" width="403" height="20" uuid="8b10f9b3-ba3c-41f7-924e-5d9730ba4d90"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{comunita}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="146" width="152" height="20" uuid="0b04532a-6772-4a1e-a9e0-e6f45b441c7e"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Comunità]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="25" width="142" height="20" uuid="48bf2a3b-4325-45a8-bb63-e9f6be8b419f"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Spese sanitarie]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="25" width="32" height="20" uuid="71f0b47c-cfd3-44f6-a777-87feb5a33e5a"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{speseSanitarie}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="278" y="0" width="277" height="20" uuid="da351ecd-00ba-474e-83a5-5fae7ebdb3b4"/>
+				<textElement markup="html">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{provvAG}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="212" y="25" width="110" height="20" uuid="58251ffb-27c0-4994-acba-f82251535dea"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Spese vacanze]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="322" y="25" width="32" height="20" uuid="e66e0820-3dad-48f8-a7fb-9d3c75aba0be"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{speseVacanze}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="403" y="25" width="112" height="20" uuid="16005c8e-b3c2-45fa-abd4-a55f1b8e60bf"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Incontri protetti]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="515" y="25" width="40" height="20" uuid="29d05a0c-2229-4b76-a0ad-b4921e210ec0"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{incontriProtetti}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="322" y="50" width="32" height="20" uuid="02d199a5-b091-4287-8c0e-7a6d10d995e1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rimborsoTesti}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="212" y="50" width="110" height="20" uuid="f806ad8a-5a0e-4f12-ad63-865d700517c5"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Rimborso testi scuola]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="515" y="50" width="40" height="20" uuid="9d01d5dc-e71f-4c62-ba6b-40962e763152"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{altro}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="142" height="20" uuid="a61c34a3-e9da-4d11-9642-d3dbb1a19db6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Intervento educativo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="403" y="50" width="112" height="20" uuid="c1cff60e-fd6b-4dcd-8447-fde44005d7d6"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Altro]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="50" width="32" height="20" uuid="021bf006-f657-495d-9d0b-652c99fd6cfa"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{interventoEducativo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="75" width="142" height="28" uuid="1a2fc560-fac8-4637-ae8e-486b08e1a29d"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Rientri previsti presso la famiglia d'origine]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="439" y="75" width="116" height="20" uuid="47a903ad-33a6-48cb-9538-f87b8aee03e1"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{conRetta}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="152" y="75" width="126" height="20" uuid="03ee16d1-ad4a-43fb-aacb-afa869052330"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{rientriFamOrigine}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="278" y="75" width="149" height="20" uuid="d06bd5a9-547d-4516-bc60-3bee6b219d67"/>
+				<textElement>
+					<font size="10"/>
+				</textElement>
+				<text><![CDATA[Con retta]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="93" y="226" width="161" height="20" isRemoveLineWhenBlank="true" uuid="6411b3be-016d-457a-ad01-e488e393e3fc"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{luogo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="93" y="201" width="161" height="20" isRemoveLineWhenBlank="true" uuid="e6ae9d8c-bf4c-45fa-8e43-776a2472cee7"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{denominazione}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="201" width="93" height="20" isRemoveLineWhenBlank="true" uuid="560ec04f-9971-4f64-bf1e-540fc1d10212"/>
+				<text><![CDATA[Denominazione]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="176" width="254" height="20" isRemoveLineWhenBlank="true" uuid="bb2d3639-5f0e-4fbb-b256-51e9ca4d3514"/>
+				<textElement>
+					<font size="12"/>
+				</textElement>
+				<text><![CDATA[Minore inserito con]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="335" y="226" width="220" height="20" isRemoveLineWhenBlank="true" uuid="ecc8ec6e-2470-415f-8597-e46ffb9a3dc8"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefono}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="254" y="201" width="81" height="20" isRemoveLineWhenBlank="true" uuid="f50eefb3-4eb9-48d8-a3a9-2c1911569c40"/>
+				<text><![CDATA[Indirizzo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="226" width="93" height="20" isRemoveLineWhenBlank="true" uuid="1ea88725-d08d-4eb5-bc74-79567ccb5096"/>
+				<text><![CDATA[Luogo]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="335" y="201" width="220" height="20" isRemoveLineWhenBlank="true" uuid="06a72136-50ac-4f19-8232-c9565f19f824"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{indirizzo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="254" y="226" width="81" height="20" isRemoveLineWhenBlank="true" uuid="bc2d5f14-a9a5-47c9-8628-39a0bb96f34e"/>
+				<text><![CDATA[Telefono]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+</jasperReport>

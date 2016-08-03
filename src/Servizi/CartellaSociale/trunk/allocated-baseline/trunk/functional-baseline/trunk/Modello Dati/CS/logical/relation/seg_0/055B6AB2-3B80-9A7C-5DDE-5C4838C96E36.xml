@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_COMP_TIPORAPP" id="055B6AB2-3B80-9A7C-5DDE-5C4838C96E36" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>38595899-68D4-5335-1086-0EA609E4B134</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>EC6F7582-18F3-56CF-77FB-69ECF5A7A6F5</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EC77FE99-814F-5B0C-3831-E8C9B5CF015F</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

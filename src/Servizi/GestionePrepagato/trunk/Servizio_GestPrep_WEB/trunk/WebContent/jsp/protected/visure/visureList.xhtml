@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+
+		<h:form>
+			<rich:messages passedLabel="Operazione completata" layout="list">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+
+			<rich:panel>
+				<f:facet name="header">Criteri di ricerca</f:facet>
+				<h:panelGrid columns="6">
+					<h:outputLabel value="Nome" />
+					<h:inputText
+						value="#{visuraBean.namePat}" />
+
+				</h:panelGrid>
+
+				<a4j:commandLink reRender="visTable">
+					<h:outputLabel value="Ricerca" />
+				</a4j:commandLink>
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+
+		  <rich:contextMenu attached="false" id="menu" submitMode="server">
+		       <rich:menuItem submitMode="none" >
+					<a4j:commandLink ajaxSingle="true" id="editlink"
+		                     			oncomplete="#{rich:component('panelModifica')}.show()"
+		                     			reRender="panelModifica">
+		                   	     Modifica
+		                   	  <a4j:actionparam name="visuraId" value="{visuraId}" assignTo="#{visuraBean.currentVisura}"/>
+		               	  </a4j:commandLink>
+		               	</rich:menuItem>	
+ 				<rich:menuItem submitMode="none" >
+					<a4j:commandLink ajaxSingle="true" id="tarlink"
+		                     			oncomplete="#{rich:component('panelTariffe')}.show()"
+		                     			reRender="panelTariffe, addlinkelemTar">
+		                   	    Gestione Tariffe
+		                   	  <a4j:actionparam name="visuraId" value="{visuraId}" assignTo="#{tariffaBean.currentVisura}"/>
+		               	  </a4j:commandLink>
+		           	</rich:menuItem>	
+
+			</rich:contextMenu>
+			<rich:dataTable width="800" var="vis" value="#{visuraBean.visuaraList}"
+				id="visTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				>
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Nome" />
+						</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{vis.descr}" />
+				</rich:column>
+				
+				<rich:componentControl event="onRowClick" for="menu" operation="show"  >
+					<f:param name="visuraId" value="#{vis.idVis}" />		
+				</rich:componentControl>
+				
+			</rich:dataTable>
+
+			<rich:spacer height="15px" />
+			
+			<a4j:commandLink ajaxSingle="true" id="addlinkelem"
+	                    		  oncomplete="#{rich:component('panelCrea')}.show()"
+	                        	  reRender="panelCrea">
+	                      	     Aggiungi
+	                      	  
+	            </a4j:commandLink>
+	      </h:form>
+	      
+	      
+			<rich:modalPanel id="panelCrea" >
+				<f:facet name="header">
+					<h:outputText value="Crea nuova anagrafica visura"></h:outputText>
+				</f:facet>
+			    	
+				<f:facet name="controls">
+		        	<h:panelGroup>
+		           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelCrea"/>
+		           		<rich:componentControl for="panelCrea" attachTo="hidelinkPanelCrea" operation="hide" event="onclick"/>
+		       		</h:panelGroup>
+		 		</f:facet>
+		 		     	 <h:form >
+		 		     	 	<h:panelGrid columns="2">
+		 		     	 		<h:outputText value="Nome visura" />
+		 		     	 		<h:inputText value="#{visuraBean.visura.descr}" />
+		 		     	 	</h:panelGrid>
+		 		     	 	<a4j:commandButton action="#{visuraBean.doSave}" value="Crea" reRender="visTable" />
+						</h:form> 		     	      		
+			</rich:modalPanel>		
+	
+			<rich:modalPanel id="panelModifica" >
+				<f:facet name="header">
+					<h:outputText value="Modifica anagrafica visura"></h:outputText>
+				</f:facet>
+			    	
+				<f:facet name="controls">
+		        	<h:panelGroup>
+		           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelModifica"/>
+		           		<rich:componentControl for="panelModifica" attachTo="hidelinkPanelModifica" operation="hide" event="onclick"/>
+		       		</h:panelGroup>
+		 		</f:facet>
+		 		     	 <h:form >
+		 		     	    <h:inputHidden value="#{visuraBean.visura.idVis}" />
+		 		     	 	<h:panelGrid columns="2">
+		 		     	 		<h:outputText value="Nome visura" />
+		 		     	 		<h:inputText value="#{visuraBean.visura.descr}" />
+		 		     	 	</h:panelGrid>
+		 		     	 	<a4j:commandButton action="#{visuraBean.doUpdate}" 
+		 		     	 					   value="Modifica" 
+		 		     	 					   reRender="visTable"/>
+						</h:form> 		     	      		
+			</rich:modalPanel>		
+
+
+			<rich:modalPanel id="panelTariffe" height="400" width="650">
+				<f:facet name="header">
+					<h:outputText value="Gestione tariffe"></h:outputText>
+				</f:facet>
+			    	
+				<f:facet name="controls">
+		        	<h:panelGroup>
+		           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelTariffe"/>
+		           		<rich:componentControl for="panelTariffe" attachTo="hidelinkPanelTariffe" operation="hide" event="onclick"/>
+		       		</h:panelGroup>
+		 		</f:facet>
+		 		  
+		 		  <ui:include src="../tariffe/tariffeList.xhtml" />
+		 		       		
+			</rich:modalPanel>		
+				
+			
+			      
+		</ui:define>
+	</ui:composition>
+</html>

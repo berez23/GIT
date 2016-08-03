@@ -1,0 +1,45 @@
+<%@page language="java" contentType="text/html; charset=ISO-8859-1"	pageEncoding="ISO-8859-1"%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+
+<link href="ESC.css" rel="stylesheet" type="text/css" />
+<title>Logon</title>
+
+</head>
+<body>
+<div id="minHeight"></div>
+<div id="outer">
+<p class="spacer">&nbsp;</p>
+<div id="clearheader"></div>
+<!-- to clear header -->
+<div id="centrecontent"><!--centre content goes here --> 
+<br>
+<form method="POST" action='<%= response.encodeURL("j_security_check") %>' >
+  <table border="0" cellspacing="5" align="center">
+    <tr>
+      <th align="right">Username:</th>
+      <td align="left"><input type="text" name="j_username"></td>
+    </tr>
+    <tr>
+      <th align="right">Password:</th>
+      <td align="left"><input type="password" name="j_password"></td>
+    </tr>
+    <tr>
+      <td align="right"><input type="submit" value="Log In"></td>
+      <td align="left"><input type="reset"></td>
+    </tr>
+  </table>
+</form>
+</div>
+<div id="clearfooter"></div>
+<!-- to clear footer --></div>
+<!-- end outer div -->
+<div id="footer"></div>
+<div id="header">
+</div>
+
+</body>
+</html>

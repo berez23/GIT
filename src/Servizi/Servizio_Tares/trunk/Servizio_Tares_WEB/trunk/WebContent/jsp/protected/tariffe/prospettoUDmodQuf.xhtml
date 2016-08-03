@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO MODAL PANEL NUOVO COMUNE -->
+<rich:modalPanel id="uteDomQufModalBox" minHeight="330" minWidth="970"
+	height="330" width="970">
+
+	<f:facet name="header">
+		<h:outputText value="Dettaglio Calcolo Quf "></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick"
+						oncomplete="javascript:Richfaces.hideModalPanel('uteDomQufModalBox');" />
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="quffrm">
+
+
+		<h:panelGrid columns="4">
+
+				<h:outputLabel style="font-weight: bold;" value="Costo Utenze Domestiche Parte Fissa: " />
+				<h:outputText value="eur #{tariffeBean.bilancioCF}">
+					<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+
+		</h:panelGrid>
+
+		<rich:spacer height="10px" />
+		
+		<rich:dataTable id="tblListMod" value="#{tariffeBean.lstTariffeUD}" var="tar" style="width: 100%" rendered="true">
+	        	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Famiglie" id="lblFam" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Superficie Totale Abitazioni m"/><SUP>2</SUP>
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Coeff. Attribuzione Parte Fissa (Ka)" />
+                            </rich:column>
+							<rich:column rowspan="2">
+                                <h:outputText value="Sup. Tot. Abit. * Ka" />
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column>
+				<h:outputText value="#{tar.voce.descrizione}" />
+				<rich:spacer width="5px"/>
+				<h:outputText value="(* voce non considerata nei totali)" rendered="#{tar.voce.id == 108}" style="color: red" />
+	        </rich:column>
+	       	<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.supTot}" >
+					<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+			<rich:column style="text-align: right">
+	       		<h:outputText value="#{tar.coeffKa}" >
+	       		<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+	        </rich:column>
+	        <rich:column style="text-align: right">
+				<h:outputText value="#{tar.supTotAbitPerKa}" >
+	       			<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+			</rich:column>
+	        	        
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+ 					<rich:column>
+                        <h:outputText value="TOTALE" />
+                    </rich:column>
+ 					<rich:column style="text-align: right">
+                        <h:outputText value="#{tariffeBean.totSupTot}" >
+                        <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+					<rich:column style="text-align: right">
+                        <h:outputText value="#{tariffeBean.supTotAbitPerKaSum}" >
+                        <f:convertNumber pattern="#0.00"/>
+                        </h:outputText>
+                    </rich:column>
+
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+	
+	<rich:spacer height="10px" />
+		
+	<h:panelGrid columns="6">
+				<h:outputLabel style="font-weight: bold;" value="Quf: " />
+				<h:outputText value="#{tariffeBean.bilancioCF} ">
+					<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+   				<h:outputLabel style="font-weight: bold;" value=": " />
+                <h:outputText value="#{tariffeBean.supTotAbitPerKaSum}" >
+                	<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+                <h:outputLabel style="font-weight: bold;" value="= " />
+                <h:outputText value="#{tariffeBean.quf}" >
+                	<f:convertNumber pattern="#0.00"/>
+                </h:outputText>
+		</h:panelGrid>
+
+		
+		
+
+		<div align="center"><h:panelGrid columns="3">
+
+			<rich:spacer width="15px" height="15px" />
+
+			<a4j:commandButton value="Chiudi">
+				<a4j:support event="onclick"
+					oncomplete="javascript:Richfaces.hideModalPanel('uteDomQufModalBox');" />
+			</a4j:commandButton>
+		</h:panelGrid></div>
+
+	</h:form>
+</rich:modalPanel>
+<!-- FINE MODAL PANEL NUOVO COMUNE -->
+
+</html>

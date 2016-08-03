@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+
+	<!-- Query Bollette -->
+	<named-query name="SitRttBollette.getBollettePagByCF">
+		<query>
+			<![CDATA[
+				SELECT b FROM SitRttBollette b 
+				WHERE UPPER(b.codiceFiscale) = :codFisc
+				AND b.totPagato IS NOT NULL
+				ORDER BY b.dataBolletta DESC
+			 ]]>
+		</query>
+	</named-query>
+	
+	<named-query name="SitRttBollette.getBolletteNonPagByCF">
+		<query>
+			<![CDATA[
+				SELECT b FROM SitRttBollette b 
+				WHERE UPPER(b.codiceFiscale) = :codFisc
+				AND b.totPagato IS NULL
+				ORDER BY b.dataBolletta DESC
+			 ]]>
+		</query>
+	</named-query>
+	
+	<!-- Query Dettaglio Bollette -->
+	<named-query name="SitRttDettBollette.getBolletteDettByCodBoll">
+		<query>
+			<![CDATA[
+				SELECT d FROM SitRttDettBollette d 
+				WHERE d.codBolletta = :codBolletta
+				ORDER BY d.dtIniServizio DESC
+			 ]]>
+		</query>
+	</named-query>
+	
+	<!-- Query Rate Bolletta -->
+	<named-query name="SitRttRateBollette.getBolletteRateByCodBoll">
+		<query>
+			<![CDATA[
+				SELECT r FROM SitRttRateBollette r 
+				WHERE r.codBolletta = :codBolletta
+				ORDER BY r.numRata DESC
+			 ]]>
+		</query>
+	</named-query>
+
+</entity-mappings>

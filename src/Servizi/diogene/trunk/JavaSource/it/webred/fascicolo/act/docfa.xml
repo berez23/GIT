@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL del docfa</comment>
+	<entry key="sqlDocfa">
+	<![CDATA[
+SELECT DISTINCT to_char(to_date(metr.data_registrazione,'yyyymmdd'),'dd/mm/yyyy') data_registrazionef, to_char(d_gen.fornitura,'yyyymmdd') AS fornituraf, tec_cognome, tec_nome,
+                                d_gen.protocollo_reg AS protocollo,                                
+                                d_gen.data_variazione AS data_variazione,
+                                cau.cau_des AS causale,
+                                uiu_in_soppressione AS soppressione,
+                                uiu_in_variazione AS variazione,
+                                uiu_in_costituzione AS costituzione,
+                                DECODE (u.tipo_operazione,
+                                        'C', 'COSTITUITA',
+                                        'V', 'VARIATA',
+                                        'S', 'SOPPRESSA',
+                                        u.tipo_operazione
+                                       ) AS operazione,
+                                u.foglio foglio, u.numero particella,
+                                u.subalterno subalterno,
+                                   TRIM (u.indir_toponimo)
+                                || ' '
+                                || u.indir_nciv_uno AS indirizzo_uiu,
+                                   dic.dic_cognome
+                                || ' '
+                                || dic.dic_nome AS dichiarante,
+                                   dic.dic_res_com
+                                || ' '
+                                || dic.dic_res_indir
+                                || ' '
+                                || dic.dic_res_numciv
+                                                     AS indirizzo_dichiarante,
+                                d_gen.fornitura fornitura,
+                                metr.data_registrazione,
+                                null as listaVie
+                           FROM docfa_causali cau,
+                                docfa_dati_generali d_gen,
+                                docfa_uiu u,
+                                docfa_dichiaranti dic,
+                                docfa_dati_metrici metr,
+                                docfa_dati_censuari cen
+                          WHERE d_gen.causale_nota_vax = cau.cau_cod(+)
+                            AND d_gen.protocollo_reg = u.protocollo_reg(+)
+                            AND d_gen.fornitura = u.fornitura(+)
+                            AND d_gen.protocollo_reg = dic.protocollo_reg(+)
+                            AND d_gen.protocollo_reg = metr.protocollo_registrazione(+)
+                            AND d_gen.fornitura = metr.fornitura(+)
+                            AND metr.protocollo_registrazione = cen.protocollo_registrazione(+)
+                            AND metr.fornitura = cen.fornitura(+)
+                            AND metr.data_registrazione = cen.data_registrazione(+)
+                            AND d_gen.fornitura = dic.fornitura(+)
+                            AND u.foglio = LPAD (TRIM (?), 4, '0')
+                            AND u.numero = LPAD (TRIM (?), 5, '0')
+
+	]]>
+	</entry>
+	<!-- NON USATO -->
+	<entry key="sqlDocfaAttuali">
+	<![CDATA[
+SELECT DISTINCT to_char(to_date(metr.data_registrazione,'yyyymmdd'),'dd/mm/yyyy') data_registrazionef, to_char(d_gen.fornitura,'yyyymmdd') AS fornituraf, tec_cognome, tec_nome,
+                                d_gen.protocollo_reg AS protocollo,                                
+                                d_gen.data_variazione AS data_variazione,
+                                cau.cau_des AS causale,
+                                uiu_in_soppressione AS soppressione,
+                                uiu_in_variazione AS variazione,
+                                uiu_in_costituzione AS costituzione,
+                                DECODE (u.tipo_operazione,
+                                        'C', 'COSTITUITA',
+                                        'V', 'VARIATA',
+                                        'S', 'SOPPRESSA',
+                                        u.tipo_operazione
+                                       ) AS operazione,
+                                u.foglio foglio, u.numero particella,
+                                u.subalterno subalterno,
+                                   TRIM (u.indir_toponimo)
+                                || ' '
+                                || u.indir_nciv_uno AS indirizzo_uiu,
+                                   dic.dic_cognome
+                                || ' '
+                                || dic.dic_nome AS dichiarante,
+                                   dic.dic_res_com
+                                || ' '
+                                || dic.dic_res_indir
+                                || ' '
+                                || dic.dic_res_numciv
+                                                     AS indirizzo_dichiarante,
+                                d_gen.fornitura fornitura,
+                                metr.data_registrazione,
+                                null as listaVie
+                           FROM docfa_causali cau,
+                                docfa_dati_generali d_gen,
+                                docfa_uiu u,
+                                docfa_dichiaranti dic,
+                                docfa_dati_metrici metr,
+                                docfa_dati_censuari cen
+                          WHERE d_gen.causale_nota_vax = cau.cau_cod(+)
+                            AND d_gen.protocollo_reg = u.protocollo_reg(+)
+                            AND d_gen.fornitura = u.fornitura(+)
+                            AND d_gen.protocollo_reg = dic.protocollo_reg(+)
+                            AND d_gen.protocollo_reg = metr.protocollo_registrazione(+)
+                            AND d_gen.fornitura = metr.fornitura(+)
+                            AND metr.protocollo_registrazione = cen.protocollo_registrazione(+)
+                            AND metr.fornitura = cen.fornitura(+)
+                            AND metr.data_registrazione = cen.data_registrazione(+)
+                            AND d_gen.fornitura = dic.fornitura(+)
+                            AND u.foglio = LPAD (TRIM (?), 4, '0')
+                            AND u.numero = LPAD (TRIM (?), 5, '0')
+                            and to_date(metr.data_registrazione,'yyyymmdd') >= sysdate
+	]]>
+	</entry>
+	<entry key="sqlDocfaSub">
+	<![CDATA[
+			AND u.subalterno = LPAD (TRIM (?), 4, '0')
+	]]>
+	</entry>
+	<entry key="sqlDocfaOrder">
+	                       ORDER BY data_registrazione DESC,
+                                protocollo,
+                                operazione DESC
+	<![CDATA[
+	
+	]]>
+	</entry>		
+		<entry key="sqlDocfaVie">
+	<![CDATA[
+		SELECT DISTINCT s.prefisso || ' ' || s.nome AS nome, s.numero as codice_via, 
+		c.civico 
+		FROM sitiuiu p, siticivi_uiu cu, siticivi c, sitidstr s, siticomu com 
+		WHERE com.codi_fisc_luna = ? 
+		AND p.cod_nazionale = com.cod_nazionale
+		AND p.foglio = ? 
+		AND p.particella = ? 
+		AND p.unimm = ? 
+		AND cu.pkid_uiu = p.pkid_uiu 
+		AND c.pkid_civi = cu.pkid_civi 
+		AND s.pkid_stra = c.pkid_stra
+	]]>
+	</entry>	
+</properties>
+
+

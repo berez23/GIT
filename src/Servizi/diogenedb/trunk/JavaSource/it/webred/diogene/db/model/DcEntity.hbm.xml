@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.50 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.DcEntity" table="DC_ENTITY" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <property name="longDesc" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="LONG_DESC" length="2000"/>
+        </property>
+        <property name="name" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="NAME" length="100"/>
+        </property>
+        <property name="owner" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="OWNER" length="16"/>
+        </property>
+        <property name="userIns" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="USER_INS" length="16"/>
+        </property>
+        <property name="dtIns" type="java.util.Date" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="DT_INS" length="7"/>
+        </property>
+        <property name="userMod" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="USER_MOD" length="16"/>
+        </property>
+        <property name="dtMod" type="java.util.Date" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="DT_MOD" length="7"/>
+        </property>
+        <set name="dcEntityRelsForFkDcEntity1" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_ENTITY1" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcEntityRel" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dvUeFromEntities" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_ENTITY" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DvUeFromEntity" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dvKeies" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_ENTITY" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DvKey" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dcEntityRelsForFkDcEntity2" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_ENTITY2" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcEntityRel" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dcSchemaEntities" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="PK_DC_ENTITY" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcSchemaEntity" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dvUserEntities" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_ENTITY" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DvUserEntity" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dcColumns" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_ENTITY" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcColumn" not-found="exception" embed-xml="true"/>
+        </set>
+    </class>
+</hibernate-mapping>

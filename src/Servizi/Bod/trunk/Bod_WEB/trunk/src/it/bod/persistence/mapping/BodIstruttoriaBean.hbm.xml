@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodIstruttoriaBean" table="BOD_ISTRUTTORIA" lazy="false"  >
+  
+  <id column="ID_IST" name="idIst" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_ISTRUTTORIA</param>  	   
+	   </generator>
+  </id>
+  
+  <property column="PROTOCOLLO" name="protocollo" type="java.lang.String"/>
+  <property column="FORNITURA" name="fornitura" type="java.util.Date"/>
+  <property column="PRESA_IN_CARICO" name="presaInCarico" type="java.lang.Boolean"/>
+  <property column="ESITO_662" name="esitoIst662" type="java.lang.Boolean"/>
+  <property column="ESITO_80" name="esitoIst80" type="java.lang.Boolean"/>
+  <property column="ESITO_311" name="esitoIst311" type="java.lang.Boolean"/>
+  <property column="ESITO_NA" name="esitoIstNA" type="java.lang.Boolean"/>
+  <property column="CHIUSA" name="chiusa" type="java.lang.Boolean"/>
+  <property column="OPERATORE" name="operatore" type="java.lang.String"/>
+  <property column="RUOLO" name="ruolo" type="java.lang.String"/>
+  <property column="ANNOTAZIONI" name="annotazioni" type="java.lang.String"/>
+  <property column="GENERATO" name="generato" type="java.lang.Boolean"/>
+  
+  <set name="segnalazioni" lazy="false" cascade="all-delete-orphan">
+		<key column="IST_FK" />
+		<one-to-many class="it.bod.application.beans.BodSegnalazioneBean" />
+	</set>
+	
+	<set name="allegati" lazy="false" cascade="all-delete-orphan">
+		<key column="IST_FK" />
+		<one-to-many class="it.bod.application.beans.BodAllegatiBean" />
+	</set>
+	
+	<one-to-one name="modello662" class="it.bod.application.beans.BodModello662Bean" property-ref="istruttoria"/>
+	<one-to-one name="modello80" class="it.bod.application.beans.BodModello80Bean" property-ref="istruttoria"/>
+     
+ </class>
+
+</hibernate-mapping>

@@ -1,0 +1,102 @@
+<%@ page contentType="text/css" %>
+.mnuTitle
+{
+	font-weight: bold;
+	font-size: 8pt;
+	color: white;
+	font-family: Arial;
+	text-align: center;
+}
+
+.subMnu
+{
+	font-size: 8pt;
+	border-left-color: Black;
+	border-bottom-color: Black;
+	width: 110px;
+	color: #000080;
+	font-family: Tahoma;
+	border-right-style: outset;
+	border-left-style: outset;
+	background-color: Silver;
+	text-align: center;
+	border-right-color: Black;
+	border-bottom-style: outset;
+}
+
+.button
+{
+	font-size: 8pt;
+	color: #000080;
+	border-right: #cedeff 2px outset;
+	border-top: #cedeff 2px outset;
+	border-left: #cedeff 2px outset;
+	border-bottom: #cedeff 2px outset;
+	background-color: transparent;
+	width: 100%;
+	height: 20px;
+}
+.lightbutton
+{
+	font-size: 8pt;
+	color: #ffffff;
+	border-right: #cedeff 2px outset;
+	border-top: #cedeff 2px outset;
+	border-left: #cedeff 2px outset;
+	border-bottom: #cedeff 2px outset;
+	background-color: #00008b;
+	width: 45%;
+	height: 20px;
+}
+.inputText
+{
+	font-size: 8pt;
+	color: #000080;
+	font-family: Arial;
+}
+
+.smallText
+{
+	font-size: 7pt;
+	color: #000080;
+	font-family: Arial;
+}
+
+.CRText
+{
+	font-size: 7pt;
+	font-family: Arial;
+}
+.buttonDown
+{
+	border-right: #cedeff 2px inset;
+	border-top: #cedeff 2px inset;
+	font-size: 8pt;
+	border-left: #cedeff 2px inset;
+	width: 100%;
+	color: #ff4500;
+	border-bottom: #cedeff 2px inset;
+	height: 20px;
+	background-color: transparent;
+}
+
+.filledButton
+{
+	border-right: #cedeff 2px inset;
+	border-top: #cedeff 2px inset;
+	font-size: 8pt;
+	border-left: #cedeff 2px inset;
+	width: 100%;
+	color: #ffffff;
+	border-bottom: #cedeff 2px inset;
+	height: 20px;
+	background-color: #6679b5;
+}
+
+.tableBorder
+{
+	border-right: #0689bf;
+	border-top: #0689bf;
+	border-bottom: #0689bf;
+	border-left : #0689bf;
+}

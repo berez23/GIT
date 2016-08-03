@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5"
+ xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+ <display-name>Servizio_C340_WEB</display-name>
+ 
+ <!-- Percorso per accedere ai file delle planimetrie comma340 -->
+ <context-param>
+  <description>Percorso Planimetrie Comma 340</description>
+  <param-name>path_planimetrie_c340</param-name>
+  <param-value>C:\dati_diogene\PLANIMETRIE\COMMA340</param-value>
+ </context-param>
+  <!-- Percorso per accedere alla cartella contenente gli allegati delle pratiche del comma340 -->
+ <context-param>
+ <description>Percorso di destinazione Allegati Pratiche</description>
+  <param-name>path_allegati_pratica</param-name>
+  <param-value>C:\allegati</param-value>
+ </context-param>
+  <!-- Percorso per accedere alla cartella contenente i template per la generazione dei moduli delle pratiche -->
+ <context-param>
+  <description>Percorso del Template Modulo Deposito Planimetrie</description>
+  <param-name>template_prat_planimetria</param-name>
+  <param-value>C:\template\template_prat_planim.doc</param-value>
+ </context-param>
+ <context-param>
+  <description>Percorso del Template Modulo Rettifica Superficie</description>
+  <param-name>template_prat_superficie</param-name>
+  <param-value>C:\template\template_prat_superficie.doc</param-value>
+ </context-param>
+  <!-- Percorso per accedere alla cartella contenente (in modalità temporanea) i moduli delle pratiche generati a partire dai template-->
+ <context-param>
+  <description>Percorso Temporaneo Destinazione Moduli Pratica Generati</description>
+  <param-name>path_destinazione_temp_moduli</param-name>
+  <param-value>C:\moduli\</param-value>
+ </context-param>
+ 
+ <context-param>
+  <param-name>org.ajax4jsf.SKIN</param-name>
+  <param-value>blueSky</param-value>
+ </context-param>
+ <context-param>
+  <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+  <param-value>.xhtml</param-value>
+ </context-param>
+ <context-param>
+  <description>Development Setting</description>
+  <param-name>facelets.DEVELOPMENT</param-name>
+  <param-value>true</param-value>
+ </context-param>
+ <context-param>
+  <description>Development Setting</description>
+  <param-name>facelets.LIBRARIES</param-name>
+  <param-value>/WEB-INF/tags/jsf-ui.taglib.xml;/WEB-INF/tags/jsf-core.taglib.xml;/WEB-INF/tags/jsf-html.taglib.xml;</param-value>
+ </context-param>
+ <context-param>
+  <param-name>facelets.REFRESH_PERIOD</param-name>
+  <param-value>2</param-value>
+ </context-param>
+ 
+ <filter>
+  <display-name>Ajax4jsf Filter</display-name>
+  <filter-name>ajax4jsf</filter-name>
+  <filter-class>org.ajax4jsf.Filter</filter-class>
+ </filter>
+ 
+ <filter-mapping>
+  <filter-name>ajax4jsf</filter-name>
+  <servlet-name>Faces Servlet</servlet-name>
+  <dispatcher>REQUEST</dispatcher>
+  <dispatcher>FORWARD</dispatcher>
+  <dispatcher>INCLUDE</dispatcher>
+ </filter-mapping>
+ 
+ <!-- Faces Servlet -->
+ <servlet>
+  <servlet-name>Faces Servlet</servlet-name>
+  <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+ </servlet>
+ 
+ <!-- Faces Servlet Mapping -->
+ <servlet-mapping>
+  <servlet-name>Faces Servlet</servlet-name>
+  <url-pattern>*.faces</url-pattern>
+ </servlet-mapping>
+ <welcome-file-list>
+  <welcome-file>/jsp/index.jsp</welcome-file>
+ </welcome-file-list>
+ <login-config>
+  <auth-method>BASIC</auth-method>
+ </login-config>
+ 
+ <!-- Spring config params -->
+ <context-param>
+  <param-name>contextConfigLocation</param-name>
+  <param-value>/WEB-INF/spring-*.xml</param-value>
+ </context-param>
+ <listener>
+  <listener-class>org.springframework.web.context.request.RequestContextListener</listener-class>
+ </listener>
+ <listener>
+  <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+ </listener>
+</web-app>

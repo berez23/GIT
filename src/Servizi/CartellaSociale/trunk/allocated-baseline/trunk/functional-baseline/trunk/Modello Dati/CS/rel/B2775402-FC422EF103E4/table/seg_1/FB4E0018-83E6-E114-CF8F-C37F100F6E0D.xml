@@ -1,0 +1,140 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" id="FB4E0018-83E6-E114-CF8F-C37F100F6E0D" directorySegmentName="seg_1" name="CS_REL_DIARIO_DIARIORIF">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_REL_DIARIO_DIARIORIF</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>6F3C3045-6530-19E3-F07C-D7F67B56F6CD</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<pkName>CS_REL_DIARIO_DIARIORIF_PK</pkName>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontSize>13</fontSize>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Column</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<columns>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DIARIO_ID" id="5D07AF3B-2481-D31D-E8B9-7D762C74352F">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_REL_DIARIO_DIARIORIF</sourceObjSchema>
+<sourceObjName>DIARIO_ID</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>E5271812-03C1-6A05-02D2-F2CC27131BC3</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D6F936C3-6E5D-F7BE-60C1-E8F9AA10E9A0</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5B9086B9-3342-6952-735C-D1AAE4367C0E" referredColumn="D6F936C3-6E5D-F7BE-60C1-E8F9AA10E9A0"/>
+</associations>
+</Column>
+<Column class="oracle.dbtools.crest.model.design.relational.Column" name="DIARIO_ID_RIF" id="0A67E714-B563-D3A5-8EFE-9C503BF4F395">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_REL_DIARIO_DIARIORIF</sourceObjSchema>
+<sourceObjName>DIARIO_ID_RIF</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>2D3A552B-D5D7-D74B-4F4D-C06756A8FF93</importedID>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+<delegate>D6F936C3-6E5D-F7BE-60C1-E8F9AA10E9A0</delegate>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5B7B25E7-C4E8-F96B-CA65-63B1E6AABB61" referredColumn="D6F936C3-6E5D-F7BE-60C1-E8F9AA10E9A0"/>
+</associations>
+</Column>
+</columns>
+<indexes>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="C95EBE57-9116-6F4A-5F7B-D6545C4BA6F5" name="CS_REL_DIARIO_DIARIORIF_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_REL_DIARIO_DIARIORIF_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>DC26DB42-80D9-C7F4-0C90-93F31F7AFBD3</importedID>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<indexColumnUsage>
+<colUsage columnID="0A67E714-B563-D3A5-8EFE-9C503BF4F395"/>
+<colUsage columnID="5D07AF3B-2481-D31D-E8B9-7D762C74352F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="0DD1BF22-B494-BED4-9A72-5F94A41D90DB" name="CS_REL_DIARIO_DIARIORIF_PK">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>CS_REL_DIARIO_DIARIORIF_PK</sourceObjName>
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<ownerDesignName>CS</ownerDesignName>
+<importedID>5EA2A869-C6C2-DE84-E4B7-07A5529328C0</importedID>
+<schemaObject>824E58FE-A577-697B-DF09-C944EBD934E9</schemaObject>
+<indexState>Unique Plain Index</indexState>
+<indexColumnUsage>
+<colUsage columnID="0A67E714-B563-D3A5-8EFE-9C503BF4F395"/>
+<colUsage columnID="5D07AF3B-2481-D31D-E8B9-7D762C74352F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="98658A1B-43F8-2BE0-0846-E97A5AFE5E1F" name="CS_REL_DDRIF_DIARIO_FK1">
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="5D07AF3B-2481-D31D-E8B9-7D762C74352F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK class="oracle.dbtools.crest.model.design.relational.Index" id="FA9B2287-6774-9263-30CD-CEF3DEE66276" name="CS_REL_DDRIF_DIARIO_FK2">
+<createdBy>marcoultra</createdBy>
+<createdTime>2014-05-21 11:11:37 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<indexColumnUsage>
+<colUsage columnID="0A67E714-B563-D3A5-8EFE-9C503BF4F395"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

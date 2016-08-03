@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="reportProva" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="822" leftMargin="10" rightMargin="10" topMargin="9" bottomMargin="9">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="35"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="sitiUIU" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\DATI_APPLICAZIONI\\F704\\fascicoloFabbricatoTemplate\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="terreniList" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="datiPregeo" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="datiDocfa" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="datiCompravenditeImmobili" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<parameter name="datiCompravenditeTerreni" class="net.sf.jasperreports.engine.data.JRBeanCollectionDataSource" isForPrompting="false"/>
+	<queryString language="SQL">
+		<![CDATA[]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="189" splitType="Stretch">
+			<subreport>
+				<reportElement positionType="Float" x="0" y="17" width="822" height="8"/>
+				<dataSourceExpression><![CDATA[$P{sitiUIU}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportDatiUiu.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="518" height="13" backcolor="#CCCCCC"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font isBold="false" isItalic="true" isUnderline="true" pdfFontName="Helvetica-BoldOblique" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[Unità Immobiliari Urbane (situazione alla data di riferimento)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="32" width="518" height="16"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false" isItalic="true" isUnderline="true" pdfFontName="Helvetica-BoldOblique"/>
+				</textElement>
+				<text><![CDATA[Unità Territoriali (situazione alla data di riferimento)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="52" width="822" height="10"/>
+				<dataSourceExpression><![CDATA[$P{terreniList}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportDatiTerreni.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="98" width="518" height="16"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false" isItalic="true" isUnderline="true" pdfFontName="Helvetica-BoldOblique"/>
+				</textElement>
+				<text><![CDATA[Pregeo (situazione alla data di riferimento)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="114" width="822" height="5"/>
+				<dataSourceExpression><![CDATA[$P{datiPregeo}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportDatiPregeo.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="128" width="518" height="16"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false" isItalic="true" isUnderline="true" pdfFontName="Helvetica-BoldOblique"/>
+				</textElement>
+				<text><![CDATA[Note di Compravendita Immobili (situazione alla data di riferimento)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="69" width="518" height="16"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false" isItalic="true" isUnderline="true" pdfFontName="Helvetica-BoldOblique"/>
+				</textElement>
+				<text><![CDATA[Docfa (situazione alla data di riferimento)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="85" width="822" height="5"/>
+				<dataSourceExpression><![CDATA[$P{datiDocfa}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportDatiDocfa.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="160" width="518" height="16"/>
+				<textElement textAlignment="Justified">
+					<font isBold="false" isItalic="true" isUnderline="true" pdfFontName="Helvetica-BoldOblique"/>
+				</textElement>
+				<text><![CDATA[Note di Compravendita Terreni (situazione alla data di riferimento)]]></text>
+			</staticText>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="145" width="822" height="5"/>
+				<dataSourceExpression><![CDATA[$P{datiCompravenditeImmobili}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportDatiCompImmobili.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement positionType="Float" x="0" y="180" width="822" height="5"/>
+				<dataSourceExpression><![CDATA[$P{datiCompravenditeTerreni}]]></dataSourceExpression>
+				<subreportExpression class="java.lang.String"><![CDATA[$P{SUBREPORT_DIR} + "subreportDatiCompImmobili.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>

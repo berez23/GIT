@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmLotti">
+			<p:panel header="Nuovo Lotto">				
+
+				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:outputLabel for="txtCodiceASI" value="Codice ASI"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodiceASI" value="#{lottiBean.lottoNew.codiceAsi}" required="true" readonly="true"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtIndirizzo" value="Indirizzo"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtIndirizzo" value="#{lottiBean.lottoNew.indirizzo}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtNote" value="Note"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtNote" value="#{lottiBean.lottoNew.note}"/>
+						</p:column>	
+						
+					</p:row>
+					<p:row>
+					<p:column>
+							<p:outputLabel for="txtArea" value="Area "/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtArea" value="#{lottiBean.lottoNew.area}" required="false" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:inputText>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtPerimetro" value="Perimetro"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtPerimetro" value="#{lottiBean.lottoNew.perimetro}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:inputText>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtPrtc" value="PRTC"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtPrtc" value="#{lottiBean.lottoNew.prtc}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+					<p:column>
+							<p:outputLabel for="txtSupFondiaria" value="Sup Fondiaria"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtSupFondiaria" value="#{lottiBean.lottoNew.supFondiaria}" required="false" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:inputText>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtSupEdificabile" value="Sup Edificabile"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtSupEdificabile" value="#{lottiBean.lottoNew.supEdificabile}" style="text-align: right">
+								<f:convertNumber pattern="#0.00"/>
+							</p:inputText>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+					</p:row>
+					
+					
+					<p:row>
+						<p:column>
+							<p:outputLabel for="txtComune" value="Comune Ricerca"/>
+						</p:column>
+						<p:column>
+							<p:autoComplete id="txtComune" value="#{lottiBean.comuneCur.idComune}" 
+								var="comu" 
+								itemValue="#{comu.idComune}"
+								itemLabel="#{comu}" 
+								completeMethod="#{lottiBean.completeComuni}"  
+								forceSelection="true" >
+								
+								<p:ajax event="itemSelect" listener="#{lottiBean.setComuneValues}"  update="txtNome, txtIstatc, txtIstatp, txtIdComune" />
+								
+								<p:column>
+									#{comu.istatc}
+								</p:column>
+								<p:column>
+									#{comu.istatp}
+								</p:column>
+								<p:column>
+									#{comu.nome}
+								</p:column>
+								<p:column>
+									#{comu.siglaProv}
+								</p:column>
+																								
+							</p:autoComplete>
+							
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtNome" value="Comune"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtNome" value="#{lottiBean.comuneCur.nome}" readonly="true"/>
+							<h:inputHidden id="txtIstatc" value="#{lottiBean.comuneCur.istatc}"/>
+							<h:inputHidden id="txtIstatp" value="#{lottiBean.comuneCur.istatp}"/>
+							<h:inputHidden id="txtIdComune" value="#{lottiBean.comuneCur.idComune}"/>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column colspan="6">
+
+							<p:dataTable id="dtListaCoord" 
+							 	var="coo" 
+							 	value="#{lottiBean.lottoNew.coordinate}" 
+							 	rowIndexVar="rowIndex"
+		                        paginator="true" 
+		                        rowKey="#{coo}" 
+		                        selection="#{coo}" 
+		                        selectionMode="single"                        
+								emptyMessage="Nessun elemento trovato" 
+								style="width:100%; table-layout:auto !important;" 
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		           				rows="50">
+
+							 	<f:facet name="header"><p:spacer width="5px"/></f:facet>
+							 	<p:column headerText="" >
+							 		<p:commandButton value="Elimina" action="#{lottiBean.coordDel}" update="dtListaCoord">
+							 			<f:setPropertyActionListener value="#{coo}" target="#{lottiBean.lottoCoordinateCurr}"/>
+							 		</p:commandButton>
+							 	</p:column>
+							 	<p:column headerText="Foglio" >
+							 		<h:outputText value="#{coo.foglio}"/>
+							 	</p:column>
+							 	<p:column headerText="Particella" >
+							 		<h:outputText value="#{coo.particella}"/>
+							 	</p:column>
+							 </p:dataTable>
+
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column >
+							<p:outputLabel for="txtFoglio" value="Foglio"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtFoglio" value="#{lottiBean.lottoCoordinateCurr.foglio}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="txtParticella" value="Particella"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtParticella" value="#{lottiBean.lottoCoordinateCurr.particella}"/>
+						</p:column>
+					<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+					<p:column>
+							<p:commandButton value="Aggiungi Coord" action="#{lottiBean.coordAdd}" process="@form" update="frmLotti"/>
+						</p:column>	
+					</p:row>
+					<p:row>
+						<p:column colspan="6">
+							
+							<p:dataTable id="dtListaCodiciAsiDaCessare" 
+							 	var="cesso" 
+							 	value="#{lottiBean.listaCodiciAsiDaCessare}" 
+							 	rowIndexVar="rowIndex"
+		                        paginator="true" 
+		                        rowKey="#{cesso}" 
+		                        selection="#{cesso}" 
+		                        selectionMode="single"                        
+								emptyMessage="Nessun elemento trovato" 
+								style="width:100%; table-layout:auto !important;" 
+								paginatorPosition="bottom"
+								paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+		           				rows="50">
+
+							 	<f:facet name="header">Codici Asi da Cessare</f:facet>
+							 	<p:column headerText="" >
+							 		<p:commandButton value="Elimina" action="#{lottiBean.codiceAsiDaCessareDel}" update="dtListaCodiciAsiDaCessare">
+							 			<f:setPropertyActionListener value="#{cesso[0]}" target="#{lottiBean.cessoCur}"/>
+							 		</p:commandButton>
+							 	</p:column>
+							 	<p:column headerText="Codice ASI" >
+							 		<h:outputText value="#{cesso[0]}"/>
+							 	</p:column>
+							 	<p:column headerText="Attivo/Cessato" >
+							 		<h:outputText value="Cessato" rendered="#{cesso[1]}"  style="color: red;"/>
+							 		<h:outputText value="Attivo" rendered="#{!cesso[1]}"/>
+							 	</p:column>
+							 	<p:column headerText="Libero/Occupato" >
+							 		<h:outputText value="Occupato" rendered="#{cesso[2]}" style="color: red;"/>
+							 		<h:outputText value="Libero" rendered="#{!cesso[2]}"/>
+							 	</p:column>
+							 </p:dataTable>				
+
+						</p:column>
+					</p:row>
+					
+					<p:row>
+						<p:column >
+							<p:outputLabel for="txtCodiceAsiDaCessare" value="Codice ASI da Cessare"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCodiceAsiDaCessare" value="#{lottiBean.codiceAsiDaCessare}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel for="somMotivo" value="Motivo"/>
+						</p:column>
+						<p:column>
+							<p:selectOneMenu id="somMotivo" value="#{lottiBean.lottoNew.motivo}" >
+								<f:selectItem itemLabel="" itemValue="" />
+								<f:selectItem itemLabel="Divisione" itemValue="DIVISIONE" />
+								<f:selectItem itemLabel="Fusione" itemValue="FUSIONE" />
+								<f:selectItem itemLabel="Sostituzione" itemValue="SOSTITUZIONE" />
+							</p:selectOneMenu>
+						</p:column>
+						<p:column>
+							<p:spacer width="5px"/>
+						</p:column>
+						<p:column>
+							<p:commandButton value="Aggiungi Lotto" action="#{lottiBean.codiceAsiDaCessareAdd}" process="@form" update="frmLotti"/>
+						</p:column>	
+					</p:row>
+					
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:panelGrid id="pnlFooter" styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:commandButton value="Salva" 
+								action="#{lottiBean.lottoSaveNew}" 
+								process="@form" 
+								update="frmLotti"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

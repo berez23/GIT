@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+			
+	<h:form id="frmPanel">
+		<rich:dataTable width="100%"  var="planimetriaC340" value="#{comma340DettaglioBean.dettImmobile.catasto.planimetrieComma340}"
+			id="listPlanimetrieC340" 
+			rendered="#{comma340DettaglioBean.planimetrieLoaded}">
+			
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column>
+						<h:outputText value="Nome File" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Descrizione" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Visualizza" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<h:outputLabel style="font-weight: normal;" value="#{planimetriaC340.file}" />
+			</rich:column>
+			<rich:column>
+				<h:outputLabel style="font-weight: normal;" value="#{planimetriaC340.descrizione}" />
+			</rich:column>
+			<rich:column>
+				<h:commandLink
+				id="btnVisPlanimetriaC340TIF"
+				action="#{gestionePlanimetrieC340Bean.doDownload}">
+					<f:setPropertyActionListener value="#{planimetriaC340.file}" target="#{gestionePlanimetrieC340Bean.fileName}" />
+					<f:setPropertyActionListener value=".tif" target="#{gestionePlanimetrieC340Bean.fileExt}"/>	
+				<h:graphicImage id="tiffImage" alt="Visualizza"  width="20px" height="20px" value="/images/tiff_icon.gif" title="Visualizza Planimetria" ></h:graphicImage>						
+	           	</h:commandLink>
+			</rich:column>
+		</rich:dataTable>
+		<rich:spacer height="15px" />
+		
+		<!-- Pannello visualizzato in caso di lista delle planimetrie c340 vuota -->
+		<h:panelGrid columns="1"
+			style="width: 100%; background-color: white;"
+			rendered="#{!comma340DettaglioBean.planimetrieLoaded}"
+			columnClasses="dettLabel">
+			<h:outputLabel
+				value="Nessun File Rilevato" />
+		</h:panelGrid>
+		
+   	</h:form>
+</ui:composition>

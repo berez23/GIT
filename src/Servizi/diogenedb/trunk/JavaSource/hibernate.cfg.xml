@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="amdevfactory">
+        <property name="hibernate.cglib.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.password">DIOGENEDB</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@rapanui:1521:rapanui</property>
+        <property name="hibernate.connection.username">DIOGENEDB</property>
+        <property name="hibernate.default_schema">DIOGENEDB</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <mapping resource="it/webred/diogene/db/model/DvKey.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcFromRel.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcSchemaEntity.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvLinkClasse.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvLink.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcEntity.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvTema.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcExpression.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcTipoeColumn.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcAttribute.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcMetadataConnection.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcTipoe.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvFormatClasse.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcEntityRel.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvProgetto.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcColumn.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvClasse.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvUeFromEntity.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvUserEntity.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvUeOrder.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvUeGroup.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DvKeyPair.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/DcRel.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

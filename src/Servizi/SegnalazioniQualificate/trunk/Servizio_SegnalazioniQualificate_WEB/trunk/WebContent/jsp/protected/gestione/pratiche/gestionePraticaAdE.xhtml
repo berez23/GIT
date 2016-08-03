@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmMain">
+			<rich:spacer height="10px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Gestione Info Segnalazione Qualificata" />
+				</f:facet>
+
+				<table>
+					<ui:include src="gestionePraticaBaseDetail.xhtml" />
+				</table>
+				
+				<rich:panel id="pnlAdeConclusa">
+					<f:facet name="header">
+						<h:outputLabel value="Esito Accertamento Agenzia delle Entrate" />
+					</f:facet>
+
+					<h:panelGrid columns="2" width="50%">
+						<h:outputLabel
+							value="Stato Segnalazione presso Agenzia delle Entrate:"
+							style="font-weight: bold;" />
+						<h:selectOneMenu id="sltStatoAde" label="Stato Segnalazione"
+							required="true" immediate="true"
+							value="#{gestionePraticaBean.dto.pratica.adeStato}">
+							<f:selectItems value="#{commonDataBean.listaStatoAdE}" />
+							<a4j:support event="onchange" ajaxSingle="true"
+								action = "#{gestionePraticaBean.resetEsitoAdE}"
+								reRender="pnlAdeConclusa">
+							</a4j:support>
+						</h:selectOneMenu>
+
+						<h:outputLabel value="Data Fine Accertamento"
+							rendered="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+							style="font-weight: bold;" />
+						<rich:calendar id="date" label="Data Fine Accertamento"
+							value="#{gestionePraticaBean.dto.pratica.adeDataFine}"
+							required="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+							rendered="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+							popup="true" enableManualInput="false" datePattern="dd/MM/yyyy"
+							cellWidth="24px" cellHeight="22px" style="width:200px" />
+
+						<h:outputLabel value="Liquidazione Quote Spettanti"
+							rendered="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+							style="font-weight: bold;" />
+						<h:selectOneRadio id="smcQuote" label="Liquidazione Quote Spettanti"
+							value="#{gestionePraticaBean.dto.pratica.flgLiqQuote}" border="0"
+							rendered="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+							required ="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+							title="Liquidazione Quote Spettanti" layout="lineDirection">
+							<f:selectItems id="sif" value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneRadio>
+					</h:panelGrid>
+					
+					<h:outputLabel value="Descrizione Esito" style="font-weight: bold;" 
+						rendered="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"/>
+					<h:inputTextarea style="width:100%" rows="4" maxlength="3000"
+						autoscroll="true"
+						rendered="#{gestionePraticaBean.dto.pratica.adeStato eq 'CONCLUSA'}"
+						value="#{gestionePraticaBean.dto.pratica.adeEsito}" />
+				</rich:panel>
+
+				<h:panelGroup>
+					<a4j:commandButton value="Salva" id="btnSalva"
+						action="#{gestionePraticaBean.goSalvaModificheAde}">
+					</a4j:commandButton>
+
+					<a4j:commandButton value="Annulla" id="btnAnnulla" 
+						ajaxSingle="true"	
+						action="#{gestionePraticaBean.goDetail}">
+					</a4j:commandButton>
+				</h:panelGroup>
+			</rich:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

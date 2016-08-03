@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="c336.statistiche::#jsp#protected#statistiche#statistiche.xhtml"
+    NAME="output" PATH="/jsp/protected/statistiche/statistiche.xhtml"
+    TARGET="rules:#jsp#protected#statistiche#statistiche.xhtml"
+    TITLE="c336.statistiche" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="c336.search::#jsp#protected#search#search.xhtml" NAME="output1"
+    PATH="/jsp/protected/search/search.xhtml"
+    TARGET="rules:#jsp#protected#search#search.xhtml"
+    TITLE="c336.search" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="c336.immobile.detail::#jsp#protected#search#detail#detail.xhtml"
+    NAME="output2" PATH="/jsp/protected/search/detail/detail.xhtml"
+    TARGET="rules:#jsp#protected#search#detail#detail.xhtml"
+    TITLE="c336.immobile.detail" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="c336.search.fabbrMaiDichiarati::#jsp#protected#search#searchFabbrMaiDich.xhtml"
+    NAME="output3" PATH="/jsp/protected/search/searchFabbrMaiDich.xhtml"
+    TARGET="rules:#jsp#protected#search#searchFabbrMaiDich.xhtml"
+    TITLE="c336.search.fabbrMaiDichiarati" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="c336.search.fabbrExRurali::#jsp#protected#search#searchFabbrExRurali.xhtml"
+    NAME="output4"
+    PATH="/jsp/protected/search/searchFabbrExRurali.xhtml"
+    TARGET="rules:#jsp#protected#search#searchFabbrExRurali.xhtml"
+    TITLE="c336.search.fabbrExRurali" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#search#search.xhtml"
+  PATH="/jsp/protected/search/search.xhtml" SHAPE="256,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#search#detail#detail.xhtml"
+  PATH="/jsp/protected/search/detail/detail.xhtml" SHAPE="256,177,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#search#searchFabbrMaiDich.xhtml"
+  PATH="/jsp/protected/search/searchFabbrMaiDich.xhtml"
+  SHAPE="272,321,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#search#searchFabbrExRurali.xhtml"
+  PATH="/jsp/protected/search/searchFabbrExRurali.xhtml"
+  SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#jsp#protected#statistiche#statistiche.xhtml"
+  PATH="/jsp/protected/statistiche/statistiche.xhtml"
+  SHAPE="304,497,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+
+			<ui:define name="pageTitle">Back Office Docfa</ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			
+			<style>
+            .colClass {
+				cursor: hand;
+	 		}
+        </style>
+        
+		        <rich:spacer height="30" />
+
+		        <rich:dataTable 
+		        	width="483" 
+		        	id="bodList" 
+		        	rows="16" 
+		        	columnClasses="col" 
+		        	value="#{ricercaFiltroBck.lstBod}" 
+		        	var="bod"
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+		            <f:facet name="header">
+		                <rich:columnGroup>
+		                    <h:column >
+		                        <h:outputText styleClass="headerText" value="Protocollo" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Fornitura" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Data Fine Lavori" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Data Registrazione" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Sopp." />
+		                    </h:column>
+			                 <h:column>
+		                        <h:outputText styleClass="headerText" value="Var." />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Cost." />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Dichiarante" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Tecnico" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Causale" />
+		                    </h:column>
+   		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Stato" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Operatore" />
+		                    </h:column>
+   		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Esito" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="FPS/Ind" />
+		                    </h:column>
+							<h:column>
+		                        <h:outputText styleClass="headerText" value="Esito Collaudo" />
+		                    </h:column>
+						 </rich:columnGroup>		               
+		            </f:facet>
+					
+					<rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.protocollo}"/>
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column  styleClass="colClass">
+		                <h:outputText value="#{bod.fornitura}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.dataVariazione}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.dataRegistrazione}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.soppressione}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.variazione}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.costituzione}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.dichiarante}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.tecnico}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.causale}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+					<rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.stato}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.operatore}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+   		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.esito}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>		
+					<rich:column styleClass="colClass">
+		            
+		            <a4j:commandLink 
+		            	ajaxSingle="true" 
+		            	id="showLink" 
+		            	action="#{ricercaListaBck.showDetail}" 
+		            	value="Vedi" 
+		            	reRender="editPanel" 
+		            	oncomplete="#{rich:component('editPanel')}.show()">
+						<f:setPropertyActionListener value="#{bod}" target="#{ricercaListaBck.selBodBean}" />
+						<c:set var="selBod" value="#{ricercaListaBck.selBodBean}" scope="page" />
+     				</a4j:commandLink>
+		            </rich:column>
+					<rich:column styleClass="colClass">
+		                <h:outputText value="#{bod.collaudo}" />
+		                <a4j:support ajaxSingle="false" event="onclick" action="#{ricercaDettaglioBck.selectionChanged}">
+		                	<f:setPropertyActionListener value="#{bod}" target="#{ricercaDettaglioBck.selBodBean}" />
+		                </a4j:support>
+		            </rich:column>
+		            
+		        </rich:dataTable>
+		        <table>
+		        <tr>
+		        	<td align="center">
+       			        <rich:datascroller align="left" for="bodList" maxPages="20" pagesVar="pagesNum" id="sc2" reRender="sc1" />
+		        	</td>
+		        </tr>
+		        <tr>
+		        	<td align="center">
+			        	<h:outputLabel value="Num. Righe: #{ricercaFiltroBck.numberOfRows}" />
+						<h:outputLabel value="Num. Pagine: #{pagesNum}" />		        		
+		        	</td>
+		        </tr>
+		        </table>
+
+			</ui:define>
+
+			<ui:define name="modalPanel">
+			 <rich:modalPanel id="editPanel" autosized="true" width="450">
+		        <f:facet name="header">
+		            <h:outputText value="Dettaglio" />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="hideLink" />
+			     <rich:componentControl for="editPanel" attachTo="hideLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		        <h:form>
+		            <h:panelGrid columns="1">
+		            <a4j:outputPanel ajaxRendered="true">
+					<rich:dataTable width="300" id="uiuList" columnClasses="col" value="#{ricercaListaBck.lstObj}" var="uiu">
+		            <f:facet name="header">
+		                <rich:columnGroup>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Foglio" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Particella" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Subalterno" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Categoria" />
+		                    </rich:column>
+		                    <rich:column>
+		                        <h:outputText styleClass="headerText" value="Operazione" />
+		                    </rich:column>
+			                 <rich:column>
+		                        <h:outputText styleClass="headerText" value="Indirizzo" />
+		                    </rich:column>
+		                </rich:columnGroup>
+		            </f:facet>
+
+		            <rich:column>
+		                <h:outputText value="#{uiu[0]}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{uiu[1]}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{uiu[2]}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{uiu[3]}" />
+		            </rich:column>
+		            <rich:column>
+		                <h:outputText value="#{uiu[4]}" />
+		            </rich:column>
+			         <rich:column>
+		                <h:outputText value="#{uiu[6]}" /><h:outputText value=" " /><h:outputText value="#{uiu[7]}" />
+		            </rich:column>		
+		        </rich:dataTable>
+		            </a4j:outputPanel>
+		            </h:panelGrid>  
+		             <table border="0">
+		             <tr>
+		             	<td align="center" width="49%">
+							<a4j:commandButton styleClass="my-button" value="Chiudi" ajaxSingle="false" id="hideBtn" oncomplete="#{rich:component('editPanel')}.hide();"/>		             	
+		             	</td>
+					</tr>
+			        </table>  
+		        </h:form>
+		    </rich:modalPanel>
+			</ui:define>
+			
+			<ui:define name="footer">
+
+			</ui:define>
+		</ui:composition>
+</html>      

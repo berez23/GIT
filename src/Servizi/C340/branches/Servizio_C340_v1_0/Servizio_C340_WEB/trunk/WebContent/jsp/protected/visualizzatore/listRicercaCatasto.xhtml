@@ -1,0 +1,540 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+</head>
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="navInfo">
+		<h:outputLabel value="Ricerca per Dati Catastali" style="font-size: 18px; font-weight: bold;" />		
+    </ui:define>
+
+	<ui:define name="content">
+	<script type="text/javascript" src="${facesContext.externalContext.requestContextPath}/js/ricercaFiltro.js"></script>
+
+		<h:form id="frmMain">
+		
+			<!-- Menu tabella  -->
+			<rich:contextMenu attached="false" id="menu" submitMode="ajax">
+				<rich:menuItem submitMode="none">
+					<a4j:commandLink action="#{comma340DettaglioBean.apriDettaglio}">
+						<h:outputText value="Apri dettaglio immobile" style="font-weight: bold;"/>					
+						<a4j:actionparam value="catasto" assignTo="#{comma340DettaglioBean.mode}"/>
+						<a4j:actionparam value="{selIdUiu}" assignTo="#{comma340DettaglioBean.selIdUiu}"/>
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu -->
+
+			<rich:messages passedLabel="Operazione completata" layout="list">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Criteri di ricerca" />
+				</f:facet>
+				<rich:panelBar selectedPanel="#{uIRicercaCatasto.selectedPanelBar}">
+				  <rich:panelBarItem id="fpsPanel" label="Parametri Catastali" 
+				  onleave="#{rich:element('txtFoglio')}.value = '';
+				  			#{rich:element('txtParticella')}.value = '';
+				  			#{rich:element('txtSubalterno')}.value = '';
+				  			#{rich:element('txtCategoria')}.value = '';
+				  			#{rich:element('idCategoria')}.value = '';
+				  			#{rich:element('cbxNonANorma')}.checked = false;
+				  			return true;">
+				  	<a4j:support event="onenter" immediate="true" actionListener="#{uIRicercaCatasto.panelBarChanged}" />
+				  	<h:inputHidden id="idCategoria" value="#{catastoDataModel.criteria.codCategoria}" />
+			      	<table style="margin-left: 5%;">
+		      			<tr style="width:100%; ">
+		      				
+		      				<td colspan = "2" style="width:30%; text-align: right; padding-right: 5px;"> 
+		      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      					<h:outputLabel value="Classe" /> 
+			      				<a4j:region>	
+			      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+			      					
+              						 <h:inputText styleClass="myInputText" id="txtCategoria" style="width:200px;" value = "#{uIRicercaCatasto.descCategoria}"/>
+               						 <h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionCat')}.callSuggestion(true)"
+                    								 alt="" />
+           							 </h:panelGrid>
+			      					<rich:suggestionbox
+			      						id= "suggestionCat"
+			      						width="400" 
+						      			height="150" 
+						      			for="txtCategoria"				      			
+						      			suggestionAction="#{catastoSuggestionBean.getListaCategorieImmobile}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.id.code}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtCategoria(suggestion);">
+
+						      			<h:column> 
+						      				<h:outputText value="#{result.id.code} - #{result.description}"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+						      	</h:panelGrid>
+		      				</td>
+		      				
+		      				<td style="width:10%; text-align: right padding-right: 5px;">
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      						<h:outputLabel value="Foglio" />
+		      						<h:inputText size="10" maxlength="10" styleClass="myInputText" id="txtFoglio" value="#{catastoDataModel.criteria.foglio}" />
+		      					</h:panelGrid>
+		      				</td>
+		      				<td style="width:10%; text-align: right; padding-right: 5px;">
+			      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+			      					<h:outputLabel value="Particella" />
+			      					<h:inputText size="10" maxlength="10" styleClass="myInputText" id="txtParticella" value="#{catastoDataModel.criteria.particella}" />
+			      				</h:panelGrid>
+		      				</td>
+		      				<td style="width:10%; text-align: right; padding-right: 5px;">
+			      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+			      					<h:outputLabel value="Subalterno" />
+			      					<h:inputText size="10" maxlength="10" styleClass="myInputText" id="txtSubalterno" value="#{catastoDataModel.criteria.unimm}" />
+			      				</h:panelGrid>
+		      				</td>
+		      				
+		      				
+		      				<td style="width:25%; text-align: right; padding-right: 5px;">
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      						<h:outputLabel value="Solo non a norma"/>
+		      						<h:selectBooleanCheckbox id="cbxNonANorma" 
+		      						title="Selezionare per estrarre solo gli immobili non a norma" 
+		      						value="#{catastoDataModel.criteria.nonANorma}" />
+		      				 	</h:panelGrid>
+		      				</td>
+		      				
+		      				<td style="width:5%; padding-right: 15px; vertical-align: center; text-align:center;">
+		      					<a4j:commandButton
+								styleClass="myButton"
+								value="Cancella" 
+								ajaxSingle="false" 
+								id="btnResetCat"
+								onclick="javascript:resetPanCat(); return false;"/>
+		      				</td>
+		      				
+		      			</tr>
+		      		</table>
+				  </rich:panelBarItem>
+				  <rich:panelBarItem id="indirizzoPanel" label="Via / Civico" 
+				  onleave=" #{rich:element('idVia')}.value = '';
+				  			#{rich:element('idCivico')}.value = '';
+				  			#{rich:element('txtVia')}.value = '';				  			
+				  		   	#{rich:element('txtNumeroCivico')}.value = '';
+				  		   	#{rich:element('txtNumeroCivico')}.disabled = true;
+				  			return true;">
+				  	<a4j:support event="onenter" immediate="true" actionListener="#{uIRicercaCatasto.panelBarChanged}" />
+				  	<h:inputHidden id="idVia" value="#{catastoDataModel.criteria.idVia}" />				  			  	
+				  	<h:inputHidden id="idCivico" value="#{catastoDataModel.criteria.idCivico}" />
+				  	<table style="margin-left: 5%;" >
+		      			<tr>
+		      				<td style="width: 40%; text-align: right; padding-right: 20px;">
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      					<h:outputLabel value="Indirizzo" />
+		      					<a4j:region>
+		      						<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0px">
+			      					<h:inputText styleClass="myInputText" 
+						      					 id="txtVia" 
+						      					 style="width: 90%;" 
+						      					 size="40" 
+						      					 value = "#{uIRicercaCatasto.descVia}">
+			      					<rich:toolTip direction="top-right" mode="ajax" layout="inline"
+										value="Digitare almeno 3 caratteri per attivare il suggerimento"/>
+			      					</h:inputText>
+			      					 <h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionIndirizzo')}.callSuggestion(true)"
+                    								 alt="" />
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionIndirizzo"
+			      						width="400" 
+						      			height="150" 
+						      			for="txtVia"				      			
+						      			suggestionAction="#{catastoSuggestionBean.getListaVie}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.nome}"
+							      		usingSuggestObjects="true"
+							      		frequency="100"
+							      		onobjectchange="javascript:setTxtVia(suggestion);">
+
+						      			<h:column> 
+						      				<h:outputText value="#{result.prefisso}  #{result.nome}"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+						      	</h:panelGrid>
+		      				</td>
+		      				<td style="width: 40%; text-align: right; padding-right: 20px;">
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      					<h:outputLabel value="Numero Civico" />
+		      					<a4j:region>
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+			      					<h:inputText styleClass="myInputText" 
+						      					 id="txtNumeroCivico" 
+						      					 disabled="true" 
+						      					 size="10" 
+						      					 value = "#{uIRicercaCatasto.descCivico}"/>
+			      					<h:graphicImage id="imgCivico" value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionCiv')}.callSuggestion(true)"
+                    								 alt=""/>
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionCiv"
+			      						width="250" 
+						      			height="150" 
+						      			for="txtNumeroCivico"				      			
+						      			suggestionAction="#{catastoSuggestionBean.getListaIndirizzi}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.civico}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtCivico(suggestion);">
+						      			<h:column> 
+						      				<h:outputText value="#{result.civico}"></h:outputText>
+						      			</h:column>
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+						      	</h:panelGrid>
+		      				</td>
+		      				<td style="width:5%; padding-right: 100px; vertical-align: center; text-align:center;">
+		      					<a4j:commandButton
+								styleClass="myButton"
+								value="Cancella" 
+								ajaxSingle="false" 
+								id="btnResetVia"
+								onclick="javascript:resetPanVia(); return false;"/>
+		      				</td>
+		      			</tr>
+		      		</table>
+				  </rich:panelBarItem>
+				  <rich:panelBarItem id="soggFPanel" label="Dati Persona Fisica" 
+				  onleave="#{rich:element('idSoggetto')}.value = '';
+				  			#{rich:element('txtCognome')}.value = '';				  			
+				  			#{rich:element('txtNome')}.value = '';
+				  			#{rich:element('hiddenNome')}.value = '';
+				  			#{rich:element('txtCodiceFiscale')}.value = '';
+				  			return true;">
+				  	<a4j:support event="onenter" immediate="true" actionListener="#{uIRicercaCatasto.panelBarChanged}" />
+			      	<h:inputHidden id="idSoggetto" value="#{catastoDataModel.criteria.idSoggetto}" />    	
+			      	<table style="margin-left: 5%;">
+		      			<tr>
+		      				<td style="width: 30%; text-align: right; padding-right: 5px;">	
+		      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">	      					
+		      					<h:outputLabel value="Cognome" />
+		      					<a4j:region>
+		      						<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+		      						<h:inputText styleClass="myInputText" id="txtCognome" value = "#{uIRicercaCatasto.descCognome}">
+		      						<rich:toolTip direction="top-right" mode="ajax" layout="inline"
+										value="Digitare almeno 3 caratteri per attivare il suggerimento"/>
+									</h:inputText>
+									<h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionCognome')}.callSuggestion(true)"
+                    								 alt="" />
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      					    id="suggestionCognome"
+			      						width="400" 
+						      			height="150" 
+						      			for="txtCognome" 
+						      			suggestionAction="#{catastoSuggestionBean.getListaSoggettiF}" 
+						      			var="result"
+						      			ajaxSingle="true"						      			
+						      			nothingLabel="..."
+							      		fetchValue="#{result.ragiSoci}"
+							      		usingSuggestObjects="true"
+							      		frequency="100"
+							      		onobjectchange="javascript:setTxtCognomeNomeCF(suggestion);">
+						      		  
+						      			<h:column> 
+						      				<h:outputText value="#{result.ragiSoci} #{result.nome} n. "></h:outputText>
+						      				<h:outputText value="#{result.dataNasc}" >
+							                	<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+							                </h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+		   						 </h:panelGrid>
+		      				</td>
+		      				<td style="width: 30%; text-align: right; padding-right: 5px;">
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      						<h:outputLabel value="Nome" />
+		      						<h:inputText styleClass="myInputText" id="txtNome" disabled="true" value = "#{uIRicercaCatasto.descNome}"/>
+		      						<h:inputHidden id="hiddenNome" value = "#{uIRicercaCatasto.descNome}" />  
+		      					</h:panelGrid>
+		      				</td>
+		      				<td style="width: 30%; text-align: right; padding-right: 5px;">
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      						<h:outputLabel value="Codice Fiscale" />
+		      					   				
+		      					<a4j:region>
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+		      						<h:inputText styleClass="myInputText" id="txtCodiceFiscale" size="20" maxlength="16" value = "#{uIRicercaCatasto.cf}">
+		      						<rich:toolTip direction="top-right" mode="ajax" layout="inline"
+										value="Digitare almeno i primi 3 caratteri del cod. fiscale"/>
+									</h:inputText>
+									<h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionCF')}.callSuggestion(true)"
+                    								 alt="" />
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionCF"
+			      						width="400" 
+						      			height="150" 
+						      			for="txtCodiceFiscale" 
+						      			suggestionAction="#{catastoSuggestionBean.getSoggettoByCF}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.codiFisc}"
+							      		usingSuggestObjects="true"
+							      		frequency="100"
+							      		onobjectchange="javascript:setTxtCodiceFiscale(suggestion);">
+						      		  
+						      			<h:column> 
+						      				<h:outputText value="#{result.codiFisc} (#{result.ragiSoci} #{result.nome})"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+						      	</h:panelGrid>
+		      				</td>
+		      				<td style="width:5%; padding-right: 100px; vertical-align: center; text-align:center;">
+		      					<a4j:commandButton
+								styleClass="myButton"
+								value="Cancella" 
+								ajaxSingle="false" 
+								id="btnResetPF"
+								onclick="javascript:resetPanPF(); return false;"/>
+		      				</td>
+		      			</tr>		      			
+		      		</table>
+				  </rich:panelBarItem>
+				  <rich:panelBarItem id="soggGPanel" label="Dati Persona Giuridica" 
+				  onleave="#{rich:element('idSoggetto')}.value = '';
+				  			#{rich:element('txtDenominazione')}.value = '';
+				  			#{rich:element('txtPartitaIva')}.value = '';
+				  			return true;">
+				  	<a4j:support event="onenter" immediate="true" actionListener="#{uIRicercaCatasto.panelBarChanged}" />
+			      	<table style="margin-left: 5%;">
+		      			<tr>
+		      				<td style="width: 50%; text-align: right; padding-right: 5px;">
+		      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      					<h:outputLabel value="Denominazione" />
+		      					
+		      					<a4j:region>
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+		      						<h:inputText styleClass="myInputText" id="txtDenominazione" style="width: 90%;" size="50" value = "#{uIRicercaCatasto.descDenominazione}">
+			      					<rich:toolTip direction="top-right" mode="ajax" layout="inline"
+										value="Digitare almeno 3 caratteri"/>
+									</h:inputText>
+									<h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionDenom')}.callSuggestion(true)"
+                    								 alt="" />
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionDenom"
+			      						width="400" 
+						      			height="150" 
+						      			for="txtDenominazione" 
+						      			suggestionAction="#{catastoSuggestionBean.getListaSoggettiG}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.ragiSoci}"
+							      		usingSuggestObjects="true"
+							      		frequency="100"
+							      		onobjectchange="javascript:setTxtDenominazionePI(suggestion);">
+						      		  
+						      			<h:column> 
+						      				<h:outputText value="#{result.ragiSoci}"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+						      	</h:panelGrid>
+		      				</td>
+		      				<td style="width: 40%; text-align: right; padding-right: 5px;">
+		      				<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="10px">
+		      					<h:outputLabel value="Partita Iva" />
+		      					      					
+		      					<a4j:region>
+		      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+		      						<h:inputText styleClass="myInputText" id="txtPartitaIva" size="20" maxlength="11" value = "#{uIRicercaCatasto.piva}">
+		      						<rich:toolTip direction="top-right" mode="ajax" layout="inline"
+										value="Digitare la partita IVA completa"/>
+									</h:inputText>
+									<h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionPIVA')}.callSuggestion(true)"
+                    								 alt="" />
+                    				</h:panelGrid>
+			      					<rich:suggestionbox
+			      						id="suggestionPIVA"
+			      						width="400" 
+						      			height="150" 
+						      			for="txtPartitaIva" 
+						      			suggestionAction="#{catastoSuggestionBean.getSoggettoByPIVA}" 
+						      			var="result"
+						      			ajaxSingle="true"
+						      			nothingLabel="..."
+							      		fetchValue="#{result.codiPiva}"
+							      		usingSuggestObjects="true"
+							      		frequency="1"
+							      		onobjectchange="javascript:setTxtPartitaIva(suggestion);">
+
+						      			<h:column> 
+						      				<h:outputText value="#{result.codiPiva} (#{result.ragiSoci})"></h:outputText>
+						      			</h:column>
+						      			
+						      		</rich:suggestionbox>
+						      	</a4j:region>
+						      	</h:panelGrid>
+		      				</td>
+		      				<td style="width:5%; padding-right: 100px; vertical-align: center; text-align:center;">
+		      					<a4j:commandButton
+								styleClass="myButton"
+								value="Cancella" 
+								ajaxSingle="false" 
+								id="btnResetPG"
+								onclick="javascript:resetPanPG(); return false;"/>
+		      				</td>
+		      			</tr>		      			
+		      		</table>
+				  </rich:panelBarItem>	  
+				</rich:panelBar>
+
+				<h:panelGrid columns="1" style="width: 100%; text-align: center;">
+					<a4j:commandButton							
+					styleClass="myButton"
+					value="Ricerca" 							
+					id="btnRicerca"
+				   	reRender="listTable, tableScroller">
+	            	</a4j:commandButton>
+				</h:panelGrid>
+
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+
+			<rich:dataTable width="100%" var="immobile" value="#{catastoDataModel}"
+				id="listTable"
+				onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				rows="10">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value=" " />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Foglio" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Particella" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Subalterno" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Classe" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Indirizzi" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Soggetti" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Data Inizio Val." />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Data Fine Val." />
+						</rich:column>
+						
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column style="width:20px; cursor: pointer;">
+						<h:graphicImage rendered="#{immobile.nonANorma}"  value="/images/red_round_button.jpg" title="Immobile NON a NORMA"/>
+						<h:graphicImage rendered="#{!immobile.nonANorma}" value="/images/green_round_button.jpg" title="Immobile a NORMA"/> 
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{immobile.foglio}" />			
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{immobile.particella}" />
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{immobile.unimm}" />
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{immobile.codCategoria}" />
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:panelGrid columns="1">
+						<a4j:repeat var="indirizzo" value="#{immobile.indirizzi}">
+							<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{indirizzo.strada} #{indirizzo.numCivico}" />
+							<br />
+						</a4j:repeat>
+					</h:panelGrid>
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:panelGrid columns="1">
+						<a4j:repeat var="soggetto" value="#{immobile.soggetti}">
+							<h:outputLabel 
+							style="#{soggetto.ultimoValido ? 'font-weight: bold; cursor: pointer;' : 'font-weight: normal; cursor: pointer;'}" 
+							value="#{soggetto.nominativoVis} - #{soggetto.titolo} fino al " />
+							<h:outputLabel 
+							style="#{soggetto.ultimoValido ? 'font-weight: bold; cursor: pointer;' : 'font-weight: normal; cursor: pointer;'}" 
+							value="#{soggetto.dataFinePoss}">
+								<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+							</h:outputLabel>
+							<br />
+						</a4j:repeat>
+					</h:panelGrid>
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{immobile.dataInizioVal}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+					</h:outputLabel>
+				</rich:column>
+				<rich:column style="cursor: pointer;">
+					<h:outputLabel style="font-weight: normal; cursor: pointer;" value="#{immobile.dataFineVal}">
+						<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+					</h:outputLabel>
+				</rich:column>
+				
+				<rich:componentControl event="onRowClick" for="menu" operation="show">
+					<f:param name="selIdUiu" value="#{immobile.idImmobile}" />
+				</rich:componentControl>
+			</rich:dataTable>
+
+			<rich:datascroller id="tableScroller" align="center" for="listTable" />
+			
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

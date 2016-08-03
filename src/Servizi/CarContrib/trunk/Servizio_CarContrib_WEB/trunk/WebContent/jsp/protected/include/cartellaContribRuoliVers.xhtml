@@ -1,0 +1,441 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+ 	
+	<ui:composition>
+		<c:if test="#{!contribuenteBean.ruoliVersCarContrib.datiPresenti}" >
+			<f:facet name="label">
+				<h:outputText value="Ruoli e Versamenti" />
+			</f:facet>
+			<rich:spacer height="20px" />
+			<div style="height:60px;">
+				<h:outputText value="DATI NON TROVATI" styleClass="titoloNero" style="font-weight: bold;" />
+			</div>
+		</c:if>
+		<c:if test="#{contribuenteBean.ruoliVersCarContrib.datiPresenti}" >
+			<f:facet name="label">
+					<h:outputText value="Ruoli e Versamenti" />
+			</f:facet>
+				<c:if test="#{contribuenteBean.ruoliVersCarContrib.rTarsuFonte.abilitata}">
+				<div>
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.rTarsuFonte.strDataAgg}"/>
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.rTarsuFonte.nota}"/>
+						
+						<h:outputText rendered="#{contribuenteBean.ruoliVersCarContrib.verTarsuBPFonte.abilitata}" 
+										value="#{contribuenteBean.ruoliVersCarContrib.verTarsuBPFonte.strDataAgg}"/>
+						<h:outputText rendered="#{contribuenteBean.ruoliVersCarContrib.verTarsuBPFonte.abilitata}" 
+									  value="#{contribuenteBean.ruoliVersCarContrib.verTarsuBPFonte.nota}"/>
+					</h:panelGrid>
+				</div>		
+				<rich:simpleTogglePanel switchType="client" opened="true">
+					<f:facet name="header">RUOLO TARSU</f:facet>
+					<rich:dataTable width="100%"
+				        	var="elem"
+				        	value="#{contribuenteBean.ruoliVersCarContrib.listaRuoliTarsu}"
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+							rowClasses="#{contribuenteBean.ruoliVersCarContrib.rTarsuFonte.coloreJsp}">
+						
+						<rich:column style="text-align:center;width:20px;">
+							<f:facet name="header"><h:outputText value="Anno" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.anno}" />
+						</rich:column>
+						<rich:column style="text-align:left;width:30px;">
+							<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+							<h:outputLabel rendered="#{elem.ruolo.tipo eq 'A'}" value="Principale" />
+							<h:outputLabel rendered="#{elem.ruolo.tipo eq 'S'}" value="Suppletivo" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Contribuente" /></f:facet>
+							<h:panelGrid>
+								<h:outputLabel value="#{elem.ruolo.nominativoContrib}" />
+								<h:outputLabel value="c.f.: #{elem.ruolo.codfisc}" />
+							</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+							<h:panelGrid>
+								<h:outputLabel value="#{elem.ruolo.indirizzo} " />
+								<h:panelGroup>
+								<h:outputLabel value="#{elem.ruolo.comune}" />
+								<h:outputLabel rendered="#{elem.ruolo.prov!=null}" value=" (#{elem.ruolo.prov})" />
+								<h:outputLabel rendered="#{elem.ruolo.estero!=null}" value=" (#{elem.ruolo.estero})" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Acconto" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.accontoTarsuAnno}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Tot.Netto" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.totNetto}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Add.ECA" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.addEca}" >
+				    				<f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+							<h:panelGroup rendered="#{elem.ruolo.percEca !=null}">
+				    			<h:outputLabel value=" (" />
+				    			<h:outputLabel value="#{elem.ruolo.percEca}"><f:convertNumber type="number"/></h:outputLabel>
+				    			<h:outputLabel value="%)" />
+				    			</h:panelGroup>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Magg.ECA" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.maggEca}" >
+				    				<f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+							<h:panelGroup rendered="#{elem.ruolo.percMaggEca !=null}">
+				    			<h:outputLabel value=" (" />
+				    			<h:outputLabel value="#{elem.ruolo.percMaggEca}"><f:convertNumber type="number"/></h:outputLabel>
+				    			<h:outputLabel value="%)" />
+				    			</h:panelGroup>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Trib.Prov." /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.tribProv}" >
+				    				<f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+							<h:panelGroup rendered="#{elem.ruolo.percTribProv !=null}">
+				    			<h:outputLabel value=" (" />
+				    			<h:outputLabel value="#{elem.ruolo.percTribProv}"><f:convertNumber type="number"/></h:outputLabel>
+				    			<h:outputLabel value="%)" />
+				    			</h:panelGroup>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Totale" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.totale}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="width:10px;" >
+							<a4j:commandLink 
+				            	ajaxSingle="true" 
+				            	reRender="rTarsuPanel" 
+				            	oncomplete="#{rich:component('rTarsuPanel')}.show()">
+				            	<f:setPropertyActionListener value="#{elem}" target="#{contribuenteBean.ruoliVersCarContrib.selRTarsu}" />
+				            	<h:graphicImage value="/images/lente.jpg"  title="Dettaglio"/>
+		     				</a4j:commandLink>
+						</rich:column>
+					</rich:dataTable>					
+				</rich:simpleTogglePanel>
+			</c:if>
+			<rich:spacer height="10px" />
+			<c:if test="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.abilitata}">
+				<div>
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.strDataAgg}"/>
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.nota}"/>
+					</h:panelGrid>
+				</div>		
+				<rich:simpleTogglePanel switchType="client" opened="false">
+					<f:facet name="header">RUOLO TARES</f:facet>
+					<rich:dataTable width="100%"
+				        	var="elem"
+				        	value="#{contribuenteBean.ruoliVersCarContrib.listaRuoliTares}"
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+							rowClasses="#{contribuenteBean.ruoliVersCarContrib.rTaresFonte.coloreJsp}">
+						
+						<rich:column style="text-align:left;width:20px;">
+							<f:facet name="header"><h:outputText value="Anno" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.anno}" />
+						</rich:column>
+						<rich:column style="text-align:left;width:30px;">
+							<f:facet name="header"><h:outputText value="Tipo" /></f:facet>
+							<h:outputLabel rendered="#{elem.ruolo.tipo eq 'A'}" value="Principale" />
+							<h:outputLabel rendered="#{elem.ruolo.tipo eq 'S'}" value="Suppletivo" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Contribuente" /></f:facet>
+							<h:panelGrid>
+								<h:outputLabel value="#{elem.ruolo.nominativoContrib}" />
+								<h:outputLabel value="c.f.: #{elem.ruolo.codfisc}" />
+							</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+							<h:panelGrid>
+								<h:outputLabel value="#{elem.ruolo.indirizzo} " />
+								<h:panelGroup>
+								<h:outputLabel value="#{elem.ruolo.comune}" />
+								<h:outputLabel rendered="#{elem.ruolo.prov!=null}" value=" (#{elem.ruolo.prov})" />
+								<h:outputLabel rendered="#{elem.ruolo.estero!=null}" value=" (#{elem.ruolo.estero})" />
+								</h:panelGroup>
+							</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="n.Imm." /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.nimm}" />
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Acconto" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.oldTot}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Tot.Netto" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.totNetto}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="IVA" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.addIva}" >
+				    				<f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+							<h:panelGroup rendered="#{elem.ruolo.percIva !=null}">
+				    			<h:outputLabel value=" (" />
+				    			<h:outputLabel value="#{elem.ruolo.percIva}"><f:convertNumber type="number"/></h:outputLabel>
+				    			<h:outputLabel value="%)" />
+				    			</h:panelGroup>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Trib.Prov." /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.tribProv}" >
+				    				<f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+							<h:panelGroup rendered="#{elem.ruolo.percTribProv !=null}">
+				    			<h:outputLabel value=" (" />
+				    			<h:outputLabel value="#{elem.ruolo.percTribProv}" >
+				    				<f:convertNumber type="number"/></h:outputLabel>
+				    			<h:outputLabel value="%)" />
+				    			</h:panelGroup>
+						</rich:column>
+						
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Totale" /></f:facet>
+							<h:outputLabel value="#{elem.ruolo.totale}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Quota Ente" /></f:facet>	
+							<h:outputLabel value="#{elem.ruolo.totaleEnte}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Quota Stato" /></f:facet>	
+							<h:outputLabel value="#{elem.ruolo.totaleStato}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column width="90px;">
+							<f:facet name="header"><h:outputText value="Fattura" /></f:facet>
+								<h:outputLabel value="n. #{elem.ruolo.numFatt} del " />
+								<h:outputLabel value="#{elem.ruolo.dataFatt}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+						</rich:column>
+						<rich:column style="width:10px;">
+							<a4j:commandLink 
+				            	ajaxSingle="true" 
+				            	reRender="rTaresPanel" 
+				            	oncomplete="#{rich:component('rTaresPanel')}.show()">
+				            	<f:setPropertyActionListener value="#{elem}" target="#{contribuenteBean.ruoliVersCarContrib.selRTares}" />
+				            	<h:graphicImage value="/images/lente.jpg"  title="Dettaglio"/>
+		     				</a4j:commandLink>
+						</rich:column>
+					</rich:dataTable>					
+				</rich:simpleTogglePanel>
+				
+			</c:if>
+			<rich:spacer height="10px" />
+			
+			<c:if test="#{contribuenteBean.ruoliVersCarContrib.verIciDMFonte.abilitata}">
+				<div>
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.verIciDMFonte.strDataAgg}"/>
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.verIciDMFonte.nota}"/>
+					</h:panelGrid>
+				</div>		
+				<rich:simpleTogglePanel switchType="client" opened="false">
+					<f:facet name="header">ELENCO VERSAMENTI ICI (Tracciato Ministeriale)</f:facet>
+					<rich:dataTable width="100%"
+				        	var="elem"
+				        	value="#{contribuenteBean.ruoliVersCarContrib.listaVersamentiIciDm}"
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+							rowClasses="#{contribuenteBean.ruoliVersCarContrib.verIciDMFonte.coloreJsp}">
+					
+						<rich:column>
+							<f:facet name="header"><h:outputText value="Data Versamento" /></f:facet>
+							<h:outputLabel value="#{elem.dtVersamento}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Cod.Ente" /></f:facet>
+							<h:outputLabel value="#{elem.codEnte}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Contribuente" /></f:facet>
+							<h:outputLabel rendered="#{elem.flgReperibilita eq '0'}" value="#{elem.cfVersante}" />
+							<h:outputLabel rendered="#{elem.datiSogg!=NULL and elem.flgReperibilita ne '0'}" value="#{elem.datiSogg.cognome} #{elem.datiSogg.nome}, Domicilio: #{elem.datiSogg.comDomicilio}" />
+						</rich:column>
+						
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Anno Rif." /></f:facet>
+							<h:outputLabel value="#{elem.annoImposta}" />
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Imp.Versato" /></f:facet>
+							<h:outputLabel value="#{elem.impVersato}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>	
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Imp.Terreni" /></f:facet>
+							<h:outputLabel value="#{elem.impTerrAgricoli}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Imp.Aree Fabb." /></f:facet>
+							<h:outputLabel value="#{elem.impAreeFabbricabili}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Imp.Ab.Princ." /></f:facet>
+							<h:outputLabel value="#{elem.impAbitazPrincipale}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Imp.Altri Fabb." /></f:facet>
+							<h:outputLabel value="#{elem.impAltriFabbricati}" ><f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Detr.Ab.Princ." /></f:facet>
+							<h:outputLabel value="#{elem.impDetrazione}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Acc./Saldo" /></f:facet>
+							<h:outputLabel  value="#{elem.desAccSaldo}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Ravv." /></f:facet>
+							<h:graphicImage rendered="#{1==elem.flgRavvedimento}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{0==elem.flgRavvedimento}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="n.Imm." /></f:facet>
+							<h:outputLabel value="#{elem.numFabb}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Comune.Imm." /></f:facet>
+							<h:panelGrid>
+								<h:outputLabel value="#{elem.comuneImm}" />
+								<h:outputLabel rendered="#{elem.capImm!=NULL}" value="(C.A.P:#{elem.capImm})" />
+							</h:panelGrid>
+						</rich:column>
+						
+					</rich:dataTable>					
+				</rich:simpleTogglePanel>
+			</c:if>
+			<rich:spacer height="10px" />
+			<c:if test="#{contribuenteBean.ruoliVersCarContrib.f24Fonte.abilitata}">
+				<div>
+					<h:panelGrid columns="1" width="100%">
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.f24Fonte.strDataAgg}"/>
+						<h:outputText value="#{contribuenteBean.ruoliVersCarContrib.f24Fonte.nota}"/>
+					</h:panelGrid>
+				</div>		
+				<f:facet name="label">
+					<h:outputText value="Ruoli e Versamenti" />
+				</f:facet>
+				<rich:simpleTogglePanel switchType="client" opened="false">
+					<f:facet name="header">ELENCO VERSAMENTI F24</f:facet>
+					<rich:dataTable width="100%"
+				        	var="elem"
+				        	value="#{contribuenteBean.ruoliVersCarContrib.listaVersamentiF24}"
+				        	columnClasses="col" 
+				        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+							onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+							rowClasses="#{contribuenteBean.ruoliVersCarContrib.f24Fonte.coloreJsp}">
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Imposta" /></f:facet>
+							<h:outputLabel value="#{elem.descTipoImposta}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Fornitura" /></f:facet>
+							<h:outputLabel value="#{elem.dtFornitura}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+							<h:outputLabel value="-" />
+							<h:outputLabel value="#{elem.progFornitura}" />
+						</rich:column>	
+						<rich:column >
+							<f:facet name="header"><h:outputText value="Ripartizione" /></f:facet>
+							<h:outputLabel value="#{elem.dtRipartizione}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+							<h:outputLabel value="-" />
+							<h:outputLabel value="#{elem.progRipartizione}" />
+						</rich:column>	
+						<rich:column>
+							<f:facet name="header"><h:outputText value="Bonifico" /></f:facet>
+							<h:outputLabel value="#{elem.dtBonifico}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Prog." /></f:facet>
+							<h:outputLabel value="#{elem.progDelega}" />
+						</rich:column>		
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Riga" /></f:facet>
+							<h:outputLabel value="#{elem.progRiga}" />
+						</rich:column>
+						<rich:column style="text-align:left;width:90px;">
+							<f:facet name="header"><h:outputText value="Ente" /></f:facet>
+							<h:panelGrid >
+							<h:outputLabel title="Delega riscossa tramite #{elem.descTipoEnteRd} - #{elem.descCodEnteRd}: #{elem.codEnteRd},Cod.CAB: #{elem.cab}" value="#{elem.descTipoEnteRd}" />
+							</h:panelGrid>
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Contribuente" /></f:facet>
+							<h:outputLabel value="#{elem.cf}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Altro Sogg." /></f:facet>
+							<h:outputLabel value="#{elem.cf2}" />
+						</rich:column>
+						<rich:column style="text-align:left;">
+							<f:facet name="header"><h:outputText value="Riscoss." /></f:facet>
+							<h:outputLabel value="#{elem.dtRiscossione}" ><f:convertDateTime timeZone="CET" pattern="dd/MM/yyyy" /></h:outputLabel>
+						</rich:column>
+						<rich:column >
+							<f:facet name="header"><h:outputText value="Tributo" /></f:facet>
+							<h:outputLabel title="#{elem.descTipoTributo}" value="#{elem.codTributo}" />
+						</rich:column>
+						<rich:column >
+							<f:facet name="header"><h:outputText value="Anno Rif." /></f:facet>
+							<h:outputLabel value="#{elem.annoRif}" />
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Credito" /></f:facet>
+							<h:outputLabel value="#{elem.impCredito}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Debito" /></f:facet>
+							<h:outputLabel value="#{elem.impDebito}"> <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:right;">
+							<f:facet name="header"><h:outputText value="Detraz." /></f:facet>
+							<h:outputLabel value="#{elem.detrazione}" > <f:convertNumber type="currency" currencyCode="EUR"/></h:outputLabel>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Acconto" /></f:facet>
+							<h:graphicImage rendered="#{1==elem.acconto}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{0==elem.acconto}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Saldo" /></f:facet>
+							<h:graphicImage rendered="#{1==elem.saldo}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{0==elem.saldo}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Ravv." /></f:facet>
+							<h:graphicImage rendered="#{1==elem.ravvedimento}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{0==elem.ravvedimento}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Imm.Var." /></f:facet>
+							<h:graphicImage rendered="#{1==elem.varImmIciImu}"  value="/images/passed.gif" title="SI"/>
+							<h:graphicImage rendered="#{0==elem.varImmIciImu}"  value="/images/no.gif" title="NO"/>
+						</rich:column>
+						<rich:column style="text-align:center;width:10px;">
+							<f:facet name="header"><h:outputText value="n.Imm." /></f:facet>
+							<h:outputLabel value="#{elem.numFabbIciImu}" />
+						</rich:column>
+						<rich:column style="text-align:center;">
+							<f:facet name="header"><h:outputText value="Rateaz." /></f:facet>
+							<h:outputLabel value="#{elem.rateazione}" />
+						</rich:column>
+					</rich:dataTable>					
+				</rich:simpleTogglePanel>
+			</c:if>
+		</c:if>
+	</ui:composition>
+
+</html>

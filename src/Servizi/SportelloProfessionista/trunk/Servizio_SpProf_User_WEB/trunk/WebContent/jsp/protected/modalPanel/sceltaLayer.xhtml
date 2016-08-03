@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO LISTA LAYER MODAL BOX -->
+<rich:modalPanel id="layerModalBox" minHeight="440" minWidth="750"
+	height="440" width="750">
+	<f:facet name="header">
+		<h:outputText value="Creazione intervento"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick"
+						oncomplete="javascript:Richfaces.hideModalPanel('layerModalBox');">
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<center><h:outputText
+		value="Scegliere quali livelli aggiungere all'intervento, particelle e fabbricati sono sempre inclusi" /></center>
+
+	<h:form id="layerForm">
+		<rich:spacer height="20px" />
+		<rich:pickList value="#{nuovoDataProviderImpl.layerSelezionati}"
+			style="cursor: pointer;" listsHeight="300px" sourceListWidth="300px"
+			targetListWidth="300px" copyControlLabel="Seleziona"
+			copyAllControlLabel="Seleziona tutto"
+			removeAllControlLabel="Rimuovi tutto" removeControlLabel="Rimuovi">
+			<f:selectItems value="#{nuovoDataProviderImpl.listaLayer}" />
+		</rich:pickList>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="3" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Conferma" id="btnOk" reRender="upPage, panelGrid"
+					action="#{nuovoDataProviderImpl.doCreaIntervento}"
+					oncomplete="Richfaces.hideModalPanel('layerModalBox'); return false;">
+					<a4j:support event="onclick"
+						onsubmit="if (!confirm('Procedere con il salvataggio?')) return false" />
+					<a4j:actionparam value="true" name="mostraDwld"
+							assignTo="#{datiBean.mostraDownload}" />
+				</a4j:commandButton>
+				<rich:spacer height="8px" width="8px" />
+				<a4j:commandButton value="Annulla" id="btnEsci"
+					oncomplete="Richfaces.hideModalPanel('layerModalBox'); return false;">
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE LISTA LAYER MODAL BOX -->
+
+</html>

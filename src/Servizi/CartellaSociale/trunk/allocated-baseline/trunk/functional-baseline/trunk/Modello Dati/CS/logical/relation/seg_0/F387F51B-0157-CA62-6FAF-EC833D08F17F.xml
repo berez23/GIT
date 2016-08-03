@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_COMP_PARENTELA" id="F387F51B-0157-CA62-6FAF-EC833D08F17F" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>C390B7A7-5A35-7EC7-8E00-A99CB5E9875F</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>8CD6A768-F58D-9628-ADC2-3AB6817FF075</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EC77FE99-814F-5B0C-3831-E8C9B5CF015F</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

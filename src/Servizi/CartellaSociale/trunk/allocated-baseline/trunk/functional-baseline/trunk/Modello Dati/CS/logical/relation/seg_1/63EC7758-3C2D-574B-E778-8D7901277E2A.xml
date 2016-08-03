@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_SCS_CAT_SOC" id="63EC7758-3C2D-574B-E778-8D7901277E2A" directorySegmentName="seg_1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>273BAAA6-7EBD-9D27-CBDF-276945FD7AA3</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>7ED71E5A-4BA5-8AF5-83A0-7651CD46E820</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>7EB44EB1-A9F1-F617-65F0-8D05D0AA5B8A</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

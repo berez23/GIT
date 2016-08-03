@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmRicercaBene">
+			<p:panel header="Ricerca">				
+				<p:tabView styleClass="tabView" activeIndex="#{beneSearchBean.activeIndex}">
+					<p:ajax event="tabChange" listener="#{beneSearchBean.tabChangeListener}" update=":frmRicercaBene"/>
+	     				<p:tab title="Inventario">
+						<p:panelGrid styleClass="panelGrid" style="width:auto;">
+							<p:row>
+								<p:column>
+									<p:outputLabel styleClass="label" value="Cod. Inventario" for="codInventario"/>
+								</p:column>
+								<p:column>
+									<p:inputText id="codInventario" value="#{beneSearchBean.searchDto.codInventario}"  style="width: 160px" />
+								</p:column>
+								<p:column>
+									<p:outputLabel styleClass="label" value="Categoria Inventariale" for="somCatInventario"/>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="somCatInventario" value="#{beneSearchBean.searchDto.codCatInventario}" style="width: 300px">
+							            <f:selectItem itemLabel="Tutti" itemValue="" />
+							            <f:selectItems value="#{beneSearchBean.lstCatInventario}" />
+						        	</p:selectOneMenu>
+					        	</p:column>
+					        	<p:column>
+									<p:outputLabel styleClass="label" value="Tipo Diritto Reale" for="somTipo"/>
+								</p:column>
+								<p:column>
+									<p:selectOneMenu id="somTipo" value="#{beneSearchBean.searchDto.tipoDirittoReale}" >
+							            <f:selectItem itemLabel="Tutti" itemValue="" />
+							            <f:selectItems value="#{beneSearchBean.lstTipoDirittoReale}" />
+						        	</p:selectOneMenu>
+								</p:column>
+				        	</p:row>
+				        	<p:row>
+								<p:column>
+									<p:outputLabel styleClass="label" value="Ricerca Fascicolo" for="somNomeFascicolo"/>
+								</p:column>
+								
+								<p:column>
+									<p:autoComplete id="somNomeFascicolo" dropdown="false" styleClass="#{cc.attrs.styleClass}" value="#{beneSearchBean.searchDto.desFascicolo}" 
+					           			title="Inizia a scrivere il nome fascicolo cercato ..." completeMethod="#{beneSearchBean.getLstFascicoli}"
+					           			var="fasc" queryDelay="1600" itemValue="#{fasc.codice}" forceSelection="true" maxResults="#{beneSearchBean.maxResult}">
+										<p:ajax event="itemSelect" listener="#{beneSearchBean.onFascicoloSelect}" update="@parent:txtCodFascicolo,@parent:lblNomeFascicolo" />
+					           			<p:column style="width: 10%">
+									        #{fasc.codice}
+									    </p:column>
+									   	<p:column style="width: 40%">
+									        #{fasc.descrizione}
+									    </p:column>
+									    
+					           		</p:autoComplete>
+					        	</p:column>
+					        	
+								<p:column>
+									<p:outputLabel styleClass="label" value="Cod. Fascicolo" for="txtCodFascicolo"/>
+								</p:column>
+								
+								<p:column>
+									<p:inputText id="txtCodFascicolo" value="#{beneSearchBean.searchDto.codFascicolo}" />
+								</p:column>
+								
+					        	<p:column>
+									<p:outputLabel styleClass="label" value="#{beneSearchBean.searchDto.desFascicolo}" id="lblNomeFascicolo"/>
+								</p:column>
+								<p:column>
+									<p:spacer width="5px"/>
+								</p:column>
+				        	</p:row>
+				        </p:panelGrid>
+						</p:tab>
+	      				<p:tab title="Toponomastica">
+						<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+							<p:row>
+								<p:column>
+									<p:outputLabel styleClass="label" value="Comune" for="codComune"/>
+									<p:autoComplete id="codComune" styleClass="#{cc.attrs.styleClass}" value="#{beneSearchBean.searchDto.comuneInd}" 
+					           			title="Inserire almeno 3 caratteri e attendere la ricerca" minQueryLength="3" completeMethod="#{beneSearchBean.getLstComuni}"
+					           			var="comune" itemLabel="#{comune.descrizione}" itemValue="#{comune}" converter="comuneIndConverter" forceSelection="true"
+					           			queryDelay="1600"  maxResults="#{beneSearchBean.maxResult}" >
+					           			<p:ajax event="itemSelect" listener="#{beneSearchBean.resetViaCivico}"  update="@parent:codVia,@parent:somCivici" />
+					           		</p:autoComplete>
+								</p:column>
+								<p:column>
+									<p:outputLabel styleClass="label" for="codVia" value="Via" />
+									<p:autoComplete id="codVia" size="30" styleClass="#{cc.attrs.styleClass}"  value="#{beneSearchBean.searchDto.via}" 
+					           			title="Inserire almeno 3 caratteri e attendere la ricerca" minQueryLength="3" completeMethod="#{beneSearchBean.getLstIndirizzi}"
+					           			var="vieVar" itemLabel="#{vieVar.descrizione}" itemValue="#{vieVar}" converter="viaConverter"
+					           			queryDelay="1600"  maxResults="#{beneSearchBean.maxResult}" forceSelection="true">
+					           			<p:ajax event="itemSelect" listener="#{beneSearchBean.onViaSelect}" update="@parent:somCivici" />
+					           		</p:autoComplete>
+				           		</p:column>
+				           		<p:column>
+					           		<p:outputLabel styleClass="label" value="Civici" for="somCivici"/>
+					           		<p:autoComplete id="somCivici" dropdown="true" value="#{beneSearchBean.searchDto.civico}" completeMethod="#{beneSearchBean.caricaListaCivici}" 
+											var="civ"  itemLabel="#{civ.descrizione}" itemValue="#{civ}" converter="civConverter" minQueryLength="0"/>
+					 			</p:column>
+					 		</p:row>
+						</p:panelGrid>
+					</p:tab>
+					<p:tab title="Catasto">
+						<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+							<p:row>
+								<p:column>
+									<p:outputLabel styleClass="label" value="Comune" for="codComuneCat"/>
+									<p:autoComplete id="codComuneCat" styleClass="#{cc.attrs.styleClass}" value="#{beneSearchBean.searchDto.comuneCat}" 
+					           			title="Inserire almeno 3 caratteri e attendere la ricerca" minQueryLength="3" completeMethod="#{beneSearchBean.getLstComuni}"
+					           			var="comune" itemLabel="#{comune.descrizione}" itemValue="#{comune}" converter="comuneCatConverter"  forceSelection="true"
+					           			queryDelay="1600"  maxResults="#{beneSearchBean.maxResult}" >
+					           		</p:autoComplete>
+								</p:column>
+								<p:column>
+									<p:outputLabel styleClass="label" value="Foglio" for="figlio"/>
+									<p:inputText id="figlio" value="#{beneSearchBean.searchDto.foglio}" />
+								</p:column>
+								<p:column>
+									<p:outputLabel styleClass="label" for="mappale" value="Mappale" />
+									<p:inputText id="mappale" value="#{beneSearchBean.searchDto.mappale}" />
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+					</p:tab>
+					
+				</p:tabView>		
+				
+				<p:spacer height="5"/>
+				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:commandButton value="Ricerca" action="#{beneSearchBean.searchListaBeni}" update="pnlListaBene"/>
+						</p:column>
+						<p:column>
+							<p:commandButton value="Cancella" action="#{beneSearchBean.resetForm}" update="frmRicercaBene,pnlListaBene"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaBene">				
+					 <p:dataTable id="dtListaBene" rendered="#{beneSearchBean.listaBeni!=null}" var="bene" 
+					 		value="#{beneSearchBean.listaBeni}" rowIndexVar="rowIndex"
+                        	paginator="true" rowKey="#{bene}" selection="#{beneSearchBean.idBene}" selectionMode="single"
+							emptyMessage="Nessun elemento corrisponde ai criteri di ricerca" 
+							widgetVar="dataTableCasi" style="width:100%;table-layout:auto !important;" paginatorPosition="bottom"
+							paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+           					rows="10">
+					 	<p:ajax event="rowSelect" listener="#{beneSearchBean.onRowSelect}"  />
+					 	<f:facet name="header">Lista Beni</f:facet>
+					 	<p:column headerText="Cod. Inv." ><h:outputText value="#{bene.bene.dmBBeneInv.codInventario}"></h:outputText></p:column>
+					 	<p:column headerText="Categoria Inventario" ><h:outputText value="#{bene.bene.dmBBeneInv.desCatInventariale}"></h:outputText></p:column>
+					 	<p:column headerText="Tipo Bene" ><h:outputText value="#{bene.bene.desTipoBene}"></h:outputText></p:column>
+					 	<p:column headerText="Tipo" rendered="false">
+					 		<h:outputText value="#{bene.bene.dmBBeneInv.desTipo}"></h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Diritto Reale" >
+					 		<ui:repeat value="#{bene.dirittiReali}" var="diritto">
+					 			<h:outputText value="#{diritto}"></h:outputText><br/><br/>
+					 		</ui:repeat>
+					 	</p:column>
+					 	<p:column headerText="Descrizione">
+					 		<h:outputText escape="false" value="#{beneSearchBean.format(bene.bene.descrizione)}"></h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Note">
+						 	<h:outputText escape="false" value="#{beneSearchBean.format(bene.bene.note)}"></h:outputText>
+					 	</p:column>
+					 	<p:column headerText="Indirizzi" width="400px;" rendered="#{beneSearchBean.searchDto.ricercaIndirizzo}">
+						 	<ui:repeat value="#{bene.indirizzi}" var="indirizzo">
+						 	<h:outputText value="#{indirizzo.desComune}"/>
+						 	<h:outputText value=" (#{indirizzo.prov}) " rendered="#{indirizzo.prov!=null}"/>
+						 	<h:outputText value=" - #{indirizzo.tipoVia} #{indirizzo.descrVia}"/>
+						 	<h:outputText value=", #{indirizzo.civico}" rendered="#{indirizzo.civico!=null}"/>
+						 	
+						 	<br/>
+						 	</ui:repeat>
+					 	</p:column>
+					 	<p:column headerText="Dati Catastali" width="300px;" rendered="#{beneSearchBean.searchDto.ricercaCatasto}">
+					 		<ui:repeat value="#{bene.mappali}" var="mappale" >
+					 			<h:outputText value="#{mappale}"/><br/>
+					 		</ui:repeat>
+					 	</p:column>
+					 </p:dataTable>
+				</p:outputPanel>
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

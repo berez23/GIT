@@ -1,0 +1,497 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmRicerca">
+			<rich:spacer height="10px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Criteri ai fini Tarsu" />
+				</f:facet>
+
+				<!-- RICERCA PER DATI DOCFA -->
+				<h:panelGrid columns="2" cellpadding="5" width="100%" border ="0" cellspacing="0">
+				<h:outputLabel value="Dati docfa" style="font-weight: bold;" />
+				<h:outputLabel value="Elaborazione sul docfa" style="font-weight:bold; margin-top: 10px; " />
+				
+				<h:panelGrid columns="2" cellspacing="5" width="100%">
+				<h:outputLabel value="Fornitura" />
+				<h:panelGrid columns="5" cellpadding="0" cellspacing="0">
+					<h:outputLabel value="Da: " />
+					<h:selectOneMenu id="fornituraDa" 
+						value="#{tarDataProviderImpl.criteria.fornituraDa}">
+						<f:selectItems value="#{tarDataProviderImpl.listaForniture}" />
+					</h:selectOneMenu>
+					<h:outputLabel value="A:" />
+					<h:selectOneMenu id="fornituraA" 
+						value="#{tarDataProviderImpl.criteria.fornituraA}">
+						<f:selectItems value="#{tarDataProviderImpl.listaForniture}" />
+					</h:selectOneMenu>
+				</h:panelGrid>
+				
+				<h:outputLabel value="Protocollo Docfa" />
+				<h:inputText id="prot"
+							value="#{tarDataProviderImpl.criteria.protocolloDocfa}" />
+				<h:outputLabel value="Data registrazione docfa" />
+				<rich:calendar
+					value="#{tarDataProviderImpl.criteria.dataRegistrazioneDocfa}"
+					popup="true" enableManualInput="true" datePattern="dd/MM/yyyy"
+					cellWidth="24px" cellHeight="22px" style="width:200px" />
+					
+				<h:outputLabel value="Foglio" />
+				<h:inputText id="foglio" value="#{tarDataProviderImpl.criteria.foglio}" />
+
+				<h:outputLabel value="Particella" />
+				<h:inputText id="particella" value="#{tarDataProviderImpl.criteria.particella}" />
+
+				<h:outputLabel value="Subalterno" />
+				<h:inputText id="sub" value="#{tarDataProviderImpl.criteria.unimm}" />
+					
+				<h:outputLabel value="Tipo operazione Docfa" />
+				<h:selectOneMenu id="tipoOp"
+							value="#{tarDataProviderImpl.criteria.tipoOperDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItem itemLabel="Soppressione" itemValue="S" />
+							<f:selectItem itemLabel="Costituzione" itemValue="C" />
+							<f:selectItem itemLabel="Variazione" itemValue="V" />
+				</h:selectOneMenu>
+				<h:outputLabel value="Causale Docfa" />
+				<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+					<h:inputText id="causale" disabled="true"
+						value="#{tarDataProviderImpl.criteria.causaleDocfa}" />
+					<h:graphicImage value="/images/list.png" height="18px" id="img22"
+						style="cursor: pointer;margin-left: 1px;">
+						<a4j:support event="onclick" reRender="cauPage"
+							oncomplete="Richfaces.showModalPanel('cauModalBox'); return false;"
+							action="#{commonDataBean.doCaricaCausali}">
+							<a4j:actionparam
+								value="/jsp/protected/search/tarsu/causaliList.xhtml"
+								name="pgCau" assignTo="#{pageUiBean.pageCausaliList}" />
+						</a4j:support>
+						<rich:toolTip direction="top-left" mode="client" layout="inline"
+							value="Inserisci causali" />
+					</h:graphicImage>
+				</h:panelGrid>
+				<h:outputLabel value="Categoria Docfa" />
+				<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+					<h:inputText id="categoria" disabled="true"
+						value="#{tarDataProviderImpl.criteria.categoriaDocfa}" />
+					<h:graphicImage value="/images/list.png" height="18px" id="img23"
+						style="cursor: pointer;margin-left: 1px;">
+						<a4j:support event="onclick" reRender="catPage"
+							oncomplete="Richfaces.showModalPanel('catModalBox'); return false;"
+							action="#{commonDataBean.doCaricaCategorie}">
+							<a4j:actionparam
+								value="/jsp/protected/search/tarsu/categorieList.xhtml"
+								name="pgCat" assignTo="#{pageUiBean.pageCategorieList}" />
+						</a4j:support>
+						<rich:toolTip direction="top-left" mode="client" layout="inline"
+							value="Inserisci categorie" />
+					</h:graphicImage>
+				 </h:panelGrid>
+					
+				<h:outputLabel value="Indirizzo Docfa: " />
+				<h:panelGrid columns="7" cellpadding="0" cellspacing="0">
+					<h:outputLabel value="Via" />
+					<rich:spacer width="5px" />
+					<a4j:region renderRegionOnly="true">
+						<h:inputText id="via"
+							value="#{tarDataProviderImpl.criteria.viaDocfa}" />
+						<rich:suggestionbox minChars="3" width="198" height="180"
+							for="via"
+							suggestionAction="#{suggestionBean.getSuggestionByVia}"
+							var="result" ajaxSingle="true" nothingLabel="..."
+							fetchValue="#{result}" usingSuggestObjects="true">
+							
+							<h:column>
+								<h:outputText value="#{result}"></h:outputText>
+							</h:column>
+
+						</rich:suggestionbox>
+					</a4j:region>
+					<rich:spacer width="5px" />
+					<h:outputLabel value="N.civico" />
+					<rich:spacer width="5px" />
+					<h:inputText id="civ" style="width: 20px;"
+						value="#{tarDataProviderImpl.criteria.civicoDocfa}" />
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<h:panelGrid columns="1" cellspacing="5">
+			<h:outputLabel value="Anomalia" style="font-weight: bold;margin-top: 10px; font-style:italic;" />
+			<h:panelGrid columns="2" cellspacing="5">
+				<h:outputLabel value="Tipo anomalia" />
+				<h:selectOneMenu id="tipoAn"
+					value="#{tarDataProviderImpl.criteria.tipoAnomalia}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{tarDataProviderImpl.listaAnomalie}" />
+					<a4j:support event="onchange"
+						action="#{tarDataProviderImpl.doDisableFlag}"
+						reRender="slt1, slt2, slt3, slt4, slt5, slt6"></a4j:support>
+				</h:selectOneMenu>
+			</h:panelGrid>
+
+			<rich:spacer height="20px" />
+			<h:outputLabel value="Flag di Elaborazione sui dati del docfa" style="font-weight: bold;margin-top: 10px; font-style:italic;" />
+			<h:panelGrid columns="4" cellspacing="5" width="100%">
+					
+				<h:outputLabel value="Elaborati" />
+				<h:selectOneMenu id="slt1"
+						disabled="#{tarDataProviderImpl.disableFlag}"
+						value="#{tarDataProviderImpl.criteria.flgElaborati}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+		
+				<rich:spacer width="5px" />
+				<rich:spacer width="5px" />
+					
+				<h:outputLabel
+						value="Docfa di cessazione senza costituzione" />
+				<h:selectOneMenu id="slt6"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgDocfaSopprNoCostit}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel
+						value="Presenza a catasto alla data del docfa" />
+				<h:selectOneMenu id="slt5"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgPresCatDataDocfa}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel value="Presenza dichiarazione TARSU pre-docfa" />
+				<h:selectOneMenu id="slt3"
+						disabled="#{tarDataProviderImpl.disableFlag}"
+						value="#{tarDataProviderImpl.criteria.flgPresPreDocfa}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+
+				<h:outputLabel
+					value="Presenza dichiarazione TARSU post-docfa" />
+				<h:selectOneMenu id="slt4"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgPresPostDocfa}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaTarPost}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Sup.Tarsu post-docfa &gt; pre-docfa" 
+					title="Almeno una della dichiarazioni Tarsu, direttamente successive al docfa presenta superficie MAGGIORE di tutte quelle strettamente precedenti al docfa"/>
+				
+				<h:selectOneMenu id="sltcfr1"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgSupTarsuPostMagPre}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Sup.Tarsu post-docfa &lt; pre-docfa" 
+					title="Almeno una della dichiarazioni Tarsu, direttamente successive al docfa presenta superficie MINORE di tutte quelle strettamente precedenti al docfa"/>
+				
+				<h:selectOneMenu id="sltcfr2"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgSupTarsuPostMinPre}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Sup.Tarsu post-docfa &gt; Sup.C340" 
+					title="Almeno una della dichiarazioni Tarsu, direttamente successive al docfa presenta superficie MAGGIORE di quella calcolata (C340)"/>
+				
+				<h:selectOneMenu id="sltcfr3"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgSupTarsuPostMagC340}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel value="Sup.Tarsu post-docfa &lt; Sup.C340" 
+					title="Almeno una della dichiarazioni Tarsu, direttamente successive al docfa presenta superficie MINORE di quella calcolata (C340)"/>
+				
+				<h:selectOneMenu id="sltcfr4"
+					disabled="#{tarDataProviderImpl.disableFlag}"
+					value="#{tarDataProviderImpl.criteria.flgSupTarsuPostMinC340}">
+					<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+					<f:selectItems value="#{commonDataBean.listaSiNo}" />
+				</h:selectOneMenu>
+				
+			</h:panelGrid>
+		</h:panelGrid>
+					
+		
+		<h:outputLabel value="Dati Soggetto titolare a catasto" style="font-weight: bold;margin-top: 10px;" />
+		<h:outputLabel value="Elaborazioni sui soggetti titolari a catasto " style="font-weight: bold;margin-top: 10px; " />
+					
+					<h:panelGrid columns="2" cellspacing="5"  width="100%">
+					
+					<h:outputLabel value="Tipo" />
+					<h:selectOneMenu id="sltpfg"
+						value="#{tarDataProviderImpl.criteria.titolare.tipoSogg}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{commonDataBean.listaTipoSoggetto}" />
+					</h:selectOneMenu>
+						
+					
+					<h:outputLabel value="Cognome/Ragione Sociale" />
+					<a4j:region renderRegionOnly="true">
+						<h:inputText id="cogn"
+							value="#{tarDataProviderImpl.criteria.titolare.cognome}" />
+						<rich:suggestionbox minChars="3" width="125" height="180"
+							for="cogn"
+							suggestionAction="#{suggestionBean.getSuggestionByCognome}"
+							var="result" ajaxSingle="true" nothingLabel="..."
+							fetchValue="#{result}" usingSuggestObjects="true">
+
+							<h:column>
+								<h:outputText value="#{result}"></h:outputText>
+							</h:column>
+
+						</rich:suggestionbox>
+					</a4j:region>
+					<h:outputLabel value="Nome" />
+					<a4j:region renderRegionOnly="true">
+						<h:inputText id="nome"
+							value="#{tarDataProviderImpl.criteria.titolare.nome}" />
+						<rich:suggestionbox minChars="3" width="125" height="180"
+							for="nome"
+							suggestionAction="#{suggestionBean.getSuggestionByNome}"
+							var="result" ajaxSingle="true" nothingLabel="..."
+							fetchValue="#{result}" usingSuggestObjects="true">
+							<h:column>
+								<h:outputText value="#{result}"></h:outputText>
+							</h:column>
+						</rich:suggestionbox>
+					</a4j:region>
+					
+					<h:outputLabel value="Codice fiscale" />
+					<a4j:region renderRegionOnly="true">
+						<h:inputText id="codfis"
+							value="#{tarDataProviderImpl.criteria.titolare.codFis}" />
+						<rich:suggestionbox minChars="3" width="125" height="180"
+							for="codfis"
+							suggestionAction="#{suggestionBean.getSuggestionByCodFisc}"
+							var="result" ajaxSingle="true" nothingLabel="..."
+							fetchValue="#{result}" usingSuggestObjects="true">
+
+							<h:column>
+								<h:outputText value="#{result}"></h:outputText>
+							</h:column>
+							</rich:suggestionbox>
+					</a4j:region>
+					
+					<h:outputLabel value="Partita iva" />
+					<h:inputText id="pi"
+							value="#{tarDataProviderImpl.criteria.titolare.parIva}" />
+					
+					<h:outputLabel value="Titolare alla data del docfa" />
+						<h:selectOneMenu id="slt12"
+							value="#{tarDataProviderImpl.criteria.titolare.flgTitolareDataDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+					
+					</h:panelGrid>
+					
+					<h:panelGrid columns="4" cellspacing="5" width="100%">
+					
+						<h:outputLabel value="Residente all'indirizzo docfa, al 31-12 dell'anno del docfa" />
+						<h:selectOneMenu id="slt13"
+							value="#{tarDataProviderImpl.criteria.titolare.flgResidIndDcfAllaData}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+
+						<h:outputLabel
+							value="Residente all'indirizzo catastale, al 31-12 dell'anno del docfa" />
+						<h:selectOneMenu id="slt14"
+							value="#{tarDataProviderImpl.criteria.titolare.flgResidIndCatAllaData}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Presenza in Tarsu ante docfa, per UIU" />
+						 <h:selectOneMenu id="slt17"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresUiuPreDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu> 
+						
+						<h:outputLabel
+							value="Presenza in Tarsu post docfa, per UIU"/>
+							<h:selectOneMenu id="slt18"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresUiuPostDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaTarPost}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel
+							value="Presenza in Tarsu ante docfa, per Civico" />
+						<h:selectOneMenu id="slt19"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresCivPreDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel
+							value="Presenza in Tarsu post docfa, per Civico" />
+						<h:selectOneMenu id="slt20"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresCivPostDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaTarPost}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Presenza in Tarsu ante docfa, per UIU non definita" />
+						<h:selectOneMenu id="slt15"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresUndPreDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Presenza in Tarsu post docfa, per UIU non definita" />
+						<h:selectOneMenu id="slt16"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresUndPostDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaTarPost}" />
+						</h:selectOneMenu>
+						
+						</h:panelGrid>
+						
+							<h:outputLabel value="" style="font-weight: bold;margin-top: 10px;" />
+							<h:outputLabel value="Elaborazioni sui familiari dei Soggetti Titolari a catasto " style="font-weight: bold;margin-top: 10px; " />
+						
+						<h:outputLabel value="" style="font-weight: bold;margin-top: 10px;" />
+						<h:panelGrid columns="4" cellspacing="5" width="100%">
+						<h:outputLabel
+							value="Presenza Familiari in Tarsu ante docfa, per UIU" />
+						<h:selectOneMenu id="slt23"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresFamUiuPreDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>		
+
+					   
+						<h:outputLabel
+							value="Presenza Familiari in Tarsu post docfa, per UIU" />
+						<h:selectOneMenu id="slt24"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresFamUiuPostDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaTarPost}" />
+						</h:selectOneMenu>
+						
+						 <h:outputLabel
+							value="Presenza Familiari in Tarsu ante docfa, per Civico" />
+						<h:selectOneMenu id="slt25"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresFamCivPreDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+
+						<h:outputLabel
+							value="Presenza Familiari in Tarsu post docfa, per Civico" />
+						<h:selectOneMenu id="slt26"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresFamCivPostDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaTarPost}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel
+							value="Presenza Familiari in Tarsu ante docfa, per UIU non definita" />
+						<h:selectOneMenu id="slt21"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresFamUndPreDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaSiNo}" />
+						</h:selectOneMenu>
+						
+
+						<h:outputLabel
+							value="Presenza Familiari in Tarsu post docfa, per UIU non definita" />
+						<h:selectOneMenu id="slt22"
+							value="#{tarDataProviderImpl.criteria.titolare.flgPresFamUndPostDocfa}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaTarPost}" />
+						</h:selectOneMenu>
+						</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+
+					<a4j:commandButton value="Ricerca" id="btnRicerca"
+						reRender="resultListPage">
+						<a4j:actionparam
+							value="/jsp/protected/search/tarsu/resultList.xhtml"
+							name="result" assignTo="#{pageUiBean.pageResultList}" />
+					</a4j:commandButton>
+					<h:graphicImage style="cursor:pointer;" value="/images/reset.png"
+						title="Reset criteri">
+						<a4j:support event="onclick" reRender="frmRicerca, resultListPage"
+							action="#{tarDataProviderImpl.resetData}">
+							<a4j:actionparam value="/jsp/protected/empty.xhtml" name="empty"
+								assignTo="#{pageUiBean.pageResultList}" />
+						</a4j:support>
+					</h:graphicImage>
+
+				</h:panelGrid>
+				</h:panelGrid>
+
+			</rich:panel>
+
+		</h:form>
+
+		<rich:spacer height="15px" />
+
+		<h:form id="frmRisRicerca">
+
+			<!-- Menu tabella -->
+			<rich:contextMenu attached="false" id="menu" submitMode="ajax">
+				<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{tarDetailBean.goDetail}">
+						<h:outputText value="Apri dettaglio" style="font-weight: bold;" />
+						<a4j:actionparam value="{idRepSelected}"
+							assignTo="#{tarDetailBean.idRep}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+				<rich:menuItem submitMode="none" icon="/images/people.gif">
+					<a4j:commandLink action="#{tarSubjectBean.doCaricaSoggetti}"
+						ajaxSingle="true" reRender="subjectPage"
+						oncomplete="Richfaces.showModalPanel('subjectModalBox'); return false;">
+						<h:outputText value="Apri soggetti collegati"
+							style="font-weight: bold;" />
+						<a4j:actionparam value="{idRepSelected}"
+							assignTo="#{tarSubjectBean.idRep}" />
+						<a4j:actionparam
+							value="/jsp/protected/search/tarsu/subjectList.xhtml"
+							assignTo="#{pageUiBean.pageSubjectList}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu -->
+
+			<a4j:include id="resultListPage"
+				viewId="#{pageUiBean.pageResultList}" />
+		</h:form>
+
+		<a4j:include id="subjectPage" viewId="#{pageUiBean.pageSubjectList}" />
+
+		<a4j:include id="catPage" viewId="#{pageUiBean.pageCategorieList}" />
+
+		<a4j:include id="cauPage" viewId="#{pageUiBean.pageCausaliList}" />
+
+		<rich:spacer height="15px" />
+
+	</ui:define>
+</ui:composition>
+</html>

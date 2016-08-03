@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmSincronizzaEsito">
+			<p:panel header="Esito Sincronizzazione Lotti">				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti Aggiornati"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiAggiornati" value="#{sincronizzaLottiBean.lottiAggiornati}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti Inseriti"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiInseriti" value="#{sincronizzaLottiBean.lottiInseriti}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti Eliminati"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiEliminati" value="#{sincronizzaLottiBean.lottiEliminati}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti In Errore"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiInErrore" value="#{sincronizzaLottiBean.lottiInErrore}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Mostra Log" 
+								oncomplete="PF('dlgElencoLog').show()"
+								update=":#{p:component('dlgElencoLog')}"
+								disabled="#{sincronizzaLottiBean.listaEsiti.size()==0}"
+								process="@this">
+							</p:commandButton>
+						</p:column>
+						<p:column>
+							<p:spacer height="15"/>
+						</p:column>
+					</p:row>
+				
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+			</p:panel>
+		</h:form>
+		<p:dialog id="dlgElencoLog" modal="false" header="Elenco Esiti Comparazione" widgetVar="dlgElencoLog" showEffect="fade" hideEffect="explode">
+	 		<p:dataTable value="#{sincronizzaLottiBean.listaEsiti}" var="log"
+	 		paginator="true" rows="20">					 	 
+			 	<p:column headerText="Lotto"  >
+			 		<h:outputText value="#{log[0]}"/>
+			 	</p:column>
+			 	<p:column headerText="Esito" >
+				 	<h:outputText value="#{log[1]}" title="#{log[2]}"/>
+			 	</p:column>
+			</p:dataTable>
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

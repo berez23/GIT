@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_CHIUSURA_ITERV1" id="9D4AFD5D-CD68-5DD2-8880-DCA22976853F" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>B1BC111B-F03E-9BAA-616C-25BBB3C82CEA</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>FD2960D8-C95C-6134-3A0C-0024E4FD1770</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FD2960D8-C95C-6134-3A0C-0024E4FD1770</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>66F32432-5DBB-0BC7-38CB-D4DE18AC8A42</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

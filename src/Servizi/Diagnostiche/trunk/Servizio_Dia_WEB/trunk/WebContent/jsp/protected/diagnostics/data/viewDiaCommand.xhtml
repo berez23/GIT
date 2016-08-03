@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core"> 
+
+	<ui:composition>									    
+		<rich:dataTable  width="100%"															
+	        	var="cmdDia" rows="10"
+	        	value="#{executeDataModel}"					        	
+	        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	            onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+			
+			<f:facet name="header">
+				<rich:columnGroup>			                     	
+	                   	<rich:column style="text-align:center" >Codice Comando</rich:column>  
+	                   	<rich:column style="text-align:center" >Descrizione</rich:column> 			                     	
+	                   	<rich:column style="text-align:center" >Stato Comando</rich:column> 					                   	   	                      
+	            </rich:columnGroup>		                    	
+	        </f:facet>    
+	           				            
+            <rich:column style="text-align:center">	   
+            	<h:outputLabel rendered="#{cmdDia.parDiagType == 'G'}" style="color:#0000CC;" value="#{cmdDia.codCommand}" />         		
+				<h:outputLabel rendered="#{cmdDia.parDiagType != 'G'}" value="#{cmdDia.codCommand}" />								
+			</rich:column>        
+			<rich:column style="text-align:left">
+				<h:outputLabel value="#{cmdDia.descrCommand}" />
+			</rich:column>							
+			<rich:column style="text-align:left">
+				<h:outputLabel value="#{cmdDia.descrCommandStato}" />
+			</rich:column>										
+			
+			<rich:componentControl event="onRowClick" 
+					for="menu#{cmdDia.parDiagType == 'G' ? '1' : (cmdDia.parDiagType == 'S'  ? '2' : '')}" 
+					operation="show">
+							
+				<f:param name="parCmdDiaEsegui" value="#{cmdDia.codCommand}" />
+				<f:param name="parDiagType" value="#{cmdDia.parDiagType}" />					   	
+		   		
+			</rich:componentControl>
+			
+			<f:facet name="footer">
+				<rich:datascroller id="tableScroller" />
+			</f:facet>
+			
+		</rich:dataTable>
+	</ui:composition>			        
+</html>  

@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+  <ui:composition >
+    <h:form>
+    		   <rich:dataTable value="#{flusso750Bean.anagraficaSoggettiList}" var="sogg" width="480">
+    		   		<rich:column>
+    		   		  <rich:panel>
+    		   		  <f:facet name="header">Anagrafica tributaria</f:facet>
+    		   		  <h:panelGrid columns="4">
+    		   		    
+							<h:outputText value="Cognome/Denom" />
+							<h:panelGroup>
+								<h:outputText value="#{sogg.anagraficaIntestatarioList[0].cognome}#{sogg.anagraficaIntestatarioList[0].denominazione}"
+											  styleClass="dettAnag"/>
+								&nbsp;
+								<h:outputText value="#{sogg.anagraficaIntestatarioList[0].nome}" styleClass="dettAnag"/>
+							</h:panelGroup>
+							
+							<h:outputText value="Data Nasc." />
+							<h:outputText value="#{sogg.anagraficaIntestatarioList[0].dtNascita}" styleClass="dettAnag"/>
+					
+							<h:outputText value="Cod Fisc." />
+							<h:outputText value="#{sogg.anagraficaIntestatarioList[0].codFiscale}" styleClass="dettAnag"/>
+					
+							<h:outputText value="P. IVA" />
+							<h:outputText value="#{sogg.anagraficaIntestatarioList[0].partitaIva}" styleClass="dettAnag"/>
+					
+						</h:panelGrid>
+						
+						<rich:spacer height="10px"/>
+						
+						<rich:panel>
+							<h:panelGrid columns="4">
+								<h:outputText value="Indirizzo" />
+								<h:outputText value="#{sogg.anagraficaIntestatarioList[0].indirizzoAt}" styleClass="dettAnag"/>
+
+								<h:outputText value="CAP" />
+								<h:outputText value="#{sogg.anagraficaIntestatarioList[0].capAt}" styleClass="dettAnag"/>
+								
+								<h:outputText value="Prov" />
+								<h:outputText value="#{sogg.anagraficaIntestatarioList[0].codProvinciaAt}" styleClass="dettAnag"/>
+								
+								<h:outputText value="Cod. Comune" />
+								<h:outputText value="#{sogg.anagraficaIntestatarioList[0].codBelfioreAt}" styleClass="dettAnag"/>
+							
+							</h:panelGrid>
+						</rich:panel>
+						</rich:panel>
+						
+						<rich:spacer height="10px"/>
+						
+						<rich:panel>
+							<f:facet name="header">Iscrizione ruolo - Ambito #{sogg.descrAmbito}</f:facet>
+							<h:panelGrid columns="4">
+								<h:outputText value="Num/Anno ruolo" />
+								<h:outputText value="#{sogg.infoRuolo.chiaveRuolo.progressivoRuolo}/#{sogg.infoRuolo.chiaveRuolo.annoRuolo}" 
+										      styleClass="dettAnag"/>
+							
+								<h:panelGroup></h:panelGroup>
+								<h:panelGroup></h:panelGroup>
+								
+								<h:outputText value="Tipo Ufficio (esec. ruolo)" />
+								<h:outputText value="#{sogg.infoRuolo.codTipoUfficio}" styleClass="dettAnag"/>
+								
+								<h:outputText value="Cod. Ufficio (ent. creditore)" />
+								<h:outputText value="#{sogg.infoRuolo.codUfficio}" styleClass="dettAnag"/>
+								
+								<h:outputText value="Specie ruolo" />
+								<h:outputText value="Ruolo ordinario" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '1'}"/>
+								<h:outputText value="Ruolo straordinario" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '3'}"/>
+								<h:outputText value="Ruolo ordinario coatt. conv. ex Art. 69" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '4'}"/>
+								<h:outputText value="Ruolo straordinario coatt. conv. ex Art. 69" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '5'}"/>
+								<h:outputText value="Ruolo ordinario scarti conv. ex Art. 69" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '6'}"/>
+								<h:outputText value="Ruolo straordinario scarti conv. ex Art. 69" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '7'}"/>
+								<h:outputText value="Ruolo ordinario scarti" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '8'}"/>
+								<h:outputText value="Ruolo straordinario scarti" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codSpecieRuolo eq '99'}"/>
+	
+								<h:outputText value="Tipo iscrizione" />
+								<h:outputText value="Ruolo coattivo" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codTipoIscrizione eq '1'}" />
+								<h:outputText value="Ruolo non coattivo" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codTipoIscrizione eq '2'}" />
+								<h:outputText value="INPS/INAIL da cartolarizzazione" styleClass="dettAnag" rendered="#{sogg.infoRuolo.codTipoIscrizione eq '3'}" />
+								
+								<h:outputText value="Codice ambito avvisi" />
+								<h:outputText value="#{sogg.infoRuolo.codAmbitoAvvisi}" styleClass="dettAnag" />
+								
+								<h:outputText value="Numero/Anno ruolo avvisi" />
+								<h:outputText value="#{sogg.infoRuolo.progressivoRuoloAvvisi}/#{sogg.infoRuolo.annoRuoloAvvisi}" 
+											  styleClass="dettAnag"/>
+								
+							</h:panelGrid>
+						</rich:panel>							
+					</rich:column>  		   		
+    		   	    
+    		   </rich:dataTable>
+    		   
+      </h:form>
+  </ui:composition>
+</html>

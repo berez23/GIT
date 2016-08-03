@@ -1,0 +1,223 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition>
+	<f:facet name="label">
+		<h:outputText value="Situazione Patrimoniale" />
+	</f:facet>
+	<c:if test="#{empty contribuenteBean.listaImmobili and empty contribuenteBean.listaTerreni and empty contribuenteBean.listaLocazioni}" >
+		<rich:spacer height="20px" />
+		<div style="height:60px;">
+			<h:outputText value="DATI NON TROVATI" styleClass="titoloNero" style="font-weight: bold" />
+		</div>
+	</c:if>	
+	<c:if test="#{not empty contribuenteBean.listaImmobili or not empty contribuenteBean.listaTerreni or not empty contribuenteBean.listaLocazioni}" >
+		<a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Dettaglio_Cartella_Patrimoniale.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a>
+		<div>
+			<h:panelGrid columns="1" width="100%">
+				<h:outputText value="#{contribuenteBean.catastoFonte.strDataAgg}"/>
+				<h:outputText value="#{contribuenteBean.catastoFonte.nota}"/>
+			
+				<h:outputText value="#{contribuenteBean.locazioniFonte.strDataAgg}"/>
+				<h:outputText value="#{contribuenteBean.locazioniFonte.nota}"/>
+			</h:panelGrid>
+		</div>		
+		<rich:simpleTogglePanel switchType="client" opened="false">
+			<f:facet name="header">
+				<h:outputLabel value="#{contribuenteBean.intestazioneSituazionePatrimoniale}" />
+			</f:facet>
+			<rich:dataTable width="100%"
+		       	var="imm"
+		       	value="#{contribuenteBean.listaImmobili}"
+		       	columnClasses="col" 
+		       	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		                 onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+		           <f:facet name="header">
+		               <h:outputText value="IMMOBILI"/>
+		           </f:facet>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Sez." /></f:facet>
+					<h:outputLabel  value="#{imm.sezione}" />
+				</rich:column>           
+				<rich:column>
+					<f:facet name="header"><h:outputText value="F / P/  S" /></f:facet>
+					<h:outputLabel  value="#{imm.datiTitImmobile.id.foglio} / #{imm.datiTitImmobile.id.particella} / #{imm.datiTitImmobile.id.unimm}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Categoria" /></f:facet>
+					<h:outputLabel  value="#{imm.categoria}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Classe" /></f:facet>
+					<h:outputLabel  value="#{imm.classe}" />
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="Rendita" /></f:facet>
+					<h:outputLabel  value="#{imm.renditaF}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Inizio Possesso" /></f:facet>	
+					<h:outputFormat value="{0,date,dd/MM/yyyy}" >
+						<f:param value="#{imm.datiTitImmobile.dataInizio}"/>
+					</h:outputFormat>			
+				</rich:column>			
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Fine Possesso" /></f:facet>	
+					<h:outputLabel  value="#{imm.sDtFinePoss}" />				
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Quota" /></f:facet>	
+					<h:outputLabel  value="#{imm.percPossF}%" />		
+				</rich:column>
+				<rich:column >
+					<f:facet name="header"><h:outputText value="Titolo" /></f:facet>
+					<h:outputLabel  value="#{imm.descTitolo!=null ? imm.descTitolo : '-' }" />
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="Superficie" /></f:facet>
+					<h:outputLabel  value="#{imm.superficieCatF}" />
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="Super. TARSU C340" /></f:facet>
+					<h:outputLabel  value="#{imm.superficieTarsuF}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Locato" /></f:facet>
+					<h:outputLabel value="-" />
+				</rich:column>
+				<rich:column style="text-align:left">
+					<f:facet name="header"><h:outputText value="Dichiaranti" /></f:facet>
+					<ui:repeat var="soggetti" value="#{imm.listaDichiarantiTarsu}">
+			      		<h:outputText value="#{soggetti}" />
+			      		<br />
+					</ui:repeat>
+				</rich:column>						
+		        <f:facet name="footer">
+		             <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+		         </f:facet>																								
+			</rich:dataTable>
+			<rich:spacer height="10px"/>
+			<rich:dataTable width="100%"
+	        	var="terr"
+	        	value="#{contribuenteBean.listaTerreni}"
+	        	columnClasses="col" 
+	        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" rowClasses="#{contribuenteBean.locazioniFonte.coloreJsp}">
+	            <f:facet name="header">
+	                <h:outputText value="TERRENI"/>
+	            </f:facet>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Sez." /></f:facet>
+					<h:outputLabel  value="#{terr.datiTitTerreno.sezione}" />
+				</rich:column>					            
+				<rich:column>
+					<f:facet name="header"><h:outputText value="F / P" /></f:facet>
+					<h:outputLabel  value="#{terr.datiTitTerreno.foglio} / #{terr.datiTitTerreno.particella}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Qual." /></f:facet>
+					<h:outputLabel  value="#{terr.datiTitTerreno.qualita}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Classe" /></f:facet>
+					<h:outputLabel  value="#{terr.datiTitTerreno.classe}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Superficie" /></f:facet>
+					<h:outputLabel  value="#{terr.superficieF}" />
+				</rich:column>
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="Reddito Domin." /></f:facet>	
+					<h:outputLabel  value="#{terr.redditoDominicaleF}" />
+				</rich:column>			
+				<rich:column style="text-align:right">
+					<f:facet name="header"><h:outputText value="Reddito Agrario" /></f:facet>
+					<h:outputLabel  value="#{terr.redditoAgrarioF}" />
+				</rich:column>	
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Inizio Poss." /></f:facet>						
+					<h:outputFormat value="{0,date,dd/MM/yyyy}" >
+						<f:param value="#{terr.datiTitTerreno.dtIniPos}"/>
+					</h:outputFormat>									
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Fine Poss." /></f:facet>						
+					<h:outputLabel  value="#{terr.sDtFinePoss}" />										
+				</rich:column>
+				<rich:column >
+					<f:facet name="header"><h:outputText value="Quota" /></f:facet>
+					<h:outputLabel  value="#{terr.datiTitTerreno.percPoss}" >
+						<f:convertNumber type="number" groupingUsed="true" minFractionDigits="2" pattern="#0.00"/>
+					</h:outputLabel>
+					<h:outputLabel  value="%" />
+				</rich:column>
+				<rich:column >
+					<f:facet name="header"><h:outputText value="Titolo" /></f:facet>
+					<h:outputLabel  value="#{terr.datiTitTerreno.titolo}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Locato" /></f:facet>
+					<h:outputLabel  value="-" />
+				</rich:column>
+	            <f:facet name="footer">
+	                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+	            </f:facet>																								
+			</rich:dataTable>				  				
+			<rich:spacer height="10px"/>			
+			<rich:dataTable width="100%"
+		       	var="loc"
+		       	value="#{contribuenteBean.listaLocazioni}"
+		       	columnClasses="col" 
+		       	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+		        onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"  
+		        rowClasses="#{contribuenteBean.locazioniFonte.coloreJsp}">
+		           <f:facet name="header">
+		               <h:outputText value="LOCAZIONI"/>
+		           </f:facet>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="ID Contratto" /></f:facet>
+					<h:outputLabel  value="#{loc.datiOggLocazione.numero}-#{loc.datiOggLocazione.serie}-#{loc.datiOggLocazione.anno}-#{loc.datiOggLocazione.ufficio}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Data Inizio" /></f:facet>
+					<h:outputLabel value="-" rendered="#{empty loc.datiOggLocazione.dataInizio}" />
+					<h:outputLabel value="-" rendered="#{not empty loc.datiOggLocazione.dataInizio}" >
+						<h:outputFormat value="{0,date,dd/MM/yyyy}" >
+							<f:param value="#{loc.datiOggLocazione.dataInizio}"/>
+						</h:outputFormat>										
+					</h:outputLabel>
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="F/P/S" /></f:facet>
+					<h:outputLabel  value="-" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Indirizzo" /></f:facet>
+					<h:outputLabel  value="#{loc.datiOggLocazione.indirizzo}" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Superficie" /></f:facet>	
+					<h:outputLabel  value="-" />
+				</rich:column>
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Super. TARSU C340" /></f:facet>	
+					<h:outputLabel  value="-" />
+				</rich:column>		
+				<rich:column>
+					<f:facet name="header"><h:outputText value="Dichiaranti" /></f:facet>	
+					<h:outputLabel  value="-" />
+				</rich:column>		
+		           <f:facet name="footer">
+		               <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+		           </f:facet>																								
+			</rich:dataTable>
+		</rich:simpleTogglePanel>		
+	</c:if>				  		
+</ui:composition>
+</html>

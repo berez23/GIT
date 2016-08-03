@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:form id="frmSoc">
+
+	<rich:panel id="dati" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Società" />
+		</f:facet>
+
+		<h:panelGrid columns="3">
+			<h:outputLabel value="Il sottoscritto, è" />
+			<h:selectOneMenu value="#{societaBean.societaSogg.descTitolo}" style="width: 200px">
+				<f:selectItem itemLabel="Legale rappresentante società" itemValue="legale rappresentante della società"/>
+				<f:selectItem itemLabel="Titolare società" itemValue="titolare della società"/>
+				<f:selectItem itemLabel="Ditta Individuale" itemValue="ditta individuale"/>
+			</h:selectOneMenu>
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="6" width="100%">
+			<h:outputText value="Ragione sociale" />
+			<h:inputText required="true" requiredMessage="Il campo 'Ragione sociale' è obbligatorio" value="#{societaBean.societa.ragSoc}" />
+
+			<h:outputText value="Codice fiscale" />
+			<h:inputText value="#{societaBean.societa.cf}" />
+
+			<h:outputText value="Partita iva" />
+			<h:inputText value="#{societaBean.societa.pi}" />
+
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+
+			<h:outputText value="SEDE LEGALE" styleClass="clsTitoletto" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+			<rich:spacer height="10" width="10" />
+
+			<h:outputText value="Indirizzo" />
+			<h:inputText value="#{societaBean.societa.indirizzoSede}" />
+
+			<h:outputText value="Civico" />
+			<h:inputText value="#{societaBean.societa.numeroCivSede}" />
+
+			<h:outputText value="Comune" />
+			<h:inputText value="#{societaBean.societa.comuneSede}" />
+
+			<h:outputText value="Provincia" />
+			<h:inputText value="#{societaBean.societa.siglaProvSede}" />
+
+			<h:outputText value="Stato estero" />
+			<h:inputText value="#{societaBean.societa.statoEsteroSede}" />
+
+		</h:panelGrid>
+		<br />
+
+		<div align="center">
+
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Salva" 
+					action="#{societaBean.doSaveSocieta}"
+					onclick="if (!confirm('Procedere con il salvataggio?')) return false" />
+			</h:panelGrid>
+		</div>
+	</rich:panel>
+
+</h:form>
+
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+   		<f:loadBundle basename="resources" var="msg" />
+		<head>
+		<title><ui:insert name="pageTitle">Page Title</ui:insert></title>
+		
+
+
+<style type="text/css">
+	
+	body {
+	  font-family: Arial, Verdana , sans-serif;
+	  font-size: 12px;
+	  margin:0;
+  	  padding:5 0 0 0;
+	  width: 95%;
+	  left:0;
+	  /*overflow:hidden;*/
+	  /*background-color: green; */
+	  
+	}
+	#header{
+	  position:absolute;
+	  top:0;
+	  left:0;
+	  width:100%;
+	  height:12%; /* Se si cambia questa percentuale va cambiata anche quella del padding di frmMain, content */
+	  /*background-color: red; */
+	  
+	  /*background-image:url('#{ctxName}/images/header-bod.jpg');*/
+	  min-height: 70px;
+	}
+	@media screen{
+	  body>div#header{
+	   position: fixed;
+		}
+	}
+	#content{
+	  position: absolute;
+	  top: 15%;  /* Se si cambia questa percentuale va cambiata anche quella del padding di frmMain, header */
+	  height:87%;	/* Questo valore modifica l'altezza del div content sottostante alla toolbar del menu */
+	  overflow: auto;
+	  width: 100%;
+	  
+	 /* background-color: yellow; */
+	}
+	#frmMain{ /*IE6 hack*/                                                                                                   
+		padding: 0 0 0 0; /* Se si cambia questa percentuale va cambiata anche quella del padding di header, content */                                                             
+		/*height: 100%;*/                                                                                                               
+		width: 100%;        /* 95% Serve per evitare di vedere la scrollbar orizzontale a full screen */    
+		                                                                                                        
+	}
+	#frm{
+	  position: absolute;
+	  top: 83%;
+	  left: 0px;  
+	  width: 100%;
+	}
+	
+	#imgHeader{
+	border: 1;
+	height: 80%; /* questa percentuale e' Riferirta al div header */
+	width: 100%;
+	}
+	html{
+		overflow: hidden;
+	}
+	.menuBar{
+		width: 100%;
+	}
+			
+	.myLink{
+	   color: white;
+	}
+			
+	.MyInput{
+	   width : 120px;
+	   font-size: 11px;
+	}
+	
+/*
+	.subHeader {
+		background-color: #0066A3;
+		text-align: center;
+		color: #CCCCCC;
+		border-width: 2px;
+		border-color: #ebf3fd;
+		border-style: solid;
+	    font: normal bold 14px sans-serif;
+	    BACKGROUND-COLOR: #faf296;
+	}
+	*/
+	.footer {
+		text-align: center;
+		border-width: 1px;
+		border-color: #ebf3fd;
+		border-style: solid;
+		color: #CCCCCC;
+	    font: normal bold 14px sans-serif;
+	    background-image: url('#{ctxName}/images/underground.png');
+	}
+	table {
+		border:0px solid #ebf3fd;
+		width:100%;
+		cellspacing:5;
+	}
+	.barsearch {
+	     height:14px;
+	     width:100px;
+	}
+	.barsearchbutton {
+	    border-width:1px; 
+	    background-color:#{a4jSkin.generalBackgroundColor};
+	}
+	
+	.my-button{		
+		width : 70px;
+		border-style: solid; 	
+		border-width: 1; 
+		border-color: silver;
+		
+	}
+	.my-button-120{		
+		width : 120px;
+		border-style: solid; 	
+		border-width: 1; 
+		border-color: silver;
+		
+	}
+	input[type="submit"] {
+		color: white;
+		background-color:#4A75B5;
+		border-bottom: 1px solid #606060;
+		border-right: 1px solid #606060;
+		border-top: 1px solid #c0c0c0;
+		border-left: 1px solid #c0c0c0;
+	}
+	
+	input[type="button"] {
+		color: white;
+		background-color:#4A75B5;
+		border-bottom: 1px solid #606060;
+		border-right: 1px solid #606060;
+		border-top: 1px solid #c0c0c0;
+		border-left: 1px solid #c0c0c0;	}
+	
+	input[type="reset"] {
+		color: white;
+		background-color:#4A75B5;
+		border-bottom: 1px solid #606060;
+		border-right: 1px solid #606060;
+		border-top: 1px solid #c0c0c0;
+		border-left: 1px solid #c0c0c0;	}
+	
+</style>
+
+
+
+</head>
+
+<body >
+	<!-- lo style del div header è stato introdotto per risolvere l'overlaps della barra dei menu (=la tendina si nascondeva sotto il body) -->
+	<div id="header" style="position: relative; z-index: 50;">
+		 		<!--  <ui:insert name="pageHeader"></ui:insert> -->
+				<!-- <ui:insert name="subHeader">SubHeader</ui:insert> -->
+				<img src='#{ctxName}/images/header-bod_generico.gif' id="imgHeader"/>
+				<h:form id="frm">
+					<rich:toolBar itemSeparator="line" styleClass="menuBar">
+					
+						<rich:toolBarGroup>
+						  <h:graphicImage id="imgHome" value="/images/icons/group.png" />
+			              <h:commandLink value="Home" id="home" action="#{menuBck.starting}" styleClass="myLink"/>						            
+			            </rich:toolBarGroup>
+			            <rich:toolBarGroup>
+			              <h:graphicImage id="imgRicerca" value="/images/icons/filter.gif"/>
+			              <h:commandLink value="Ricerca" id="ricerca" action="#{ricercaFiltroBck.preparaFiltro}" styleClass="myLink"/>
+			            </rich:toolBarGroup>
+			            <rich:toolBarGroup>                       
+			              <h:graphicImage id="imgStatistiche" value="/images/icons/find.gif" />
+			              <h:commandLink value="Statistiche" id="statistiche" action="#{statisticaFiltroBck.preparaFiltro}" styleClass="myLink"/>
+			            </rich:toolBarGroup>
+
+			            <rich:dropDownMenu>
+							<f:facet name="label"> 
+						        <h:panelGroup>	            
+						            <h:outputText value="Segnalazioni"/>
+						        </h:panelGroup>
+							</f:facet>
+							<rich:menuItem submitMode="ajax" value="Esporta Segnalazione" action="#{esportaFiltroBck.preparaFiltro}" rendered="true"/>
+							<rich:menuItem submitMode="ajax" value="Importa Esiti" action="#{esportaFiltroBck.importaEsitiShow}" rendered="true"/>
+							<rich:menuItem submitMode="ajax" value="Confronta Segnalazioni Esiti" action="#{esportaFiltroBck.confrontoShow}" rendered="true"/> 
+						</rich:dropDownMenu>
+			
+			            <rich:toolBarGroup>                       
+			             <h:graphicImage id="imgEsporta2" value="/images/icons/info.gif" /> 
+			              <h:commandLink value="Calcolo Classamento" id="frontoffice" action="#{classamentoBck.init}" styleClass="myLink"/>
+			            </rich:toolBarGroup>
+			            <rich:toolBarGroup location="right">
+				            <!-- <a4j:status startText="Processing...." stopText="Processed." startStyle="color:red" stopStyle="color:green"/> -->
+				            <a4j:status startText="Processing...." stopText="Processed." startStyle="color:red"/>
+			            </rich:toolBarGroup>
+			            <rich:toolBarGroup location="right">
+			            	<h:outputText value="Comune di #{menuBck.ente.descrizione}" />	
+			            </rich:toolBarGroup>
+			            
+			             <rich:toolBarGroup location="right">
+							<h:panelGrid columns="2">
+							<h:outputText value="Utente:" />			              						            
+			            	<h:outputText value="#{menuBck.utente.name}" style="font-weight:normal"/>		
+							</h:panelGrid>              						            
+			            </rich:toolBarGroup>
+			            <rich:toolBarGroup location="right">
+      			              <h:outputLink value="#{ctxName}/logout-redirect.jsp" styleClass="myLink">
+								       	<h:outputText value="Logout"/>
+								</h:outputLink>						            
+			            </rich:toolBarGroup>
+			        </rich:toolBar>         
+				</h:form></div>
+				
+	<div id="content" align="center">
+	<h:panelGrid align="center" width="100%" >
+		   <a4j:form id="frmMain2" rendered="true" >
+		   	<table width="100%" >		
+					<tbody>
+					<tr><td align="center" width="95%">
+				<ui:insert name="body2"><!-- Page Body --></ui:insert>		
+				</td></tr></tbody></table>
+			</a4j:form>
+			<a4j:form id="frmMain" ajaxSubmit="true" >
+				<table width="100%" >		
+					<tbody>
+					<tr><td align="center" width="95%">
+						<ui:insert name="body"><!-- Page Body --></ui:insert>
+					</td></tr>
+					<tr><td align="center" width="95%" valign="middle" height="7%">
+						 <rich:panel style="height:100% ">
+							<ui:insert name="footer">
+									<!-- footer -->
+							</ui:insert>
+						</rich:panel>
+					</td></tr>
+					</tbody>
+				</table>				
+			</a4j:form>	
+			
+			
+	</h:panelGrid>
+	</div>
+	
+	
+	<table>
+	<tr>
+		<td align="center" width="95%" valign="middle" height="1%">
+			<ui:insert name="modalPanel"><!-- modal panel --></ui:insert>
+		</td>
+		<td>
+		<!--
+		<ui:insert name="statusPanel">
+		       <a4j:status id="commonStatus" onstart="#{rich:component('wait')}.show()" onstop="#{rich:component('wait')}.hide()" />				
+			    <rich:modalPanel id="wait" autosized="true" width="200" height="120" moveable="false" resizeable="false">
+			      <f:facet name="header">
+			        <h:outputText value="Attendere..." />
+			      </f:facet>
+			      <h:outputText value="Attendere prego..." />
+			    </rich:modalPanel>
+		</ui:insert>			   -->
+		</td>
+	</tr>
+	</table>
+</body>
+		
+</html>

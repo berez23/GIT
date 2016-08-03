@@ -1,0 +1,14 @@
+
+<deployment name="RulEngine" xmlns="http://xml.apache.org/axis/wsdd/" 
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+
+  <service name="UserEntities" provider="java:RPC" style="wrapped" use="literal">
+    <parameter name="className" value="it.webred.diogene.entrypoint.UserEntities"/>
+    <parameter name="allowedMethods" value="getUserEntities getUserEntityBean"/>
+    <parameter name="typeMappingVersion" value="1.2"/>
+  	<parameter name="wsdlTargetNamespace" value="http://client.diogene.webred.it"/>
+    <typeMapping xmlns:ns="http://client.diogene.webred.it" qname="ns:UserEntitiesBean" type="java:it.webred.diogene.entrypoint.UserEntitiesBean" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  	<typeMapping xmlns:ns="http://client.diogene.webred.it" qname="ns:UserEntityBeanSer" type="java:it.webred.diogene.entrypoint.UserEntityBeanSer" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>

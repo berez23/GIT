@@ -1,0 +1,264 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+
+			<ui:define name="pageTitle">
+			
+			<h:outputText value="#{msg.bottoneMenuClassamentoDue}" rendered="#{classamentoDueBck.stato eq 'Ottimo'}"/>
+			<h:outputText value="#{msg.bottoneMenuClassamentoTre}" rendered="#{classamentoDueBck.stato eq 'Normale'}"/>
+			</ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			
+			<div style="overflow: auto;">
+			   <rich:panel style="padding:5; width : 810px; position: relative" headerClass="outpanelHeader">
+			        <f:facet name="header">
+   		            	<h:outputText value="#{msg.titoloCalcoloClassamento}" />
+			        </f:facet>
+			   
+			   
+		        <table border="0" style=" width : 800px;" cellspacing="5">
+		        
+		        <thead>
+		                 <tr style="" >
+		                    <td style="width: 100%;" colspan="5">
+   		                    	
+   		                    	<h:outputText value="#{msg.bottoneMenuClassamentoDue}" rendered="#{classamentoDueBck.stato eq 'Ottimo'}"/>
+								<h:outputText value="#{msg.bottoneMenuClassamentoTre}" rendered="#{classamentoDueBck.stato eq 'Normale'}"/>
+		                    </td>
+		                </tr>
+		            </thead>
+		        
+		       		<tbody>
+		            	 <tr style="">
+	                        <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelFoglio}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+								<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									
+									value="#{classamentoDueBck.cbxFoglio.state}"
+									>
+									<f:selectItems value="#{classamentoDueBck.cbxFoglio.selectItems}" ></f:selectItems>
+									<a4j:support event="onselect" action="#{classamentoDueBck.selectFoglio}" ajaxSingle="true" reRender="cbxZc, outMicrozona, outPanel"/>
+																			 
+								
+								</rich:comboBox>
+	                        </td>
+	                         <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelCategoriaEdilizia}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+	                        	<h:selectOneRadio  layout="pageDirection" value="#{classamentoDueBck.radioCatEd.value}">
+	                        	<f:selectItems value="#{classamentoDueBck.listaTipoCategoriaEdilizia}" ></f:selectItems>
+	                        	<a4j:support event="onclick" action="#{classamentoDueBck.hideOutPanel}" ajaxSingle="true" reRender="outPanel"/>
+										
+	                        	</h:selectOneRadio>
+	                        	
+	                        </td>
+	                	</tr>
+	                
+		      
+		       
+			   <tr style="">
+	                        <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelZC}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+								<rich:comboBox id="cbxZc"
+									width="70px"
+									enableManualInput="false"
+									value="#{classamentoDueBck.cbxZc.state}"
+									>
+									<f:selectItems value="#{classamentoDueBck.cbxZc.selectItems}" ></f:selectItems> 
+									<a4j:support event="onselect" action="#{classamentoDueBck.getMicrozona}" reRender="outMicrozona, outPanel"  ajaxSingle="true"/>
+								
+								</rich:comboBox>
+	                        </td>
+	                        <td align="left" colspan="2" style="width: 50px">
+	                            &nbsp;
+	                        </td>
+	            </tr>
+		       
+		       <tr style="">
+	                        <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelMicrozona}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+	                        	<h:outputText id="outMicrozona" value="#{classamentoDueBck.outMicrozona.value}"  />
+	                        </td>
+	                         <td align="left" colspan="2" style="width: 50px">
+	                            &nbsp;
+	                        </td>
+	                        
+		       	 </tr>
+		       	 	
+		       	 	
+		       	 	
+		      </tbody>
+		      </table>
+		       	
+	       	 <table border="0" style=" width : 800px;" cellspacing="5">
+	    		<tbody>
+		       	<tr style="">
+			       	<td align="center" >
+			       		<a4j:commandButton event="onclick" action ="#{classamentoDueBck.calcola}" value="Calcola" type="submit" id="btnCalcola" reRender="outPanel" styleClass="my-button"/>
+			       	
+			       	
+			       	</td>
+		       	</tr>
+	       		</tbody>
+	       	</table>
+	       	
+	       	<a4j:outputPanel layout="block" id="outPanel" >
+	       		<c:if test="#{classamentoDueBck.visualizzaOutput == true}">
+	       
+		    
+	       	 <table border="0" style=" width : 800px;" cellspacing="5">
+	           <tbody>
+		       	<tr style="">
+			       	<td align="left" style="width: 150px;">
+			       		<h:outputText value="#{msg.labelValCommMq}"/>
+			       	</td>
+			       	<td align="left" style="width: 150px;">
+			       		<h:outputText value="#{classamentoDueBck.outValoreCommercialeMq.value}">
+			       			  <f:convertNumber type="currency" 
+							currencySymbol="&#8364;"/>
+		                
+			       		</h:outputText>
+			       	</td>
+			       	
+			       	<td align="left" style="width: 150px;">
+			       		<h:outputText value="#{msg.labelTariffaVano}"/>
+			       	</td>
+			       	<td align="left" style="width: 150px;">
+			       		<h:outputText value="#{classamentoDueBck.outTariffaVano.value}">
+			       		<f:convertNumber type="currency" 
+							currencySymbol="&#8364;"/>
+			       		</h:outputText>
+			       	</td>
+			     </tr>
+			     <tr style="">  	
+			       	<td align="left" style="width: 150px;">
+			       		<h:outputText value="#{msg.labelRenditaMinima}"/>
+			       	</td>
+			       	<td align="left" style="width: 150px;">
+			       		<h:outputText value="#{classamentoDueBck.outRenditaMinimaMq.value}">
+			       		<f:convertNumber type="currency" 
+							currencySymbol="&#8364;"/>
+			       		</h:outputText>
+			       	</td>
+			       	 <td align="left" colspan="2" style="width: 50px">
+	                            &nbsp;
+	                        </td>
+			       	
+		       	</tr>
+		       	
+		           
+			 </tbody>
+			 </table>
+		     
+		     <table border="0" style=" width : 800px;" cellspacing="5">
+	    		<tbody>
+		       	<tr style="">
+			       	<td align="left" style="width: 250px;">
+			       		<h:outputText  value="#{msg.labelCatClasseCompatibile}" />
+			       	</td>
+		       	</tr>
+	       		</tbody>
+	       	</table>
+			
+			
+			<rich:dataTable 
+		        	width="483" 
+		        	id="classeList" 
+		        	rows="5" 
+		        	columnClasses="col" 
+		        	value="#{classamentoDueBck.listaClassiCompatibili}" 
+		        	var="classe"
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+		            <f:facet name="header">
+		            	
+		            	<br/>
+		                <rich:columnGroup>
+		                    <h:column >
+		                        <h:outputText styleClass="headerText" value="#{msg.labelCategoria}" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="#{msg.labelClasse}" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="#{msg.labelTariffaVano}" />
+		                    </h:column>
+		                    
+						 </rich:columnGroup>		               
+		            </f:facet>
+					
+					<rich:column styleClass="colClass">
+		                <h:outputText value="#{classe.categoria}">
+		                
+		                </h:outputText>
+		                
+		            </rich:column>
+		            <rich:column  styleClass="colClass">
+		                <h:outputText value="#{classe.classe}" />
+		                
+		            </rich:column>
+		            <rich:column styleClass="colClass">
+		                <h:outputText value="#{classe.tariffaEuro}" >
+		                <f:convertNumber type="currency" 
+							currencySymbol="&#8364;"/>
+		                </h:outputText>
+		                
+		            </rich:column>
+		            
+	                
+		        </rich:dataTable>
+		        <c:if test="#{classamentoDueBck.numberOfRows >0}">
+		         <table>
+		        <tr>
+		        	<td align="center">
+       			        <rich:datascroller align="left" for="classeList" renderIfSinglePage="true" maxPages="20" pagesVar="pagesNum" />
+		        	</td>
+		        </tr>
+		        
+		        <tr>
+		        
+		        	<td align="center">
+			        	<h:outputLabel value="Num. Righe: #{classamentoDueBck.numberOfRows}" />
+						<h:outputLabel value=" Num. Pagine: #{pagesNum}" />		        		
+		        	</td>
+		        </tr>
+		       
+		        </table>
+		        </c:if>
+		       
+		      </c:if>
+			 </a4j:outputPanel>
+			 
+		      </rich:panel>
+			</div>
+			
+			</ui:define>
+			
+			</ui:composition>
+			
+	</html>
+			
+			

@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+      
+<style>
+	.optionList {
+	  height:22px;
+	}
+	.vertical-menu-cell {
+	    padding:0px 4px 0px 4px;
+	}
+
+</style>
+
+			<ui:define name="pageTitle">Esporta</ui:define>
+  
+			<ui:define name="pageHeader">Facelets Hello Application Esporta</ui:define>
+
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			<script type="text/javascript">
+			function downloadZip(nomeFile){
+				var finestra = window.open('openPdfSrv?openZip=true&amp;nomePdf=' + nomeFile, '_self', 'scrollbars=auto, resizable=yes, width=800, height=600, toolbar=no, menubar=no, status=no');
+			}
+			</script>
+			
+			<style>
+            .colClass {
+				cursor: hand;
+	 		}
+	        </style>
+			<script type="text/javascript" src="#{ctxName}/js/esportaFiltro.js"></script>
+			<rich:hotKey key="return" handler="#{rich:element('btnRicerca')}.click()"/>
+			 <div style="overflow: auto">
+			 <rich:panel style="padding:5; width : 810px; position: relative">
+			        <f:facet name="header">
+			        	<h:outputText value="Elenco Forniture Docfa per Istruttorie Incoerenti ai sensi della L. 80/2006" />
+			        </f:facet>
+			 
+			<a4j:outputPanel ajaxRendered="true" layout="block" >
+			
+			 <a4j:region id="infoListRegion" >
+				<table border="0" style=" width : 800px;" cellspacing="5">
+		            <tbody>
+                        <tr style="">
+	                        <td align="left"  style="width: 50px">
+	                            <h:outputText value="Progressivo Num:" />
+	                        </td>
+	                        <td align="center" style="width: 125px;">
+								<h:inputText 
+	                            	id="txtProgressivo" 
+	                            	binding="#{esportaFiltroBck.txtProgressivo}" 
+	                            	styleClass="MyInput">
+	                            	 <f:validator validatorId="htmlValidator" />
+	                            </h:inputText>
+	                            <br />
+								<h:message for="txtProgressivo" style="color: red;"/>
+	                        </td>
+	                         <td align="left"  style="width: 50px">
+	                            <h:outputText value="Stato" />
+	                        </td>
+	                        <td align="center" style="width: 125px;">
+								<rich:comboBox 
+									disabled="false"
+									id="boxStatus" 
+									defaultLabel="Tutti"
+									value="#{esportaFiltroBck.boxStatus.state}"
+									suggestionValues="#{esportaFiltroBck.boxStatus.suggestions}"   
+									directInputSuggestions="#{esportaFiltroBck.boxStatus.directInputSuggestions}"
+									width="110px"/>
+	                        </td>
+	                       	<td align="left"  style="width: 50px">
+	                            <h:outputText value="Nome File Fornitura" />
+	                        </td>
+	                        <td align="center" style="width: 125px;">
+								<h:inputText 
+	                            	id="txtNomeFile" 
+	                            	binding="#{esportaFiltroBck.txtNomeFile}" 
+	                            	styleClass="MyInput">
+	                            </h:inputText>
+	                        </td>
+                        </tr>
+                         
+                         <tr style="">
+	                        <td align="left"  style="width: 150px">
+	                            
+	                        </td>
+	                       	<td align="center" colspan="4"  style="width: 500px">
+								<a4j:commandButton 
+									id="btnRicerca" 
+									styleClass="my-button" 
+									value="Cerca" 
+									action="#{esportaFiltroBck.ricerca}">
+									<a4j:support event="onclick" reRender="infoListTable" />
+								</a4j:commandButton>
+	                        </td>
+	                        <td align="center" style="width: 150px;">
+
+	                        </td>
+                        </tr>
+                    </tbody>
+               </table>
+               </a4j:region>
+					<rich:spacer height="30" />
+					<rich:dataTable 
+						id="infoListTable" 
+		        		rows="10" 
+			        	columnClasses="col" 
+			        	value="#{esportaFiltroBck.listaForniture}"	 
+		        		var="fornitura"
+			        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+	                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+					
+					 <f:facet name="header">
+		                <rich:columnGroup>
+		                    <h:column >
+		                        <h:outputText styleClass="headerText" value="Nome File" />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Dimensioni (Kb)" />
+		                    </h:column>
+		                    <h:column >
+		                        <h:outputText styleClass="headerText" value=" " />
+		                    </h:column>
+		                    <h:column>
+		                        <h:outputText styleClass="headerText" value="Stato" />
+		                    </h:column>
+						 </rich:columnGroup>
+					</f:facet>
+
+					 <rich:column styleClass="colClass"> 
+					 	<h:commandLink  onclick="javascript:downloadZip('#{esportaFiltroBck.pathFornitura}#{fornitura.descrizione}')"  >
+					 	 	<h:outputText value="#{fornitura.descrizione}"/>
+					 	 	<a4j:support ajaxSingle="true" event="onmouseup"
+							 			  action="#{esportaFiltroBck.validateStatus}" 
+							 			  reRender="infoListTable">
+			                	<f:setPropertyActionListener value="#{fornitura.idFor}" target="#{esportaFiltroBck.currentFornitura}"/>
+			                </a4j:support>
+					 </h:commandLink>
+						
+		            </rich:column>						 
+					 <rich:column styleClass="colClass">
+					 	<h:outputText value="#{fornitura.fileSize / 1024}">
+					 		<f:convertNumber type="number" minFractionDigits="0" maxFractionDigits="0" />
+					 	</h:outputText>
+		            </rich:column>
+		            <rich:column  styleClass="colClass">			                
+			                <a4j:commandLink 
+				            	ajaxSingle="true" 
+				            	id="showIstruttorieInFornitura" 
+				            	action="#{esportaFiltroBck.showIstruttorieInFornitura}" 
+				            	value="Visualizza" 
+				            	rendered="#{fornitura.fileSize &gt; 0}"
+				            	reRender="istruttorieModalPanel" 
+				            	oncomplete="#{rich:component('istruttoriePanel')}.show()">
+								<f:setPropertyActionListener value="#{fornitura.idFor}" target="#{esportaFiltroBck.currentFornitura}" />
+		     				</a4j:commandLink>
+		            </rich:column>		               
+					<rich:column  styleClass="colClass">
+						 <h:outputText value="#{fornitura.status}" />
+		            </rich:column>
+		            
+		            <f:facet name="footer">
+				            <rich:datascroller renderIfSinglePage="true" maxPages="10"/>
+				    </f:facet>
+					</rich:dataTable>               
+               <rich:spacer height="20px"/>
+               <table style="width : 810px; position: relative">
+					<tr>
+					<td width="40%" align="left" colspan="2">
+				        Numero di pratiche da inserire in fornitura: <h:outputText value="#{esportaFiltroBck.numIstruttorieDaZippare}" />
+					</td>
+					<td width="20%" align="center">
+					<a4j:commandLink 
+			            	ajaxSingle="true" 
+			            	id="showZipManager" 
+			            	value="Genera Fornitura" 
+			            	action="#{esportaFiltroBck.generaFornitura}"
+			            	reRender="zipManagerPanel" 
+			            	rendered="#{esportaFiltroBck.numIstruttorieDaZippare > 0}"
+			            	oncomplete="#{rich:component('zipManagerPanel')}.show()">
+	     			</a4j:commandLink>
+				     			
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%">
+					</td>
+					</tr>
+				</table>
+               
+		       </a4j:outputPanel>
+		       
+		       </rich:panel>
+		       </div>
+			</ui:define>
+			
+			<ui:define name="modalPanel">
+<!-- ******************* MODALE ZIP MANAGER  ******************************* -->
+			<ui:include src="./zipManagerModal.xhtml" />
+<!-- ******************* MODALE DETTAGLIO FORNITURA  ******************************* -->
+			<ui:include src="./istruttorieModal.xhtml" />			
+			
+			</ui:define>
+
+			<ui:define name="footer">
+				
+				<table style="width : 810px; position: relative">
+					<tr>
+					<td width="20%" align="left">
+				        
+					</td>
+					<td width="20%">
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%">
+					</td>
+					</tr>
+				</table>
+				
+			</ui:define>
+</ui:composition>
+
+</html>      

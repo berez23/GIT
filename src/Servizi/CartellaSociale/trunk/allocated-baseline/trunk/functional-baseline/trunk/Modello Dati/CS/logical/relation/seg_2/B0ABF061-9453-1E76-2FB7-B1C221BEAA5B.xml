@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_STEP_SETTORE" id="B0ABF061-9453-1E76-2FB7-B1C221BEAA5B" directorySegmentName="seg_2">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>72088E9A-2818-DF58-B434-5D4359DFE401</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>58B7365E-7440-41EC-8AC6-E060FCA710E0</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

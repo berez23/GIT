@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+
+	<!-- Query AmApplication -->
+	<named-query name="AmApplication.getApplication">
+		<query>
+			<![CDATA[
+				select o 
+				from AmApplication o
+				order by o.name
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmApplication.getApplicationByName">
+		<query>
+			<![CDATA[
+				select o 
+				from AmApplication o
+				where o.name = :application
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query AmInstance -->
+	<named-query name="AmInstance.getInstance">
+		<query>
+			<![CDATA[
+				select o 
+				from AmInstance o
+				order by o.fkAmApplication
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmInstance.getInstanceByApplication">
+		<query>
+			<![CDATA[
+				select o 
+				from AmInstance o
+				where fkAmApplication = :application
+				order by o.name
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmInstance.getInstanceById">
+		<query>
+			<![CDATA[
+				select o 
+				from AmInstance o
+				where o.name = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmComune -->
+	<named-query name="AmComune.getComuni">
+		<query>
+			<![CDATA[
+				select o 
+				from AmComune o
+				order by o.descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmComune.getComuneById">
+		<query>
+			<![CDATA[
+				select o 
+				from AmComune o
+				where o.belfiore = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmComune.getComuneByUser">
+		<query>
+			<![CDATA[
+				select o 
+				from AmComune o, AmUserGroup ug
+				where o.belfiore = ug.amGroup.fkAmComune
+				and ug.fkAmUser = :user
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmInstanceComune -->
+	<named-query name="AmInstanceComune.getInstanceByComune">
+		<query>
+			<![CDATA[
+				select o 
+				from AmInstanceComune o
+				where o.id.fkAmComune = :comune
+				order by o.id.fkAmInstance
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmInstanceComune.getInstanceByComuneInstance">
+		<query>
+			<![CDATA[
+				select o 
+				from AmInstanceComune o
+				where o.id.fkAmComune = :comune
+				and o.id.fkAmInstance = :instance
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmFonteComune -->
+	<named-query name="AmFonteComune.getFonteByComune">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonteComune o
+				where o.id.fkAmComune = :comune
+				order by o.amFonte.descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmFonteComune.getFonteByComuneFonte">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonteComune o
+				where o.id.fkAmComune = :comune
+				and o.id.fkAmFonte = :fonte
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmFonte -->
+	<named-query name="AmFonte.getFonte">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonte o
+				order by o.descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmFonte -->
+	<named-query name="AmFonte.getFonteByDescrizione">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonte o
+				where o.descrizione = :descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmFonte.getFonteByApplication">
+		<query>
+			<![CDATA[
+				select distinct s.amFonte
+				from AmSection s
+				where s.amApplication.name = :application
+				order by s.amFonte.descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmFonte.getFonteBySection">
+		<query>
+			<![CDATA[
+				select distinct s.amFonte
+				from AmSection s
+				where s.amApplication is null
+				order by s.amFonte.descrizione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmFonte.getFonteById">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonte o
+				where o.id = :idFonte
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmFonteTipoinfo -->
+	<named-query name="AmFonteTipoinfo.getFonteTipoinfoByFonte">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonteTipoinfo o
+				where o.fkAmFonte = :fonte
+				order by o.informazione
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmFonteTipoinfo.getFonteTipoinfoByFonteProg">
+		<query>
+			<![CDATA[
+				select o 
+				from AmFonteTipoinfo o
+				where o.fkAmFonte = :fonte
+				and o.progOld = :prog
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmKeyValue -->
+	<named-query name="AmKeyValue.getAmKeyValueToOverwrite">
+		<query>
+			<![CDATA[
+				select kv 
+				from AmKeyValue kv 
+				where kv.overwType = '0'
+				and kv.fkAmApplication = :application
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValue.getAmKeyValue99">
+		<query>
+			<![CDATA[
+				select kv 
+				from AmKeyValue kv 
+				where kv.overwType = '99'
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValue.getAmKeyValue99ByComune">
+		<query>
+			<![CDATA[
+				select kv 
+				from AmKeyValue kv, AmSection s 
+				where kv.overwType = '99'
+				and (s.amFonte.id in (select fc.id.fkAmFonte 
+									from AmFonteComune fc
+									where fc.id.fkAmComune = :comune )
+					or s.amApplication.name in (select i.fkAmApplication
+												from AmInstanceComune ic, AmInstance i
+												where ic.id.fkAmComune = :comune
+												and ic.id.fkAmInstance = i.name)
+					)
+				and s.name = kv.sectionName
+				and ((s.amApplication is null and kv.fkAmApplication is null) or  s.amApplication.name = kv.fkAmApplication)
+			]]>
+		</query>
+	</named-query>
+	
+	<!-- Query AmKeyValueExt -->
+	<named-query name="AmKeyValueExt.getAmKeyValueExtById">
+		<query>
+			<![CDATA[
+				select o 
+				from AmKeyValueExt o
+				where o.id = :id
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValueExt.getAmKeyValueExtByInstance">
+		<query>
+			<![CDATA[
+				select kve 
+				from AmKeyValueExt kve
+				where kve.amInstance.name = :instance
+				and kve.amComune.belfiore is null
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValueExt.getAmKeyValueExtByInstanceComune">
+		<query>
+			<![CDATA[
+				select kve 
+				from AmKeyValueExt kve
+				where kve.amInstance.name = :instance
+				and kve.amComune.belfiore = :comune
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValueExt.getAmKeyValueExtByFonteComune">
+		<query>
+			<![CDATA[
+				select kve 
+				from AmKeyValueExt kve
+				where kve.fkAmFonte = :fonte
+				and kve.amComune.belfiore = :comune
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValueExt.getAmKeyValueExtByComune">
+		<query>
+			<![CDATA[
+				select kve 
+				from AmKeyValueExt kve
+				where kve.amComune.belfiore = :comune
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValueExt.getAmKeyValueExtByKeyFonteComune">
+		<query>
+			<![CDATA[
+				select kve 
+				from AmKeyValueExt kve
+				where kve.amComune.belfiore = :comune
+				and kve.fkAmFonte = :fonte
+				and kve.keyConf = :key
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="AmKeyValueExt.getAmKeyValueExtByKey">
+		<query>
+			<![CDATA[
+				select kve 
+				from AmKeyValueExt kve
+				where kve.keyConf = :key
+			]]>
+		</query>
+	</named-query>
+
+</entity-mappings>
+	

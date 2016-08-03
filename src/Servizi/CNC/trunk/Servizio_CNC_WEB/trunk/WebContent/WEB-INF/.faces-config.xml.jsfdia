@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#flusso750#listRuoliVistati.xhtml"
+  PATH="/jsp/protected/flusso750/listRuoliVistati.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#flusso750#listRuoliVistati.xhtml:0"
+   NAME="item" PATH="/jsp/protected/flusso750/listRuoliVistati.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="flusso750.anagVistati::#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/flusso750/listAnagraficaVistati.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+    TITLE="flusso750.anagVistati" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="flusso750.dettaglioContabileRuoloVistato::#jsp#protected#flusso750#dettaglioContRuoloVistato.xhtml"
+    NAME="output1"
+    PATH="/jsp/protected/flusso750/dettaglioContRuoloVistato.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#dettaglioContRuoloVistato.xhtml"
+    TITLE="flusso750.dettaglioContabileRuoloVistato" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+  PATH="/jsp/protected/flusso750/listAnagraficaVistati.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#flusso750#listAnagraficaVistati.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/flusso750/listAnagraficaVistati.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="flusso750.dettaglioRuoloVistato::#jsp#protected#flusso750#dettaglioRuoloVistato.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/flusso750/dettaglioRuoloVistato.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#dettaglioRuoloVistato.xhtml"
+    TITLE="flusso750.dettaglioRuoloVistato" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="flusso750.go.listRiscossioni::#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+    NAME="output1"
+    PATH="/jsp/protected/statoriscossione/listRiscossioni.xhtml"
+    TARGET="rules:#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+    TITLE="flusso750.go.listRiscossioni" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#flusso750#dettaglioRuoloVistato.xhtml"
+  PATH="/jsp/protected/flusso750/dettaglioRuoloVistato.xhtml"
+  SHAPE="448,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#flusso750#dettaglioRuoloVistato.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/flusso750/dettaglioRuoloVistato.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="flusso750.listAnagRuoliVistati::#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/flusso750/listAnagraficaVistati.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+    TITLE="flusso750.listAnagRuoliVistati" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+  PATH="/jsp/protected/statoriscossione/listRiscossioni.xhtml"
+  SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#statoriscossione#listRiscossioni.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/statoriscossione/listRiscossioni.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="StatoRiscossione.dettaglioRiscossione::#jsp#protected#statoriscossione#dettaglioRiscossione.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/statoriscossione/dettaglioRiscossione.xhtml"
+    TARGET="rules:#jsp#protected#statoriscossione#dettaglioRiscossione.xhtml"
+    TITLE="StatoRiscossione.dettaglioRiscossione" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#statoriscossione#dettaglioRiscossione.xhtml"
+  PATH="/jsp/protected/statoriscossione/dettaglioRiscossione.xhtml"
+  SHAPE="240,145,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#statoriscossione#dettaglioRiscossione.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/statoriscossione/dettaglioRiscossione.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="StatoRiscossione.listaRiscossioni::#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/statoriscossione/listRiscossioni.xhtml"
+    TARGET="rules:#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+    TITLE="StatoRiscossione.listaRiscossioni" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:*" PATH="*" SHAPE="32,241,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:*:0" NAME="item" PATH="*" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.listaRiscossioni::#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+    NAME="output"
+    PATH="/jsp/protected/statoriscossione/listRiscossioni.xhtml"
+    TARGET="rules:#jsp#protected#statoriscossione#listRiscossioni.xhtml"
+    TITLE="menu.listaRiscossioni" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.listaRuoliVistati::#jsp#protected#flusso750#listRuoliVistati.xhtml"
+    NAME="output1"
+    PATH="/jsp/protected/flusso750/listRuoliVistati.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#listRuoliVistati.xhtml"
+    TITLE="menu.listaRuoliVistati" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.listaAnagVistati::#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+    NAME="output2"
+    PATH="/jsp/protected/flusso750/listAnagraficaVistati.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#listAnagraficaVistati.xhtml"
+    TITLE="menu.listaAnagVistati" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="menu.listaAnag290::#jsp#protected#flusso290#listAnagrafica.xhtml"
+    NAME="output3" PATH="/jsp/protected/flusso290/listAnagrafica.xhtml"
+    TARGET="rules:#jsp#protected#flusso290#listAnagrafica.xhtml"
+    TITLE="menu.listaAnag290" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#flusso290#listAnagrafica.xhtml"
+  PATH="/jsp/protected/flusso290/listAnagrafica.xhtml"
+  SHAPE="288,257,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM
+  NAME="rules:#jsp#protected#flusso750#dettaglioContRuoloVistato.xhtml"
+  PATH="/jsp/protected/flusso750/dettaglioContRuoloVistato.xhtml"
+  SHAPE="304,497,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM
+   ID="rules:#jsp#protected#flusso750#dettaglioContRuoloVistato.xhtml:0"
+   NAME="item"
+   PATH="/jsp/protected/flusso750/dettaglioContRuoloVistato.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="flusso750.listRuoliVistati::#jsp#protected#flusso750#listRuoliVistati.xhtml"
+    NAME="output" PATH="/jsp/protected/flusso750/listRuoliVistati.xhtml"
+    TARGET="rules:#jsp#protected#flusso750#listRuoliVistati.xhtml"
+    TITLE="flusso750.listRuoliVistati" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>

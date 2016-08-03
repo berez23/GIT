@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.59 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.am.AmComuni" table="AM_COMUNI" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <composite-id name="id" class="it.webred.diogene.db.model.am.AmComuniId" mapped="false" unsaved-value="undefined">
+            <key-property name="belfiore" type="string">
+                <column name="BELFIORE" length="4"/>
+            </key-property>
+            <key-property name="descrizione" type="string">
+                <column name="DESCRIZIONE" length="100"/>
+            </key-property>
+        </composite-id>
+    </class>
+</hibernate-mapping>

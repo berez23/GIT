@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmStatisticaEsito">
+			<p:panel header="Esito Statistica/Report">				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+				
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaStatistiche">				
+					<p:dataTable id="dtRisultato" var="riga" value="#{statisticheBean.listaRighe}" widgetVar="tabellaRisultato" rows="10"
+                         paginator="true" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15" >                    
+				        <p:columns value="#{statisticheBean.colonne}" var="colonna" columnIndexVar="colIndex" sortBy="#{riga[colonna.property]}" >
+				            <f:facet name="header">
+				                <h:outputText value="#{colonna.header}" />
+				            </f:facet>
+				            <h:outputText value="#{riga[colonna.property]}" />
+				        </p:columns>
+				    </p:dataTable>					 
+				</p:outputPanel>
+				
+				<p:spacer height="15"/>
+				<p:panel header="Export PDF ed Excel" rendered="true">  
+				    <p:commandLink id="pdf" ajax="false">  
+				        <p:graphicImage value="/images/export_pdf.png"/>  
+				        <pe:exporter type="pdf" target="dtRisultato" fileName="Report" orientation="#{statisticheBean.orientamento}"/>  
+				  
+				    </p:commandLink>  
+				  
+				    <p:spacer height="20"/>  
+				  
+				    <p:commandLink id="xls" ajax="false">  
+				        <p:graphicImage value="/images/export_excel.png"/>  
+				        <pe:exporter type="xlsx" target="dtRisultato" fileName="Report"  />  
+				  
+				    </p:commandLink>  
+				</p:panel>  				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

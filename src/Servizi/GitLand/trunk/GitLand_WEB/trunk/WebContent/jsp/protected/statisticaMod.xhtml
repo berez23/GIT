@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmStatistica">
+			<p:panel header="Modifica Statistica">				
+
+				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Categoria"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtCategoria" value=""  />
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Query"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtQuery" value="" required="true"/>
+						</p:column>
+					</p:row>
+					
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:panelGrid id="pnlFooter" styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:commandButton value="Salva" action="#{statisticheBean.statisticaSaveMod()}" process="@form" update="frmStatistica"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

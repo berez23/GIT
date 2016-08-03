@@ -1,0 +1,129 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  	<ui:composition>
+ 		<h:form >
+    		<table align="center" style="width:100%">
+    			<tr>
+    				<td>
+    					<h:outputText value="Codice Condono" styleClass="myLabel" style="width:180px;" />
+    				</td>
+    				<td>
+    					<h:outputText value="#{datiTecniciBean.condonoPratica.codicecondono}" />
+    				</td>
+    				<td>
+    					<h:outputText value="Data inserimento pratica" styleClass="myLabel" style="width:180px;" />
+    				</td>
+    				<td>
+    					<c:if test="#{not empty datiTecniciBean.condonoPratica.datainspratica}" >
+	    					<h:outputText value="#{datiTecniciBean.condonoPratica.datainspratica}" >
+	    						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+	    					</h:outputText>
+    					</c:if>
+    					<c:if test="#{empty datiTecniciBean.condonoPratica.datainspratica}" >
+    						<h:outputText value="-" />
+    					</c:if>
+    				</td>	    				
+    			</tr>
+    			<tr>
+    				<td>
+    					<h:outputText value="Progressivo" styleClass="myLabel" />
+    				</td>
+    				<td>
+    					<h:outputText value="#{datiTecniciBean.condonoPratica.pgnumero}" />
+    				</td>
+    				<td>
+    					<h:outputText value="Data inserimento" styleClass="myLabel" />
+    				</td>
+    				<td>
+    					<h:outputText value="#{datiTecniciBean.condonoPratica.pgdata}" >
+    						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+    					</h:outputText>
+    				</td>	    				
+    			</tr>
+    			<tr>
+    				<td>
+    					<h:outputText value="Progressivo provvediemnto" styleClass="myLabel" />
+    				</td>
+    				<td>
+    					<h:outputText value="#{datiTecniciBean.condonoPratica.progprovvedimento}" />
+    				</td>
+    				<td>
+    					<h:outputText value="Data provvedimento" styleClass="myLabel" />
+    				</td>
+    				<td>
+    					<h:outputText value="#{datiTecniciBean.condonoPratica.dataprovvedimento}" >
+    						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+    					</h:outputText>
+    				</td>	    				
+    			</tr>	    
+    			<tr>
+    				<td>
+    					<h:outputText value="Esibente" styleClass="myLabel" />
+    				</td>
+    				<td colspan="3">
+    					<h:outputText value="#{datiTecniciBean.condonoPratica.esibente} - #{datiTecniciBean.condonoPratica.cfpiesibente}" />
+    				</td>	    				
+    			</tr>
+    			<tr>
+    				<td>
+    					<h:outputText value="Indirizzo esibente" styleClass="myLabel" />
+    				</td>
+    				<td colspan="3">
+    					<c:if test="#{not empty datiTecniciBean.condonoPratica.capesibente and datiTecniciBean.condonoPratica.capesibente!='0'}" >
+    						<h:outputText value="#{datiTecniciBean.condonoPratica.capesibente} - " />
+    					</c:if>	    				
+    					<c:if test="#{not empty datiTecniciBean.condonoPratica.comuneesibente}" >
+    						<h:outputText value="#{datiTecniciBean.condonoPratica.comuneesibente} " />
+    					</c:if>
+    					<c:if test="#{not empty datiTecniciBean.condonoPratica.provesibente}" >
+    						<h:outputText value="(#{datiTecniciBean.condonoPratica.provesibente}) -" />
+    					</c:if>	    					
+    					<c:if test="#{not empty datiTecniciBean.condonoPratica.indirizzoesibente}" >
+    						<h:outputText value="via #{datiTecniciBean.condonoPratica.indirizzoesibente} " />
+    					</c:if>
+    					<c:if test="#{not empty datiTecniciBean.condonoPratica.ncivicoesibente}" >
+    						<h:outputText value="#{datiTecniciBean.condonoPratica.ncivicoesibente}" />
+    					</c:if>	    						    					
+    				</td>
+    			</tr>
+				<tr>
+    				<td>
+    					<h:outputText value="Descrizione dati catastali" styleClass="myLabel" />
+    				</td>
+    				<td colspan="3">
+						<h:outputLabel value="#{datiTecniciBean.condonoPratica.ute}" />
+    				</td>	    				
+    			</tr>	    			
+				<tr>
+    				<td>
+    					<h:outputText value="Provvedimento" styleClass="myLabel" />
+    				</td>
+    				<td colspan="3">
+						<h:outputLabel value="#{datiTecniciBean.condonoPratica.progprovvedimento}" />
+						<c:if test="#{not empty datiTecniciBean.condonoPratica.dataprovvedimento}" >
+							<h:outputLabel value=" del " />
+							<h:outputLabel value="#{datiTecniciBean.condonoPratica.dataprovvedimento}" >
+								<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{datiTecniciBean.timeZone}"/>
+							</h:outputLabel>
+						</c:if>
+    				</td>	    				
+    			</tr>
+				<tr>
+    				<td>
+    					<h:outputText value="Relazione abusi" styleClass="myLabel" />
+    				</td>
+    				<td colspan="3">
+						<h:outputLabel value="#{datiTecniciBean.condonoPratica.relazioneabusi}" />
+    				</td>	    				
+    			</tr>	    			
+    		</table>
+		</h:form>
+  	</ui:composition>
+</html>

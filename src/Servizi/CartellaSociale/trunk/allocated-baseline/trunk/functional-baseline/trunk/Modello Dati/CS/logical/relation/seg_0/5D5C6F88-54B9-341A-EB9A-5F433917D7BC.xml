@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_APERTURA_ITERV1" id="5D5C6F88-54B9-341A-EB9A-5F433917D7BC" directorySegmentName="seg_0">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>51A9AA7B-7526-EF42-DDD3-5EB2DB1AFFD4</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<dominantRole>FD2960D8-C95C-6134-3A0C-0024E4FD1770</dominantRole>
+<identifying>true</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>FD2960D8-C95C-6134-3A0C-0024E4FD1770</sourceEntity>
+<targetCardinalityString>1</targetCardinalityString>
+<targetEntity>F2616374-E847-4B9E-77FE-CAEB4905CAA1</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

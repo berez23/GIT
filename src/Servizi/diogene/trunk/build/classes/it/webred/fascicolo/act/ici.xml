@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL ICI</comment>
+	<entry key="sqlIci">
+	<![CDATA[
+		SELECT DISTINCT sit_t_ici_oggetto.id, 
+				(select codent from sit_ente) AS fk_comuni,
+                (select descrizione from sit_ente) AS comune,
+                NVL(sit_t_ici_oggetto.foglio, '-') AS foglio,
+                NVL(sit_t_ici_oggetto.numero, '-') AS particella,
+                NVL(sit_t_ici_oggetto.sub, '-') AS subalterno,
+                NVL(sit_t_ici_oggetto.cat, '-') AS categoria,
+                NVL(sit_t_ici_oggetto.provenienza, '-') AS provenienza,
+                NVL(sit_t_ici_oggetto.tip_den, '-') AS tip_den,
+                NVL(sit_t_ici_oggetto.cls, '-') AS classe,
+                NVL(to_char(sit_t_ici_oggetto.val_imm), '-') AS rendita_catastale,
+                DECODE (sit_t_ici_oggetto.flg_imm_sto,
+                        null, '-','1','SI','0','NO',
+                        sit_t_ici_oggetto.flg_imm_sto
+                       ) immobile_storico,
+               	DECODE (sit_t_ici_oggetto.flg_abi_pri3112,
+                        null, '-','S','SI','N','NO',
+                        sit_t_ici_oggetto.flg_abi_pri3112
+                       ) abitazione_principale,
+                sit_t_ici_oggetto.yea_rif AS den_riferimento , 
+                '0' AS latitudine, 
+                '0' AS longitudine     
+           FROM sit_t_ici_oggetto
+          WHERE sit_t_ici_oggetto.foglio=?
+		  and sit_t_ici_oggetto.numero=?
+	]]>
+	</entry>
+		<entry key="sqlIciAttuali">
+	<![CDATA[
+		SELECT DISTINCT sit_t_ici_oggetto.id, 
+				(select codent from sit_ente) AS fk_comuni,
+                (select descrizione from sit_ente) AS comune,
+                NVL(sit_t_ici_oggetto.foglio, '-') AS foglio,
+                NVL(sit_t_ici_oggetto.numero, '-') AS particella,
+                NVL(sit_t_ici_oggetto.sub, '-') AS subalterno,
+                NVL(sit_t_ici_oggetto.cat, '-') AS categoria,
+                NVL(sit_t_ici_oggetto.provenienza, '-') AS provenienza,
+                NVL(sit_t_ici_oggetto.tip_den, '-') AS tip_den,
+                NVL(sit_t_ici_oggetto.cls, '-') AS classe,
+                NVL(to_char(sit_t_ici_oggetto.val_imm), '-') AS rendita_catastale,
+                DECODE (sit_t_ici_oggetto.flg_imm_sto,
+                        null, '-','1','SI','0','NO',
+                        sit_t_ici_oggetto.flg_imm_sto
+                       ) immobile_storico,
+                DECODE (sit_t_ici_oggetto.flg_abi_pri3112,
+                        null, '-','S','SI','N','NO',
+                        sit_t_ici_oggetto.flg_abi_pri3112
+                       ) abitazione_principale,
+                sit_t_ici_oggetto.yea_rif AS den_riferimento  ,
+                '0' AS latitudine, 
+                '0' AS longitudine    
+           FROM sit_t_ici_oggetto
+          WHERE sit_t_ici_oggetto.foglio=?
+		  and sit_t_ici_oggetto.numero=?
+	]]>
+	</entry>
+	
+	<entry key="sqlIciSub">
+	<![CDATA[
+			 and sit_t_ici_oggetto.sub = ?
+	]]>
+	</entry>
+	<entry key="sqlIciOrder">			
+	<![CDATA[
+		order by foglio, particella, subalterno, den_riferimento desc
+	]]>
+	</entry>
+		<entry key="sqlIciOrderAttuali">			
+	<![CDATA[
+		order by subalterno, den_riferimento desc
+	]]>
+	</entry>		
+</properties>
+
+

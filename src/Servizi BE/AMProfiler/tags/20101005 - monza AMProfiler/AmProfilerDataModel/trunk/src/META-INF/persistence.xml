@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="AmProfilerDataModel">
+		<jta-data-source>java:/AMProfiler</jta-data-source>
+		<class>it.webred.amprofiler.model.AmApplication</class>
+		<class>it.webred.amprofiler.model.AmKeyValue</class>
+		<class>it.webred.amprofiler.model.AmSection</class>
+		<class>it.webred.amprofiler.model.AmUser</class>
+		<class>it.webred.amprofiler.model.AmComune</class>
+	</persistence-unit>
+</persistence>

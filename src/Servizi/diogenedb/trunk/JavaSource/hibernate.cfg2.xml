@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="amdevfactory">
+        <property name="hibernate.cglib.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
+        <property name="hibernate.connection.password">AM</property>
+        <property name="hibernate.connection.url">jdbc:oracle:thin:@rapanui:1521:rapanui</property>
+        <property name="hibernate.connection.username">AM</property>
+        <property name="hibernate.default_schema">AM</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.Oracle9iDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <mapping resource="it/webred/diogene/db/model/am/AmApplicationItem.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmPermission.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmItem.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmApplication.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmItemRole.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmUserIr.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmUser.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmRolePermission.hbm.xml" />
+        <mapping resource="it/webred/diogene/db/model/am/AmRole.hbm.xml" />
+    </session-factory>
+</hibernate-configuration>

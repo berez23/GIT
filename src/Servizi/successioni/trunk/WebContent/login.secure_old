@@ -1,0 +1,28 @@
+<%@include file="jspHead.jsp"%>
+<div class="section">
+<h2>SUCCESSIONI - AUTENTICAZIONE UTENTE</h2>
+<div class="section">
+<p>Inserire Username e Password</p>
+<form action="j_security_check" onsubmit="return true" method="post">
+<table class="bodyTable">
+	<tbody>
+		<tr class="a">
+			<td align="left">Login</td>
+			<td align="left">Password</td>
+			<td align="left">Vai</td>
+		</tr>
+		<tr class="b">
+			<td align="left"><input type="text" class="muiinput"
+				name="j_username" id="j_username"/></td>
+			<td align="left"><input type="password" class="RegINPUT"
+				name="j_password" id="pswd"/></td>
+			<td align="left"><input type="submit" class="muiinput" value="Vai!"
+				name="Vai!" /></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+</div>
+
+</div>
+

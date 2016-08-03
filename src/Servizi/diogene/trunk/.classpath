@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="JavaSource"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="lib" path="/CT-LIBS/cet-lib/webredutils.jar" sourcepath="/webredutils"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/commons-collections.jar"/>
+	<classpathentry kind="con" path="org.eclipse.ajdt.core.ASPECTJRT_CONTAINER"/>
+	<classpathentry kind="lib" path="/CT-LIBS/cet-lib/audit.jar">
+		<attributes>
+			<attribute name="org.eclipse.ajdt.aspectpath" value="org.eclipse.ajdt.aspectpath"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/BeanBridge"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.jboss.ide.eclipse.as.core.server.runtime.runtimeTarget/JBoss 7.1 Runtime">
+		<attributes>
+			<attribute name="owner.project.facets" value="jst.web"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jre6">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/CT-LIBS/apache-log4j/log4j-1.2.17.jar"/>
+	<classpathentry exported="true" kind="lib" path="/CT-LIBS/spring/3.0.4/org.springframework.context-3.0.4.RELEASE.jar"/>
+	<classpathentry kind="src" path="/CT_Service_Data_AccessClient"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CT_Config_Data_Model"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CT_Config_ManagerClient"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/CT_Service_Data_Model"/>
+	<classpathentry kind="src" path="/CT_Service_Aggregator_EJBClient"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/AmProfilerEjb"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

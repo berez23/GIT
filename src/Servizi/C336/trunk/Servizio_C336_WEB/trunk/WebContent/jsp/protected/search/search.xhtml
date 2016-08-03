@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmMain">
+			<rich:spacer height="10px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Ricerca Immobili" />
+				</f:facet>
+				
+				<!-- RICERCA PER DATI DOCFA -->
+				<h:panelGrid columns="3" cellpadding="5" width="100%" border ="0" cellspacing="0">
+				<h:panelGroup >
+					<h:outputLabel value="Foglio" />
+					<rich:spacer width="5px" />
+					<h:inputText id="foglio" value="#{dataProviderImpl.criteria.uiu.foglio}" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:outputLabel value="Particella" />
+					<rich:spacer width="5px" />
+					<h:inputText id="particella" value="#{dataProviderImpl.criteria.uiu.particella}" />
+				</h:panelGroup>
+				<h:panelGroup>
+					<h:outputLabel value="Subalterno" />
+					<rich:spacer width="5px" />
+					<h:inputText id="sub" value="#{dataProviderImpl.criteria.uiu.subalterno}" />
+				</h:panelGroup>
+				
+				<rich:spacer height="10px" />
+				<rich:spacer height="10px" />
+				<rich:spacer height="10px" />
+				
+				<h:inputHidden id="idViaCatasto"    value="#{dataProviderImpl.criteria.catOggetto.idVia}" />				  			  	
+			  	<h:inputHidden id="idCivicoCatasto" value="#{dataProviderImpl.criteria.catOggetto.idCivico}" />
+			  	<h:inputHidden id="idSoggettoCatasto" value="#{dataProviderImpl.criteria.catOggetto.idSoggetto}" />
+			  	<h:panelGrid columns="2">
+					<h:outputLabel value="Ricerca  immobile in Catasto" style="font-weight: bold;" /> 
+					<h:selectBooleanCheckbox
+								 title="catasto"  value="#{dataProviderImpl.criteria.catOggetto.faiRicercaInCatastoUrbano}" >
+					</h:selectBooleanCheckbox>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Ricerca Immobile in Docfa" style="font-weight: bold;" />
+					<h:selectBooleanCheckbox
+							 title="docfa"  value="#{dataProviderImpl.criteria.faiRicercaInDocfa}" >
+					</h:selectBooleanCheckbox>
+				</h:panelGrid>
+				<h:panelGrid columns="2">
+					<h:outputLabel value="Ricerca Immobile in Concessioni Edilizie" style="font-weight:bold; margin-top: 10px; " />
+					<h:selectBooleanCheckbox
+							 title="docfa"  value="#{dataProviderImpl.criteria.faiRicercaInConEdi}" >
+					</h:selectBooleanCheckbox>
+				</h:panelGrid>
+				
+				<h:panelGrid columns="1">
+					<h:panelGrid columns="2" cellspacing="5" width="100%">
+						<h:outputLabel value="UI Attuale" />
+						<h:selectBooleanCheckbox
+							 title="catUiuAttuale"
+							 value="#{dataProviderImpl.criteria.catOggetto.uiuAttuale}" >
+							</h:selectBooleanCheckbox>
+						<h:outputLabel value="Categoria" />
+						<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+							<h:inputText id="categoria" disabled="false"
+								value="#{dataProviderImpl.criteria.catOggetto.codCategoria}" />
+							<h:graphicImage value="/images/list.png" height="18px" id="img23"
+								style="cursor: pointer;margin-left: 1px;">
+								<a4j:support 
+									event="onclick" 
+									reRender="catPage"
+									oncomplete="Richfaces.showModalPanel('catModalBox'); return false;"
+									action="#{catastoSuggestionBean.doCaricaCategorie}">
+									<a4j:actionparam
+										value="/jsp/protected/search/categorieList.xhtml"
+										name="pgCat" assignTo="#{pageUiBean.pageCategorieList}" />
+								</a4j:support>
+								<rich:toolTip direction="top-left" mode="client" layout="inline" value="Inserisci categorie" />
+							</h:graphicImage>
+						</h:panelGrid>
+						
+						<h:outputLabel value="Indirizzo" />
+						<h:panelGrid columns="7" cellpadding="0" cellspacing="0">
+							<a4j:region renderRegionOnly="true">
+							<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+								<h:inputText id="txtViaCatasto" size="30" value="#{dataProviderImpl.descVia}" />
+								 <h:graphicImage value="/images/arrow.png"
+                 									 onclick="#{rich:component('suggestionViaCatasto')}.callSuggestion(true)"
+                    								 alt="" />
+                    		</h:panelGrid>
+								<rich:suggestionbox
+									id="suggestionViaCatasto" 
+									minChars="3" 
+									width="198" 
+									height="180"
+									for="txtViaCatasto"
+									suggestionAction="#{catastoSuggestionBean.getListaVie}"
+									var="result" 
+									ajaxSingle="true" 
+									nothingLabel="..."
+									fetchValue="#{result.prefisso} #{result.nome}" 
+									usingSuggestObjects="true"
+									frequency="100"
+									onobjectchange="javascript:setTxtViaCatasto(suggestion);">
+	
+									<h:column>
+										<h:outputText value="#{result.prefisso}  #{result.nome}"></h:outputText>
+									</h:column>
+	
+								</rich:suggestionbox>
+							</a4j:region>
+							<rich:spacer width="5px" />
+							<h:outputLabel value="N.civico" />
+							<rich:spacer width="5px" />
+							<a4j:region>
+								<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0">
+									<h:inputText id="txtNumeroCivicoCatasto" 
+												 style="width: 20px;"
+												 disabled="true" 
+												 value="#{dataProviderImpl.descCivico}" />
+									<h:graphicImage value="/images/arrow.png" alt="" 
+	                 					 onclick="#{rich:component('suggestionCivCatasto')}.callSuggestion(true)"/>
+								</h:panelGrid>
+								<rich:suggestionbox
+		      						id="suggestionCivCatasto"
+		      						width="250" 
+					      			height="150" 
+					      			for="txtNumeroCivicoCatasto"				      			
+					      			suggestionAction="#{catastoSuggestionBean.getListaIndirizzi}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.civico}"
+						      		usingSuggestObjects="true"
+						      		frequency="1"
+						      		onobjectchange="javascript:setTxtCivicoCatasto(suggestion);">
+					      			<h:column> 
+					      				<h:outputText value="#{result.civico}"></h:outputText>
+					      			</h:column>
+					      		</rich:suggestionbox>
+					      	</a4j:region>
+						</h:panelGrid>
+					</h:panelGrid>
+					
+					<h:panelGrid id ="pnlSoggettoCatasto" columns="2">
+						<h:outputLabel value="Tipo Soggetto" />
+						<h:selectOneMenu id="slCatTipoSogg" 
+									 immediate ="true"
+									 value="#{dataProviderImpl.tipoSoggetto}"
+									 valueChangeListener="#{dataProviderImpl.changeTipoSoggetto}" >
+							<f:selectItems value="#{catastoSuggestionBean.listaTipoSoggetto}" />
+							<a4j:support 
+									event="onchange" 
+									ajaxSingle="true"
+									reRender="pnlSoggettoCatasto">
+							</a4j:support>
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Cognome e Nome" rendered="#{dataProviderImpl.tipoSoggetto eq 'P'}"/>
+						<a4j:region renderRegionOnly="true">
+							<h:panelGrid columns="4" border="0" cellpadding="0" cellspacing="0" 
+										 rendered="#{dataProviderImpl.tipoSoggetto eq 'P'}">
+								<h:inputText id="txtCognomeCatasto" size="40"
+									value="#{dataProviderImpl.descCognomeNome}" >
+								<rich:toolTip direction="top-left" mode="ajax" layout="inline"
+												value="Digitare almeno 3 caratteri"/>
+								</h:inputText>
+								<h:graphicImage value="/images/arrow.png" alt="" onclick="#{rich:component('suggestionCognomeNome')}.callSuggestion(true)"/>
+							</h:panelGrid>
+								<rich:suggestionbox 
+									id="suggestionCognomeNome"
+									minChars="3" 
+									width="400" 
+					      			height="150" 
+									for="txtCognomeCatasto"
+									suggestionAction="#{catastoSuggestionBean.getListaSoggettiF}"
+									var="result" 
+									ajaxSingle="true" 
+									nothingLabel="..."
+									fetchValue="#{result.ragiSoci} #{result.nome}"
+						      		usingSuggestObjects="true"
+						      		frequency="100"
+						      		onobjectchange="javascript:setTxtCognomeNomeCF(suggestion);">
+						      		  
+					      			<h:column> 
+				      					<h:outputText value="#{result.ragiSoci} #{result.nome} n. "></h:outputText>
+					      				<h:outputText value="#{result.dataNasc}" >
+						                	<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+						                </h:outputText>
+						      			</h:column>
+						      		</rich:suggestionbox>
+								
+						</a4j:region>
+							
+						<h:outputLabel value="Codice fiscale" rendered="#{dataProviderImpl.tipoSoggetto eq 'P'}"/>
+						<a4j:region renderRegionOnly="true">
+	      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0"
+	      								rendered="#{dataProviderImpl.tipoSoggetto eq 'P'}">
+	      						<h:inputText id="txtCodiceFiscaleCatasto" 
+	      							size="20" maxlength="16" 
+	      							value = "#{dataProviderImpl.cf}">
+	      						<rich:toolTip direction="top-left" mode="ajax" layout="inline"
+									value="Digitare almeno i primi 3 caratteri del cod. fiscale"/>
+								</h:inputText>
+								<h:graphicImage value="/images/arrow.png" alt="" 
+	               								onclick="#{rich:component('suggestionCF')}.callSuggestion(true)"/>
+	                		</h:panelGrid>
+	      					<rich:suggestionbox
+	      						id="suggestionCF"
+	      						width="400" 
+				      			height="150" 
+				      			for="txtCodiceFiscaleCatasto" 
+				      			suggestionAction="#{catastoSuggestionBean.getSoggettoByCF}" 
+				      			var="result"
+				      			ajaxSingle="true"
+				      			nothingLabel="..."
+					      		fetchValue="#{result.codiFisc}"
+					      		usingSuggestObjects="true"
+					      		frequency="100"
+					      		onobjectchange="javascript:setTxtCodiceFiscale(suggestion);">
+				    
+				      			<h:column> 
+				      				<h:outputText value="#{result.codiFisc} (#{result.ragiSoci} #{result.nome})"></h:outputText>
+				      			</h:column>
+				      		</rich:suggestionbox>
+				      		
+				      	</a4j:region>
+					      
+					      	<h:outputLabel value="Denominazione" rendered="#{dataProviderImpl.tipoSoggetto eq 'G'}"/>
+						    <a4j:region renderRegionOnly="true">
+						      	<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0"
+						      		rendered="#{dataProviderImpl.tipoSoggetto eq 'G'}">
+							      	<h:inputText styleClass="myInputText" id="txtDenominazioneCatasto"  size="40" 
+							      				value = "#{dataProviderImpl.descDenominazione}">	
+							      		<rich:toolTip direction="top-left" mode="ajax" layout="inline"
+												value="Digitare almeno 3 caratteri"/>
+									</h:inputText>
+									<h:graphicImage value="/images/arrow.png" alt="" 
+	               									onclick="#{rich:component('suggestionDenom')}.callSuggestion(true)"/>
+	                   			</h:panelGrid>
+		      					<rich:suggestionbox
+		      						id="suggestionDenom"
+		      						width="400" 
+					      			height="150" 
+					      			for="txtDenominazioneCatasto" 
+					      			suggestionAction="#{catastoSuggestionBean.getListaSoggettiG}" 
+					      			var="result"
+					      			ajaxSingle="true"
+					      			nothingLabel="..."
+						      		fetchValue="#{result.ragiSoci}"
+						      		usingSuggestObjects="true"
+						      		frequency="100"
+						      		onobjectchange="javascript:setTxtDenominazionePI(suggestion);">
+					      		  
+					      			<h:column> 
+					      				<h:outputText value="#{result.ragiSoci}"></h:outputText>
+					      			</h:column>
+					      			
+					      		</rich:suggestionbox>
+					      	</a4j:region>
+							
+							<h:outputLabel value="Partita IVA" rendered="#{dataProviderImpl.tipoSoggetto eq 'G'}"/>
+							<a4j:region renderRegionOnly="true">
+			      					<h:panelGrid columns="2" border="0" cellpadding="0" cellspacing="0" 
+			      								 rendered="#{dataProviderImpl.tipoSoggetto eq 'G'}">
+			      						<h:inputText id="txtPartitaIvaCatasto" 
+			      							size="20" maxlength="11" value = "#{dataProviderImpl.piva}">
+			      						<rich:toolTip direction="top-left" mode="ajax" layout="inline"
+											value="Digitare la partita IVA completa"/>
+										</h:inputText>
+										<h:graphicImage value="/images/arrow.png"
+	                 									onclick="#{rich:component('suggestionPIVA')}.callSuggestion(true)"
+	                    								alt="" />
+	                    				</h:panelGrid>
+				      					<rich:suggestionbox
+				      						id="suggestionPIVA"
+				      						width="400" 
+							      			height="150" 
+							      			for="txtPartitaIvaCatasto" 
+							      			suggestionAction="#{catastoSuggestionBean.getSoggettoByPIVA}" 
+							      			var="result"
+							      			ajaxSingle="true"
+							      			nothingLabel="..."
+								      		fetchValue="#{result.codiPiva}"
+								      		usingSuggestObjects="true"
+								      		frequency="1"
+								      		onobjectchange="javascript:setTxtPartitaIva(suggestion);">
+	
+							      			<h:column> 
+							      				<h:outputText value="#{result.codiPiva} (#{result.ragiSoci})"></h:outputText>
+							      			</h:column>
+							      			
+							      		</rich:suggestionbox>
+							      	</a4j:region>
+							      		
+							     </h:panelGrid>
+							    
+			  	</h:panelGrid>
+				
+				<h:panelGrid columns="2" cellspacing="5" width="100%">
+					<h:outputLabel value="Fornitura" />
+					<h:panelGrid columns="5" cellpadding="0" cellspacing="0">
+								<h:outputLabel value="Da: " />
+								<h:selectOneMenu id="fornituraDa" 
+									value="#{dataProviderImpl.criteria.dcfOggetto.fornituraDa}">
+									<f:selectItems value="#{docfaSuggestionBean.listaForniture}" />
+								</h:selectOneMenu>
+								<rich:spacer width="5px" />
+								<h:outputLabel value="A:" />
+								<h:selectOneMenu id="fornituraA" 
+									value="#{dataProviderImpl.criteria.dcfOggetto.fornituraA}">
+									<f:selectItems value="#{docfaSuggestionBean.listaForniture}" />
+								</h:selectOneMenu>
+					</h:panelGrid>
+					<rich:spacer width="5px" /><rich:spacer width="5px" />
+					
+					<h:outputLabel value="Data protocollo" />
+					<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:outputLabel value="Da: " />
+						<rich:calendar
+								value="#{dataProviderImpl.criteria.dcfOggetto.dataRegistrazioneDa}"
+								popup="true" enableManualInput="true" datePattern="dd/MM/yyyy"
+								cellWidth="24px" cellHeight="22px" style="width:200px" />
+						
+						<h:outputLabel value="A: " />
+						<rich:calendar
+								value="#{dataProviderImpl.criteria.dcfOggetto.dataRegistrazioneA}"
+								popup="true" enableManualInput="true" datePattern="dd/MM/yyyy"
+								cellWidth="24px" cellHeight="22px" style="width:200px" />
+					</h:panelGrid>
+					
+					<h:outputLabel value="Numero Protocollo" />
+					<h:inputText id="prot" value="#{dataProviderImpl.criteria.dcfOggetto.protocollo}" />
+							
+					<h:outputLabel value="Dichiarazione L.Fin.2005" />
+					<h:selectOneMenu id="tipoDicgDcf" 
+						value="#{dataProviderImpl.criteria.dcfOggetto.flgCommiFin2005}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{docfaSuggestionBean.listaTipoDichiarazione}" />
+						<rich:toolTip direction="top-left" mode="client" layout="inline" 
+									value="Dichiarazione presentata ai sensi dell'art. 2, D.L. 3.10.2006, Legge Finanz. 2005" />		
+					</h:selectOneMenu>
+							
+					<h:outputLabel value="Causale Docfa" />
+					<h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+						<h:inputText id="causale" disabled="true"
+							value="#{dataProviderImpl.criteria.dcfOggetto.causali}" />
+						<h:graphicImage value="/images/list.png" height="18px" id="img22"
+							style="cursor: pointer;margin-left: 1px;">
+							<a4j:support event="onclick" 
+										reRender="cauPage"
+										oncomplete="Richfaces.showModalPanel('cauModalBox'); return false;"
+										action="#{docfaSuggestionBean.doCaricaCausali}">
+								<a4j:actionparam
+									value="/jsp/protected/search/causaliList.xhtml"
+									name="pgCau" assignTo="#{pageUiBean.pageCausaliList}" />
+							</a4j:support>
+							<rich:toolTip direction="top-left" mode="client" layout="inline"
+								value="Inserisci causali" />
+						</h:graphicImage>
+					</h:panelGrid>
+					
+					<h:outputLabel value="Indirizzo Docfa" />
+					<h:panelGrid columns="5" cellpadding="0" cellspacing="0">
+							<a4j:region renderRegionOnly="true">
+								<h:inputText id="dcfVia"
+									value="#{dataProviderImpl.criteria.dcfOggetto.indirizzo.descrizioneVia}" />
+								<rich:suggestionbox minChars="3" width="198" height="180"
+									for="dcfVia"
+									suggestionAction="#{docfaSuggestionBean.getSuggestionByVia}"
+									var="result" ajaxSingle="true" nothingLabel="..."
+									fetchValue="#{result}" usingSuggestObjects="true">
+
+									<h:column>
+										<h:outputText value="#{result}"></h:outputText>
+									</h:column>
+
+								</rich:suggestionbox>
+							
+							<rich:spacer width="5px" />
+							<h:outputLabel value="N.civico" />
+							<rich:spacer width="5px" />
+							<h:inputText id="dcfCiv" style="width: 20px;"
+								value="#{dataProviderImpl.criteria.dcfOggetto.indirizzo.civico}" />
+							</a4j:region>
+						</h:panelGrid>
+						
+						<h:outputLabel value="Dichiarante" />
+						<a4j:region renderRegionOnly="true">
+							<h:inputText id="dichiarante" style="width: 200px;"
+								value="#{dataProviderImpl.criteria.dcfDichiarante.denom}" />
+							<rich:suggestionbox minChars="3" width="200" height="180"
+								for="dichiarante"
+								suggestionAction="#{docfaSuggestionBean.getSuggestionDichiarante}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+
+							</rich:suggestionbox>
+						</a4j:region>
+						
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2" cellspacing="5" width="100%">
+					<h:outputLabel value="Numero Concessione" />
+					<h:inputText id="numConc" value="#{dataProviderImpl.criteria.concEdiOggetto.concNumero}" />
+					
+					<h:outputLabel value="Progressivo Anno" />
+					<h:selectOneMenu id="progAnno" value="#{dataProviderImpl.criteria.concEdiOggetto.progressivoAnno}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{concEdiSuggestionBean.listaProgressivoAnno}" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Progressivo Numero" />
+					<h:inputText id="progNum" value="#{dataProviderImpl.criteria.concEdiOggetto.progressivoNumero}" />
+					
+					<h:outputLabel value="Anno Protocollo" />
+					<h:selectOneMenu id="protAnno" value="#{dataProviderImpl.criteria.concEdiOggetto.protocolloAnno}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{concEdiSuggestionBean.listaAnnoProtocollo}" />
+					</h:selectOneMenu>
+					
+					<h:outputLabel value="Numero Protocollo" />
+					<h:inputText id="protNum" value="#{dataProviderImpl.criteria.concEdiOggetto.protocolloNumero}" />
+					
+							
+					<h:outputLabel value="Indirizzo" />
+					<h:panelGrid columns="5" cellpadding="0" cellspacing="0">
+							
+							<a4j:region renderRegionOnly="true">
+								<h:inputText id="cediVia"
+									value="#{dataProviderImpl.criteria.concEdiOggetto.indirizzo.descrizioneVia}" />
+								<rich:suggestionbox minChars="3" width="198" height="180"
+									for="cediVia"
+									suggestionAction="#{concEdiSuggestionBean.getSuggestionByVia}"
+									var="result" ajaxSingle="true" nothingLabel="..."
+									fetchValue="#{result}" usingSuggestObjects="true">
+
+									<h:column>
+										<h:outputText value="#{result}"></h:outputText>
+									</h:column>
+
+								</rich:suggestionbox>
+							
+							<rich:spacer width="5px" />
+							<h:outputLabel value="N.civico" />
+							<rich:spacer width="5px" />
+							<h:inputText id="cediCiv" style="width: 20px;"
+								value="#{dataProviderImpl.criteria.concEdiOggetto.indirizzo.civico}" />
+							</a4j:region>
+						</h:panelGrid>
+						
+						<h:outputLabel value="Titolo Soggetto" />
+						<h:selectOneMenu id="slt12"
+							value="#{dataProviderImpl.criteria.concEdiSoggetto.titolo}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{concEdiSuggestionBean.listaTitoliSoggetto}" />
+						</h:selectOneMenu>
+						
+						<h:outputLabel value="Cognome e Nome / Denominazione:" />
+						<a4j:region renderRegionOnly="true">
+							<h:inputText id="cogn" style="width: 200px;"
+								value="#{dataProviderImpl.criteria.concEdiSoggetto.denom}" />
+							<rich:suggestionbox minChars="3" width="200" height="180"
+								for="cogn"
+								suggestionAction="#{concEdiSuggestionBean.getSuggestionByDenominazione}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+
+							</rich:suggestionbox>
+						</a4j:region>
+						
+						<h:outputLabel id="cediCodFiscPiva" value="Cod.Fiscale/Partita IVA" />
+						<h:inputText  id="npt6"  value="#{dataProviderImpl.criteria.concEdiSoggetto.codFis}" 
+									   label ="Cod.Fiscale/Partita IVA"/>
+					
+				</h:panelGrid>
+					<h:outputLabel value="Considera solo u.i. per cui esistono pratiche in stato: "  style="font-weight: bold;" />
+					<h:selectOneMenu id="staPra" 
+						value="#{dataProviderImpl.criteria.c336Pratica.codStato}">
+						<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+						<f:selectItems value="#{statoPraticaSuggestionBean.listaStati}" />
+						<rich:toolTip direction="top-left" mode="client" layout="inline" 
+									value="Stato Pratica " />		
+					</h:selectOneMenu>
+	
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+				
+					<a4j:commandButton value="Ricerca" id="btnRicerca" reRender="resultListPage">
+						<a4j:actionparam
+							value="/jsp/protected/search/resultList.xhtml" name="result"
+							assignTo="#{pageUiBean.pageResultList}" />
+					</a4j:commandButton>
+					<h:graphicImage style="cursor:pointer;" value="/images/reset.png"
+						title="Reset criteri">
+						<a4j:support event="onclick" reRender="frmMain, resultListPage"
+							action="#{dataProviderImpl.resetData}">
+							<a4j:actionparam value="/jsp/protected/empty.xhtml" name="empty"
+								assignTo="#{pageUiBean.pageResultList}" />
+						</a4j:support>
+					</h:graphicImage>
+
+				</h:panelGrid>
+
+			</rich:panel>
+
+		</h:form>
+
+		<rich:spacer height="15px" />
+
+		<h:form id="frmRisRicerca">
+
+			<!-- Menu tabella -->
+			<rich:contextMenu attached="false" id="menu" submitMode="ajax" >
+				<rich:menuItem submitMode="none" icon="/images/list.png" >
+					<a4j:commandLink action="#{detailBean.goDetail}">
+						<h:outputText value="Apri dettaglio" style="font-weight: bold;" />
+						<a4j:actionparam value="{idUiuSelected}"
+							assignTo="#{detailBean.idUiu}" />
+						<a4j:actionparam value="false"
+							assignTo="#{detailBean.loadFabbricato}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu -->
+
+			<a4j:include id="resultListPage"
+				viewId="#{pageUiBean.pageResultList}" />
+
+		</h:form>
+
+		<a4j:include id="catPage" viewId="#{pageUiBean.pageCategorieList}" />
+
+		<a4j:include id="cauPage" viewId="#{pageUiBean.pageCausaliList}" />
+
+		<rich:spacer height="15px" />
+
+	</ui:define>
+</ui:composition>
+</html>

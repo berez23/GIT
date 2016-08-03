@@ -1,0 +1,307 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j"
+                xmlns:c="http://java.sun.com/jstl/core" >
+
+		<script type="text/javascript">
+		function openDocument(link){
+		document.location.target='_blank';
+		document.location.href= link;
+		}
+		
+		</script>
+
+
+			<rich:modalPanel id="modello662Panel" autosized="true" width="600">
+		        <f:facet name="header">
+		            <h:outputText value="Precompilazione Modello 662/2006" />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="hideModello662Link" />
+			     <rich:componentControl for="modello662Panel" attachTo="hideModello662Link" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		        <h:form>
+		            
+					
+					 
+					 <table border="0" style=" width : 600px;" cellspacing="5">
+					 
+					 <tbody>
+		            	 <tr >
+		            	 <td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgAscensore}" />
+	                        </td>
+		            	 <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Ascensore}" />
+	                        </td>	                        
+	                      <td align="left"   colspan="4">
+	                        	<h:outputText value="" />
+	                        </td>
+	                   </tr>
+	                   <br/>
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgResidenzialeMinore8}"  id="flgResidenzialeMinore8">
+	                        		<a4j:support reRender="catResidenzialeMin8, classeResidenzialeMin8" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662ResidenzialeMinoreOtto}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:inputText value="#{ricercaDettaglioBck.catResidenzialeMin8}" id="catResidenzialeMin8" disabled="#{!ricercaDettaglioBck.flgResidenzialeMinore8}" size="3"  maxlength="3"/>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeResidenzialeMin8}" id="classeResidenzialeMin8" disabled="#{!ricercaDettaglioBck.flgResidenzialeMinore8}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   <br/>
+	                   <tr>
+	                   		<td align="left" >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgResidenzialeMaggiore8}"  id="flgResidenzialeMaggiore8">
+	                        		<a4j:support reRender="catResidenzialeMagg8, classeResidenzialeMagg8" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662ResidenzialeMaggioreOtto}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.catResidenzialeMagg8}" id="catResidenzialeMagg8" disabled="#{!ricercaDettaglioBck.flgResidenzialeMaggiore8}" size="3"  maxlength="3"/>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeResidenzialeMagg8}" id="classeResidenzialeMagg8" disabled="#{!ricercaDettaglioBck.flgResidenzialeMaggiore8}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   <br/>
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgUfficio}" id="flgUfficio">
+	                        		<a4j:support reRender="classeUfficio" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Ufficio}" />
+	                        </td>
+	                         <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:outputText value="A10" />
+	                        </td>
+	                       
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeUfficio}" id="classeUfficio" disabled="#{!ricercaDettaglioBck.flgUfficio}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgNegozio}" id="flgNegozio">
+	                        		<a4j:support reRender="classeNegozio" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Negozio}" />
+	                        </td>
+	                         <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:outputText value="C01" />
+	                        </td>
+	                       
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeNegozio}" id="classeNegozio" disabled="#{!ricercaDettaglioBck.flgNegozio}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgLaboratorio}" id="flgLaboratorio">
+	                        		<a4j:support reRender="classeLaboratorio" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Laboratorio}" />
+	                        </td>
+	                         <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:outputText value="C03" />
+	                        </td>
+	                       
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeLaboratorio}" id="classeLaboratorio" disabled="#{!ricercaDettaglioBck.flgLaboratorio}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgDeposito}" id="flgDeposito" >
+	                        		<a4j:support reRender="classeDeposito" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Depositi}" />
+	                        </td>
+	                         <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:outputText value="C02" />
+	                        </td>
+	                       
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeDeposito}" id="classeDeposito" disabled="#{!ricercaDettaglioBck.flgDeposito}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgBox}" id="flgBox">
+	                        		<a4j:support reRender="classeBox" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Box}" />
+	                        </td>
+	                         <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:outputText value="C06" />
+	                        </td>
+	                       
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classeBox}" id="classeBox" disabled="#{!ricercaDettaglioBck.flgBox}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   
+	                   <tr >
+	                   		<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgPauto}" id="flgPauto">
+	                        		<a4j:support reRender="classePauto" ajaxSingle="true" event="onclick" actionListener="#{ricercaDettaglioBck.selectFlagModello662}"/>
+	                        	</h:selectBooleanCheckbox>
+	                        </td>
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Pauto}" />
+	                        </td>
+	                         <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Categoria}" />
+	                        </td>
+	                        <td align="left"   >
+	                            <h:outputText value="C06" />
+	                        </td>
+	                       
+	                        <td align="left"  >
+	                            <h:outputText value="#{msg.labelModello662Classe}" />
+	                        </td>
+	                        <td align="left"  >
+	                            <h:inputText value="#{ricercaDettaglioBck.classePauto}" id="classePauto" disabled="#{!ricercaDettaglioBck.flgPauto}" size="3"  maxlength="3"/>
+	                        </td>
+	                   </tr>
+	                   
+	                   <tr >
+		            	 
+		            	 	<td align="left"  >
+	                        	<h:selectBooleanCheckbox value="#{ricercaDettaglioBck.flgAllineamento}" />
+	                        </td>
+	                        <td align="left" >
+	                            <h:outputText value="#{msg.labelModello662Allineamento}" />
+	                        </td>
+	                        
+	                        <td align="left"   colspan="4">
+	                        	<h:outputText value="" />
+	                        </td>
+	                   </tr>
+	                  </tbody>
+					 
+					 </table>
+					 
+					 
+					            
+		           
+		             <table border="0">
+		             <tr>
+		             	<td>
+		             	<h:outputText 
+									id="msgTypeError" 
+									style="color: red; font-weight: bold"
+									value="#{msg.msgTypeError}" 
+									rendered="#{ricercaDettaglioBck.bodUploadSwitch.mostraMsgTypeError}"/>
+						<h:outputText 
+									id="msgSizeError" 
+									style="color: red; font-weight: bold"
+									value="#{msg.msgSizeError}" 
+									rendered="#{ricercaDettaglioBck.bodUploadSwitch.mostraMsgSizeError}"/>
+		             	</td>
+		             </tr>
+		             
+					
+					 <tr>
+		             	<td align="center" width="49%">
+							
+							
+							<a4j:commandButton 
+						            	id="salvaAllegato" styleClass="my-button"
+						            	action="#{ricercaDettaglioBck.saveAllegato662}" 
+						            	value="Salva" 
+						            	reRender="panelVisualizzaAllegato"
+						            	rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">
+				     			</a4j:commandButton> 
+							
+		             	</td>
+					</tr>
+							<tr>
+				             	<td align="center" width="49%">
+									<a4j:outputPanel layout="block" id="panelVisualizzaAllegato" >
+									
+									<c:if test="#{ricercaDettaglioBck.flgVisualizzaAllegato == true}">
+									<h:commandLink onclick="window.open('openPdfSrv?nomePdf=#{ricercaDettaglioBck.tempPathDocB}&amp;formato=4', '_blank', 'scrollbars=auto, resizable=yes, width=0, height=0, toolbar=no, menubar=no, status=no')"
+												onmouseup="rich:component('modello662Panel')}.hide();"
+						           				rendered="#{ricercaDettaglioBck.bodIstruttoriaSwitch.disabledPresaInCarico and !ricercaDettaglioBck.bodIstruttoria.chiusa and ricercaDettaglioBck.bodIstruttoriaSwitch.operatoreAutorizzato}">
+											    <h:outputText value="Visualizza Allegato"/>
+									</h:commandLink>
+									</c:if>
+									</a4j:outputPanel>
+				             	</td>
+							</tr>
+			        </table>  
+		        </h:form>
+		    </rich:modalPanel>
+		    
+</ui:composition>
+		    

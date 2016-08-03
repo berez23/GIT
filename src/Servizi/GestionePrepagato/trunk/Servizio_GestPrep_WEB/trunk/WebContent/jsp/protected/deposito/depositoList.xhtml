@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition>
+		<h:form>
+			<rich:messages passedLabel="Operazione completata" layout="list">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+
+
+			<rich:dataTable width="600" var="dep" value="#{depositoBean.depositoList}"
+				id="depTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				>
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Importo" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Data Deposito" />
+						</rich:column>								
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{dep.importoDep}" />
+				</rich:column>					
+				<rich:column>
+					<h:outputLabel value="#{dep.dataDep}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{depositoBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>				
+				
+							
+			</rich:dataTable>
+
+			<rich:spacer height="15px" />
+			
+			<a4j:commandLink ajaxSingle="true" id="addlinkelemDep"
+	                    		  oncomplete="#{rich:component('panelCreaDeposito')}.show()"
+	                        	  reRender="panelCreaDeposito">
+	                      	     Aggiungi
+	                  <a4j:actionparam name="idDep" value="#{depositoBean.idSoggetto}" assignTo="#{depositoBean.deposito.idSoggetto}" />  
+	            </a4j:commandLink>
+	      </h:form>
+	      
+	      
+			<rich:modalPanel id="panelCreaDeposito" >
+				<f:facet name="header">
+					<h:outputText value="Crea nuovo deposito"></h:outputText>
+				</f:facet>
+			    	
+				<f:facet name="controls">
+		        	<h:panelGroup>
+		           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelCreaDeposito"/>
+		           		<rich:componentControl for="panelCreaDeposito" attachTo="hidelinkPanelCreaDeposito" operation="hide" event="onclick"/>
+		       		</h:panelGroup>
+		 		</f:facet>
+		 		     	 <h:form id="formCreaTar">
+		 		     	    <h:inputHidden value="#{depositoBean.deposito.idSoggetto}" />
+		 		     	 	<h:panelGrid columns="2">
+		 		     	 		<h:outputText value="Importo" />
+		 		     	 		<h:inputText value="#{depositoBean.deposito.importoDep}" />
+		 		     	 	</h:panelGrid>
+		 		     	 	<a4j:commandButton action="#{depositoBean.doSave}" value="Crea" reRender="depTable" />
+						</h:form> 		     	      		
+			</rich:modalPanel>		
+		
+			      
+	
+	</ui:composition>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>SQL ricerca via</comment>
+	<entry key="sqlRicercaXvia">
+	<![CDATA[
+		select  distinct v.PREFISSO || ' ' || v.NOME as VIA, c.CIVICO,
+		u.FOGLIO, u.PARTICELLA
+		from sitidstr v, siticivi c, siticivi_uiu cu, sitiuiu u, siticomu com
+		where 
+		com.CODI_FISC_LUNA = ?
+		AND c.COD_NAZIONALE = com.COD_NAZIONALE
+		and 'v.PREFISSO =' <> ?
+		and upper(v.NOME) like upper(?)
+		and c.CIVICO = ?
+		and c.PKID_STRA = v.PKID_STRA
+		and c.COD_NAZIONALE  = v.COD_NAZIONALE 
+		and cu.PKID_CIVI = c.PKID_CIVI
+		and u.PKID_UIU = cu.PKID_UIU
+		order by VIA, CIVICO
+	]]>
+	</entry>	
+</properties>	

@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+
+		<h:form>
+			<rich:messages passedLabel="Operazione completata" layout="list">
+				<f:facet name="infoMarker">
+					<h:graphicImage value="/images/passed.gif" />
+				</f:facet>
+				<f:facet name="errorMarker">
+					<h:graphicImage value="/images/error.gif" />
+				</f:facet>
+			</rich:messages>
+
+
+			<rich:panel>
+				<f:facet name="header">Criteri di ricerca</f:facet>
+				<h:panelGrid columns="6">
+					<h:outputLabel value="Nome" />
+					<h:inputText
+						value="#{operazioniListDataModel.criteria.nome}" />
+
+					<h:outputLabel value="Cognome" />
+					<h:inputText value="#{operazioniListDataModel.criteria.cognome}" />
+
+
+					<h:outputLabel value="Codice fiscale" />
+					<h:inputText value="#{operazioniListDataModel.criteria.codFisc}" />
+
+					<h:outputLabel value="Denominazione" />
+					<h:inputText value="#{operazioniListDataModel.criteria.denom}" />
+
+					<h:outputLabel value="P. Iva" />
+					<h:inputText value="#{operazioniListDataModel.criteria.pIVA}" />
+
+				</h:panelGrid>
+
+				<a4j:commandLink reRender="operTable, tableScroller">
+					<h:outputLabel value="Ricerca" />
+				</a4j:commandLink>
+			</rich:panel>
+
+			<rich:spacer height="15px" />
+
+			<rich:dataTable width="800" var="oper" value="#{operazioniListDataModel}"
+				id="operTable" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+				rows="30">
+				<f:facet name="header">
+					<rich:columnGroup>
+						<rich:column>
+							<h:outputText value="Cognome/Denominazione" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Nome" />
+						</rich:column>
+						<rich:column>
+							<h:outputText value="Cod. Fiscale/P. IVA" />
+						</rich:column>
+						<rich:column>Visura</rich:column>
+						<rich:column>Tariffa</rich:column>
+						<rich:column>Data operaz.</rich:column>
+					</rich:columnGroup>
+				</f:facet>
+				<rich:column>
+					<h:outputLabel
+						value="#{oper.soggetto.cognome} #{oper.soggetto.denomSoc}" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{oper.soggetto.nome}" />
+				</rich:column>
+				<rich:column>
+					<h:outputLabel value="#{oper.soggetto.codFis} #{oper.soggetto.parIva}" />
+				</rich:column>
+				
+				<rich:column>
+					<h:outputLabel value="#{oper.visura.descr}"/>
+				</rich:column>
+
+				<rich:column>
+					<h:outputLabel value="#{oper.tariffa.tariffa}"/>
+				</rich:column>
+				
+				<rich:column>
+					<h:outputLabel value="#{oper.operazione.dataOperaz}">
+						<f:convertDateTime pattern="dd/MM/yyyy hh:mm" timeZone="#{tariffaBean.timeZone}"/>
+					</h:outputLabel>
+				</rich:column>
+				
+			</rich:dataTable>
+
+			<rich:datascroller id="tableScroller" align="center" for="operTable" />		
+	      </h:form>
+	      
+	      
+					
+	      
+		</ui:define>
+	</ui:composition>
+</html>

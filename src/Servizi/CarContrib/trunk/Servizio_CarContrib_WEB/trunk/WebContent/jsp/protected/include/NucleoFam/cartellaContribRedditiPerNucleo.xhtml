@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+<ui:composition>
+	<c:if test="#{empty contribuenteBean.numeroSoggettiRedditi or contribuenteBean.numeroSoggettiRedditi=='0'}" >
+		<f:facet name="label">
+			<h:outputText value="Redditi" />
+		</f:facet>
+		<rich:spacer height="20px" />
+		<div style="height:60px;">
+			<h:outputText value="DATI NON TROVATI" styleClass="titoloNero" style="font-weight: bold" />
+		</div>
+	</c:if>
+	<c:if test="#{not empty contribuenteBean.numeroSoggettiRedditi and contribuenteBean.numeroSoggettiRedditi!='0'}" >
+		<c:if test="#{contribuenteBean.numeroSoggettiRedditi=='1'}" >
+			<f:facet name="label">
+				<h:outputText value="Redditi" />
+			</f:facet>
+		</c:if>	
+		<c:if test="#{contribuenteBean.numeroSoggettiRedditi=='2'}" >
+			<f:facet name="label">
+				<h:outputText value="Redditi (!)"/>
+			</f:facet>
+			<span>
+				<table style="width:100%">
+					<tr>
+						<td style="height:40px;" align="center">
+							<a4j:commandLink 
+						    	ajaxSingle="true" 
+						    	value="Altri soggetti trovati" 
+						    	reRender="altriSoggRedditiPanelPerNucleo" 
+						    	oncomplete="#{rich:component('altriSoggRedditiPanelPerNucleo')}.show()">
+							</a4j:commandLink>				
+						</td>
+					</tr>
+					<c:if test="#{contribuenteBean.labelDatiSoggettoRedditi ne ''}" >
+						<tr>
+							<td style="height:10px;" align="center">
+								<h:outputText value="#{contribuenteBean.labelDatiSoggettoRedditi}"/>
+							</td>
+						</tr>
+					</c:if>						
+				</table>
+			</span>
+		</c:if>	
+		<a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Dettaglio_Cartella_Redditi.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a>
+		<div>
+			<h:panelGrid columns="1" width="100%">
+					<h:outputText value="#{contribuenteBean.redditiFonte.strDataAgg}"/>
+					<h:outputText value="#{contribuenteBean.redditiFonte.nota}"/>
+			</h:panelGrid>
+		</div>		
+		<rich:panel>
+			<f:facet name="header"><h:outputText value="DATI ANAGRAFICI DICHIARATI"/></f:facet>
+			<table border="0" style="width:100%" cellspacing="1" class="#{contribuenteBean.redditiFonte.coloreJsp}">
+		           <tbody>
+		           	<tr>
+		           		<td style="width:30%;"> 
+		           			<h:outputText value="Denominazione" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.denominazioneRedditi}"/></span>
+		           		</td>
+		           	</tr>
+		           	<tr>
+		           		<td>
+		           			<h:outputText value="#{contribuenteBean.descLabelIndirizzoRedditi}" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.indirizzoRedditi}" /></span>
+		           		</td>
+		           	</tr>
+		           	<tr>
+		           		<td>
+		           			<h:outputText value="#{contribuenteBean.labelDescTipoSogg}" styleClass="labelDesc" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.codFiscalePIVARedditi}" /></span>
+		           		</td>
+		           	</tr>
+		           	<tr>
+		           		<td>
+		           			<h:outputText value="Domicilio Fiscale Attuale / Dichiarato" styleClass="labelDesc" style="width:250px;" />
+		           		</td>
+		           		<td>
+		           			<span class="labelOutPut"><h:outputText value="#{contribuenteBean.domicilioFiscaleRedditi}" /></span>
+		           		</td>
+		           	</tr>					            	
+		           </tbody>
+			</table>	  				
+		</rich:panel>
+		<rich:spacer height="20px" />
+		<rich:panel >
+			<f:facet name="header">REDDITI DICHIARATI</f:facet>
+			<rich:dataTable width="100%"
+		        	var="red"
+		        	value="#{contribuenteBean.listaRedditi}"
+		        	columnClasses="col" 
+		        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+					onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'" 
+					rowClasses="#{contribuenteBean.redditiFonte.coloreJsp}">
+				<rich:column style="text-align:left">
+					<f:facet name="header"><h:outputText value="DESCRIZIONE QUADRO" /></f:facet>
+					<h:outputLabel value="#{red.desQuadro}" />
+				</rich:column>					
+				<rich:column style="text-align:right;">
+					<f:facet name="header"><h:outputText value="VALORE CONTABILE" /></f:facet>
+					<h:outputLabel value="#{red.valoreContabileF}" />
+				</rich:column>					            
+				<rich:column>
+					<f:facet name="header"><h:outputText value="ANNO IMPOSTA" /></f:facet>
+					<h:outputLabel value="#{red.id.annoImposta}" />
+				</rich:column>				
+			</rich:dataTable>	
+		</rich:panel>
+	</c:if>
+</ui:composition>
+</html>

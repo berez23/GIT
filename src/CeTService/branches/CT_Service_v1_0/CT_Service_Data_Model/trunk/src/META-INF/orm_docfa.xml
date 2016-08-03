@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+
+<!-- Query DocfaDatiCensuari -->
+	<named-query name="DocfaDatiCensuari.getDocfaDatiCensuariByFPS">
+		<query>
+			<![CDATA[
+				SELECT d FROM DocfaDatiCensuari d 
+				WHERE d.foglio = lpad(:foglio,4,'0') 
+				AND d.numero = lpad(:particella,5,'0') 
+				AND d.subalterno = lpad(:subalterno,4,'0')
+			 ]]>
+		</query>
+	</named-query>
+	
+</entity-mappings>

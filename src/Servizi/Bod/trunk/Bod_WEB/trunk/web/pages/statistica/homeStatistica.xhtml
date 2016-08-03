@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+      	
+<style>
+	.optionList {
+	  height:22px;
+	}
+	.vertical-menu-cell {
+	    padding:0px 4px 0px 4px;
+	}
+
+
+
+</style>
+
+
+			<ui:define name="pageTitle">Statistiche</ui:define>
+  
+			<!--  <ui:define name="pageHeader">Facelets Hello Application Statistiche</ui:define> -->
+
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			<script type="text/javascript" src="#{ctxName}/js/statisticaFiltro.js"></script>
+			<rich:hotKey key="return" handler="#{rich:element('btnRicerca')}.click()"/>
+			
+			<rich:panel style="padding:5; width : 810px; position: relative; height: 500px; overflow-x: hidden">
+		        <f:facet name="header">
+   		               <h:outputText value="Diagnostiche Filtro Generale" />
+		        </f:facet>
+				<a4j:outputPanel ajaxRendered="true" layout="block" >
+					<table border="0" style=" width : 650px;" cellspacing="5">
+		                <tr style="">
+		                	<td align="center" style="width: 234px">
+			                	 <h:outputText value="Residenziali" style="font-weight: bold"/>
+	                        </td>
+		                        <td align="left" style="width: 10px">
+		                          <h:selectBooleanCheckbox 
+										id="chkResidenziali" 
+										value="#{statisticaFiltroBck.rdoDiagnosticaRes}">
+									<a4j:support 
+										ajaxSingle="false" 
+										action="#{statisticaFiltroBck.validateDiagnoRes}"
+										event="onclick"/>
+							</h:selectBooleanCheckbox>
+	                        </td>
+	                       	<td align="center" style="width: 160px">
+		                        <h:outputText value="Fornitura Dal" />
+		                     </td>
+		                     <td align="center" style="width: 198px">
+		                        <rich:calendar 
+											id="txtFornituraResDal" 
+											value="#{statisticaFiltroBck.txtFornituraResDal.selectedDate}"
+					                        popup="true"
+					                        datePattern="dd/MM/yyyy"
+					                        showApplyButton="false" 
+					                        cellWidth="24px" 
+					                        cellHeight="22px" 
+					                        style="width:220px"
+					                        enableManualInput="true"
+					                        inputStyle="width:100px; position:relative"/>
+		                     </td>
+		                     <td align="center"  style="width: 160px">
+	                            <h:outputText value="Fornitura Al" />
+		                     </td>
+		                     <td align="center" style="width: 198px;">
+									<rich:calendar 
+												id="txtFornituraResAl" 
+												value="#{statisticaFiltroBck.txtFornituraResAl.selectedDate}"
+						                        popup="true"
+						                        datePattern="dd/MM/yyyy"
+						                        showApplyButton="false" 
+						                        cellWidth="24px" 
+						                        cellHeight="22px" 
+						                        style="width:220px"
+						                        enableManualInput="true"
+						                        inputStyle="width:100px; position:relative"/>
+		                        </td>
+                        </tr>
+                        <tr style="">
+	                        <td align="center" colspan="6">
+	        					<rich:spacer height="15px"/>
+	                        </td>
+                        </tr>
+		                <tr style="">
+ 						<td align="center">
+		                	<h:outputText value="Non Residenziali" style="font-weight: bold"/>
+                        </td>
+	                        <td align="left">
+								<h:selectBooleanCheckbox 
+											id="chkNonResidenziali" 
+											value="#{statisticaFiltroBck.rdoDiagnosticaNonRes}">
+										<a4j:support 
+											ajaxSingle="false" 
+											action="#{statisticaFiltroBck.validateDiagnoNonRes}"
+											event="onclick"/>
+								</h:selectBooleanCheckbox>
+	                        </td>
+	                       	<td align="center">
+		                        <h:outputText value="Fornitura Dal" />
+		                     </td>
+		                     <td align="center">
+		                        <rich:calendar 
+											id="txtFornituraNonResDal" 
+											value="#{statisticaFiltroBck.txtFornituraNonResDal.selectedDate}"
+					                        popup="true"
+					                        datePattern="dd/MM/yyyy"
+					                        showApplyButton="false" 
+					                        cellWidth="24px" 
+					                        cellHeight="22px" 
+					                        style="width:220px"
+					                        enableManualInput="true"
+					                        inputStyle="width:100px; position:relative"/>
+		                     </td>
+		                     <td align="center" >
+	                            <h:outputText value="Fornitura Al" />
+		                     </td>
+		                     <td align="center" >
+									<rich:calendar 
+												id="txtFornituraNonResAl" 
+												value="#{statisticaFiltroBck.txtFornituraNonResAl.selectedDate}"
+						                        popup="true"
+						                        datePattern="dd/MM/yyyy"
+						                        showApplyButton="false" 
+						                        cellWidth="24px" 
+						                        cellHeight="22px" 
+						                        style="width:220px"
+						                        enableManualInput="true"
+						                        inputStyle="width:100px; position:relative"/>
+		                        </td>
+                        </tr>
+		             </table>
+				</a4j:outputPanel>
+	       </rich:panel>
+			       
+			</ui:define>
+			
+			<ui:define name="modalPanel">
+			</ui:define>
+
+			<ui:define name="footer">
+				
+				<table style="width : 810px; position: relative">
+					<tr>
+					<td width="20%" align="left">
+				        <h:commandButton 
+				        	id="btnReset" 
+				        	styleClass="my-button" 
+				        	value="Reset Filtro" 
+				        	style="width:100px" 
+				        	type="reset"
+				        	action="javascript:frmMain.reset()"/>
+					</td>
+					<td width="20%">
+					
+					</td>
+					<td width="20%" align="center">
+						<a4j:commandButton 
+							id="btnRicerca" 
+							styleClass="my-button" 
+							value="Cerca" 
+							style="width:150px" 
+							action="#{statisticaFiltroBck.ricerca}" 
+							onclick="javascript:sottometti();"/>
+					</td>
+					<td width="20%" align="center">
+
+					</td>
+					<td width="20%">
+					
+					</td>
+					</tr>
+				</table>
+				
+			</ui:define>
+		</ui:composition>
+</html>
+      

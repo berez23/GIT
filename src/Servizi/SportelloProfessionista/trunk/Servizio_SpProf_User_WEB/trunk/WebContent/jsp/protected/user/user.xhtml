@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:form id="userForm">
+	<div align="left" style="float: left;">
+		<h:panelGrid columns="1" cellpadding="0">
+			<rich:spacer height="10px"/>
+			<a4j:commandLink action="#{pageBean.goInterventi}"
+				value="Torna ad Interventi" reRender="upPage, leftPage, userPage"
+				style="font-weight: bold" rendered="#{pageBean.pageLeft eq '/jsp/protected/dettaglio/dati.xhtml'}"/>
+		</h:panelGrid>
+	</div>
+	<div align="right" style="float: right;">
+		<h:panelGrid columns="4">
+			<h:outputLabel value="ENTE:" style="font-weight: bold" />
+			<h:outputLabel value="#{userBean.nomeEnte}" />
+			<h:outputLabel value="UTENTE:" style="font-weight: bold" />
+			<h:outputLabel value="#{userBean.username}" />
+		</h:panelGrid>
+		<h:commandLink action="#{userBean.doLogout}" value="Logout"
+			style="font-weight: bold" />
+	</div>
+</h:form>
+<rich:spacer height="2px" width="500px"/>
+
+</html>

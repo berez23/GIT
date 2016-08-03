@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+  <ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="navInfo">
+				Dettaglio Contabile Ruolo - Flusso Ruoli Vistati
+    </ui:define>
+
+	<ui:define name="content">
+      <h:form>
+       <rich:panel>
+    		   <rich:dataTable value="#{flusso750Bean.infoRuolo.infoFrontespizioList}" var="fronte"
+    		   				   width="750">
+		   		 <f:facet name="header">
+		   		   <rich:columnGroup>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Ruolo" />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Anno rif." />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Tipo entrata" />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Cod. entrata" />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Capo" />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Capitolo" />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Articolo" />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Totale imp. art." />
+		   		     	</rich:column>
+		   		     	<rich:column>
+		   		     		<h:outputText value="Totale imp. art. carico benef." />
+		   		     	</rich:column>
+		   		   </rich:columnGroup>
+		   		 </f:facet>
+		   		  
+				<rich:column>
+		   		 	<h:outputText value="#{fronte.chiaveRuolo.progressivoRuolo}/#{fronte.chiaveRuolo.annoRuolo}" />
+		   		 </rich:column>		   		  
+		   		 <rich:column>
+		   		 	<h:outputText value="#{fronte.annoRiferimento}" />
+		   		 </rich:column>  
+		   		 <rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code" value="#{fronte.codTipoEntrata}"
+                        		           assignTo="#{CNCToolTipBean.codiceTipoEntrataCode}" />
+                    
+							<h:outputText value="#{fronte.codTipoEntrata}" />
+					</a4j:commandLink>                        			 			
+			   		 
+		   		 	
+		   		 </rich:column>  
+		   		 <rich:column>
+					<a4j:commandLink ajaxSingle="true"
+									 oncomplete="Richfaces.showModalPanel('panelPopup', {height:'150px', width:'300px'})"
+                   				     reRender="panelPopup">
+					 	  <a4j:actionparam name="code1" value="#{fronte.codEntrata}"
+                        		         assignTo="#{CNCToolTipBean.codiceEntrataCode}" />
+                    
+					    <h:outputLabel value="#{fronte.codEntrata}"/>
+					</a4j:commandLink>        	
+ 		   		 </rich:column>  
+		   		 <rich:column>
+		   		 	<h:outputText value="#{fronte.capo}" />
+		   		 </rich:column>  
+		   		 <rich:column>
+		   		 	<h:outputText value="#{fronte.capitolo}" />
+		   		 </rich:column>  
+		   		 <rich:column>
+		   		 	<h:outputText value="#{fronte.articolo}" />
+		   		 </rich:column>  
+		   		 <rich:column>
+		   		 	<h:outputText value="#{fronte.totImpArtRuoBenef / 100 }" />
+		   		 </rich:column>  
+		   		 <rich:column>
+		   		 	<h:outputText value="#{fronte.totImpCarBenef / 100 }" />
+		   		 </rich:column>  
+    		   	    
+    		   </rich:dataTable>
+    		</rich:panel> 
+    		
+   	 		 <a4j:commandLink action="#{flusso750Bean.doGotoListRuoli}">
+    	  		Indietro    	  
+    		 </a4j:commandLink>
+     		  
+      </h:form>
+      
+      <ui:include src="../include/descrizioneCodici.xhtml" />
+      
+     </ui:define>
+  </ui:composition>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	<ui:composition>
+	<h:form id="formIstrPra">
+	<h:panelGrid columns="1" width="100%" id="detIstrPra"> 
+		<rich:panel>
+			<h:panelGrid columns="1" >
+			   <h:panelGrid columns="2">
+				    <h:outputLabel value="Irregolarit&#x00E0; riscontrata" style="font-weight: bold;" />
+				     <h:selectOneMenu id="irrPra" value="#{detailBean.dtoGesPratica.datiPratica.pratica.codIrregAccertata}" style=" width : 400px;">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{irregIstruttoriaSuggestionBean.listaIrregolarita}" />
+							<rich:toolTip direction="top-left" mode="client" layout="inline" 
+										value="Irregolarita riscontrata" />		
+					</h:selectOneMenu> 
+				
+					<h:outputLabel value="Nota" style="font-weight: bold;" />
+					<h:inputTextarea id="notaIstr1" value="#{detailBean.dtoGesPratica.datiPratica.pratica.notaIstruttoria}" style=" width : 400px;">
+						<f:validateLength maximum="500"></f:validateLength> 
+					</h:inputTextarea>
+				 	<h:outputLabel value="Notificato al titolare" style="font-weight: bold;"/>
+					<h:selectBooleanCheckbox
+						 title="notificaTit1"  value="#{detailBean.dtoGesPratica.datiPratica.flNotificatoTit}" immediate="false" >
+					</h:selectBooleanCheckbox>	
+					<h:outputLabel value="Notificato AdT" style="font-weight: bold;"/>
+					<h:selectBooleanCheckbox
+						 title="notificaAdt1"  value="#{detailBean.dtoGesPratica.datiPratica.flNotificatoAdt}" >
+					</h:selectBooleanCheckbox> 
+				    <a4j:commandButton id="saveIstr" value="Salva" 
+							action="#{detailBean.doSalvaGesIstr}" 
+							reRender="detGesIstr" >
+					</a4j:commandButton>
+					<a4j:commandButton id="chiudiGesIstr" value="Chiudi"
+			            oncomplete="Richfaces.hideModalPanel('panelDetIstr')"/>
+					
+				</h:panelGrid>
+			</h:panelGrid>
+		</rich:panel>
+	</h:panelGrid>	
+</h:form>
+</ui:composition>
+</html>

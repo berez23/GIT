@@ -1,0 +1,10 @@
+custom=true
+manager.url=http://10.196.128.18:9090/manager
+muidb.url=jdbc:oracle:thin:@10.196.128.16:1521:dbcat
+muidb.driver=oracle.jdbc.driver.OracleDriver
+muidb.username=MUI
+muidb.password=MANMUI
+muidb.tablespace=MILANO
+muidb.dba.username=SYSTEM
+muidb.dba.password=MANAGER
+

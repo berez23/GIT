@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" 
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+      
+   		<f:loadBundle basename="resources" var="msg" />
+		<head>
+		<title></title>
+
+
+</head>
+
+<body >
+	<a4j:form id="frmPdf" ajaxSubmit="true" >
+	<div id="content" align="center">
+
+<!-- C:/Dati_Diogene/F205/docfa_pdf/200601/MI0004613.pdf -->
+			<a4j:mediaOutput
+			           		id="pdfOut"
+			           		name="pdfOut" 
+			           		width="100%"
+	                        height="100%"
+			           		standBy="loading..."
+			           		element="embed" uriAttribute="src" type="application/pdf"
+			            	cacheable="false" 
+			            	session="true"
+	        				createContent="#{ricercaDettaglioBck.loadPDF}" 
+	        				mimeType="application/pdf"/>
+
+	</div>
+	</a4j:form>	
+</body>
+		
+</html>
+ 
+
+			
+

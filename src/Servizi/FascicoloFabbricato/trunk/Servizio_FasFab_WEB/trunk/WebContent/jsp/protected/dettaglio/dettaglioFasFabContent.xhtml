@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition >
+				
+					<rich:panel>
+			    		<table style="background-color='#D1E0EB'" width="100%">
+				    			<tr>
+				    				<td>
+				    					<h:outputText value="FOGLIO " styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value="#{dettaglioFasFabBean.rich.foglio}" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value=" PARTICELLA " styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value="#{dettaglioFasFabBean.rich.particella}" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value=" SITUAZIONE AL  " styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    					<h:outputText value="#{dettaglioFasFabBean.rich.dtRif}"  >
+				    						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{dettaglioFasFabBean.timeZone}"/>
+				    					</h:outputText>
+				    				</td>
+				    				<td colspan="2">&nbsp;</td>
+				    								    			   
+				    				<td>
+				    					<h:outputText value=" Individuazione Territoriale  " styleClass="myLabel" />
+				    				</td>
+				    				<td>
+				    				 	<div style="height:40px; overflow:auto;">
+				    							<h:dataTable   value="#{dettaglioFasFabBean.listaIndirizzi}" var="ind">
+													<h:column >
+														<h:outputLabel value="#{ind.strada}"  /> , <h:outputLabel value="#{ind.numCivico}"  /> 
+													</h:column>
+												</h:dataTable> 
+										</div>		
+				    				</td>
+				    				<td>
+				    					<h:form>
+				    					   <table>
+				    					    <tr>
+				    					     <td>
+				 	     		    				<a4j:commandLink ajaxSingle="true" 
+				 	     		    							     action="#{pdfBean.doPrepare}"
+				 	     		    				  				 oncomplete="Richfaces.showModalPanel('panelPDF')"
+				 	     		    								 reRender="panelPDF"
+				 	     		    								 rendered="#{createPDF}"
+				 	     		    								 id="linkPdf">
+					 	     		    						Crea PDF
+					
+					 	     		    				<a4j:actionparam id="usr" name="username" value="#{userBean.user.username}" assignTo="#{pdfBean.username}"/>
+					 	     		    				<a4j:actionparam id="dtRif" name="dtRif" value="#{filtroBean.richiestaSelezionata.richiesta.strDataRif}" assignTo="#{pdfBean.dataRif}" />
+					 	     		    				<a4j:actionparam id="dtRich" name="dtRich" value="#{filtroBean.richiestaSelezionata.richiesta.strDataRichiesta}" assignTo="#{pdfBean.dataRichiesta}" />
+					 	     		    				<a4j:actionparam id="cogn" name="cogn" value="#{filtroBean.richiestaSelezionata.richiesta.cognome} #{filtroBean.richiestaSelezionata.richiesta.nome}" assignTo="#{pdfBean.soggRichiedente}"/>
+					 	     		    				<a4j:actionparam id="idRich" name="idRich" value="#{filtroBean.richiestaSelezionata.richiesta.idRichiesta}" assignTo="#{pdfBean.idRich}"/>
+														<a4j:actionparam id="idSoggRic" name="idSoggRic" value="#{filtroBean.richiestaSelezionata.richiesta.idSoggettoRichiedente}"  assignTo="#{pdfBean.idSoggRichiedente}"	/>
+								 	     		    	<a4j:actionparam id="sez" name="sez" value="#{filtroBean.richiestaSelezionata.richiesta.sezione}" assignTo="#{pdfBean.sezione}" />
+								 	     		    	<a4j:actionparam id="fog" name="fog" value="#{filtroBean.richiestaSelezionata.richiesta.foglio}" assignTo="#{pdfBean.foglio}"/>
+								 	     		    	<a4j:actionparam id="part" name="part" value="#{filtroBean.richiestaSelezionata.richiesta.particella}" assignTo="#{pdfBean.particella}"/>
+								 	     		    	
+								 	     		    	
+							 	     			    </a4j:commandLink>
+		 	    				 		  	  
+													<a4j:commandLink ajaxSingle="true" 
+				 	     		    							     action="#{pdfBean.doPrepare}"
+				 	     		    				  				  oncomplete="Richfaces.showModalPanel('panelPDFRich')"
+				 	     		    								 reRender="panelPDFRich"
+				 	     		    								 rendered="#{createPDFRich}"
+				 	     		    								 id="linkPdfRich">
+					 	     		    						Crea PDF
+					
+					 	     		    							 	     		    				
+			
+							 	     			    </a4j:commandLink> 	
+					 	     			    </td>
+					 	     			    <td>
+					 	     			    
+					 	     			    	<a4j:commandLink value="Mappa" onclick="zoomInMappaParticelle('#{userBean.ente}','#{filtroBean.richiestaSelezionata.richiesta.foglio}','#{filtroBean.richiestaSelezionata.richiesta.particella}')" rendered ="false"/>
+					 	     			  	 </td>
+					 	     			    </tr>
+					 	     			    </table> 				 		  	  
+ 	 				    			 </h:form>
+ 	 				    			 
+									   			 
+				    				</td>
+				    			</tr>
+				    			
+				    		</table>
+					</rich:panel>
+				
+					<rich:tabPanel id="ajaxTab" switchType="client"  selectedTab="ajaxUno" >
+						<rich:tab id="ajaxUno" label="Catasto" >
+							<a4j:support event="ontabenter" ajaxSingle="true" reRender="catastoPanel" action="#{catastoBean.doSwitch}" >
+						    	<a4j:actionparam id="sez" name="sezionedt1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{catastoBean.sezione}"/>
+						    	<a4j:actionparam id="par" name="partict1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{catastoBean.particella}"/>
+						    	<a4j:actionparam id="fog" name="fogliodt1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{catastoBean.foglio}"/>
+								<a4j:actionparam id="dtc" name="dtvalc1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{catastoBean.dataRifStr}"/>
+								
+								<a4j:actionparam id="sezD" name="sezionedt1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{docfaBean.sezione}"/>
+						    	<a4j:actionparam id="parD" name="partict1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{docfaBean.particella}"/>
+						    	<a4j:actionparam id="fogD" name="fogliodt1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{docfaBean.foglio}"/>
+						    	<a4j:actionparam id="dtricD" name="dtRicdt1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{docfaBean.dataRifStr}"/>
+						    	<a4j:actionparam id="docfaPart" name="docfaParticella" value="" assignTo="#{docfaBean.docfaParticella}"/>
+						    	
+						    	<a4j:actionparam id="sezP" name="sezionedt1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{pregeoBean.sezione}"/>
+						    	<a4j:actionparam id="parP" name="partict1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{pregeoBean.particella}"/>
+						    	<a4j:actionparam id="fogP" name="fogliodt1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{pregeoBean.foglio}"/>
+						    	<a4j:actionparam id="dtricP" name="dtRicdt1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{pregeoBean.dataRifStr}"/>
+						    	<a4j:actionparam id="datiPregeo" name="listaDatiPregeo" value="" assignTo="#{pregeoBean.listaDatiPregeo}"/>
+						    
+						    	<a4j:actionparam id="sezC" name="sezionedt1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{compravenditeBean.sezione}"/>
+						    	<a4j:actionparam id="parC" name="partict1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{compravenditeBean.particella}"/>
+						    	<a4j:actionparam id="fogC" name="fogliodt1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{compravenditeBean.foglio}"/>
+						    	<a4j:actionparam id="dtrifC" name="dtRifC" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{compravenditeBean.dataRifStr}"/>
+						    	<a4j:actionparam id="datiCompravendite" name="compravendite" value="" assignTo="#{compravenditeBean.compravenditeParticella}"/>
+						    	
+						    </a4j:support>
+						<div style="#{divStyle}">						    
+								<ui:include src="catasto.xhtml" />
+						</div>
+			  			</rich:tab>
+						<rich:tab id="ajaxDue" label="Dati Tecnici">
+							<a4j:support event="ontabenter" ajaxSingle="true" reRender="datiTecniciPanelCondono,datiTecniciPanelConc,datiTecniciPanelVisure,datiTecniciUlteriori" action="#{datiTecniciBean.doSwitch}">
+						    	<a4j:actionparam id="sdt1" name="sezionedt1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{datiTecniciBean.sezione}"/>
+						    	<a4j:actionparam id="pdt1" name="partict1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{datiTecniciBean.particella}"/>
+						    	<a4j:actionparam id="fdt1" name="fogliodt1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{datiTecniciBean.foglio}"/>
+						    	<a4j:actionparam id="dtt1" name="dtvalt1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{datiTecniciBean.dataRifStr}"/>
+
+						    </a4j:support>
+						    <div style="#{divStyle}">						    
+								<ui:include src="./dettaglioDatiTecnici.xhtml" />
+							</div>
+			  			</rich:tab>
+						<rich:tab id="ajaxTre" label="Stato Occupaz." >
+						    <a4j:support event="ontabenter" ajaxSingle="true" reRender="statoOccRes, statoOccLoc,statoOccLicCom" action="#{statoOccupazioneBean.doSwitch}">
+						    	<a4j:actionparam id="sdo1" name="sezionedo1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{statoOccupazioneBean.sezione}"/>
+						    	<a4j:actionparam id="pdo1" name="partico1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{statoOccupazioneBean.particella}"/>
+						    	<a4j:actionparam id="fdo1" name="fogliodo1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{statoOccupazioneBean.foglio}"/>
+						    	<a4j:actionparam id="dto1" name="dtvalo1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{statoOccupazioneBean.dataRifStr}"/>
+						    </a4j:support>
+						    <div style="#{divStyle}">
+								<ui:include src="./dettaglioStatoOccupazione.xhtml" />
+						  	</div>						
+			  			</rich:tab>
+						<rich:tab id="ajaxQuattro" label="Tributi">
+							<a4j:support event="ontabenter" ajaxSingle="true" reRender="tributiPanelIci,tributiPanelTarsu,tributiPanelCosap" action="#{tributiBean.doSwitch}">
+						    	<a4j:actionparam id="str1" name="sezionetr1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{tributiBean.sezione}"/>
+						    	<a4j:actionparam id="ptr1" name="partictr1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{tributiBean.particella}"/>
+						    	<a4j:actionparam id="ftr1" name="fogliotr1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{tributiBean.foglio}"/>
+						    	<a4j:actionparam id="dtr1" name="dtvaltr1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{tributiBean.dataRifStr}"/>
+						    </a4j:support>
+						    <div style="#{divStyle}">
+								<ui:include src="./dettaglioTributi.xhtml" />
+							</div>
+			  			</rich:tab>	
+			  			<rich:tab id="ajaxCinque" label="Dati Cartografici">
+							<a4j:support event="ontabenter" ajaxSingle="true" reRender="datiCartografiaPanel" action="#{datiCartografiaBean.doSwitch}">
+						    	<a4j:actionparam id="sdc1" name="sezionedc1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{datiCartografiaBean.sezione}"/>
+						    	<a4j:actionparam id="pdc1" name="particdc1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{datiCartografiaBean.particella}"/>
+						    	<a4j:actionparam id="fdc1" name="fogliodc1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{datiCartografiaBean.foglio}"/>
+						    	<a4j:actionparam id="ddc1" name="dtvaldc1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{datiCartografiaBean.dataRifStr}"/>
+						    </a4j:support>
+						    <div style="#{divStyle}">
+								<ui:include src="./dettaglioDatiCartografia.xhtml" />
+							</div>
+			  			</rich:tab>
+			  			<rich:tab id="ajaxSei" label="Documenti">
+							<a4j:support event="ontabenter" ajaxSingle="true" reRender="planimetrieDocfaPanel,planimetrieC340Panel" action="#{documentiBean.doSwitch}">
+						    	<a4j:actionparam id="sdoc1" name="sezionedoc1" value="#{dettaglioFasFabBean.rich.sezione}" assignTo="#{documentiBean.sezione}"/>
+						    	<a4j:actionparam id="pdoc1" name="particdoc1" value="#{dettaglioFasFabBean.rich.particella}" assignTo="#{documentiBean.particella}"/>
+						    	<a4j:actionparam id="fdoc1" name="fogliodoc1" value="#{dettaglioFasFabBean.rich.foglio}" assignTo="#{documentiBean.foglio}"/>
+						    	<a4j:actionparam id="ddoc1" name="dtvaldoc1" value="#{dettaglioFasFabBean.dataRifStr}" assignTo="#{documentiBean.dataRifStr}"/>
+						    </a4j:support>
+						    <div style="#{divStyle}">
+								<ui:include src="./dettaglioDocumenti.xhtml" />
+							</div>
+			  			</rich:tab>						  			
+			  		</rich:tabPanel>							
+			
+			
+	<rich:modalPanel id="panelDettaglio" >
+		<f:facet name="header">
+			<h:outputText value="Dettaglio"></h:outputText>
+		</f:facet>
+	    	
+		<f:facet name="controls">
+        	<h:panelGroup>
+           		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelDettaglio"/>
+           		<rich:componentControl for="panelDettaglio" attachTo="hidelinkPanelDettaglio" operation="hide" event="onclick"/>
+       		</h:panelGroup>
+ 		</f:facet>
+ 		     	 <h:form id="form1">
+ 		     	 	<h:inputHidden value="#{uiPageBean.page}" />
+ 		     		<ui:include src="#{uiPageBean.page}" />
+				</h:form> 		     	      		
+	</rich:modalPanel>	
+	
+	
+				<rich:modalPanel id="panelPDFRich" height="500" width="400" >
+						<f:facet name="header">
+							<h:outputText value="Crea PDF"></h:outputText>
+						</f:facet>
+	    	
+		     			<f:facet name="controls">
+		          		<h:panelGroup>
+		              		<h:graphicImage value="/images/close.png" style="cursor:pointer" id="hidelinkPanelPDFRich"/>
+		              		<rich:componentControl for="panelPDFRich" attachTo="hidelinkPanelPDFRich" operation="hide" event="onclick"/>
+		          		</h:panelGroup>
+		 		     	</f:facet>
+		 		     	
+ 				
+ 	     			<ui:include src="../pdf/pdfOptionsRich.xhtml"/>
+
+			 </rich:modalPanel>		 	     		    
+	 		 	 	     		    
+	 		
+						
+						
+	
+	
+	</ui:composition>
+</html>

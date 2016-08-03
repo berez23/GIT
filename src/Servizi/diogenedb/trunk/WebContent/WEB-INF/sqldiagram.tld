@@ -1,0 +1,198 @@
+<?xml version="1.0" ?>
+<!DOCTYPE taglib
+	PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+	"http://java.sun.com/dtd/web-jsptaglibrary_1_2.dtd">
+	
+<taglib>
+
+	<tlib-version>0.01</tlib-version>
+	<jsp-version>1.2</jsp-version>
+	<short-name>sqldiagram</short-name>
+	<uri>http://www.webred.it/faces</uri>
+	<description>Libreria di Tag per il progetto Diogene/SqlDiagram</description>
+	
+	<tag>
+		<name>table</name>
+		<tag-class>it.webred.faces.tags.QBTablePaneTag</tag-class>
+		
+		<attribute>
+			<name>id</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>binding</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>rendered</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>action</name>
+			<description>Come per gli altri UICommand</description>
+		</attribute>	
+	
+		<attribute>
+			<name>actionListener</name>
+			<description>Come per gli altri UICommand</description>
+		</attribute>	
+	
+		<attribute>
+			<name>styleClass</name>
+			<description>Classe CSS del blocco che comprende tutta la tabella</description>
+		</attribute>	
+	
+		<attribute>
+			<name>frameId</name>
+			<required>true</required>
+			<description>ID della tabella</description>
+		</attribute>	
+	
+		<attribute>
+			<name>frameName</name>
+			<required>true</required>
+			<description>Nome della tabella, che viene visualizzato nell'intestazione</description>
+		</attribute>	
+	
+		<attribute>
+			<name>frameDescription</name>
+			<description>Descrizione analitica della tabella</description>
+		</attribute>	
+	
+		<attribute>
+			<name>frameDescription</name>
+			<description>Descrizione analitica della tabella</description>
+		</attribute>	
+	
+		<attribute>
+			<name>closeButtonImageURL</name>
+			<description>URL dell'immagine che si vuole utilizzare per il bottone di chiusura</description>
+		</attribute>	
+	
+		<attribute>
+			<name>closeButtonString</name>
+			<description>Stringa che si vuole compaia sopra al bottone di chiusura</description>
+		</attribute>	
+	
+		<attribute>
+			<name>closeButtonStyleClass</name>
+			<description>Classe CSS per il div contenente il bottone di chiusura</description>
+		</attribute>	
+	
+		<attribute>
+			<name>closeButtonStyle</name>
+			<description>CSS inline per il div contenente il bottone di chiusura</description>
+		</attribute>	
+	
+		<attribute>
+			<name>selectable</name>
+			<description>Specifica se le colonne sono selezionabili dall'utente</description>
+		</attribute>	
+
+		<attribute>
+			<name>closeable</name>
+			<description>Specifica se le debba comparire o meno il bottone di chiusura</description>
+		</attribute>	
+	
+		<attribute>
+			<name>dhtml</name>
+			<description>Specifica se sono gestite o no le funzioni Dynamic HTML (In questo caso, e' necessarion importare nella pagina il file JavaScript QBTablePaneTag.js)</description>
+		</attribute>	
+	
+		<attribute>
+			<name>clientPositionX</name>
+			<description>Posizione orizzontale in pixel rispetto al blocco contenitore</description>
+		</attribute>	
+	
+		<attribute>
+			<name>clientPositionY</name>
+			<description>Posizione orizzontale in pixel rispetto al blocco contenitore</description>
+		</attribute>	
+	
+	</tag>
+
+	<tag>
+		<name>block</name>
+		<tag-class>it.webred.faces.tags.HtmlBlockTag</tag-class>
+		
+		<attribute>
+			<name>id</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>clientId</name>
+			<description>ID effettivo stampato nella pagina HTML</description>
+		</attribute>	
+	
+		<attribute>
+			<name>binding</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>rendered</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>style</name>
+			<description>CSS inline dell'elemento</description>
+		</attribute>	
+	
+		<attribute>
+			<name>styleClass</name>
+			<description>Classe CSS dell'elemento</description>
+		</attribute>	
+	
+		<attribute>
+			<name>htmlElementName</name>
+			<description>CSS inline del blocco che comprende tutta la tabella</description>
+		</attribute>	
+	
+	</tag>
+	<tag>
+		<name>winIco</name>
+		<tag-class>it.webred.faces.tags.WinIcoTag</tag-class>
+		
+		<attribute>
+			<name>id</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>binding</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>rendered</name>
+			<description>Come per gli altri componenti JSF</description>
+		</attribute>	
+	
+		<attribute>
+			<name>action</name>
+			<description>Come per gli altri UICommand</description>
+		</attribute>	
+	
+		<attribute>
+			<name>actionListener</name>
+			<description>Come per gli altri UICommand</description>
+		</attribute>
+		
+		<attribute>
+			<name>imgSource</name>
+			<description>immagine sorgente</description>
+		</attribute>
+		
+		<attribute>
+			<name>resName</name>
+			<description>nome risorsa</description>
+		</attribute>	
+			
+			
+	</tag>
+</taglib>

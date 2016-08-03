@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="FK_STEP_DIARIO" id="07E38B7E-3115-DCD6-B8E9-71B1C3B2265F" directorySegmentName="seg_2">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:25:26 UTC</createdTime>
+<generatorID>1BA2EF50-B50F-38D0-9A19-69D6712A09E6</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<identifying>false</identifying>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>AFAFB36B-A6D0-9C08-7FF5-933F269AD233</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>EC9D44CF-BE1C-6462-8410-9029FF7AF66B</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,627 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<title>Dichiarazione</title>
+<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/style.css" />
+<script type="text/javascript"
+	src="${facesContext.externalContext.requestContextPath}/js/extendedDataTableFixScrollable.js">
+	</script>
+</head>
+
+<body>
+
+<h:form id="frmDich">
+
+	<rich:panel id="dichId" styleClass="clsCenterPanel">
+		<f:facet name="header">
+			<h:outputText value="Dichiarazione" />
+		</f:facet>
+
+		<div align="right" style="float: right;">
+			<h:panelGrid columns="2" styleClass="clsButton">
+				<h:graphicImage value="/images/print.png" id="img1">
+				</h:graphicImage>
+				<h:outputLabel value="Stampa" style="cursor:pointer" />
+			</h:panelGrid>
+		</div>
+
+		<h:panelGrid columns="4">
+			<h:outputText value="RIFERITA AL PERIODO DI" />
+			<h:outputText value="GENNAIO" style="font-weight: bold;" />
+			<h:outputText value=", ANNO" />
+			<h:outputText value="2012" style="font-weight: bold;" />
+		</h:panelGrid>
+
+		<h:panelGrid columns="4">
+
+			<h:outputText value="STRUTTURA:" />
+			<h:outputText value="HOTEL GRANDE" style="font-weight: bold;" />
+			<h:outputText value="CON CLASSIFICAZIONE:" />
+			<h:outputText value="4 STELLE" style="font-weight: bold;" />
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td>N. ospiti totali</td>
+					<td>N. ospiti assoggettati a imposta</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText value="A) DEFINIZIONE DEL VERSATO"
+				style="font-weight: bold;" />
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td>N. giorni di soggiorno</td>
+					<td>Totale imposta dovuta</td>
+					<td>Totale imposta incassata</td>
+					<td>Totale imposta in sospeso</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<table border="0">
+			<tr>
+				<td>
+					<table class="clsTable" border="1" bordercolor="silver"
+						cellpadding="5">
+						<tr>
+							<td colspan="3">Dettaglio imposta incassata</td>
+						</tr>
+						<tr>
+							<td>Mensilità di competenza</td>
+							<td>Importo</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Settembre</td>
+							<td>10</td>
+							<td><h:panelGrid columns="2" styleClass="clsButton">
+									<h:graphicImage value="/images/pay_small.png">
+									</h:graphicImage>
+									<a4j:support event="onclick" reRender="centerContent">
+										<a4j:actionparam value="true" name="visListPg"
+											assignTo="#{pageBean.visListPagam}" />
+										<a4j:actionparam value="false" name="visPg"
+											assignTo="#{pageBean.visPagam}" />
+										<a4j:actionparam value="false" name="visDt"
+											assignTo="#{pageBean.visDati}" />
+									</a4j:support>
+									<h:outputLabel value="Pagamenti" style="cursor:pointer" />
+								</h:panelGrid></td>
+						</tr>
+						<tr>
+							<td>Ottobre</td>
+							<td>20</td>
+							<td><h:panelGrid columns="2" styleClass="clsButton">
+									<h:graphicImage value="/images/pay_small.png">
+									</h:graphicImage>
+									<a4j:support event="onclick" reRender="centerContent">
+										<a4j:actionparam value="true" name="visListPg"
+											assignTo="#{pageBean.visListPagam}" />
+										<a4j:actionparam value="false" name="visPg"
+											assignTo="#{pageBean.visPagam}" />
+										<a4j:actionparam value="false" name="visDt"
+											assignTo="#{pageBean.visDati}" />
+									</a4j:support>
+									<h:outputLabel value="Pagamenti" style="cursor:pointer" />
+								</h:panelGrid></td>
+						</tr>
+						<tr>
+							<td>Novembre</td>
+							<td>70</td>
+							<td><h:panelGrid columns="2" styleClass="clsButton">
+									<h:graphicImage value="/images/pay_small.png">
+									</h:graphicImage>
+									<a4j:support event="onclick" reRender="centerContent">
+										<a4j:actionparam value="true" name="visListPg"
+											assignTo="#{pageBean.visListPagam}" />
+										<a4j:actionparam value="false" name="visPg"
+											assignTo="#{pageBean.visPagam}" />
+										<a4j:actionparam value="false" name="visDt"
+											assignTo="#{pageBean.visDati}" />
+									</a4j:support>
+									<h:outputLabel value="Pagamenti" style="cursor:pointer" />
+								</h:panelGrid></td>
+						</tr>
+					</table>
+				</td>
+				<td></td>
+				<td></td>
+				<td></td>
+				<td>
+					<table class="clsTable" border="1" bordercolor="silver"
+						cellpadding="5">
+						<tr>
+							<td colspan="3">Dettaglio imposta sospesa</td>
+						</tr>
+						<tr>
+							<td>Mensilità di competenza</td>
+							<td>Importo</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>Settembre</td>
+							<td>5</td>
+							<td><h:panelGrid columns="2" styleClass="clsButton">
+									<h:graphicImage value="/images/pay_small.png">
+									</h:graphicImage>
+									<a4j:support event="onclick" reRender="centerContent">
+										<a4j:actionparam value="true" name="visListPg"
+											assignTo="#{pageBean.visListPagam}" />
+										<a4j:actionparam value="false" name="visPg"
+											assignTo="#{pageBean.visPagam}" />
+										<a4j:actionparam value="false" name="visDt"
+											assignTo="#{pageBean.visDati}" />
+									</a4j:support>
+									<h:outputLabel value="Pagamenti" style="cursor:pointer" />
+								</h:panelGrid></td>
+						</tr>
+						<tr>
+							<td>Ottobre</td>
+							<td>25</td>
+							<td><h:panelGrid columns="2" styleClass="clsButton">
+									<h:graphicImage value="/images/pay_small.png">
+									</h:graphicImage>
+									<a4j:support event="onclick" reRender="centerContent">
+										<a4j:actionparam value="true" name="visListPg"
+											assignTo="#{pageBean.visListPagam}" />
+										<a4j:actionparam value="false" name="visPg"
+											assignTo="#{pageBean.visPagam}" />
+										<a4j:actionparam value="false" name="visDt"
+											assignTo="#{pageBean.visDati}" />
+									</a4j:support>
+									<h:outputLabel value="Pagamenti" style="cursor:pointer" />
+								</h:panelGrid></td>
+						</tr>
+						<tr>
+							<td>Novembre</td>
+							<td>50</td>
+							<td><h:panelGrid columns="2" styleClass="clsButton">
+									<h:graphicImage value="/images/pay_small.png">
+									</h:graphicImage>
+									<a4j:support event="onclick" reRender="centerContent">
+										<a4j:actionparam value="true" name="visListPg"
+											assignTo="#{pageBean.visListPagam}" />
+										<a4j:actionparam value="false" name="visPg"
+											assignTo="#{pageBean.visPagam}" />
+										<a4j:actionparam value="false" name="visDt"
+											assignTo="#{pageBean.visDati}" />
+									</a4j:support>
+									<h:outputLabel value="Pagamenti" style="cursor:pointer" />
+								</h:panelGrid></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</table>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText style="font-weight: bold;"
+				value="B) ESENZIONI (indicare nelle righe sia il numero delle persone che quello dei pernottamenti di cui si allegano attestazioni)" />
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td colspan="2">Ospiti non soggetti a imposta perchè <b>minori</b>
+						- art.5 lettera a) del Regolamento
+					</td>
+					<td colspan="2"><b>Giovani fino a 30 anni</b> di età ospiti
+						negli ostelli della Gioventù gestiti da soggetti pubblici e
+						privati senza scopo di lucro ai sensi dell'art5 lettera b) del
+						Regolamento</td>
+					<td colspan="2"><b>Studenti universitari di età non
+							superiore ai 26 anni</b> - nei casi previsti dall'art.5 lettera g)
+						del Regolamento</td>
+				</tr>
+				<tr>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td colspan="2">Ospiti non soggetti a imposta <b>perchè
+							accompagnatori di soggetti degenti</b> previa autocertificazione -
+						art.5 lettera c) del Regolamento
+					</td>
+					<td colspan="2">Ospiti non soggetti a imposta perchè <b>proseguono
+							cure</b> e loro accompagnatori art5 lettera d) del Regolamento
+					</td>
+					<td colspan="2">Persone con <b>disabilità</b> ed
+						accompagnatori ai sensi dall'art.5 lettera h) del Regolamento
+					</td>
+				</tr>
+				<tr>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td colspan="2">Ospiti appartenenti alle <b>forze
+							dell'ordine</b> e/o forze italiane limitatamente al servizio ai sensi
+						dell'art.5 lettera f) del Regolamento
+					</td>
+					<td colspan="2">Volontari <b>Protezione civile</b> a
+						Associazioni di volontari in caso di calamità e grandi eventi ai
+						sensi dell'art5 lettera i) del Regolamento
+					</td>
+				</tr>
+				<tr>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td colspan="2">Residenti nel Comune di Milano</td>
+					<td colspan="2">Ospiti che rifiutano il pagameno <b>con</b>
+						firma del documento
+					</td>
+					<td colspan="2">Ospiti che rifiutano il pagamento <b>senza</b>
+						firma del documento
+					</td>
+				</tr>
+				<tr>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+					<td>N. ospiti</td>
+					<td>N. giorni di soggiorno</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText style="font-weight: bold;"
+				value="C) RIDUZIONE NEL LIMITE DEL 50% AI SENSI DELL'ART.5 DEL REGOLAMENTO (PERIODI LUGLIO-AGOSTO E DAL 15 DICEMBRE AL 10 GENNAIO)" />
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td>N. ospiti assoggettati a imposta</td>
+					<td>N. giorni di soggiorno</td>
+					<td>Totale imposta dovuta</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText style="font-weight: bold;"
+				value="D) PER EVENTI CONGRESSUALI DI RILEVANTE IMPORTANZA" />
+
+			<br />
+
+			<h:outputText>
+				<b>D1) RIDUZIONE DEL 20% DELL'IMPOSTA DI SOGGIORNO ASSOLTA
+					PREVENTIVAMENTE DALL'ENTE ORGANIZZATORE DEL CONGRESSO DI RILEVANTE
+					IMPORTANZA</b> E QUALORA IL CONGRESSO COINVOLGA UN NUMERO MINIMO DI 500 PARTECIPANTI CON UN MINIMO DI 50 PRESENZE PER STRUTTURA RICETTIVA
+			</h:outputText>
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td>Congresso</td>
+					<td>N. ospiti assoggettati a imposta</td>
+					<td>N. giorni di soggiorno</td>
+					<td>Costo della staza per notte (riduzione del prezzo almeno
+						del 25%)</td>
+					<td>Totale imposta già assolta dal soggetto organizzatore</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText style="font-weight: bold;"
+				value="D2) RIDUZIONE DEL 20% DELL'IMPOSTA PER EVENTI CONGRESSUALI DI RILEVANTE IMPORTANZA QUALORA L'IMPOSTA SIA ASSOLTA DIRETTAMENTE DALL'OSPITE" />
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td>Congresso</td>
+					<td>N. ospiti assoggettati a imposta</td>
+					<td>N. giorni di soggiorno</td>
+					<td>Costo della staza per notte (riduzione del prezzo almeno
+						del 25%)</td>
+					<td>Totale imposta dovuta</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText>
+				<b>E) PAGAMENTO ANTICIPATO DELL'IMPOSTA DI SOGGIORNO DA PARTE
+					DEL SOGGETTO ORGANIZZATORE DI VIAGGI DI GRUPPO / CONVENTION /
+					EVENTI / ALTRI CONGRESSI</b> QUALORA L'EVENTO / VIAGGIO DI GRUPPO COINVOLGA UN NUMERO MINIMO DI 500 PARTECIPANTI CON UN MINIMO DI 50 PRESENZE PER STRUTTURA RICETTIVA
+			</h:outputText>
+		</h:panelGrid>
+		<br />
+
+		<h:panelGrid columns="1">
+			<table class="clsTable" border="1" bordercolor="silver"
+				cellpadding="5">
+				<tr>
+					<td>Evento / Viaggio di gruppo / Altro congresso</td>
+					<td>N. ospiti assoggettati a imposta</td>
+					<td>N. giorni di soggiorno</td>
+					<td>Costo della staza per notte (riduzione del prezzo almeno
+						del 25%)</td>
+					<td>Totale imposta già assolta dall'ente organizzatore</td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+				<tr>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="" /></td>
+					<td><input type="text" value="€." /></td>
+					<td><input type="text" value="€." /></td>
+				</tr>
+			</table>
+		</h:panelGrid>
+		<br />
+
+		<div align="center">
+			<h:panelGrid columns="1">
+				<h:outputText style="font-weight: bold;"
+					value="MODALITA' DI VERSAMENTO AL COMUNE DELL'IMPOSTA" />
+			</h:panelGrid>
+		</div>
+		<br />
+
+		<h:panelGrid columns="1">
+			<h:outputText style="font-weight: bold;"
+				value="a) Di avere effettuato il pagamento dell'imposta mediante procedura informatica M.A.V. ONLINE" />
+			<h:panelGrid columns="1" style="padding-left: 12px">
+				<h:inputText value="" style="width: 600px" />
+				<h:outputText value="(indicarne gli estremi del pagamento)" />
+			</h:panelGrid>
+			<br />
+
+			<h:outputText>
+				<b>b) Di avere effettuato il pagamento dell'imposta mediante
+					versamento in contanti presso lo sportello di Tesoreria di Via
+					Silvio Pellico, 16</b> riportando nella causale la dicitura 
+					'imposta di soggiorno mese di ... indicare la denominazione della 
+					struttura ricettiva e il codice fiscale'
+			</h:outputText>
+			<h:panelGrid columns="1" style="padding-left: 12px">
+				<h:inputText value="" style="width: 600px" />
+				<h:outputText value="(indicarne gli estremi del pagamento)" />
+			</h:panelGrid>
+			<br />
+
+			<h:outputText style="font-weight: bold;"
+				value="c) Di avere effettuato il pagamento dell'imposta mediante bonifico bancario con accredito sul cc di Tesoreria intestato a:" />
+			<h:panelGrid columns="1" style="padding-left: 30px">
+				<h:outputText style="font-weight: bold;"
+					value="COMUNE DI MILANO - IMPOSTA DI SOGGIORNO" />
+				<h:outputText style="font-weight: bold;"
+					value="ABI 3069 CAB 01783 NUMERO 1000/00000196" />
+				<h:outputText style="font-weight: bold;"
+					value="IBAN: IT76 P030 6901 7831 0000 0000 196" />
+			</h:panelGrid>
+			<h:outputText
+				value="riportando nella causale la dicitura 'imposta di soggiorno mese di ... indicare la denominazione della struttura ricettiva e il codice fiscale" />
+			<h:panelGrid columns="1" style="padding-left: 12px">
+				<h:inputText value="" style="width: 600px" />
+				<h:outputText value="(indicarne gli estremi del pagamento)" />
+			</h:panelGrid>
+			<br />
+
+			<h:panelGrid columns="4" cellspacing="0">
+				<h:outputText style="font-weight: bold;"
+					value="d) Di avere effettuato la compensazione di €" />
+				<h:inputText value="" />
+				<h:outputText style="font-weight: bold;"
+					value="per imposta versata eccedenza nel mese di" />
+				<h:inputText value="" />
+			</h:panelGrid>
+
+		</h:panelGrid>
+
+		<div align="center">
+			<br /> <br />
+			<h:panelGrid columns="1">
+				<a4j:commandButton value="Salva" />
+			</h:panelGrid>
+		</div>
+
+	</rich:panel>
+</h:form>
+
+</body>
+</html>

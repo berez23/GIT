@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<faces-config
+    xmlns="http://java.sun.com/xml/ns/javaee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_0.xsd"
+    version="2.0">
+    
+    <application>
+    	<locale-config>
+			<default-locale>it</default-locale>
+	  		<supported-locale>it</supported-locale>
+	  		<supported-locale>en</supported-locale>
+	  	</locale-config>
+	  	<message-bundle>it.webred.gitland.web.resources.messages</message-bundle>	  	
+	</application>
+	
+	<managed-bean>
+    	<managed-bean-name>currentDate</managed-bean-name>
+    	<managed-bean-class>java.util.Date</managed-bean-class>
+    	<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	<!--
+	<managed-bean>
+		<managed-bean-name>homeBean</managed-bean-name>
+		<managed-bean-class>it.webred.smartw.cs.HomeBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	-->
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		
+		<!-- INIZIO AZIENDE -->
+		<navigation-case>
+	        <from-action>#{aziendeBean.aziendeShowLst}</from-action>
+	        <from-outcome>aziendeBean.aziendeShowLst</from-outcome>
+	        <to-view-id>/jsp/protected/aziendeLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{aziendeBean.aziendeShowLst}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+  		<navigation-case>
+		        <from-action>#{aziendeBean.onRowSelect}</from-action>
+		        <from-outcome>aziendeBean.onRowSelect</from-outcome>
+		        <to-view-id>/jsp/protected/aziendaMod.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{aziendeBean.onRowSelect}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+     		<navigation-case>
+		        <from-action>#{aziendeBean.aziendaShowNew}</from-action>
+		        <from-outcome>aziendeBean.aziendaShowNew</from-outcome>
+		        <to-view-id>/jsp/protected/aziendaNew.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaShowNew}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{aziendeBean.searchAziende}</from-action>
+		        <from-outcome>aziendeBean.searchAziende</from-outcome>
+		        <to-view-id>/jsp/protected/aziendeLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{aziendeBean.searchAziende}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaSaveMod}</from-action>
+		        <from-outcome>aziendeBean.aziendaSaveMod</from-outcome>
+		        <to-view-id>/jsp/protected/aziendeLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaSaveMod}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaSaveNew}</from-action>
+		        <from-outcome>aziendeBean.aziendaSaveNew</from-outcome>
+		        <to-view-id>/jsp/protected/aziendeLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaSaveNew}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaSaveDel}</from-action>
+		        <from-outcome>aziendeBean.aziendaSaveDel</from-outcome>
+		        <to-view-id>/jsp/protected/aziendeLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{aziendeBean.aziendaSaveDel}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <!-- FINE AZIENDE -->
+		    
+		    <!-- INIZIO LOTTI -->
+  
+  		<navigation-case>
+	        <from-action>#{lottiBean.lottiShowLst}</from-action>
+	        <from-outcome>lottiBean.lottiShowLst</from-outcome>
+	        <to-view-id>/jsp/protected/lottiLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{lottiBean.lottiShowLst}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+
+	    <navigation-case>
+		        <from-action>#{lottiBean.lottoShowNew}</from-action>
+		        <from-outcome>lottiBean.lottoShowNew</from-outcome>
+		        <to-view-id>/jsp/protected/lottoNew.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{lottiBean.lottoShowNew}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{lottiBean.searchLotti}</from-action>
+		        <from-outcome>lottiBean.searchLotti</from-outcome>
+		        <to-view-id>/jsp/protected/lottiLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{lottiBean.searchLotti}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+  		<navigation-case>
+		        <from-action>#{lottiBean.onRowSelect}</from-action>
+		        <from-outcome>lottiBean.onRowSelect</from-outcome>
+		        <to-view-id>/jsp/protected/lottoMod.xhtml</to-view-id>
+		        <redirect/>
+		</navigation-case>
+
+	    
+	    <navigation-case>
+		        <from-action>#{lottiBean.lottoSaveMod}</from-action>
+		        <from-outcome>lottiBean.lottoSaveMod</from-outcome>
+		        <to-view-id>/jsp/protected/lottiLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{lottiBean.lottoSaveMod}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{lottiBean.lottoSaveNew}</from-action>
+		        <from-outcome>lottiBean.lottoSaveNew</from-outcome>
+		        <to-view-id>/jsp/protected/lottoNew.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{lottiBean.lottoSaveNew}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+  			<!-- FINE LOTTI -->
+
+  			<!-- INIZIO RICERCHE INFO -->
+  			
+  			<navigation-case>
+		        <from-action>#{ricercheBean.ricercheShowLst}</from-action>
+		        <from-outcome>ricercheBean.ricercheShowLst</from-outcome>
+		        <to-view-id>/jsp/protected/infoLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{ricercheBean.ricercheShowLst}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{ricercheBean.searchRicerche}</from-action>
+		        <from-outcome>ricercheBean.searchRicerche</from-outcome>
+		        <to-view-id>/jsp/protected/infoLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{ricercheBean.searchRicerche}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+      		<navigation-case>
+		        <from-action>#{ricercheBean.onRowSelect}</from-action>
+		        <from-outcome>ricercheBean.onRowSelect</from-outcome>
+		        <to-view-id>/jsp/protected/infoView.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{ricercheBean.onRowSelect}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+  			
+  			<!-- FINE RICERCHE INFO -->
+  			
+  		<!-- INIZIO STATISTICHE -->
+		<navigation-case>
+	        <from-action>#{statisticheBean.statisticheShowLst}</from-action>
+	        <from-outcome>statisticheBean.statisticheShowLst</from-outcome>
+	        <to-view-id>/jsp/protected/statisticheLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticheShowLst}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticheSearch}</from-action>
+	        <from-outcome>statisticheBean.statisticheSearch</from-outcome>
+	        <to-view-id>/jsp/protected/statisticheLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticheSearch}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaShowNew}</from-action>
+	        <from-outcome>statisticheBean.statisticaShowNew</from-outcome>
+	        <to-view-id>/jsp/protected/statisticaNew.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaShowNew}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaSaveNew}</from-action>
+	        <from-outcome>statisticheBean.statisticaSaveNew</from-outcome>
+	        <to-view-id>/jsp/protected/statisticaNew.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaSaveNew}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	   	<navigation-case>
+	        <from-action>#{statisticheBean.statisticaShowMod}</from-action>
+	        <from-outcome>statisticheBean.statisticaShowMod</from-outcome>
+	        <to-view-id>/jsp/protected/statisticaMod.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaShowMod}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaSaveMod}</from-action>
+	        <from-outcome>statisticheBean.statisticaSaveMod</from-outcome>
+	        <to-view-id>/jsp/protected/statisticheLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaSaveMod}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+  	   	<navigation-case>
+	        <from-action>#{statisticheBean.onRowSelect}</from-action>
+	        <from-outcome>statisticheBean.onRowSelect</from-outcome>
+	        <to-view-id>/jsp/protected/statisticaParamsLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.onRowSelect}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaAvvio}</from-action>
+	        <from-outcome>statisticheBean.statisticaAvvio</from-outcome>
+	        <to-view-id>/jsp/protected/statisticaEsito.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{statisticheBean.statisticaAvvio}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+	    <!-- FINE STATISTICHE -->
+	    
+	    <!-- INIZIO TIPOLOGIE -->
+		<navigation-case>
+	        <from-action>#{tipologieBean.tipologieShowLst}</from-action>
+	        <from-outcome>tipologieBean.tipologieShowLst</from-outcome>
+	        <to-view-id>/jsp/protected/tipologieLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{tipologieBean.tipologieShowLst}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+  		<navigation-case>
+		        <from-action>#{tipologieBean.onRowSelect}</from-action>
+		        <from-outcome>tipologieBean.onRowSelect</from-outcome>
+		        <to-view-id>/jsp/protected/tipologiaMod.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{tipologieBean.onRowSelect}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+     		<navigation-case>
+		        <from-action>#{tipologieBean.tipologiaShowNew}</from-action>
+		        <from-outcome>tipologieBean.tipologiaShowNew</from-outcome>
+		        <to-view-id>/jsp/protected/tipologiaNew.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{tipologieBean.tipologiaShowNew}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+     		<navigation-case>
+		        <from-action>#{tipologieBean.tipologiaSaveNew}</from-action>
+		        <from-outcome>tipologieBean.tipologiaSaveNew</from-outcome>
+		        <to-view-id>/jsp/protected/tipologieLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{tipologieBean.tipologiaSaveNew}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{tipologieBean.searchTipologie}</from-action>
+		        <from-outcome>tipologieBean.searchTipologie</from-outcome>
+		        <to-view-id>/jsp/protected/tipologieLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{tipologieBean.searchTipologie}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{tipologieBean.tipologiaSaveMod}</from-action>
+		        <from-outcome>tipologieBean.tipologiaSaveMod</from-outcome>
+		        <to-view-id>/jsp/protected/tipologieLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{tipologieBean.tipologiaSaveMod}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <navigation-case>
+		        <from-action>#{tipologieBean.tipologiaSaveDel}</from-action>
+		        <from-outcome>tipologieBean.tipologiaSaveDel</from-outcome>
+		        <to-view-id>/jsp/protected/tipologieLst.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    <navigation-case>
+		        <from-action>#{tipologieBean.tipologiaSaveDel}</from-action>
+		        <from-outcome>failure</from-outcome>
+		        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+		        <redirect/>
+		    </navigation-case>
+		    
+		    <!-- FINE TIPOLOGIE -->
+	    
+	    <!-- INIZIO SINCRONIZZAZIONE LOTTI -->
+		<navigation-case>
+	        <from-action>#{sincronizzaLottiBean.situazioneAttuale}</from-action>
+	        <from-outcome>sincronizzaLottiBean.situazioneAttuale</from-outcome>
+	        <to-view-id>/jsp/protected/sincronizzaLottiSituazione.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{sincronizzaLottiBean.situazioneAttuale}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/> 
+	    </navigation-case>
+
+	    <navigation-case>
+	        <from-action>#{sincronizzaLottiBean.avviaSincronizzazione}</from-action>
+	        <from-outcome>sincronizzaLottiBean.avviaSincronizzazione</from-outcome>
+	        <to-view-id>/jsp/protected/sincronizzaLottiEsito.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{sincronizzaLottiBean.avviaSincronizzazione}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+		    
+		    
+		    <!-- FINE TIPOLOGIE -->
+		    
+		<navigation-case>
+	        <from-action>#{notificheBean.loadListaLottiSoloGitLand}</from-action>
+	        <from-outcome>notificheBean.loadListaLottiSoloGitLand</from-outcome>
+	        <to-view-id>/jsp/protected/infoLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{notificheBean.loadListaLottiSoloGitLand}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    
+   		<navigation-case>
+	        <from-action>#{notificheBean.loadPraticheEnteDaCompilare}</from-action>
+	        <from-outcome>notificheBean.loadPraticheEnteDaCompilare</from-outcome>
+	        <to-view-id>/jsp/protected/infoLst.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+	    <navigation-case>
+	        <from-action>#{notificheBean.loadPraticheEnteDaCompilare}</from-action>
+	        <from-outcome>failure</from-outcome>
+	        <to-view-id>/jsp/protected/empty.xhtml</to-view-id>
+	        <redirect/>
+	    </navigation-case>
+
+	</navigation-rule>
+
+	<!--
+	<application>
+	  	<view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+	  	<message-bundle>it.m4c.web.resources.messages</message-bundle>
+	</application-->
+
+</faces-config>

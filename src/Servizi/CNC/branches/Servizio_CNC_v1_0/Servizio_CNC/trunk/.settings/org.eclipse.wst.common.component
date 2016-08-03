@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Servizio_CNC">
+        <wb-resource deploy-path="/" source-path="/EarContent"/>
+        <dependent-module archiveName="Servizio_CNC_WEB.war" deploy-path="/" handle="module:/resource/Servizio_CNC_WEB/Servizio_CNC_WEB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_CNC_EJB.jar" deploy-path="/" handle="module:/resource/Servizio_CNC_EJB/Servizio_CNC_EJB">
+            <dependent-object/>
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_CNC_EJBClient.jar" deploy-path="/" handle="module:/resource/Servizio_CNC_EJBClient/Servizio_CNC_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Service_Data_AccessClient.jar" deploy-path="/" handle="module:/resource/CT_Service_Data_AccessClient/CT_Service_Data_AccessClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Service_Data_Model.jar" deploy-path="/" handle="module:/resource/CT_Service_Data_Model/CT_Service_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+    </wb-module>
+</project-modules>

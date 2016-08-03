@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmSincronizza">
+			<p:panel header="Sincronizzazione Lotti">				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti da aggiornare"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiDaAggiornare" value="#{sincronizzaLottiBean.lottiDaAggiornare}" />
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti da Inserire"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiDaInserire" value="#{sincronizzaLottiBean.lottiDaInserire}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Lotti da Eliminare"/>
+						</p:column>
+						<p:column>
+							<h:outputText id="lottiDaEliminare" value="#{sincronizzaLottiBean.lottiDaEliminare}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Aggiorna" 
+										action="#{sincronizzaLottiBean.avviaSincronizzazione}" 
+										disabled="#{sincronizzaLottiBean.listaEsiti.size()==0}" 
+										process="@form" />
+						</p:column>
+						<p:column>
+							<p:spacer></p:spacer>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Mostra Log" 
+								oncomplete="PF('dlgElencoLogSync').show()"
+								update=":#{p:component('dlgElencoLogSync')}"
+								disabled="#{sincronizzaLottiBean.listaEsiti.size()==0}"
+								process="@this">
+							</p:commandButton>
+						</p:column>
+						<p:column>
+							<p:spacer height="15"/>
+						</p:column>
+					</p:row>
+					
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				
+				<h:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10" rendered="false">
+					<p:commandButton value="Sincronizza" disabled="#{sincronizzaLottiBean.listaEsiti.size()==0}" action="#{sincronizzaLottiBean.avviaSincronizzazione}" process="@form" />
+				</h:panelGrid>
+				
+				
+				
+			</p:panel>
+		</h:form>
+		<p:dialog id="dlgElencoLogSync" modal="false" header="Elenco Esiti Comparazione" widgetVar="dlgElencoLogSync" showEffect="fade" hideEffect="explode">
+	 		<p:dataTable value="#{sincronizzaLottiBean.listaEsiti}" var="log" 
+	 		paginator="true" rows="20">					 	 
+			 	<p:column headerText="Lotto"  sortBy="#{log[0]}" >
+			 		<h:outputText value="#{log[0]}"/>
+			 	</p:column>
+			 	<p:column headerText="Esito" sortBy="#{log[1]}">
+				 	<h:outputText value="#{log[1]}" title="#{log[2]}"/>
+			 	</p:column>
+			</p:dataTable>
+		</p:dialog>
+		
+	</ui:define>
+</ui:composition>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:composite="http://java.sun.com/jsf/composite"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred"
+	xmlns:webredcs="http://java.sun.com/jsf/composite/webredcs">
+
+<h:head>
+	<title>Componente lista cat sociali</title>
+</h:head>
+<h:body>
+	<composite:interface componentType="pnlListaCatSociali">
+		<composite:attribute name="listaCatSocialiBean" type="it.webred.cs.jsf.interfaces.IListaCatSociali" />
+	</composite:interface>
+	<composite:implementation>
+
+		<p:dataTable var="cat" value="#{cc.attrs.listaCatSocialiBean.lstCasiCatSociale}" rowIndexVar="rowIndex">				
+			<f:facet name="header">
+          			Categorie sociali
+        	</f:facet>
+
+			<p:column headerText="Schede utenti">
+				<h:outputText value="#{cat.catSociale.tooltip} " />
+			</p:column>
+			
+			<p:column headerText="Schede registrate" style="text-align:center;">
+				<h:outputText value="#{cat.casi} " />
+			</p:column>
+			
+			<p:column headerText="Casi in carico" style="text-align:center;">
+				<h:outputText value="#{cat.casiInCarico} " />
+			</p:column>
+			
+			<p:column headerText="Casi chiusi" style="text-align:center;">
+				<h:outputText value="#{cat.casiChiusi} " />
+			</p:column>
+			
+			<p:column headerText="" style="text-align:center;" rendered="#{cc.attrs.listaCatSocialiBean.visualCaricoLavoro}">
+				<p:commandButton value="Carico di lavoro" process="@this" icon="ui-icon-person"
+					action="#{cc.attrs.listaCatSocialiBean.caricaCaricoLavoro}" update=":#{p:component('dlgCarLavoro')}"
+					oncomplete="wdgCarLavoroModal.show()">
+					<f:setPropertyActionListener value="#{rowIndex}" target="#{cc.attrs.listaCatSocialiBean.idxSelected}" />
+				</p:commandButton>
+			</p:column>
+		</p:dataTable>
+		
+		<p:dialog dynamic="true" modal="true" id="dlgCarLavoro"
+			widgetVar="wdgCarLavoroModal" width="800" minHeight="750"
+			closable="true" header="#{cc.attrs.iRelazioni.modalHeader}">
+			
+			<p:dataTable var="op" value="#{cc.attrs.listaCatSocialiBean.lstCasiOperatore}">					
+				<p:column headerText="Assistente sociale">
+					<h:outputText value="#{op.amAnagrafica.cognome} #{op.amAnagrafica.nome}" />
+				</p:column>
+				
+				<p:column headerText="Casi in carico" style="text-align:center;">
+					<h:outputText value="#{op.numCasi} " />
+				</p:column>
+			</p:dataTable>
+			
+			<table border="0" width="100%">
+				<tr>
+					<td style="text-align: center;">
+						<p:commandButton value="Esci"
+							process="@this"
+							oncomplete="wdgCarLavoroModal.hide();"/>
+					</td>
+				</tr>
+			</table>
+		
+		</p:dialog>
+
+	</composite:implementation>
+</h:body>
+
+</html>

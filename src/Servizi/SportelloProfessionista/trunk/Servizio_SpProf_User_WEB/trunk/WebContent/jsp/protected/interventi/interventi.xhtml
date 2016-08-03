@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+<h:form id="frmInterventi">
+
+	<rich:panel id="panelRis" style="margin-right:10px;">
+		<rich:dataTable width="100%" var="row" value="#{interventiDataModel}"
+			id="listCivici" onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			rows="15">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="9">
+						<h:outputText value="Interventi" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Conc. num." title="Concessione numero" />
+				</f:facet>
+				<h:outputText value="#{row.cConcessioneNumero}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Prog. num." title="Progressivo numero" />
+				</f:facet>
+				<h:outputText value="#{row.cProgressivoNumero}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Prog. anno" title="Progressivo anno" />
+				</f:facet>
+				<h:outputText value="#{row.cProgressivoAnno}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Prot. data" title="Protocollo data" />
+				</f:facet>
+				<h:outputText value="#{row.cProtocolloData}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+				</h:outputText>
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Prot. num." title="Protocollo numero" />
+				</f:facet>
+				<h:outputText value="#{row.cProtocolloNumero}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:panelGrid columns="5">
+					<h:graphicImage style="cursor:pointer;" value="/images/list.png"
+						title="Vai al dettaglio e visualizza in mappa">
+						<a4j:support event="onclick" reRender="upPage,panelGrid,userPage"
+							action="#{datiBean.doDettaglio}">
+							<a4j:actionparam value="#{row.idSpIntervento}" name="idInt"
+								assignTo="#{datiBean.idIntervento}" />
+							<a4j:actionparam value="false" name="mostraDwld"
+								assignTo="#{datiBean.mostraDownload}" />
+						</a4j:support>
+					</h:graphicImage>
+					<h:commandLink action="#{downloadBean.doDownload}">
+						<h:graphicImage style="border: 0; cursor: pointer;"
+							value="/images/download.png" title="Download file Shape">
+						</h:graphicImage>
+						<a4j:actionparam value="#{row.idSpIntervento}" name="idInt"
+							assignTo="#{downloadBean.idIntervento}" />
+					</h:commandLink>
+					<h:graphicImage style="cursor:pointer;" value="/images/upload.png"
+						title="Upload file Dxf"
+						rendered="#{row.stato eq 'IN LAVORAZIONE' or row.stato eq 'RESPINTO'}">
+						<a4j:support event="onclick" action="#{uploadBean.doInitPanel}"
+							reRender="modalPage"
+							oncomplete="Richfaces.showModalPanel('uplModalBox'); return false;">
+							<a4j:actionparam value="#{row.idSpIntervento}" name="idInt"
+								assignTo="#{uploadBean.idIntervento}" />
+						</a4j:support>
+					</h:graphicImage>
+					<rich:spacer width="20px" height="20px"
+						rendered="#{row.stato ne 'IN LAVORAZIONE' and row.stato ne 'RESPINTO'}" />
+					<h:graphicImage style="cursor:pointer;"
+						value="#{row.stato eq 'IN LAVORAZIONE'?'/images/yellowcircle.png':(row.stato eq 'INVIATO'?'/images/yellowcircle.png':(row.stato eq 'ACCETTATO'?'/images/greencircle.png':'/images/redcircle.png'))}"
+						title="Stato: #{row.stato}, cliccare per cambiare stato">
+						<a4j:support event="onclick" reRender="modalPage"
+							action="#{statoBean.doCaricaStati}"
+							oncomplete="Richfaces.showModalPanel('statoModalBox'); return false;">
+							<a4j:actionparam value="#{row.idSpIntervento}" name="idInt"
+								assignTo="#{statoBean.idIntervento}" />
+							<a4j:actionparam value="#{row.stato}" name="stt"
+								assignTo="#{statoBean.statoScelto}" />
+						</a4j:support>
+					</h:graphicImage>
+					<h:graphicImage style="cursor:pointer;" value="/images/map.png"
+						title="Visualizza intervento in Mappa">
+						<a4j:support event="onclick" reRender="panelGrid"
+							action="#{mapBean.caricaMapUrlIntervento}">
+							<a4j:actionparam value="#{row.idSpIntervento}" name="idInt"
+								assignTo="#{mapBean.idIntervento}" />
+						</a4j:support>
+					</h:graphicImage>
+				</h:panelGrid>
+			</rich:column>
+
+			<f:facet name="footer">
+				<rich:datascroller id="tableScroller" />
+			</f:facet>
+		</rich:dataTable>
+
+	</rich:panel>
+</h:form>
+
+</html>

@@ -1,0 +1,19 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+ 	<persistence-unit name="Servizio_C340_Virgilio">
+	<jta-data-source>java:/jdbc/Virgilio_DS</jta-data-source>
+	<mapping-file>META-INF/orm.xml</mapping-file>
+	<class>it.webred.ct.service.comma340.data.model.pratica.C340Pratica</class>
+	<class>it.webred.ct.service.comma340.data.model.pratica.C340PratRettificaSup</class>
+	<class>it.webred.ct.service.comma340.data.model.pratica.C340PratDepositoPlanim</class>
+	<class>it.webred.ct.service.comma340.data.model.ente.CodiceBelfiore</class>
+	<class>it.webred.ct.service.comma340.data.model.pratica.C340PratAllegato</class>
+	<properties>
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<property name="hibernate.hbm2ddl.auto" value="update"/>
+			<property name="hibernate.show_sql" value="false"/>
+		</properties>
+	</persistence-unit>
+</persistence>

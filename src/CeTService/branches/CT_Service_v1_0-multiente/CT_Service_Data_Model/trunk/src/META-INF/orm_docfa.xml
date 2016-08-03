@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="1.0" xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_1_0.xsd">
+
+<!-- Query DocfaDatiCensuari -->
+	<named-query name="DocfaDatiCensuari.getDocfaDatiCensuariByFPS">
+		<query>
+			<![CDATA[
+				SELECT d FROM DocfaDatiCensuari d 
+				WHERE d.foglio = lpad(:foglio,4,'0') 
+				AND d.numero = lpad(:particella,5,'0') 
+				AND d.subalterno = lpad(:subalterno,4,'0')
+			 ]]>
+		</query>
+	</named-query>
+	<named-query name="DocfaDatiCensuari.getDocfaDatiCensuariBySezFPS">
+		<query>
+			<![CDATA[
+				SELECT d FROM DocfaDatiCensuari d 
+				WHERE d.sezione = :sezione
+				AND d.foglio = lpad(:foglio,4,'0') 
+				AND d.numero = lpad(:particella,5,'0') 
+				AND d.subalterno = lpad(:subalterno,4,'0')
+			 ]]>
+		</query>
+	</named-query>
+	
+	<!-- Query DocfaDichiaranti -->
+	<named-query name="DocfaDichiaranti.getDichiaranti">
+		<query>
+			<![CDATA[
+				SELECT d FROM DocfaDichiaranti d 
+				WHERE d.fornitura = :fornitura
+				AND d.protocolloReg = :protocollo
+				ORDER BY d.dicCognome
+			 ]]>
+		</query>
+	</named-query>
+
+	<!-- Query DocfaIntestati -->
+	<named-query name="DocfaIntestati.getIntestati">
+		<query>
+			<![CDATA[
+				SELECT d FROM DocfaIntestati d 
+				WHERE d.id.fornitura = :fornitura
+				AND d.id.protocolloReg = :protocollo
+				ORDER BY d.cognome
+			 ]]>
+		</query>
+	</named-query>
+	
+		<!-- Query DocfaDatiMetrici -->
+	<named-query name="DocfaDatiMetrici.getDatiMetrici">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT dm
+				FROM DocfaDatiCensuari dc, DocfaDatiMetrici dm
+				WHERE dc.fornitura = TO_DATE (:fornitura, 'yyyyMMdd')
+				AND dc.protocolloRegistrazione = :protocollo
+				AND dc.dataRegistrazione = :data
+				AND dc.foglio = LPAD(:foglio, 4, '0')
+				AND dc.numero = LPAD(:particella, 5, '0')
+				AND LPAD(NVL (dc.subalterno, '0'), 4, '0') = LPAD(NVL (:sub, '0'), 4, '0')
+				AND dc.identificativoImmobile = dm.id.identificativoImmobile
+			 ]]>
+		</query>
+	</named-query>
+
+	<!-- Query DocfaInParteDueH -->
+	<named-query name="DocfaInParteDueH.getDatiMetriciABC">
+		<query>
+			<![CDATA[
+				select d
+				from DocfaInParteDueH d
+				where (d.ctFoglio01 = LPAD(:foglio, 4, '0')
+				and d.ctNumero01 = LPAD(:particella, 5, '0')
+				and LPAD(NVL (d.ctSubalterno01, '0'), 4, '0') = LPAD(:sub, 4, '0'))
+				or
+				(d.ctFoglio02 = LPAD(:foglio, 4, '0')
+				and d.ctNumero02 = LPAD(:particella, 5, '0')
+				and LPAD(NVL (d.ctSubalterno02, '0'), 4, '0') = LPAD(:sub, 4, '0'))
+				or
+				(d.ctFoglio03 = LPAD(:foglio, 4, '0')
+				and d.ctNumero03 = LPAD(:particella, 5, '0')
+				and LPAD(NVL (d.ctSubalterno03, '0'), 4, '0') = LPAD(:sub, 4, '0'))
+				or
+				(d.ctFoglio04 = LPAD(:foglio, 4, '0')
+				and d.ctNumero04 = LPAD(:particella, 5, '0')
+				and LPAD(NVL (d.ctSubalterno04, '0'), 4, '0') = LPAD(:sub, 4, '0'))
+			 ]]>
+		</query>
+	</named-query>
+
+	<!-- Query DocfaPlanimetrie -->
+	<named-query name="DocfaPlanimetrie.getPlanimetrieDocfa">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT dp
+				FROM DocfaDatiCensuari dc, DocfaPlanimetrie dp
+				WHERE dc.fornitura = TO_DATE (:fornitura, 'yyyyMMdd')
+				AND dp.fornitura = TO_DATE (:fornitura, 'yyyyMMdd')
+				AND dc.protocolloRegistrazione = :protocollo
+				AND dp.protocollo = :protocollo
+				AND dc.dataRegistrazione = :data
+				AND dp.dataRegistrazione = :dataDate
+				AND dc.foglio = LPAD(:foglio, 4, '0')
+				AND dc.numero = LPAD(:particella, 5, '0')
+				AND LPAD(NVL (dc.subalterno, '0'), 4, '0') = LPAD(NVL (:sub, '0'), 4, '0')
+				AND (dc.identificativoImmobile = dp.identificativoImmo OR dp.identificativoImmo = 0)
+			 ]]>
+		</query>
+	</named-query>
+	
+</entity-mappings>

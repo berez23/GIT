@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+
+	<persistence-unit name="CT_Siti">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm_catasto.xml</mapping-file>
+		<class>it.webred.ct.data.model.catasto.SitiuiuPK</class>
+		<class>it.webred.ct.data.model.catasto.Sitiuiu</class>
+		<class>it.webred.ct.data.model.catasto.SititrkcPK</class>
+		<class>it.webred.ct.data.model.catasto.Sititrkc</class>
+		<class>it.webred.ct.data.model.catasto.SitiediVani</class>
+		<class>it.webred.ct.data.model.catasto.Sitidstr</class>
+		<class>it.webred.ct.data.model.catasto.SitidecoPK</class>
+		<class>it.webred.ct.data.model.catasto.Sitideco</class>
+		<class>it.webred.ct.data.model.catasto.SiticonduzImmAllPK</class>
+		<class>it.webred.ct.data.model.catasto.SiticonduzImmAll</class>
+		<class>it.webred.ct.data.model.catasto.Siticomu</class>
+		<class>it.webred.ct.data.model.catasto.Siticivi</class>
+		<class>it.webred.ct.data.model.catasto.SitRepTarsuPK</class>
+		<class>it.webred.ct.data.model.catasto.SitRepTarsu</class>
+		<class>it.webred.ct.data.model.catasto.SitCatPlanimetrieC340</class>
+		<class>it.webred.ct.data.model.catasto.ConsUfreTabPK</class>
+		<class>it.webred.ct.data.model.catasto.ConsUfreTab</class>
+		<class>it.webred.ct.data.model.catasto.ConsSoggTab</class>
+		<class>it.webred.ct.data.model.catasto.AnagSoggetti</class>
+		<class>it.webred.ct.data.model.catasto.ConsConsTab</class>
+		<class>it.webred.ct.data.model.catasto.ConsConsTabPK</class>
+		<class>it.webred.ct.data.model.catasto.LoadCatUiuIndPK</class>
+		<class>it.webred.ct.data.model.catasto.LoadCatUiuInd</class>
+		<class>it.webred.ct.data.model.catasto.SitiCodsQual</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle9iDialect" />
+			<!--  <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+			<property name="hibernate.show_sql" value="false" />
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="CT_Diogene" transaction-type="JTA">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm_common.xml</mapping-file>
+		<mapping-file>META-INF/orm_tarsu.xml</mapping-file>
+		<mapping-file>META-INF/orm_ici.xml</mapping-file>
+		<mapping-file>META-INF/orm_docfa.xml</mapping-file>
+		<mapping-file>META-INF/orm_catasto.xml</mapping-file>
+		<mapping-file>META-INF/orm_anagrafe.xml</mapping-file>
+		<mapping-file>META-INF/orm_cnc.xml</mapping-file>
+		<mapping-file>META-INF/orm_locazioni.xml</mapping-file>
+		<mapping-file>META-INF/orm_cosap.xml</mapping-file>
+		<mapping-file>META-INF/orm_redditi.xml</mapping-file>
+		<mapping-file>META-INF/orm_processi.xml</mapping-file>
+		<mapping-file>META-INF/orm_indice.xml</mapping-file>
+		<mapping-file>META-INF/orm_compravendite.xml</mapping-file>
+		<mapping-file>META-INF/orm_concedilizie.xml</mapping-file>
+		<mapping-file>META-INF/orm_pregeo.xml</mapping-file>
+		<mapping-file>META-INF/orm_diagnostiche.xml</mapping-file>
+		<mapping-file>META-INF/orm_pgt.xml</mapping-file>
+		<mapping-file>META-INF/orm_traffico.xml</mapping-file>
+		<mapping-file>META-INF/orm_datitecnicifabbricato.xml</mapping-file>
+		<mapping-file>META-INF/orm_rette.xml</mapping-file>
+		<jar-file>lib/Indice_Data_Model.jar</jar-file>
+
+		<class>it.webred.ct.data.model.common.SitEnte</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarVia</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarUltSogg</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarSogg</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarOggetto</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarOggUltsogg</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarDich</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarContrib</class>
+		<class>it.webred.ct.data.model.tarsu.VTTarSoggAll</class>
+		<class>it.webred.ct.data.model.tarsu.VTTarSoggAllPK</class>
+		<class>it.webred.ct.data.model.docfa.DocfaDatiCensuari</class>
+		<class>it.webred.ct.data.model.docfa.DocfaDichiaranti</class>
+		<class>it.webred.ct.data.model.docfa.DocfaIntestati</class>
+		<class>it.webred.ct.data.model.docfa.DocfaDatiMetrici</class>
+		<class>it.webred.ct.data.model.docfa.DocfaUiu</class>
+		<class>it.webred.ct.data.model.docfa.DocfaInParteUno</class>
+		<class>it.webred.ct.data.model.docfa.DocfaInParteDueH</class>
+		<class>it.webred.ct.data.model.docfa.DocfaInParteDueI</class>
+		<class>it.webred.ct.data.model.catasto.SitCatPlanimetrieC340</class>
+		<class>it.webred.ct.data.model.catasto.SitRepTarsu</class>
+		<class>it.webred.ct.data.model.ici.SitTIciSogg</class>
+		<class>it.webred.ct.data.model.ici.SitTIciOggetto</class>
+		<class>it.webred.ct.data.model.ici.VTIciSoggAll</class>
+		<class>it.webred.ct.data.model.ici.VIciTSoggAllPK</class>
+		<class>it.webred.ct.data.model.ici.SitTIciVersamenti</class>
+		<class>it.webred.ct.data.model.ici.SitTIciVia</class>
+		<class>it.webred.ct.data.model.ici.SitTIciContrib</class>
+		<class>it.webred.ct.data.model.anagrafe.SitDCivico</class>
+		<class>it.webred.ct.data.model.anagrafe.SitDCivicoV</class>
+		<class>it.webred.ct.data.model.anagrafe.SitDPersona</class>
+		<class>it.webred.ct.data.model.anagrafe.SitDPersonaCivico</class>
+		<class>it.webred.ct.data.model.anagrafe.SitDVia</class>
+		<class>it.webred.ct.data.model.locazioni.LocazioniA</class>
+		<class>it.webred.ct.data.model.locazioni.LocazioniB</class>
+		<class>it.webred.ct.data.model.cosap.SitTCosapContrib</class>
+		<class>it.webred.ct.data.model.cosap.SitTCosapTassa</class>
+		<class>it.webred.ct.data.model.gas.SitUGas</class>
+		<class>it.webred.ct.data.model.fornituraelettrica.SitEnelUtente</class>
+		<class>it.webred.ct.data.model.fornituraelettrica.SitEnelUtenza</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.STestata</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SRiversamenti</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SRiscossioni</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SQuietanze</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SInizioFile</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SFineFile</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.ChiaveULStatoRiscossione</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VUlterioriBeneficiari</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VUlterioreRecordAnagrafico</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VTestataFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VRate</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VInizioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VInizioFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VFrontespizioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VFineRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VFineFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VCodaFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VCartellaSpeciale</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VCartella</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VArticolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafica</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafeUlterioriDestinatariNot</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafeDebitore</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafeCointestatario</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.ChiaveULRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.ChiaveULPartita</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RInizioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RInizioFile</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RFineRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RFineFile</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RDatiContabili</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RAnagraficaIntestatarioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RAnagraficaCointestatarioRuolo</class>
+		<class>it.webred.ct.data.model.redditi.RedDatiAnagrafici</class>
+		<class>it.webred.ct.data.model.redditi.RedDatiAnagraficiPK</class>
+		<class>it.webred.ct.data.model.redditi.RedDescrizione</class>
+		<class>it.webred.ct.data.model.redditi.RedDescrizionePK</class>
+		<class>it.webred.ct.data.model.redditi.RedDomicilioFiscale</class>
+		<class>it.webred.ct.data.model.redditi.RedDomicilioFiscalePK</class>
+		<class>it.webred.ct.data.model.redditi.RedRedditiDichiarati</class>
+		<class>it.webred.ct.data.model.redditi.RedRedditiDichiaratiPK</class>
+		<class>it.webred.ct.data.model.redditi.RedTrascodifica</class>
+		<class>it.webred.ct.data.model.redditi.RedTrascodificaPK</class>
+		<class>it.webred.ct.data.model.pregeo.PregeoForniture</class>
+		<class>it.webred.ct.data.model.pregeo.PregeoInfo</class>
+		<class>it.webred.ct.data.model.processi.SitSintesiProcessi</class>
+		<class>it.webred.ct.data.model.processi.SitSintesiProcessiPK</class>
+		<class>it.webred.ct.data.model.diagnostiche.DocfaAnomalie</class>
+		<class>it.webred.ct.data.model.diagnostiche.DocfaIciReport</class>
+		<class>it.webred.ct.data.model.diagnostiche.DocfaIciReportSogg</class>
+		<class>it.webred.ct.data.model.diagnostiche.DocfaTarReport</class>
+		<class>it.webred.ct.data.model.diagnostiche.DocfaTarReportSogg</class>
+		<class>it.webred.ct.data.model.traffico.SitTrffMulte</class>
+		<class>it.webred.ct.data.model.rette.SitRttBollette</class>
+		<class>it.webred.ct.data.model.rette.SitRttDettBollette</class>
+		<class>it.webred.ct.data.model.rette.SitRttRateBollette</class>
+		<class>it.webred.ct.data.model.rette.SitRttSoggBollette</class>
+
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.Oracle9iDialect" />
+			<!--  <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.transaction.manager_lookup_class"
+				value="org.hibernate.transaction.JBossTransactionManagerLookup" />
+		</properties>
+	</persistence-unit>
+
+
+
+</persistence>

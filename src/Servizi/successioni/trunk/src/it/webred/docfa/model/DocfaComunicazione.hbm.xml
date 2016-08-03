@@ -1,0 +1,159 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 14-mar-2007 12.05.11 by Hibernate Tools 3.2.0.b9 -->
+<hibernate-mapping>
+    <class name="it.webred.docfa.model.DocfaComunicazione" table="DOCFA_COMUNICAZIONE">
+        <meta attribute="generated-class">
+	        it.webred.docfa.model.UseDocfaComunicazione
+	    </meta>
+        <id name="iidComunicazione" type="big_decimal">
+            <column name="IID_COMUNICAZIONE" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="iidProtocolloReg" type="string">
+            <column name="IID_PROTOCOLLO_REG" length="50" />
+        </property>
+        <property name="iidFornitura" type="string">
+            <column name="IID_FORNITURA" length="10" />
+        </property>
+        <property name="codfiscalePiva" type="string">
+            <column name="CODFISCALE_PIVA" length="16" />
+        </property>
+        <property name="prefisso" type="string">
+            <column name="PREFISSO" length="50" />
+        </property>
+        <property name="telefono" type="string">
+            <column name="TELEFONO" length="50" />
+        </property>
+        <property name="denominazione" type="string">
+            <column name="DENOMINAZIONE" length="150" />
+        </property>
+        <property name="nome" type="string">
+            <column name="NOME" length="50" />
+        </property>
+        <property name="dataNascita" type="string">
+            <column name="DATA_NASCITA" length="10" />
+        </property>
+        <property name="comuneNascita" type="string">
+            <column name="COMUNE_NASCITA" length="50" />
+        </property>
+        <property name="provinciaNascita" type="string">
+            <column name="PROVINCIA_NASCITA" length="2" />
+        </property>
+        <property name="sesso" type="string">
+            <column name="SESSO" length="1" />
+        </property>
+        <property name="indirizzo" type="string">
+            <column name="INDIRIZZO" length="50" />
+        </property>
+        <property name="cap" type="string">
+            <column name="CAP" length="5" />
+        </property>
+        <property name="comune" type="string">
+            <column name="COMUNE" length="50" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="PROVINCIA" length="2" />
+        </property>
+        <property name="indirizzoDomicilio" type="string">
+            <column name="INDIRIZZO_DOMICILIO" length="50" />
+        </property>
+        <property name="capDomicilio" type="string">
+            <column name="CAP_DOMICILIO" length="5" />
+        </property>
+        <property name="comuneDomicilio" type="string">
+            <column name="COMUNE_DOMICILIO" length="50" />
+        </property>
+        <property name="provinciaDomicilio" type="string">
+            <column name="PROVINCIA_DOMICILIO" length="2" />
+        </property>
+        <property name="codiceFiscalerl" type="string">
+            <column name="CODICE_FISCALERL" length="16" />
+        </property>
+        <property name="prefissorl" type="string">
+            <column name="PREFISSORL" length="50" />
+        </property>
+        <property name="telefonorl" type="string">
+            <column name="TELEFONORL" length="50" />
+        </property>
+        <property name="cognomerl" type="string">
+            <column name="COGNOMERL" length="50" />
+        </property>
+        <property name="nomerl" type="string">
+            <column name="NOMERL" length="50" />
+        </property>
+        <property name="dataNascitarl" type="string">
+            <column name="DATA_NASCITARL" length="10" />
+        </property>
+        <property name="comuneNascitarl" type="string">
+            <column name="COMUNE_NASCITARL" length="50" />
+        </property>
+        <property name="provinciaNascitarl" type="string">
+            <column name="PROVINCIA_NASCITARL" length="2" />
+        </property>
+        <property name="sessorl" type="string">
+            <column name="SESSORL" length="1" />
+        </property>
+        <property name="indirizzorl" type="string">
+            <column name="INDIRIZZORL" length="50" />
+        </property>
+        <property name="caprl" type="string">
+            <column name="CAPRL" length="5" />
+        </property>
+        <property name="comunerl" type="string">
+            <column name="COMUNERL" length="50" />
+        </property>
+        <property name="provinciarl" type="string">
+            <column name="PROVINCIARL" length="2" />
+        </property>
+        <property name="indirizzoDomiciliorl" type="string">
+            <column name="INDIRIZZO_DOMICILIORL" length="50" />
+        </property>
+        <property name="capDomiciliorl" type="string">
+            <column name="CAP_DOMICILIORL" length="5" />
+        </property>
+        <property name="comuneDomiciliorl" type="string">
+            <column name="COMUNE_DOMICILIORL" length="50" />
+        </property>
+        <property name="provinciaDomiciliorl" type="string">
+            <column name="PROVINCIA_DOMICILIORL" length="2" />
+        </property>
+        <property name="flagRappresentanteLegale" type="yes_no">
+            <column name="FLAG_RAPPRESENTANTE_LEGALE" length="1" />
+        </property>
+        <property name="flagCuratoreFallimentare" type="yes_no">
+            <column name="FLAG_CURATORE_FALLIMENTARE" length="1" />
+        </property>
+        <property name="flagTutore" type="yes_no">
+            <column name="FLAG_TUTORE" length="1" />
+        </property>
+        <property name="flagErede" type="yes_no">
+            <column name="FLAG_EREDE" length="1" />
+        </property>
+        <property name="altraNatura" type="string">
+            <column name="ALTRA_NATURA" length="50" />
+        </property>
+        <property name="flagPersona" type="java.lang.Character">
+            <column name="FLAG_PERSONA" length="1" />
+        </property>
+        <property name="dataComunicazione" type="date">
+            <column name="DATA_COMUNICAZIONE" length="7" />
+        </property>
+        <property name="stato" type="java.lang.Long">
+            <column name="STATO" precision="10" scale="0" />
+        </property>
+        <property name="pagine" type="string">
+            <column name="PAGINE" length="3" />
+        </property>
+        <property name="flagElaborato" type="java.lang.Long">
+            <column name="FLAG_ELABORATO" precision="1" scale="0" />
+        </property>
+        <set name="docfaComunOggettos" inverse="true">
+            <key>
+                <column name="IID_COMUNICAZIONE" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="it.webred.docfa.model.DocfaComunOggetto" />
+        </set>
+    </class>
+</hibernate-mapping>

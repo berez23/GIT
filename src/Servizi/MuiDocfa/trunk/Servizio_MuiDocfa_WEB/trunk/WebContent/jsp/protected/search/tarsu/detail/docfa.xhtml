@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<!-- INIZIO DOCFA MODAL BOX -->
+<rich:modalPanel id="docfaModalBox" minHeight="600" minWidth="550"
+	height="600" width="550">
+	<f:facet name="header">
+		<h:outputText value="dettaglio Docfa"></h:outputText>
+	</f:facet>
+	<f:facet name="controls">
+		<h:form>
+			<h:panelGroup>
+				<h:graphicImage value="/images/close.png" style="cursor:pointer"
+					id="hidelink">
+					<a4j:support event="onclick" reRender="docfaPage"
+						oncomplete="javascript:Richfaces.hideModalPanel('docfaModalBox');">
+						<a4j:actionparam name="pageD" value="/jsp/protected/empty.xhtml"
+							assignTo="#{pageUiBean.pageDocfa}" />
+					</a4j:support>
+				</h:graphicImage>
+			</h:panelGroup>
+		</h:form>
+	</f:facet>
+
+	<h:form id="docfaForm">
+		<rich:spacer height="20px" />
+
+		<h:panelGrid columns="2" cellpadding="5px">
+
+			<h:panelGrid columns="1" cellpadding="0px" cellspacing="0"
+				width="250px">
+				<h:outputText value="Stato elaborazione:" style="font-weight: bold;" />
+			</h:panelGrid>
+			<h:graphicImage value="/images/passed.gif" id="img1"
+				rendered="#{tarDetailBean.docfa.flgElaborato eq '1' and tarDetailBean.docfa.flgAnomalie eq '0'}">
+				<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+					value="Elaborato" />
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img2"
+				rendered="#{tarDetailBean.docfa.flgElaborato eq '0'}">
+				<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img3"
+				rendered="#{tarDetailBean.docfa.flgElaborato eq '1' and tarDetailBean.docfa.flgAnomalie eq '1'}">
+				<rich:toolTip direction="bottom-left" mode="client" layout="inline"
+					value="Elaborato con anomalie" />
+			</h:graphicImage>
+
+			<h:outputText value="Anomalie:" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.annotazioni}" />
+
+			<h:outputText value="Data fornitura:" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.fornitura}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+			</h:outputText>
+
+			<h:outputText value="Protocollo:" title="Protocollo Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.protocolloDocfa}" />
+
+			<h:outputText value="Data registrazione:"
+				title="Data registrazione Docfa" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.dataDocfaToDate}">
+				<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+			</h:outputText>
+
+			<h:outputText value="Foglio" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.foglio}" />
+
+			<h:outputText value="Particella" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.particella}" />
+
+			<h:outputText value="Subalterno" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.subalterno}" />
+
+			<h:outputText value="Tipo operazione:" title="Tipo operazione Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="Soppressione"
+				rendered="#{tarDetailBean.docfa.tipoOperDocfa eq 'S'}" />
+			<h:outputText value="Costituzione"
+				rendered="#{tarDetailBean.docfa.tipoOperDocfa eq 'C'}" />
+			<h:outputText value="Variazione"
+				rendered="#{tarDetailBean.docfa.tipoOperDocfa eq 'V'}" />
+
+			<h:outputText value="Causale:" title="Causale Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.causaleDocfa}" />
+
+			<h:outputText value="Categoria:" title="Categoria Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.categoriaDocfa}" />
+
+			<h:outputText value="Superficie:" title="Superficie Docfa"
+				style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.supDocfaCens} mq"
+				rendered="#{tarDetailBean.docfa.supDocfaCens != null}" />
+			<h:outputText value=""
+				rendered="#{tarDetailBean.docfa.supDocfaCens == null}" />
+
+			<h:outputText value="Superficie Tarsu:"
+				title="Superficie Docfa ai fini Tarsu" style="font-weight: bold;" />
+			<h:outputText value="#{tarDetailBean.docfa.supDocfaTarsu} mq"
+				rendered="#{tarDetailBean.docfa.supDocfaTarsu != null}" />
+			<h:outputText value=""
+				rendered="#{tarDetailBean.docfa.supDocfaTarsu == null}" />
+
+			<h:outputText value="Indirizzo:" title="Indirizzo Docfa"
+				style="font-weight: bold;" />
+			<h:outputText
+				value="#{tarDetailBean.docfa.prefissoViaDocfa} #{tarDetailBean.docfa.viaDocfa} #{tarDetailBean.docfa.civiciDocfa}" />
+
+			<h:outputText value="Presenza in Tarsu anteriore al Docfa:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img4"
+				rendered="#{tarDetailBean.docfa.flgTarAnteDocfa eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img5"
+				rendered="#{tarDetailBean.docfa.flgTarAnteDocfa eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img6"
+				rendered="#{tarDetailBean.docfa.flgTarAnteDocfa == null}">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+
+			<h:outputText value="Presenza in Tarsu successiva al Docfa:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img7"
+				rendered="#{tarDetailBean.docfa.flgTarPostDocfa eq '1' or tarDetailBean.docfa.flgTarPostDocfa eq '2'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img8"
+				rendered="#{tarDetailBean.docfa.flgTarPostDocfa eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img9"
+				rendered="#{tarDetailBean.docfa.flgTarPostDocfa == null}">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+
+			<h:outputText value="Presenza a catasto alla data del Docfa:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img10"
+				rendered="#{tarDetailBean.docfa.flgUiuCatasto eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img11"
+				rendered="#{tarDetailBean.docfa.flgUiuCatasto eq '0'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/warning.png" id="img12"
+				rendered="#{tarDetailBean.docfa.flgUiuCatasto == null}">
+				<rich:toolTip direction="top-left" mode="client" layout="inline"
+					value="Non elaborato" />
+			</h:graphicImage>
+
+			<h:outputText value="Docfa di cessazione senza costituzione:"
+				style="font-weight: bold;" />
+			<h:graphicImage value="/images/passed.gif" id="img13"
+				rendered="#{tarDetailBean.docfa.flgDocfaSNoC eq '1'}">
+			</h:graphicImage>
+			<h:graphicImage value="/images/error.gif" id="img14"
+				rendered="#{tarDetailBean.docfa.flgDocfaSNoC == null or tarDetailBean.docfa.flgDocfaSNoC eq '0'}">
+			</h:graphicImage>
+
+		</h:panelGrid>
+
+		<rich:spacer height="15px" />
+		<h:panelGrid id="pnlBtn" columns="1" style="text-align:center;"
+			width="100%">
+
+			<h:panelGroup>
+				<a4j:commandButton value="Chiudi" id="btnEsci" reRender="docfaPage"
+					oncomplete="Richfaces.hideModalPanel('docfaModalBox'); return false;">
+					<a4j:actionparam value="/jsp/protected/empty.xhtml" name="dPage"
+						assignTo="#{pageUiBean.pageDocfa}" />
+				</a4j:commandButton>
+			</h:panelGroup>
+
+		</h:panelGrid>
+	</h:form>
+
+</rich:modalPanel>
+<!-- FINE DOCFA MODAL BOX -->
+
+</html>

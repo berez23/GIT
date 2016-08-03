@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+
+		<h:form id="frmHome">
+			<p:panel header="Notifiche Generali">
+			
+				<p:panelGrid styleClass="panelGrid" columns="2" style="width:auto;" cellpadding="10">
+
+					<p:outputLabel value="Numero lotti in GITLand: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel id="lblNumLotti" value="#{notificheBean.getNumeroLotti()}"  />
+					</p:panel>
+					
+					<p:outputLabel value="Numero lotti in GIS ma non in GITLand: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel id="lblNumLottiGIS" value="#{notificheBean.numeroLottiGIS}"  />
+					<p:spacer width="5px"/>
+					<p:commandLink value="vedi" 
+								oncomplete="PF('dlgLottiSoloGIS').show()"
+								update=":#{p:component('dlgLottiSoloGIS')}"
+								action="#{notificheBean.loadListaLottiSoloGIS}"
+								process="@this">
+							</p:commandLink> 
+					</p:panel>
+					
+					<p:outputLabel value="Numero lotti in GITLand ma non in GIS: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel id="lblNumLottiGitLand" value="#{notificheBean.numeroLottiGitLand}"  />
+					<p:spacer width="5px"/>
+					<p:commandLink value="vedi" 
+								action="#{notificheBean.loadListaLottiSoloGitLand}"
+								process="@this">
+							</p:commandLink>
+					</p:panel>
+					
+					
+					<p:outputLabel value="Numero lotti comuni GITLand-GIS: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel id="lblNumLottiComuni" value="#{notificheBean.numeroLottiComuni}"  />
+					</p:panel>
+					
+					<p:outputLabel value="Numero aziende insediate: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel id="lblNumAziendeInsediate" value="#{notificheBean.getNumeroAziendeInsediate()}"  />
+					</p:panel>
+					
+					<p:outputLabel value="Date riferimento banca dati catastale: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel id="lblDateRiferimentoCatasto" value="#{notificheBean.getDateRiferimentoCatasto()}"  />
+					</p:panel>
+					
+					<p:outputLabel value="Data ultima acquisizione cartografia GIS: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel value="#{notificheBean.dataUltimaAcquisizione}"  />
+					</p:panel>
+					
+					<p:outputLabel value="Data ultima sincronizzazione: " style="font-weight:bold;"/>
+					<p:panel style="border-width: 0">
+					<p:outputLabel value="#{notificheBean.dataUltimaSincronizzazione}" style="font-weight:bold;color:red;" rendered="#{notificheBean.sincronizzazioneNecessaria}" />
+					<p:outputLabel value="#{notificheBean.dataUltimaSincronizzazione}" rendered="#{not notificheBean.sincronizzazioneNecessaria}" />
+					</p:panel>
+
+					<p:outputLabel value="Numero pratiche assegnate: " style="font-weight:bold;" rendered="#{notificheBean.operatore}"/>
+					<p:panel style="border-width: 0" rendered="#{notificheBean.operatore}">
+					<p:outputLabel value="#{notificheBean.numeroPraticheAssegnate}" rendered="#{notificheBean.operatore}" />
+					</p:panel>
+					
+					<p:outputLabel value="Numero pratiche chiuse da compilare a carico dell'Ente: " style="font-weight:bold;" rendered="#{notificheBean.manager}"/>
+					<p:outputLabel value="Numero pratiche chiuse da compilare: " style="font-weight:bold;" rendered="#{notificheBean.ente }"/>
+					<p:panel style="border-width: 0"  rendered="#{notificheBean.ente or notificheBean.manager}">
+					<p:outputLabel value="#{notificheBean.numeroPraticheEnteDaCompilare}" rendered="#{notificheBean.ente or notificheBean.manager}" />
+					<p:spacer width="5px"/>
+					<p:commandLink value="vedi" 
+								action="#{notificheBean.loadPraticheEnteDaCompilare}"
+								process="@this">
+							</p:commandLink>
+					</p:panel>
+					
+					<p:outputLabel value="Pratiche assegnate per istruttore: " style="font-weight:bold;" rendered="#{notificheBean.manager}"/>
+					<p:dataTable id="dtPratichePerUtente" var="riga" rendered="#{notificheBean.manager}" 
+					value="#{notificheBean.listaPratichePerUtente}" widgetVar="tabellaRisultato">                    
+				        <p:column headerText="Istruttore">
+				        	<h:outputText value="#{riga[0]}" />
+				        </p:column>
+				        <p:column headerText="Pratiche">
+				        	<h:outputText value="#{riga[1]}" />
+				        </p:column>
+				    </p:dataTable>
+				    <p:spacer width="5px"/>
+				    					 
+				</p:panelGrid>
+			
+			</p:panel>
+		</h:form>	
+
+	</ui:define>
+	
+	<ui:define name="dialogs">
+
+		<ui:include src="notificaListaLottiSoloGIS.xhtml" />
+
+	</ui:define>
+	
+</ui:composition>
+</html>

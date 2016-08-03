@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.BodFabbricatoBean" table="BOD_FABBRICATI" >
+  
+  <id column="ID_FAB" name="idFab" type="java.lang.Long">
+	   <generator class="native">
+			<param name="sequence">SEQ_BOD_FABBRICATI</param>	   
+	   </generator>
+  </id>
+  
+  <property column="SEZIONE" name="sezione" type="java.lang.String"/>
+  <property column="FOGLIO" name="foglio" type="java.lang.String"/>
+  <property column="PARTICELLA" name="particella" type="java.lang.String"/>
+  <property column="AMMINISTRATIVA" name="amministrativa" type="java.lang.String"/>
+  <property column="DENOMINATORE" name="denominatore" type="java.lang.String"/>
+  <property column="EDIFICIALITA" name="edificialita" type="java.lang.String"/>
+  <property column="NOME_ALLEGATO" name="nomeAllegato" type="java.lang.String"/><!--
+  
+  <many-to-one 
+  		name="segFk" 
+  		class="it.bod.application.beans.BodSegnalazioneBean" 
+  		column="SEG_FK" 
+  		lazy="false"
+  		insert="false"
+  		update="false"/>
+  		  
+  --></class>
+
+</hibernate-mapping>

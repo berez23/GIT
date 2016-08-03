@@ -1,0 +1,126 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+	<rich:modalPanel id="classamentoModalBox" autosized="true" minWidth="450">
+        <f:facet name="header">
+            <h:outputText value="Classamento Compatibile per Foglio:#{detailBean.dtoVerificheUiu.foglio} Particella:#{detailBean.dtoVerificheUiu.particella} Subalterno:#{detailBean.dtoVerificheUiu.subalterno} " />
+        </f:facet>
+     <f:facet name="controls">
+	    <h:panelGroup>
+	     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="classamentoLink" />
+	     <rich:componentControl for="classamentoPanel" attachTo="classamentoLink" operation="hide" event="onclick" />
+	    </h:panelGroup>
+	   </f:facet>
+        <h:form>
+        <center>
+            <h:panelGrid columns="1">
+            <a4j:outputPanel ajaxRendered="true">
+            <h:panelGrid columns="2">
+            
+            	<h:outputLabel value="Rendita Proposta" />
+           		<h:outputText value="#{detailBean.selClaCom.rendita}" >
+           			<f:convertNumber type="number" minFractionDigits="2" />
+           		</h:outputText>
+            	
+            	<h:outputLabel value="Rendita Media Attesa" />
+           		<h:outputText value="#{detailBean.selClaCom.mediaAttesa}" >
+           			<f:convertNumber type="number" minFractionDigits="2" />
+           		</h:outputText>
+           		
+           		<h:outputLabel value="Consistenza" />
+           		<h:outputText value="#{detailBean.selClaCom.consistenza}" >
+           		<f:convertNumber type="number" minFractionDigits="2" />
+           		</h:outputText>
+            	
+            	<h:outputLabel value="Rendita Media Attesa per vano" />
+            	<h:outputText value="#{detailBean.selClaCom.mediaAttesaPerVano}" >
+            		<f:convertNumber type="number" minFractionDigits="2" />
+            	</h:outputText> 
+            	
+           		<h:outputLabel value="Rapporto Val. Comm.le / Rendita x 105" />
+            	<h:outputText value="#{detailBean.selClaCom.valComSuRen105}" >
+            		<f:convertNumber type="number" minFractionDigits="2" />
+            	</h:outputText> 
+            	
+            	<h:outputLabel value="Valore di rapporto" />
+            	<h:inputText id="txtRapporto" binding="#{detailBean.txtRapporto}" value="#{detailBean.selClaCom.rapporto}" style="width: 70px" styleClass="MyInput">
+            		<f:convertNumber type="number" minFractionDigits="2" />
+            	</h:inputText>
+            	
+            	<a4j:commandButton  styleClass="my-button" 
+					            	value="Ricalcola" 
+					            	action="#{detailBean.showClassamento}" 
+					            	ajaxSingle="false"></a4j:commandButton>
+            
+            </h:panelGrid>
+            
+            <rich:spacer height="10px"/>
+            
+			<rich:dataTable width="100%" id="claComList" rows="5" columnClasses="col" value="#{detailBean.lstClaCom}" var="claCom">
+            <f:facet name="header">
+                <rich:columnGroup>
+		          <rich:column colspan="5">
+                        <h:outputText value="Dati Categoria / Classe Compatibile" />
+                    </rich:column>
+                    <rich:column breakBefore="true">
+                        <h:outputText value="Zona" />
+                    </rich:column>
+	                 <rich:column>
+                        <h:outputText value="Categoria" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Classe" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Tariffa per vano" />
+                    </rich:column>
+                    <rich:column>
+                        <h:outputText value="Rendita" />
+                    </rich:column>
+                </rich:columnGroup>
+            </f:facet>
+            
+            <rich:column>
+                <h:outputText value="#{claCom.zona}" />
+            </rich:column>
+            <rich:column>
+                <h:outputText value="#{claCom.categoria}" />
+            </rich:column>
+            <rich:column>
+                <h:outputText value="#{claCom.classe}" />
+            </rich:column>
+            <rich:column>
+                <h:outputText value="#{claCom.tariffa}" >
+    		            		<f:convertNumber type="number" minFractionDigits="2" />
+                </h:outputText>
+            </rich:column>
+            <rich:column>
+                <h:outputText value="#{claCom.rendita}" >
+    		            		<f:convertNumber type="number" minFractionDigits="2" />
+                </h:outputText>
+            </rich:column>
+            
+        	</rich:dataTable>
+        	
+        	<rich:spacer height="20px"/>
+        	
+        	<center>
+				<a4j:commandButton 
+					styleClass="my-button" 
+					value="Chiudi" 
+					ajaxSingle="false" 
+					id="hideBtn" 
+					oncomplete="#{rich:component('classamentoModalBox')}.hide();">
+				</a4j:commandButton>	             	
+             </center>
+            </a4j:outputPanel>
+          </h:panelGrid>  
+         </center>
+        </h:form>
+    </rich:modalPanel>
+  </html>

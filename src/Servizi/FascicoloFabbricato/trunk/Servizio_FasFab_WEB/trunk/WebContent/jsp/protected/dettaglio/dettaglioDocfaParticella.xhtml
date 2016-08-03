@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+  		<ui:composition>
+				
+		<rich:messages passedLabel="Operazione completata" 
+								   layout="list" >
+              <f:facet name="infoMarker">
+                   <h:graphicImage  value="/images/passed.gif" />
+              </f:facet>
+              <f:facet name="errorMarker">
+                    <h:graphicImage value="/images/error.gif" />   
+              </f:facet>
+        </rich:messages>	
+
+				<rich:panel>
+				    <center>DOCFA</center>	
+				    <h:panelGrid columns="2" width="100%">
+				    		<h:panelGrid columns="6" width="80%">
+				    					<h:outputText value="PROTOCOLLO " styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.protocollo}" />
+				    				
+				    					<h:outputText value=" FORNITURA " styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.fornituraStr}" />
+				    					
+				    					<h:outputText value=" " styleClass="myLabel" />
+				    					<h:outputText value=" " styleClass="myLabel" />
+				    			
+				    					<h:outputText value="DATA VARIAZIONE " styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.dataVariazioneStr}" />
+				    					
+				    					<h:outputText value="CAUSALE" styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.causale}" />
+				    					
+				    					<h:outputText value=" " styleClass="myLabel" />
+				    					<h:outputText value=" " styleClass="myLabel" />
+				    				
+				    					<h:outputText value="SOPPRESSIONE" styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.numSop}" />
+				    				
+				    					<h:outputText value="VARIAZIONE" styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.numVar}" />
+				    				
+				    					<h:outputText value="COSTITUZIONE" styleClass="myLabel" />
+				    					<h:outputText value="#{docfaBean.numCost}" />
+				    			
+				    	</h:panelGrid>
+				    	
+				    					<h:commandLink action="#{docfaBean.openDocfaPdf}" title="Apri Pdf DOCFA">
+				    						<h:graphicImage value="/images/pdf_icon.png"/>
+				       	     				<a4j:actionparam name="nomePdfDocfa" value="#{docfaBean.protocollo}" assignTo="#{docfaBean.nomePdfDocfa}" />
+					            			<a4j:actionparam name="fornitura" value="#{docfaBean.fornituraStr}" assignTo="#{docfaBean.fornituraStr}" />
+				       	     			</h:commandLink>
+				    				
+				    	</h:panelGrid>
+					
+		  </rich:panel>
+		  
+		  <rich:spacer height="10px" />
+	
+	<rich:panel>
+			<f:facet name="header">Lista Dichiaranti</f:facet>	
+											
+										<rich:dataTable width="100%"
+								        	var="dich"
+								        	value="#{docfaBean.listaDichiarantiDocfaParticella}"
+								        	columnClasses="col" 
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+										
+									<f:facet name="header">
+                        			<rich:columnGroup>
+										<rich:column>
+											Cognome
+                            			</rich:column>                        			
+                            			<rich:column>
+                                			Nome
+                            			</rich:column>
+                          				<rich:column>
+                                			Indirizzo
+                            			</rich:column>
+                            			<rich:column>
+                                			Luogo
+                            			</rich:column>
+									</rich:columnGroup>
+							   </f:facet> 											
+										
+										<rich:column>
+											<h:outputLabel value="#{dich.dicCognome}"  />
+										</rich:column>
+										<rich:column>						
+											<h:outputLabel value="#{dich.dicNome}" />
+										</rich:column>
+										<rich:column>						
+											<h:outputLabel value="#{dich.dicResIndir}" /> <h:outputLabel value=","  rendered="#{
+dich.dicResIndir != null and dich.dicResIndir ne ''}"/>  <h:outputLabel value="#{dich.dicResNumciv}" />
+										</rich:column>
+										<rich:column>						
+											<h:outputLabel value="#{dich.dicResCom}" /> 
+										</rich:column>						          			
+							           																						
+									</rich:dataTable>
+								
+					</rich:panel>
+					
+					
+					<rich:panel>
+			<f:facet name="header">Lista Uiu</f:facet>	
+											
+										<rich:dataTable width="100%"
+								        	var="uiu"
+								        	value="#{docfaBean.listaUiuDocfaParticella}"
+								        	columnClasses="col" 
+								        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+						                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+										
+									<f:facet name="header">
+	                        			<rich:columnGroup>
+											<rich:column>
+												Sub
+	                            			</rich:column>                        			
+	                            			<rich:column>
+	                                			Operazione
+	                            			</rich:column>
+	                          				<rich:column>
+	                                			Indirizzo
+	                            			</rich:column>
+										</rich:columnGroup>
+							   		</f:facet> 											
+										
+										<rich:column>
+											<h:outputLabel value="#{uiu.subalterno}"  />
+										</rich:column>
+										<rich:column>						
+											<h:outputLabel value="#{uiu.descTipoOperazione}" />
+										</rich:column>
+										<rich:column>						
+											<h:outputLabel value="#{uiu.indirToponimo}" />  <h:outputLabel value=","  rendered="#{
+uiu.indirToponimo != null and uiu.indirToponimo ne ''}"/>  <h:outputLabel value="#{uiu.indirNcivUno}" />
+										</rich:column>
+																												
+									</rich:dataTable>
+								
+					</rich:panel>
+					
+		        
+  		</ui:composition>
+</html>

@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="7DC94587-7A3E-A9A7-0B9D-72AC4D9B8EFB" directorySegmentName="seg_0" name="FK_DATISOC_STESURA_RELAZ_PER">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>FK_DATISOC_STESURA_RELAZ_PER</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:23 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<containerWithKeyObject>70F5932A-CFDF-28DC-1017-A1B465C5951F</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>4DE988D0-4D01-F436-A302-345ABD1D6F84</localFKIndex>
+<keyObject>2FF5BA20-2068-C705-F089-9AED7D89225C</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

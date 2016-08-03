@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   		<f:loadBundle basename="resources" var="msg" />
+
+   		<ui:composition template="/WEB-INF/templates/common.xhtml">
+
+			<ui:define name="pageTitle"><h:outputText value="#{msg.bottoneMenuClassamentoQuattro}" /></ui:define>
+  
+			<ui:define name="pageHeader"></ui:define>
+		
+			<!--  <ui:define name="subHeader">Sottotitolo</ui:define>  -->
+
+			<ui:define name="body">
+			
+			<div style="overflow: auto;">
+			   <rich:panel style="padding:5; width : 810px; position: relative" headerClass="outpanelHeader">
+			        <f:facet name="header">
+   		            	<h:outputText value="#{msg.titoloCalcoloClassamento}" />
+			        </f:facet>
+			   
+			   
+		        <table border="0" style=" width : 800px;" cellspacing="5">
+		        
+		        <thead>
+		                 <tr style="" >
+		                    <td style="width: 100%;" colspan="5">
+   		                    	
+   		                    	<h:outputText value="#{msg.bottoneMenuClassamentoQuattro}" />
+   		                    	
+   		                    	
+		                    </td>
+		                </tr>
+		            </thead>
+		        
+		       		<tbody>
+		            	 <tr style="">
+	                        <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelFoglio}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+								<rich:comboBox 
+									width="70px"
+									enableManualInput="false"
+									
+									value="#{classamentoTreBck.cbxFoglio.state}"
+									>
+									<f:selectItems value="#{classamentoTreBck.cbxFoglio.selectItems}" ></f:selectItems>
+										<a4j:support event="onselect" action="#{classamentoTreBck.selectFoglio}" ajaxSingle="true" reRender="cbxZc, outMicrozona, outPanel"/>
+																			 
+								
+								</rich:comboBox>
+	                        </td>
+	                         <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelCategoriaEdilizia}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+	                        	<h:selectOneRadio  layout="pageDirection" value="#{classamentoTreBck.radioCatEd.value}">
+	                        	<f:selectItems value="#{classamentoTreBck.listaTipoCategoriaEdilizia}" ></f:selectItems>
+	                        	<a4j:support event="onclick" action="#{classamentoTreBck.selectCategoriaEdilizia}" reRender="cbxPostoAuto, outPanel"  ajaxSingle="true"/>
+	                        	
+	                        	</h:selectOneRadio>
+	                        	
+	                        </td>
+	                	</tr>
+	                
+		      
+		       
+			   <tr style="">
+	                        <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelZC}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+								<rich:comboBox id="cbxZc"
+									width="70px"
+									enableManualInput="false"
+									value="#{classamentoTreBck.cbxZc.state}"
+									>
+									<f:selectItems value="#{classamentoTreBck.cbxZc.selectItems}" ></f:selectItems> 
+									<a4j:support event="onselect" action="#{classamentoTreBck.getMicrozona}" reRender="outMicrozona, outPanel"  ajaxSingle="true"/>
+								
+								</rich:comboBox>
+	                        </td>
+	                       <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelPostoAuto}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+								<rich:comboBox id="cbxPostoAuto"  disabled="#{!classamentoTreBck.abilitaPostoAuto}"
+									width="70px"
+									enableManualInput="false"
+									
+									value="#{classamentoTreBck.cbxPostoAuto.state}"
+									>
+									<f:selectItems value="#{classamentoTreBck.cbxPostoAuto.selectItems}" ></f:selectItems> 
+									<a4j:support event="onselect" action="#{classamentoTreBck.hideOutPanel}" reRender="outPanel"  ajaxSingle="true"/>
+								</rich:comboBox>
+	                        </td>
+	                        
+	                	</tr>
+		       
+		       <tr style="">
+	                        <td align="left"  style="width: 100px">
+	                            <h:outputText value="#{msg.labelMicrozona}" />
+	                        </td>
+	                        <td align="left" style="width: 200px;">
+	                        	<h:outputText id="outMicrozona" value="#{classamentoTreBck.outMicrozona.value}"  />
+	                        </td>
+	                        
+	                        <td align="left" colspan="2"  style="width: 50px">
+	                            &nbsp;
+	                        </td>
+	                        
+		       	 	</tr>
+		       	 	
+		       	 	
+		      </tbody>
+		      </table>
+		       	
+	       	 <table border="0" style=" width : 800px;" cellspacing="5">
+	    		<tbody>
+		       	<tr style="">
+			       	<td align="center" >
+			       		<a4j:commandButton event="onclick" action ="#{classamentoTreBck.calcola}" value="Calcola" type="submit" id="btnCalcola" reRender="outPanel" styleClass="my-button"/>
+			       	</td>
+		       	</tr>
+	       		</tbody>
+	       	</table>
+	       	<a4j:outputPanel layout="block" id="outPanel" >
+		     <c:if test="#{classamentoTreBck.visualizzaOutput == true}">
+	       	 <table border="0" style=" width : 800px;" cellspacing="5">
+	           <tbody>
+		       	<tr style="">
+			       	<td align="left" style="width: 50%;" colspan="2">
+			       		&nbsp;
+			       	</td>
+			       	
+			       	<td align="left" style="width: 25%; font-size: 12px;">
+			       		<h:outputText value="#{msg.labelClasseMinimaRif}" rendered="#{classamentoTreBck.radioCatEd.value eq 'C01'}"/>
+			       		<h:outputText value="#{msg.labelClasseMediaRif}" rendered="#{classamentoTreBck.radioCatEd.value ne 'C01'}"/>
+			       	</td>
+			       	<td align="right" style="width: 25%; font-size: 14px;">
+			       		<h:outputText value="#{classamentoTreBck.outValoreClasse.value}" style=" font-weight: bold;"/>
+			       		
+			       	</td>
+		       	</tr>
+		          
+			 </tbody>
+			 </table>
+		     </c:if>
+		    
+			
+			
+			
+			 </a4j:outputPanel>
+		      </rich:panel>
+			</div>
+			
+			</ui:define>
+			
+			</ui:composition>
+			
+	</html>
+			
+			

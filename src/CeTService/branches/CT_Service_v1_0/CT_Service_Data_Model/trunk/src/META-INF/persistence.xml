@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	
+	<persistence-unit name="CT_Siti">
+	<jta-data-source>java:/jdbc/Diogene_DS</jta-data-source>
+	<mapping-file>META-INF/orm_catasto.xml</mapping-file>
+	<class>it.webred.ct.data.model.catasto.SitiuiuPK</class>
+	<class>it.webred.ct.data.model.catasto.Sitiuiu</class>
+	<class>it.webred.ct.data.model.catasto.SitiediVani</class>
+	<class>it.webred.ct.data.model.catasto.Sitidstr</class>
+	<class>it.webred.ct.data.model.catasto.SitidecoPK</class>
+	<class>it.webred.ct.data.model.catasto.Sitideco</class>
+	<class>it.webred.ct.data.model.catasto.Siticomu</class>
+	<class>it.webred.ct.data.model.catasto.Siticivi</class>
+	<class>it.webred.ct.data.model.catasto.ConsSoggTab</class>
+	
+		<properties>
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<!--  <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+			<property name="hibernate.show_sql" value="false"/>
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="CT_Diogene">
+	<jta-data-source>java:/jdbc/Diogene_DS</jta-data-source>
+	<mapping-file>META-INF/orm_common.xml</mapping-file>
+	<mapping-file>META-INF/orm_tarsu.xml</mapping-file>
+	<mapping-file>META-INF/orm_docfa.xml</mapping-file>
+	<mapping-file>META-INF/orm_catasto.xml</mapping-file>
+		<class>it.webred.ct.data.model.common.SitEnte</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarVia</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarUltSogg</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarSogg</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarOggetto</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarOggUltsogg</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarDich</class>
+		<class>it.webred.ct.data.model.tarsu.SitTTarContrib</class>
+		<class>it.webred.ct.data.model.docfa.DocfaDatiCensuari</class>
+		<class>it.webred.ct.data.model.docfa.DocfaDatiCensuari</class>
+		<class>it.webred.ct.data.model.docfa.DocfaDatiCensuari</class>
+		<class>it.webred.ct.data.model.catasto.SitCatPlanimetrieC340</class>
+		<class>it.webred.ct.data.model.catasto.SitRepTarsu</class>
+		<properties>
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<!--  <property name="hibernate.hbm2ddl.auto" value="update"/> -->
+			<property name="hibernate.show_sql" value="false"/>
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="CT_Diogene_CNC">
+		<jta-data-source>java:/jdbc/Diogene_DS</jta-data-source>
+		<mapping-file>META-INF/orm_cnc.xml</mapping-file>
+		<class>it.webred.ct.data.model.cnc.flusso750.VUlterioriBeneficiari</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VUlterioreRecordAnagrafico</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VTestataFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VRate</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VInizioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VInizioFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VFrontespizioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VFineRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VFineFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VCodaFlusso</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VCartellaSpeciale</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VCartella</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VArticolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafica</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafeUlterioriDestinatariNot</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafeDebitore</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.VAnagrafeCointestatario</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.ChiaveULRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso750.ChiaveULPartita</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RInizioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RInizioFile</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RFineRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RFineFile</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RDatiContabili</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RAnagraficaIntestatarioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.flusso290.RAnagraficaCointestatarioRuolo</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SFineFile</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SInizioFile</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SQuietanze</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SRiscossioni</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.SRiversamenti</class>
+		<class>it.webred.ct.data.model.cnc.statoriscossione.STestata</class>
+		
+		<properties>
+		    <property name="hibernate.dialect" value="org.hibernate.dialect.OracleDialect"/>
+			<property name="hibernate.show_sql" value="false"/>
+		</properties>
+	</persistence-unit>
+	
+</persistence>

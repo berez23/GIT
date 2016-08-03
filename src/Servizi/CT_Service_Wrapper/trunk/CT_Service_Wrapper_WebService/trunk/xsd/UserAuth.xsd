@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   jaxb:version="2.0" jaxb:extensionBindingPrefixes="xjc">
+         
+    <xs:annotation>
+       <xs:appinfo>
+          <jaxb:globalBindings generateIsSetMethod="true">
+              <xjc:serializable uid="12343"/>
+              <jaxb:javaType name="java.lang.Long" xmlType="xs:long"/>   
+          </jaxb:globalBindings>
+       </xs:appinfo>
+    </xs:annotation>
+	
+	<!-- Info contenute in it.webred.ct.support.datarouter.CeTBaseObject -->
+	<xs:element name="commonUserInfo">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userInfo" type="userInfo" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    
+    <xs:complexType name="userInfo">
+        <xs:sequence>
+            <xs:element name="enteId" type="xs:string" minOccurs="0"/>
+            <xs:element name="userId" type="xs:string" minOccurs="0"/>
+            <xs:element name="password" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+	
+	
+	
+</xs:schema>

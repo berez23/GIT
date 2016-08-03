@@ -1,0 +1,153 @@
+@CHARSET "ISO-8859-1";
+
+body {
+	font-family: Arial, Verdana, sans-serif;
+	font-size: 12px;
+	margin-left: 2.5%;
+	padding:0;
+	width: 95%;
+}
+
+.rich-tab-inactive {
+	cursor: pointer;
+	background-image: url(../images/tab_inactive.png);
+	color: white;
+	background-repeat: repeat;
+}
+
+.rich-tab-active {
+	font-weight: bold;
+	background-image: url(../images/tab_active.png);
+}
+
+.imgHeader{
+	border: 1;
+	width: 100%;
+	}
+
+.divBottoniFooter
+{
+	width:100%;
+	height: 30px;
+	padding-top: 10px;
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+}
+
+.divTitolo
+{
+	width:100%;
+	text-align:center;
+	font-size: 14px;
+	text-transform: uppercase;
+	color:black;
+	font-weight: bold;	
+	height: 30px;
+}
+
+.titolo
+{
+	font-size: 16px;
+	text-transform: uppercase;
+	margin-left: 20px;
+	color:#4A75B5;
+	font-weight: bold;	
+}
+
+.titoloNero
+{
+	font-size: 12px;
+	text-transform: uppercase;
+}
+
+.labelDesc
+{
+	margin-left: 20px;
+	font-weight: bold;
+	float: left;
+	width: 200px;
+	font-size: 12px;
+}
+.labelOutPut
+{
+	text-align: left;
+	font-size: 12px;
+}
+
+.rich-tab-inactive {
+	cursor: pointer;
+	background-image: url(../images/tab_inactive.png);
+	color: white;
+	background-repeat: repeat;
+}
+
+.rich-tab-active {
+	font-weight: bold;
+	background-image: url(../images/tab_active.png);
+}
+
+.colAlignCenter
+{
+	text-align:center;
+}
+
+.labelRicDesc
+{
+	margin-left: 10px;
+	font-weight: bold;
+	float: left;
+	width: 120px;
+	font-size: 11px;
+}
+
+.myLabel
+{
+	margin-left: 10px;
+	font-weight: bold;
+	float: left;
+	font-size: 11px;
+}
+
+.labelRicOutPut
+{
+	text-align: left;
+	font-size: 11px;
+}
+
+.rich-table-cell {
+    color: inherit;
+    text-align: center;
+}
+
+.my-button{		
+	width : 70px;
+	border-style: solid; 	
+	border-width: 1; 
+	border-color: silver;
+	background-color: #ebf3fd;
+}
+
+.errorStyle
+{
+	color:red;
+	font-size: 10px;
+	font-weight: bold;
+}
+
+.errorStyleRicerca
+{
+	color:red;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.greyColor{
+	color:grey !important;
+}
+
+.blackColor{
+	color:black !important;
+}

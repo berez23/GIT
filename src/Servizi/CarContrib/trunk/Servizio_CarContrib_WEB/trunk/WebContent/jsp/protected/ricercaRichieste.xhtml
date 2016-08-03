@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<script type="text/javascript">
+				function ChangeCbxSoggetto()
+				{
+					if (document.forms['myForm']['myForm:cbxSoggetto'][0]!= null)
+					{
+						if (document.forms['myForm']['myForm:cbxSoggetto'][0].checked)
+						{
+							document.getElementById("divTablePersFisica").style.display="block";
+							document.getElementById("divTablePersGiur").style.display="none";
+
+							document.getElementById("codFiscale").value="pippo";
+						}
+						else
+						{
+							document.getElementById("divTablePersFisica").style.display="none";
+							document.getElementById("divTablePersGiur").style.display="block";
+						}
+					}
+				}
+		
+				function loadDefault()
+				{
+
+					if (document.forms['myForm']['myForm:cbxSoggetto'][0]!=null)
+					{
+						document.forms['myForm']['myForm:cbxSoggetto'][0].checked = true;
+						document.getElementById("divTablePersFisica").style.display="block";
+						document.getElementById("divTablePersGiur").style.display="none";
+					}
+				}
+
+				window.onload = loadDefault;
+
+			</script>		
+			<h:form id="myForm">
+				<div class="divTitolo">
+					<c:if test="#{empty richiestaBean.titolo}" >
+						<h:outputText value="IMMISSIONE DATI RICHIESTA" />
+					</c:if>
+					<c:if test="#{not empty richiestaBean.titolo}" >
+						<h:outputText value="#{richiestaBean.titolo}" />
+					</c:if>
+					
+					<!-- a href="javascript:void(0);" onclick="javascript:window.open('../../help/Help_Immissione_Dati_Richiesta.htm','popupHelp','toolbar=no,scrollbars=yes,resizable=yes,width=800,height=600');" title="Clicca per visualizzare l'help"><img src="../../images/info.gif" border="0"></img></a-->
+				</div>			
+				
+   				<rich:panel rendered="#{not empty richiestaBean.msgErrore}">
+   					<h:outputText value="#{richiestaBean.msgErrore}" styleClass="errorStyleRicerca" />
+   					<rich:spacer height="10px" />
+   				</rich:panel>
+				<rich:panel>
+					<f:facet name="header">DATI DEL SOGGETTO</f:facet>
+					<div>
+						<table border="0" style="width:100%" cellspacing="1">
+				            <tbody>					
+								<tr>
+									<td align="center" style="font-weight: bold">
+										<h:selectOneRadio 
+											value="#{richiestaBean.cbxTipoSoggetto}"
+											id="cbxSoggetto"
+											onclick="ChangeCbxSoggetto()">
+											<f:selectItem id="id1" itemLabel="PERSONA FISICA" itemValue="PF" />
+											<f:selectItem id="id2" itemLabel="PERSONA GIURIDICA" itemValue="PG" />
+										</h:selectOneRadio>
+									</td>			
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="divTablePersFisica" style="display:block">  				
+						<table border="0" style="width:100%" cellspacing="1">
+							<tbody>
+								<tr >
+									<td align="left" colspan="3">
+										<h:outputText value="COD. FISCALE" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText  id="codFiscale" value="#{richiestaBean.codFiscaleSogg}" maxlength="16" size="20" /></span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left">
+										<h:outputText value="COGNOME" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.cognomeSogg}" size="30" /></span>
+									</td>
+									<td align="left">
+										<h:outputText value="NOME" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.nomeSogg}" size="30" /></span>			
+									</td>
+									<td align="right" >
+							        	<h:outputText value="DATA NASCITA" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut">
+											<rich:calendar 
+											 id="dataNascitaSogg" 
+											 value="#{richiestaBean.dataNascitaSogg.selectedDate}"
+						                     popup="true"
+						                     todayControlMode="hidden"
+						                     datePattern="dd/MM/yyyy"
+						                     showApplyButton="false" 
+						                     cellWidth="24px" 
+						                     cellHeight="22px" 
+						                     style="width:200px"
+						                     enableManualInput="true"
+						                     inputStyle="width:100px"/>
+						                </span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div id="divTablePersGiur" style="display:none;">
+						<table border="0" style="width:100%" cellspacing="1">
+							<tbody>
+								<tr >
+									<td align="left">
+										<h:outputText value="PARTITA IVA" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.partIVA}"/></span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left">
+										<h:outputText value="DENOMINAZIONE" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.denominazione}" size="50" /></span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div style="display:block; margin-left: 10px">
+					<h:selectBooleanCheckbox value="#{richiestaBean.includiStorico}" /><b> INCLUDI STORICO </b>
+					</div>
+				</rich:panel>
+	  			<rich:spacer height="20px" />
+	  			<rich:panel>
+					<f:facet name="header">CONTATTI</f:facet>
+					<div id="divTableContatti">
+						<table border="0" style="width:100%" cellspacing="1">
+							<tbody>
+								<tr >
+									<td align="left">
+										<h:outputText value="E-MAIL" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.email}" size="30" /></span>			
+									</td>
+									<td align="left">
+										<h:outputText value="NUM. TELEFONO" styleClass="labelRicDesc"/>
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.numTelefono}" size="30" /></span>
+									</td>
+									<td align="left">
+										<h:outputText value="MEZZO RISPOSTA" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut">
+											<h:selectOneMenu id="mezzoRisposta" value="#{richiestaBean.mezzoRisposta}">
+												<f:selectItem id="m0" itemLabel="Seleziona" itemValue="0"/>
+												<f:selectItems value="#{richiestaBean.codiciRisposta}"/>
+											</h:selectOneMenu>									
+										</span>											
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</rich:panel>
+				<rich:spacer height="20px" />
+				<rich:panel>
+					<f:facet name="header">DATI RICHIEDENTE</f:facet>
+						<table border="0" style="width:100%" cellspacing="1">
+				            <tbody>
+								<tr >
+									<td align="left" colspan="3">
+										<h:outputText value="COD. FISCALE" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut">
+											<h:inputText id="txtCodFiscale" value="#{richiestaBean.codFiscale}" maxlength="16" size="20" />
+											<!--<h:message id="errore1" for="txtCodFiscale" style="errorStyle" >Errore!!!!!</h:message>-->
+										</span>			
+									</td>
+								</tr>
+								<tr >
+									<td align="left">
+										<h:outputText value="COGNOME" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.cognome}" size="30" /></span>
+									</td>
+									<td align="left">
+										<h:outputText value="NOME" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.nome}" size="30" /></span>			
+									</td>
+									<td align="right">
+							        	<h:outputText value="DATA NASCITA" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut">
+											<rich:calendar 
+												id="dataNascita" 
+												value="#{richiestaBean.dataNascita.selectedDate}"
+							                    popup="true"
+							                    datePattern="dd/MM/yyyy"
+							                    showApplyButton="false" 
+							                    cellWidth="24px" 
+							                    cellHeight="22px" 
+							                    style="width:200px"
+							                    enableManualInput="true"
+							                    inputStyle="width:100px"/>
+										</span>
+									</td>
+								</tr>
+								<tr >
+									<td align="left">
+										<h:outputText value="DOC. RICONOSC." styleClass="labelRicDesc" for="docRicon" />
+										<span class="labelRicOutPut">
+											<h:selectOneMenu id="docRicon" value="#{richiestaBean.docRiconos}">
+												<f:selectItem id="i0" itemLabel="Seleziona" itemValue="0"/>
+												<f:selectItems value="#{richiestaBean.docTypes}"/>
+											</h:selectOneMenu>									
+										</span>			
+									</td>
+									<td align="left">
+										<h:outputText value="NUMERO" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut"><h:inputText value="#{richiestaBean.numDocRic}" /></span>			
+									</td>
+									<td align="right">
+										<h:outputText value="DATA EMISSIONE" styleClass="labelRicDesc" />
+										<span class="labelRicOutPut">
+											<rich:calendar 
+												id="dataEmiss" 
+												value="#{richiestaBean.dataEmiss.selectedDate}"
+							                    popup="true"
+							                    datePattern="dd/MM/yyyy"
+							                    showApplyButton="false" 
+							                    cellWidth="24px" 
+							                    cellHeight="22px" 
+							                    style="width:200px"
+							                    enableManualInput="true"
+							                    inputStyle="width:100px"/>									
+										</span>			
+									</td>
+								</tr>
+							</tbody>
+						</table>	  				
+	       		</rich:panel>
+	  			<rich:spacer height="20px" />
+	       		<div class="divBottoniFooter">
+					<a4j:commandButton id="btnRicerca" styleClass="my-button" value="Procedi" style="width:150px" action="#{richiestaBean.Ricerca}"/>
+		  		</div>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

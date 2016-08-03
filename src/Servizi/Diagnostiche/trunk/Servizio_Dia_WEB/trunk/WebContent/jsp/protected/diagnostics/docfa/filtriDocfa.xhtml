@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<a4j:keepAlive beanName="parametersBean" ajaxOnly="false" />
+				<rich:panel id="panelDocfa">
+					<f:facet name="header">
+						<h:outputText
+							value="Filtro Diagnostiche Docfa Residenziali" />
+					</f:facet>		
+								
+					<h:panelGrid width="100%" >						
+						<a4j:commandLink  action="#{visualizzaDiaBean.goBackFromDetail}" value="Indietro" />																	
+					</h:panelGrid>
+				</rich:panel>
+				
+				<rich:spacer height="2px" />
+				
+				<rich:panel style="text-align:center;" >
+					<h:outputText value="Da Fornitura" />
+					
+					<rich:spacer width="10px"/>
+					
+					<h:selectOneMenu id="cmbFornituraDa" 
+					 value="#{docfaResidenzialiBean.dataDa}">
+					  <f:selectItems
+					   value="#{docfaResidenzialiBean.lsForniture}" />
+					</h:selectOneMenu> 
+					
+					<rich:spacer width="10px"/>
+					
+					<h:outputText value="A Fornitura" />
+					
+					<rich:spacer width="10px"/>
+					
+					<h:selectOneMenu id="cmbFornituraA" 
+					 value="#{docfaResidenzialiBean.dataA}" >
+					  <f:selectItems
+					   value="#{docfaResidenzialiBean.lsForniture}" />
+					</h:selectOneMenu>
+					
+					<rich:spacer width="10px"/>
+					
+					<a4j:commandButton value="Visualizza" id="btnVisDocfa" action="#{docfaResDataProviderImpl.doInit}" >
+						<a4j:actionparam value="#{parametersBean.idDiaTestata}" 
+										 assignTo="#{docfaResidenzialiBean.idDiaTestata}" />
+					</a4j:commandButton>											
+
+					<rich:spacer width="10px"/>
+
+					<a4j:commandButton value="Reset" id="btnResetDocfa" action="#{docfaResidenzialiBean.doReset}"  />
+				</rich:panel>			
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

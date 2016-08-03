@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+ <class name="it.bod.application.beans.CausaleBean" table="DOCFA_CAUSALI"  >
+  <composite-id mapped="false" unsaved-value="undefined">
+   <key-property column="CAU_COD" name="cau_cod" type="java.lang.String"/>
+  </composite-id>
+  <property column="CAU_DES" generated="never" lazy="false" name="cau_des" type="java.lang.String"/>
+ </class>
+ <query name="getListaCausali">from CausaleBean as C order by C.cau_des</query>
+ <query name="getListaCausaliDescrizioni">select C.cau_des from CausaleBean as C where C.cau_des LIKE :des order by C.cau_des</query>
+</hibernate-mapping>

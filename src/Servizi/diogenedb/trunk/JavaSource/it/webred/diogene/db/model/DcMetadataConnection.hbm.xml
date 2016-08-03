@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.51 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.DcMetadataConnection" table="DC_METADATA_CONNECTION" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="3" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <property name="name" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="NAME" length="50"/>
+        </property>
+        <property name="driverClass" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="DRIVER_CLASS" length="100"/>
+        </property>
+        <property name="connString" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="CONN_STRING" length="100"/>
+        </property>
+        <property name="userName" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="USER_NAME" length="100"/>
+        </property>
+        <property name="password" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="PASSWORD" length="100"/>
+        </property>
+        <property name="dbtype" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="DBTYPE" length="50"/>
+        </property>
+        <property name="hibernateMapping" type="it.webred.diogene.db.HibernateXMLType">
+<column name="HIBERNATE_MAPPING"/>
+</property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+					
+	<p:dialog id="dlgInsediamentoDel" modal="true" header="ELIMINA INSEDIAMENTO. SEI SICURO? " widgetVar="dlgInsediamentoDel" showEffect="fade" hideEffect="explode">
+		<h:form id="frmDlgInsediamentoDel">
+		<p:panelGrid styleClass="panelGrid" columns="6" style="width:auto;" cellpadding="10">
+
+			<p:outputLabel value="Codice Asi Lotto" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.lottoCur.codiceAsi}" />
+			
+			<p:spacer width="5px"/>
+			<p:spacer width="5px"/>
+			
+			<p:spacer width="5px"/>
+			<p:spacer width="5px"/>
+				
+			<p:outputLabel value="Codice Asi Azienda" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.aziendaCur.codiceAsi}" />
+			
+			<p:outputLabel value="Ragione Sociale" style="font-weight:bold;"/>
+			<p:outputLabel value="#{ricercheBean.aziendaCur.ragioneSociale}"/>
+			
+			<p:commandButton id="btnEliminaChiudi" 
+					value="Elimina e Chiudi" 
+					action="#{ricercheBean.insediamentoSaveDel}" 
+					oncomplete="PF('dlgInsediamentoDel').hide()" 
+					update=":#{p:component('pnlAziendaInfo')}, :#{p:component('dtListaInsediamenti')}, :#{p:component('dtListaPratiche')}, :#{p:component('pnlLottoInfo')}"
+					process="@form">
+					<p:confirm header="Conferma" message="Eliminando l'insediamento saranno eliminate anche le pratiche! Procedere?" icon="ui-icon-alert" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+				<p:commandButton value="Si" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+												
+		</p:panelGrid>
+		</h:form>
+	</p:dialog>
+
+</ui:composition>

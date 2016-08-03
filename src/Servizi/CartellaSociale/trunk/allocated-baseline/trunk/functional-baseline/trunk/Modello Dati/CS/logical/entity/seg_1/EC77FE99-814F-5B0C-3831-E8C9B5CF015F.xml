@@ -1,0 +1,587 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" id="EC77FE99-814F-5B0C-3831-E8C9B5CF015F" directorySegmentName="seg_1" name="CS_A_COMPONENTE">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>9BE1B856-0A8E-BA1B-CE77-9D3EBA9B7CC7</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<pkName>COMPONENTE_PK</pkName>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<fonts>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Title</foType>
+<fontStyle>1</fontStyle>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Attribute</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Datatype</foType>
+<colorRGB>-16744448</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>PK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>FK Element</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>UK Element</foType>
+<colorRGB>-16776961</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Not Null</foType>
+<colorRGB>-65536</colorRGB>
+</FontObject>
+<FontObject class="oracle.dbtools.crest.model.design.FontObjectWr">
+<foType>Key</foType>
+<colorRGB>-16777216</colorRGB>
+</FontObject>
+</fonts>
+<attributes>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="ID" id="818C3DC3-D15A-7184-AB73-7787D6542858">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>E5DB2A7E-D774-561E-9AF0-C3E982ED30D8</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COGNOME" id="C46B5F3D-D672-DF24-6281-C6C95FDF44CD">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>A5B985A4-2204-44FE-C009-EBD96707647A</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>100</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="NOME" id="09DF5305-1E56-D09C-38CB-F50C63836252">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>D94987C7-69AF-3743-BB98-EAA4E239D48F</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>100</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="SESSO" id="54717F2F-E271-C9EC-540A-7EC8EE058BE8">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>07E46AB7-5FEC-F8C4-558A-43C7A004E50E</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>1</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="CF" id="751E44E6-BB07-7513-DF76-76BA9010AC0D">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>85060A22-FCC9-0453-3856-07E4446FC4E4</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>16</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="PROV_NASCITA_COD" id="6A81B952-E65A-E8BE-5E5F-BE071E001FF5">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>0FE7CA04-BE16-E9B9-4449-CCDE8422A868</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>4</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COMUNE_NASCITA_COD" id="6340B765-8A25-4142-EF22-CFB33F56AF6D">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>599B09B9-8DD6-F332-32A3-CE994D27C74E</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>100</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COMUNE_NASCITA_DES" id="E4931749-137C-729F-C763-7936D6A52191">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>23453303-8BF1-4E5A-B7DC-FF170E053843</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="STATO_NASCITA_COD" id="C91F92F2-40D7-B668-AE5C-4AB6AD06157C">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>87C0A3E6-22EF-AC6A-77A2-AB1406F2929E</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>30</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="STATO_NASCITA_DES" id="9363FAB3-856E-F65C-A9B8-46522EA0049C">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>14A5435D-AB01-C723-0B09-FFCD504C6B29</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="CITTADINANZA" id="92DC55D1-333B-9FDA-14ED-01D3D51205F3">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>A80870E6-0A8C-AC07-6EEF-A8486CEEADC0</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="TEL" id="6225760E-62A8-D1FB-BABD-42EC0CC5E315">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>B64EA0F8-4827-41B9-69C5-2774B89A0A5E</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="CELL" id="A18240B0-BB10-68F0-756E-7BBE3714825D">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>3E27D932-2239-0F4E-0444-11D2C470431B</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="EMAIL" id="13E21B85-832A-51CC-FD6B-66020C162381">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>087641E3-C26E-8CC7-E4C5-ADEE1C635F89</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>100</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="RUOLO_ID" id="18D86966-047B-5802-EEBC-FDC2764B3445">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>F387F51B-0157-CA62-6FAF-EC833D08F17F</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<referedAttribute>42F37271-7FF3-A2AD-F547-2D02788C3DF9</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="RESPONSABILITA_ID" id="234AA841-0695-D029-DC69-1114E6F6DBED">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>CD9E1E9D-50EF-98FD-0C5C-B502CBA38134</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<referedAttribute>86EB49A9-314F-FE20-9E3C-19C206B56469</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="FAMIGLIA_GRUPPO_ID" id="B351EA3F-69DA-7581-8B05-37F3FE33EB60">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>1E1E1CE7-47EF-B53B-D9D3-36D6FFD1248B</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>22946413-46B4-2246-A8DB-A258AEA34128</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="INDIRIZZO_RES" id="0AEC7F21-51C3-4F8F-A8B7-B1C86C7439C1">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>AD41627A-AE1F-8CB8-1A92-D475D7F41E9A</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="NUM_CIV_RES" id="57B7714B-CE1E-A1A8-ECD4-2A896B79BDBC">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>41C11EFC-8A9D-C6A7-055F-C01A0CD8EB85</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="PROV_RES_COD" id="69E4F567-5789-95D9-9372-C016049D08A8">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>6EC438AE-838A-F680-5F43-1E3D2B8F02AD</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>4</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COM_RES_COD" id="2A151AD0-EA46-2EAA-923A-EB4B9D6151C8">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>6552B637-6CF2-CE39-DB44-DAF924486A78</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>30</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COM_RES_DES" id="326BE45F-FD6A-4752-A23F-149554BBAB84">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>91389A41-2749-4EFF-2CA6-0AD0509B51C9</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="INDIRIZZO_ALTRO" id="40D3A42C-F76C-1A8A-D269-2A60F765D218">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>F6786380-771E-4B6F-3F5F-6EF02BA1C200</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="NUM_CIV_ALTRO" id="8295C000-A457-F2EF-9DAA-321354E4715E">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>303B3483-B87E-3CDB-8CCC-E92F74B53843</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="PROV_ALTRO_COD" id="038FDDD9-ABB7-1208-F679-9910EFD42614">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>096D7F72-9B19-0343-D281-49635F757216</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>4</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COM_ALTRO_COD" id="6C8D61F6-5F69-4D4A-647C-19A630C160DA">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>AA061DAF-A17C-38BD-512B-E50215AF6AB9</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>30</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="COM_ALTRO_DES" id="3DF49CD9-417A-83A0-84AC-1A17529E19CE">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>82B12FED-981F-B6D7-CCF3-717D793E8525</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>255</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="CONVIVENTE" id="63F936F4-8AE7-0C18-F3D5-B435423F89EB">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>E3C2CAB6-99FF-0B26-7360-1D94E6925BFA</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>1 CHAR</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="POTESTA" id="10CB6BFB-344A-0263-EBCF-1427A36488AF">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>58E4E3F5-32FB-3626-5AE9-FC14EDD6980F</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>1 CHAR</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="DATA_DECESSO" id="D495032A-C3D0-368E-2932-61F4C1D1C491">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>7A0CF6D2-5647-C6F5-5686-010399965988</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="DISPONIBILITA_ID" id="E0CD2AB4-CAB5-8EE2-8546-AFFEBE43F2CA">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>41C8982B-8470-F741-12D9-115CD1DE7E41</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<referedAttribute>96AD920E-A0C7-A457-532B-D9DA86967840</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="NOTE" id="A5B5A10B-9C25-F5FC-C8F1-6D9CA024EE33">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>14B3257E-0839-7A76-ED4E-C2AED83160B4</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>4000</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="PODESTA_ID" id="3E7A894D-6D88-F55B-701B-3EE528B3891F">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>E353B7B9-2C2F-E17C-3827-B3914BE24BFF</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<referedAttribute>7F54A83E-D46D-E9D8-FDA0-6B81239EDF87</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="CONTATTO_ID" id="6EA109DD-C359-96E8-6554-30C879EADED3">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>0A554AAB-1800-7DBA-943E-553079AF3C8C</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<referedAttribute>174A1CAF-75E4-804A-2628-2E81B4E3D029</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="USER_INS" id="7FD980E7-63E6-9729-3887-A0DDFB6D0F55">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>20C0E6AE-6794-10F8-ED5D-752EC7AA0EC8</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="DT_INS" id="60D69A4B-63D1-8CAC-929D-31E16E1C10DD">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>032C21F3-FBA9-DDDF-767E-4A8400403CA9</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="USR_MOD" id="7A142BED-9F9D-ECBD-84FB-A69CA443E20F">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>A9CC3874-2526-A455-9FB9-67A6FA9EAC87</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<dataTypeSize>50</dataTypeSize>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="DT_MOD" id="3736F997-CFA3-C974-30C7-9126F3363A8A">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>198C4A50-3C91-45C4-606C-016C7FD5EA83</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+</Attribute>
+<Attribute class="oracle.dbtools.crest.model.design.logical.Attribute" name="TIPO_RAPPORTO_CON_ID" id="10ECF5A4-4CD6-6052-16A5-E356158DB319">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>055B6AB2-3B80-9A7C-5DDE-5C4838C96E36</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<referedAttribute>50F1DD02-04A5-CC6D-3850-DBD8AA6B3BE1</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<dataTypeScale>0</dataTypeScale>
+</Attribute>
+</attributes>
+<identifiers>
+<identifier class="oracle.dbtools.crest.model.design.logical.CandidateKey" id="9F7EB731-B3AB-0705-3D49-70829ADEEFC3" name="COMPONENTE_PK">
+<createdBy>Utente</createdBy>
+<createdTime>2013-10-14 08:33:29 UTC</createdTime>
+<generatorID>273FD3B6-19BC-B1AE-36E6-DBE6EACEB826</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<engineerTo>
+<item key="B2775402-0E36-D840-45AE-FC422EF103E4" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>818C3DC3-D15A-7184-AB73-7787D6542858</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

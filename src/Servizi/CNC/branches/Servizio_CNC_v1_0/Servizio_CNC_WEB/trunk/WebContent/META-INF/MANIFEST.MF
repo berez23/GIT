@@ -1,0 +1,5 @@
+Manifest-Version: 1.0
+Class-Path: Servizio_CNC_EJBClient.jar 
+ CT_Service_Data_AccessClient.jar 
+ CT_Service_Data_Model.jar
+

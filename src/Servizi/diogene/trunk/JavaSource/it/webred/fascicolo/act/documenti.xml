@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>documenti</comment>
+	<entry key="sqlDoc1">
+	<![CDATA[
+		/*pdf docfa idFunz 2*/
+		SELECT DISTINCT  to_char(d_gen.fornitura,'yyyymmdd') AS fornitura, 
+						to_char(d_gen.fornitura,'dd/mm/yyyy') AS fornituraf, 
+                                d_gen.protocollo_reg AS protocollo                              
+                           FROM docfa_dati_generali d_gen,
+                                docfa_uiu u
+                          WHERE 
+                            d_gen.protocollo_reg = u.protocollo_reg(+)
+                            AND d_gen.fornitura = u.fornitura(+)
+                            AND u.foglio = LPAD (TRIM (?), 4, '0')
+                            AND u.numero = LPAD (TRIM (?), 5, '0')
+	]]>
+	</entry>	
+	<entry key="sqlDoc_sub1">
+	<![CDATA[
+						AND 	u.subalterno = LPAD (TRIM (?), 4, '0')
+	]]>
+	</entry>		
+	<entry key="sqlDoc2">
+	<![CDATA[
+		/*planimetrie docfa idfuz 1*/
+		select distinct to_char(p.fornitura,'yyyymmdd') AS fornitura, to_char(p.fornitura,'dd/mm/yyyy') AS fornituraf, protocollo, IDENTIFICATIVO_IMMO, nome_plan, progressivo from DOCFA_planimetrie p,  docfa_uiu u
+		where p.protocollo = u.protocollo_reg(+)
+		                            AND p.fornitura = u.fornitura(+)
+		                            AND u.foglio = LPAD (TRIM (?), 4, '0')
+		                            AND u.numero = LPAD (TRIM (?), 5, '0')
+	]]>
+	</entry> 
+	<entry key="sqlDoc_sub2">
+	<![CDATA[
+						AND 	u.subalterno = LPAD (TRIM (?), 4, '0')
+	]]>
+	</entry>
+	<entry key="sqlDoc_oreder2">
+	<![CDATA[
+							order by fornitura, protocollo, IDENTIFICATIVO_IMMO
+	]]>
+	</entry>		                       
+</properties>
+
+

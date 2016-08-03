@@ -1,0 +1,100 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=8" />
+<title>CT - Servizio Comma 340</title>
+<link rel="stylesheet" type="text/css"
+	href="${facesContext.externalContext.requestContextPath}/css/Comma340.css" />
+	
+<script type="text/javascript"
+     src="${facesContext.externalContext.requestContextPath}/js/extendedDataTableFixScrollable.js">
+</script>
+<script type="text/javascript" 
+        src="${facesContext.externalContext.requestContextPath}/js/ricercaFiltro.js">
+</script>
+
+</head>
+<body>
+
+<!--  Gestione stato richiesta -->
+<div id="header">
+		<h:panelGrid style="text-align: center; border: 1px solid #C0C0C0; border-bottom:0" cellpadding="0" cellspacing="0" bgcolor="white" width="100%"> 
+				<h:graphicImage value="/images/comma340.png"/>
+		</h:panelGrid>
+</div>
+<div id="menu">
+<h:form id="menuForm">
+	<rich:toolBar>
+		<rich:dropDownMenu>
+			<f:facet name="label">
+				<h:panelGroup>
+					<h:graphicImage value="/images/search.gif" />
+					<h:outputLabel value="Ricerca" />
+				</h:panelGroup>
+			</f:facet>
+			<rich:menuItem icon="/images/filter.gif" submitMode="ajax"
+				action="#{catastoDataProviderImpl.goSearch}"
+				reRender="frmMain,frmRisRicerca">
+				<h:outputText value="Filtra per dati catastali" />
+				<a4j:actionparam value="/jsp/protected/empty.xhtml" name="empty1"
+					assignTo="#{uIPageBean.pageResultList}" />
+			</rich:menuItem>
+		</rich:dropDownMenu>
+	</rich:toolBar>
+</h:form></div>
+
+<a4j:include id="userPage" viewId="/jsp/protected/user/user.xhtml" />
+
+<rich:spacer height="8px"></rich:spacer>
+<div id="info"><rich:panel>
+	<center><ui:insert name="navInfo" /></center>
+</rich:panel></div>
+
+<div><a4j:status
+	onstart="Richfaces.showModalPanel('ajaxLoadingModalBox',{width:250, top:100})"
+	onstop="Richfaces.hideModalPanel('ajaxLoadingModalBox')">
+
+</a4j:status> <rich:modalPanel id="ajaxLoadingModalBox" minHeight="100"
+	minWidth="450" height="100" width="250" zindex="2000"
+	style="background-color: #ebf3fd;">
+	<f:facet name="header">
+		<h:outputText value="Richiesta in corso" style="color: #3a00ff;"></h:outputText>
+	</f:facet>
+	<center><h:panelGrid columns="1" style="text-align: center;">
+		<h:panelGroup></h:panelGroup>
+		<h:panelGroup></h:panelGroup>
+		<h:panelGroup style="text-align: center;">
+			<h:outputText value="Attendere prego"
+				style="font-size:15px; color: #3a00ff;"></h:outputText>
+		</h:panelGroup>
+		<h:panelGroup>
+			<h:graphicImage value="/images/wait.gif" />
+		</h:panelGroup>
+	</h:panelGrid></center>
+</rich:modalPanel></div>
+
+<center><rich:messages passedLabel="Operazione completata" styleClass="messageLabel"
+	layout="list">
+	<f:facet name="infoMarker">
+		<h:graphicImage value="/images/passed.gif" style="padding-right: 5px;" />
+	</f:facet>
+	<f:facet name="errorMarker">
+		<h:graphicImage value="/images/error.gif" style="padding-right: 5px;" />
+	</f:facet>
+</rich:messages></center>
+
+<rich:spacer height="5px" />
+
+<div id="content"><ui:insert name="content"></ui:insert></div>
+
+</body>
+
+</html>

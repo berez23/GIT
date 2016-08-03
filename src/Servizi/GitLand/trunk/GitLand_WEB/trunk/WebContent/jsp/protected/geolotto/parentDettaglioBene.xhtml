@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+		
+		<ui:param name="beneSelected" value="#{beneSelected}" />
+         
+		<div class="ui-grid ui-grid-responsive dettaglioDeneLayout">
+			<div class="ui-grid-row titleBar">
+				<div class="ui-grid-col-6">
+            		<h:outputLabel value="Bene Inventariale: #{beneSelected.chiave}" />
+	         	</div>
+	         	<div class="ui-grid-col-6" style="text-align:right;">
+	            	<p:commandButton id="openAllAcc" value="Apri/Chiudi tutti" disabled="#{!dettaglioBeneMan.treeBene.beneSelectedHasFigli}" update=":#{p:component('localPanel')}" action="#{dettaglioBeneMan.locazioneMan.OpenAllTabAccordion}" />
+				</div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12">
+					<ui:include	src="/jsp/protected/DettaglioBene/datiCatastali.xhtml">
+						<ui:param name="beneSelected" value="#{beneSelected}" />
+					</ui:include>
+				</div>
+			</div>
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12">
+					<h:form>
+						<p:accordionPanel styleClass="complAccordion" multiple="true" value="#{dettaglioBeneMan.locazioneMan.getGroupParent()}" var="it" activeIndex="#{dettaglioBeneMan.locazioneMan.activeIndex}" dynamic="true" cache="true">
+							<p:tab title="#{it.chiave}">
+								<ui:include src="/jsp/protected/DettaglioBene/datiCatastali.xhtml">
+									<ui:param name="beneSelected" value="#{it}" />
+								</ui:include>
+		
+								<ui:include	src="/jsp/protected/DettaglioBene/childrenDettaglioBene.xhtml">
+									<ui:param name="children" value="#{it}" />
+								</ui:include>
+							</p:tab>
+						</p:accordionPanel>
+					</h:form>
+				</div>
+			</div>
+		</div>
+</ui:composition>

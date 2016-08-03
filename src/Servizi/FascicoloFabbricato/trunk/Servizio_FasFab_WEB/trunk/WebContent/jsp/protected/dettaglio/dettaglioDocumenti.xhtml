@@ -1,0 +1,411 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">
+
+	<ui:composition>	
+	
+		<h:form id="formDocumenti">
+
+			<rich:simpleTogglePanel switchType="client" opened="false" id="planimetrieDocfaPanel" >
+				
+				<f:facet name="header">Planimetrie DOCFA</f:facet>
+				
+				<rich:panel>
+					<f:facet name="header">Planimetrie relative alle unità immobiliari</f:facet>
+					
+					<h:outputText value="Nessuna planimetria presente" rendered="#{empty documentiBean.listaDocfaPlanimetrieUiu}"/>
+						
+					<c:if test="#{not empty documentiBean.listaDocfaPlanimetrieUiu}">
+						<table class="rich-table" width="100%">
+					      <thead class="rich-table-thead" >
+					       <tr class="rich-table-header">
+					       	  <th class="rich-table-headercell">Subalterno</th>
+					       	  <th class="rich-table-headercell">Protocollo</th>
+					       	  <th class="rich-table-headercell">Fornitura</th>
+					       	  <th class="rich-table-headercell">Data registr.</th>
+					       	  <th class="rich-table-headercell">Identif. Immobile</th>
+					       	  <th class="rich-table-headercell">Progressivo</th>
+					       	  <th class="rich-table-headercell" style="width: 20%;">Scarica in versione PDF</th>
+					       	  <th class="rich-table-headercell" style="width: 20%;">Scarica in versione JPEG</th>				       	
+					       </tr>
+					       </thead>
+					       <tbody>
+					       <c:forEach items="#{documentiBean.listaDocfaPlanimetrieUiu}" var="plan">
+					       	  <tr class="rich-table-row">
+					       	  	 <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.subalternoStr}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.docfaPlanimetrie.protocollo}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+		       	     				<h:outputLabel value="#{plan.docfaPlanimetrie.fornitura}" >
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{documentiBean.timeZone}"/>
+									</h:outputLabel>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+		       	     				<h:outputLabel value="#{plan.docfaPlanimetrie.dataRegistrazione}" >
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{documentiBean.timeZone}"/>
+									</h:outputLabel>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.docfaPlanimetrie.identificativoImmo}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.docfaPlanimetrie.id.progressivo}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+									       	     	 	<a4j:actionparam name="nomePlan" value="#{plan.docfaPlanimetrie.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+										            	<a4j:actionparam name="progressivo" value="#{plan.docfaPlanimetrie.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+										            	<a4j:actionparam name="fornitura" value="#{plan.docfaPlanimetrie.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+										            	<a4j:actionparam name="formato" value="#{plan.docfaPlanimetrie.formato}" assignTo="#{documentiBean.formato}" />
+										            	<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+										            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+									       	     	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>				       	     			
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+								       	     	 	<a4j:actionparam name="nomePlan" value="#{plan.docfaPlanimetrie.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+									            	<a4j:actionparam name="progressivo" value="#{plan.docfaPlanimetrie.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+									            	<a4j:actionparam name="fornitura" value="#{plan.docfaPlanimetrie.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+									            	<a4j:actionparam name="formato" value="#{plan.docfaPlanimetrie.formato}" assignTo="#{documentiBean.formato}" />
+									            	<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+									            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+								       	     	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>		       	     
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+									       	     	  	<a4j:actionparam name="nomePlan" value="#{plan.docfaPlanimetrie.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+									            		<a4j:actionparam name="progressivo" value="#{plan.docfaPlanimetrie.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+									            		<a4j:actionparam name="fornitura" value="#{plan.docfaPlanimetrie.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+									            		<a4j:actionparam name="formato" value="#{plan.docfaPlanimetrie.formato}" assignTo="#{documentiBean.formato}" />
+									            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+									            		<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+									            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+									            	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+								       	     	  	<a4j:actionparam name="nomePlan" value="#{plan.docfaPlanimetrie.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+								            		<a4j:actionparam name="progressivo" value="#{plan.docfaPlanimetrie.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+								            		<a4j:actionparam name="fornitura" value="#{plan.docfaPlanimetrie.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+								            		<a4j:actionparam name="formato" value="#{plan.docfaPlanimetrie.formato}" assignTo="#{documentiBean.formato}" />
+								            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+								            		<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+								            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+								            	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>
+					     		</td>
+					       	  </tr>
+					       </c:forEach>
+					       </tbody>
+					    </table>
+					  </c:if>
+				</rich:panel>
+				
+				<rich:spacer height="15px;"/>
+				
+				<rich:panel>
+					<f:facet name="header">Elaborati planimetrici</f:facet>
+					
+					<h:outputText value="Nessun elaborato planimetrico presente" rendered="#{empty documentiBean.listaDocfaPlanimetrieFab}"/>
+						
+					<c:if test="#{not empty documentiBean.listaDocfaPlanimetrieFab}">						
+						<table class="rich-table" width="100%">
+					      <thead class="rich-table-thead" >
+					       <tr class="rich-table-header">
+					       	  <th class="rich-table-headercell">Protocollo</th>
+					       	  <th class="rich-table-headercell">Fornitura</th>
+					       	  <th class="rich-table-headercell">Data registr.</th>
+					       	  <th class="rich-table-headercell">Progressivo</th>
+					       	  <th class="rich-table-headercell" style="width: 20%;">Scarica in versione PDF</th>
+					       	  <th class="rich-table-headercell" style="width: 20%;">Scarica in versione JPEG</th>				       	
+					       </tr>
+					       </thead>
+					       <tbody>
+					       <c:forEach items="#{documentiBean.listaDocfaPlanimetrieFab}" var="plan">
+					       	  <tr class="rich-table-row">
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.protocollo}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+		       	     				<h:outputLabel value="#{plan.fornitura}" >
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{documentiBean.timeZone}"/>
+									</h:outputLabel>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+		       	     				<h:outputLabel value="#{plan.dataRegistrazione}" >
+										<f:convertDateTime pattern="dd/MM/yyyy" timeZone="#{documentiBean.timeZone}"/>
+									</h:outputLabel>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.id.progressivo}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+									       	     	 	<a4j:actionparam name="nomePlan" value="#{plan.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+										            	<a4j:actionparam name="progressivo" value="#{plan.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+										            	<a4j:actionparam name="fornitura" value="#{plan.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+										            	<a4j:actionparam name="formato" value="#{plan.formato}" assignTo="#{documentiBean.formato}" />
+										            	<a4j:actionparam name="protocollo" value="#{plan.protocollo}" assignTo="#{documentiBean.protocollo}" />
+										            	<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+										            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+									       	     	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>				       	     			
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+								       	     	 	<a4j:actionparam name="nomePlan" value="#{plan.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+									            	<a4j:actionparam name="progressivo" value="#{plan.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+									            	<a4j:actionparam name="fornitura" value="#{plan.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+									            	<a4j:actionparam name="formato" value="#{plan.formato}" assignTo="#{documentiBean.formato}" />
+									            	<a4j:actionparam name="protocollo" value="#{plan.protocollo}" assignTo="#{documentiBean.protocollo}" />
+									            	<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+									            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+								       	     	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>		       	     
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+									       	     	  	<a4j:actionparam name="nomePlan" value="#{plan.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+									            		<a4j:actionparam name="progressivo" value="#{plan.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+									            		<a4j:actionparam name="fornitura" value="#{plan.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+									            		<a4j:actionparam name="formato" value="#{plan.formato}" assignTo="#{documentiBean.formato}" />
+									            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+									            		<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+									            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+									            	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+								       	     	  	<a4j:actionparam name="nomePlan" value="#{plan.id.nomePlan}" assignTo="#{documentiBean.nomePlan}" />
+								            		<a4j:actionparam name="progressivo" value="#{plan.id.padProgressivo}" assignTo="#{documentiBean.padProgressivo}" />
+								            		<a4j:actionparam name="fornitura" value="#{plan.fornituraStr}" assignTo="#{documentiBean.fornituraStr}" />
+								            		<a4j:actionparam name="formato" value="#{plan.formato}" assignTo="#{documentiBean.formato}" />
+								            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+								            		<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+								            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanDocfa}" assignTo="#{documentiBean.tipoPlan}" />
+								            	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>
+					     		</td>
+					       	  </tr>
+					       </c:forEach>
+					       </tbody>
+					    </table>
+					 </c:if>
+				</rich:panel>
+		
+			</rich:simpleTogglePanel>
+			
+			<rich:simpleTogglePanel switchType="client" opened="false" id="planimetrieC340Panel" >			
+				<f:facet name="header">Planimetrie Comma 340</f:facet>
+				
+				<rich:panel>
+					<f:facet name="header">Planimetrie relative alle unità immobiliari</f:facet>
+					
+					<h:outputText value="Nessuna planimetria presente" rendered="#{empty documentiBean.listaC340PlanimetrieUiu}"/>
+						
+					<c:if test="#{not empty documentiBean.listaC340PlanimetrieUiu}">						
+						<table class="rich-table" width="100%">
+					      <thead class="rich-table-thead" >
+					       <tr class="rich-table-header">
+					       	  <th class="rich-table-headercell">Subalterno</th>
+					       	  <th class="rich-table-headercell">File</th>
+					       	  <th class="rich-table-headercell" style="width: 20%;">Scarica in versione PDF</th>
+					       	  <th class="rich-table-headercell" style="width: 20%;">Scarica in versione JPEG</th>				       	
+					       </tr>
+					       </thead>
+					       <tbody>
+					       <c:forEach items="#{documentiBean.listaC340PlanimetrieUiu}" var="plan">
+					       	  <tr class="rich-table-row">
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.subalterno}"/>
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.file}"/>
+					       	     </td>				    
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+						       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+									       	     	 	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            	<a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+										            	<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+										            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+									       	     	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>				       	     			
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+								       	     	 	<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+								       	     	 	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            <a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+									            	<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+									            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+								       	     	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>		       	     
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+						       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+									       	     	  	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            	<a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+									            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+									            		<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+									            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+									            	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+					       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+								       	     	  	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            <a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+								            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+								            		<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+								            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+								            	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>
+					     		</td>
+					       	  </tr>
+					       </c:forEach>
+					       </tbody>
+					    </table>
+					 </c:if>
+				</rich:panel>
+				
+				<rich:spacer height="15px;"/>
+				
+				<rich:panel>
+					<f:facet name="header">Elaborati planimetrici</f:facet>
+					
+					<h:outputText value="Nessun elaborato planimetrico presente" rendered="#{empty documentiBean.listaC340PlanimetrieFab}"/>
+						
+					<c:if test="#{not empty documentiBean.listaC340PlanimetrieFab}">						
+						<table class="rich-table" width="100%">
+					    	<thead class="rich-table-thead" >
+					    		<tr class="rich-table-header">
+					       			<th class="rich-table-headercell">File</th>
+					       	  		<th class="rich-table-headercell" style="width: 20%;">Scarica in versione PDF</th>
+					       	  		<th class="rich-table-headercell" style="width: 20%;">Scarica in versione JPEG</th>				       	
+					       		</tr>
+					       </thead>
+					       <tbody>
+					       <c:forEach items="#{documentiBean.listaC340PlanimetrieFab}" var="plan">
+					       	  <tr class="rich-table-row">
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<h:outputText value="#{plan.file}"/>
+					       	     </td>				    
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+						       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+									       	     	 	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            	<a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+										            	<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+										            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+									       	     	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>				       	     			
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+					       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+								       	     	 	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            <a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+									            	<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+									            	<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+								       	     	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>		       	     
+					       	     </td>
+					       	     <td class="rich-table-cell" style="background-color:'#FFFFFF'">
+					       	     	<table style="width: 100%">
+					       	     		<tr>
+					       	     			<c:if test="#{documentiBean.viewNoWatermark}">
+					       	     				<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none; width: 25%;">
+						       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri">
+						       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+									       	     	  	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            	<a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+									            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+									            		<a4j:actionparam name="watermark" value="false" assignTo="#{documentiBean.watermark}" />
+									            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+									            	</h:commandLink>
+						       	     			</td>
+					       	     			</c:if>
+					       	     			<td class="rich-table-cell" style="background-color:'#FFFFFF'; border:none;">
+					       	     				<h:commandLink action="#{documentiBean.openPlanimetria}" value="Apri con Watermark">
+					       	     					<a4j:actionparam name="nomePlan" value="#{plan.file}" assignTo="#{documentiBean.nomePlan}" />
+								       	     	  	<a4j:actionparam name="linkPlan" value="#{plan.link}" assignTo="#{documentiBean.linkPlan}" />
+										            <a4j:actionparam name="formato" value="4" assignTo="#{documentiBean.formato}" />
+								            		<a4j:actionparam name="openJpg" value="true" assignTo="#{documentiBean.openJpg}" />
+								            		<a4j:actionparam name="watermark" value="true" assignTo="#{documentiBean.watermark}" />
+								            		<a4j:actionparam name="tipoPlan" value="#{documentiBean.tipoPlanC340}" assignTo="#{documentiBean.tipoPlan}" />
+								            	</h:commandLink>
+					       	     			</td>
+					       	     		</tr>
+					       	     	</table>
+					     		</td>
+					       	  </tr>
+					       </c:forEach>
+					       </tbody>
+					    </table>
+					 </c:if>
+				</rich:panel>
+				
+			</rich:simpleTogglePanel>			
+			
+		</h:form>
+		
+	</ui:composition>
+	
+</html>

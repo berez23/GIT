@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:c="http://java.sun.com/jstl/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich">
+
+   <f:view contentType="text/html">
+        
+        <meta http-equiv="Cache-Control" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+            
+        <style type="text/css">
+            .col1 { width:510px; }
+            .col2 { vertical-align: top; }
+        </style>    
+
+    <body>
+        <h:panelGrid columnClasses="col1, col2" columns="2">
+        
+            <rich:virtualEarth 
+            	id="gm" 
+            	style="width:800px; height:600px;"
+                lat="#{ricercaDettaglioBck.currentVirtualEarth.latitudine}" 
+                lng="#{ricercaDettaglioBck.currentVirtualEarth.longitudine}" 
+                dashboardSize="Normal" 
+                zoom="17" 
+                mapStyle="Birdseye" 
+                var="map" />
+            <!-- 
+            <h:panelGroup>
+                Dashboard:<br />
+                <a href="javascript:void(0);" onclick="map.HideDashboard();return false;">Remove</a>
+                <a href="javascript:void(0);" onclick="map.ShowDashboard();return false;">Show</a>
+                <br /><br />
+                Type:<br/>
+                <a href="javascript:void(0);" onclick="map.SetMapStyle(VEMapStyle.Road);return false;">Road</a>
+                <a href="javascript:void(0);" onclick="map.SetMapStyle(VEMapStyle.Aerial);return false;">Aerial</a>
+                <a href="javascript:void(0);" onclick="map.SetMapStyle(VEMapStyle.Hybrid);return false;">Hybrid</a>
+                <a href="javascript:void(0);" onclick="map.SetMapStyle(VEMapStyle.Birdseye);return false;">Birdseye</a>
+                <br /><br />
+                Zoom:<br/>
+                <a href="javascript:void(0);" onclick="map.ZoomIn();return false;">In</a>
+                <a href="javascript:void(0);" onclick="map.ZoomOut();return false;">Out</a>
+            </h:panelGroup> 
+            -->
+            
+        </h:panelGrid>
+        
+
+        </body>
+    </f:view>
+</html>

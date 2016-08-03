@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
+             version="2.0">
+	<persistence-unit name="Servizio_SpProf_Data_Model" transaction-type="JTA">
+	
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<mapping-file>META-INF/orm_spprof.xml</mapping-file>
+		
+		<class>it.webred.ct.service.spprof.data.model.SSpSoggetto</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpQualifica</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpIntervento</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpAreaPart</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpAreaFabb</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpAreaLayer</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpInterventoLayer</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpInterventoLayerPK</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpProgetto</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpCedificato</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpDestUrb</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpEdificio</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpEdificioMinore</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpPostiAuto</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpTipologiaEdi</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpTipologiaEdiMin</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpUiu</class>
+		<class>it.webred.ct.service.spprof.data.model.SSpUnitaVol</class>
+		
+		<properties>
+	        <!--  property name="hibernate.dialect" value="org.hibernate.dialect.Oracle9iDialect"/-->
+	        <property name="hibernate.dialect" value="it.webred.ct.data.spatial.OracleSpatialDialect"/>
+	        
+			<property name="hibernate.show_sql" value="false"/>	    
+	    	<property name="hibernate.transaction.manager_lookup_class" 
+	    			  value="org.hibernate.transaction.JBossTransactionManagerLookup"/>
+	    </properties>
+	    
+	</persistence-unit>
+</persistence>

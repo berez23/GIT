@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.58 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.am.AmPermission" table="AM_PERMISSION" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="permission" type="string">
+            <column name="PERMISSION" length="150"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one name="amItem" class="it.webred.diogene.db.model.am.AmItem" fetch="select" unique="false" update="true" insert="true" optimistic-lock="true" not-found="exception" embed-xml="true">
+            <column name="FK_AM_ITEM" length="100" not-null="true"/>
+        </many-to-one>
+        <set name="amRolePermissions" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_AM_PERMISSION" length="50" not-null="true"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.am.AmRolePermission" not-found="exception" embed-xml="true"/>
+        </set>
+    </class>
+</hibernate-mapping>

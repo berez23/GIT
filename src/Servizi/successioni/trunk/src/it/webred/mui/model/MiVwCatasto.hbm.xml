@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class mutable="false" name="it.webred.mui.model.MiVwCatasto">
+	    <meta attribute="generated-class">
+	        it.webred.mui.model.MiVwCatastoBase
+	    </meta>
+		<subselect>
+			select 	
+						distinct
+ 						FOGLIO, 
+ 						PARTICELLA, 
+ 						UNIMM as SUBALTERNO,
+ 						DATA_INIZIO, 
+ 						DATA_FINE,
+ 						COD_NAZIONALE
+ 						
+				from		
+						VW_SITICONDUZ_IMM_ALL 
+		</subselect>
+		<synchronize table="suc_dup_nota_tras"/>
+    <composite-id name="iid" class="it.webred.mui.model.MiVwCatastoPk">
+        <key-property type="java.lang.String" name="foglio" column="FOGLIO"/>
+        <key-property type="java.lang.String" name="particella" column="PARTICELLA"/>
+        <key-property type="java.lang.String" name="subalterno" column="SUBALTERNO"/>
+        <key-property type="java.util.Date" name="dataInizio" column="DATA_INIZIO"/>
+        <key-property type="java.util.Date" name="dataFine" column="DATA_FINE" />
+        <key-property type="java.lang.String" name="codNazionale" column="COD_NAZIONALE" />
+    </composite-id>
+	</class>
+</hibernate-mapping>

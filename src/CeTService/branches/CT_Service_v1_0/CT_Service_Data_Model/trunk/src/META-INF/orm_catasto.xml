@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+
+	<!-- Query Sitidstr -->
+	<named-query name="Sitidstr.getListaVieLike">
+		<query>
+			<![CDATA[
+				SELECT v FROM Sitidstr v
+				WHERE v.dataFineVal = TO_DATE('99991231', 'yyyymmdd') 
+				AND v.codNazionale = :cod_nazionale 
+				AND v.prefisso||' '||v.nome LIKE '%'||:via||'%' 
+				ORDER BY v.nome
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="Sitidstr.getListaVieEquals">
+		<query>
+			<![CDATA[
+				SELECT v FROM Sitidstr v
+				WHERE v.dataFineVal = TO_DATE('99991231', 'yyyymmdd') 
+				AND v.codNazionale = :cod_nazionale 
+				AND v.prefisso||' '||v.nome = :via 
+				ORDER BY v.nome
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query Siticivi -->
+	<named-query name="Siticivi.getListaCivici">
+		<query>
+			<![CDATA[SELECT c FROM Siticivi c 
+					WHERE c.dataFineVal = TO_DATE('99991231', 'yyyymmdd') 
+					AND c.codNazionale = :codNazionale 
+					AND c.pkidStra = :pkIdStra
+					ORDER BY c.civico ]]>
+		</query>
+	</named-query>
+	
+		<!-- Query Siticivi -->
+	<named-query name="Siticivi.getListaCiviciLike">
+		<query>
+			<![CDATA[SELECT c FROM Siticivi c 
+					WHERE c.dataFineVal = TO_DATE('99991231', 'yyyymmdd') 
+					AND c.codNazionale = :codNazionale 
+					AND c.pkidStra = :pkIdStra
+					AND c.civico LIKE '%'||:civico||'%'
+					ORDER BY c.civico ]]>
+		</query>
+	</named-query>
+
+	<!-- Query SitiediVani -->
+	<named-query name="SitiediVani.getDettaglioVaniC340ByFPS">
+		<query>
+			<![CDATA[
+				SELECT s FROM SitiediVani s 
+				WHERE s.codNazionale = :codNazionale
+				AND s.foglio = TO_NUMBER(:foglio)
+				AND s.particella = lpad(:particella,5,'0') 
+				AND s.unimm = TO_NUMBER(:subalterno)
+				AND s.dataFineVal = to_date('31-12-9999','dd-mm-yyyy')
+				ORDER BY s.vano
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query Siticomu -->
+	<named-query name="Siticomu.getSitiComuByCodNazionale">
+		<query>
+		<![CDATA[SELECT c 
+				FROM Siticomu c 
+				WHERE (c.codNazionale = :cod_nazionale_1 OR c.codiFiscLuna = :cod_nazionale_2)]]>
+		</query>
+	</named-query>
+
+
+
+	<!-- Query Sitiuiu -->
+	<named-query name="Sitiuiu.getImmobileByID">
+		<query>
+			<![CDATA[SELECT s FROM Sitiuiu s WHERE s.pkidUiu = TO_NUMBER(:idUiu)]]>
+		</query>
+	</named-query>
+
+	<named-query name="Sitiuiu.getDettaglioImmobileByID">
+		<query>
+			<![CDATA[
+				SELECT uiu 
+				FROM Sitiuiu uiu
+				WHERE uiu.pkidUiu = TO_NUMBER(:idUiu)
+				AND uiu.id.codNazionale = :codNazionaleComu 
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="Sitiuiu.getImmobiliAltreDateValiditaByFPS_ID">
+		<query><![CDATA[
+		SELECT s 
+		FROM Sitiuiu s 
+		WHERE s.id.foglio = TO_NUMBER(:foglio) 
+		AND s.id.particella = LPAD(:particella ,5,'0') 
+		AND s.id.unimm = TO_NUMBER(:unimm)
+		AND s.pkidUiu <> TO_NUMBER(:idUiu)
+		]]></query>
+	</named-query>
+
+	<!-- Query ConsSoggTab -->
+	<named-query name="ConsSoggTab.getSoggettoByCF">
+		<query>
+			<![CDATA[SELECT s FROM ConsSoggTab s 
+						WHERE s.flagPersFisica = 'P' 
+						AND s.dataFine = TO_DATE('99991231', 'yyyymmdd') 
+						AND s.codiFisc LIKE :codfisc||'%'
+						ORDER BY s.ragiSoci, s.nome
+			]]>	
+	    </query>
+	</named-query>
+
+	<named-query name="ConsSoggTab.getSoggettoByPIVA">
+		<query>
+			<![CDATA[SELECT s FROM ConsSoggTab s 
+						WHERE s.flagPersFisica = 'G'
+						AND s.dataFine = TO_DATE('99991231', 'yyyymmdd') 
+						AND s.codiPiva = :piva]]>	
+	    </query>
+	</named-query>
+
+	<named-query name="ConsSoggTab.getListaSoggettiByCognome">
+		<query>
+			<![CDATA[ SELECT s FROM ConsSoggTab s  
+						WHERE s.flagPersFisica = 'P'
+						AND s.dataFine = TO_DATE('99991231', 'yyyymmdd') 
+						AND s.ragiSoci ||' '|| s.nome LIKE :cognome||'%' 			   		
+						ORDER BY s.ragiSoci, s.nome ]]>	
+	    </query>
+	</named-query>
+	<named-query name="ConsSoggTab.getListaSoggettiByDenominazione">
+		<query>
+			<![CDATA[SELECT s FROM ConsSoggTab s  
+						WHERE s.flagPersFisica = 'G'
+						AND s.dataFine = TO_DATE('99991231', 'yyyymmdd') 
+						AND s.ragiSoci LIKE '%'||:denominazione||'%' 
+						ORDER BY s.ragiSoci]]>	
+	    </query>
+	</named-query>
+
+	<!-- Query Sitideco -->
+	<named-query name="Sitideco.getAllCategorieSitiuiu">
+		<query>
+			<![CDATA[
+				SELECT d FROM Sitideco d 
+				WHERE d.id.tablename='SITIUIU' 
+				AND d.id.fieldname ='CATEGORIA' 
+				ORDER BY d.id.code
+			]]>
+		</query>
+	</named-query>
+
+	<named-query name="Sitideco.getCategoriaSitiuiu">
+		<query>
+			<![CDATA[
+				SELECT d FROM Sitideco d 
+				WHERE d.id.tablename='SITIUIU' 
+				AND d.id.fieldname ='CATEGORIA' 
+				AND d.id.code = :categoriaSitiuiu
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="Sitideco.getCategorieSitiuiuLike">
+		<query>
+			<![CDATA[
+				SELECT d FROM Sitideco d 
+				WHERE d.id.tablename='SITIUIU' 
+				AND d.id.fieldname ='CATEGORIA' 
+				AND d.id.code LIKE :categoriaSitiuiu||'%'
+				ORDER BY d.id.code
+			]]>
+		</query>
+	</named-query>
+
+	<!-- Query SitRepTarsu -->
+	<named-query name="SitRepTarsu.getReportTarsu">
+		<query>
+			<![CDATA[
+			SELECT rep 
+			FROM SitRepTarsu rep 
+			WHERE  rep.pkidUiu = TO_NUMBER(:idUiu)
+			]]>
+		</query>
+	</named-query>
+	
+
+</entity-mappings>

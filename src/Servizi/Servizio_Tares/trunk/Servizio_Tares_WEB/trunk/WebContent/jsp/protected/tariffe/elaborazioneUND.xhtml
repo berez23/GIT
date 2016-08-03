@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+	<div align="center">
+		<h:form id="frm">
+			<rich:panel style="align: center;">
+			<h:panelGrid columns="2">
+					<h:graphicImage value="/images/info.gif" rendered="true"/>
+					<h:outputText value="Inserire tutte le informazioni in blu per poter effettuare il calcolo relativo alle UTENZE NON DOMESTICHE" style="font-weight: bold" />
+			</h:panelGrid>
+			<br/>
+			<br/>
+			<h:panelGrid columns="3">
+				<h:outputText value="Zona Geografica"/>
+				<h:selectOneMenu value="#{tariffeBean.criteriaCoeff.geo}" style="color: blue;">
+				    <f:selectItem itemValue="NORD" itemLabel="NORD"/>
+				    <f:selectItem itemValue="CENTRO" itemLabel="CENTRO" />
+				    <f:selectItem itemValue="SUD" itemLabel="SUD" />
+				</h:selectOneMenu>
+				<rich:spacer width="5px"/>
+				
+				<h:outputText value="Numero Abitanti Minore o Maggiore di 5000 "/>
+				<h:selectOneMenu value="#{tariffeBean.abitanti}" 
+					style="color: blue; width: 80px;" 
+					required="false"
+					label="Numero Abitanti Minore o Maggiore di 5000 ">
+				    <f:selectItem itemValue="UNDER" itemLabel="MINORE"/>
+				    <f:selectItem itemValue="OVER" itemLabel="MAGGIORE" />
+				    <a4j:support action="#{tariffeBean.onChangeAbitantiUND}" reRender="tblList" event="onchange"/>
+				</h:selectOneMenu>
+				<rich:spacer width="5px"/>
+				
+				<h:outputText value="Costi di Bilancio Parte Fissa "/>
+				<h:inputText id="txtBilancioCF" label="Costi di Bilancio Parte Fissa" 
+					value="#{tariffeBean.bilancioCF}" 
+					required="true" 
+					style="width: 150px; text-align: right; color: blue;" />
+				<a4j:commandButton id="btnResetPF" 
+								value="Valorizza da Bilancio" 
+								action="#{tariffeBean.doResetPFUND}"
+								reRender="txtBilancioCF, lblGettitoTot" />
+								
+				<h:outputText value="Costi di Bilancio Parte Variabile "/>
+				<h:inputText id="txtBilancioCV" label="Costi di Bilancio Parte Variabile" value="#{tariffeBean.bilancioCV}" required="true" style="width: 150px; text-align: right; color: blue;" />
+				<a4j:commandButton id="btnResetPV" 
+								value="Valorizza da Bilancio" 
+								action="#{tariffeBean.doResetPVUND}"
+								reRender="txtBilancioCV, lblGettitoTot" />
+
+				<h:outputText value="Tot. Gettito" style="font-weight: bold"/>
+				<h:outputText id="lblGettitoTot" value="#{tariffeBean.totGettito}" style="font-weight: bold"/>
+				<a4j:commandButton id="btnResetValori" 	
+									value="Ripristina Valori" 
+									action="#{tariffeBean.goElaborazioneUND}"
+									disabled="false"/>
+					
+
+			</h:panelGrid>
+			
+			<table border='0' width="100%"><tr><td align='left'>
+				<rich:spacer width="5px"/>
+			</td></tr></table>
+			
+	<rich:spacer width="5px" height="30px"/>
+    
+    <rich:dataTable id="tblList" value="#{tariffeBean.lstTariffe}" var="tar" style="width: 100%" rendered="true">
+	        	        
+	           <f:facet name="header">
+                        <rich:columnGroup>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Categoria" id="lblCat" />
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Numero Oggetti Categoria" id="lblNo"/>
+                            </rich:column>
+                            <rich:column rowspan="2">
+                                <h:outputText value="Superficie Totale Categoria m" id="lblStc"/><SUP>2</SUP>
+                            </rich:column>
+                        </rich:columnGroup>
+                    </f:facet>
+	        
+	       	<rich:column style="background-color: #{ ( (tar.voce.id=='2' or tar.voce.id=='3' or tar.voce.id=='10' or tar.voce.id=='15' or tar.voce.id=='16' or tar.voce.id=='17' or tar.voce.id=='23' or tar.voce.id=='28' or tar.voce.id=='29') and tariffeBean.abitanti == 'UNDER' )?'lightgray':'white'}">
+				<h:outputText value="#{tar.voce.descrizione}" />
+				<h:outputText value=" (Categoria riservata solo ai Comuni con numero di Abitanti maggiore di 5000)"
+				 style="color: gray; font-weight: bold;"
+				rendered="#{ ( (tar.voce.id=='2' or tar.voce.id=='3' or tar.voce.id=='10' or tar.voce.id=='15' or tar.voce.id=='16' or tar.voce.id=='17' or tar.voce.id=='23' or tar.voce.id=='28' or tar.voce.id=='29') and tariffeBean.abitanti == 'UNDER' )?'true':'false'}"/>
+	        </rich:column>
+	       	<rich:column style="background-color: #{ ( (tar.voce.id=='2' or tar.voce.id=='3' or tar.voce.id=='10' or tar.voce.id=='15' or tar.voce.id=='16' or tar.voce.id=='17' or tar.voce.id=='23' or tar.voce.id=='28' or tar.voce.id=='29') and tariffeBean.abitanti == 'UNDER' )?'lightgray':'white'}">
+				<h:inputText label="#{tar.voce.descrizione} Numero Oggetti" 
+					value="#{tar.numEntita}" 
+					style="width: 100px; color: blue;"
+					required="true"
+					readonly="#{ ( (tar.voce.id=='2' or tar.voce.id=='3' or tar.voce.id=='10' or tar.voce.id=='15' or tar.voce.id=='16' or tar.voce.id=='17' or tar.voce.id=='23' or tar.voce.id=='28' or tar.voce.id=='29') and tariffeBean.abitanti == 'UNDER' )?'true':'false'}">
+					<a4j:support event="onblur" action="#{tariffeBean.onBlurUND}"  reRender="tblList" />
+				</h:inputText>
+	        </rich:column>
+	       	<rich:column style="background-color: #{ ( (tar.voce.id=='2' or tar.voce.id=='3' or tar.voce.id=='10' or tar.voce.id=='15' or tar.voce.id=='16' or tar.voce.id=='17' or tar.voce.id=='23' or tar.voce.id=='28' or tar.voce.id=='29') and tariffeBean.abitanti == 'UNDER' )?'lightgray':'white'}">
+				<h:inputText label="#{tar.voce.descrizione} Superficie Totale Categoria" 
+					value="#{tar.supTot}" 
+					style="width: 100px; color: blue;"
+					required="true"
+					readonly="#{ ( (tar.voce.id=='2' or tar.voce.id=='3' or tar.voce.id=='10' or tar.voce.id=='15' or tar.voce.id=='16' or tar.voce.id=='17' or tar.voce.id=='23' or tar.voce.id=='28' or tar.voce.id=='29') and tariffeBean.abitanti == 'UNDER' )?'true':'false'}">
+					<a4j:support event="onblur" action="#{tariffeBean.onBlurUND}"  reRender="tblList" />
+				    </h:inputText>
+	        </rich:column>
+	        
+			<f:facet name="footer">
+ 				<rich:columnGroup>
+ 					<rich:column>
+                        <richspacer width="5px"/>
+                    </rich:column>
+   					<rich:column>
+                        <h:outputText id="lblTotNum" value="#{tariffeBean.totNumEntita}" />
+                    </rich:column>
+ 					<rich:column >
+                        <h:outputText id="lblTotSup" value="#{tariffeBean.totSupTot}" />
+                    </rich:column>
+                	<rich:column breakBefore="true" colspan="3">
+                		<div align="center">
+
+							<a4j:commandButton id="btnCalcola" 
+								value="Calcola" 
+								action="#{tariffeBean.goCalcolaUND}" />
+
+						</div>
+					</rich:column>
+				</rich:columnGroup>
+		    </f:facet>	        
+	        
+	        
+	</rich:dataTable>
+				
+	
+			</rich:panel>			
+		</h:form>
+	</div>
+	</ui:define>
+
+
+</ui:composition>
+
+</html>

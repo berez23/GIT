@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" id="8D645A88-6740-8A0E-7206-5BE1CAED36EB" directorySegmentName="seg_1" name="FK_TRIBUNALE_SOGGV1">
+<sourceConnName>CS_F704-ROMA</sourceConnName>
+<sourceObjSchema>CS_F704</sourceObjSchema>
+<sourceObjName>FK_TRIBUNALE_SOGGV1</sourceObjName>
+<createdBy>Utente</createdBy>
+<createdTime>2014-02-26 12:02:23 UTC</createdTime>
+<generatorID>Generato dall&apos;utente</generatorID>
+<ownerDesignName>CS</ownerDesignName>
+<containerWithKeyObject>676C6239-0592-B40B-D1B3-BFA1169EE3FA</containerWithKeyObject>
+<deleteRule>NO ACTION</deleteRule>
+<localFKIndex>06B3105F-F563-1BB5-32F8-2EA48598A1D2</localFKIndex>
+<keyObject>A70165AE-75FF-5C4F-12C2-93086053F246</keyObject>
+<mandatory>true</mandatory>
+<transferable>true</transferable>
+</FKIndexAssociation>

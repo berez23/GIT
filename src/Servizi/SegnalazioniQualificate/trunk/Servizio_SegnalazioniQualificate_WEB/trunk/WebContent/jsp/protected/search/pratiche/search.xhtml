@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+
+	<ui:define name="content">
+
+		<h:form id="frmRicerca">
+			<rich:spacer height="10px" />
+
+			<rich:panel>
+				<f:facet name="header">
+					<h:outputLabel value="Ricerca Pratica di Accertamento" />
+				</f:facet>
+
+				
+				<table style="width: 100%">
+					<!-- RICERCA PER SOGGETTO ACCERTATO -->
+					<tr>
+						<td colspan="6"><h:outputLabel value="Soggetto Accertato"
+							style="font-weight: bold;" /></td>
+					</tr>
+
+					<tr>
+					
+					<td><h:outputLabel value="Codice fiscale" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="acccodfis"
+								value="#{praticaDataProviderImpl.criteria.accCodiFisc}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="acccodfis"
+								suggestionAction="#{suggestionBean.getSuggestionByAccCodFisc}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+
+							</rich:suggestionbox>
+						</a4j:region></td>
+					
+						<td><h:outputLabel value="Cognome" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="acccogn"
+								value="#{praticaDataProviderImpl.criteria.accCognome}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="acccogn"
+								suggestionAction="#{suggestionBean.getSuggestionByAccCognome}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+							</rich:suggestionbox>
+						</a4j:region></td>
+						
+						<td><h:outputLabel value="Nome" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="accnome"
+								value="#{praticaDataProviderImpl.criteria.accNome}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="accnome"
+								suggestionAction="#{suggestionBean.getSuggestionByAccNome}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+							</rich:suggestionbox>
+						</a4j:region></td>
+						
+						
+					</tr>
+
+					<tr>
+						<td><h:outputLabel value="Partita iva" /></td>
+						<td><h:inputText id="pi"
+							value="#{praticaDataProviderImpl.criteria.accCodiPiva}" /></td>
+
+						<td><h:outputLabel value="Denominazione" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="accdenom"
+								value="#{praticaDataProviderImpl.criteria.accDenominazione}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="accdenom"
+								suggestionAction="#{suggestionBean.getSuggestionByAccDenominazione}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+							</rich:suggestionbox>
+						</a4j:region></td>
+
+					</tr>
+					
+					<tr>
+						<td colspan="6" height="5">&nbsp;</td>
+					</tr>
+					
+					<!-- RICERCA PER RESPONSABILE PROCEDIMENTO -->
+					<tr>
+						<td colspan="6"><h:outputLabel value="Responsabile del Procedimento"
+							style="font-weight: bold;" /></td>
+					</tr>
+
+					<tr>
+					
+					<td><h:outputLabel value="Codice fiscale" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="rescodfis"
+								value="#{praticaDataProviderImpl.criteria.resCodiFisc}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="rescodfis"
+								suggestionAction="#{suggestionBean.getSuggestionByResCodFisc}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+
+							</rich:suggestionbox>
+						</a4j:region></td>
+					
+						<td><h:outputLabel value="Cognome" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="rescogn"
+								value="#{praticaDataProviderImpl.criteria.resCognome}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="rescogn"
+								suggestionAction="#{suggestionBean.getSuggestionByResCognome}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+							</rich:suggestionbox>
+						</a4j:region></td>
+						
+						<td><h:outputLabel value="Nome" /></td>
+						<td><a4j:region renderRegionOnly="true">
+							<h:inputText id="resnome"
+								value="#{praticaDataProviderImpl.criteria.resNome}" />
+							<rich:suggestionbox minChars="3" width="125" height="180"
+								for="resnome"
+								suggestionAction="#{suggestionBean.getSuggestionByResNome}"
+								var="result" ajaxSingle="true" nothingLabel="..."
+								fetchValue="#{result}" usingSuggestObjects="true">
+								<h:column>
+									<h:outputText value="#{result}"></h:outputText>
+								</h:column>
+							</rich:suggestionbox>
+						</a4j:region></td>
+						
+					</tr>
+					
+					<tr>
+						<td colspan="6" height="5">&nbsp;</td>
+					</tr>
+					
+					<!-- RICERCA PER DATI DEL PROCEDIMENTO -->
+					<tr>
+						<td colspan="6"><h:outputLabel value="Dati del Procedimento"
+							style="font-weight: bold;" /></td>
+					</tr>
+					<tr>
+							
+						<td><h:outputLabel value="Data Inizio Da:" /></td>
+						<td><rich:calendar
+							value="#{praticaDataProviderImpl.criteria.dataInizioDa}" popup="true"
+							enableManualInput="true" datePattern="dd/MM/yyyy"
+							cellWidth="24px" cellHeight="22px" style="width:200px" /></td>
+							
+						<td><h:outputLabel value="Finalita'" /></td>
+						<td><h:selectOneMenu id="sltfinalita"
+							value="#{praticaDataProviderImpl.criteria.finalita}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaFinalita}" />
+						</h:selectOneMenu></td>
+							
+						<td rowspan="2"><h:outputLabel  rendered="#{userBean.supervisore}"  value="Operatore" /></td>
+						<td rowspan="2"><h:selectManyListbox id="operList"  rendered="#{userBean.supervisore}" 
+								value="#{praticaDataProviderImpl.criteria.operatori}"
+								title="Selezioni multiple con tasto CTRL" size="3">
+								<f:selectItems value="#{commonDataBean.listaOperatori}" />
+							  </h:selectManyListbox>
+						</td>
+					</tr>
+
+					<tr>
+					
+						<td><h:outputLabel value="Data Inizio A:" /></td>
+						<td><rich:calendar
+							value="#{praticaDataProviderImpl.criteria.dataInizioA}" popup="true"
+							enableManualInput="true" datePattern="dd/MM/yyyy"
+							cellWidth="24px" cellHeight="22px" style="width:200px" /></td>
+						
+						<td><h:outputLabel value="Stato" /></td>
+						<td><h:selectOneMenu id="sltstato"
+							value="#{praticaDataProviderImpl.criteria.stato}">
+							<f:selectItem itemLabel="-Seleziona-" itemValue="" />
+							<f:selectItems value="#{commonDataBean.listaStato}" />
+						</h:selectOneMenu></td>
+						
+						
+					
+						<td><h:panelGrid columns="2" cellpadding="0" cellspacing="0">
+							<h:inputText id="oper" disabled="true" 
+							    rendered="false" 
+								value="#{praticaDataProviderImpl.criteria.sOperatori}" />
+							<h:graphicImage rendered="false" 
+							    value="/images/list.png" height="18px" id="img22"
+								style="cursor: pointer;margin-left: 1px;">
+								<a4j:support event="onclick" reRender="operPage"
+									oncomplete="Richfaces.showModalPanel('operModalBox'); return false;"
+									action="#{commonDataBean.doCaricaOperatori}">
+									<a4j:actionparam
+										value="/jsp/protected/search/pratiche/operatoriList.xhtml"
+										name="pgOper" assignTo="#{pageUiBean.pageOperatoriList}" />
+								</a4j:support>
+								<rich:toolTip direction="top-left" mode="client" layout="inline"
+									value="Inserisci Operatori" />
+							</h:graphicImage>
+						</h:panelGrid></td>
+					</tr>				
+				</table>
+
+				<h:panelGrid columns="2">
+
+					<a4j:commandButton value="Ricerca" id="btnRicerca"
+						reRender="resultListPage">
+						<a4j:actionparam
+							value="/jsp/protected/search/pratiche/resultList.xhtml" name="result"
+							assignTo="#{pageUiBean.pageResultList}" />
+					</a4j:commandButton>
+					<h:graphicImage style="cursor:pointer;" value="/images/reset.png"
+						title="Reset criteri">
+						<a4j:support event="onclick" reRender="frmRicerca, resultListPage"
+							action="#{praticaDataProviderImpl.resetData}">
+							<a4j:actionparam value="/jsp/protected/empty.xhtml" name="empty"
+								assignTo="#{pageUiBean.pageResultList}" />
+						</a4j:support>
+					</h:graphicImage>
+
+				</h:panelGrid>
+
+			</rich:panel>
+
+		</h:form>
+
+		<rich:spacer height="15px" />
+
+		<h:form id="frmRisRicerca">
+
+			<!-- Menu tabella -->
+			<rich:contextMenu attached="false" id="menu" submitMode="ajax">
+				<rich:menuItem submitMode="none" icon="/images/list.png">
+					<a4j:commandLink action="#{praticaDetailBean.goDetail}">
+						<h:outputText value="Apri dettaglio" style="font-weight: bold;" />
+						<a4j:actionparam value="{idPraticaSelected}"
+							assignTo="#{praticaDetailBean.idPratica}" />
+					</a4j:commandLink>
+				</rich:menuItem>
+			</rich:contextMenu>
+			<!-- Fine menu -->
+
+		<a4j:include id="resultListPage" viewId="#{pageUiBean.pageResultList}" />
+
+		</h:form>
+
+		<a4j:include id="operPage" viewId="#{pageUiBean.pageOperatoriList}" />
+
+		<rich:spacer height="15px" />
+
+	</ui:define>
+</ui:composition>
+</html>

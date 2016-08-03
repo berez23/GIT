@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+<ui:composition template="/jsp/protected/layout/layout.xhtml">
+	<ui:define name="content">
+		<h:form id="frmRicercaTipologie">
+			<p:panel header="Gestione Tipologie">				
+				<p:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+				
+					<p:row>
+						<p:column>
+							<p:outputLabel value="Codice" for="txtCodiceTipologia"/>
+						</p:column>
+						<p:column>
+						<p:inputText id="txtCodiceTipologia" value="#{tipologieBean.codTipoSearch}"/>
+						</p:column>
+						<p:column>
+							<p:outputLabel value="Descrizione" for="txtDescrizioneTipologia"/>
+						</p:column>
+						<p:column>
+							<p:inputText id="txtDescrizioneTipologia" value="#{tipologieBean.tipologiaSearch}"/>
+						</p:column>
+					</p:row>
+					<p:row>
+						<p:column>
+							<p:commandButton value="Cerca" action="#{tipologieBean.searchTipologie}" process="@form" update="pnlListaTipologie" />
+						</p:column>
+						<p:column>
+							<p:commandButton value="Reset" action="#{tipologieBean.resetForm}" process="@this" update="frmRicercaTipologie"/>
+						</p:column>
+					</p:row>
+				</p:panelGrid>
+				
+				<p:spacer height="15"/>
+				
+				<p:outputPanel id="pnlListaTipologie">				
+					 <p:dataTable id="dtListaTipologie" 
+					 	rendered="#{not empty tipologieBean.listaTipologie}" 
+					 	var="tip" 
+					 	value="#{tipologieBean.listaTipologie}" 
+					 	rowIndexVar="rowIndex"
+                        paginator="true" 
+                        rowKey="#{tip}" 
+                        selection="#{tip}" 
+                        selectionMode="single"                        
+					 	emptyMessage="Nessun elemento trovato" 
+						style="width:100%; table-layout:auto !important;" 
+						paginatorPosition="bottom"
+						paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+           				rows="20">
+
+					 	<p:ajax event="rowSelect" listener="#{tipologieBean.onRowSelect}" />
+					 	<f:facet name="header">Lista Tipologie</f:facet>
+					 	<p:column headerText="Codice" sortBy="#{tip.codTipo}" >
+					 		<h:outputText value="#{tip.codTipo}"/>
+					 	</p:column>
+					 	<p:column headerText="Descrizione Tipologia" sortBy="#{tip.tipologia}" >
+					 		<h:outputText value="#{tip.tipologia}"/>
+					 	</p:column>
+					 </p:dataTable>
+				</p:outputPanel>
+				
+				<p:spacer height="15"/>
+				
+				<h:panelGrid styleClass="panelGrid" style="width:auto;" cellpadding="10">
+					<p:commandButton value="Nuova" action="#{tipologieBean.tipologiaShowNew}" process="@form" />
+				</h:panelGrid>
+				
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

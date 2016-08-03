@@ -1,0 +1,284 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:webred="http://java.sun.com/jsf/composite/webred">
+	<h:body>
+	
+		<ui:param name="beneSelected" value="#{beneSelected}" />
+		<ui:param name="immagini" value="#{dettaglioBeneMan.datiPrincipaliMan.loadGalleryImages(beneSelected)}" />
+		<ui:param name="info" value="#{dettaglioBeneMan.datiPrincipaliMan.getInfoBene(beneSelected)}" />
+		<ui:param name="eventi" value="#{dettaglioBeneMan.datiPrincipaliMan.getEventiBene(beneSelected)}" />
+		<ui:param name="fascicolo" value="#{dettaglioBeneMan.datiPrincipaliMan.getFascicoloBene(beneSelected)}" />
+		<ui:param name="uso" value="#{dettaglioBeneMan.datiPrincipaliMan.getUsoBene(beneSelected)}" />
+		
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-12 ui-grid-col space">
+					<p:panelGrid styleClass="panelGrid" cellpadding="5">
+						<p:row>
+							<p:column rendered="#{beneSelected.desTipoBene!=null}">
+								<p:outputLabel value="Tipo Bene " styleClass="boldStyle" />
+								<p:spacer width="10px"/>
+								<h:outputText value=" #{beneSelected.desTipoBene}" />
+							</p:column>
+							
+							<p:column rendered="#{fascicolo.codFascicolo!=null}">
+								<p:outputLabel value="Cart. Arch. Demanio " styleClass="boldStyle"/>
+								<p:spacer width="10px"/>
+								<h:outputText value=" #{fascicolo.codFascicolo}" />
+							</p:column>
+			
+							<p:column rendered="#{uso!=null}">
+								<p:outputLabel value="Tipo Uso" styleClass="boldStyle" for="tipologia"/>
+								<p:spacer width="10px"/>
+								<h:outputText id="tipouso" value=" #{uso.desTipoUso}" />
+							</p:column>
+							
+							<p:column rendered="#{beneSelected.dmBBeneInv.desTipo!=null}">
+								<p:outputLabel value="Tipo Inv." styleClass="boldStyle" for="tipologia"/>
+								<p:spacer width="10px"/>
+								<h:outputText id="tipologia" value=" #{beneSelected.dmBBeneInv.desTipo}" />
+							</p:column>
+							
+							<p:column rendered="#{beneSelected.dmBBeneInv.desCatInventariale!=null}">
+								<p:outputLabel value="Categoria Inv. " styleClass="boldStyle" for="catInvent"/>
+								<p:spacer width="10px"/>
+								<h:outputText id="catInvent"  value=" #{beneSelected.dmBBeneInv.desCatInventariale}" />
+							</p:column>
+							
+						</p:row>
+						<p:row>
+							<p:column rendered="#{info.dataCensimento!=null}">
+								<p:outputLabel value="Data Censimento " styleClass="boldStyle"/>
+								<p:spacer width="10px"/>
+								<h:outputText value="#{info.dataCensimento}" >
+							 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+							 	</h:outputText>
+							</p:column>
+							
+							<p:column rendered="#{info.statoCensimento!=null}">	
+								<p:outputLabel value="Stato Censimento " styleClass="boldStyle"/>
+								<p:spacer width="10px"/>
+									<h:outputText value="#{info.statoCensimento}" />
+							</p:column>
+							
+							<p:column rendered="#{info.dataRil!=null}">		
+								<p:outputLabel value="Data Rilascio " styleClass="boldStyle"/>
+								<p:spacer width="10px"/>
+								<h:outputText value="#{info.dataRil}" >
+							 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+							 	</h:outputText>
+							</p:column>	
+							
+							<p:column rendered="#{info.dataIns!=null}">		
+								<p:outputLabel value="Data Inserimento" styleClass="boldStyle"/>
+								<p:spacer width="10px"/>
+								<h:outputText value="#{info.dataIns} " >
+							 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+							 	</h:outputText>
+							</p:column>	
+							
+							<p:column rendered="#{info.dataAgg!=null}">		
+								<p:outputLabel value="Data Aggiornamento" styleClass="boldStyle"/>
+								<p:spacer width="10px"/>
+								<h:outputText value="#{info.dataAgg} " >
+							 		<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" timeStyle="full"/>
+							 	</h:outputText>
+							</p:column>												
+						</p:row>
+					</p:panelGrid>
+				</div>				
+			</div>
+		</div>
+			
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<p:outputPanel styleClass="space ui-grid-col-12 ui-grid-col" rendered="#{beneSelected.descrizione!=null and beneSelected.descrizione.trim().length()>0}">	
+					<p:fieldset legend="Descrizione">
+						<h:outputText id="descr" escape="false"  value="#{dettaglioBeneMan.format(beneSelected.descrizione)}" />
+				    </p:fieldset>
+			    </p:outputPanel>
+			    <p:outputPanel styleClass="space ui-grid-col-12 ui-grid-col" rendered="#{beneSelected.note!=null and beneSelected.note.trim().length()>0}" >	
+				    <p:fieldset legend="Note" >
+						<h:outputText id="note" escape="false" value="#{dettaglioBeneMan.format(beneSelected.note)}" />
+				    </p:fieldset>
+			    </p:outputPanel>
+		   		<p:outputPanel styleClass="space ui-grid-col-12 ui-grid-col" rendered="#{immagini.size() > 0}">	
+					    <p:galleria value="#{immagini}" style="margin:0 auto" var="image" autoPlay="true" panelWidth="470" panelHeight="300" showCaption="true"   >
+						    <p:graphicImage value="/images/dynamic/?pathFile=#{image.path}/#{image.nomeFile}.#{image.ext}" width="470" height="300" 
+						    	alt="#{image.descrizione}" title="#{image.nomeFile}" />
+						</p:galleria>
+				</p:outputPanel>
+			</div>
+		</div>
+			
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<p:outputPanel styleClass="space ui-grid-col-6 ui-grid-col" rendered="#{info!=null}">		
+					<p:fieldset legend="Dati Inventario">
+						<p:panelGrid columns="2" styleClass="panelGrid" cellpadding="10">
+							<p:outputLabel rendered="#{info.rendCatas!=null}" value="Rendita Catastale" styleClass="boldStyle"/>
+							<h:outputText  rendered="#{info.rendCatas!=null}" value="#{info.rendCatas}" >
+								<f:convertNumber type="currency" currencySymbol="€"/>
+							</h:outputText>
+							
+							<p:outputLabel rendered="#{info.valAcquisto!=null}" value="Valore di Acquisto" styleClass="boldStyle"/>
+							<h:outputText  rendered="#{info.valAcquisto!=null}" value="#{info.valAcquisto}" >
+								<f:convertNumber type="currency" currencySymbol="€"/>
+							</h:outputText>
+							
+							<p:outputLabel rendered="#{info.quotaProprieta!=null}" value="Quota proprietà" styleClass="boldStyle"/>
+							<h:outputText  rendered="#{info.quotaProprieta!=null}" value="#{info.quotaProprieta}" />
+							
+							<p:outputLabel rendered="#{info.valCatastale!=null}" value="Valore Catastale" styleClass="boldStyle"/>
+							<h:outputText  rendered="#{info.valCatastale!=null}" value="#{info.valCatastale}" >
+								<f:convertNumber type="currency" currencySymbol="€"/>
+							</h:outputText>
+							
+							<p:outputLabel rendered="#{info.valInventariale!=null}" value="Valore Inventario " styleClass="boldStyle"/>
+							<h:outputText  rendered="#{info.valInventariale!=null}" value="#{info.valInventariale}" >
+								<f:convertNumber type="currency" currencySymbol="€"/>
+							</h:outputText>
+						</p:panelGrid>
+					</p:fieldset>
+				</p:outputPanel>
+				
+				<p:outputPanel styleClass="space ui-grid-col-12 ui-grid-col" rendered="#{info!=null}">
+					<p:fieldset legend="Consistenza">
+						<div class="ui-grid ui-grid-responsive">
+							<div class="ui-grid-row">
+								<div class="ui-grid-col-4">
+									<p:panelGrid columns="2" styleClass="panelGrid" cellpadding="10">
+										<p:outputLabel rendered="#{info.supTot!=null}" value="Tot.Area" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supTot!=null}" value="#{info.supTot}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+										
+										<p:outputLabel rendered="#{info.supTotSlp!=null}" value="Totale s.l.p." styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supTotSlp!=null}" value="#{info.supTotSlp}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+										
+										<p:outputLabel rendered="#{info.volumeTot!=null}" value="Volume Totale" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.volumeTot!=null}" value="#{info.volumeTot}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+										
+										<p:outputLabel rendered="#{info.volumeF!=null}" value="Volume Fuori Terra" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.volumeF!=null}" value="#{info.volumeF}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+										
+										<p:outputLabel rendered="#{info.volumeI!=null}" value="Volume Entro Terra" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.volumeI!=null}" value="#{info.volumeI}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>											
+										
+										<p:outputLabel rendered="#{info.numPianiF!=null}" value="n° piani Fuori Terra" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.numPianiF!=null}" value="#{info.numPianiF}" />	
+				
+										<p:outputLabel rendered="#{info.numPianiI!=null}" value="n° piani Interrati" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.numPianiI!=null}" value="#{info.numPianiI}" />											
+									</p:panelGrid>
+								</div>
+								<div class="ui-grid-col-4">
+									<p:panelGrid columns="2" styleClass="panelGrid" cellpadding="10">
+										<p:outputLabel rendered="#{info.supCop!=null}" value="Sup. coperta" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supCop!=null}" value="#{info.supCop}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+										
+										<p:outputLabel rendered="#{info.supLoc!=null}" value="Sup. locativa" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supLoc!=null}" value="#{info.supLoc}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+										
+										<p:outputLabel rendered="#{info.supCoSe!=null}" value="Sup. corridoi e servizi uff." styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supCoSe!=null}" value="#{info.supCoSe}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>
+																	
+										<p:outputLabel rendered="#{info.supOper!=null}" value="Sup. operativa Uff." styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supOper!=null}" value="#{info.supOper}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>	
+				 
+										<p:outputLabel rendered="#{info.supCommerciale!=null}" value="Sup. commerciale" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.supCommerciale!=null}" value="#{info.supCommerciale}" >
+											<f:convertNumber maxFractionDigits="2" groupingUsed="true" />
+										</h:outputText>	
+									</p:panelGrid>
+								</div>
+								<div class="ui-grid-col-4">
+									<p:panelGrid columns="2" styleClass="panelGrid" cellpadding="10">
+										<p:outputLabel rendered="#{info.totUnita!=null}" value="Tot.Unità" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.totUnita!=null}" value="#{info.totUnita}" />
+										
+										<p:outputLabel rendered="#{info.totUnitaComunali!=null}" value="Tot. Unità Comunali (UIUC)" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.totUnitaComunali!=null}" value="#{info.totUnitaComunali}" />
+										
+										<p:outputLabel rendered="#{info.numBox!=null}" value="Tot. posti auto/box" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.numBox!=null}" value="#{info.numBox}" />
+										
+				 						<p:outputLabel rendered="#{info.totAbitativa!=null}" value="Tot. abitativa" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.totAbitativa!=null}" value="#{info.totAbitativa}" />		
+										
+										<p:outputLabel rendered="#{info.totUsiDiversi!=null}" value="Tot.usi diversi" styleClass="boldStyle"/>
+										<h:outputText  rendered="#{info.totUsiDiversi!=null}" value="#{info.totUsiDiversi}" />	
+									</p:panelGrid>
+								</div>
+							</div>
+						</div>
+					</p:fieldset>
+				</p:outputPanel>
+				
+				<p:outputPanel styleClass="space ui-grid-col-5 ui-grid-col" rendered="#{eventi.size()>0}">
+					<p:fieldset legend="Eventi">
+				        <div class="ui-grid ui-grid-responsive">
+							<ui:repeat var="eve" value="#{eventi}">
+								<div class="ui-grid-row">
+									<div class="space ui-grid-col-4">
+					        			<h:outputText value="#{eve.dataEventoFormattata}" />
+					        		</div>
+					        		<div class="space ui-grid-col-8">
+			         					<h:outputText value="#{eve.descrizione}" />
+		         					</div>
+	         					</div>
+							</ui:repeat>
+						</div>
+				    </p:fieldset>
+				</p:outputPanel>
+			</div>
+		</div>
+			
+		<p:outputPanel styleClass="ui-grid ui-grid-responsive" rendered="#{info!=null and false}">
+			<div class="ui-grid-row">
+				<div class="space ui-grid-col-4">
+					<p:outputLabel for="numVani" value="n° vani" styleClass="boldStyle label"/>
+					<h:outputText id="numVani" value="#{info.numVani}" />
+				</div>
+				<div class="space ui-grid-col-4">
+					<p:outputLabel for="qualita" value="Qualità" styleClass="boldStyle label"/>
+					<h:outputText id="qualita" value="#{info.qualita}" />
+				</div>
+				<p:outputPanel styleClass="space ui-grid-col-4" rendered="#{info.metriQ!=null}">	
+					<p:outputLabel for="metriQ" value="Mq" styleClass="boldStyle label"/>
+					<h:outputText id="metriQ" value="#{info.metriQ}">
+						<f:convertNumber maxFractionDigits="2" groupingUsed="true"  />
+					</h:outputText>
+				</p:outputPanel>						
+				<div class="space ui-grid-col-4">
+					<p:outputLabel for="flCongelato" value="Congelato" styleClass="boldStyle label"/>
+					<h:outputText id="flCongelato" value="#{info.flCongelato==1 ? 'Si' : 'No'}" />
+				</div>
+				<div class="space ui-grid-col-4">
+					<p:outputLabel for="flAnticoPossesso" value="Antico Possesso" styleClass="boldStyle label"/>
+					<h:outputText id="flAnticoPossesso" value="#{info.flAnticoPossesso==1 ? 'Si' : 'No'}" />
+ 				</div>
+			</div>
+		</p:outputPanel>
+	</h:body>
+</html>

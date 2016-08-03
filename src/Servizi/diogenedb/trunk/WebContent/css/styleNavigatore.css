@@ -1,0 +1,158 @@
+.pulsante_scuro
+{
+	background-image:url(../img/pulsante.png);
+	background-position:top;
+	background-repeat:no-repeat;
+	width:80px;
+	height:27px;
+	border:none;
+	background-color:#BDBDBD;
+	cursor:pointer;
+	padding-bottom:2px;
+	}
+.pulsante_scuro:hover
+{
+	background-image:url(../img/pulsante_sel.png);
+	background-position:top;
+	background-repeat:no-repeat;
+	width:80px;
+	height:27px;
+	border:none;
+	background-color:#BDBDBD;
+	cursor:pointer;
+}
+
+input[type=text]:active, input[type=text]:focus, textarea:active, textarea:focus, select:focus
+{
+    background-color: #DDDDDD;
+}
+
+
+TABLE.tabellaRicerca 
+{
+	
+	margin-top: 20px;
+}
+
+TABLE.tabellaRicerca TD
+{
+	font-family:Tahoma;
+	font-size:10pt;
+	padding:4px;
+}
+TABLE.tabellaRicerca TH
+{
+	
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 14pt;
+	font-family:Tahoma;
+
+}
+TABLE.tabellaLista 
+{
+	margin-top: 20px;
+	
+}
+
+TABLE.tabellaLista TD
+{
+	font-family:Tahoma;
+	font-size:10pt;
+	padding:4px;
+	
+	border-bottom: solid 1px #BDBDBD;
+		
+	
+}
+TABLE.tabellaLista TD.headColonna
+{
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 12pt;
+	font-family:Tahoma;
+
+}
+TABLE.tabellaLista TD.footerTabella
+{
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 10pt;
+	font-family:Tahoma;
+	padding:0px;
+
+}
+TABLE.tabellaLista TH
+{
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 14pt;
+	font-family:Tahoma;
+
+}
+
+
+TABLE.tabellaLista 
+{
+	margin-top: 20px;
+	
+}
+TABLE.tabellaCrossLink
+{
+	font-family:Tahoma;
+	font-size:8pt;
+	padding:4px;
+	border-bottom: solid 1px #BDBDBD;
+	border-left: solid 1px #BDBDBD;
+	border-top: solid 1px #BDBDBD;
+	margin-top: 10px;
+}
+TABLE.tabellaCrossLink TH
+{
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 10pt;
+	font-family:Tahoma;
+
+}
+TABLE.tabellaDettaglio TD.titoloDettaglio
+{
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 14pt;
+	font-family:Tahoma;
+
+
+}
+TABLE.tabellaDettaglio
+{
+	margin-top: 10px;
+	border: solid 1px #BDBDBD;
+	
+}
+
+TABLE.tabellaDettaglio TD
+{
+	font-family:Tahoma;
+	font-size:10pt;
+	padding:4px;	
+}
+
+TABLE.tabellaDettaglio TD.footerTabella
+{
+	background-image:url(../img/pageBg_dark.jpg);
+	color: white;
+	font-size: 10pt;
+	font-family:Tahoma;
+	padding:8px;	
+
+}
+TABLE.tabellaDettaglio TH
+{
+	
+	color: black;
+	font-size: 14pt;
+	font-family:Tahoma;
+
+}
+

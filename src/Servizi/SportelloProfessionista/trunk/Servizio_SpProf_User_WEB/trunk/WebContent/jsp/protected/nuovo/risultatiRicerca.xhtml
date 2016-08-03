@@ -1,0 +1,259 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+
+<h:form id="frmRisRicerca">
+	<rich:panel id="panelRis" style="margin-right:10px;">
+	
+		<rich:dataTable width="100%" var="row" rowKeyVar="idx"
+			value="#{nuovoDataProviderImpl.listaSelezione}" id="listSelezione"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="4">
+						<h:outputText value="Particelle Selezionate" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Foglio" />
+				</f:facet>
+				<h:outputText value="#{row.foglio}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Particella" />
+				</f:facet>
+				<h:outputText value="#{row.particella}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Sub" />
+				</f:facet>
+				<h:outputText value="#{row.sub}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:graphicImage style="cursor:pointer;" value="/images/delete.png"
+					title="Elimina dalla selezione">
+					<a4j:support event="onclick" reRender="leftPage"
+						action="#{nuovoDataProviderImpl.doElimina}">
+						<a4j:actionparam value="#{idx}" name="index"
+							assignTo="#{nuovoDataProviderImpl.index}" />
+					</a4j:support>
+				</h:graphicImage>
+			</rich:column>
+			<f:facet name="footer">
+				<h:panelGrid columns="3" style="float: right;"
+					rendered="#{nuovoDataProviderImpl.listaSelezione != null}">
+					<a4j:commandButton value="Crea intervento" reRender="modalPage"
+						oncomplete="Richfaces.showModalPanel('layerModalBox'); return false;"
+						action="#{nuovoDataProviderImpl.doCaricaLayer}">
+					</a4j:commandButton>
+					<rich:spacer width="10px" height="10px" />
+					<h:graphicImage style="cursor:pointer;" value="/images/map.png"
+						title="Visualizza selezione in Mappa">
+						<a4j:support event="onclick" reRender="panelGrid"
+							action="#{mapBean.caricaMapUrlDaSelezione}"
+							oncomplete="resizeFrame();">
+						</a4j:support>
+					</h:graphicImage>
+				</h:panelGrid>
+			</f:facet>
+		</rich:dataTable>
+
+		<rich:spacer width="10px" height="10px"
+			rendered="#{nuovoDataProviderImpl.renderCivici}" />
+
+		<rich:dataTable width="100%" var="row"
+			rendered="#{nuovoDataProviderImpl.renderCivici}"
+			value="#{civiciDataModel}" id="listCivici"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			rows="5">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="4">
+						<h:outputText value="Risultati toponomastici" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Codice via" />
+				</f:facet>
+				<h:outputText value="#{row.numero}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Via" />
+				</f:facet>
+				<h:outputText value="#{row.prefisso} #{row.nome}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Civico" />
+				</f:facet>
+				<h:outputText value="#{row.civico}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:graphicImage style="cursor:pointer;" value="/images/magnifier.png"
+					title="Apri particelle collegate">
+					<a4j:support event="onclick" reRender="leftPage">
+						<a4j:actionparam value="#{row.pkidCivi}" name="idCivi"
+							assignTo="#{nuovoDataProviderImpl.criteriaPartByCivico.pkidCivi}" />
+						<a4j:actionparam value="true" name="renderPartCivi"
+							assignTo="#{nuovoDataProviderImpl.renderParticelleByCivico}" />
+					</a4j:support>
+				</h:graphicImage>
+			</rich:column>
+
+			<f:facet name="footer">
+				<rich:datascroller id="tableScroller1" />
+			</f:facet>
+		</rich:dataTable>
+
+		<rich:spacer width="10px" height="10px"
+			rendered="#{nuovoDataProviderImpl.renderParticelle}" />
+
+		<rich:dataTable width="100%" var="row"
+			rendered="#{nuovoDataProviderImpl.renderParticelle}"
+			value="#{partDataModel}" id="listParticelle"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			rows="15">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="4">
+						<h:outputText value="Risultati catastali" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Foglio" />
+				</f:facet>
+				<h:outputText value="#{row.foglio}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Particella" />
+				</f:facet>
+				<h:outputText value="#{row.particella}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Sub" />
+				</f:facet>
+				<h:outputText value="#{row.sub}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:graphicImage style="cursor:pointer;" value="/images/add.png"
+					title="Aggiungi alla selezione">
+					<a4j:support event="onclick" reRender="leftPage"
+						action="#{nuovoDataProviderImpl.doSeleziona}">
+						<a4j:actionparam value="#{row.foglio}" name="fgl"
+							assignTo="#{nuovoDataProviderImpl.foglioSel}" />
+						<a4j:actionparam value="#{row.particella}" name="par"
+							assignTo="#{nuovoDataProviderImpl.particellaSel}" />
+						<a4j:actionparam value="#{row.sub}" name="sub"
+							assignTo="#{nuovoDataProviderImpl.subSel}" />
+					</a4j:support>
+				</h:graphicImage>
+			</rich:column>
+			<f:facet name="footer">
+				<h:panelGrid columns="1" width="100%">
+					<rich:datascroller id="tableScroller2" />
+					<h:graphicImage style="cursor:pointer;float:right;"
+						value="/images/map.png" title="Visualizza risultati in Mappa">
+						<a4j:support event="onclick" reRender="panelGrid"
+							action="#{mapBean.caricaMapUrlDaRisultati}"
+							oncomplete="resizeFrame();">
+						</a4j:support>
+					</h:graphicImage>
+				</h:panelGrid>
+			</f:facet>
+		</rich:dataTable>
+
+		<rich:spacer width="10px" height="10px"
+			rendered="#{nuovoDataProviderImpl.renderParticelleByCivico}" />
+
+		<rich:dataTable width="100%" var="row"
+			rendered="#{nuovoDataProviderImpl.renderParticelleByCivico}"
+			value="#{partByCivicoDataModel}" id="listParticelleByCivico"
+			onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			rows="8">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column colspan="4">
+						<h:outputText value="Risultati catastali" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Foglio" />
+				</f:facet>
+				<h:outputText value="#{row.foglio}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Particella" />
+				</f:facet>
+				<h:outputText value="#{row.particella}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="Sub" />
+				</f:facet>
+				<h:outputText value="#{row.sub}" />
+			</rich:column>
+			<rich:column>
+				<f:facet name="header">
+					<h:outputText value="" />
+				</f:facet>
+				<h:graphicImage style="cursor:pointer;" value="/images/add.png"
+					title="Aggiungi alla selezione">
+					<a4j:support event="onclick" reRender="leftPage"
+						action="#{nuovoDataProviderImpl.doSeleziona}">
+						<a4j:actionparam value="#{row.foglio}" name="fgl"
+							assignTo="#{nuovoDataProviderImpl.foglioSel}" />
+						<a4j:actionparam value="#{row.particella}" name="par"
+							assignTo="#{nuovoDataProviderImpl.particellaSel}" />
+						<a4j:actionparam value="#{row.sub}" name="sub"
+							assignTo="#{nuovoDataProviderImpl.subSel}" />
+					</a4j:support>
+				</h:graphicImage>
+			</rich:column>
+			<f:facet name="footer">
+				<h:panelGrid columns="1" width="100%">
+					<rich:datascroller id="tableScroller3" />
+					<h:graphicImage style="cursor:pointer;float:right;"
+						value="/images/map.png" title="Visualizza risultati in Mappa">
+						<a4j:support event="onclick" reRender="panelGrid"
+							action="#{mapBean.caricaMapUrlDaRisultati}"
+							oncomplete="resizeFrame();">
+						</a4j:support>
+					</h:graphicImage>
+				</h:panelGrid>
+			</f:facet>
+		</rich:dataTable>
+
+	</rich:panel>
+</h:form>
+</html>

@@ -1,0 +1,179 @@
+<?xml version="1.0"?>
+<faces-config version="1.2" xmlns="http://java.sun.com/xml/ns/javaee"
+ xmlns:xi="http://www.w3.org/2001/XInclude"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_1_2.xsd">
+ <managed-bean>
+  <managed-bean-name>userBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.util.UserBean</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>pageBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.util.PageBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>segnalaBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.SegnalaBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+
+ <managed-bean>
+  <managed-bean-name>sezioniBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.SezioniBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>statisticheBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.StatisticheBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ 
+  <managed-bean>
+  <managed-bean-name>tariffeBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.TariffeBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>valutazioniBean</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.paging.ValutazioniBean</managed-bean-class>
+  <managed-bean-scope>session</managed-bean-scope>
+ </managed-bean>
+ 
+  <managed-bean>
+  <managed-bean-name>openPdfSrv</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.srv.OpenPdfSrv</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
+ 
+ <managed-bean>
+  <managed-bean-name>valutazioniDataModel</managed-bean-name>
+  <managed-bean-class>it.webred.ct.service.tares.web.bean.paging.ValutazioniDataModel</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+  <managed-property>
+   <property-name>dataProvider</property-name>
+   <property-class>it.webred.ct.service.tares.web.bean.paging.ValutazioniDataProvider</property-class>
+   <value>#{valutazioniBean}</value>
+  </managed-property>
+ </managed-bean>
+ 
+ <navigation-rule>
+  <from-view-id>*</from-view-id>
+
+  <navigation-case>
+   <from-outcome>tares.overview</from-outcome>
+   <to-view-id>/jsp/protected/home.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>sezioniBean.doInfoUpdate</from-outcome>
+   <to-view-id>/jsp/protected/home.xhtml</to-view-id>
+  </navigation-case>
+
+  <navigation-case>
+   <from-outcome>valutazioni.datiMetriciUiu</from-outcome>
+   <to-view-id>/jsp/protected/datiMetriciUiu/datiMetriciUiu.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>valutazioni.xls</from-outcome>
+   <to-view-id>/jsp/protected/export/xls.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>segnala.goSegnalaShow</from-outcome>
+   <to-view-id>/jsp/protected/segnalazioni/segnalazioniLst.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>segnala.xls</from-outcome>
+   <to-view-id>/jsp/protected/export/xls.xhtml</to-view-id>
+  </navigation-case>
+
+  <navigation-case>
+   <from-outcome>segnala.goEsportateLst</from-outcome>
+   <to-view-id>/jsp/protected/segnalazioni/segnalazioniExpLst.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>statistiche.xls</from-outcome>
+   <to-view-id>/jsp/protected/export/xls.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>statistiche.diagnosticheElab</from-outcome>
+   <to-view-id>/jsp/protected/diagnostiche/diagnostiche.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>statistiche.statistichePerCategoria</from-outcome>
+   <to-view-id>/jsp/protected/statistichePerCategoria/statistichePerCategoria.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.gestioneCoeffUND</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/gestioneCoeffUND.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.gestioneCoeffUD</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/gestioneCoeffUD.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.elaborazioneUND</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/elaborazioneUND.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.elaborazioneUD</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/elaborazioneUD.xhtml</to-view-id>
+  </navigation-case>
+  
+ <navigation-case>
+   <from-outcome>tariffe.calcolaUD</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/prospettoUD.xhtml</to-view-id>
+  </navigation-case>
+  
+ <navigation-case>
+   <from-outcome>tariffe.calcolaUND</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/prospettoUND.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.xlsUD</from-outcome>
+   <to-view-id>/jsp/protected/export/xls.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.xlsUND</from-outcome>
+   <to-view-id>/jsp/protected/export/xls.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.bilancioAC</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/bilancioAC.xhtml</to-view-id>
+  </navigation-case>
+  
+  <navigation-case>
+   <from-outcome>tariffe.consuntivoAP</from-outcome>
+   <to-view-id>/jsp/protected/tariffe/consuntivoAP.xhtml</to-view-id>
+  </navigation-case>
+
+  <navigation-case>
+   <from-outcome>sezioniBean.doEseguiElaborazioni</from-outcome>
+   <to-view-id>/jsp/protected/home.xhtml</to-view-id>
+  </navigation-case>
+  
+ </navigation-rule>
+
+ 
+ <application>
+  <view-handler>com.sun.facelets.FaceletViewHandler</view-handler>
+  <message-bundle>it.webred.ct.service.tares.web.resources.messages</message-bundle>
+ </application>
+</faces-config>

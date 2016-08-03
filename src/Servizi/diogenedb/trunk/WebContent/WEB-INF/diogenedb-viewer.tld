@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+                        "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>DiogeneDb Viewer</shortname>
+	<uri>http://www.webred.it</uri>
+	<info>This tag library contains functionality specific to DiogeneDb application</info>
+	<tag>
+		<name>filterFieldsRender</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.FilterFieldsRenderTag</tagclass>
+		<info>Render Filter Fields</info>
+		<attribute>
+			<name>style</name>
+		</attribute>
+	</tag>
+	<tag>
+		<name>listRender</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.ListRenderTag</tagclass>
+		<info>Render List</info>
+		<attribute>
+			<name>style</name>
+		</attribute>
+
+	</tag>
+	<tag>
+		<name>detailRender</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.DetailRenderTag</tagclass>
+		<info>Render Detail</info>
+		<attribute>
+			<name>style</name>
+		</attribute>
+
+	</tag>	
+	<tag>
+		<name>redirectForward</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.RedirectForwardTag</tagclass>
+		<info>Redirect Forward</info>
+	</tag>		
+	<tag>
+		<name>redirectBack</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.RedirectBackTag</tagclass>
+		<info>Redirect Back</info>
+	</tag>	
+	<tag>
+		<name>menuRender</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.MenuRenderTag</tagclass>
+		<info>Menu Render</info>
+	</tag>	
+	<tag>
+		<name>exportCSV</name>
+		<tagclass>it.webred.diogene.visualizzatore.runtime.tag.ExportCSVTag</tagclass>
+		<info>Export Csv</info>
+	</tag>			
+	<tag>
+		<name>validations</name>
+		<tagclass>it.webred.diogene.querybuilder.validator.tag.ValidationsTag</tagclass>
+		<info>Validation Tag</info>
+		<attribute>
+			<name>validatorHolder</name>
+		</attribute>
+		<attribute>
+			<name>includeGlobalScript</name>
+		</attribute>
+	</tag>			
+</taglib>

@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
+	
+	<h:form id="frmPanel">
+		
+		<rich:dataTable width="100%" var="allegato" value="#{gestioneAllegatiBean.allegatiList}"
+		id="listTable"
+		rendered="#{not empty gestioneAllegatiBean.allegatiList}">
+			<f:facet name="header">
+				<rich:columnGroup>
+					<rich:column>
+						<h:outputText value="Nome allegato" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="Data creazione" />
+					</rich:column>
+					<rich:column>
+						<h:outputText value="" />
+					</rich:column>
+				</rich:columnGroup>
+			</f:facet>
+			<rich:column>
+				<h:outputLabel style="font-weight: normal;" value="#{allegato.nomeFile}" />			
+			</rich:column>
+			<rich:column>
+				<h:outputLabel style="font-weight: normal;" value="#{allegato.dataCreazione}">
+					<f:convertDateTime pattern="dd/MM/yyyy" type="date" timeZone="Europe/Rome"/>
+				</h:outputLabel>		
+			</rich:column>
+			<rich:column>
+				<h:commandLink
+				value="Visualizza"
+				id="btnVisAllegato"
+				action="#{gestioneAllegatiBean.doDownload}">
+					<f:setPropertyActionListener value="#{allegato.id}" target="#{gestioneAllegatiBean.idAllegato}" />
+	           	</h:commandLink>
+	           	<a4j:commandLink
+	           	style="margin-left: 5px;"
+				value="Cancella"
+				id="btnCancAllegato"
+				action="#{gestioneAllegatiBean.doCancella}" 
+				reRender="frmPanel">
+					<f:setPropertyActionListener value="#{allegato.id}" target="#{gestioneAllegatiBean.idAllegato}" />
+	           	</a4j:commandLink>
+			</rich:column>
+		</rich:dataTable>
+		
+		<rich:spacer height="15px" />
+		
+		<h:panelGrid columns="1" style="width: 98%;">
+		
+			<rich:fileUpload
+			fileUploadListener="#{gestioneAllegatiBean.listener}"
+			listHeight="75px"
+			listWidth="100%"
+           	maxFilesQuantity="1"
+			id="upload"
+			progressLabel="Caricamento in corso..."
+			immediateUpload="false"
+			allowFlash="auto"
+			stopControlLabel="Arresta"
+			stopEntryControlLabel="Arresta"
+			uploadControlLabel="Carica File"
+			addControlLabel="Aggiungi File"
+			cancelEntryControlLabel="Cancella"
+			doneLabel="Caricamento completato"
+			clearAllControlLabel="Cancella Tutto"
+			clearControlLabel="Cancella"
+			transferErrorLabel="Errore nel caricamento del file"
+			sizeErrorLabel="Errore nelle dimensioni del file">							              				  
+       		 	<a4j:support event="onuploadcomplete" reRender="fileInfo, pnlBtn" /> 
+       		 	<a4j:support event="oncancel" reRender="frmPanel" action="#{gestioneAllegatiBean.initPanel}"/>
+       		 	<a4j:support event="onclear" reRender="frmPanel" action="#{gestioneAllegatiBean.initPanel}"/>           		
+       		</rich:fileUpload>
+       		       		
+       		<rich:panel id="fileInfo">
+			 	<f:facet name="header">
+			 		<h:outputLabel value="Informazioni sul file" />
+			 	</f:facet>
+			 	<h:panelGrid columns="2">
+			 		<h:outputText value="Nome file"  style="font-size: 11px; color: #3a00ff;"/>
+			 		<h:outputText value="#{gestioneAllegatiBean.allegato.nomeFile}" style="font-size: 11px; color: #3a00ff; font-weight: bold;" />
+			 	</h:panelGrid>
+		 	</rich:panel>
+		 </h:panelGrid>
+	         
+	     <rich:spacer height="15px" />
+	         
+	     <h:panelGrid id="pnlBtn" columns="1" style="width: 100%; text-align: center;">
+	     	<h:panelGroup>
+				
+				<a4j:commandButton							
+				styleClass="myButton"
+				style="width: 75px;"
+				value="Conferma"
+				id="btnConfermaAllegato"
+				action="#{gestioneAllegatiBean.doUpload}" 
+				reRender="frmPanel"
+				rendered="#{gestioneAllegatiBean.visBtnConferma}">
+	           	</a4j:commandButton>
+	           	
+	           	<a4j:commandButton							
+				styleClass="myButton"
+				style="width: 75px; margin-left: 10px;"
+				value="Esci"
+				id="btnEsciAllegato"
+				onclick="Richfaces.hideModalPanel('gestioneAllegatiPanel'); return false;">
+		       	</a4j:commandButton>
+	       	
+	       </h:panelGroup>	            	
+	     </h:panelGrid>
+	     		
+	</h:form>
+</ui:composition>

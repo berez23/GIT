@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings
+  xmlns="http://java.sun.com/xml/ns/persistence/orm"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+  version="2.0">
+	
+	<!-- Query DecodTipDoc -->
+	<named-query name="DecodTipDoc.getTipDocByCod">
+		<query>
+			<![CDATA[
+				SELECT t 
+				FROM DecodTipDoc t
+				WHERE t.codTipDoc = :codTipDoc
+			]]>
+		</query>
+	</named-query>
+	<named-query name="DecodTipDoc.getListaTipDoc">
+		<query>
+			<![CDATA[
+				SELECT t 
+				FROM DecodTipDoc t
+				]]>
+		</query>
+	</named-query>
+	<!-- Query SoggettiCarContrib -->
+	<named-query name="SoggettiCarContrib.getMaxIdSogg">
+		<query>
+			<![CDATA[
+				SELECT max(s.idSogg) 
+				FROM SoggettiCarContrib s
+			]]>
+		</query>
+	</named-query>
+	<named-query name="SoggettiCarContrib.searchPFByDatiAna">
+		<query>
+			<![CDATA[
+				SELECT s
+				  FROM SoggettiCarContrib s
+				 WHERE s.cognome= :cognome
+				   AND s.nome=:nome
+				   AND s.dtNas = :dtNas
+				   AND S.codComNas = :codComNas
+			]]>
+		</query>
+	</named-query>
+	<named-query name="SoggettiCarContrib.searchPFByDatiAnaCompleti">
+		<query>
+			<![CDATA[
+				SELECT s
+				  FROM SoggettiCarContrib s
+				 WHERE s.cognome= :cognome
+				   AND s.nome=:nome
+				   AND s.dtNas = :dtNas
+				   AND S.codComNas = :codComNas
+				   AND S.codFis = :codFis
+			]]>
+		</query>
+	</named-query>
+	<named-query name="SoggettiCarContrib.searchPGByPIva">
+		<query>
+			<![CDATA[
+				SELECT s
+				  FROM SoggettiCarContrib s
+				 WHERE s.parIva= :parIva
+			]]>
+		</query>
+	</named-query>
+	<named-query name="SoggettiCarContrib.searchPGByPIvaDenom">
+		<query>
+			<![CDATA[
+				SELECT s
+				  FROM SoggettiCarContrib s
+				 WHERE s.parIva= :parIva
+				   AND s.denomSoc= :denom
+			]]>
+		</query>
+	</named-query>
+	<named-query name="Risposte.GetRispostaByIdRichiesta">
+		<query>
+			<![CDATA[
+				SELECT risp
+				  FROM Risposte risp
+				 WHERE risp.idRic= :idRichiesta
+			]]>
+		</query>
+	</named-query>
+	
+	<named-query name="GestRichieste.getDatiByIdRicAttiva">
+		<query>
+			<![CDATA[
+				SELECT r 
+				FROM GesRic r
+				WHERE r.id.idRic = :idRic 
+				AND r.dtFinGes = null
+			]]>
+		</query>
+	</named-query>
+	<named-query name="GestRichieste.getDistinctUserName">
+		<query>
+			<![CDATA[
+				SELECT DISTINCT r.id.userName 
+				FROM GesRic r
+			]]>
+		</query>
+	</named-query>
+	<!-- Query CodiciTipoMezzoRisposta -->
+	<named-query name="CodiciTipoMezzoRisposta.getListaCodiciRisp">
+		<query>
+			<![CDATA[
+				SELECT c 
+				FROM CodiciTipoMezzoRisposta c
+				]]>
+		</query>
+	</named-query>	
+	<!-- Query CfgFonteNote -->
+	<named-query name="CfgFonteNote.getNoteByFonteLiv1">
+		<query>
+			<![CDATA[
+				SELECT n 
+				FROM CfgFonteNote n
+				WHERE n.fonteLiv1 = :fonteLiv1
+			]]>
+		</query>
+	</named-query>
+	<named-query name="CfgFonteNote.getNoteByFonteLiv1FonteLiv2">
+		<query>
+			<![CDATA[
+				SELECT n 
+				FROM CfgFonteNote n
+				WHERE n.fonteLiv1 = :fonteLiv1
+				AND   n.fonteLiv2 = :fonteLiv2
+			]]>
+		</query>
+	</named-query>
+</entity-mappings>
+	

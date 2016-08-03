@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jstl/core">     
+
+	<ui:composition template="/jsp/protected/layout/layout.xhtml">
+		<ui:define name="content">
+			<h:form>
+				<h:panelGrid columns="7" >
+					<h:outputLabel value="IdFonte:"/>
+					<h:inputText title="Formato previsto:idfonte1,idfonte2,...."  value="#{testDiogeneBean.idFonte}" />
+					<h:outputLabel value="Tipo Fonte:"/>
+					<h:inputText title="Formato previsto:desTipoFonte1,desTipoFonte2,...." value="#{testDiogeneBean.tipoFonte}" />
+														
+					<h:outputLabel value="ValueKey:"/>
+					<h:inputText title="Formato previsto:value1,value2,...." value="#{testDiogeneBean.valuekeys}" />
+					<h:commandButton rendered="true" action="#{testDiogeneBean.doEseguiFonteETipo}" value="Invoke x fonte e Tipo" />											
+				</h:panelGrid>
+				
+				<h:panelGrid columns="7"  >
+					<h:outputLabel value="Bean Bridge ClassName:"/>
+					<h:inputText style="width:150px" value="#{testDiogeneBean.beanClassName}" />	
+					
+					<h:outputLabel value="Nome Metodi:"/>
+					<h:inputText title="Formato previsto:metodo1,metodo2,...." value="#{testDiogeneBean.beanMethodName}" />	
+					
+					<h:outputLabel value="ValueKey:"/>
+					<h:inputText title="Formato previsto:value1,value2,...." value="#{testDiogeneBean.valuekeys2}" />
+					<h:commandButton rendered="true" action="#{testDiogeneBean.doEsegui}" value="Invoke x bean class" />				
+				</h:panelGrid>
+				
+				<h:panelGrid columns="3"  >				
+					<h:outputLabel value="Risultati formattati in XML"/>				
+					<h:inputTextarea readonly="true" cols="150" rows="30" value="#{testDiogeneBean.strResult}" />					
+				</h:panelGrid>		
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</html>

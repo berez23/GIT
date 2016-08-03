@@ -1,0 +1,37 @@
+[PropertyInfo]
+allowExecute,String,false,false, , ,true,<default>
+allowPocket,String,false,false, , ,true,<default>
+allowShapefiles,String,false,false, , ,true,<default>
+allowShapefilesImport,String,false,false,allowShapefilesImport,allowShapefilesImport,true,<default>
+allowUpdates,String,false,false, , ,true,<default>
+catalogURL,String,false,false, , ,true,<default>
+connectionDriver,String,false,false, , ,true,<default>
+connectionPassword,String,false,false, , ,true,<default>
+connectionPassword2,String,false,false, , ,true,<default>
+connectionURL,String,false,false, , ,true,<default>
+connectionUsername,String,false,false, , ,true,<default>
+dataSource,String,false,false, , ,true,<default>
+dwgPath,String,false,false, , ,true,<default>
+ecwBackColor,String,false,false, , ,false, 
+ecwPath,String,false,false, , ,true,<default>
+infoExtURL,String,false,false, , ,false, 
+infoPage,String,false,false, , ,true,<default>
+infoURL,String,false,false, , ,true,<default>
+jpegQuality,String,false,false, , ,true,<default>
+operation,String,false,false, , ,true,<default>
+rmiDwgURL,String,false,false, , ,true,<default>
+rmiEcwURL,String,false,false, , ,true,<default>
+rmiTifURL,String,false,false, , ,true,<default>
+serverURL,String,false,false, , ,true,<default>
+serviceID,String,false,false, , ,true,<default>
+spatialDatabaseDescription,String,false,false,spatialDatabaseDescription,spatialDatabaseDescription,true,<default>
+spatialDatabaseType,String,false,false, , ,true,<default>
+SRID,String,false,false, , ,true,<default>
+tiffPath,String,false,false, , ,true,<default>
+uploadTempPath,String,false,false,uploadTempPath,uploadTempPath,true,<default>
+proxyedServlets,java.util.Vector,false,false,proxyedServlets,proxyedServlets,true,<default>
+[IconNames]
+
+
+
+

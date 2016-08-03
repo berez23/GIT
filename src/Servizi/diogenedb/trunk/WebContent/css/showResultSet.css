@@ -1,0 +1,39 @@
+@CHARSET "ISO-8859-1";
+
+body
+{
+	text-align: center;
+}
+
+div
+{
+	margin: 0 auto;
+}
+
+table 
+{
+	border: 3px solid black;
+	border-collapse: collapse;
+	margin: 2em auto;
+}
+
+td
+{
+	padding: 6px;
+	font-family: sans-serif;
+	font-size: 12px;
+	color: black;
+	border: 1px solid navy;
+}	
+
+thead td
+{
+	font-weight: bold;
+	font-variant: small-caps;
+	background-color: #CCC;
+}
+
+tbody td
+{
+	background-color: white;
+}

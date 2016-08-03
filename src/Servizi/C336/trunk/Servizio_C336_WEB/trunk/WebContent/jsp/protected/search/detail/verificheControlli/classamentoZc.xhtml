@@ -1,0 +1,221 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+  
+  
+			<rich:modalPanel id="classamentoZcModalBox" autosized="true" width="600">
+			      <f:facet name="header">
+		            <h:outputText value="Controllo Classamento - Consistenza per Foglio:#{detailBean.dtoVerificheUiu.foglio} Particella:#{detailBean.dtoVerificheUiu.particella} Subalterno:#{detailBean.dtoVerificheUiu.subalterno} " />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="classamentoLink" />
+			     <rich:componentControl for="classamentoZcPanel" attachTo="classamentoLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+		        <h:form>
+		            <h:panelGrid columns="1">
+		            <a4j:outputPanel ajaxRendered="true">
+		
+					<rich:spacer height="15" />
+						<rich:dataTable 
+						       width="400px" 
+					        	id="cccAlterZc" 
+					        	columnClasses="col" 
+					        	value="#{detailBean.selLstClaZcDiverse}" 
+					        	var="ccc"
+					        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+			                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'"
+			                    rowKeyVar="indice">
+				            <f:facet name="header">
+				                <h:outputText value="Controllo Classamento - Consistenza per Foglio (Zone Censuarie Disponibili)"/>
+				            </f:facet>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Foglio" />
+				                </f:facet>
+							<h:outputText value="#{ccc.foglio}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Part" />
+				                </f:facet>
+							<h:outputText value="#{ccc.particella}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Sub" />
+				                </f:facet>
+							<h:outputText value="#{ccc.subalterno}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Zona" />
+				                </f:facet>
+							<h:outputText style="font-weight:bold;text-align:center;" value="#{ccc.zona}" />
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Sup" />
+				                </f:facet>
+							<h:outputText value="#{ccc.superficie}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Categ" />
+				                </f:facet>
+							<h:outputText value="#{ccc.categoria}" />
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Classe" />
+				                </f:facet>
+				                <table>
+				                	<tr>
+				                	<td width="50%">
+										<h:outputText value="#{ccc.classe}"  style="color:#{ccc.classeRif};">
+											<!-- <f:convertNumber pattern="#0"/>  -->
+										</h:outputText>
+				                	</td>
+				                	<td width="50%">
+				                		<h:outputText value="(" rendered="#{ccc.mostraClasseMaggiormenteFrequente}"/>
+					                	<h:outputText value="#{ccc.classeMin}" rendered="#{ccc.mostraClasseMaggiormenteFrequente}">
+											<f:convertNumber pattern="#0"/>
+										</h:outputText>
+										<h:outputText value=")" rendered="#{ccc.mostraClasseMaggiormenteFrequente}"/>
+				                	</td>
+				                	
+				                	</tr>
+				                </table>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Cons" />
+				                </f:facet>
+				                <table>
+				                <tr>
+				                <td width="20%" align="center">
+				                	<!--<h:outputText value="#{ccc.consistenza}" style="color:#{ ( (ccc.superfMediaMax > 0) and (!(ccc.consisAnomalia > ccc.superfMediaMin) or (ccc.consisAnomalia >= ccc.superfMediaMax)) )?'black':'red'};" >	-->
+				                	<h:outputText value="#{ccc.consistenza}" style="color:#{ccc.colore}" >
+				        	        	<f:convertNumber type="number" pattern="#0.00" />
+									</h:outputText>
+				                </td>
+				                <td width="30%" align="right">
+				                	<h:outputText value="(" rendered="#{ (ccc.superfMediaMax > 0) }"/>
+				                	<h:outputText value="#{ccc.superfMediaMin}" rendered="#{ (ccc.superfMediaMax > 0) and (ccc.superfMediaMax != 0.85) }">
+										<f:convertNumber type="number" pattern="#0.00" />
+									</h:outputText>
+				                </td>
+				                <td width="20%" align="center">
+				                	<h:outputText value="-" rendered="#{ (ccc.superfMediaMax > 0) and (ccc.superfMediaMax != 0.85)}"/>
+				                	<h:outputText value="#{ccc.consisAnomalia}" rendered="#{ (ccc.superfMediaMax == 0.85) and (ccc.consisAnomalia > 0) }">
+				                		<f:convertNumber pattern="#0.00"/>
+				                	</h:outputText>
+				                </td>
+				                <td width="30%" align="left">
+				                	<h:outputText value="#{ccc.superfMediaMax}" rendered="#{ (ccc.superfMediaMax > 0) and (ccc.superfMediaMax != 0.85) }">
+										<f:convertNumber type="number"  pattern="#0.00" />
+									</h:outputText>
+				                	<h:outputText value=")" rendered="#{ (ccc.superfMediaMax > 0) }"/>
+				                </td>
+				                </tr>
+				                </table>
+
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="Rendita" />
+				                </f:facet>
+							<h:outputText value="#{ccc.rendita}" >
+								<f:convertNumber type="number" minFractionDigits="2" />
+							</h:outputText>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        Rendita Docfa<br/> x 100 (A)
+				                </f:facet>
+							<h:outputText value="#{ccc.renditaX100}" >
+								<f:convertNumber type="number" minFractionDigits="2" />
+							</h:outputText>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        Rendita Docfa<br/> x 105 (B)
+				                </f:facet>
+							<h:outputText value="#{ccc.renditaX105}" >
+								<f:convertNumber type="number" minFractionDigits="2" />
+							</h:outputText>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+					                        Val Comm.le<br/> (C)
+				                </f:facet>
+							<h:outputText value="#{ccc.valoreCommerciale}" rendered="#{ccc.classamentoCompatibile}">
+								<f:convertNumber type="number" pattern="#0.00" />
+							</h:outputText>
+				            </rich:column>
+							<rich:column >
+				                <f:facet name="header">
+					                        <h:outputText value="C/A" />
+				                </f:facet>
+			            
+							<h:outputText value="#{ccc.valComSuRen100}" style="color:#{(ccc.valComSuRen100 > ccc.rapporto)?'red':'black'};" rendered="#{ccc.classamentoCompatibile}">
+								<f:convertNumber type="number" pattern="#0.00"/>
+							</h:outputText>
+							
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        <h:outputText value="C/B" />
+				                </f:facet>
+							<h:outputText value="#{ccc.valComSuRen105}" style="color:#{(ccc.valComSuRen105 > ccc.rapporto)?'red':'black'};" rendered="#{ccc.classamentoCompatibile}">
+								<f:convertNumber type="number"  pattern="#0.00"/>
+							</h:outputText>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+					                        Classamento<br/> Compatibile
+				                </f:facet>
+				                
+				                	<center><h:graphicImage title="Classamento Compatibile" 
+											value="/images/calculator.gif" id="imgRun" 
+											rendered="#{ccc.classamentoCompatibile}"
+											style="cursor: pointer;">
+											<a4j:support event="onclick" reRender="classamentoPage"
+												oncomplete="Richfaces.showModalPanel('classamentoModalBox'); return false;"
+												action="#{detailBean.showClassamentoDefault}" >
+												<a4j:actionparam name="pgClassCom" value="/jsp/protected/search/detail/verificheControlli/classamento.xhtml"
+													 assignTo="#{pageUiBean.pageClassamento}" />
+										        <f:setPropertyActionListener value="#{ccc}" target="#{detailBean.selClaCom}" />
+										     </a4j:support>
+									</h:graphicImage></center>
+				             
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+		        	
+		        	<table border="0">
+		             <tr>
+		             	<td align="center" width="49%">
+							<a4j:commandButton 
+								styleClass="my-button" 
+								value="Chiudi" 
+								ajaxSingle="false" 
+								id="hideBtn" 
+								oncomplete="#{rich:component('classamentoZcModalBox')}.hide();"/>		             	
+		             	</td>
+					</tr>
+			        </table> 
+		            </a4j:outputPanel>
+		            </h:panelGrid>  
+		         </h:form>
+		    </rich:modalPanel>
+	
+  
+</ui:composition>

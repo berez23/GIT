@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="Servizio_TsSoggiorno_WEB">
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="GestioneDBDoc_EJBClient.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/GestioneDBDoc_EJBClient/GestioneDBDoc_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="GestioneDBDoc_Data_Model.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/GestioneDBDoc_Data_Model/GestioneDBDoc_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_TsSoggiorno_Data_Model.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Servizio_TsSoggiorno_Data_Model/Servizio_TsSoggiorno_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="Servizio_TsSoggiorno_EJBClient.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/Servizio_TsSoggiorno_EJBClient/Servizio_TsSoggiorno_EJBClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="datarouter.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/datarouter.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="cetsecutil.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/CT-LIBS/cet-lib/cetsecutil.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="WebredEJBUtility.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/WebredEJBUtility/WebredEJBUtility">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Config_ManagerClient.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/CT_Config_ManagerClient/CT_Config_ManagerClient">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Config_Manager.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/CT_Config_Manager/CT_Config_Manager">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="CT_Config_Data_Model.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/CT_Config_Data_Model/CT_Config_Data_Model">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="java-output-path" value="/Servizio_TsSoggiorno_WEB/build/classes"/>
+        <property name="context-root" value="TsSoggiorno"/>
+    </wb-module>
+</project-modules>

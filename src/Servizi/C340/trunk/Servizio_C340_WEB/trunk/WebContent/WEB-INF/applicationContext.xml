@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:faces="http://www.springframework.org/schema/faces"
+	xmlns:webflow="http://www.springframework.org/schema/webflow-config"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="
+        http://www.springframework.org/schema/webflow-config
+        http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-2.5.xsd
+		http://www.springframework.org/schema/faces 
+		http://www.springframework.org/schema/faces/spring-faces-2.0.xsd
+		http://www.springframework.org/schema/webflow-config 
+		http://www.springframework.org/schema/webflow-config/spring-webflow-config-2.0.xsd
+		http://www.springframework.org/schema/jee 
+		http://www.springframework.org/schema/jee/spring-jee-2.5.xsd
+		http://www.springframework.org/schema/security 
+		http://www.springframework.org/schema/security/spring-security.xsd">
+ 
+
+ <!-- Remote JNDI -->
+ <!-- 
+ <bean id="jbossJNDI" class="org.springframework.jndi.JndiTemplate">
+ 	<property name="environment">
+ 		<props>
+ 			<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+      		<prop key="java.naming.provider.url">jnp://localhost:1099</prop>
+      		<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces</prop>       		 		
+ 		</props>
+ 	</property>
+ </bean>
+  -->
+  
+ <!-- CeT EJB remote Reference -->
+	<bean id="CatastoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CatastoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.catasto.CatastoService"/>
+	</bean>
+ 
+	<bean id="ParameterService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ParameterBaseService"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.ParameterService"/>  
+	</bean>
+	
+	<bean id="ComuneService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Config_Manager/ComuneServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.config.parameters.comune.ComuneService"/>  
+	</bean>
+
+<!-- End EJB 3 -->	
+
+<!--  EJB CNC Reference -->
+	<bean id="C340CommonService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_C340/Servizio_C340_EJB/C340CommonServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.comma340.data.access.C340CommonService"/>
+	</bean>
+	
+	<bean id="C340GestionePraticheService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_C340/Servizio_C340_EJB/C340GestionePraticheServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.comma340.data.access.C340GestionePraticheService"/>
+	</bean>
+ <!--  Fine -->
+	   		
+	   		
+ 			   		
+</beans>

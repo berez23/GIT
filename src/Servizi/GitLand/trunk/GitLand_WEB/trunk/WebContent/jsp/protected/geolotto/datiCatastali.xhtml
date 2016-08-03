@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+				xmlns:h="http://java.sun.com/jsf/html"
+				xmlns:f="http://java.sun.com/jsf/core"
+				xmlns:c="http://java.sun.com/jsp/jstl/core"
+				xmlns:ui="http://java.sun.com/jsf/facelets"
+				xmlns:p="http://primefaces.org/ui">
+				
+		<ui:param name="beneSelected" value="#{beneSelected}" />
+
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-6">
+					<p:carousel numVisible="1" renderd="true" rendered="#{dettaglioBeneMan.locazioneMan.getGroupMappales(beneSelected).size() > 0}" 
+						        value="#{dettaglioBeneMan.locazioneMan.getGroupMappales(beneSelected)}" var="map"  
+						        styleClass="carousel" itemStyleClass="itemCarouselMap" headerText="Dati Catastali">
+				        <p:panelGrid cellpadding="10" styleClass="panelGrid">
+							<f:facet name="header">
+								<p:row>
+									<p:column styleClass="text-align:left;">
+			                			<h:outputText value="Provenienza: #{map.provenienza}" />
+		                			</p:column>
+								</p:row>
+							</f:facet>
+							<p:row>
+								<p:column style="padding:4px 0;">
+							        <p:dataTable styleClass="dataTable" var="cat" value="#{map.datiCats}">
+							         <p:column headerText="Comune">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.comune.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.comune.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									     <p:column headerText="Sez.">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.sezione.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.sezione.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+								        <p:column headerText="Foglio">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.foglio.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.foglio.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									 
+									    <p:column headerText="Mappale">
+      											<table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{cat.mappale.dato}" /></td>
+														<ui:repeat var="alert" value="#{cat.mappale.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									  
+									</p:dataTable>
+								</p:column>
+								<p:column style="padding:6px 0; vertical-align:bottom;">
+									<ui:repeat var="alertArr" value="#{map.datiCats}">
+										<table>
+											<tbody>
+												<tr>
+													<ui:repeat var="catAlert" value="#{alertArr.datoArricchito.alerts}">
+														<td><p:graphicImage value="/images/#{catAlert.type}.png" height="13px" title="#{catAlert.description}"/></td>
+													</ui:repeat>
+													<td>
+														<p:outputPanel rendered="#{alertArr.datoArricchito.tabelleDatiCollegatiIsEmpty}">
+						                					<p:graphicImage id="mapTabAgg" style="cursor:pointer" value="/images/openTab.png" height="13px" title="Tabella dati aggiuntivi"/>
+															<p:overlayPanel for="mapTabAgg" styleClass="overlayPanel" appendToBody="true" showEffect="blind" hideEffect="fade"
+																showEvent="mouseover" hideEvent="mousedown"	at="right top" dismissable="true" showCloseIcon="true">
+																<c:set target="#{component}" property="id" value="#{dettaglioBeneMan.locazioneMan.overlayId}"/>
+																<table style="width: 100%;">
+																	<tbody>
+																		<ui:repeat var="tabColl" value="#{alertArr.datoArricchito.tabelleDatiCollegati}">
+																			<tr>
+																				<td>
+																					<table class="table">
+																						<tbody>
+																							<tr class="titleTable">
+																								<th colspan="#{tabColl.nomiColonne.size()}"><h:outputText
+																										value="#{tabColl.nomeTabella}" /></th>
+																							</tr>
+																							<tr class="titleTable">
+																								<ui:repeat var="nomeCol"
+																									value="#{tabColl.nomiColonne}">
+																									<th><h:outputText value="#{nomeCol}" /></th>
+																								</ui:repeat>
+																							</tr>
+																							<ui:repeat value="#{dettaglioBeneMan.locazioneMan.mapToList(tabColl.righe)}" var="righe">
+																								<tr>
+																									<ui:repeat var="tCell" value="#{righe.value}">
+																										<td><h:outputText value="#{tCell.dato}" /></td>
+																									</ui:repeat>
+																								</tr>
+																							</ui:repeat>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</ui:repeat>
+																	</tbody>
+																</table>
+															</p:overlayPanel>
+														</p:outputPanel>
+													</td>
+													<td>
+														<ui:param name="urlFF" value="#{dettaglioBeneMan.locazioneMan.getUrlFasFabb(alertArr)}"/>
+														<p:commandLink id="urlFF" onclick="javascript:window.open('#{urlFF}')"  >
+													        <p:graphicImage value="/images/dir3.png" height="13px" title="Fascicolo completo del mappale" rendered="#{urlFF!=null}"/>
+													    </p:commandLink>	
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</ui:repeat>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+				    </p:carousel>
+				</div>
+				
+				<div class="ui-grid-col-6">			
+					<p:carousel numVisible="1" rendered="#{dettaglioBeneMan.locazioneMan.getGroupIndirizzos(beneSelected).size() > 0}" value="#{dettaglioBeneMan.locazioneMan.getGroupIndirizzos(beneSelected)}" var="ind" styleClass="carousel" itemStyleClass="itemCarouselInd" effect="easeInStrong" headerText="Localizzazione">
+				    	<p:panelGrid cellpadding="10" styleClass="panelGrid">
+							<f:facet name="header">
+								<p:row>
+									<p:column styleClass="text-align:left;">
+			                			<h:outputText value="Provenienza: #{ind.provenienza}" />
+		                			</p:column>
+								</p:row>
+							</f:facet>
+							<p:row>
+								<p:column style="padding:4px 0;">
+							        <p:dataTable styleClass="dataTable" var="loc" value="#{ind.datiLocs}">
+								        <p:column headerText="Cod Via">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{loc.codVia.dato}" /></td>
+														<ui:repeat var="alert" value="#{loc.codVia.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									 
+									    <p:column headerText="Descrizione">
+      											<table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{loc.descrizione.dato}" /></td>
+														<ui:repeat var="alert" value="#{loc.descrizione.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									 
+									 	<p:column headerText="Cod Comune">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{loc.codComune.dato}" /></td>
+														<ui:repeat var="alert" value="#{loc.codComune.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									    
+									 	<p:column headerText="Comune">
+									        <table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{loc.comune.dato}" /></td>
+														<ui:repeat var="alert" value="#{loc.comune.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									    
+									    <p:column headerText="Principale">
+									    	<table class="tableInherit">
+												<tbody>
+													<tr>
+														<td><h:outputText value="#{loc.principale.dato}" /></td>
+														<ui:repeat var="alert" value="#{loc.principale.datoArricchito.alerts}">
+															<td align="right"><p:graphicImage value="/images/#{alert.type}.png" height="13px" title="#{alert.description}"/></td>
+														</ui:repeat>
+													</tr>
+												</tbody>
+											</table>
+									    </p:column>
+									</p:dataTable>
+								</p:column>
+								<p:column style="padding:6px 0; vertical-align:bottom;">
+									<ui:repeat var="alertArr" value="#{ind.datiLocs}">
+										<table>
+											<tbody>
+												<tr>
+													<ui:repeat var="catAlert" value="#{alertArr.datoArricchito.alerts}">
+														<td><p:graphicImage value="/images/#{catAlert.type}.png" height="13px" title="#{catAlert.description}"/></td>
+													</ui:repeat>
+													<td>
+														<p:outputPanel rendered="#{alertArr.datoArricchito.tabelleDatiCollegatiIsEmpty}">
+						                					<p:graphicImage id="mapTabAgg" style="cursor:pointer" value="/images/openTab.png" height="13px" title="Tabella dati aggiuntivi"/>
+															<p:overlayPanel for="mapTabAgg" styleClass="overlayPanel" appendToBody="true" showEffect="blind" hideEffect="fade"
+																showEvent="mouseover" hideEvent="mousedown"	at="right top" dismissable="false" showCloseIcon="true">
+																<c:set target="#{component}" property="id" value="#{dettaglioBeneMan.locazioneMan.overlayId}"/>
+																<table style="width: 100%;">
+																	<tbody>
+																		<ui:repeat var="tabColl" value="#{alertArr.datoArricchito.tabelleDatiCollegati}">
+																			<tr>
+																				<td>
+																					<table class="table">
+																						<tbody>
+																							<tr class="titleTable">
+																								<th colspan="#{tabColl.nomiColonne.size()}"><h:outputText
+																										value="#{tabColl.nomeTabella}" /></th>
+																							</tr>
+																							<tr class="titleTable">
+																								<ui:repeat var="nomeCol"
+																									value="#{tabColl.nomiColonne}">
+																									<th><h:outputText value="#{nomeCol}" /></th>
+																								</ui:repeat>
+																							</tr>
+																							<ui:repeat value="#{dettaglioBeneMan.locazioneMan.mapToList(tabColl.righe)}" var="righe">
+																								<tr>
+																									<ui:repeat var="tCell" value="#{righe.value}">
+																										<td><h:outputText value="#{tCell.dato}" /></td>
+																									</ui:repeat>
+																								</tr>
+																							</ui:repeat>
+																						</tbody>
+																					</table>
+																				</td>
+																			</tr>
+																		</ui:repeat>
+																	</tbody>
+																</table>
+															</p:overlayPanel>
+														</p:outputPanel>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</ui:repeat>
+								</p:column>
+							</p:row>
+						</p:panelGrid>
+				    </p:carousel>
+				</div>
+			</div>
+		</div>
+</ui:composition>

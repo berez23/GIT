@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project default="init">
+
+	<!-- File di properties  -->
+	<property file="build-jaxb-object.properties" />
+
+	<!-- TARGET INIT  -->
+	<target name="init">
+		<tstamp />
+	</target>
+
+	<!-- classpath della lib -->
+	<path id="classpath">
+		<fileset dir="${librariesPath}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+
+	<taskdef name="xjc" classname="com.sun.tools.xjc.XJCTask">
+		<classpath>
+			<fileset dir="${librariesPath}" includes="**/*.jar" />
+		</classpath>
+	</taskdef>
+
+
+	<target name="build" description="Build del progetto" depends="init">
+		<antcall target="genera-DatiCivicoDTO-request-jaxb" />
+		<antcall target="genera-DatiCivicoDTO-response-jaxb" />
+		<antcall target="genera-VerificaCoordinateDTO-request-jaxb" />
+		<antcall target="genera-VerificaCoordinateDTO-response-jaxb" />
+		<antcall target="genera-HetGitDTO-request-jaxb" />
+		<antcall target="genera-HetGitDTO-response-jaxb" />
+	</target>
+
+
+
+	<!--  Dati civico richiesta  -->
+	<target name="genera-DatiCivicoDTO-request-jaxb" description="Compile all Java source files">
+		<mkdir dir="..\\src\\it\\webred\\ct\\service\\jaxb\\intTerritorio\\datiCivico\\request" />
+		<echo message="Compiling the schema DatiCivicoRequest.xsd...">
+		</echo>
+		<xjc schema="..\\xsd\\DatiCivicoRequest.xsd" package="it.webred.ct.service.jaxb.intTerritorio.datiCivico.request" target="..\\src" extension="true" removeOldOutput="yes">
+			<produces dir="..\\src\\it\\webred\\ct\\service\\jaxb\\intTerritorio\\datiCivico\\request" includes="**\\*.java" />
+		</xjc>
+	</target>
+
+	<!--  Dati civico risposta  -->
+	<target name="genera-DatiCivicoDTO-response-jaxb" description="Compile all Java source files">
+		<mkdir dir="..\\src\\it\\webred\\ct\\service\\jaxb\\intTerritorio\\datiCivico\\response" />
+		<echo message="Compiling the schema DatiCivicoResponse.xsd...">
+		</echo>
+		<xjc schema="..\\xsd\\DatiCivicoResponse.xsd" package="it.webred.ct.service.jaxb.intTerritorio.datiCivico.response" target="..\\src" extension="true" removeOldOutput="yes">
+			<produces dir="..\\src\\it\\webred\\ct\\service\\jaxb\\intTerritorio\\datiCivico\\response" includes="**\\*.java" />
+		</xjc>
+	</target>
+
+
+	<!--  Verifica Coordinate richiesta  -->
+	<target name="genera-VerificaCoordinateDTO-request-jaxb" description="Compile all Java source files">
+		<mkdir dir="..\\src\\it\\webred\\ct\\service\\jaxb\\verificaCoordinate\\request" />
+		<echo message="Compiling the schema VerificaCoordinateRequest.xsd...">
+		</echo>
+		<xjc schema="..\\xsd\\VerificaCoordinateRequest.xsd" package="it.webred.ct.service.jaxb.verificaCoordinate.request" target="..\\src" extension="true" removeOldOutput="yes">
+			<produces dir="..\\src\\it\\webred\\ct\\service\\jaxb\\verificaCoordinate\\request" includes="**\\*.java" />
+		</xjc>
+	</target>
+
+
+	<!--  Verifica Coordinate risposta  -->
+	<target name="genera-VerificaCoordinateDTO-response-jaxb" description="Compile all Java source files">
+		<mkdir dir="..\\src\\it\\webred\\ct\\service\\jaxb\\verificaCoordinate\\response" />
+		<echo message="Compiling the schema VerificaCoordinateResponse.xsd...">
+		</echo>
+		<xjc schema="..\\xsd\\VerificaCoordinateResponse.xsd" package="it.webred.ct.service.jaxb.verificaCoordinate.response" target="..\\src" extension="true" removeOldOutput="yes">
+			<produces dir="..\\src\\it\\webred\\ct\\service\\jaxb\\verificaCoordinate\\response" includes="**\\*.java" />
+		</xjc>
+	</target>
+	
+	
+	<!--  HET-GIT richiesta  -->
+	<target name="genera-HetGitDTO-request-jaxb" description="Compile all Java source files">
+		<mkdir dir="..\\src\\it\\webred\\ct\\service\\jaxb\\hetGit\\request" />
+		<echo message="Compiling the schema HetGitRequest.xsd...">
+		</echo>
+		<xjc schema="..\\xsd\\HetGitRequest.xsd" package="it.webred.ct.service.jaxb.hetGit.request" target="..\\src" extension="true" removeOldOutput="yes">
+			<produces dir="..\\src\\it\\webred\\ct\\service\\jaxb\\hetGit\\request" includes="**\\*.java" />
+		</xjc>
+	</target>
+
+
+	<!--  HET-GIT risposta  -->
+	<target name="genera-HetGitDTO-response-jaxb" description="Compile all Java source files">
+		<mkdir dir="..\\src\\it\\webred\\ct\\service\\jaxb\\hetGit\\response" />
+		<echo message="Compiling the schema HetGitResponse.xsd...">
+		</echo>
+		<xjc schema="..\\xsd\\HetGitResponse.xsd" package="it.webred.ct.service.jaxb.hetGit.response" target="..\\src" extension="true" removeOldOutput="yes">
+			<produces dir="..\\src\\it\\webred\\ct\\service\\jaxb\\hetGit\\response" includes="**\\*.java" />
+		</xjc>
+	</target>
+
+
+</project>

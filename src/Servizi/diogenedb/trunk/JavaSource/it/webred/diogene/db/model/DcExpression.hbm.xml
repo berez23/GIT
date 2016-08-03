@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated 22-nov-2007 11.41.51 by Hibernate Tools 3.1.0.beta4 --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping default-cascade="none" default-access="property" default-lazy="true" auto-import="true">
+    <class name="it.webred.diogene.db.model.DcExpression" table="DC_EXPRESSION" mutable="true" polymorphism="implicit" dynamic-update="false" dynamic-insert="false" select-before-update="false" optimistic-lock="version">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" precision="10" scale="0"/>
+            <generator class="increment"/>
+        </id>
+        <property name="expression" type="it.webred.diogene.db.HibernateXMLType">
+<column name="EXPRESSION"/>
+</property>
+        <property name="alias" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="ALIAS" length="50"/>
+        </property>
+        <property name="colType" type="string" unique="false" optimistic-lock="true" lazy="false" generated="never">
+            <column name="COL_TYPE" length="100"/>
+        </property>
+        <set name="dvUeOrders" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_EXPRESSION" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DvUeOrder" not-found="exception" embed-xml="true"/>
+        </set>
+        <set name="dcColumns" inverse="true" sort="unsorted" mutable="true" optimistic-lock="true" embed-xml="true">
+            <key on-delete="noaction">
+                <column name="FK_DC_EXPRESSION" precision="10" scale="0"/>
+            </key>
+            <one-to-many class="it.webred.diogene.db.model.DcColumn" not-found="exception" embed-xml="true"/>
+        </set>
+    </class>
+</hibernate-mapping>

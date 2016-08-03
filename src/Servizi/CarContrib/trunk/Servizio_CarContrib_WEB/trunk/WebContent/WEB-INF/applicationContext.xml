@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+	   		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+ 
+ 
+ <!-- Remote JNDI -->
+ <!-- 
+ <bean id="jbossJNDI" class="org.springframework.jndi.JndiTemplate">
+ 	<property name="environment">
+ 		<props>
+ 			<prop key="java.naming.factory.initial">org.jnp.interfaces.NamingContextFactory</prop>
+      		<prop key="java.naming.provider.url">jnp://localhost:1099</prop>
+      		<prop key="java.naming.factory.url.pkgs">org.jboss.naming:org.jnp.interfaces</prop>       		 		
+ 		</props>
+ 	</property>
+ </bean>
+  -->
+  
+ <!-- CeT EJB remote Reference -->
+	<bean id="CatastoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CatastoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.catasto.CatastoService"/>
+	</bean>
+ 
+	<bean id="CommonService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/CT_Service/CT_Service_Data_Access/CommonServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.data.access.basic.common.CommonService"/>  
+	</bean>
+
+<!-- End EJB 3 -->	
+	   		
+</beans>

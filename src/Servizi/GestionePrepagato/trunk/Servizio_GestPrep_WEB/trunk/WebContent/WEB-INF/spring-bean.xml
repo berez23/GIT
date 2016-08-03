@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+           http://www.springframework.org/schema/aop 
+	   		http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+ 
+ 
+ 	
+	 <bean id="GPAnagService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestAnagServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestAnagService"/>
+	</bean>	
+
+	 <bean id="GPQualificaService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestQualificaServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestQualificaService"/>
+	</bean>	
+	
+	 <bean id="GPVisuraService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestVisureServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestVisureService"/>
+	</bean>	
+
+	 <bean id="GPTariffaService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestTariffeServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestTariffeService"/>
+	</bean>	
+
+
+	 <bean id="GPDepositoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestDepositoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestDepositoService"/>
+	</bean>	
+
+	 <bean id="GPCreditoService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestCreditoServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestCreditoService"/>
+	</bean>	
+	
+	 <bean id="GPOperazioniService" 
+		  class="org.springframework.ejb.access.SimpleRemoteStatelessSessionProxyFactoryBean">
+		  <property name="jndiName" value="java:global/Servizio_GestPrepagato/Servizio_GestPrepagato_EJB/GestOperazioniServiceBean"/>
+		  <property name="businessInterface" value="it.webred.ct.service.gestprep.data.access.GestOperazioniService"/>
+	</bean>		
+	
+</beans>

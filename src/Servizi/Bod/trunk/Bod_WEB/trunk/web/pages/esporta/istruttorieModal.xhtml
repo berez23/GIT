@@ -1,0 +1,113 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+                xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:f="http://java.sun.com/jsf/core" 
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:rich="http://richfaces.org/rich" 
+                xmlns:a4j="http://richfaces.org/a4j" >
+
+
+			<rich:modalPanel 
+				id="istruttoriePanel" 
+				autosized="true" 
+				width="600">
+
+       
+            <a4j:loadBundle basename="resources" var="msg" />
+            
+	        <f:facet name="header">
+		            <h:outputText value="Dettaglio Istruttorie della Fornitura Selezionata" />
+		        </f:facet>
+		     <f:facet name="controls">
+			    <h:panelGroup>
+			     <h:graphicImage value="/images/modal/close.png" styleClass="hidelink" id="hideDetForLink" />
+			     <rich:componentControl for="istruttoriePanel" attachTo="hideDetForLink" operation="hide" event="onclick" />
+			    </h:panelGroup>
+			   </f:facet>
+
+		            <h:panelGrid columns="1">
+							        	
+		        	 <h:form id="frmDetFor">
+		            <a4j:outputPanel ajaxRendered="true">
+							        	
+		        	<rich:dataTable 
+                		  			width="600px"
+                		  			rows="5"
+						        	id="istruttorieList" 
+						        	columnClasses="col" 
+									value="#{esportaFiltroBck.elencoIstruttorie}" 
+						        	var="istruttoria"
+						        	onRowMouseOver="this.style.backgroundColor='#F1F1F1'"
+				                    onRowMouseOut="this.style.backgroundColor='#{a4jSkin.tableBackgroundColor}'">
+				            <rich:column>
+				                <f:facet name="header">
+									<h:outputText value="Protocollo" />
+				                </f:facet>
+				                <h:outputText value="#{istruttoria.protocollo}" />
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                    <h:outputText value="Fornitura" />
+				                </f:facet>
+				                <h:outputText value="#{istruttoria.fornitura}" >
+				                	<f:convertDateTime pattern="MM/yyyy" type="date" timeZone="Europe/Rome"/>
+				                </h:outputText>
+				            </rich:column>
+				            <rich:column> 
+				                <f:facet name="header">
+				                    <h:outputText value="Annotazioni" />
+				                </f:facet>
+				                <h:outputText value="#{istruttoria.annotazioni}" />
+				            </rich:column>				            
+							<rich:column>
+				                <f:facet name="header">
+									<h:outputText value="Esito L.662" />
+				                </f:facet>
+				                <h:graphicImage id="imgEsitoIst662" value="/images/icons/ok.gif" rendered="#{istruttoria.esitoIst662}"/>
+				            </rich:column>
+							<rich:column>
+				                <f:facet name="header">
+									<h:outputText value="Esito L.80" />
+				                </f:facet>
+				                <h:graphicImage id="imgEsitoIst80" value="/images/icons/ok.gif" rendered="#{istruttoria.esitoIst80}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+									<h:outputText value="Esito L.311" />
+				                </f:facet>
+				                <h:graphicImage id="imgEsitoIst311" value="/images/icons/ok.gif" rendered="#{istruttoria.esitoIst311}"/>
+				            </rich:column>
+				            <rich:column>
+				                <f:facet name="header">
+									<h:outputText value="Esito NA" />
+				                </f:facet>
+				                <h:graphicImage id="imgEsitoIstNA" value="/images/icons/ok.gif" rendered="#{istruttoria.esitoIstNA}"/>
+				            </rich:column>
+				            <f:facet name="footer">
+				                <rich:datascroller renderIfSinglePage="false" maxPages="5"/>
+				            </f:facet>
+				        </rich:dataTable>
+
+						<rich:spacer height="20px"/>  	
+						<a4j:region  ajaxRendered="true">
+			             <table border="0">
+			             <tr>
+			             	<td align="center">
+			             	<rich:spacer width="20px"/>
+								<a4j:commandButton 
+									styleClass="my-button"
+									value="Chiudi" 
+									ajaxSingle="false" 
+									id="hideBtn" 
+									oncomplete="#{rich:component('istruttoriePanel')}.hide();"/>
+			             	</td>
+						</tr>
+				        </table>
+				        </a4j:region>
+		           </a4j:outputPanel>			          
+		        </h:form>
+
+		            </h:panelGrid>  
+		    </rich:modalPanel>
+		    
+</ui:composition>
+		    
