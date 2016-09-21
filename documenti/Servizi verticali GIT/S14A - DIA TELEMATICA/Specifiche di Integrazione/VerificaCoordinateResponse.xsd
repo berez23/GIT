@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+		   xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" 
+		   xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc" 
+		   xmlns:inheritance="http://jaxb2-commons.dev.java.net/basic/inheritance"
+		   jaxb:version="2.0">
+         
+    <xs:include schemaLocation="UserAuth.xsd"/>
+         
+	<xs:element name="verificaCoordinate"> 
+        <xs:complexType>
+            <xs:sequence>
+            	<xs:element name="infoUtente" type="userInfo" minOccurs="0" />
+                
+                <!-- messaggi esito -->
+                <xs:element name="error" type="error" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="ok" type="ok" minOccurs="0" />
+                <xs:element name="info" type="info" minOccurs="0" />
+                
+                <!-- dati output -->
+                <xs:element name="elencoVie" type="elencoVie" minOccurs="0" />
+                <xs:element name="elencoUiu" type="elencoUiu" minOccurs="0" />
+                <xs:element name="elencoCivico" type="elencoCivico" minOccurs="0" />
+                <xs:element name="elencoMappale" type="elencoMappale" minOccurs="0" />
+                <xs:element name="graf" type="graf" minOccurs="0" />
+            </xs:sequence>
+            
+            <xs:attribute name="tipo" type="xs:string" />
+        </xs:complexType>
+    </xs:element>
+		
+	
+	
+	<xs:complexType name="error">
+        <xs:sequence>
+            <xs:element name="desc" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ok">
+        <xs:sequence>
+            <xs:element name="desc" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="info">
+        <xs:sequence>
+            <xs:element name="desc" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    
+    <xs:complexType name="elencoVie">
+        <xs:sequence>
+            <xs:element name="via" type="via" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="via">
+        <xs:sequence>
+            <xs:element name="prefisso" type="xs:string" minOccurs="0" />
+            <xs:element name="nome" type="xs:string" minOccurs="0" />
+            <xs:element name="codiceVia" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="elencoUiu">
+        <xs:sequence>
+            <xs:element name="uiu" type="uiu" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="uiu">
+        <xs:sequence>
+            <xs:element name="foglio" type="xs:string" minOccurs="0" />
+            <xs:element name="particella" type="xs:string" minOccurs="0" />
+            <xs:element name="subalterno" type="xs:string" minOccurs="0" />
+            <xs:element name="sezione" type="xs:string" minOccurs="0" />
+            <xs:element name="classe" type="xs:string" minOccurs="0" />
+            <xs:element name="categoria" type="xs:string" minOccurs="0" />
+            <xs:element name="rendita" type="xs:string" minOccurs="0" />
+            <xs:element name="dataInizioVal" type="xs:long" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    
+    <xs:complexType name="elencoCivico">
+        <xs:sequence>
+            <xs:element name="civico" type="civico" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="civico">
+        <xs:sequence>
+            <xs:element name="via" type="via" minOccurs="0" />
+            <xs:element name="numero" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    
+    <xs:complexType name="elencoMappale">
+        <xs:sequence>
+            <xs:element name="mappale" type="mappale" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="mappale">
+        <xs:sequence>
+            <xs:element name="foglio" type="xs:string" minOccurs="0" />
+            <xs:element name="particella" type="xs:string" minOccurs="0" />
+            <xs:element name="dataInizioVal" type="xs:long" minOccurs="0" />
+			<xs:element name="zonaDecentramento" type="zonaDecentramento" minOccurs="0" />
+			
+            <xs:element name="datiPrg" type="datiPrg" minOccurs="0" />
+            <xs:element name="vincoli" type="vincoliType" minOccurs="0" />
+            <xs:element name="datiAttesi" type="datiAttesi" minOccurs="0" />
+        </xs:sequence>
+        
+        <xs:attribute name="censUrbano" type="xs:string" />
+        <xs:attribute name="censTerreni" type="xs:string" />
+        <xs:attribute name="cartografia" type="xs:string" />
+    </xs:complexType>
+    
+    
+    <xs:complexType name="zonaDecentramento">
+        <xs:sequence>
+            <xs:element name="zona" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="datiAttesi">
+        <xs:sequence>
+            <xs:element name="datiAttesiResidenziale" type="datiAttesiResidenziale" minOccurs="0" maxOccurs="unbounded" />
+            <xs:element name="datiAttesiNonResidenziale" type="datiAttesiNonResidenziale" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="datiAttesiResidenziale">
+        <xs:sequence>
+            <xs:element name="classiMaxCategoria" type="classiMaxCategoria" minOccurs="0" />
+            <xs:element name="classamenti" type="classamenti" minOccurs="0" />
+            <xs:element name="valoreCommercialeMq" type="xs:string" minOccurs="0" />
+            <xs:element name="valoreCommerciale" type="xs:string" minOccurs="0" />
+            <xs:element name="renditaMinima" type="xs:string" minOccurs="0" />
+            <xs:element name="tariffaPerVano" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="datiAttesiNonResidenziale">
+        <xs:sequence>
+            <xs:element name="classeMediaRiferimento" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <xs:complexType name="classiMaxCategoria">
+        <xs:sequence>
+            <xs:element name="classeMaxCategoria" type="classeMaxCategoria" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="classeMaxCategoria">
+        <xs:sequence>
+            <xs:element name="categoria" type="xs:string" minOccurs="0" />
+            <xs:element name="classe" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    
+    <xs:complexType name="classamenti">
+        <xs:sequence>
+            <xs:element name="classamento" type="classamento" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="classamento">
+        <xs:sequence>
+            <xs:element name="categoria" type="xs:string" minOccurs="0" />
+            <xs:element name="classe" type="xs:string" minOccurs="0" />
+            <xs:element name="tariffa" type="xs:string" minOccurs="0" />
+            <xs:element name="renditaComplessiva" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+    <!--  VINCOLI -->
+	  <xs:complexType name="vincoliType">
+	    <xs:sequence>
+	      <xs:element maxOccurs="unbounded" name="vincolo" type="vincoloType" />
+	    </xs:sequence>
+	  </xs:complexType>
+	  <xs:complexType name="vincoloType">
+	    <xs:sequence>
+	      <xs:element maxOccurs="unbounded" name="riga" type="rigaType" />
+	    </xs:sequence>
+	    <xs:attribute name="tipo" type="xs:string" />
+	  </xs:complexType>
+	  <xs:complexType name="rigaType">
+	    <xs:sequence>
+	      <xs:element maxOccurs="unbounded" name="attributo" type="attributoType" />
+	    </xs:sequence>
+	  </xs:complexType>
+	  <xs:complexType name="attributoType">
+	    <xs:sequence>
+	      <xs:element name="label" type="xs:string" />
+	      <xs:element name="valore" type="xs:string" />
+	    </xs:sequence>
+	    <xs:attribute name="nome" type="xs:string" />
+	  </xs:complexType>
+	  <!--FINE VINCOLI -->
+    
+  
+    
+    <xs:complexType name="datiPrg">
+        <xs:sequence>
+            <xs:element name="prg" type="prg" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="prg">
+        <xs:sequence>
+        	<xs:element name="dal" type="xs:long" minOccurs="0" />
+        	<xs:element name="al" type="xs:long" minOccurs="0" />
+            <xs:element name="destFunzionale" type="destFunzionale" minOccurs="0" />
+            <xs:element name="zonaOmogenea" type="zonaOmogenea" minOccurs="0" />
+            <xs:element name="links" type="links" minOccurs="0" />
+            
+            <!-- 
+            <xs:element name="destUrbanistica" type="xs:string" minOccurs="0" />
+            <xs:element name="areaPart" type="xs:string" minOccurs="0" />
+            <xs:element name="areaPrg" type="xs:string" minOccurs="0" />
+            <xs:element name="areaIntersezione" type="xs:string" minOccurs="0" />
+             -->
+        </xs:sequence>
+        
+        <xs:attribute name="id" type="xs:string" />
+    </xs:complexType>
+    
+    <xs:complexType name="zonaOmogenea">
+        <xs:sequence>
+            <xs:element name="codice" type="xs:string" minOccurs="0" />
+            <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+            <xs:element name="nota" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="destFunzionale">
+        <xs:sequence>
+            <xs:element name="codice" type="xs:string" minOccurs="0" />
+            <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+            <xs:element name="nota" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="links">
+        <xs:sequence>
+            <xs:element name="link" type="link" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="link">
+        <xs:sequence>
+            <xs:element name="descrizione" type="xs:string" minOccurs="0" />
+            <xs:element name="url" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    
+	<xs:complexType name="graf">
+        <xs:sequence>
+            <xs:element name="foglio" type="xs:string" minOccurs="0" />
+            <xs:element name="particella" type="xs:string" minOccurs="0" />
+            <xs:element name="unimm" type="xs:string" minOccurs="0" />
+            <xs:element name="sezione" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+</xs:schema>
+
+
+
