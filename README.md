@@ -1,9 +1,14 @@
-#Project name#
+#GIT (Gestione Intersettoriale del Territorio)#
 
 ##Descrizione##
-Questa è una breve descrizione del progetto. La descrizione
-deve essere chiara con lo scopo di illustrare le finalità del progetto
-e l'ambito di intervento.
+Il Progetto GIT ha lo scopo di predisporre modelli di gestione delle informazioni e di organizzazione delle
+amministrazioni comunali aderenti per:
+· condividere la funzione catastale e di governo della fiscalità, attraverso l’utilizzo di flussi informativi delle Agenzie
+Territorio e Entrate, previsti dalle normative e dalle circolari
+· monitorare e gestire lo sviluppo territoriale come valorizzazione del patrimonio
+· sviluppare forme di equità fiscale attraverso un rapporto diretto con i cittadini
+· attuare forme concrete di semplificazione amministrativa per cittadini e per imprese
+
 
 ##Struttura del repository##
 Il repository ha la seguente struttura
@@ -18,8 +23,12 @@ Folder   |  Descrizione
 
 
 ##Ambiente di sviluppo##
-In questa sezione vanno inserite tutte le informazioni relative all'ambiente di sviluppo utilizzato per il prodotto. 
-In particolare va indicato con chiarezza sia il nome sia la versione dell'IDE utilizzata.
+Il prodotto è realizzato con componenti open-source.
+Architettura JEE (EJB, JPA, JSF/Richfaces)
+JBOSS 7.x
+Oracle 11.2
+JDK 1.7
+
 
 ##Licenza##
 In questa sezione va inserita la parte relativa alla licenza con cui si intende distribuire il codice.
