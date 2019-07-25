@@ -1,0 +1,93 @@
+publiccodeYmlVersion: "0.2"
+
+name: GIT (Gestione Intersettoriale del Territorio)
+url: "https://github.com/Regione-Umbria/GIT"
+softwareVersion: "4.0"
+releaseDate: "2017-04-15"
+platforms:
+  - web
+
+categories:
+  - data-visualization
+  - office
+
+usedBy:
+  - Comune di Milano
+  - Bollate
+  - Chiari
+  - Corbetta e Gaggiano
+  - Erba
+  - Melzo
+  - Monza
+  - Pioltello
+  - Ispra
+  - CST Valli Verbano
+  - Thiene (Regione Veneto)
+  - CST Vicentino (Regione Veneto)
+  - SIR Umbria (Regione Umbria)
+  - Tempio Pausania (Regione Sardegna)
+  - Olbia (Regione Sardegna)
+  - Oristano (Regione Sardegna)
+  - Crotone (Regione Calabria)
+  - Castrovillari (Regione Calabria)
+
+developmentStatus: stable
+
+softwareType: "standalone/web"
+
+description:
+  it:   
+    shortDescription: >
+          La soluzione GIT consente l'integrazione di dati territoriali strutturati e liberi a supporto del lavoro delle Amministrazioni locali
+    genericName: Gestione Intersettoriale territorio      
+    longDescription: >
+         La piattaforma di servizi GIT consente l'acquisizione e l'utilizzo di informazioni provenienti da ogni fonte informativa interna ed esterna al Comune, attraverso servizi di scheduling, di consultazione, >
+         di analisi e elaborazione, configurabili per tipologia di interesse dei singoli settori dell'Ente. >
+         I Servizi sono progettati per supportare in modo autonomo i procedimenti degli uffici o per interoperare con sistemi gestionali di interesse. >
+         L'accesso autonomo all'informazione è assicurato da interfacce di consultazione alfanumerica libera, cartografica integrata, per fascicolo del bene o del SOggetto, per interrogazione massiva sulle banche dati >
+         attraverso catologhi di interrogazioni o ambiente di datamining. >
+         Ambiti di applicazione della soluzione al momento sperimentati: fiscalità, Edilizia e urbanistica/SIT, Welfare e servizi alla persona, Sicurezza e Polizia, Commercio, anagrafe popolazione, Lotta evasione, Catasto
+
+    features:
+       - gestione interoperante, popolamento dati del sistema informativo comunale
+       - Indice di correlazione dati nel modello datawarehouse 
+       - gestione controlli correttezza e diagnostica dei dati dei flussi
+       - gestione interfacce di consultazione alfanumerica, cartografica e B.I.
+       - Servizi di interrelazione con contesti SIT comunale
+       - flusso agenzia compravendite   
+       - flusso agenzia successioni        
+       - flusso agenzia docfa
+       - flusso agenzia pregeo
+       - flusso agenzia catasto storico e aggiornamenti
+       - flusso agenzia consumi Gestori energia
+       - flusso agenzia redditi Soggetti
+       - servizi consultazione flussi riscossione e versamenti
+       - trattamento isee 
+       - servizi consultazione libera sulle banche dati con navigazioneper correlazione
+       - cartella contribuente
+       - fascicolo cittadino interagente con protocollo
+       - fascicolo corpo di fabbrica o area pertinenziale
+       - fascicolo area operativa economica
+       - dia telematica e controllo accatastamento assistito
+       - ambiente verifiche c. 335 e c.336 l.311/2004 
+       - Servizio controllo Docfa L80/2006 art. 34Q
+       - Servizio trattamento tariffe TARES/TARI 
+       - Sportello del professionista
+       - Agenda segnalazione qualificata e sintetica
+       - Trattamento Tassa di soggiorno
+       - identificazione e Tracciamento accessi di interrogazione con procedura di accreditamento per l'accesso a norma 
+
+legal:
+  license: 	EUPL-1.2
+  repoOwner: Regione Umbria
+
+maintenance:
+  type: "internal"
+
+  contacts:
+    - name: Carlo Falcinelli
+
+localisation:
+  localisationReady: no
+  availableLanguages:
+    - it
