@@ -1,7 +1,7 @@
 publiccodeYmlVersion: "0.2"
 
 name: GIT (Gestione Intersettoriale del Territorio)
-url: "https://github.com/Regione-Umbria/GIT"
+url: "https://github.com/RegioneUmbria/GIT"
 softwareVersion: "4.0"
 releaseDate: "2017-04-15"
 platforms:
