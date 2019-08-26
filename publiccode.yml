@@ -70,12 +70,12 @@ description:
        - fascicolo area operativa economica
        - dia telematica e controllo accatastamento assistito
        - ambiente verifiche c. 335 e c.336 l.311/2004 
-       - Servizio controllo Docfa L80/2006 art. 34Q
-       - Servizio trattamento tariffe TARES/TARI 
-       - Sportello del professionista
-       - Agenda segnalazione qualificata e sintetica
-       - Trattamento Tassa di soggiorno
-       - identificazione e Tracciamento accessi di interrogazione con procedura di accreditamento per l'accesso a norma 
+       - servizio controllo Docfa L80/2006 art. 34Q
+       - servizio trattamento tariffe TARES/TARI 
+       - sportello del professionista
+       - agenda segnalazione qualificata e sintetica
+       - trattamento Tassa di soggiorno
+       - identificazione e tracciamento accessi con procedura di accreditamento per l'accesso a norma 
 
 legal:
   license: 	EUPL-1.2
@@ -91,3 +91,6 @@ localisation:
   localisationReady: no
   availableLanguages:
     - it
+it:
+    riuso:
+        codiceIPA: r_umbria
