@@ -41,41 +41,51 @@ description:
           La soluzione GIT consente l'integrazione di dati territoriali strutturati e liberi a supporto del lavoro delle Amministrazioni locali
     genericName: Gestione Intersettoriale territorio      
     longDescription: >
-         La piattaforma di servizi GIT consente l'acquisizione e l'utilizzo di informazioni provenienti da ogni fonte informativa interna ed esterna al Comune, attraverso servizi di scheduling, di consultazione, >
-         di analisi e elaborazione, configurabili per tipologia di interesse dei singoli settori dell'Ente. >
-         I Servizi sono progettati per supportare in modo autonomo i procedimenti degli uffici o per interoperare con sistemi gestionali di interesse. >
-         L'accesso autonomo all'informazione è assicurato da interfacce di consultazione alfanumerica libera, cartografica integrata, per fascicolo del bene o del SOggetto, per interrogazione massiva sulle banche dati >
-         attraverso catologhi di interrogazioni o ambiente di datamining. >
-         Ambiti di applicazione della soluzione al momento sperimentati: fiscalità, Edilizia e urbanistica/SIT, Welfare e servizi alla persona, Sicurezza e Polizia, Commercio, anagrafe popolazione, Lotta evasione, Catasto
+         La piattaforma di servizi GIT consente l'acquisizione e l'utilizzo di
+         informazioni provenienti da ogni fonte informativa interna ed esterna
+         al Comune, attraverso servizi di scheduling, di consultazione, di
+         analisi e elaborazione, configurabili per tipologia di interesse
+         dei singoli settori dell'Ente.
+         I Servizi sono progettati per supportare in modo autonomo
+         i procedimenti degli uffici o per interoperare con sistemi gestionali
+         di interesse.
+         L'accesso autonomo all'informazione è assicurato da interfacce di
+         consultazione alfanumerica libera, cartografica integrata, per
+         fascicolo del bene o del soggetto, per interrogazione massiva sulle
+         banche dati attraverso catologhi di interrogazioni o ambiente di datamining.
+         Ambiti di applicazione della soluzione al momento sperimentati:
+         fiscalità, edilizia e urbanistica/SIT, welfare e servizi alla
+         persona, sicurezza e polizia, commercio, anagrafe popolazione, lotta
+         evasione, catasto.
 
     features:
-       - gestione interoperante, popolamento dati del sistema informativo comunale
+       - Gestione interoperante, popolamento dati del sistema informativo comunale
        - Indice di correlazione dati nel modello datawarehouse 
-       - gestione controlli correttezza e diagnostica dei dati dei flussi
-       - gestione interfacce di consultazione alfanumerica, cartografica e B.I.
-       - Servizi di interrelazione con contesti SIT comunale
-       - flusso agenzia compravendite   
-       - flusso agenzia successioni        
-       - flusso agenzia docfa
-       - flusso agenzia pregeo
-       - flusso agenzia catasto storico e aggiornamenti
-       - flusso agenzia consumi Gestori energia
-       - flusso agenzia redditi Soggetti
-       - servizi consultazione flussi riscossione e versamenti
-       - trattamento isee 
-       - servizi consultazione libera sulle banche dati con navigazioneper correlazione
-       - cartella contribuente
-       - fascicolo cittadino interagente con protocollo
-       - fascicolo corpo di fabbrica o area pertinenziale
-       - fascicolo area operativa economica
-       - dia telematica e controllo accatastamento assistito
-       - ambiente verifiche c. 335 e c.336 l.311/2004 
-       - servizio controllo Docfa L80/2006 art. 34Q
-       - servizio trattamento tariffe TARES/TARI 
-       - sportello del professionista
-       - agenda segnalazione qualificata e sintetica
-       - trattamento Tassa di soggiorno
-       - identificazione e tracciamento accessi con procedura di accreditamento per l'accesso a norma 
+       - Gestione controlli correttezza e diagnostica dei dati dei flussi
+       - Gestione interfacce di consultazione alfanumerica, cartografica e B.I.
+       - servizi di interrelazione con contesti SIT comunale
+       - Flusso agenzia compravendite   
+       - Flusso agenzia successioni        
+       - Flusso agenzia docfa
+       - Flusso agenzia pregeo
+       - Flusso agenzia catasto storico e aggiornamenti
+       - Flusso agenzia consumi Gestori energia
+       - Flusso agenzia redditi Soggetti
+       - Servizi consultazione flussi riscossione e versamenti
+       - Trattamento isee 
+       - Servizi consultazione libera sulle banche dati con navigazioneper correlazione
+       - Cartella contribuente
+       - Fascicolo cittadino interagente con protocollo
+       - Fascicolo corpo di fabbrica o area pertinenziale
+       - Fascicolo area operativa economica
+       - Dia telematica e controllo accatastamento assistito
+       - Ambiente verifiche c. 335 e c.336 l.311/2004 
+       - Servizio controllo Docfa L80/2006 art. 34Q
+       - Servizio trattamento tariffe TARES/TARI 
+       - Sportello del professionista
+       - Agenda segnalazione qualificata e sintetica
+       - Trattamento Tassa di soggiorno
+       - Identificazione e tracciamento accessi con procedura di accreditamento per l'accesso a norma 
 
 legal:
   license: 	EUPL-1.2
